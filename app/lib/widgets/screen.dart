@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:app/styles/styles.dart';
+
 class Screen extends StatelessWidget {
   final Color gradientStartColor;
   final Color gradientStopColor;
@@ -15,10 +17,12 @@ class Screen extends StatelessWidget {
     return SafeArea(
         child: Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [this.gradientStartColor, this.gradientStopColor])),
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [this.gradientStartColor, this.gradientStopColor]),
+      ),
+      padding: EdgeInsets.all(AppSpacings.regular),
       child: this.child,
     ));
   }

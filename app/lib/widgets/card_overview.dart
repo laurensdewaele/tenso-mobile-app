@@ -3,7 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/widgets/card.dart';
 
 class CardOverview extends StatefulWidget {
-  const CardOverview({Key key}) : super(key: key);
+  CardOverview({Key key, this.collapsedChild, this.expandedChild})
+      : super(key: key);
+
+  final Widget collapsedChild;
+  final Widget expandedChild;
 
   @override
   _CardOverviewState createState() => _CardOverviewState();
@@ -21,20 +25,6 @@ class _CardOverviewState extends State<CardOverview> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: collapsed ? _CardOverviewCollapsed() : _CardOverviewExpanded());
-  }
-}
-
-class _CardOverviewCollapsed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text('Collapsed');
-  }
-}
-
-class _CardOverviewExpanded extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text('Collapsed');
+        child: collapsed ? widget.collapsedChild : widget.expandedChild);
   }
 }
