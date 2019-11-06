@@ -1,8 +1,19 @@
 // Order is specified according to the designs
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/styles/styles.dart';
+
+const Map<int, Color> difficultyColors = {
+  0: AppColors.difficultyYellow,
+  1: AppColors.difficultyOrange,
+  2: AppColors.difficultyBlue,
+  3: AppColors.difficultyRed,
+  4: AppColors.difficultyBlack,
+  5: AppColors.difficultyBlack
+};
+
 class Workout {
-  const Workout({
+  Workout({
     @required this.difficulty,
     @required this.duration,
     @required this.sets,
@@ -11,9 +22,17 @@ class Workout {
     @required this.board,
     @required this.holds,
     @required this.name,
-  }) : holdAmount = holds.length;
+  })  : holdAmount = holds.length,
+        difficultyColor = _calculateDifficultyColor(difficulty);
+
+  static Color _calculateDifficultyColor(int difficulty) {
+    const int difficultySteps = 20;
+    final int difficultyNo = difficulty ~/ difficultySteps;
+    return difficultyColors[difficultyNo];
+  }
 
   final int difficulty;
+  final Color difficultyColor;
   final int duration;
   final int holdAmount;
   final int sets;
@@ -48,15 +67,23 @@ class Hold {
 }
 
 class WorkoutOverview {
-  const WorkoutOverview(
+  WorkoutOverview(
       {@required this.name,
       @required this.difficulty,
       @required this.repetitions,
       @required this.duration,
-      @required this.sets});
+      @required this.sets})
+      : difficultyColor = _calculateDifficultyColor(difficulty);
+
+  static Color _calculateDifficultyColor(int difficulty) {
+    const int difficultySteps = 20;
+    final int difficultyNo = difficulty ~/ difficultySteps;
+    return difficultyColors[difficultyNo];
+  }
 
   final String name;
   final int difficulty;
+  final Color difficultyColor;
   final int repetitions;
   final int duration;
   final int sets;

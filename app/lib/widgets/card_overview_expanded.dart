@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/widgets/card.dart';
+
 class CardOverviewExpanded extends StatelessWidget {
   const CardOverviewExpanded({this.title});
 
@@ -7,6 +9,6 @@ class CardOverviewExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('$title');
+    return Card(child: Text('$title'));
   }
 }

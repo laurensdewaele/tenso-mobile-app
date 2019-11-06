@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
 // Prefixed App here. Otherwise it colludes with the Material Colors.
-// More convenient than `import hide`
+// More convenient than `import hide`.
 class AppColors {
   AppColors._();
 

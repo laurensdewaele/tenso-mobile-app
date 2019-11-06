@@ -1,4 +1,8 @@
+import 'package:app/widgets/difficulty.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'package:app/styles/styles.dart';
+import 'package:app/widgets/card.dart';
 
 class CardOverviewCollapsed extends StatelessWidget {
   const CardOverviewCollapsed(
@@ -12,6 +16,15 @@ class CardOverviewCollapsed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('$title');
+    return Card(
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+          Text(title),
+          Difficulty(
+            difficulty: difficulty,
+            difficultyColor: difficultyColor,
+          )
+        ]));
   }
 }

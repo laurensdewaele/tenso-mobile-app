@@ -18,8 +18,13 @@ class OverviewScreen extends StatelessWidget {
           itemCount: fakeOverviews.length,
           itemBuilder: (BuildContext context, int index) {
             final title = fakeOverviews[index].name;
+            final difficulty = fakeOverviews[index].difficulty;
+            final difficultyColor = fakeOverviews[index].difficultyColor;
             return CardOverview(
-              collapsedChild: CardOverviewCollapsed(title: title),
+              collapsedChild: CardOverviewCollapsed(
+                  title: title,
+                  difficulty: difficulty,
+                  difficultyColor: difficultyColor),
               expandedChild: CardOverviewExpanded(title: title),
             );
           },

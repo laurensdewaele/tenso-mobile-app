@@ -24,7 +24,6 @@ class _CardOverviewState extends State<CardOverview> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: collapsed ? widget.collapsedChild : widget.expandedChild);
+    return collapsed ? widget.collapsedChild : widget.expandedChild;
   }
 }
