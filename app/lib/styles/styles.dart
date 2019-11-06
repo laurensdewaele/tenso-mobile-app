@@ -1,6 +1,10 @@
 import 'dart:ui';
 
-abstract class Colors {
+// Prefixed App here. Otherwise it colludes with the Material Colors.
+// More convenient than `import hide`
+class AppColors {
+  AppColors._();
+
   static const Color black = Color.fromRGBO(0, 0, 0, .75);
   static const Color primary = Color.fromRGBO(220, 88, 88, 1);
   static const Color bgGrayStart = Color.fromRGBO(243, 243, 243, 1);
@@ -16,7 +20,9 @@ abstract class Colors {
   static const Color difficultyBlack = black;
 }
 
-abstract class Spacings {
+class AppSpacings {
+  AppSpacings._();
+
   static const double small = 10.0;
   static const double regular = 20.0;
   static const double medium = 30.0;

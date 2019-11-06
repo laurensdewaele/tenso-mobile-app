@@ -1,4 +1,3 @@
-import 'package:app/styles/styles.dart';
 import 'package:flutter/material.dart';
 
 class Screen extends StatelessWidget {
@@ -15,13 +14,12 @@ class Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-      child: this.child,
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [this.gradientStartColor, this.gradientStopColor])),
-      padding: (EdgeInsets.all(Spacings.regular)),
+      child: this.child,
     ));
   }
 }
