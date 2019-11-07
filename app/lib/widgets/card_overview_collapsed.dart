@@ -17,14 +17,15 @@ class CardOverviewCollapsed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        padding: EdgeInsets.all(styles.Spacings.s),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-          Text(title, style: styles.Typography.title),
-          Difficulty(
-            difficulty: difficulty,
-            difficultyColor: difficultyColor,
-          )
-        ]));
+              Text(title, style: styles.Typography.title),
+              Difficulty(
+                difficulty: difficulty,
+                difficultyColor: difficultyColor,
+              )
+            ]));
   }
 }

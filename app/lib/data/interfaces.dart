@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/material.dart';
 
 const Map<int, Color> difficultyColors = {
   0: styles.Colors.difficultyYellow,

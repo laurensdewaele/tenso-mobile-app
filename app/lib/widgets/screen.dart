@@ -14,16 +14,24 @@ class Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Container(
+    return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [this.gradientStartColor, this.gradientStopColor]),
       ),
-      padding: EdgeInsets.all(styles.Spacings.m),
-      child: this.child,
-    ));
+      child: SafeArea(
+          child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [this.gradientStartColor, this.gradientStopColor]),
+        ),
+        padding: EdgeInsets.all(styles.Spacings.m),
+        child: this.child,
+      )),
+    );
   }
 }

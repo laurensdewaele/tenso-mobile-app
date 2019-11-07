@@ -27,7 +27,8 @@ class Colors {
 class Spacings {
   Spacings._();
 
-  static const double s = 10.0;
+  static const double xs = 10.0;
+  static const double s = 15.0;
   static const double m = 20.0;
   static const double l = 30.0;
   static const double xl = 50.0;
