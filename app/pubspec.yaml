@@ -70,3 +70,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Staatliches
+      fonts:
+        - asset: assets/typography/Staatliches-Regular.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/typography/Lato-Regular.ttf
