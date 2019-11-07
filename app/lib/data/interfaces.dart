@@ -9,6 +9,7 @@ const Map<int, Color> difficultyColors = {
   2: AppColors.difficultyBlue,
   3: AppColors.difficultyRed,
   4: AppColors.difficultyBlack,
+  // Extra step only for the 100 value
   5: AppColors.difficultyBlack
 };
 
