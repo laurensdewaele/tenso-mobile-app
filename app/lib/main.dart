@@ -1,7 +1,7 @@
 import 'package:app/screens/overview.dart';
 import 'package:app/screens/workout.dart';
 
-import 'package:app/styles/styles.dart';
+import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,6 +18,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(routes: getRoutes(context), color: AppColors.primary);
+    return CupertinoApp(
+        routes: getRoutes(context), color: styles.Colors.primary);
   }
 }

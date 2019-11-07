@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:app/styles/styles.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 class Screen extends StatelessWidget {
   final Color gradientStartColor;
@@ -22,7 +22,7 @@ class Screen extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [this.gradientStartColor, this.gradientStopColor]),
       ),
-      padding: EdgeInsets.all(AppSpacings.regular),
+      padding: EdgeInsets.all(styles.Spacings.m),
       child: this.child,
     ));
   }

@@ -1,7 +1,7 @@
 import 'package:app/widgets/difficulty.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/styles/styles.dart';
+import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 
 class CardOverviewCollapsed extends StatelessWidget {
@@ -20,7 +20,7 @@ class CardOverviewCollapsed extends StatelessWidget {
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-          Text(title),
+          Text(title, style: styles.Typography.title),
           Difficulty(
             difficulty: difficulty,
             difficultyColor: difficultyColor,

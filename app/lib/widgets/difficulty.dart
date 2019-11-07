@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:app/styles/styles.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 class Difficulty extends StatelessWidget {
   const Difficulty({this.difficulty, this.difficultyColor});
@@ -12,11 +12,14 @@ class Difficulty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          boxShadow: [kAppBoxShadow],
-          borderRadius: kAppBorderRadius,
+          boxShadow: [styles.kAppBoxShadow],
+          borderRadius: styles.kAppBorderRadius,
           color: difficultyColor),
-      padding: EdgeInsets.all(AppSpacings.small),
-      child: Text(difficulty.toString()),
+      height: styles.Spacings.xl,
+      width: styles.Spacings.xl,
+      child: Center(
+          child:
+              Text(difficulty.toString(), style: styles.Typography.difficulty)),
     );
   }
 }

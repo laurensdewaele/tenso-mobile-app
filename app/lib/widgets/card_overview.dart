@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/widgets/card.dart';
-
 class CardOverview extends StatefulWidget {
   CardOverview({Key key, this.collapsedChild, this.expandedChild})
       : super(key: key);

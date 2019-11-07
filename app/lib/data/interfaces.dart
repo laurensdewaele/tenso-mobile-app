@@ -1,16 +1,16 @@
 // Order is specified according to the designs
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/styles/styles.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 const Map<int, Color> difficultyColors = {
-  0: AppColors.difficultyYellow,
-  1: AppColors.difficultyOrange,
-  2: AppColors.difficultyBlue,
-  3: AppColors.difficultyRed,
-  4: AppColors.difficultyBlack,
+  0: styles.Colors.difficultyYellow,
+  1: styles.Colors.difficultyOrange,
+  2: styles.Colors.difficultyBlue,
+  3: styles.Colors.primary,
+  4: styles.Colors.black,
   // Extra step only for the 100 value
-  5: AppColors.difficultyBlack
+  5: styles.Colors.black
 };
 
 class Workout {
