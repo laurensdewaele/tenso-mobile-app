@@ -30,7 +30,8 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<WorkoutOverviewCard> workoutWidgets = multipleWorkouts
-        .map((workout) => WorkoutOverviewCard(workout: workout));
+        .map((workout) => WorkoutOverviewCard(workout: workout))
+        .toList();
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
