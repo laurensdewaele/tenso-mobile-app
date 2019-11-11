@@ -9,8 +9,8 @@ import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/material.dart' as prefix0;
 
-class WorkoutOverviewExpanded extends StatelessWidget {
-  const WorkoutOverviewExpanded(
+class WorkoutOverviewCardExpanded extends StatelessWidget {
+  const WorkoutOverviewCardExpanded(
       {@required this.workout,
       @required this.handleCollapse,
       @required this.handleStart});

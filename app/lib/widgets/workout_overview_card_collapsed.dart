@@ -5,8 +5,8 @@ import 'package:app/data/interfaces.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 
-class WorkoutOverviewCollapsed extends StatelessWidget {
-  const WorkoutOverviewCollapsed(
+class WorkoutOverviewCardCollapsed extends StatelessWidget {
+  const WorkoutOverviewCardCollapsed(
       {@required this.workout, @required this.handleExpand});
 
   final Workout workout;
