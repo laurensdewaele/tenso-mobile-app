@@ -9,19 +9,25 @@ import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/dividers.dart';
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
-  const WorkoutOverviewCardExpanded(
-      {@required this.workout,
+  WorkoutOverviewCardExpanded(
+      {Key key,
+      @required this.workout,
       @required this.handleCollapse,
-      @required this.handleStart});
+      @required this.handleStart})
+      : super(key: key);
 
   final Workout workout;
-  final VoidCallback handleCollapse;
+  final void Function(int) handleCollapse;
   final VoidCallback handleStart;
+
+  void _handleCollapse() {
+    handleCollapse(workout.hashCode);
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: handleCollapse,
+        onTap: _handleCollapse,
         child: Card(
             padding: EdgeInsets.all(styles.Measurements.m),
             child: Column(

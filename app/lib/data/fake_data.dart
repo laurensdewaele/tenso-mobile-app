@@ -68,3 +68,20 @@ final List<Workout> mockWorkouts = [
       duration: 25,
       sets: 4),
 ];
+
+final List<Workout> mockAlotOfWorkouts = [
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts,
+  ...mockWorkouts
+];

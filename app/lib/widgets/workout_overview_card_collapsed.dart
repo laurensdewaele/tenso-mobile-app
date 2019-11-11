@@ -10,12 +10,16 @@ class WorkoutOverviewCardCollapsed extends StatelessWidget {
       {@required this.workout, @required this.handleExpand});
 
   final Workout workout;
-  final VoidCallback handleExpand;
+  final void Function(int) handleExpand;
+
+  void _handleExpand() {
+    handleExpand(workout.hashCode);
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: handleExpand,
+      onTap: _handleExpand,
       child: Card(
           padding: EdgeInsets.all(styles.Measurements.s),
           child: Row(
