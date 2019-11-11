@@ -21,20 +21,22 @@ class WorkoutOverviewScreen extends StatefulWidget {
 }
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
-  int expandedHashCode;
+  List<int> expandedHashCodes = [];
 
   void _handleCollapse(int hashCode) {
-    print('setting collapse on $hashCode');
     setState(() {
-      expandedHashCode = null;
+      expandedHashCodes.remove(hashCode);
     });
   }
 
   void _handleExpand(int hashCode) {
-    print('setting expand on $hashCode');
     setState(() {
-      expandedHashCode = hashCode;
+      expandedHashCodes.add(hashCode);
     });
+  }
+
+  void _handleStart(int hashCode) {
+    print('starting workout on $hashCode');
   }
 
   @override
@@ -42,10 +44,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
-    final List<int> hashCodes =
-        widget.workouts.map((workout) => workout.hashCode).toList();
-    print(hashCodes);
-    print('expanded hashcode: $expandedHashCode');
+
     return Screen(
         gradientStartColor: styles.Colors.bgGrayStart,
         gradientStopColor: styles.Colors.bgGrayStop,
@@ -57,7 +56,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                   workout: widget.workouts[index],
                   handleCollapse: _handleCollapse,
                   handleExpand: _handleExpand,
-                  expanded: expandedHashCode == widget.workouts[index].hashCode
+                  handleStart: _handleStart,
+                  expanded: expandedHashCodes
+                          .contains(widget.workouts[index].hashCode)
                       ? true
                       : false);
             } else if (index == widget.workouts.length) {

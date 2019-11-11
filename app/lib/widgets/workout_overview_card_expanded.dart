@@ -18,10 +18,14 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
 
   final Workout workout;
   final void Function(int) handleCollapse;
-  final VoidCallback handleStart;
+  final void Function(int) handleStart;
 
   void _handleCollapse() {
     handleCollapse(workout.hashCode);
+  }
+
+  void _handleStart() {
+    handleStart(workout.hashCode);
   }
 
   @override
@@ -68,12 +72,9 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                   ],
                 ),
                 Divider(),
-                GestureDetector(
-                  onTap: handleStart,
-                  child: Container(
-                      width: 175.0,
-                      child: Button(text: 'start', handleClick: handleStart)),
-                ),
+                Container(
+                    width: 175.0,
+                    child: Button(text: 'start', handleClick: _handleStart)),
                 Divider(),
                 Icon(Icons.keyboard_arrow_up,
                     size: styles.Measurements.l, color: styles.Colors.primary)

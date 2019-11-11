@@ -11,7 +11,7 @@ void main() => runApp(App());
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
-    '/': (context) => WorkoutOverviewScreen(workouts: mockWorkouts),
+    '/': (context) => WorkoutOverviewScreen(workouts: mockAlotOfWorkouts),
     '/workout': (context) => WorkoutScreen()
   };
 }

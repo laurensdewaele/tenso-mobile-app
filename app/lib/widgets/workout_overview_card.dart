@@ -10,17 +10,15 @@ class WorkoutOverviewCard extends StatelessWidget {
     @required this.expanded,
     @required this.handleCollapse,
     @required this.handleExpand,
+    @required this.handleStart,
     @required this.workout,
   }) : super(key: key);
 
   final bool expanded;
   final void Function(int) handleCollapse;
   final void Function(int) handleExpand;
+  final void Function(int) handleStart;
   final Workout workout;
-
-  void _handleStart() {
-    print('start!');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class WorkoutOverviewCard extends StatelessWidget {
         ? WorkoutOverviewCardExpanded(
             workout: workout,
             handleCollapse: handleCollapse,
-            handleStart: _handleStart)
+            handleStart: handleStart)
         : WorkoutOverviewCardCollapsed(
             workout: workout, handleExpand: handleExpand);
   }
