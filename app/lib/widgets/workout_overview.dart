@@ -1,11 +1,11 @@
-import 'package:app/widgets/card_overview_collapsed.dart';
-import 'package:app/widgets/card_overview_expanded.dart';
+import 'package:app/widgets/workout_overview_collapsed.dart';
+import 'package:app/widgets/workout_overview_expanded.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/interfaces.dart';
 
-class CardOverview extends StatefulWidget {
-  CardOverview({Key key, this.workout}) : super(key: key);
+class WorkoutOverview extends StatefulWidget {
+  WorkoutOverview({Key key, this.workout}) : super(key: key);
 
   final Workout workout;
 
@@ -13,7 +13,7 @@ class CardOverview extends StatefulWidget {
   _CardOverviewState createState() => _CardOverviewState();
 }
 
-class _CardOverviewState extends State<CardOverview> {
+class _CardOverviewState extends State<WorkoutOverview> {
   bool collapsed = true;
 
   void toggle() {
@@ -33,11 +33,11 @@ class _CardOverviewState extends State<CardOverview> {
   @override
   Widget build(BuildContext context) {
     return collapsed
-        ? CardOverviewCollapsed(
+        ? WorkoutOverviewCollapsed(
             workout: widget.workout,
             handleExpand: _handleExpand,
           )
-        : CardOverviewExpanded(
+        : WorkoutOverviewExpanded(
             workout: widget.workout, handleCollapse: _handleCollapse);
   }
 }

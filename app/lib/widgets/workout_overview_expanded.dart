@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/data/interfaces.dart';
 import 'package:app/widgets/card.dart';
 
-class CardOverviewExpanded extends StatelessWidget {
-  const CardOverviewExpanded(
+class WorkoutOverviewExpanded extends StatelessWidget {
+  const WorkoutOverviewExpanded(
       {@required this.workout, @required this.handleCollapse});
 
   final Workout workout;

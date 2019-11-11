@@ -1,10 +1,10 @@
-import 'package:app/screens/overview.dart';
-import 'package:app/screens/workout.dart';
-
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'package:app/screens/new_workout.dart';
+import 'package:app/screens/workout_overview.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 void main() => runApp(App());
 

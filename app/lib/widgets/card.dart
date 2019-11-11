@@ -6,6 +6,7 @@ class Card extends StatelessWidget {
   const Card({@required this.child, this.padding});
 
   final Widget child;
+  // Padding is variable. Different for WorkoutOverview and new Workout.
   final EdgeInsets padding;
 
   @override
