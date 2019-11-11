@@ -37,8 +37,11 @@ class Spacings {
 class Typography {
   Typography._();
 
-  static TextStyle title =
-      TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
+  static TextStyle title = TextStyle(
+    fontFamily: 'Staatliches',
+    fontSize: 28,
+    color: Colors.black,
+  );
   static TextStyle subtitle =
       TextStyle(fontFamily: 'Staatliches', fontSize: 12, color: Colors.gray);
   static TextStyle difficulty = TextStyle(

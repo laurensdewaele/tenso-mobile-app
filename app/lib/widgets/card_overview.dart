@@ -14,7 +14,7 @@ class CardOverview extends StatefulWidget {
 class _CardOverviewState extends State<CardOverview> {
   bool collapsed = true;
 
-  void toggle() {
+  void handleCollapsedState() {
     setState(() {
       collapsed = !collapsed;
     });

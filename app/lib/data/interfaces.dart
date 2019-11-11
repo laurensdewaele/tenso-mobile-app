@@ -9,28 +9,34 @@ const Map<int, Color> difficultyColors = {
   1: styles.Colors.difficultyOrange,
   2: styles.Colors.difficultyBlue,
   3: styles.Colors.primary,
-  4: styles.Colors.black,
-  // Extra step only for the 100 value
-  5: styles.Colors.black
+  4: styles.Colors.black
 };
 
+@immutable
 class Workout {
+  // TODO: Mark all as required (disabled for testing purposes).
   Workout({
-    @required this.difficulty,
-    @required this.duration,
-    @required this.sets,
-    @required this.restBetweenHolds,
-    @required this.restBetweenSets,
-    @required this.board,
-    @required this.holds,
-    @required this.name,
+    this.difficulty,
+    this.duration,
+    this.sets,
+    this.restBetweenHolds,
+    this.restBetweenSets,
+    this.board,
+    this.holds,
+    this.name,
   })  : holdAmount = holds.length,
         difficultyColor = _calculateDifficultyColor(difficulty);
 
   static Color _calculateDifficultyColor(int difficulty) {
-    const int difficultySteps = 20;
-    final int difficultyNo = difficulty ~/ difficultySteps;
-    return difficultyColors[difficultyNo];
+    final int totalSteps = difficultyColors.length;
+    final double divider = 100 / totalSteps;
+    final int step = difficulty ~/ divider;
+
+    if (step >= totalSteps) {
+      return difficultyColors[totalSteps - 1];
+    }
+
+    return difficultyColors[step];
   }
 
   final int difficulty;
@@ -45,17 +51,19 @@ class Workout {
   final String name;
 }
 
+@immutable
 class Hold {
   const Hold(
-      {@required this.grip,
-      @required this.twoHanded,
-      @required this.leftHanded,
-      @required this.rightHanded,
-      @required this.pockets,
-      @required this.repetitions,
-      @required this.restBetweenRepetitions,
-      @required this.hangTime,
-      @required this.addedWeight});
+      // TODO: Mark all as required
+      {this.grip,
+      this.twoHanded,
+      this.leftHanded,
+      this.rightHanded,
+      this.pockets,
+      this.repetitions,
+      this.restBetweenRepetitions,
+      this.hangTime,
+      this.addedWeight});
 
   final String grip;
   final bool twoHanded;
@@ -66,27 +74,4 @@ class Hold {
   final int restBetweenRepetitions;
   final int hangTime;
   final int addedWeight;
-}
-
-class WorkoutOverview {
-  WorkoutOverview(
-      {@required this.name,
-      @required this.difficulty,
-      @required this.repetitions,
-      @required this.duration,
-      @required this.sets})
-      : difficultyColor = _calculateDifficultyColor(difficulty);
-
-  static Color _calculateDifficultyColor(int difficulty) {
-    const int difficultySteps = 20;
-    final int difficultyNo = difficulty ~/ difficultySteps;
-    return difficultyColors[difficultyNo];
-  }
-
-  final String name;
-  final int difficulty;
-  final Color difficultyColor;
-  final int repetitions;
-  final int duration;
-  final int sets;
 }
