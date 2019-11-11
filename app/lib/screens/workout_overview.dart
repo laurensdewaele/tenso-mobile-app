@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:app/data/fake_data.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview_card.dart';
 

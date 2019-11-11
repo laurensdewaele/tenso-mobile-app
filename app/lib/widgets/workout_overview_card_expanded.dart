@@ -6,7 +6,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
-import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/dividers.dart';
 import 'package:flutter/material.dart' as prefix0;
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
