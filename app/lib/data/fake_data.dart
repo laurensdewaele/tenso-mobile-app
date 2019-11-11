@@ -1,6 +1,6 @@
 import 'interfaces.dart';
 
-final List<Workout> fakeOverviews = [
+final List<Workout> mockWorkouts = [
   Workout(
       name: 'Beginner routine',
       difficulty: 0,

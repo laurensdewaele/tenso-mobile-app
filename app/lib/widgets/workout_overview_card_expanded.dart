@@ -7,7 +7,6 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/dividers.dart';
-import 'package:flutter/material.dart' as prefix0;
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
   const WorkoutOverviewCardExpanded(
@@ -37,12 +36,12 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    WorkoutInfo(
+                    _WorkoutInfo(
                       title: 'difficulty',
                       value: workout.difficulty.toString(),
                       difficultyColor: workout.difficultyColor,
                     ),
-                    WorkoutInfo(
+                    _WorkoutInfo(
                       title: 'repetitions',
                       value: workout.repetitions,
                     )
@@ -52,11 +51,11 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    WorkoutInfo(
+                    _WorkoutInfo(
                       title: 'duration',
                       value: workout.duration.toString(),
                     ),
-                    WorkoutInfo(
+                    _WorkoutInfo(
                       title: 'sets',
                       value: workout.sets.toString(),
                     )
@@ -77,8 +76,8 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
   }
 }
 
-class WorkoutInfo extends StatelessWidget {
-  const WorkoutInfo(
+class _WorkoutInfo extends StatelessWidget {
+  const _WorkoutInfo(
       {@required this.title, @required this.value, this.difficultyColor});
 
   final String title;
