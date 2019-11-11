@@ -9,9 +9,19 @@ import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview_card.dart';
 
 class OverviewScreen extends StatelessWidget {
-  OverviewScreen({@required this.workouts});
+  OverviewScreen({@required this.workouts})
+      : multipleWorkouts = [
+          ...workouts,
+          ...workouts,
+          ...workouts,
+          ...workouts,
+          ...workouts,
+          ...workouts,
+          ...workouts,
+        ];
 
   final List<Workout> workouts;
+  final List<Workout> multipleWorkouts;
 
   void _handleAddWorkout() {
     print('Add workout!');
@@ -26,11 +36,11 @@ class OverviewScreen extends StatelessWidget {
         gradientStartColor: styles.Colors.bgGrayStart,
         gradientStopColor: styles.Colors.bgGrayStop,
         child: ListView.separated(
-          itemCount: workouts.length + 2,
+          itemCount: multipleWorkouts.length + 2,
           itemBuilder: (BuildContext context, int index) {
-            if (index < workouts.length) {
-              return WorkoutOverviewCard(workout: workouts[index]);
-            } else if (index == workouts.length) {
+            if (index < multipleWorkouts.length) {
+              return WorkoutOverviewCard(workout: multipleWorkouts[index]);
+            } else if (index == multipleWorkouts.length) {
               return Button(
                   text: 'Add workout', handleClick: _handleAddWorkout);
             } else {
