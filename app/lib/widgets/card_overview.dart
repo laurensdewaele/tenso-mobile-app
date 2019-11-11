@@ -26,6 +26,10 @@ class _CardOverviewState extends State<CardOverview> {
     toggle();
   }
 
+  void _handleCollapse() {
+    toggle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return collapsed
@@ -33,6 +37,7 @@ class _CardOverviewState extends State<CardOverview> {
             workout: widget.workout,
             handleExpand: _handleExpand,
           )
-        : CardOverviewExpanded(workout: widget.workout);
+        : CardOverviewExpanded(
+            workout: widget.workout, handleCollapse: _handleCollapse);
   }
 }
