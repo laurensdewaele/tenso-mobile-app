@@ -29,7 +29,7 @@ class Screen extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [this.gradientStartColor, this.gradientStopColor]),
         ),
-        padding: EdgeInsets.all(styles.Spacings.m),
+        padding: EdgeInsets.all(styles.Measurements.m),
         child: this.child,
       )),
     );

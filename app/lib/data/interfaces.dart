@@ -25,9 +25,22 @@ class Workout {
     this.holds,
     this.name,
   })  : holdAmount = holds.length,
-        difficultyColor = _calculateDifficultyColor(difficulty);
+        difficultyColor = _determineDifficultyColor(difficulty),
+        repetitions = _determineRepetitions(holds);
 
-  static Color _calculateDifficultyColor(int difficulty) {
+  final int difficulty;
+  final Color difficultyColor;
+  final String repetitions;
+  final int duration;
+  final int holdAmount;
+  final int sets;
+  final int restBetweenHolds;
+  final int restBetweenSets;
+  final String board;
+  final List<Hold> holds;
+  final String name;
+
+  static Color _determineDifficultyColor(int difficulty) {
     final int totalSteps = difficultyColors.length;
     final double divider = 100 / totalSteps;
     final int step = difficulty ~/ divider;
@@ -39,16 +52,21 @@ class Workout {
     return difficultyColors[step];
   }
 
-  final int difficulty;
-  final Color difficultyColor;
-  final int duration;
-  final int holdAmount;
-  final int sets;
-  final int restBetweenHolds;
-  final int restBetweenSets;
-  final String board;
-  final List<Hold> holds;
-  final String name;
+  static String _determineRepetitions(List<Hold> holds) {
+    String repetitions;
+
+    for (final hold in holds) {
+      if (repetitions == null) {
+        repetitions = hold.repetitions.toString();
+      } else {
+        if (hold.repetitions.toString() != repetitions) {
+          repetitions = 'mixed';
+        }
+      }
+    }
+
+    return repetitions;
+  }
 }
 
 @immutable

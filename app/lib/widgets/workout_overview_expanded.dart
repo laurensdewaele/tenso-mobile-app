@@ -1,24 +1,30 @@
-import 'package:app/widgets/difficulty.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' hide Card, Divider;
 
 import 'package:app/data/interfaces.dart';
-import 'package:app/widgets/card.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/button.dart';
+import 'package:app/widgets/card.dart';
+import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:flutter/material.dart' as prefix0;
 
 class WorkoutOverviewExpanded extends StatelessWidget {
   const WorkoutOverviewExpanded(
-      {@required this.workout, @required this.handleCollapse});
+      {@required this.workout,
+      @required this.handleCollapse,
+      @required this.handleStart});
 
   final Workout workout;
   final VoidCallback handleCollapse;
+  final VoidCallback handleStart;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: handleCollapse,
         child: Card(
-            padding: EdgeInsets.all(styles.Spacings.m),
+            padding: EdgeInsets.all(styles.Measurements.m),
             child: Column(
               children: <Widget>[
                 Row(
@@ -38,7 +44,7 @@ class WorkoutOverviewExpanded extends StatelessWidget {
                     ),
                     WorkoutInfo(
                       title: 'repetitions',
-                      value: workout.holds[0].repetitions.toString(),
+                      value: workout.repetitions,
                     )
                   ],
                 ),
@@ -56,6 +62,16 @@ class WorkoutOverviewExpanded extends StatelessWidget {
                     )
                   ],
                 ),
+                Divider(),
+                GestureDetector(
+                  onTap: handleStart,
+                  child: Container(
+                      width: 175.0,
+                      child: Button(text: 'start', handleClick: handleStart)),
+                ),
+                Divider(),
+                Icon(Icons.keyboard_arrow_up,
+                    size: styles.Measurements.l, color: styles.Colors.primary)
               ],
             )));
   }
@@ -73,25 +89,24 @@ class WorkoutInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: Column(children: <Widget>[
-      Container(
-          child: Text(
+      Text(
         title,
         style: styles.Typography.subtitle,
-      )),
+      ),
       Container(
-          margin: EdgeInsets.only(top: styles.Spacings.xs),
+          margin: EdgeInsets.only(top: styles.Measurements.xs),
           child: difficultyColor != null
               ? Difficulty(
                   difficulty: value,
                   difficultyColor: difficultyColor,
-                  width: styles.Spacings.xl,
-                  height: styles.Spacings.xl)
+                  width: styles.Measurements.xl,
+                  height: styles.Measurements.xl)
               : Container(
-                  height: styles.Spacings.xl,
-                  width: styles.Spacings.xl,
+                  height: styles.Measurements.xl,
                   child: Center(
                       child: Text(
                     value,
+                    textAlign: TextAlign.center,
                     style: styles.Typography.indicatorBlack,
                   ))))
     ]));

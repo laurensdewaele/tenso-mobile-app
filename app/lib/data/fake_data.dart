@@ -10,7 +10,7 @@ final List<Workout> fakeOverviews = [
   Workout(
       name: 'Beginner routine',
       difficulty: 15,
-      holds: [Hold(repetitions: 5)],
+      holds: [Hold(repetitions: 5), Hold(repetitions: 7)],
       duration: 25,
       sets: 5),
   Workout(

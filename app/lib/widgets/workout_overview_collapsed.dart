@@ -17,7 +17,7 @@ class WorkoutOverviewCollapsed extends StatelessWidget {
     return GestureDetector(
       onTap: handleExpand,
       child: Card(
-          padding: EdgeInsets.all(styles.Spacings.s),
+          padding: EdgeInsets.all(styles.Measurements.s),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -25,8 +25,8 @@ class WorkoutOverviewCollapsed extends StatelessWidget {
                 Difficulty(
                   difficulty: workout.difficulty.toString(),
                   difficultyColor: workout.difficultyColor,
-                  width: styles.Spacings.xxl,
-                  height: styles.Spacings.xxl,
+                  width: styles.Measurements.xxl,
+                  height: styles.Measurements.xxl,
                 )
               ])),
     );

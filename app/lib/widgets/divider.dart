@@ -5,7 +5,7 @@ import 'package:app/styles/styles.dart' as styles;
 class Divider extends StatelessWidget {
   const Divider();
 
-  final double height = styles.Spacings.m;
+  final double height = styles.Measurements.m;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class Divider extends StatelessWidget {
 class SectionDivider extends StatelessWidget {
   const SectionDivider();
 
-  final double height = styles.Spacings.l;
+  final double height = styles.Measurements.l;
 
   @override
   Widget build(BuildContext context) {
