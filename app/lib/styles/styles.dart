@@ -31,7 +31,8 @@ class Spacings {
   static const double s = 15.0;
   static const double m = 20.0;
   static const double l = 30.0;
-  static const double xl = 50.0;
+  static const double xl = 40.0;
+  static const double xxl = 50.0;
 }
 
 class Typography {
@@ -43,18 +44,18 @@ class Typography {
     color: Colors.black,
   );
   static TextStyle subtitle =
-      TextStyle(fontFamily: 'Staatliches', fontSize: 12, color: Colors.gray);
+      TextStyle(fontFamily: 'Staatliches', fontSize: 18, color: Colors.gray);
   static TextStyle difficulty = TextStyle(
     fontFamily: 'Staatliches',
     fontSize: 26,
     color: Colors.white,
   );
   static TextStyle button =
-      TextStyle(fontFamily: 'Staatliches', fontSize: 26, color: Colors.white);
+      TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
   static TextStyle indicatorWhite =
-      TextStyle(fontFamily: 'Staatliches', fontSize: 18, color: Colors.white);
+      TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.white);
   static TextStyle indicatorBlack =
-      TextStyle(fontFamily: 'Staatliches', fontSize: 18, color: Colors.black);
+      TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.black);
   static TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
 }

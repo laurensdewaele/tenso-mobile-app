@@ -23,8 +23,10 @@ class WorkoutOverviewCollapsed extends StatelessWidget {
               children: <Widget>[
                 Text(workout.name, style: styles.Typography.title),
                 Difficulty(
-                  difficulty: workout.difficulty,
+                  difficulty: workout.difficulty.toString(),
                   difficultyColor: workout.difficultyColor,
+                  width: styles.Spacings.xxl,
+                  height: styles.Spacings.xxl,
                 )
               ])),
     );
