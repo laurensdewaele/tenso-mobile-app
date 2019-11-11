@@ -4,8 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:app/data/fake_data.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card_overview.dart';
-import 'package:app/widgets/card_overview_collapsed.dart';
-import 'package:app/widgets/card_overview_expanded.dart';
 import 'package:app/widgets/screen.dart';
 
 class OverviewScreen extends StatelessWidget {
@@ -17,16 +15,7 @@ class OverviewScreen extends StatelessWidget {
         child: ListView.separated(
           itemCount: fakeOverviews.length,
           itemBuilder: (BuildContext context, int index) {
-            final title = fakeOverviews[index].name;
-            final difficulty = fakeOverviews[index].difficulty;
-            final difficultyColor = fakeOverviews[index].difficultyColor;
-            return CardOverview(
-              collapsedChild: CardOverviewCollapsed(
-                  title: title,
-                  difficulty: difficulty,
-                  difficultyColor: difficultyColor),
-              expandedChild: CardOverviewExpanded(title: title),
-            );
+            return CardOverview(workout: fakeOverviews[index]);
           },
           separatorBuilder: (BuildContext context, int index) =>
               const Divider(),
