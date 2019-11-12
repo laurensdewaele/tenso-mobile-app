@@ -1,3 +1,4 @@
+import 'package:app/widgets/workout_overview_card_expanded.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/interfaces.dart';
@@ -22,13 +23,12 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   bool expanded;
 
   static final Tween<double> _titleAlignmentTween = Tween(begin: -1, end: 0);
-  static final Tween<double> _sizedBoxTween =
-      Tween(begin: styles.Measurements.xxl + styles.Measurements.m);
-
   // Two moves the difficultyWidget off screen to the right.
   // It is being clipped, therefore invisible.
   static final Tween<double> _difficultyAlignmentTween =
       Tween(begin: 1, end: 2);
+  static final Tween<double> _expandedContainerTween =
+      Tween(begin: 0, end: 325);
 
   @override
   void initState() {
@@ -91,7 +91,12 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                     tween: _difficultyAlignmentTween,
                     difficulty: widget.workout.difficulty.toString(),
                     difficultyColor: widget.workout.difficultyColor),
-              ]))
+              ])),
+              WorkoutOverviewCardExpanded(
+                  workout: widget.workout,
+                  handleStart: _handleStart,
+                  animation: animation,
+                  tween: _expandedContainerTween)
             ])));
   }
 }

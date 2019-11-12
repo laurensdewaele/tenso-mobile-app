@@ -4,75 +4,68 @@ import 'package:flutter/material.dart' hide Card, Divider;
 import 'package:app/data/interfaces.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
-import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/dividers.dart';
-import 'package:flutter/material.dart' as prefix0;
 
-class WorkoutOverviewCardExpanded extends StatelessWidget {
+class WorkoutOverviewCardExpanded extends AnimatedWidget {
   WorkoutOverviewCardExpanded(
       {Key key,
       @required this.workout,
-      @required this.handleCollapse,
-      @required this.handleStart})
-      : super(key: key);
+      @required this.handleStart,
+      @required this.animation,
+      @required this.tween})
+      : super(key: key, listenable: animation);
 
   final Workout workout;
-  final VoidCallback handleCollapse;
   final VoidCallback handleStart;
+
+  final Animation<double> animation;
+  final Tween tween;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: handleCollapse,
-        child: Card(
-            padding: EdgeInsets.all(styles.Measurements.m),
-            child: Column(
+    return Container(
+        height: tween.evaluate(animation),
+        child: Column(
+          children: <Widget>[
+            SectionDivider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(workout.name, style: styles.Typography.title),
-                  ],
+                _WorkoutInfo(
+                  title: 'difficulty',
+                  value: workout.difficulty.toString(),
+                  difficultyColor: workout.difficultyColor,
                 ),
-                SectionDivider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _WorkoutInfo(
-                      title: 'difficulty',
-                      value: workout.difficulty.toString(),
-                      difficultyColor: workout.difficultyColor,
-                    ),
-                    _WorkoutInfo(
-                      title: 'repetitions',
-                      value: workout.repetitions,
-                    )
-                  ],
-                ),
-                Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _WorkoutInfo(
-                      title: 'duration',
-                      value: workout.duration.toString(),
-                    ),
-                    _WorkoutInfo(
-                      title: 'sets',
-                      value: workout.sets.toString(),
-                    )
-                  ],
-                ),
-                Divider(),
-                Container(
-                    width: 175.0,
-                    child: Button(text: 'start', handleClick: handleStart)),
-                Divider(),
-                Icon(Icons.keyboard_arrow_up,
-                    size: styles.Measurements.l, color: styles.Colors.primary)
+                _WorkoutInfo(
+                  title: 'repetitions',
+                  value: workout.repetitions,
+                )
               ],
-            )));
+            ),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _WorkoutInfo(
+                  title: 'duration',
+                  value: workout.duration.toString(),
+                ),
+                _WorkoutInfo(
+                  title: 'sets',
+                  value: workout.sets.toString(),
+                )
+              ],
+            ),
+            Divider(),
+            Container(
+                width: 175.0,
+                child: Button(text: 'start', handleClick: handleStart)),
+            Divider(),
+            Icon(Icons.keyboard_arrow_up,
+                size: styles.Measurements.l, color: styles.Colors.primary)
+          ],
+        ));
   }
 }
 
