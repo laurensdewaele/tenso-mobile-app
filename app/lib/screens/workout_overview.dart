@@ -8,35 +8,12 @@ import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview_card.dart';
 
-class WorkoutOverviewScreen extends StatefulWidget {
+class WorkoutOverviewScreen extends StatelessWidget {
   WorkoutOverviewScreen({@required this.workouts});
   final List<Workout> workouts;
 
   void _handleAddWorkout() {
     print('Add workout!');
-  }
-
-  @override
-  _WorkoutOverviewScreenState createState() => _WorkoutOverviewScreenState();
-}
-
-class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
-  List<int> expandedHashCodes = [];
-
-  void _handleCollapse(int hashCode) {
-    setState(() {
-      expandedHashCodes.remove(hashCode);
-    });
-  }
-
-  void _handleExpand(int hashCode) {
-    setState(() {
-      expandedHashCodes.add(hashCode);
-    });
-  }
-
-  void _handleStart(int hashCode) {
-    print('starting workout on $hashCode');
   }
 
   @override
@@ -49,21 +26,13 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         gradientStartColor: styles.Colors.bgGrayStart,
         gradientStopColor: styles.Colors.bgGrayStop,
         child: ListView.separated(
-          itemCount: widget.workouts.length + 2,
+          itemCount: workouts.length + 2,
           itemBuilder: (BuildContext context, int index) {
-            if (index < widget.workouts.length) {
-              return WorkoutOverviewCard(
-                  workout: widget.workouts[index],
-                  handleCollapse: _handleCollapse,
-                  handleExpand: _handleExpand,
-                  handleStart: _handleStart,
-                  expanded: expandedHashCodes
-                          .contains(widget.workouts[index].hashCode)
-                      ? true
-                      : false);
-            } else if (index == widget.workouts.length) {
+            if (index < workouts.length) {
+              return WorkoutOverviewCard(workout: workouts[index]);
+            } else if (index == workouts.length) {
               return Button(
-                  text: 'Add workout', handleClick: widget._handleAddWorkout);
+                  text: 'Add workout', handleClick: _handleAddWorkout);
             } else {
               return SizedBox(height: viewHeight / 2 - styles.Measurements.m);
             }

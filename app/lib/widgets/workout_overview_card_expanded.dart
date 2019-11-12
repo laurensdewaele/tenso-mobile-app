@@ -7,6 +7,7 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/dividers.dart';
+import 'package:flutter/material.dart' as prefix0;
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
   WorkoutOverviewCardExpanded(
@@ -17,21 +18,13 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
       : super(key: key);
 
   final Workout workout;
-  final void Function(int) handleCollapse;
-  final void Function(int) handleStart;
-
-  void _handleCollapse() {
-    handleCollapse(workout.hashCode);
-  }
-
-  void _handleStart() {
-    handleStart(workout.hashCode);
-  }
+  final VoidCallback handleCollapse;
+  final VoidCallback handleStart;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _handleCollapse,
+        onTap: handleCollapse,
         child: Card(
             padding: EdgeInsets.all(styles.Measurements.m),
             child: Column(
@@ -74,7 +67,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                 Divider(),
                 Container(
                     width: 175.0,
-                    child: Button(text: 'start', handleClick: _handleStart)),
+                    child: Button(text: 'start', handleClick: handleStart)),
                 Divider(),
                 Icon(Icons.keyboard_arrow_up,
                     size: styles.Measurements.l, color: styles.Colors.primary)
