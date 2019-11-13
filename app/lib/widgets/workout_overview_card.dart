@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Card, Divider;
 
-import 'package:app/data/interfaces.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
@@ -96,7 +96,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                       child: Align(
                           alignment:
                               Alignment(_horizontalTitleAlignment.value, 0),
-                          child: Text('NORMAL ONE',
+                          child: Text(widget.workout.name,
                               style: styles.Typography.title,
                               overflow: TextOverflow.ellipsis))),
                   SizedBox(

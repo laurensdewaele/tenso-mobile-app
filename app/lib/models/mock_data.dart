@@ -1,4 +1,4 @@
-import 'interfaces.dart';
+import 'models.dart';
 
 final List<Workout> mockWorkouts = [
   Workout(
