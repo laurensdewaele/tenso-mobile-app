@@ -29,6 +29,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
       Tween(begin: 1, end: 2);
   static final Tween<double> _expandedContainerTween =
       Tween(begin: 0, end: 325);
+  static final Tween<double> _sizedBoxWidthTween =
+      Tween(begin: styles.Measurements.xxl + styles.Measurements.m, end: 0);
 
   @override
   void initState() {
@@ -81,10 +83,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                   Expanded(
                       child: AnimatedTitle(
                           animation: animation, tween: _titleAlignmentTween)),
-                  SizedBox(
-                    width: 0,
-                    height: styles.Measurements.xxl,
-                  )
+                  AnimatedSizedBox(
+                      animation: animation, tween: _sizedBoxWidthTween)
                 ]),
                 AnimatedDifficulty(
                     animation: animation,
@@ -113,8 +113,24 @@ class AnimatedTitle extends AnimatedWidget {
     final animation = listenable as Animation<double>;
     return Align(
         alignment: Alignment(tween.evaluate(animation), 0),
-        child: Text('small',
+        child: Text('NORMAL ONE',
             style: styles.Typography.title, overflow: TextOverflow.ellipsis));
+  }
+}
+
+class AnimatedSizedBox extends AnimatedWidget {
+  AnimatedSizedBox({Key key, this.animation, this.tween})
+      : super(key: key, listenable: animation);
+
+  final Animation<double> animation;
+  final Tween tween;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: tween.evaluate(animation),
+      height: styles.Measurements.xxl,
+    );
   }
 }
 
