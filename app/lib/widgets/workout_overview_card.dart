@@ -1,10 +1,10 @@
-import 'package:app/widgets/workout_overview_card_expanded.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' hide Card, Divider;
 
 import 'package:app/data/interfaces.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
+import 'package:app/widgets/workout_overview_card_expanded.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
   WorkoutOverviewCard({Key key, this.workout}) : super(key: key);
@@ -17,61 +17,73 @@ class WorkoutOverviewCard extends StatefulWidget {
 
 class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  Animation<double> animation;
-  AnimationController controller;
-
-  bool expanded;
-
-  static final Tween<double> _titleAlignmentTween = Tween(begin: -1, end: 0);
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _horizontalTitleAlignmentTween =
+      Tween(begin: -1, end: 0);
   // Two moves the difficultyWidget off screen to the right.
   // It is being clipped, therefore invisible.
-  static final Tween<double> _difficultyAlignmentTween =
+  static final Animatable<double> _horizontalDifficultyAlignmentTween =
       Tween(begin: 1, end: 2);
-  static final Tween<double> _expandedContainerTween =
-      Tween(begin: 0, end: 325);
-  static final Tween<double> _sizedBoxWidthTween =
+  static final Animatable<double> _sizedBoxWidthTween =
       Tween(begin: styles.Measurements.xxl + styles.Measurements.m, end: 0);
 
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeOut);
+  AnimationController _controller;
+  Animation<double> _heightFactor;
+  Animation<double> _horizontalTitleAlignment;
+  Animation<double> _horizontalDifficultyAlignment;
+  Animation<double> _sizedBoxWidth;
 
-    expanded = false;
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  bool _isExpanded = false;
 
   @override
   bool get wantKeepAlive => true;
 
+  @override
+  void initState() {
+    super.initState();
+
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    _heightFactor = _controller.drive(_easeInTween);
+    _horizontalTitleAlignment =
+        _controller.drive(_horizontalTitleAlignmentTween.chain(_easeInTween));
+    _horizontalDifficultyAlignment = _controller
+        .drive(_horizontalDifficultyAlignmentTween.chain(_easeInTween));
+    _sizedBoxWidth = _controller.drive(_sizedBoxWidthTween.chain(_easeInTween));
+
+    _isExpanded = PageStorage.of(context)?.readState(context) ?? false;
+    if (_isExpanded) _controller.value = 1.0;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _handleTap() {
-    if (expanded == true) {
-      controller.reverse();
-    }
-
-    if (expanded == false) {
-      controller.forward();
-    }
-
     setState(() {
-      expanded = !expanded;
+      _isExpanded = !_isExpanded;
+      if (_isExpanded) {
+        _controller.forward();
+      } else {
+        _controller.reverse().then<void>((void value) {
+          if (!mounted) return;
+          setState(() {
+            // Rebuild without widget.children.
+          });
+        });
+      }
+      PageStorage.of(context)?.writeState(context, _isExpanded);
     });
   }
 
   void _handleStart() {
-    // TODO: Navigate to other screen
+    // TODO: Implement route transition.
   }
 
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
+  Widget _buildChildren(BuildContext context, Widget child) {
     return GestureDetector(
         onTap: _handleTap,
         child: Card(
@@ -81,84 +93,44 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                   child: Stack(overflow: Overflow.clip, children: <Widget>[
                 Row(children: [
                   Expanded(
-                      child: AnimatedTitle(
-                          animation: animation, tween: _titleAlignmentTween)),
-                  AnimatedSizedBox(
-                      animation: animation, tween: _sizedBoxWidthTween)
+                      child: Align(
+                          alignment:
+                              Alignment(_horizontalTitleAlignment.value, 0),
+                          child: Text('NORMAL ONE',
+                              style: styles.Typography.title,
+                              overflow: TextOverflow.ellipsis))),
+                  SizedBox(
+                    width: _sizedBoxWidth.value,
+                    height: styles.Measurements.xxl,
+                  )
                 ]),
-                AnimatedDifficulty(
-                    animation: animation,
-                    tween: _difficultyAlignmentTween,
-                    difficulty: widget.workout.difficulty.toString(),
-                    difficultyColor: widget.workout.difficultyColor),
+                Align(
+                    alignment:
+                        Alignment(_horizontalDifficultyAlignment.value, 0),
+                    child: Difficulty(
+                      difficulty: widget.workout.difficulty.toString(),
+                      difficultyColor: widget.workout.difficultyColor,
+                      width: styles.Measurements.xxl,
+                      height: styles.Measurements.xxl,
+                    )),
               ])),
-              WorkoutOverviewCardExpanded(
-                  workout: widget.workout,
-                  handleStart: _handleStart,
-                  animation: animation,
-                  tween: _expandedContainerTween)
+              ClipRect(
+                  child: Align(heightFactor: _heightFactor.value, child: child))
             ])));
   }
-}
-
-class AnimatedTitle extends AnimatedWidget {
-  AnimatedTitle({Key key, this.animation, this.tween})
-      : super(key: key, listenable: animation);
-
-  final Animation<double> animation;
-  final Tween tween;
 
   @override
-  Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
-    return Align(
-        alignment: Alignment(tween.evaluate(animation), 0),
-        child: Text('NORMAL ONE',
-            style: styles.Typography.title, overflow: TextOverflow.ellipsis));
-  }
-}
+  Widget build(BuildContext contex) {
+    super.build(context);
 
-class AnimatedSizedBox extends AnimatedWidget {
-  AnimatedSizedBox({Key key, this.animation, this.tween})
-      : super(key: key, listenable: animation);
+    final bool closed = !_isExpanded && _controller.isDismissed;
 
-  final Animation<double> animation;
-  final Tween tween;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: tween.evaluate(animation),
-      height: styles.Measurements.xxl,
-    );
-  }
-}
-
-class AnimatedDifficulty extends AnimatedWidget {
-  AnimatedDifficulty(
-      {Key key,
-      this.animation,
-      this.tween,
-      this.difficulty,
-      this.difficultyColor})
-      : super(key: key, listenable: animation);
-
-  final Animation<double> animation;
-  final Tween tween;
-
-  final String difficulty;
-  final Color difficultyColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
-    return Align(
-        alignment: Alignment(tween.evaluate(animation), 0),
-        child: Difficulty(
-          difficulty: difficulty,
-          difficultyColor: difficultyColor,
-          width: styles.Measurements.xxl,
-          height: styles.Measurements.xxl,
-        ));
+    return AnimatedBuilder(
+        animation: _controller.view,
+        builder: _buildChildren,
+        child: closed
+            ? null
+            : WorkoutOverviewCardExpanded(
+                workout: widget.workout, handleStart: _handleStart));
   }
 }

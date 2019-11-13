@@ -7,65 +7,58 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/dividers.dart';
 
-class WorkoutOverviewCardExpanded extends AnimatedWidget {
-  WorkoutOverviewCardExpanded(
-      {Key key,
-      @required this.workout,
-      @required this.handleStart,
-      @required this.animation,
-      @required this.tween})
-      : super(key: key, listenable: animation);
+class WorkoutOverviewCardExpanded extends StatelessWidget {
+  WorkoutOverviewCardExpanded({
+    Key key,
+    @required this.workout,
+    @required this.handleStart,
+  }) : super(key: key);
 
   final Workout workout;
   final VoidCallback handleStart;
 
-  final Animation<double> animation;
-  final Tween tween;
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: tween.evaluate(animation),
-        child: Column(
+    return Column(
+      children: <Widget>[
+        SectionDivider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SectionDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _WorkoutInfo(
-                  title: 'difficulty',
-                  value: workout.difficulty.toString(),
-                  difficultyColor: workout.difficultyColor,
-                ),
-                _WorkoutInfo(
-                  title: 'repetitions',
-                  value: workout.repetitions,
-                )
-              ],
+            _WorkoutInfo(
+              title: 'difficulty',
+              value: workout.difficulty.toString(),
+              difficultyColor: workout.difficultyColor,
             ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _WorkoutInfo(
-                  title: 'duration',
-                  value: workout.duration.toString(),
-                ),
-                _WorkoutInfo(
-                  title: 'sets',
-                  value: workout.sets.toString(),
-                )
-              ],
-            ),
-            Divider(),
-            Container(
-                width: 175.0,
-                child: Button(text: 'start', handleClick: handleStart)),
-            Divider(),
-            Icon(Icons.keyboard_arrow_up,
-                size: styles.Measurements.l, color: styles.Colors.primary)
+            _WorkoutInfo(
+              title: 'repetitions',
+              value: workout.repetitions,
+            )
           ],
-        ));
+        ),
+        Divider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _WorkoutInfo(
+              title: 'duration',
+              value: workout.duration.toString(),
+            ),
+            _WorkoutInfo(
+              title: 'sets',
+              value: workout.sets.toString(),
+            )
+          ],
+        ),
+        Divider(),
+        Container(
+            width: 175.0,
+            child: Button(text: 'start', handleClick: handleStart)),
+        Divider(),
+        Icon(Icons.keyboard_arrow_up,
+            size: styles.Measurements.l, color: styles.Colors.primary)
+      ],
+    );
   }
 }
 
