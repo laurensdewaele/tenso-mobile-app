@@ -89,31 +89,30 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
         child: Card(
             padding: EdgeInsets.all(styles.Measurements.s),
             child: Column(children: <Widget>[
-              Container(
-                  child: Stack(overflow: Overflow.clip, children: <Widget>[
+              Stack(overflow: Overflow.clip, children: <Widget>[
                 Row(children: [
-                  Expanded(
-                      child: Align(
-                          alignment:
-                              Alignment(_horizontalTitleAlignment.value, 0),
-                          child: Text(widget.workout.name,
-                              style: styles.Typography.title,
-                              overflow: TextOverflow.ellipsis))),
-                  SizedBox(
-                    width: _sizedBoxWidth.value,
-                    height: styles.Measurements.xxl,
-                  )
+              Expanded(
+                  child: Align(
+                      alignment:
+                          Alignment(_horizontalTitleAlignment.value, 0),
+                      child: Text(widget.workout.name,
+                          style: styles.Typography.title,
+                          overflow: TextOverflow.ellipsis))),
+              SizedBox(
+                width: _sizedBoxWidth.value,
+                height: styles.Measurements.xxl,
+              )
                 ]),
                 Align(
-                    alignment:
-                        Alignment(_horizontalDifficultyAlignment.value, 0),
-                    child: Difficulty(
-                      difficulty: widget.workout.difficulty.toString(),
-                      difficultyColor: widget.workout.difficultyColor,
-                      width: styles.Measurements.xxl,
-                      height: styles.Measurements.xxl,
-                    )),
-              ])),
+                alignment:
+                    Alignment(_horizontalDifficultyAlignment.value, 0),
+                child: Difficulty(
+                  difficulty: widget.workout.difficulty.toString(),
+                  difficultyColor: widget.workout.difficultyColor,
+                  width: styles.Measurements.xxl,
+                  height: styles.Measurements.xxl,
+                )),
+              ]),
               ClipRect(
                   child: Align(heightFactor: _heightFactor.value, child: child))
             ])));
