@@ -120,7 +120,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   }
 
   @override
-  Widget build(BuildContext contex) {
+  Widget build(BuildContext context) {
     super.build(context);
 
     final bool closed = !_isExpanded && _controller.isDismissed;
