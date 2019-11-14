@@ -5,6 +5,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/workout_overview_card_expanded.dart';
+import 'package:flutter/material.dart' as prefix0;
 
 class WorkoutOverviewCard extends StatefulWidget {
   WorkoutOverviewCard({Key key, this.workout}) : super(key: key);
@@ -24,7 +25,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   // Two moves the difficultyWidget off screen to the right.
   // It is being clipped, therefore invisible.
   static final Animatable<double> _horizontalDifficultyAlignmentTween =
-      Tween(begin: 1, end: 2);
+      Tween(begin: 0, end: -styles.Measurements.xxl);
   static final Animatable<double> _sizedBoxWidthTween =
       Tween(begin: styles.Measurements.xxl + styles.Measurements.m, end: 0);
 
@@ -103,9 +104,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                     height: styles.Measurements.xxl,
                   )
                 ]),
-                Align(
-                    alignment:
-                        Alignment(_horizontalDifficultyAlignment.value, 0),
+                Positioned(
+                    right: _horizontalDifficultyAlignment.value,
                     child: Difficulty(
                       difficulty: widget.workout.difficulty.toString(),
                       difficultyColor: widget.workout.difficultyColor,
