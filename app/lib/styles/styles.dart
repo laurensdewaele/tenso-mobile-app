@@ -12,7 +12,7 @@ class Colors {
   static const Color white = const Color.fromRGBO(255, 255, 255, 1);
   static const Color gray = const Color.fromRGBO(102, 102, 102, 1);
   static const Color black = const Color.fromRGBO(64, 64, 64, 1);
-  static const Color shadow = const Color.fromRGBO(242, 242, 242, 1);
+  static const Color shadow = const Color.fromRGBO(0, 0, 0, 0.05);
   static const Color bgWhite = const Color.fromRGBO(253, 253, 253, 1);
   static const Color bgGrayStart = const Color.fromRGBO(243, 243, 243, 1);
   static const Color bgGrayStop = const Color.fromRGBO(232, 232, 232, 1);

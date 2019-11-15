@@ -34,17 +34,48 @@ class WorkoutOverviewScreen extends StatelessWidget {
               return Slidable(
                   actionExtentRatio: 0.25,
                   actions: <Widget>[
-                    Container(
-                        decoration: const BoxDecoration(
-                            color: styles.Colors.difficultyBlue,
-                            borderRadius: BorderRadius.only(
-                                topLeft: styles.kAppBorderRadius,
-                                bottomLeft: styles.kAppBorderRadius)),
-                        child: Center(
-                            child: Text(
-                          'EDIT',
-                          style: styles.Typography.indicatorWhite,
-                        )))
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                            decoration: const BoxDecoration(
+                                color: styles.Colors.difficultyBlue,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: styles.kAppBorderRadius,
+                                    bottomLeft: styles.kAppBorderRadius)),
+                            child: Center(
+                                child: Text(
+                              'EDIT',
+                              style: styles.Typography.indicatorWhite,
+                            ))),
+                        Container(
+                          height: 0,
+                          decoration: BoxDecoration(
+                              color: styles.Colors.bgWhite,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, .25),
+                                  offset: Offset(0, 0),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 4,
+                                )
+                              ]),
+                          child: Container(),
+                        ),
+//                        Container(
+//                          decoration: BoxDecoration(
+//                            gradient: LinearGradient(
+//                              begin: FractionalOffset.topCenter,
+//                              end: FractionalOffset.bottomCenter,
+//                              colors: [
+//                                styles.Colors.black,
+//                                Color.fromRGBO(255, 255, 255, 0)
+//                              ],
+//                              stops: [0, 1],
+//                            ),
+//                          ),
+//                        )
+                      ],
+                    )
                   ],
                   actionPane: SlidableBehindActionPane(),
                   child: WorkoutOverviewCard(workout: workouts[index]));
