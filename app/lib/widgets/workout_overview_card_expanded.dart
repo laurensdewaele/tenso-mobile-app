@@ -31,9 +31,9 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               difficultyColor: workout.difficultyColor,
             ),
             _WorkoutInfo(
-              title: 'repetitions',
-              value: workout.repetitions,
-            )
+              title: 'different holds',
+              value: workout.holdAmount.toString(),
+            ),
           ],
         ),
         Divider(),
@@ -41,13 +41,21 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _WorkoutInfo(
-              title: 'duration',
-              value: workout.duration.toString(),
+              title: 'repetitions',
+              value: workout.repetitions,
             ),
             _WorkoutInfo(
               title: 'sets',
               value: workout.sets.toString(),
-            )
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            _WorkoutInfo(
+              title: 'duration',
+              value: workout.duration.toString(),
+            ),
           ],
         ),
         Divider(),
