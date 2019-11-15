@@ -68,7 +68,7 @@ class _Actions extends StatelessWidget {
                   bottomLeft: styles.kAppBorderRadius)),
           child: Center(
               child: Text(
-            'DELETE',
+            'EDIT',
             style: styles.Typography.indicatorWhite,
           ))),
       _InnerBoxShadow(position: _InnerBoxShadowRadiusPosition.left)

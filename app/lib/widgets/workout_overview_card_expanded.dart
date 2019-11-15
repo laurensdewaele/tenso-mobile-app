@@ -34,6 +34,10 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               title: 'different holds',
               value: workout.holdAmount.toString(),
             ),
+            _WorkoutInfo(
+              title: 'repetitions',
+              value: workout.repetitions,
+            ),
           ],
         ),
         Divider(),
@@ -41,17 +45,9 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _WorkoutInfo(
-              title: 'repetitions',
-              value: workout.repetitions,
-            ),
-            _WorkoutInfo(
               title: 'sets',
               value: workout.sets.toString(),
             ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
             _WorkoutInfo(
               title: 'duration',
               value: workout.duration.toString(),
