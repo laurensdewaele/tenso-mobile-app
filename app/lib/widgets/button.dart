@@ -19,7 +19,7 @@ class Button extends StatelessWidget {
         child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: styles.kAppBorderRadius,
+                borderRadius: styles.kAppBorderRadiusAll,
                 color: styles.Colors.primary,
                 boxShadow: [styles.kAppBoxShadow]),
             padding: EdgeInsets.symmetric(

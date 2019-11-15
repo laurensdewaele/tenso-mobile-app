@@ -5,7 +5,6 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/workout_overview_card_expanded.dart';
-import 'package:flutter/material.dart' as prefix0;
 
 class WorkoutOverviewCard extends StatefulWidget {
   WorkoutOverviewCard({Key key, this.workout}) : super(key: key);

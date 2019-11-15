@@ -10,10 +10,10 @@ class Colors {
 
   static const Color primary = const Color.fromRGBO(220, 88, 88, 1);
   static const Color white = const Color.fromRGBO(255, 255, 255, 1);
-  static const Color gray = const Color.fromRGBO(0, 0, 0, 0.6);
-  static const Color black = const Color.fromRGBO(0, 0, 0, .75);
-  static const Color shadow = const Color.fromRGBO(0, 0, 0, 0.05);
-  static const Color bgWhite = const Color.fromRGBO(255, 255, 255, 0.9);
+  static const Color gray = const Color.fromRGBO(102, 102, 102, 1);
+  static const Color black = const Color.fromRGBO(64, 64, 64, 1);
+  static const Color shadow = const Color.fromRGBO(242, 242, 242, 1);
+  static const Color bgWhite = const Color.fromRGBO(253, 253, 253, 1);
   static const Color bgGrayStart = const Color.fromRGBO(243, 243, 243, 1);
   static const Color bgGrayStop = const Color.fromRGBO(232, 232, 232, 1);
   static const Color bgRedStop = const Color.fromRGBO(185, 51, 51, 1);
@@ -60,6 +60,9 @@ class Typography {
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
 }
 
-const BorderRadius kAppBorderRadius = BorderRadius.all(Radius.circular(5.0));
+const double kAppBorderRadiusValue = 5.0;
+const Radius kAppBorderRadius = Radius.circular(kAppBorderRadiusValue);
+const BorderRadius kAppBorderRadiusAll =
+    BorderRadius.all(Radius.circular(kAppBorderRadiusValue));
 const BoxShadow kAppBoxShadow =
     BoxShadow(color: Colors.shadow, offset: Offset(0, 4), blurRadius: 4.0);
