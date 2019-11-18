@@ -18,7 +18,7 @@ class WorkoutOverviewCard extends StatefulWidget {
 class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
+      CurveTween(curve: Curves.easeInOut);
   static final Animatable<double> _horizontalTitleAlignmentTween =
       Tween(begin: -1, end: 0);
   // Two moves the difficultyWidget off screen to the right.
@@ -44,7 +44,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     super.initState();
 
     _controller =
-        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 250), vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
     _horizontalTitleAlignment =
         _controller.drive(_horizontalTitleAlignmentTween.chain(_easeInTween));
