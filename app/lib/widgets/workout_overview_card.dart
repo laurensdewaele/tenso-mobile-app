@@ -7,9 +7,13 @@ import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/workout_overview_card_expanded.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
-  WorkoutOverviewCard({Key key, this.workout}) : super(key: key);
+  WorkoutOverviewCard(
+      {Key key, this.workout, this.isSliderOpen, this.closeSlider})
+      : super(key: key);
 
   final Workout workout;
+  final bool isSliderOpen;
+  final VoidCallback closeSlider;
 
   @override
   _WorkoutOverviewCardState createState() => _WorkoutOverviewCardState();
@@ -44,7 +48,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     super.initState();
 
     _controller =
-        AnimationController(duration: Duration(milliseconds: 250), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     _heightFactor = _controller.drive(_easeInOutTween);
     _horizontalTitleAlignment = _controller
         .drive(_horizontalTitleAlignmentTween.chain(_easeInOutTween));
@@ -64,6 +68,11 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   }
 
   void _handleTap() {
+    if (widget.isSliderOpen) {
+      widget.closeSlider();
+      return;
+    }
+
     setState(() {
       _isExpanded = !_isExpanded;
       if (_isExpanded) {

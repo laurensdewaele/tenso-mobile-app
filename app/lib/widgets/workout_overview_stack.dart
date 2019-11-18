@@ -33,7 +33,6 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     _horizontalOffset =
         _controller.drive(_horizontalOffsetTween.chain(_easeInOutTween));
-
     _controller.forward();
   }
 
@@ -44,10 +43,13 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _onTap() {
-    print('forward!!');
     setState(() {
       _controller.forward();
     });
+  }
+
+  void _closeSlider() {
+    _controller.reverse();
   }
 
   @override
@@ -56,12 +58,13 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
       children: <Widget>[
         _Actions(),
         GestureDetector(
-            onTap: () {
-              print('tapp');
-            },
+            onTap: () {},
             child: SlideTransition(
                 position: _horizontalOffset,
-                child: WorkoutOverviewCard(workout: widget.workout)))
+                child: WorkoutOverviewCard(
+                    closeSlider: _closeSlider,
+                    workout: widget.workout,
+                    isSliderOpen: _controller.value != 0)))
       ],
     );
   }
