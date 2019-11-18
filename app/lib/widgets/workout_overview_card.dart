@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart' hide Card, Divider;
 
-import 'package:flutter_slidable/flutter_slidable.dart';
-
 import 'package:app/models/models.dart';
-import 'package:app/screens/workout_overview.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
@@ -65,15 +62,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     super.dispose();
   }
 
-  void _handleTap(SlidableControllerState slidableControllerState,
-      SlidableState slideableState) {
-    print(slidableControllerState.isSlideOpen);
-
-    if (slidableControllerState.isSlideOpen != null &&
-        slidableControllerState.isSlideOpen == true) {
-      slideableState.close();
-    }
-
+  void _handleTap() {
     setState(() {
       _isExpanded = !_isExpanded;
       if (_isExpanded) {
@@ -95,13 +84,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   }
 
   Widget _buildChildren(BuildContext context, Widget child) {
-    final SlidableControllerState slidableControllerState =
-        SlidableControllerState.of(context);
-
-    final SlidableState slidableState = Slidable.of(context);
-
     return GestureDetector(
-        onTap: () => _handleTap(slidableControllerState, slidableState),
+        onTap: _handleTap,
         child: Card(
             padding: EdgeInsets.all(styles.Measurements.s),
             child: Column(children: <Widget>[
