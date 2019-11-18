@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/inner_box_shadow.dart';
 
-class EditAction extends StatelessWidget {
+class WorkoutOverviewEditAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(overflow: Overflow.clip, children: <Widget>[

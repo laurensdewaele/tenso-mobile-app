@@ -17,7 +17,7 @@ class WorkoutOverviewCard extends StatefulWidget {
 
 class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  static final Animatable<double> _easeInTween =
+  static final Animatable<double> _easeInOutTween =
       CurveTween(curve: Curves.easeInOut);
   static final Animatable<double> _horizontalTitleAlignmentTween =
       Tween(begin: -1, end: 0);
@@ -45,12 +45,13 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
 
     _controller =
         AnimationController(duration: Duration(milliseconds: 250), vsync: this);
-    _heightFactor = _controller.drive(_easeInTween);
-    _horizontalTitleAlignment =
-        _controller.drive(_horizontalTitleAlignmentTween.chain(_easeInTween));
+    _heightFactor = _controller.drive(_easeInOutTween);
+    _horizontalTitleAlignment = _controller
+        .drive(_horizontalTitleAlignmentTween.chain(_easeInOutTween));
     _horizontalDifficultyAlignment = _controller
-        .drive(_horizontalDifficultyAlignmentTween.chain(_easeInTween));
-    _sizedBoxWidth = _controller.drive(_sizedBoxWidthTween.chain(_easeInTween));
+        .drive(_horizontalDifficultyAlignmentTween.chain(_easeInOutTween));
+    _sizedBoxWidth =
+        _controller.drive(_sizedBoxWidthTween.chain(_easeInOutTween));
 
     _isExpanded = PageStorage.of(context)?.readState(context) ?? false;
     if (_isExpanded) _controller.value = 1.0;

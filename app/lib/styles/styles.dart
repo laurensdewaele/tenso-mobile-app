@@ -33,6 +33,10 @@ class Measurements {
   static const double l = 30.0;
   static const double xl = 40.0;
   static const double xxl = 50.0;
+
+  // Height of the difficulty + padding
+  static const workoutOverviewActionContainer =
+      Measurements.xxl + 2 * Measurements.s;
 }
 
 class Typography {

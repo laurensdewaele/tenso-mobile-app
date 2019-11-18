@@ -1,3 +1,4 @@
+import 'package:app/widgets/workout_overview_stack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
 import 'package:flutter/widgets.dart';
@@ -7,7 +8,6 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/workout_overview_card.dart';
 
 class WorkoutOverviewScreen extends StatefulWidget {
   WorkoutOverviewScreen({@required this.workouts});
@@ -35,7 +35,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           itemCount: widget.workouts.length + 2,
           itemBuilder: (BuildContext context, int index) {
             if (index < widget.workouts.length) {
-              return WorkoutOverviewCard(
+              return WorkoutOverviewStack(
                 key: Key(widget.workouts[index].hashCode.toString()),
                 workout: widget.workouts[index],
               );

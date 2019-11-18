@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/inner_box_shadow.dart';
 
-class DeleteAction extends StatelessWidget {
+class WorkoutOverviewDeleteAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
