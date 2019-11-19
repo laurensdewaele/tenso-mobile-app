@@ -7,9 +7,12 @@ import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/workout_overview_card_expanded.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
-  WorkoutOverviewCard(
-      {Key key, this.workout, this.isSliderOpen, this.closeSlider})
-      : super(key: key);
+  WorkoutOverviewCard({
+    Key key,
+    this.workout,
+    this.isSliderOpen,
+    this.closeSlider,
+  }) : super(key: key);
 
   final Workout workout;
   final bool isSliderOpen;

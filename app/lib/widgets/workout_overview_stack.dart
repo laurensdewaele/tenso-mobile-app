@@ -25,12 +25,15 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   AnimationController _controller;
   Animation<Offset> _horizontalOffset;
 
+  bool _isSliderOpen = false;
+
   @override
   void initState() {
     super.initState();
 
     _controller =
-        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this)
+          ..addStatusListener(_animationStatusListener);
     _horizontalOffset =
         _controller.drive(_horizontalOffsetTween.chain(_easeInOutTween));
     _controller.forward();
@@ -52,6 +55,25 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _controller.reverse();
   }
 
+  AnimationStatusListener _animationStatusListener(AnimationStatus status) {
+    switch (status) {
+      case AnimationStatus.dismissed:
+        setState(() {
+          _isSliderOpen = false;
+        });
+        break;
+      case AnimationStatus.completed:
+        setState(() {
+          _isSliderOpen = true;
+        });
+        break;
+      case AnimationStatus.forward:
+        break;
+      case AnimationStatus.reverse:
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -64,7 +86,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
                 child: WorkoutOverviewCard(
                     closeSlider: _closeSlider,
                     workout: widget.workout,
-                    isSliderOpen: _controller.value != 0)))
+                    isSliderOpen: _isSliderOpen)))
       ],
     );
   }
