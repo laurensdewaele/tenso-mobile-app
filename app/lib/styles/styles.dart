@@ -70,4 +70,3 @@ const BorderRadius kAppBorderRadiusAll =
     BorderRadius.all(Radius.circular(kAppBorderRadiusValue));
 const BoxShadow kAppBoxShadow =
     BoxShadow(color: Colors.shadow, offset: Offset(0, 4), blurRadius: 4.0);
-const double kFastVelocityThreshold = 2500.0;

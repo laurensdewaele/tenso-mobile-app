@@ -78,12 +78,11 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
 
   void _handleDragEnd(DragEndDetails details) {
     final double velocity = details.primaryVelocity;
-    final double editActionTreshold = .75;
-    final double deleteActionTreshold = .25;
-    final bool fast = velocity.abs() > styles.kFastVelocityThreshold;
+    final double editActionThreshold = .75;
+    final double deleteActionThreshold = .25;
 
     if (velocity > 0) {
-      if (_controller.value >= editActionTreshold) {
+      if (_controller.value >= editActionThreshold) {
         _open(_SlideDirection.right);
       } else {
         _close();
@@ -91,31 +90,27 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     }
 
     if (velocity < 0) {
-      if (_controller.value <= deleteActionTreshold) {
+      if (_controller.value <= deleteActionThreshold) {
         _open(_SlideDirection.left);
       } else {
         _close();
       }
     }
 
-//    if (velocity == 0) {
-//      // Open edit [0.75,1]
-//      if (_controller.value >= editActionTreshold) {
-//        _open(_SlideDirection.right);
-//      }
-//
-//      if (_controller.value > editActionTreshold &&
-//          _controller.value < deleteActionTreshold) {
-//        _close();
-//      }
-//
-//      if (_controller.value <= editActionTreshold) {
-//        _open(_SlideDirection.left);
-//      }
-//      // Close ].25,.75[
-//      // Open delete [.25, 0]
-//
-//    }
+    if (velocity == 0) {
+      if (_controller.value >= editActionThreshold) {
+        _open(_SlideDirection.right);
+      }
+
+      if (_controller.value > deleteActionThreshold &&
+          _controller.value < editActionThreshold) {
+        _close();
+      }
+
+      if (_controller.value <= deleteActionThreshold) {
+        _open(_SlideDirection.left);
+      }
+    }
   }
 
   void _animateTo(double value) {
