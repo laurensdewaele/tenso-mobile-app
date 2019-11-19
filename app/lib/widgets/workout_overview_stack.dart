@@ -20,8 +20,6 @@ class WorkoutOverviewStack extends StatefulWidget {
 
 class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
   AnimationController _controller;
   Animation<Offset> _animation;
 
@@ -43,10 +41,6 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  void _closeSlider() {
-    _controller.reverse();
   }
 
   void _handleEditTap() {
@@ -121,6 +115,10 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   void _close() {
     _animateTo(.5);
     dx = 0;
+
+    setState(() {
+      _isSliderOpen = false;
+    });
   }
 
   void _open(_SlideDirection direction) {
@@ -131,26 +129,31 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     if (direction == _SlideDirection.right) {
       _animateTo(1);
     }
+
+    setState(() {
+      _isSliderOpen = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        _Actions(
-            handleDeleteTap: _handleDeleteTap, handleEditTap: _handleEditTap),
-        GestureDetector(
-            onHorizontalDragStart: _handleDragStart,
-            onHorizontalDragUpdate: _handleDragUpdate,
-            onHorizontalDragEnd: _handleDragEnd,
-            behavior: HitTestBehavior.translucent,
-            child: SlideTransition(
-                position: _animation,
-                child: WorkoutOverviewCard(
-                    closeSlider: _closeSlider,
-                    workout: widget.workout,
-                    isSliderOpen: _isSliderOpen)))
-      ],
+    return Card(
+      child: Stack(
+        children: <Widget>[
+          _Actions(
+              handleDeleteTap: _handleDeleteTap, handleEditTap: _handleEditTap),
+          GestureDetector(
+              onHorizontalDragStart: _handleDragStart,
+              onHorizontalDragUpdate: _handleDragUpdate,
+              onHorizontalDragEnd: _handleDragEnd,
+              child: SlideTransition(
+                  position: _animation,
+                  child: WorkoutOverviewCard(
+                      closeSlider: _close,
+                      workout: widget.workout,
+                      isSliderOpen: _isSliderOpen))),
+        ],
+      ),
     );
   }
 }
@@ -166,17 +169,15 @@ class _Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: styles.Measurements.workoutOverviewActionContainer,
-      child: Card(
-        child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
-          Expanded(
-              child: WorkoutOverviewEditAction(handleTap: handleEditTap),
-              flex: 1),
-          Expanded(child: SizedBox(), flex: 2),
-          Expanded(
-              child: WorkoutOverviewDeleteAction(handleTap: handleDeleteTap),
-              flex: 1)
-        ]),
-      ),
+      child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+        Expanded(
+            child: WorkoutOverviewEditAction(handleTap: handleEditTap),
+            flex: 1),
+        Expanded(child: SizedBox(), flex: 2),
+        Expanded(
+            child: WorkoutOverviewDeleteAction(handleTap: handleDeleteTap),
+            flex: 1)
+      ]),
     );
   }
 }

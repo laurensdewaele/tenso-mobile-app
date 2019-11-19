@@ -28,7 +28,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
       CurveTween(curve: Curves.easeInOut);
   static final Animatable<double> _horizontalTitleAlignmentTween =
       Tween(begin: -1, end: 0);
-  // Two moves the difficultyWidget off screen to the right.
+  // Moves the difficultyWidget off screen to the right.
   // It is being clipped, therefore invisible.
   static final Animatable<double> _horizontalDifficultyAlignmentTween =
       Tween(begin: 0, end: -styles.Measurements.xxl);
