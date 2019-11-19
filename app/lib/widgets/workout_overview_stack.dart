@@ -74,11 +74,16 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     }
   }
 
+  void _handleEditTap() {}
+
+  void _handleDeleteTap() {}
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        _Actions(),
+        _Actions(
+            handleDeleteTap: _handleDeleteTap, handleEditTap: _handleEditTap),
         GestureDetector(
             onTap: () {},
             child: SlideTransition(
@@ -105,9 +110,13 @@ class _Actions extends StatelessWidget {
       height: styles.Measurements.workoutOverviewActionContainer,
       child: Card(
         child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
-          Expanded(child: WorkoutOverviewEditAction(), flex: 1),
+          Expanded(
+              child: WorkoutOverviewEditAction(handleTap: handleEditTap),
+              flex: 1),
           Expanded(child: SizedBox(), flex: 2),
-          Expanded(child: WorkoutOverviewDeleteAction(), flex: 1)
+          Expanded(
+              child: WorkoutOverviewDeleteAction(handleTap: handleDeleteTap),
+              flex: 1)
         ]),
       ),
     );
