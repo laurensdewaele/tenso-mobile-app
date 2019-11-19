@@ -33,10 +33,10 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     super.initState();
 
     _controller = AnimationController(vsync: this);
-    _animation = Tween<Offset>(begin: Offset(-.25, 0), end: Offset(.25, 0.0))
-        .animate(_controller);
     // Neutral position as our controller ranges from [0,1].
     _controller.value = 0.5;
+    _animation = Tween<Offset>(begin: Offset(-.25, 0), end: Offset(.25, 0.0))
+        .animate(_controller);
   }
 
   @override
@@ -73,15 +73,49 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     final double actionContainerSize = context.size.width / 4;
     final double traversedPercentage = dx / actionContainerSize;
     // Our controller range spans from [0,1] and the neutral position is 0.5.
-    final double newControllerValue = .5 + traversedPercentage / 2;
-    _controller.value = newControllerValue;
+    _controller.value = .5 + traversedPercentage / 2;
   }
 
   void _handleDragEnd(DragEndDetails details) {
     final double velocity = details.primaryVelocity;
-    print(velocity);
-//    final bool shouldOpen = velocity.sign == _dragExtent.sign;
-//    final bool fast = velocity.abs() > widget.fastThreshold;
+    final double editActionTreshold = .75;
+    final double deleteActionTreshold = .25;
+    final bool fast = velocity.abs() > styles.kFastVelocityThreshold;
+
+    if (velocity > 0) {
+      if (_controller.value >= editActionTreshold) {
+        _open(_SlideDirection.right);
+      } else {
+        _close();
+      }
+    }
+
+    if (velocity < 0) {
+      if (_controller.value <= deleteActionTreshold) {
+        _open(_SlideDirection.left);
+      } else {
+        _close();
+      }
+    }
+
+//    if (velocity == 0) {
+//      // Open edit [0.75,1]
+//      if (_controller.value >= editActionTreshold) {
+//        _open(_SlideDirection.right);
+//      }
+//
+//      if (_controller.value > editActionTreshold &&
+//          _controller.value < deleteActionTreshold) {
+//        _close();
+//      }
+//
+//      if (_controller.value <= editActionTreshold) {
+//        _open(_SlideDirection.left);
+//      }
+//      // Close ].25,.75[
+//      // Open delete [.25, 0]
+//
+//    }
   }
 
   void _animateTo(double value) {
