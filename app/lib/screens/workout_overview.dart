@@ -19,10 +19,11 @@ class WorkoutOverviewScreen extends StatefulWidget {
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleAddWorkout() {
-    // TODO: Add workout
+    // TODO: Add workout.
   }
 
   void _handleDeleteTap(Workout workout) {
+    // TODO: Delete from source.
     if (widget.workouts.contains(workout)) {
       setState(() {
         widget.workouts.remove(workout);

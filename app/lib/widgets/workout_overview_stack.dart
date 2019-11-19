@@ -36,7 +36,9 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     super.initState();
     _sizeController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    _sizeAnimation = Tween<double>(begin: 1, end: 0).animate(_sizeController);
+    _sizeAnimation = Tween<double>(begin: 1, end: 0)
+        .chain(CurveTween(curve: Curves.easeIn))
+        .animate(_sizeController);
     _slideController = AnimationController(vsync: this);
     // Neutral position as our controller ranges from [0,1].
     _slideController.value = 0.5;
