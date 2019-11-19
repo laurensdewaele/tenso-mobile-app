@@ -79,7 +79,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     setState(() {
       _isExpanded = !_isExpanded;
       if (_isExpanded) {
-        _controller.forward();
+        _controller.forward().orCancel;
       } else {
         _controller.reverse().then<void>((void value) {
           if (!mounted) return;

@@ -22,6 +22,14 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     // TODO: Add workout
   }
 
+  void _handleDeleteTap(Workout workout) {
+    if (widget.workouts.contains(workout)) {
+      setState(() {
+        widget.workouts.remove(workout);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final EdgeInsets padding = MediaQuery.of(context).padding;
@@ -36,8 +44,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           itemBuilder: (BuildContext context, int index) {
             if (index < widget.workouts.length) {
               return WorkoutOverviewStack(
-                key: Key(widget.workouts[index].hashCode.toString()),
+                key: ObjectKey(widget.workouts[index]),
                 workout: widget.workouts[index],
+                handleDeleteTap: _handleDeleteTap,
               );
             } else if (index == widget.workouts.length) {
               return Button(
