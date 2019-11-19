@@ -44,13 +44,11 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _handleEditTap() {
-    print('triggered');
     // TODO: Implement modal
     _close();
   }
 
   void _handleDeleteTap() {
-    print('triggered');
     // TODO: Implement modal
     _close();
   }
@@ -140,8 +138,11 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     return Card(
       child: Stack(
         children: <Widget>[
-          _Actions(
-              handleDeleteTap: _handleDeleteTap, handleEditTap: _handleEditTap),
+          Positioned.fill(
+            child: _Actions(
+                handleDeleteTap: _handleDeleteTap,
+                handleEditTap: _handleEditTap),
+          ),
           GestureDetector(
               onHorizontalDragStart: _handleDragStart,
               onHorizontalDragUpdate: _handleDragUpdate,
@@ -167,17 +168,13 @@ class _Actions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: styles.Measurements.workoutOverviewActionContainer,
-      child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
-        Expanded(
-            child: WorkoutOverviewEditAction(handleTap: handleEditTap),
-            flex: 1),
-        Expanded(child: SizedBox(), flex: 2),
-        Expanded(
-            child: WorkoutOverviewDeleteAction(handleTap: handleDeleteTap),
-            flex: 1)
-      ]),
-    );
+    return Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+      Expanded(
+          child: WorkoutOverviewEditAction(handleTap: handleEditTap), flex: 1),
+      Expanded(child: SizedBox(), flex: 2),
+      Expanded(
+          child: WorkoutOverviewDeleteAction(handleTap: handleDeleteTap),
+          flex: 1)
+    ]);
   }
 }

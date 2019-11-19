@@ -19,7 +19,7 @@ class WorkoutOverviewScreen extends StatefulWidget {
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleAddWorkout() {
-    print('Add workout!');
+    // TODO: Add workout
   }
 
   @override
