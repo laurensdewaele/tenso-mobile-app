@@ -59,11 +59,37 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _close();
   }
 
-  void _handleDeleteTap() {
-    _sizeController
-        .forward()
-        .orCancel
-        .then((_) => {widget.handleDeleteTap(widget.workout)});
+  Future<void> _showDeleteDialog() async {
+    return showCupertinoDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        final name = widget.workout.name;
+        return CupertinoAlertDialog(
+          title: Text('Delete'),
+          content: Text('Are you sure you want to delete workout $name'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('Delete'),
+              isDestructiveAction: true,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _handleDeleteTap() async {
+    await _showDeleteDialog();
+//    _sizeController
+//        .forward()
+//        .orCancel
+//        .then((_) => {widget.handleDeleteTap(widget.workout)});
   }
 
   void _handleDragStart(DragStartDetails details) {
