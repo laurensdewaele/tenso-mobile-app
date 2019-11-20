@@ -50,8 +50,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 handleDeleteTap: _handleDeleteTap,
               );
             } else if (index == widget.workouts.length) {
-              return Button(
-                  text: 'Add workout', handleClick: _handleAddWorkout);
+              return Button(text: 'Add workout', handleTap: _handleAddWorkout);
             } else {
               return SizedBox(height: viewHeight / 2 - styles.Measurements.m);
             }

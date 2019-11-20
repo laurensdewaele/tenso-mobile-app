@@ -53,7 +53,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
         Divider(),
         Container(
             width: 175.0,
-            child: Button(text: 'start', handleClick: handleStart)),
+            child: Button(text: 'start', handleTap: handleStart)),
         Divider(),
         Icon(Icons.keyboard_arrow_up,
             size: styles.Measurements.l, color: styles.Colors.primary)

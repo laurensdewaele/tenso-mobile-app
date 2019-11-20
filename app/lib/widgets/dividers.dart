@@ -23,3 +23,14 @@ class SectionDivider extends StatelessWidget {
     return SizedBox(height: height);
   }
 }
+
+class LargeDivider extends StatelessWidget {
+  const LargeDivider();
+
+  final double height = styles.Measurements.xxl;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(height: height);
+  }
+}

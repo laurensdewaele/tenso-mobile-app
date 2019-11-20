@@ -67,6 +67,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         workoutName: widget.workout.name,
         handleCancelTap: () {
           Navigator.of(context).pop();
+          _close();
         },
         handleDeleteTap: () {
           Navigator.of(context).pop();
@@ -173,6 +174,9 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
                 onHorizontalDragStart: _handleDragStart,
                 onHorizontalDragUpdate: _handleDragUpdate,
                 onHorizontalDragEnd: _handleDragEnd,
+                onLongPress: () {
+                  print('long press');
+                },
                 child: SlideTransition(
                     position: _slideAnimation,
                     child: WorkoutOverviewCard(

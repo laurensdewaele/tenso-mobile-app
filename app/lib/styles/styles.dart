@@ -50,14 +50,20 @@ class Typography {
     fontSize: 26,
     color: Colors.white,
   );
-  static TextStyle button =
+  static TextStyle buttonWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
+  static TextStyle buttonGray =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.gray);
+  static TextStyle buttonBlack =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
   static TextStyle indicatorWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.white);
   static TextStyle indicatorBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.black);
   static TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
+  static TextStyle dialogText =
+      TextStyle(fontFamily: 'Lato', fontSize: 22, color: Colors.black);
 }
 
 const double kAppBorderRadiusValue = 5.0;
@@ -66,5 +72,9 @@ const BorderRadius kAppBorderRadiusAll =
     BorderRadius.all(Radius.circular(kAppBorderRadiusValue));
 const BoxShadow kAppBoxShadow =
     BoxShadow(color: Colors.shadow, offset: Offset(0, 4), blurRadius: 4.0);
-// Barrier color for a Cupertino modal barrier.
-const Color kModalBarrierColor = Color(0x6604040F);
+
+const double kDialogBackdropBlurAmount = 20.0;
+const BoxDecoration kDialogBlurOverlayDecoration = BoxDecoration(
+  color: Colors.bgWhite,
+  backgroundBlendMode: BlendMode.overlay,
+);

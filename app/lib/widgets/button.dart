@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class Button extends StatelessWidget {
-  const Button({@required this.text, @required this.handleClick});
+  const Button(
+      {@required this.text, @required this.handleTap, this.displayIcon = true});
 
   final String text;
-  final VoidCallback handleClick;
-
-  void _onClick() {
-    handleClick();
-  }
+  final VoidCallback handleTap;
+  final bool displayIcon;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _onClick,
+        onTap: handleTap,
         child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -25,19 +23,36 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 vertical: styles.Measurements.xs,
                 horizontal: styles.Measurements.m),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Expanded(flex: 1, child: Container()),
-              Expanded(
-                  flex: 2,
-                  child: Text(
+            child: displayIcon
+                ? ButtonIconRow(text: text)
+                : Text(
                     text,
-                    style: styles.Typography.button,
+                    style: styles.Typography.buttonWhite,
                     textAlign: TextAlign.center,
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: Icon(Icons.keyboard_arrow_right,
-                      size: styles.Measurements.l, color: styles.Colors.white))
-            ])));
+                  )));
+  }
+}
+
+class ButtonIconRow extends StatelessWidget {
+  const ButtonIconRow({this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Expanded(flex: 1, child: Container()),
+      Expanded(
+          flex: 2,
+          child: Text(
+            text,
+            style: styles.Typography.buttonWhite,
+            textAlign: TextAlign.center,
+          )),
+      Expanded(
+          flex: 1,
+          child: Icon(Icons.keyboard_arrow_right,
+              size: styles.Measurements.l, color: styles.Colors.white))
+    ]);
   }
 }
