@@ -44,3 +44,10 @@ class AppDialog extends StatelessWidget {
     );
   }
 }
+
+Future<void> showAppDialog(
+    {@required BuildContext context, @required Widget child}) {
+  return showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) => AppDialog(child: child));
+}

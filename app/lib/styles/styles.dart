@@ -63,7 +63,7 @@ class Typography {
   static TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
   static TextStyle dialogText =
-      TextStyle(fontFamily: 'Lato', fontSize: 22, color: Colors.black);
+      TextStyle(fontFamily: 'Lato', fontSize: 24, color: Colors.black);
 }
 
 const double kAppBorderRadiusValue = 5.0;

@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
                 vertical: styles.Measurements.xs,
                 horizontal: styles.Measurements.m),
             child: displayIcon
-                ? ButtonIconRow(text: text)
+                ? _ButtonIconRow(text: text)
                 : Text(
                     text,
                     style: styles.Typography.buttonWhite,
@@ -33,8 +33,8 @@ class Button extends StatelessWidget {
   }
 }
 
-class ButtonIconRow extends StatelessWidget {
-  const ButtonIconRow({this.text});
+class _ButtonIconRow extends StatelessWidget {
+  const _ButtonIconRow({this.text});
 
   final String text;
 
@@ -54,5 +54,28 @@ class ButtonIconRow extends StatelessWidget {
           child: Icon(Icons.keyboard_arrow_right,
               size: styles.Measurements.l, color: styles.Colors.white))
     ]);
+  }
+}
+
+class TextButton extends StatelessWidget {
+  const TextButton({@required this.text, @required this.handleTap});
+
+  final String text;
+  final VoidCallback handleTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: handleTap,
+        child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(
+                vertical: styles.Measurements.xs,
+                horizontal: styles.Measurements.m),
+            child: Text(
+              text,
+              style: styles.Typography.buttonBlack,
+              textAlign: TextAlign.center,
+            )));
   }
 }

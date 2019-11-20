@@ -1,11 +1,13 @@
 import 'dart:ui';
-
-import 'package:app/widgets/workout_dialog_delete.dart';
+import 'package:app/widgets/buttons.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/dialog.dart';
+import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/workout_dialog_delete.dart';
 import 'package:app/widgets/workout_overview_card.dart';
 import 'package:app/widgets/workout_overview_delete.dart';
 import 'package:app/widgets/workout_overview_edit.dart';
@@ -130,6 +132,27 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     }
   }
 
+  void _handleLongPress() async {
+    await showAppDialog(
+        context: context,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              'Swipe right to edit, left to delete.',
+              style: styles.Typography.dialogText,
+              textAlign: TextAlign.center,
+            ),
+            SectionDivider(),
+            TextButton(
+                text: 'Ok',
+                handleTap: () {
+                  Navigator.of(context).pop();
+                })
+          ],
+        ));
+  }
+
   void _animateTo(double value) {
     _slideController.animateTo(value,
         duration: Duration(milliseconds: 200), curve: Curves.easeIn);
@@ -174,9 +197,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
                 onHorizontalDragStart: _handleDragStart,
                 onHorizontalDragUpdate: _handleDragUpdate,
                 onHorizontalDragEnd: _handleDragEnd,
-                onLongPress: () {
-                  print('long press');
-                },
+                onLongPress: _handleLongPress,
                 child: SlideTransition(
                     position: _slideAnimation,
                     child: WorkoutOverviewCard(
