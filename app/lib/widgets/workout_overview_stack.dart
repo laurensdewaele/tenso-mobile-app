@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:app/widgets/workout_dialog_delete.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/workout_overview_card.dart';
 import 'package:app/widgets/workout_overview_delete.dart';
@@ -59,37 +61,20 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _close();
   }
 
-  Future<void> _showDeleteDialog() async {
-    return showCupertinoDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        final name = widget.workout.name;
-        return CupertinoAlertDialog(
-          title: Text('Delete'),
-          content: Text('Are you sure you want to delete workout $name'),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            CupertinoDialogAction(
-              child: Text('Delete'),
-              isDestructiveAction: true,
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _handleDeleteTap() async {
-    await _showDeleteDialog();
-//    _sizeController
-//        .forward()
-//        .orCancel
-//        .then((_) => {widget.handleDeleteTap(widget.workout)});
+    await showDeleteDialog(
+        context: context,
+        workoutName: widget.workout.name,
+        handleCancelTap: () {
+          Navigator.of(context).pop();
+        },
+        handleDeleteTap: () {
+          Navigator.of(context).pop();
+          _sizeController
+              .forward()
+              .orCancel
+              .then((_) => {widget.handleDeleteTap(widget.workout)});
+        });
   }
 
   void _handleDragStart(DragStartDetails details) {

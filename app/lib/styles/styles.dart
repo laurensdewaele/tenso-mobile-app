@@ -66,3 +66,5 @@ const BorderRadius kAppBorderRadiusAll =
     BorderRadius.all(Radius.circular(kAppBorderRadiusValue));
 const BoxShadow kAppBoxShadow =
     BoxShadow(color: Colors.shadow, offset: Offset(0, 4), blurRadius: 4.0);
+// Barrier color for a Cupertino modal barrier.
+const Color kModalBarrierColor = Color(0x6604040F);
