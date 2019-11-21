@@ -2,32 +2,21 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 
+final Map<styles.MeasurementSizes, double> measurementsMap = {
+  styles.MeasurementSizes.xs: styles.Measurements.xs,
+  styles.MeasurementSizes.s: styles.Measurements.s,
+  styles.MeasurementSizes.m: styles.Measurements.m,
+  styles.MeasurementSizes.l: styles.Measurements.l,
+  styles.MeasurementSizes.xl: styles.Measurements.xl,
+  styles.MeasurementSizes.xxl: styles.Measurements.xxl,
+};
+
 class Divider extends StatelessWidget {
-  const Divider();
+  Divider({this.size = styles.MeasurementSizes.m})
+      : height = measurementsMap[size];
 
-  final double height = styles.Measurements.m;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(height: height);
-  }
-}
-
-class SectionDivider extends StatelessWidget {
-  const SectionDivider();
-
-  final double height = styles.Measurements.l;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(height: height);
-  }
-}
-
-class LargeDivider extends StatelessWidget {
-  const LargeDivider();
-
-  final double height = styles.Measurements.xxl;
+  final styles.MeasurementSizes size;
+  final double height;
 
   @override
   Widget build(BuildContext context) {

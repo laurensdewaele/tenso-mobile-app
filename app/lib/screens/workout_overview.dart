@@ -1,3 +1,4 @@
+import 'package:app/widgets/menu_drawer.dart';
 import 'package:app/widgets/workout_overview_stack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
@@ -37,27 +38,33 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
 
-    return Screen(
-        gradientStartColor: styles.Colors.bgGrayStart,
-        gradientStopColor: styles.Colors.bgGrayStop,
-        child: ListView.separated(
-          physics: ClampingScrollPhysics(),
-          itemCount: widget.workouts.length + 2,
-          itemBuilder: (BuildContext context, int index) {
-            if (index < widget.workouts.length) {
-              return WorkoutOverviewStack(
-                key: ObjectKey(widget.workouts[index]),
-                workout: widget.workouts[index],
-                handleDeleteTap: _handleDeleteTap,
-              );
-            } else if (index == widget.workouts.length) {
-              return Button(text: 'Add workout', handleTap: _handleAddWorkout);
-            } else {
-              return SizedBox(height: viewHeight / 2 - styles.Measurements.m);
-            }
-          },
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(),
-        ));
+    return Stack(
+      children: <Widget>[
+        Screen(
+            gradientStartColor: styles.Colors.bgGrayStart,
+            gradientStopColor: styles.Colors.bgGrayStop,
+            child: ListView.separated(
+              physics: ClampingScrollPhysics(),
+              itemCount: widget.workouts.length + 2,
+              itemBuilder: (BuildContext context, int index) {
+                if (index < widget.workouts.length) {
+                  return WorkoutOverviewStack(
+                    key: ObjectKey(widget.workouts[index]),
+                    workout: widget.workouts[index],
+                    handleDeleteTap: _handleDeleteTap,
+                  );
+                } else if (index == widget.workouts.length) {
+                  return Button(
+                      text: 'Add workout', handleTap: _handleAddWorkout);
+                } else {
+                  return SizedBox(
+                      height: viewHeight / 2 - styles.Measurements.m);
+                }
+              },
+              separatorBuilder: (BuildContext context, int index) => Divider(),
+            )),
+        MenuDrawer()
+      ],
+    );
   }
 }

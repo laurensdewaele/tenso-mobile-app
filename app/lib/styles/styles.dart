@@ -24,6 +24,8 @@ class Colors {
   static const Color difficultyBlue = const Color.fromRGBO(52, 152, 219, 1);
 }
 
+enum MeasurementSizes { xs, s, m, l, xl, xxl }
+
 class Measurements {
   Measurements._();
 

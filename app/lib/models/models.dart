@@ -93,3 +93,9 @@ class Hold {
   final int hangTime;
   final int addedWeight;
 }
+
+class MenuItem {
+  const MenuItem({this.name, this.route});
+  final String name;
+  final String route;
+}
