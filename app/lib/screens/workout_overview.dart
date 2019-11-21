@@ -1,14 +1,15 @@
-import 'package:app/widgets/menu_drawer.dart';
-import 'package:app/widgets/workout_overview_stack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
 import 'package:flutter/widgets.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/buttons.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/screen.dart';
+import 'package:app/widgets/workout_overview_stack.dart';
 
 class WorkoutOverviewScreen extends StatefulWidget {
   WorkoutOverviewScreen({@required this.workouts});
@@ -63,7 +64,12 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
               },
               separatorBuilder: (BuildContext context, int index) => Divider(),
             )),
-        MenuDrawer()
+        BottomMenuDrawer(
+          menuItems: [
+            MenuItem(name: 'settings', route: Routes.settingsScreen),
+            MenuItem(name: 'progress', route: Routes.progressScreen)
+          ],
+        )
       ],
     );
   }

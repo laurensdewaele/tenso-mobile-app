@@ -1,8 +1,7 @@
-// Order is specified according to the designs
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:flutter/material.dart';
 
 const Map<int, Color> difficultyColors = {
   0: styles.Colors.difficultyYellow,
@@ -97,5 +96,5 @@ class Hold {
 class MenuItem {
   const MenuItem({this.name, this.route});
   final String name;
-  final String route;
+  final Routes route;
 }
