@@ -5,7 +5,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/dividers.dart';
 
 const double _kRedDragIndicatorHeight = 3.0;
-const double _kRedDragIndicatorContainerHeight = styles.Measurements.m * 2;
+const double _kRedDragIndicatorContainerHeight = styles.Measurements.xl;
 const double _kRedDragIndicatorWidth =
     styles.Measurements.m + styles.Measurements.l;
 const double _kMenuItemTextHeight = styles.Measurements.m * 2;
@@ -151,7 +151,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                         child: Container(
                           decoration:
                               BoxDecoration(color: styles.Colors.translucent),
-                          height: 40,
+                          height: _kRedDragIndicatorContainerHeight,
                           width: double.infinity,
                           child: Center(
                             child: _RedDragIndicatorRectangle(),
