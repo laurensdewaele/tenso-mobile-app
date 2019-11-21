@@ -159,12 +159,19 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                         ),
                       ),
                       ...widget.menuItems.map(
-                        (menuItem) => Container(
-                          height: _kMenuItemTextHeight,
-                          child: Center(
-                            child: Text(
-                              menuItem.name,
-                              style: styles.Typography.title,
+                        (menuItem) => GestureDetector(
+                          onTap: () {
+                            // TODO: Navigate to the proper route
+                            final String route = menuItem.route.toString();
+                            print('Navigating to $route');
+                          },
+                          child: Container(
+                            height: _kMenuItemTextHeight,
+                            child: Center(
+                              child: Text(
+                                menuItem.name,
+                                style: styles.Typography.title,
+                              ),
                             ),
                           ),
                         ),
