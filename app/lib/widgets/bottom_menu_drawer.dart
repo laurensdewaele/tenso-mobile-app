@@ -5,28 +5,36 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/dividers.dart';
 
 const double _kRedDragIndicatorHeight = 3.0;
+const double _kRedDragIndicatorContainerHeight = styles.Measurements.m * 2;
 const double _kRedDragIndicatorWidth =
     styles.Measurements.m + styles.Measurements.l;
 const double _kMenuItemTextHeight = styles.Measurements.m * 2;
 const double _kDividerHeight = styles.Measurements.m;
 
 class BottomMenuDrawer extends StatefulWidget {
-  BottomMenuDrawer({Key key, this.menuItems, this.handleMenuItemTap})
-      : offset = Offset(0.0, _determineHeightOffset(menuItems.length)),
+  BottomMenuDrawer({Key key, @required this.menuItems, this.handleMenuItemTap})
+      : totalHeight = _determineTotalHeight(menuItems.length),
+        offset = Offset(0.0, _determineHeightOffset(menuItems.length)),
         super(key: key);
-
-  static double _determineHeightOffset(int menuItemsAmount) {
-    final totalHeight = menuItemsAmount * _kMenuItemTextHeight +
-        _kDividerHeight * 3 +
-        _kRedDragIndicatorHeight;
-    final heightToHide =
-        menuItemsAmount * _kMenuItemTextHeight + _kDividerHeight;
-    return heightToHide / totalHeight;
-  }
 
   final List<MenuItem> menuItems;
   final VoidCallback handleMenuItemTap;
   final Offset offset;
+  final double totalHeight;
+
+  static double _determineTotalHeight(int menuItemsAmount) {
+    final totalHeight = menuItemsAmount * _kMenuItemTextHeight +
+        _kDividerHeight +
+        _kRedDragIndicatorContainerHeight;
+    return totalHeight;
+  }
+
+  static double _determineHeightOffset(int menuItemsAmount) {
+    final double totalHeight = _determineTotalHeight(menuItemsAmount);
+    final heightToHide =
+        menuItemsAmount * _kMenuItemTextHeight + _kDividerHeight;
+    return heightToHide / totalHeight;
+  }
 
   @override
   _BottomMenuDrawerState createState() => _BottomMenuDrawerState();
@@ -35,7 +43,9 @@ class BottomMenuDrawer extends StatefulWidget {
 class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     with SingleTickerProviderStateMixin {
   AnimationController _slideController;
-  Animation _slideAnimation;
+  Animatable<Offset> _slideAnimation;
+
+  double dy = 0.0;
 
   @override
   void initState() {
@@ -44,7 +54,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     _slideAnimation = Tween<Offset>(begin: widget.offset, end: Offset.zero)
-        .animate(_slideController);
+        .chain(CurveTween(curve: Curves.easeIn));
   }
 
   @override
@@ -53,8 +63,57 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     super.dispose();
   }
 
-  void _handleTap() {
+  void _open() {
     _slideController.forward().orCancel;
+  }
+
+  void _close() {
+    _slideController.reverse().orCancel.then((_) => {dy = 0});
+  }
+
+  void _handleRedDragIndicatorTap() {
+    if (_slideController.value > 0) {
+      _close();
+    } else {
+      _open();
+    }
+  }
+
+  void _handleDragStart(DragStartDetails details) {
+    if (_slideController.isAnimating) {
+      _slideController.stop();
+    }
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    // If we're dragging upwards, thus generating a negative dy,
+    // we want the controller to open e.g. 40%, i.e. a positive value.
+    // Therefore the `* -1`.
+    dy += details.delta.dy * -1;
+    final double traversedPercentage = dy / widget.totalHeight;
+    _slideController.value = traversedPercentage;
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    final double velocity = details.primaryVelocity;
+    final double threshold = 0.5;
+
+    // Dragging upwards has a negative velocity
+    if (velocity < 0) {
+      _open();
+    }
+
+    if (velocity > 0) {
+      _close();
+    }
+
+    if (velocity == 0) {
+      if (_slideController.value >= threshold) {
+        _open();
+      } else {
+        _close();
+      }
+    }
   }
 
   @override
@@ -64,9 +123,11 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         SlideTransition(
-          position: _slideAnimation,
+          position: _slideController.drive(_slideAnimation),
           child: GestureDetector(
-            onTap: _handleTap,
+            onVerticalDragStart: _handleDragStart,
+            onVerticalDragUpdate: _handleDragUpdate,
+            onVerticalDragEnd: _handleDragEnd,
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -85,9 +146,18 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                   top: false,
                   child: Column(
                     children: <Widget>[
-                      Divider(),
-                      _RedDragIndicatorRectangle(),
-                      Divider(),
+                      GestureDetector(
+                        onTap: _handleRedDragIndicatorTap,
+                        child: Container(
+                          decoration:
+                              BoxDecoration(color: styles.Colors.translucent),
+                          height: 40,
+                          width: double.infinity,
+                          child: Center(
+                            child: _RedDragIndicatorRectangle(),
+                          ),
+                        ),
+                      ),
                       ...widget.menuItems.map(
                         (menuItem) => Container(
                           height: _kMenuItemTextHeight,

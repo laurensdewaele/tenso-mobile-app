@@ -1,9 +1,9 @@
 import 'dart:ui';
-import 'package:app/widgets/buttons.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/buttons.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/dividers.dart';
@@ -62,7 +62,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _handleEditTap() {
-    // TODO: Implement modal
+    // TODO: Implement functionality
     _close();
   }
 
@@ -156,14 +156,13 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         ));
   }
 
-  void _animateTo(double value) {
-    _slideController.animateTo(value,
+  TickerFuture _animateTo(double value) {
+    return _slideController.animateTo(value,
         duration: Duration(milliseconds: 200), curve: Curves.easeIn);
   }
 
   void _close() {
-    _animateTo(.5);
-    dx = 0;
+    _animateTo(.5).then((_) => {dx = 0});
 
     setState(() {
       _isSliderOpen = false;
