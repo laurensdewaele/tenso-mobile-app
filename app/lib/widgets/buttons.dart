@@ -68,6 +68,7 @@ class TextButton extends StatelessWidget {
     return GestureDetector(
         onTap: handleTap,
         child: Container(
+            decoration: BoxDecoration(color: styles.Colors.translucent),
             width: double.infinity,
             padding: EdgeInsets.symmetric(
                 vertical: styles.Measurements.xs,
