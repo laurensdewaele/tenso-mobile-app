@@ -41,6 +41,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         gradientStartColor: styles.Colors.bgGrayStart,
         gradientStopColor: styles.Colors.bgGrayStop,
         child: ListView.separated(
+          physics: ClampingScrollPhysics(),
           itemCount: widget.workouts.length + 2,
           itemBuilder: (BuildContext context, int index) {
             if (index < widget.workouts.length) {
