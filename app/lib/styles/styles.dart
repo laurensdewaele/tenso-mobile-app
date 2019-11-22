@@ -80,3 +80,11 @@ const BoxDecoration kDialogBlurOverlayDecoration = BoxDecoration(
   color: Colors.bgWhite,
   backgroundBlendMode: BlendMode.overlay,
 );
+
+const Map<int, Color> difficultyColors = {
+  0: Colors.difficultyYellow,
+  1: Colors.difficultyOrange,
+  2: Colors.difficultyBlue,
+  3: Colors.primary,
+  4: Colors.black
+};

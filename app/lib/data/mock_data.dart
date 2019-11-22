@@ -1,69 +1,70 @@
-import 'models.dart';
+import 'package:app/models/hold.dart';
+import 'package:app/models/workout.dart';
 
 final List<Workout> mockWorkouts = [
   Workout(
       name: 'Beginner routine',
-      difficulty: 0,
+      difficulty: '4A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 5),
   Workout(
       name: 'Beginner routine',
-      difficulty: 15,
+      difficulty: '5A',
       holds: [Hold(repetitions: 5), Hold(repetitions: 7)],
       duration: 25,
       sets: 5),
   Workout(
       name: 'Medium stuff',
-      difficulty: 20,
+      difficulty: '5B',
       holds: [Hold(repetitions: 5)],
       duration: 30,
       sets: 3),
   Workout(
       name: 'Medium stuff',
-      difficulty: 32,
+      difficulty: '6A',
       holds: [Hold(repetitions: 5)],
       duration: 30,
       sets: 3),
   Workout(
       name: 'Intermediate',
-      difficulty: 40,
+      difficulty: '7A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),
   Workout(
       name: 'Tendon snapper',
-      difficulty: 58,
+      difficulty: '8A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),
   Workout(
       name: 'Tendon snapper',
-      difficulty: 60,
+      difficulty: '9A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),
   Workout(
       name: 'Tendon snapper',
-      difficulty: 61,
+      difficulty: '9A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),
   Workout(
       name: 'Tendon snapper',
-      difficulty: 80,
+      difficulty: '9A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),
   Workout(
       name: 'Tendon snapper',
-      difficulty: 88,
+      difficulty: '4A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),
   Workout(
       name: 'Tendon snapper',
-      difficulty: 100,
+      difficulty: '4A',
       holds: [Hold(repetitions: 5)],
       duration: 25,
       sets: 4),

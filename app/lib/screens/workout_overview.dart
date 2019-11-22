@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
 import 'package:flutter/widgets.dart';
 
-import 'package:app/models/models.dart';
+import 'package:app/models/menu_item.dart';
+import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/bottom_menu_drawer.dart';

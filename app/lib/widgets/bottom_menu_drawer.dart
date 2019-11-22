@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/models.dart';
+import 'package:app/models/menu_item.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/dividers.dart';
 

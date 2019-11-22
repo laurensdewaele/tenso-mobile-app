@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/mock_data.dart';
+import 'package:app/data/mock_data.dart';
 import 'package:app/screens/new_workout.dart';
 import 'package:app/screens/workout_overview.dart';
 

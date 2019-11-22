@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card, Divider;
 
-import 'package:app/models/models.dart';
+import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/buttons.dart';
 import 'package:app/widgets/difficulty.dart';
