@@ -1,16 +1,65 @@
-class Configuration {
-  const Configuration({this.generalConfiguration, this.holdConfiguration});
 
-  final GeneralConfiguration generalConfiguration;
-  final HoldConfiguration holdConfiguration;
+
+
+
+// This probably does not belong here but should be part of the state management
+class Configuration {
+  Configuration._();
+
+  GeneralConfiguration _generalConfiguration = basicGeneralConfiguration;
+  HoldConfiguration _holdConfiguration = basicHoldConfiguration;
+
+  GeneralConfiguration get generalConfiguration => _generalConfiguration;
+  HoldConfiguration get holdConfiguration => _holdConfiguration;
+
+  void toggleGrips(bool advancedGrips) {
+    _holdConfiguration.basicGrips = !advancedGrips;
+    _holdConfiguration.advancedGrips = advancedGrips;
+  }
+
+  void toggleBoardSelection(bool board) {
+    _generalConfiguration.board = board;
+  }
+
+  void toggleAddedWeight(bool addedWeight) {
+    _holdConfiguration.addedWeight = addedWeight;
+  }
+
+  void toggleOneHanded(bool oneHanded) {
+    _holdConfiguration.oneHanded = oneHanded;
+  }
+
+  void toggleVariableRepetitions(bool variableRepetitions) {
+    _generalConfiguration.repetitions = !variableRepetitions;
+    _holdConfiguration.repetitions = variableRepetitions;
+  }
+
+  void toggleAdvancedTimers(bool advancedTimers) {
+    _generalConfiguration.hangTime = !advancedTimers;
+    _generalConfiguration.restBetweenRepetitions = !advancedTimers;
+
+    _holdConfiguration.hangTime = advancedTimers;
+    _holdConfiguration.restBetweenRepetitions = advancedTimers;
+    _holdConfiguration.restBetweenHolds = advancedTimers;
+  }
 }
 
+final GeneralConfiguration basicGeneralConfiguration = GeneralConfiguration(
+    holdAmount: true,
+    repetitions: true,
+    sets: true,
+    restBetweenRepetitions: true,
+    restBetweenSets: true,
+    hangTime: true);
+
+final HoldConfiguration basicHoldConfiguration =
+    HoldConfiguration(basicGrips: true, pockets: true);
+
 class GeneralConfiguration {
-  const GeneralConfiguration(
+  GeneralConfiguration(
       {this.holdAmount,
       this.repetitions,
       this.sets,
-      this.restBetweenHolds,
       this.restBetweenRepetitions,
       this.restBetweenSets,
       this.board,
@@ -19,49 +68,52 @@ class GeneralConfiguration {
       this.name});
 
   // BASICS
-  final bool holdAmount;
-  final bool repetitions;
-  final bool sets;
+  bool holdAmount;
+  bool repetitions;
+  bool sets;
 
   // TIMERS
-  final bool restBetweenHolds;
-  final bool restBetweenRepetitions;
-  final bool restBetweenSets;
-  final bool hangTime;
+  bool restBetweenRepetitions;
+  bool restBetweenSets;
+  bool hangTime;
 
   // BOARD
-  final bool board;
+  bool board;
 
   // DIFFICULTY
-  final bool difficulty;
+  bool difficulty;
 
   // NAME
-  final bool name;
+  bool name;
 }
 
 class HoldConfiguration {
-  const HoldConfiguration(
+  HoldConfiguration(
       {this.basicGrips,
       this.advancedGrips,
+      this.oneHanded,
       this.pockets,
       this.repetitions,
       this.hangTime,
       this.restBetweenRepetitions,
+      this.restBetweenHolds,
       this.addedWeight});
   // GRIPS
-  final bool basicGrips;
-  final bool advancedGrips;
+  bool basicGrips;
+  bool advancedGrips;
+  bool oneHanded;
 
   // POCKETS
-  final bool pockets;
+  bool pockets;
 
   // BASICS
-  final bool repetitions;
+  bool repetitions;
 
   // TIMERS
-  final bool hangTime;
-  final bool restBetweenRepetitions;
+  bool hangTime;
+  bool restBetweenRepetitions;
+  bool restBetweenHolds;
 
   // ADDED WEIGHT
-  final bool addedWeight;
+  bool addedWeight;
 }
