@@ -22,7 +22,7 @@ Future<void> showDeleteDialog(
             style: styles.Typography.dialogText,
             textAlign: TextAlign.center,
           ),
-          Divider(size: styles.MeasurementSizes.l),
+          Divider(height: styles.Measurements.l),
           Row(
             children: <Widget>[
               Expanded(

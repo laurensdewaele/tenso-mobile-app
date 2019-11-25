@@ -146,7 +146,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
               style: styles.Typography.dialogText,
               textAlign: TextAlign.center,
             ),
-            Divider(size: styles.MeasurementSizes.l),
+            Divider(height: styles.Measurements.l),
             TextButton(
                 text: 'Ok',
                 handleTap: () {

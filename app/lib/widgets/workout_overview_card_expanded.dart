@@ -21,7 +21,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Divider(size: styles.MeasurementSizes.l),
+        Divider(height: styles.Measurements.l),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[

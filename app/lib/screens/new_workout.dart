@@ -21,20 +21,27 @@ class NewWorkoutScreen extends StatelessWidget {
           children: <Widget>[
             _TopNavigation(title: 'New workout'),
             Card(
-                padding: EdgeInsets.symmetric(
-                    horizontal: styles.Measurements.m,
-                    vertical: styles.Measurements.l),
-                child: Column(
-                  children: <Widget>[
-                    Row(
+              padding: EdgeInsets.symmetric(
+                  horizontal: styles.Measurements.m,
+                  vertical: styles.Measurements.l),
+              child: Column(
+                children: <Widget>[
+                  ...workoutSections.map((WorkoutSection workoutSection) {
+                    return Column(
                       children: <Widget>[
-                        Expanded(
-                          child: Text('test'),
-                        )
+                        Text(workoutSection.title,
+                            style: styles.Typography.title),
+                        ...workoutSection.workoutElements
+                            .map((WorkoutElement workoutElement) {
+                          return Container();
+                        }),
+                        Divider(height: styles.Measurements.l)
                       ],
-                    )
-                  ],
-                ))
+                    );
+                  })
+                ],
+              ),
+            )
           ],
         ));
   }
@@ -71,7 +78,7 @@ class _TopNavigation extends StatelessWidget {
           ),
         ),
       ]),
-      Divider(size: styles.MeasurementSizes.xxl)
+      Divider(height: styles.Measurements.xxl)
     ]);
   }
 }
