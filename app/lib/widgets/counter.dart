@@ -47,7 +47,7 @@ class _CounterState extends State<Counter> {
         children: <Widget>[
           InputDescription(value: value, description: widget.description),
           Container(
-              width: styles.Measurements.xxl + styles.Measurements.m,
+              width: styles.Measurements.xxl * 2,
               height: styles.Measurements.xs + styles.Measurements.s,
               decoration: BoxDecoration(
                   borderRadius: styles.kAppBorderRadiusAll,
