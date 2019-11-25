@@ -52,7 +52,10 @@ class NewWorkoutScreen extends StatelessWidget {
                           ...workoutSection.workoutElements
                               .map((WorkoutElement workoutElement) {
                                 return [
-                                  _determineInputElement(workoutElement),
+                                  Container(
+                                      width: double.infinity,
+                                      child: _determineInputElement(
+                                          workoutElement)),
                                   Divider(
                                     height: styles.Measurements.m,
                                   )
