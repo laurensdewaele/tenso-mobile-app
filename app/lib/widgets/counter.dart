@@ -32,10 +32,12 @@ class _CounterState extends State<Counter> {
   }
 
   void _onMinusTap() {
-    setState(() {
-      value = value - 1;
-    });
-    widget.handleValueChanged(value);
+    if (value > 1) {
+      setState(() {
+        value = value - 1;
+      });
+      widget.handleValueChanged(value);
+    }
   }
 
   @override
