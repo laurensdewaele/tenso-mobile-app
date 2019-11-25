@@ -65,52 +65,54 @@ class NewWorkoutScreen extends StatelessWidget {
     return Screen(
         gradientStartColor: styles.Colors.primary,
         gradientStopColor: styles.Colors.bgRedStop,
-        child: Column(
-          children: <Widget>[
-            _TopNavigation(title: 'New workout'),
-            Card(
-              padding: EdgeInsets.symmetric(
-                  horizontal: styles.Measurements.m,
-                  vertical: styles.Measurements.l),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ...workoutSections.map((WorkoutSection workoutSection) {
-                    return Container(
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            child: Text(workoutSection.title,
-                                style: styles.Typography.title),
-                          ),
-                          Divider(height: styles.Measurements.l),
-                          ...workoutSection.workoutElements
-                              .map((WorkoutElement workoutElement) {
-                                return [
-                                  Container(
-                                      width: double.infinity,
-                                      child: _determineInputElement(
-                                          workoutElement)),
-                                  Divider(
-                                    height: styles.Measurements.m,
-                                  )
-                                ];
-                              })
-                              .expand((inputElementPlusDivider) =>
-                                  inputElementPlusDivider)
-                              .toList(),
-                          Divider(height: styles.Measurements.l),
-                        ],
-                      ),
-                    );
-                  })
-                ],
-              ),
-            )
-          ],
-        ));
+        child: ListView(children: [
+          Column(
+            children: <Widget>[
+              _TopNavigation(title: 'New workout'),
+              Card(
+                padding: EdgeInsets.symmetric(
+                    horizontal: styles.Measurements.m,
+                    vertical: styles.Measurements.l),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ...workoutSections.map((WorkoutSection workoutSection) {
+                      return Container(
+                        width: double.infinity,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              width: double.infinity,
+                              child: Text(workoutSection.title,
+                                  style: styles.Typography.title),
+                            ),
+                            Divider(height: styles.Measurements.l),
+                            ...workoutSection.workoutElements
+                                .map((WorkoutElement workoutElement) {
+                                  return [
+                                    Container(
+                                        width: double.infinity,
+                                        child: _determineInputElement(
+                                            workoutElement)),
+                                    Divider(
+                                      height: styles.Measurements.m,
+                                    )
+                                  ];
+                                })
+                                .expand((inputElementPlusDivider) =>
+                                    inputElementPlusDivider)
+                                .toList(),
+                            Divider(height: styles.Measurements.l),
+                          ],
+                        ),
+                      );
+                    })
+                  ],
+                ),
+              )
+            ],
+          )
+        ]));
   }
 }
 

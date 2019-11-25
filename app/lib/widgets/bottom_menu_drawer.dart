@@ -53,7 +53,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
 
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    _slideAnimation = Tween<Offset>(begin: widget.offset, end: Offset.zero)
+    _slideAnimation = Tween<Offset>(begin: Offset.zero, end: widget.offset)
         .chain(CurveTween(curve: Curves.easeIn));
   }
 
@@ -64,7 +64,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 
   void _open() {
-    _slideController.forward().orCancel;
+    _slideController.forward().orCancel.then((_) => {dy = 0});
   }
 
   void _close() {
@@ -86,29 +86,31 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-    // If we're dragging upwards, thus generating a negative dy,
-    // we want the controller to open e.g. 40%, i.e. a positive value.
-    // Therefore the `* -1`.
-    dy += details.delta.dy * -1;
-    final double traversedPercentage = dy / widget.totalHeight;
-    _slideController.value = traversedPercentage;
+    dy += details.delta.dy;
+    final double traversedPercentage =
+        dy / (widget.totalHeight - _kRedDragIndicatorContainerHeight);
+
+    if (traversedPercentage <= 0) {
+      _slideController.value = 1 - traversedPercentage.abs();
+    } else {
+      _slideController.value = traversedPercentage;
+    }
   }
 
   void _handleDragEnd(DragEndDetails details) {
     final double velocity = details.primaryVelocity;
-    final double threshold = 0.5;
 
-    // Dragging upwards has a negative velocity
-    if (velocity < 0) {
+    if (velocity > 0) {
       _open();
     }
 
-    if (velocity > 0) {
+    // Dragging upwards has a negative velocity
+    if (velocity < 0) {
       _close();
     }
 
     if (velocity == 0) {
-      if (_slideController.value >= threshold) {
+      if (_slideController.value >= 0.5) {
         _open();
       } else {
         _close();
