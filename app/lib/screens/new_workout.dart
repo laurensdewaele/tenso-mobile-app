@@ -101,6 +101,7 @@ class NewWorkoutScreen extends StatelessWidget {
                               .expand((inputElementPlusDivider) =>
                                   inputElementPlusDivider)
                               .toList(),
+                          Divider(height: styles.Measurements.l),
                         ],
                       ),
                     );
