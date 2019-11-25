@@ -17,24 +17,24 @@ class Routes {
 
 final List<WorkoutSection> testSections = [
   WorkoutSection(title: 'Basics', workoutElements: [
-//    WorkoutElement(
-//        generalWorkoutConfigurationProperty:
-//        GeneralWorkoutConfigurationProperties.holdAmount,
-//        workoutInputType: WorkoutInputTypes.counter,
-//        description: 'different holds',
-//        initialIntValue: 5),
-//    WorkoutElement(
-//        generalWorkoutConfigurationProperty:
-//        GeneralWorkoutConfigurationProperties.repetitions,
-//        workoutInputType: WorkoutInputTypes.counter,
-//        description: 'repetitions per hold',
-//        initialIntValue: 5),
-//    WorkoutElement(
-//        generalWorkoutConfigurationProperty:
-//        GeneralWorkoutConfigurationProperties.sets,
-//        workoutInputType: WorkoutInputTypes.counter,
-//        description: 'sets',
-//        initialIntValue: 3),
+    WorkoutElement(
+        generalWorkoutConfigurationProperty:
+            GeneralWorkoutConfigurationProperties.holdAmount,
+        workoutInputType: WorkoutInputTypes.counter,
+        description: 'different holds',
+        initialIntValue: 5),
+    WorkoutElement(
+        generalWorkoutConfigurationProperty:
+            GeneralWorkoutConfigurationProperties.repetitions,
+        workoutInputType: WorkoutInputTypes.counter,
+        description: 'repetitions per hold',
+        initialIntValue: 5),
+    WorkoutElement(
+        generalWorkoutConfigurationProperty:
+            GeneralWorkoutConfigurationProperties.sets,
+        workoutInputType: WorkoutInputTypes.counter,
+        description: 'sets',
+        initialIntValue: 3),
   ]),
   WorkoutSection(title: 'Timers', workoutElements: [
 //    WorkoutElement(

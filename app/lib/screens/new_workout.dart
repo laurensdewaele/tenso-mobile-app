@@ -6,11 +6,22 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/screen.dart';
+import 'package:flutter/cupertino.dart' as prefix0;
 
 class NewWorkoutScreen extends StatelessWidget {
   NewWorkoutScreen({this.workoutSections});
 
   final List<WorkoutSection> workoutSections;
+
+  Widget _determineInputElement(WorkoutElement workoutElement) {
+    switch (workoutElement.workoutInputType) {
+      case WorkoutInputTypes.counter:
+        return Text('test');
+        break;
+      default:
+        return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +36,33 @@ class NewWorkoutScreen extends StatelessWidget {
                   horizontal: styles.Measurements.m,
                   vertical: styles.Measurements.l),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ...workoutSections.map((WorkoutSection workoutSection) {
-                    return Column(
-                      children: <Widget>[
-                        Text(workoutSection.title,
-                            style: styles.Typography.title),
-                        ...workoutSection.workoutElements
-                            .map((WorkoutElement workoutElement) {
-                          return Container();
-                        }),
-                        Divider(height: styles.Measurements.l)
-                      ],
+                    return Container(
+                      width: double.infinity,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            child: Text(workoutSection.title,
+                                style: styles.Typography.title),
+                          ),
+                          Divider(height: styles.Measurements.l),
+                          ...workoutSection.workoutElements
+                              .map((WorkoutElement workoutElement) {
+                                return [
+                                  _determineInputElement(workoutElement),
+                                  Divider(
+                                    height: styles.Measurements.m,
+                                  )
+                                ];
+                              })
+                              .expand((inputElementPlusDivider) =>
+                                  inputElementPlusDivider)
+                              .toList(),
+                        ],
+                      ),
                     );
                   })
                 ],
