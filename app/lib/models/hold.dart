@@ -6,8 +6,8 @@ class Hold {
       // TODO: Mark all as required
       {this.grip,
       this.twoHanded,
-      this.leftHanded,
-      this.rightHanded,
+      this.oneHandLeft,
+      this.oneHandRight,
       this.pockets,
       this.repetitions,
       this.restBetweenRepetitions,
@@ -16,9 +16,9 @@ class Hold {
 
   final String grip;
   final bool twoHanded;
-  final bool leftHanded;
-  final bool rightHanded;
-  final List<String> pockets;
+  final bool oneHandLeft;
+  final bool oneHandRight;
+  final List<int> pockets;
   final int repetitions;
   final int restBetweenRepetitions;
   final int hangTime;

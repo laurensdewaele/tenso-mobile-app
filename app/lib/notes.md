@@ -16,6 +16,8 @@ What I eventually want a 'NewWorkoutRoute' to receive:
 
 
 In my Widget I would like to have something simple like this:
+
+```Dart
     void _handleValueChange(String field, int Value) {
         newWorkout[field] = value;
     }
@@ -26,8 +28,8 @@ In my Widget I would like to have something simple like this:
             return Slider(initialValue: value, description: description, handleValueChange: _handleValueChange)
         }
     }
-
-```Dart
+    
+    build
     return ...config.map(section => {
       return Section(title: section.title, 
                      children: section.elements.map(element => {
@@ -73,6 +75,7 @@ class Element {
   // Can this be strongly typed??
   initialValue value;
   String description;
+  WorkoutFields workoutField;
 }
 
 class SliderElement extends Element {
