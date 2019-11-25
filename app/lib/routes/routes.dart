@@ -62,7 +62,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
     Routes.home: (context) => NewWorkoutScreen(workoutSections: testSections),
     // Replaced due to work on NewWorkoutScreen
-    // Routes.home: (context) => WorkoutOverviewScreen(workouts: mockWorkouts),
+//    Routes.home: (context) => WorkoutOverviewScreen(workouts: mockWorkouts),
     Routes.newWorkoutScreen: (context) => NewWorkoutScreen(),
     Routes.workoutOverviewScreen: (context) =>
         WorkoutOverviewScreen(workouts: mockWorkouts),

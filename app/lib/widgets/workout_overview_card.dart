@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' hide Card, Divider;
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/difficulty.dart';
+import 'package:app/widgets/square.dart';
 import 'package:app/widgets/workout_overview_card_expanded.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
@@ -118,8 +118,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                 ]),
                 Positioned(
                     right: _horizontalDifficultyAlignment.value,
-                    child: Difficulty(
-                      difficulty: widget.workout.difficulty.toString(),
+                    child: Square(
+                      value: widget.workout.difficulty.toString(),
                       difficultyColor: widget.workout.difficultyColor,
                       width: styles.Measurements.xxl,
                       height: styles.Measurements.xxl,

@@ -3,20 +3,41 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:app/models/workout_ui_configuration.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/counter.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/screen.dart';
-import 'package:flutter/cupertino.dart' as prefix0;
 
 class NewWorkoutScreen extends StatelessWidget {
   NewWorkoutScreen({this.workoutSections});
 
   final List<WorkoutSection> workoutSections;
 
+  void _handleCounterValueChanged(
+      int value,
+      GeneralWorkoutConfigurationProperties generalWorkoutConfigurationProperty,
+      HoldWorkoutConfigurationProperties holdWorkoutConfigurationProperty,
+      ExtraWorkoutConfigurationProperties extraWorkoutConfigurationProperty) {
+    print(value);
+    print(generalWorkoutConfigurationProperty);
+    print(holdWorkoutConfigurationProperty);
+    print(extraWorkoutConfigurationProperty);
+  }
+
   Widget _determineInputElement(WorkoutElement workoutElement) {
     switch (workoutElement.workoutInputType) {
       case WorkoutInputTypes.counter:
-        return Text('test');
+        return Counter(
+          initialIntValue: workoutElement.initialIntValue,
+          description: workoutElement.description,
+          handleValueChanged: (int value) => {
+            _handleCounterValueChanged(
+                value,
+                workoutElement.generalWorkoutConfigurationProperty,
+                workoutElement.holdWorkoutConfigurationProperty,
+                workoutElement.extraWorkoutConfigurationProperty)
+          },
+        );
         break;
       default:
         return null;
