@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/icon.dart';
-import 'package:app/widgets/square.dart';
+import 'package:app/widgets/input_description.dart';
 
 class Counter extends StatefulWidget {
   Counter({this.initialIntValue, this.description, this.handleValueChanged});
@@ -45,19 +45,7 @@ class _CounterState extends State<Counter> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Square(
-                height: styles.Measurements.xs + styles.Measurements.s,
-                width: styles.Measurements.xs + styles.Measurements.s,
-                value: value.toString(),
-                difficultyColor: styles.Colors.primary,
-                isSmall: true,
-              ),
-              SizedBox(width: styles.Measurements.s),
-              Text(widget.description, style: styles.Typography.text)
-            ],
-          ),
+          InputDescription(value: value, description: widget.description),
           Container(
               width: styles.Measurements.xxl + styles.Measurements.m,
               height: styles.Measurements.xs + styles.Measurements.s,

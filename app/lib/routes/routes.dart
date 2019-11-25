@@ -37,24 +37,30 @@ final List<WorkoutSection> testSections = [
         initialIntValue: 3),
   ]),
   WorkoutSection(title: 'Timers', workoutElements: [
-//    WorkoutElement(
-////        generalWorkoutConfigurationProperty:
-////        GeneralWorkoutConfigurationProperties.restBetweenRepetitions,
-////        workoutInputType: WorkoutInputTypes.slider,
-////        description: 'rest seconds between repetitions',
-////        initialIntValue: 30),
-////    WorkoutElement(
-////        generalWorkoutConfigurationProperty:
-////        GeneralWorkoutConfigurationProperties.restBetweenSets,
-////        workoutInputType: WorkoutInputTypes.slider,
-////        description: 'rest seconds between sets',
-////        initialIntValue: 120),
-////    WorkoutElement(
-////        generalWorkoutConfigurationProperty:
-////        GeneralWorkoutConfigurationProperties.hangTime,
-////        workoutInputType: WorkoutInputTypes.slider,
-////        description: 'hang time seconds',
-////        initialIntValue: 7),
+    WorkoutElement(
+        generalWorkoutConfigurationProperty:
+            GeneralWorkoutConfigurationProperties.restBetweenRepetitions,
+        workoutInputType: WorkoutInputTypes.slider,
+        description: 'rest seconds between repetitions',
+        initialIntValue: 30,
+        minIntValue: 1,
+        maxIntValue: 300),
+    WorkoutElement(
+        generalWorkoutConfigurationProperty:
+            GeneralWorkoutConfigurationProperties.restBetweenSets,
+        workoutInputType: WorkoutInputTypes.slider,
+        description: 'rest seconds between sets',
+        initialIntValue: 120,
+        minIntValue: 1,
+        maxIntValue: 600),
+    WorkoutElement(
+        generalWorkoutConfigurationProperty:
+            GeneralWorkoutConfigurationProperties.hangTime,
+        workoutInputType: WorkoutInputTypes.slider,
+        description: 'hang time seconds',
+        initialIntValue: 7,
+        minIntValue: 1,
+        maxIntValue: 180),
   ])
 ];
 

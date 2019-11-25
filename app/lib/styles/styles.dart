@@ -42,9 +42,9 @@ class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
   static TextStyle subtitle =
       TextStyle(fontFamily: 'Staatliches', fontSize: 16, color: Colors.gray);
-  static TextStyle difficultySquare =
+  static TextStyle difficulty =
       TextStyle(fontFamily: 'Staatliches', fontSize: 26, color: Colors.white);
-  static TextStyle smallSquare =
+  static TextStyle inputDescriptionSquare =
       TextStyle(fontFamily: 'Staatliches', fontSize: 18, color: Colors.white);
   static TextStyle topNavigationTitle =
       TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.white);

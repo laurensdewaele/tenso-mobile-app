@@ -42,6 +42,8 @@ class WorkoutElement {
       this.extraWorkoutConfigurationProperty,
       this.workoutInputType,
       this.initialIntValue,
+      this.minIntValue,
+      this.maxIntValue,
       this.initialStringValue,
       this.initialGripPickerValue,
       this.initialHoldPickerValue,
@@ -49,6 +51,8 @@ class WorkoutElement {
       this.handleValueChanged});
 
   final WorkoutInputTypes workoutInputType;
+  final int minIntValue;
+  final int maxIntValue;
   final int initialIntValue;
   final String initialStringValue;
   final Grips initialGripPickerValue;

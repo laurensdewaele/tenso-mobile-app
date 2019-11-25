@@ -1,3 +1,4 @@
+import 'package:app/widgets/slider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/workout_ui_configuration.dart';
@@ -13,7 +14,7 @@ class NewWorkoutScreen extends StatelessWidget {
 
   final List<WorkoutSection> workoutSections;
 
-  void _handleCounterValueChanged(
+  void _handleIntValueChanged(
       int value,
       GeneralWorkoutConfigurationProperties generalWorkoutConfigurationProperty,
       HoldWorkoutConfigurationProperties holdWorkoutConfigurationProperty,
@@ -31,7 +32,22 @@ class NewWorkoutScreen extends StatelessWidget {
           initialIntValue: workoutElement.initialIntValue,
           description: workoutElement.description,
           handleValueChanged: (int value) => {
-            _handleCounterValueChanged(
+            _handleIntValueChanged(
+                value,
+                workoutElement.generalWorkoutConfigurationProperty,
+                workoutElement.holdWorkoutConfigurationProperty,
+                workoutElement.extraWorkoutConfigurationProperty)
+          },
+        );
+        break;
+      case WorkoutInputTypes.slider:
+        return Slider(
+          minIntValue: workoutElement.minIntValue,
+          maxIntValue: workoutElement.maxIntValue,
+          initialIntValue: workoutElement.initialIntValue,
+          description: workoutElement.description,
+          handleValueChanged: (int value) => {
+            _handleIntValueChanged(
                 value,
                 workoutElement.generalWorkoutConfigurationProperty,
                 workoutElement.holdWorkoutConfigurationProperty,

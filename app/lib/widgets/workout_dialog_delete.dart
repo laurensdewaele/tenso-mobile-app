@@ -27,8 +27,8 @@ Future<void> showDeleteDialog(
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: TextButton(
-                      text: 'Cancel', handleTap: handleCancelTap)),
+                  child:
+                      TextButton(text: 'Cancel', handleTap: handleCancelTap)),
               Expanded(
                   flex: 1,
                   child: Button(

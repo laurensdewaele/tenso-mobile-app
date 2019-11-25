@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' hide Card, Divider;
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/buttons.dart';
-import 'package:app/widgets/square.dart';
+import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/dividers.dart';
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
@@ -80,7 +80,7 @@ class _WorkoutInfo extends StatelessWidget {
       Container(
           margin: EdgeInsets.only(top: styles.Measurements.xs),
           child: difficultyColor != null
-              ? Square(
+              ? Difficulty(
                   value: value,
                   difficultyColor: difficultyColor,
                   width: styles.Measurements.xl,

@@ -2,19 +2,18 @@ import 'package:flutter/widgets.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 
-class Square extends StatelessWidget {
-  const Square(
-      {@required this.value,
-      @required this.difficultyColor,
-      @required this.width,
-      @required this.height,
-      this.isSmall = false});
+class Difficulty extends StatelessWidget {
+  const Difficulty({
+    @required this.value,
+    @required this.difficultyColor,
+    @required this.width,
+    @required this.height,
+  });
 
   final String value;
   final Color difficultyColor;
   final double width;
   final double height;
-  final bool isSmall;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +24,7 @@ class Square extends StatelessWidget {
           color: difficultyColor),
       height: height,
       width: width,
-      child: Center(
-          child: Text(value,
-              style: isSmall
-                  ? styles.Typography.smallSquare
-                  : styles.Typography.difficultySquare)),
+      child: Center(child: Text(value, style: styles.Typography.difficulty)),
     );
   }
 }
