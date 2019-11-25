@@ -57,11 +57,11 @@ class _CounterState extends State<Counter> {
             ],
           ),
           Container(
-              width: 70,
-              height: 30,
+              width: styles.Measurements.xxl + styles.Measurements.m,
+              height: styles.Measurements.xs + styles.Measurements.s,
               decoration: BoxDecoration(
                   borderRadius: styles.kAppBorderRadiusAll,
-                  border: Border.all(color: styles.Colors.primary)),
+                  color: styles.Colors.primary),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -72,14 +72,14 @@ class _CounterState extends State<Counter> {
                       child: Center(
                         child: Icon(
                             iconData: CupertinoIcons.add,
-                            color: styles.Colors.primary),
+                            color: styles.Colors.white),
                       ),
                     ),
                   )),
                   Container(
                       height: double.infinity,
                       width: 1,
-                      color: styles.Colors.primary),
+                      color: styles.Colors.white),
                   Expanded(
                       child: GestureDetector(
                     onTap: _onMinusTap,
@@ -90,7 +90,7 @@ class _CounterState extends State<Counter> {
                             iconData: IconData(0xf462,
                                 fontFamily: 'CupertinoIcons',
                                 fontPackage: 'cupertino_icons'),
-                            color: styles.Colors.primary),
+                            color: styles.Colors.white),
                       ),
                     ),
                   )),
