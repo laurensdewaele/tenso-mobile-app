@@ -40,18 +40,14 @@ class Measurements {
 class Typography {
   Typography._();
 
-  static TextStyle title = TextStyle(
-    fontFamily: 'Staatliches',
-    fontSize: 28,
-    color: Colors.black,
-  );
+  static TextStyle title =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
   static TextStyle subtitle =
       TextStyle(fontFamily: 'Staatliches', fontSize: 16, color: Colors.gray);
-  static TextStyle difficulty = TextStyle(
-    fontFamily: 'Staatliches',
-    fontSize: 26,
-    color: Colors.white,
-  );
+  static TextStyle difficulty =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 26, color: Colors.white);
+  static TextStyle topNavigationTitle =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.white);
   static TextStyle buttonWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
   static TextStyle buttonGray =

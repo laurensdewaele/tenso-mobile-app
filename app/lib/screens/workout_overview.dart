@@ -22,7 +22,7 @@ class WorkoutOverviewScreen extends StatefulWidget {
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleAddWorkout() {
-    // TODO: Add workout.
+    Navigator.of(context).pushNamed(Routes.newWorkoutScreen);
   }
 
   void _handleDeleteTap(Workout workout) {

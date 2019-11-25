@@ -4,28 +4,23 @@ import 'package:app/data/mock_data.dart';
 import 'package:app/screens/new_workout.dart';
 import 'package:app/screens/workout_overview.dart';
 
-enum Routes {
-  home,
-  workoutScreen,
-  workoutOverviewScreen,
-  settingsScreen,
-  progressScreen
-}
+class Routes {
+  Routes._();
 
-const Map<Routes, String> _routes = {
-  Routes.home: '/',
-  Routes.workoutScreen: '/workoutScreen',
-  Routes.workoutOverviewScreen: '/workoutOverviewScreen',
-  Routes.settingsScreen: '/settingsScreen',
-  Routes.progressScreen: '/progressScreen'
-};
+  static const String home = '/';
+  static const String newWorkoutScreen = '/newWorkoutScreen';
+  static const String workoutOverviewScreen = '/workoutOverviewScreen';
+  static const String settingsScreen = '/settingsScreen';
+  static const String progressScreen = '/progressScreen';
+}
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
-    _routes[Routes.home]: (context) =>
-        WorkoutOverviewScreen(workouts: mockWorkouts),
-    _routes[Routes.workoutScreen]: (context) => WorkoutScreen(),
-    _routes[Routes.workoutOverviewScreen]: (context) =>
+    Routes.home: (context) => NewWorkoutScreen(),
+    // Replaced due to work on NewWorkoutScreen
+    // Routes.home: (context) => WorkoutOverviewScreen(workouts: mockWorkouts),
+    Routes.newWorkoutScreen: (context) => NewWorkoutScreen(),
+    Routes.workoutOverviewScreen: (context) =>
         WorkoutOverviewScreen(workouts: mockWorkouts),
   };
 }

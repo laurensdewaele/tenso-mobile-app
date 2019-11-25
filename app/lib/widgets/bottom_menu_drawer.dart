@@ -162,8 +162,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                         (menuItem) => GestureDetector(
                           onTap: () {
                             // TODO: Navigate to the proper route
-                            final String route = menuItem.route.toString();
-                            print('Navigating to $route');
+                            print('Navigating to $menuItem.route');
                           },
                           child: Container(
                             height: _kMenuItemTextHeight,
