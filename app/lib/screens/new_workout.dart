@@ -65,7 +65,7 @@ class NewWorkoutScreen extends StatelessWidget {
     return Screen(
         gradientStartColor: styles.Colors.primary,
         gradientStopColor: styles.Colors.bgRedStop,
-        child: ListView(children: [
+        child: ListView(physics: ClampingScrollPhysics(), children: [
           Column(
             children: <Widget>[
               _TopNavigation(title: 'New workout'),
@@ -141,9 +141,12 @@ class _TopNavigation extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () => _handleTap(context),
-          child: Icon(
-            iconData: CupertinoIcons.back,
-            color: styles.Colors.white,
+          child: Container(
+            width: styles.Measurements.xxl,
+            child: Icon(
+              iconData: CupertinoIcons.back,
+              color: styles.Colors.white,
+            ),
           ),
         ),
       ]),

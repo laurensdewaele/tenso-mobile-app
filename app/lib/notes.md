@@ -7,6 +7,17 @@ One thing for the next project, is that when designing, you should really factor
 
 - Check out the Lato bold fonts for the modal components.
 
+## Smaller width screens
+
+Hmm did not account for iphone 5s's and the like.
+Need to fix it.
+
+## Implement a feedback button
+
+
+## Bottom menu slider
+The percentage when onDragEnd does not really seem correct.
+
 ## New workout
 
 What I eventually want a 'NewWorkoutRoute' to receive:
