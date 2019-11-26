@@ -8,6 +8,7 @@ import 'package:app/widgets/counter.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/screen.dart';
+import 'package:flutter/cupertino.dart' as prefix0;
 
 class NewWorkoutScreen extends StatelessWidget {
   NewWorkoutScreen({this.workoutSections});
@@ -92,8 +93,26 @@ class NewWorkoutScreen extends StatelessWidget {
                                   return [
                                     Container(
                                         width: double.infinity,
-                                        child: _determineInputElement(
-                                            workoutElement)),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              width: 40,
+                                              child: CupertinoTextField(
+                                                style: styles.Typography
+                                                    .inputDescriptionSquare,
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        styles.Colors.primary,
+                                                    borderRadius: styles
+                                                        .kAppBorderRadiusAll),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                            ),
+                                            Text(workoutElement.description,
+                                                style: styles.Typography.text)
+                                          ],
+                                        )),
                                     Divider(
                                       height: styles.Measurements.m,
                                     )
