@@ -7,6 +7,10 @@ One thing for the next project, is that when designing, you should really factor
 
 - Check out the Lato bold fonts for the modal components.
 
+## Top navigation
+
+Top navigation on new workout should be fixed
+
 ## Smaller width screens
 
 Review the app on smaller and larger screens.
