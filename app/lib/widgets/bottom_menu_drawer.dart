@@ -10,17 +10,18 @@ const double _kRedDragIndicatorWidth =
     styles.Measurements.m + styles.Measurements.l;
 const double _kMenuItemTextHeight = styles.Measurements.m * 2;
 const double _kDividerHeight = styles.Measurements.m;
+enum SliderPositions { begin, end }
 
 class BottomMenuDrawer extends StatefulWidget {
   BottomMenuDrawer({Key key, @required this.menuItems, this.handleMenuItemTap})
-      : totalHeight = _determineTotalHeight(menuItems.length),
-        offset = Offset(0.0, _determineHeightOffset(menuItems.length)),
+      : heightToHide = _determineHeightToHide(menuItems.length),
+        offsetHeight = _determineHeightOffset(menuItems.length),
         super(key: key);
 
   final List<MenuItem> menuItems;
   final VoidCallback handleMenuItemTap;
-  final Offset offset;
-  final double totalHeight;
+  final double heightToHide;
+  final double offsetHeight;
 
   static double _determineTotalHeight(int menuItemsAmount) {
     final totalHeight = menuItemsAmount * _kMenuItemTextHeight +
@@ -29,10 +30,13 @@ class BottomMenuDrawer extends StatefulWidget {
     return totalHeight;
   }
 
+  static double _determineHeightToHide(int menuItemsAmount) {
+    return menuItemsAmount * _kMenuItemTextHeight + _kDividerHeight;
+  }
+
   static double _determineHeightOffset(int menuItemsAmount) {
     final double totalHeight = _determineTotalHeight(menuItemsAmount);
-    final heightToHide =
-        menuItemsAmount * _kMenuItemTextHeight + _kDividerHeight;
+    final heightToHide = _determineHeightToHide(menuItemsAmount);
     return heightToHide / totalHeight;
   }
 
@@ -45,7 +49,8 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   AnimationController _slideController;
   Animatable<Offset> _slideAnimation;
 
-  double dy = 0.0;
+  double _dy = 0.0;
+  SliderPositions _position = SliderPositions.begin;
 
   @override
   void initState() {
@@ -53,8 +58,9 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
 
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    _slideAnimation = Tween<Offset>(begin: Offset.zero, end: widget.offset)
-        .chain(CurveTween(curve: Curves.easeIn));
+    _slideAnimation =
+        Tween<Offset>(begin: Offset.zero, end: Offset(0.0, widget.offsetHeight))
+            .chain(CurveTween(curve: Curves.easeIn));
   }
 
   @override
@@ -64,11 +70,21 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 
   void _open() {
-    _slideController.forward().orCancel.then((_) => {dy = 0});
+    _slideController.forward().orCancel.then((_) {
+      _dy = 0;
+      setState(() {
+        _position = SliderPositions.end;
+      });
+    });
   }
 
   void _close() {
-    _slideController.reverse().orCancel.then((_) => {dy = 0});
+    _slideController.reverse().orCancel.then((_) {
+      _dy = 0;
+      setState(() {
+        _position = SliderPositions.begin;
+      });
+    });
   }
 
   void _handleRedDragIndicatorTap() {
@@ -86,14 +102,15 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-    dy += details.delta.dy;
-    final double traversedPercentage =
-        dy / (widget.totalHeight - _kRedDragIndicatorContainerHeight);
+    _dy += details.delta.dy;
+    final double traversedPercentage = (_dy / (widget.heightToHide)).abs();
 
-    if (traversedPercentage <= 0) {
-      _slideController.value = 1 - traversedPercentage.abs();
-    } else {
+    if (_position == SliderPositions.begin && _dy > 0) {
       _slideController.value = traversedPercentage;
+    }
+
+    if (_position == SliderPositions.end && _dy < 0) {
+      _slideController.value = 1 - traversedPercentage;
     }
   }
 
