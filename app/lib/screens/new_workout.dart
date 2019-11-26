@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/workout_ui_configuration.dart';
@@ -6,24 +8,42 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/counter.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/integer_input.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/slider.dart';
 
-class NewWorkoutScreen extends StatelessWidget {
+class NewWorkoutScreen extends StatefulWidget {
   NewWorkoutScreen({this.workoutSections});
-
   final List<WorkoutSection> workoutSections;
+
+  @override
+  _NewWorkoutScreenState createState() => _NewWorkoutScreenState();
+}
+
+class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
+  final StreamController<bool> _shouldLoseFocusController =
+      StreamController<bool>.broadcast();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _shouldLoseFocusController.close();
+  }
+
+  void _onScreenTap() {
+    _shouldLoseFocusController.sink.add(true);
+  }
 
   void _handleIntValueChanged(
       int value,
       GeneralWorkoutConfigurationProperties generalWorkoutConfigurationProperty,
       HoldWorkoutConfigurationProperties holdWorkoutConfigurationProperty,
-      ExtraWorkoutConfigurationProperties extraWorkoutConfigurationProperty) {
-    print(value);
-    print(generalWorkoutConfigurationProperty);
-    print(holdWorkoutConfigurationProperty);
-    print(extraWorkoutConfigurationProperty);
-  }
+      ExtraWorkoutConfigurationProperties extraWorkoutConfigurationProperty) {}
 
   Widget _determineInputElement(WorkoutElement workoutElement) {
     switch (workoutElement.workoutInputType) {
@@ -62,89 +82,75 @@ class NewWorkoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-        gradientStartColor: styles.Colors.primary,
-        gradientStopColor: styles.Colors.bgRedStop,
-        child: ListView(physics: ClampingScrollPhysics(), children: [
-          Column(
-            children: <Widget>[
-              _TopNavigation(title: 'New workout'),
-              Card(
-                padding: EdgeInsets.symmetric(
-                    horizontal: styles.Measurements.m,
-                    vertical: styles.Measurements.l),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ...workoutSections.map((WorkoutSection workoutSection) {
-                      return Container(
-                        width: double.infinity,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              width: double.infinity,
-                              child: Text(workoutSection.title,
-                                  style: styles.Typography.title),
-                            ),
-                            Divider(height: styles.Measurements.l),
-                            ...workoutSection.workoutElements
-                                .map((WorkoutElement workoutElement) {
-                                  return [
-                                    Container(
-                                        width: double.infinity,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Container(
-                                              width: styles.Measurements.xl,
-                                              child: CupertinoTextField(
-                                                onTap: () => print('clearing'),
-                                                textAlign: TextAlign.center,
-                                                controller:
-                                                    TextEditingController(
-                                                        text: workoutElement
-                                                            .initialIntValue
-                                                            .toString()),
-                                                cursorColor:
-                                                    styles.Colors.white,
-                                                maxLength: 3,
-                                                autocorrect: false,
-                                                style: styles.Typography
-                                                    .inputDescriptionSquare,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        styles.Colors.primary,
-                                                    borderRadius: styles
-                                                        .kAppBorderRadiusAll),
-                                                keyboardType:
-                                                    TextInputType.number,
+    return GestureDetector(
+      onTap: _onScreenTap,
+      child: Screen(
+          gradientStartColor: styles.Colors.primary,
+          gradientStopColor: styles.Colors.bgRedStop,
+          child: ListView(physics: ClampingScrollPhysics(), children: [
+            Column(
+              children: <Widget>[
+                _TopNavigation(title: 'New workout'),
+                Card(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: styles.Measurements.m,
+                      vertical: styles.Measurements.l),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ...widget.workoutSections
+                          .map((WorkoutSection workoutSection) {
+                        return Container(
+                          width: double.infinity,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                width: double.infinity,
+                                child: Text(workoutSection.title,
+                                    style: styles.Typography.title),
+                              ),
+                              Divider(height: styles.Measurements.l),
+                              ...workoutSection.workoutElements
+                                  .map((WorkoutElement workoutElement) {
+                                    return [
+                                      Container(
+                                          width: double.infinity,
+                                          child: Row(
+                                            children: <Widget>[
+                                              IntegerInput(
+                                                  initialIntValue:
+                                                      workoutElement
+                                                          .initialIntValue,
+                                                  shouldLoseFocusStream:
+                                                      _shouldLoseFocusController
+                                                          .stream),
+                                              SizedBox(
+                                                width: styles.Measurements.s,
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: styles.Measurements.s,
-                                            ),
-                                            Text(workoutElement.description,
-                                                style: styles.Typography.text)
-                                          ],
-                                        )),
-                                    Divider(
-                                      height: styles.Measurements.m,
-                                    )
-                                  ];
-                                })
-                                .expand((inputElementPlusDivider) =>
-                                    inputElementPlusDivider)
-                                .toList(),
-                            Divider(height: styles.Measurements.l),
-                          ],
-                        ),
-                      );
-                    })
-                  ],
-                ),
-              )
-            ],
-          )
-        ]));
+                                              Text(workoutElement.description,
+                                                  style: styles.Typography.text)
+                                            ],
+                                          )),
+                                      Divider(
+                                        height: styles.Measurements.m,
+                                      )
+                                    ];
+                                  })
+                                  .expand((inputElementPlusDivider) =>
+                                      inputElementPlusDivider)
+                                  .toList(),
+                              Divider(height: styles.Measurements.l),
+                            ],
+                          ),
+                        );
+                      })
+                    ],
+                  ),
+                )
+              ],
+            )
+          ])),
+    );
   }
 }
 

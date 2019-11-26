@@ -35,7 +35,6 @@ class _SliderState extends State<Slider> {
     setState(() {
       value = v;
     });
-    print(value);
     widget.handleValueChanged(value.round());
   }
 
