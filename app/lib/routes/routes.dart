@@ -42,25 +42,20 @@ final List<WorkoutSection> testSections = [
             GeneralWorkoutConfigurationProperties.restBetweenRepetitions,
         workoutInputType: WorkoutInputTypes.number,
         description: 'rest seconds between repetitions',
-        initialIntValue: 30,
-        minIntValue: 1,
-        maxIntValue: 300),
+        initialIntValue: 30),
     WorkoutElement(
-        generalWorkoutConfigurationProperty:
-            GeneralWorkoutConfigurationProperties.restBetweenSets,
-        workoutInputType: WorkoutInputTypes.number,
-        description: 'rest seconds between sets',
-        initialIntValue: 120,
-        minIntValue: 1,
-        maxIntValue: 600),
+      generalWorkoutConfigurationProperty:
+          GeneralWorkoutConfigurationProperties.restBetweenSets,
+      workoutInputType: WorkoutInputTypes.number,
+      description: 'rest seconds between sets',
+      initialIntValue: 120,
+    ),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.hangTime,
         workoutInputType: WorkoutInputTypes.number,
         description: 'hang time seconds',
-        initialIntValue: 7,
-        minIntValue: 1,
-        maxIntValue: 180),
+        initialIntValue: 7),
   ])
 ];
 

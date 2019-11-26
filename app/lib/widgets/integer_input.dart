@@ -29,6 +29,11 @@ class _IntegerInputState extends State<IntegerInput> {
   void initState() {
     super.initState();
     _textEditingController.text = widget.initialIntValue.toString();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus != true) {
+        _validateInput();
+      }
+    });
     _subscription = widget.shouldLoseFocusStream
         .listen((shouldLoseFocus) => {_validateInput()});
   }
@@ -64,7 +69,7 @@ class _IntegerInputState extends State<IntegerInput> {
   }
 
   void _onTap() {
-    _textEditingController.text = '';
+    _textEditingController.clear();
   }
 
   @override

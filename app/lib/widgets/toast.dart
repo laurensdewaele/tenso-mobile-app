@@ -98,7 +98,8 @@ class _ToastUIState extends State<_ToastUI>
             ),
           ),
           padding: EdgeInsets.all(styles.Measurements.m),
-          child: Text(widget.message, style: styles.Typography.toast)),
+          child: SafeArea(
+              child: Text(widget.message, style: styles.Typography.toast))),
     );
   }
 }
