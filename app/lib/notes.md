@@ -9,8 +9,7 @@ One thing for the next project, is that when designing, you should really factor
 
 ## Smaller width screens
 
-Hmm did not account for iphone 5s's and the like.
-Need to fix it.
+Review the app on smaller and larger screens.
 
 ## Implement a feedback button
 

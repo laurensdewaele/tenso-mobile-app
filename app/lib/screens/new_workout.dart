@@ -20,9 +20,9 @@ class NewWorkoutScreen extends StatefulWidget {
 }
 
 class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
-  final StreamController<bool> _shouldLoseFocusController =
+  final StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
-  final StreamController<String> _errorMessageStream =
+  final StreamController<String> _errorMessageStreamController =
       StreamController<String>();
 
   @override
@@ -33,16 +33,16 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   @override
   void dispose() {
     super.dispose();
-    _shouldLoseFocusController.close();
-    _errorMessageStream.close();
+    _shouldLoseFocusStreamController.close();
+    _errorMessageStreamController.close();
   }
 
   void _onScreenTap() {
-    _shouldLoseFocusController.sink.add(true);
+    _shouldLoseFocusStreamController.sink.add(true);
   }
 
   void _handleErrorMessage(String message) {
-    _errorMessageStream.sink.add(message);
+    _errorMessageStreamController.sink.add(message);
   }
 
   // This method gets triggered a lot.
@@ -63,7 +63,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
         return IntegerInputAndDescription(
           workoutElement: workoutElement,
           handleErrorMessage: _handleErrorMessage,
-          shouldLoseFocusStream: _shouldLoseFocusController.stream,
+          shouldLoseFocusStream: _shouldLoseFocusStreamController.stream,
           handleValueChanged: (int value) => {
             _handleIntValueChanged(
                 value,
@@ -135,7 +135,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                 )
               ])),
         ),
-        Toast(messageStream: _errorMessageStream.stream),
+        Toast(messageStream: _errorMessageStreamController.stream),
       ],
     );
   }
