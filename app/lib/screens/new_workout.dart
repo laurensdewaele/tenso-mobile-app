@@ -46,7 +46,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   }
 
   // This method gets triggered a lot.
-  // Because we do not keep track of which number input as active at the time.
+  // Because we do not keep track of which number input is active at the time.
   // When we do a validation, we validate all number fields.
   // Fine for now. Assuming this does not cause too much of a performance hit.
   // It might be when we integrate state management.
