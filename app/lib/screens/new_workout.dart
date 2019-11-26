@@ -1,4 +1,3 @@
-import 'package:app/widgets/slider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/workout_ui_configuration.dart';
@@ -8,7 +7,7 @@ import 'package:app/widgets/counter.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/screen.dart';
-import 'package:flutter/cupertino.dart' as prefix0;
+import 'package:app/widgets/slider.dart';
 
 class NewWorkoutScreen extends StatelessWidget {
   NewWorkoutScreen({this.workoutSections});
@@ -96,8 +95,19 @@ class NewWorkoutScreen extends StatelessWidget {
                                         child: Row(
                                           children: <Widget>[
                                             Container(
-                                              width: 40,
+                                              width: styles.Measurements.xl,
                                               child: CupertinoTextField(
+                                                onTap: () => print('clearing'),
+                                                textAlign: TextAlign.center,
+                                                controller:
+                                                    TextEditingController(
+                                                        text: workoutElement
+                                                            .initialIntValue
+                                                            .toString()),
+                                                cursorColor:
+                                                    styles.Colors.white,
+                                                maxLength: 3,
+                                                autocorrect: false,
                                                 style: styles.Typography
                                                     .inputDescriptionSquare,
                                                 decoration: BoxDecoration(
@@ -108,6 +118,9 @@ class NewWorkoutScreen extends StatelessWidget {
                                                 keyboardType:
                                                     TextInputType.number,
                                               ),
+                                            ),
+                                            SizedBox(
+                                              width: styles.Measurements.s,
                                             ),
                                             Text(workoutElement.description,
                                                 style: styles.Typography.text)
