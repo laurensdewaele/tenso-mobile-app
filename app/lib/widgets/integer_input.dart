@@ -9,12 +9,12 @@ class IntegerInput extends StatefulWidget {
       {this.initialIntValue,
       this.handleValueChanged,
       this.shouldLoseFocusStream,
-      this.displayValidationMessage});
+      this.handleErrorMessage});
 
   final int initialIntValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
-  final Function(String) displayValidationMessage;
+  final Function(String) handleErrorMessage;
 
   @override
   _IntegerInputState createState() => _IntegerInputState();
@@ -51,14 +51,16 @@ class _IntegerInputState extends State<IntegerInput> {
       _validationError();
     }
 
+    if (value != null && value > 1) {
+      widget.handleValueChanged(value);
+    }
+
     _focusNode.unfocus();
   }
 
   void _validationError() {
     _textEditingController.text = widget.initialIntValue.toString();
-    print('validation error');
-    widget.displayValidationMessage(
-        'Please input a value bigger than 0. The previous value has been restored.');
+    widget.handleErrorMessage('Please input a value bigger than 0.');
   }
 
   void _onTap() {

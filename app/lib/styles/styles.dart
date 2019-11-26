@@ -1,9 +1,6 @@
 library styles;
 
-import 'dart:ui';
-import 'package:flutter/material.dart';
-
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 
 class Colors {
   Colors._();
@@ -60,8 +57,10 @@ class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.black);
   static TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
-  static TextStyle dialogText =
+  static TextStyle dialog =
       TextStyle(fontFamily: 'Lato', fontSize: 24, color: Colors.black);
+  static TextStyle toast =
+      TextStyle(fontFamily: 'Lato', fontSize: 18, color: Colors.black);
 }
 
 const double kAppBorderRadiusValue = 5.0;

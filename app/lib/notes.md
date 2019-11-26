@@ -14,6 +14,7 @@ Need to fix it.
 
 ## Implement a feedback button
 
+Stop all globals (singletons as well). Put all the neede stuff like styling in Providers.
 
 ## Bottom menu slider
 The percentage when onDragEnd does not really seem correct.

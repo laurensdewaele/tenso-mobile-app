@@ -5,12 +5,11 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:app/models/workout_ui_configuration.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/counter.dart';
 import 'package:app/widgets/dividers.dart';
 import 'package:app/widgets/icon.dart';
-import 'package:app/widgets/integer_input.dart';
+import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/slider.dart';
+import 'package:app/widgets/toast.dart';
 
 class NewWorkoutScreen extends StatefulWidget {
   NewWorkoutScreen({this.workoutSections});
@@ -23,6 +22,8 @@ class NewWorkoutScreen extends StatefulWidget {
 class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   final StreamController<bool> _shouldLoseFocusController =
       StreamController<bool>.broadcast();
+  final StreamController<String> _errorMessageStream =
+      StreamController<String>();
 
   @override
   void initState() {
@@ -33,12 +34,23 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   void dispose() {
     super.dispose();
     _shouldLoseFocusController.close();
+    _errorMessageStream.close();
   }
 
   void _onScreenTap() {
     _shouldLoseFocusController.sink.add(true);
   }
 
+  void _handleErrorMessage(String message) {
+    _errorMessageStream.sink.add(message);
+  }
+
+  // This method gets triggered a lot.
+  // Because we do not keep track of which number input as active at the time.
+  // When we do a validation, we validate all number fields.
+  // Fine for now. Assuming this does not cause too much of a performance hit.
+  // It might be when we integrate state management.
+  // TODO: Keep track of performance impact
   void _handleIntValueChanged(
       int value,
       GeneralWorkoutConfigurationProperties generalWorkoutConfigurationProperty,
@@ -47,25 +59,11 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
 
   Widget _determineInputElement(WorkoutElement workoutElement) {
     switch (workoutElement.workoutInputType) {
-      case WorkoutInputTypes.counter:
-        return Counter(
-          initialIntValue: workoutElement.initialIntValue,
-          description: workoutElement.description,
-          handleValueChanged: (int value) => {
-            _handleIntValueChanged(
-                value,
-                workoutElement.generalWorkoutConfigurationProperty,
-                workoutElement.holdWorkoutConfigurationProperty,
-                workoutElement.extraWorkoutConfigurationProperty)
-          },
-        );
-        break;
-      case WorkoutInputTypes.slider:
-        return Slider(
-          minIntValue: workoutElement.minIntValue,
-          maxIntValue: workoutElement.maxIntValue,
-          initialIntValue: workoutElement.initialIntValue,
-          description: workoutElement.description,
+      case WorkoutInputTypes.number:
+        return IntegerInputAndDescription(
+          workoutElement: workoutElement,
+          handleErrorMessage: _handleErrorMessage,
+          shouldLoseFocusStream: _shouldLoseFocusController.stream,
           handleValueChanged: (int value) => {
             _handleIntValueChanged(
                 value,
@@ -82,74 +80,63 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _onScreenTap,
-      child: Screen(
-          gradientStartColor: styles.Colors.primary,
-          gradientStopColor: styles.Colors.bgRedStop,
-          child: ListView(physics: ClampingScrollPhysics(), children: [
-            Column(
-              children: <Widget>[
-                _TopNavigation(title: 'New workout'),
-                Card(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: styles.Measurements.m,
-                      vertical: styles.Measurements.l),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ...widget.workoutSections
-                          .map((WorkoutSection workoutSection) {
-                        return Container(
-                          width: double.infinity,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                width: double.infinity,
-                                child: Text(workoutSection.title,
-                                    style: styles.Typography.title),
+    return Stack(
+      children: <Widget>[
+        GestureDetector(
+          onTap: _onScreenTap,
+          child: Screen(
+              gradientStartColor: styles.Colors.primary,
+              gradientStopColor: styles.Colors.bgRedStop,
+              child: ListView(physics: ClampingScrollPhysics(), children: [
+                Column(
+                  children: <Widget>[
+                    _TopNavigation(title: 'New workout'),
+                    Card(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: styles.Measurements.m,
+                          vertical: styles.Measurements.l),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ...widget.workoutSections
+                              .map((WorkoutSection workoutSection) {
+                            return Container(
+                              width: double.infinity,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    width: double.infinity,
+                                    child: Text(workoutSection.title,
+                                        style: styles.Typography.title),
+                                  ),
+                                  Divider(height: styles.Measurements.l),
+                                  ...workoutSection.workoutElements
+                                      .map((WorkoutElement workoutElement) {
+                                        return [
+                                          _determineInputElement(
+                                              workoutElement),
+                                          Divider(
+                                            height: styles.Measurements.m,
+                                          )
+                                        ];
+                                      })
+                                      .expand((inputElementPlusDivider) =>
+                                          inputElementPlusDivider)
+                                      .toList(),
+                                  Divider(height: styles.Measurements.l),
+                                ],
                               ),
-                              Divider(height: styles.Measurements.l),
-                              ...workoutSection.workoutElements
-                                  .map((WorkoutElement workoutElement) {
-                                    return [
-                                      Container(
-                                          width: double.infinity,
-                                          child: Row(
-                                            children: <Widget>[
-                                              IntegerInput(
-                                                  initialIntValue:
-                                                      workoutElement
-                                                          .initialIntValue,
-                                                  shouldLoseFocusStream:
-                                                      _shouldLoseFocusController
-                                                          .stream),
-                                              SizedBox(
-                                                width: styles.Measurements.s,
-                                              ),
-                                              Text(workoutElement.description,
-                                                  style: styles.Typography.text)
-                                            ],
-                                          )),
-                                      Divider(
-                                        height: styles.Measurements.m,
-                                      )
-                                    ];
-                                  })
-                                  .expand((inputElementPlusDivider) =>
-                                      inputElementPlusDivider)
-                                  .toList(),
-                              Divider(height: styles.Measurements.l),
-                            ],
-                          ),
-                        );
-                      })
-                    ],
-                  ),
+                            );
+                          })
+                        ],
+                      ),
+                    )
+                  ],
                 )
-              ],
-            )
-          ])),
+              ])),
+        ),
+        Toast(messageStream: _errorMessageStream.stream),
+      ],
     );
   }
 }

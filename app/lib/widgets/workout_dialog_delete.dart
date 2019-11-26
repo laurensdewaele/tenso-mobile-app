@@ -19,7 +19,7 @@ Future<void> showDeleteDialog(
         children: <Widget>[
           Text(
             'Are you sure you want to delete "$name"?',
-            style: styles.Typography.dialogText,
+            style: styles.Typography.dialog,
             textAlign: TextAlign.center,
           ),
           Divider(height: styles.Measurements.l),

@@ -20,19 +20,19 @@ final List<WorkoutSection> testSections = [
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.holdAmount,
-        workoutInputType: WorkoutInputTypes.counter,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'different holds',
         initialIntValue: 5),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.repetitions,
-        workoutInputType: WorkoutInputTypes.counter,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'repetitions per hold',
         initialIntValue: 5),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.sets,
-        workoutInputType: WorkoutInputTypes.counter,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'sets',
         initialIntValue: 3),
   ]),
@@ -40,7 +40,7 @@ final List<WorkoutSection> testSections = [
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.restBetweenRepetitions,
-        workoutInputType: WorkoutInputTypes.slider,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'rest seconds between repetitions',
         initialIntValue: 30,
         minIntValue: 1,
@@ -48,7 +48,7 @@ final List<WorkoutSection> testSections = [
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.restBetweenSets,
-        workoutInputType: WorkoutInputTypes.slider,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'rest seconds between sets',
         initialIntValue: 120,
         minIntValue: 1,
@@ -56,7 +56,7 @@ final List<WorkoutSection> testSections = [
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.hangTime,
-        workoutInputType: WorkoutInputTypes.slider,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'hang time seconds',
         initialIntValue: 7,
         minIntValue: 1,

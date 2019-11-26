@@ -1,32 +1,6 @@
-//
-//```Dart
-//void _handleValueChange(String field, int Value) {
-//newWorkout[field] = value;
-//}
-//
-//Widget _determineElement(ElementType types, Values value, String description) {
-//switch (types) {
-//case types.Slider:
-//return Slider(initialValue: value, description: description, handleValueChange: _handleValueChange)
-//}
-//}
-//
-//build
-//return ...config.map(section => {
-//return Section(title: section.title,
-//children: section.elements.map(element => {
-//return _determineElement( type: element.type,
-//initialValue: element.value,
-//description: element.description,
-//workoutProperty: element.workoutProperty
-//)
-//}))
-//})
-//```
-
 import 'package:flutter/cupertino.dart';
 
-import 'grips.dart';
+import 'package:app/models/grips.dart';
 
 class WorkoutSection {
   WorkoutSection({this.title, this.workoutElements});
@@ -65,7 +39,7 @@ class WorkoutElement {
   final VoidCallback handleValueChanged;
 }
 
-enum WorkoutInputTypes { counter, slider, gripPicker, holdPicker, text }
+enum WorkoutInputTypes { number, gripPicker, holdPicker, text }
 
 class HoldPickerValue {
   HoldPickerValue(
@@ -87,19 +61,19 @@ final List<WorkoutSection> basicGeneralConfiguration = [
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.holdAmount,
-        workoutInputType: WorkoutInputTypes.counter,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'different holds',
         initialIntValue: 5),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.repetitions,
-        workoutInputType: WorkoutInputTypes.counter,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'repetitions per hold',
         initialIntValue: 5),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.sets,
-        workoutInputType: WorkoutInputTypes.counter,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'sets',
         initialIntValue: 3),
   ]),
@@ -107,19 +81,19 @@ final List<WorkoutSection> basicGeneralConfiguration = [
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.restBetweenRepetitions,
-        workoutInputType: WorkoutInputTypes.slider,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'rest seconds between repetitions',
         initialIntValue: 30),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.restBetweenSets,
-        workoutInputType: WorkoutInputTypes.slider,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'rest seconds between sets',
         initialIntValue: 120),
     WorkoutElement(
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.hangTime,
-        workoutInputType: WorkoutInputTypes.slider,
+        workoutInputType: WorkoutInputTypes.number,
         description: 'hang time seconds',
         initialIntValue: 7),
   ])
