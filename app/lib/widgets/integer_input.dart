@@ -9,12 +9,14 @@ class IntegerInput extends StatefulWidget {
       {this.initialIntValue,
       this.handleValueChanged,
       this.shouldLoseFocusStream,
-      this.handleErrorMessage});
+      this.handleErrorMessage,
+      this.isFirst});
 
   final int initialIntValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(String) handleErrorMessage;
+  final bool isFirst;
 
   @override
   _IntegerInputState createState() => _IntegerInputState();
@@ -77,6 +79,7 @@ class _IntegerInputState extends State<IntegerInput> {
     return Container(
       width: styles.Measurements.xl,
       child: CupertinoTextField(
+        autofocus: widget.isFirst,
         autocorrect: false,
         controller: _textEditingController,
         cursorColor: styles.Colors.white,

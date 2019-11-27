@@ -6,10 +6,10 @@ import 'package:app/models/workout_ui_configuration.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/toast.dart';
+import 'package:app/widgets/top_navigation.dart';
 
 class NewWorkoutScreen extends StatefulWidget {
   NewWorkoutScreen({this.workoutSections});
@@ -57,10 +57,29 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
       HoldWorkoutConfigurationProperties holdWorkoutConfigurationProperty,
       ExtraWorkoutConfigurationProperties extraWorkoutConfigurationProperty) {}
 
-  Widget _determineInputElement(WorkoutElement workoutElement) {
+  List<Widget> _mapWorkoutElementsToInputWidgets(
+      List<WorkoutElement> workoutElements) {
+    return workoutElements
+        // A trick in order to get the index whilst mapping.
+        .asMap()
+        .map((int index, WorkoutElement workoutElement) {
+          return MapEntry(index, [
+            _determineInputElement(workoutElement, index == 0),
+            Divider(
+              height: styles.Measurements.m,
+            )
+          ]);
+        })
+        .values
+        .expand((inputElementPlusDivider) => inputElementPlusDivider)
+        .toList();
+  }
+
+  Widget _determineInputElement(WorkoutElement workoutElement, bool isFirst) {
     switch (workoutElement.workoutInputType) {
       case WorkoutInputTypes.number:
         return IntegerInputAndDescription(
+          isFirst: isFirst,
           workoutElement: workoutElement,
           handleErrorMessage: _handleErrorMessage,
           shouldLoseFocusStream: _shouldLoseFocusStreamController.stream,
@@ -90,7 +109,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
               child: ListView(physics: ClampingScrollPhysics(), children: [
                 Column(
                   children: <Widget>[
-                    _TopNavigation(title: 'New workout'),
+                    TopNavigation(title: 'New workout'),
                     Card(
                       padding: EdgeInsets.symmetric(
                           horizontal: styles.Measurements.m,
@@ -100,34 +119,17 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                         children: <Widget>[
                           ...widget.workoutSections
                               .map((WorkoutSection workoutSection) {
-                            return Container(
-                              width: double.infinity,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    child: Text(workoutSection.title,
-                                        style: styles.Typography.title),
-                                  ),
+                                return [
+                                  Text(workoutSection.title,
+                                      style: styles.Typography.title),
                                   Divider(height: styles.Measurements.l),
-                                  ...workoutSection.workoutElements
-                                      .map((WorkoutElement workoutElement) {
-                                        return [
-                                          _determineInputElement(
-                                              workoutElement),
-                                          Divider(
-                                            height: styles.Measurements.m,
-                                          )
-                                        ];
-                                      })
-                                      .expand((inputElementPlusDivider) =>
-                                          inputElementPlusDivider)
-                                      .toList(),
+                                  ..._mapWorkoutElementsToInputWidgets(
+                                      workoutSection.workoutElements),
                                   Divider(height: styles.Measurements.l),
-                                ],
-                              ),
-                            );
-                          })
+                                ];
+                              })
+                              .expand((section) => section)
+                              .toList()
                         ],
                       ),
                     )
@@ -138,44 +140,5 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
         Toast(messageStream: _errorMessageStreamController.stream),
       ],
     );
-  }
-}
-
-class _TopNavigation extends StatelessWidget {
-  _TopNavigation({this.title});
-
-  final String title;
-
-  void _handleTap(BuildContext context) {
-    Navigator.of(context).pop();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Stack(children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              child: Text(title,
-                  style: styles.Typography.topNavigationTitle,
-                  textAlign: TextAlign.center),
-            ),
-          ],
-        ),
-        GestureDetector(
-          onTap: () => _handleTap(context),
-          child: Container(
-            width: styles.Measurements.xxl,
-            child: Icon(
-              iconData: CupertinoIcons.back,
-              color: styles.Colors.white,
-            ),
-          ),
-        ),
-      ]),
-      Divider(height: styles.Measurements.xxl)
-    ]);
   }
 }

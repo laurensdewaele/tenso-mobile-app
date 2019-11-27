@@ -10,12 +10,14 @@ class IntegerInputAndDescription extends StatelessWidget {
       {this.workoutElement,
       this.handleValueChanged,
       this.shouldLoseFocusStream,
-      this.handleErrorMessage});
+      this.handleErrorMessage,
+      this.isFirst});
 
   final WorkoutElement workoutElement;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(String) handleErrorMessage;
+  final bool isFirst;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class IntegerInputAndDescription extends StatelessWidget {
         child: Row(
           children: <Widget>[
             IntegerInput(
+                isFirst: isFirst,
                 handleValueChanged: handleValueChanged,
                 handleErrorMessage: handleErrorMessage,
                 initialIntValue: workoutElement.initialIntValue,
