@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class Screen extends StatelessWidget {
-  final Color gradientStartColor;
-  final Color gradientStopColor;
-  final Widget child;
-
   const Screen(
       {@required this.gradientStartColor,
       @required this.gradientStopColor,
       @required this.child});
+
+  final Color gradientStartColor;
+  final Color gradientStopColor;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
