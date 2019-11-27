@@ -119,7 +119,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                 Positioned(
                     right: _horizontalDifficultyAlignment.value,
                     child: Difficulty(
-                      value: widget.workout.difficulty.toString(),
+                      difficulty: widget.workout.difficulty.toString(),
                       difficultyColor: widget.workout.difficultyColor,
                       width: styles.Measurements.xxl,
                       height: styles.Measurements.xxl,

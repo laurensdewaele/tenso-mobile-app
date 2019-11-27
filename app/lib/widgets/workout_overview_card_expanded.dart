@@ -81,7 +81,7 @@ class _WorkoutInfo extends StatelessWidget {
           margin: EdgeInsets.only(top: styles.Measurements.xs),
           child: difficultyColor != null
               ? Difficulty(
-                  value: value,
+                  difficulty: value,
                   difficultyColor: difficultyColor,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl)
