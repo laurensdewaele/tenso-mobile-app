@@ -21,21 +21,22 @@ class IntegerInputAndDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        child: Row(
-          children: <Widget>[
-            IntegerInput(
-                isFirst: isFirst,
-                handleValueChanged: handleValueChanged,
-                handleErrorMessage: handleErrorMessage,
-                initialIntValue: workoutElement.initialIntValue,
-                shouldLoseFocusStream: shouldLoseFocusStream),
-            Divider(
-              width: styles.Measurements.s,
-            ),
-            Text(workoutElement.description, style: styles.Typography.text)
-          ],
-        ));
+    return Row(
+      children: <Widget>[
+        IntegerInput(
+            isFirst: isFirst,
+            handleValueChanged: handleValueChanged,
+            handleErrorMessage: handleErrorMessage,
+            initialIntValue: workoutElement.initialIntValue,
+            shouldLoseFocusStream: shouldLoseFocusStream),
+        Divider(
+          width: styles.Measurements.s,
+        ),
+        Expanded(
+          child: Text(workoutElement.description,
+              style: styles.Typography.text, overflow: TextOverflow.clip),
+        )
+      ],
+    );
   }
 }

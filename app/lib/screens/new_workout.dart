@@ -115,6 +115,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                           horizontal: styles.Measurements.m,
                           vertical: styles.Measurements.l),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           ...widget.workoutSections
