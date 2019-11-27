@@ -71,10 +71,10 @@ class _IntegerInputState extends State<IntegerInput> {
       textAlign: TextAlign.center,
       text: TextSpan(
           text: 'Please input a value ',
-          style: styles.Typography.toast,
+          style: styles.Typography.textInfo,
           children: [
             TextSpan(
-                text: 'bigger than 0.', style: styles.Typography.toastBold),
+                text: 'bigger than 0.', style: styles.Typography.textInfoBold),
           ]),
     ));
   }

@@ -18,8 +18,13 @@ Future<void> showDeleteDialog(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            'Are you sure you want to delete "$name"?',
-            style: styles.Typography.dialog,
+            'Are you sure you want to delete:',
+            style: styles.Typography.textInfo,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            '$name ?',
+            style: styles.Typography.textInfoBold,
             textAlign: TextAlign.center,
           ),
           Divider(height: styles.Measurements.l),
@@ -27,14 +32,19 @@ Future<void> showDeleteDialog(
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child:
-                      TextButton(text: 'Cancel', handleTap: handleCancelTap)),
+                  child: Transform.scale(
+                      scale: 0.8,
+                      child: TextButton(
+                          text: 'Cancel', handleTap: handleCancelTap))),
               Expanded(
                   flex: 1,
-                  child: Button(
-                    text: 'Delete',
-                    handleTap: handleDeleteTap,
-                    displayIcon: false,
+                  child: Transform.scale(
+                    scale: 0.8,
+                    child: Button(
+                      text: 'Delete',
+                      handleTap: handleDeleteTap,
+                      displayIcon: false,
+                    ),
                   ))
             ],
           )

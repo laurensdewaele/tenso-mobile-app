@@ -57,11 +57,9 @@ class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.black);
   static TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
-  static TextStyle dialog =
-      TextStyle(fontFamily: 'Lato', fontSize: 24, color: Colors.black);
-  static TextStyle toast =
+  static TextStyle textInfo =
       TextStyle(fontFamily: 'Lato', fontSize: 18, color: Colors.black);
-  static TextStyle toastBold = TextStyle(
+  static TextStyle textInfoBold = TextStyle(
       fontFamily: 'Lato',
       fontSize: 18,
       color: Colors.black,

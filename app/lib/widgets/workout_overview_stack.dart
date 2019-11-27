@@ -143,15 +143,18 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
           children: <Widget>[
             Text(
               'Swipe right to edit, left to delete.',
-              style: styles.Typography.dialog,
+              style: styles.Typography.textInfo,
               textAlign: TextAlign.center,
             ),
             Divider(height: styles.Measurements.l),
-            TextButton(
-                text: 'Ok',
-                handleTap: () {
-                  Navigator.of(context).pop();
-                })
+            Transform.scale(
+              scale: .8,
+              child: TextButton(
+                  text: 'Ok',
+                  handleTap: () {
+                    Navigator.of(context).pop();
+                  }),
+            )
           ],
         ));
   }

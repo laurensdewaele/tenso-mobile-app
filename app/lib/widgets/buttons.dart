@@ -70,9 +70,6 @@ class TextButton extends StatelessWidget {
         child: Container(
             decoration: BoxDecoration(color: styles.Colors.translucent),
             width: double.infinity,
-            padding: EdgeInsets.symmetric(
-                vertical: styles.Measurements.xs,
-                horizontal: styles.Measurements.m),
             child: Text(
               text,
               style: styles.Typography.buttonBlack,
