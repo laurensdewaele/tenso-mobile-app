@@ -41,7 +41,6 @@ class _KeyBoardScreenState extends State<KeyBoardScreen> {
     // Calculate what offset that translates to
     // offset the screen with an animation
     // provide methods in the context in order for children to call that it must animate back
-
   }
 
   @override
