@@ -6,7 +6,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/buttons.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_dialog_delete.dart';
 import 'package:app/widgets/workout_overview_card.dart';
 import 'package:app/widgets/workout_overview_delete.dart';

@@ -8,7 +8,7 @@ import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/buttons.dart';
-import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview_stack.dart';
 
@@ -59,11 +59,11 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                   return Button(
                       text: 'Add workout', handleTap: _handleAddWorkout);
                 } else {
-                  return SizedBox(
+                  return Divider(
                       height: viewHeight / 2 - styles.Measurements.m);
                 }
               },
-              separatorBuilder: (BuildContext context, int index) => Divider(),
+              separatorBuilder: (BuildContext context, int index) => Divider(height: styles.Measurements.m),
             )),
         BottomMenuDrawer(
           menuItems: [

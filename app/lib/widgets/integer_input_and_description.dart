@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/workout_ui_configuration.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/integer_input.dart';
+import 'package:app/widgets/divider.dart';
 
 class IntegerInputAndDescription extends StatelessWidget {
   IntegerInputAndDescription(
@@ -27,7 +28,7 @@ class IntegerInputAndDescription extends StatelessWidget {
                 handleErrorMessage: handleErrorMessage,
                 initialIntValue: workoutElement.initialIntValue,
                 shouldLoseFocusStream: shouldLoseFocusStream),
-            SizedBox(
+            Divider(
               width: styles.Measurements.s,
             ),
             Text(workoutElement.description, style: styles.Typography.text)

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/menu_item.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/divider.dart';
 
 const double _kRedDragIndicatorHeight = 3.0;
 const double _kRedDragIndicatorContainerHeight = styles.Measurements.xl;
@@ -193,7 +193,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                           ),
                         ),
                       ),
-                      Divider(),
+                      Divider(height: styles.Measurements.m),
                     ],
                   )),
             ),

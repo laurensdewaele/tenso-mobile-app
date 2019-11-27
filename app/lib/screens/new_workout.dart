@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:app/models/workout_ui_configuration.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/widgets/screen.dart';

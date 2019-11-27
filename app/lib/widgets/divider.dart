@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/styles/styles.dart' as styles;
-
 class Divider extends StatelessWidget {
-  Divider({this.height = styles.Measurements.m});
+  Divider({this.height, this.width});
 
   final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: height);
+    return SizedBox(height: height, width: width);
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/buttons.dart';
 import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/divider.dart';
 
 Future<void> showDeleteDialog(
     {@required BuildContext context,

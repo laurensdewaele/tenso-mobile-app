@@ -5,7 +5,7 @@ import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/buttons.dart';
 import 'package:app/widgets/difficulty.dart';
-import 'package:app/widgets/dividers.dart';
+import 'package:app/widgets/divider.dart';
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
   WorkoutOverviewCardExpanded({
@@ -36,7 +36,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
             ),
           ],
         ),
-        Divider(),
+        Divider(height: styles.Measurements.m),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -50,10 +50,10 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
             ),
           ],
         ),
-        Divider(),
+        Divider(height: styles.Measurements.m),
         Container(
             width: 175.0, child: Button(text: 'start', handleTap: handleStart)),
-        Divider(),
+        Divider(height: styles.Measurements.m),
         Icon(Icons.keyboard_arrow_up,
             size: styles.Measurements.l, color: styles.Colors.primary)
       ],
