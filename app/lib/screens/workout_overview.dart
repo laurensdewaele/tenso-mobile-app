@@ -7,7 +7,7 @@ import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/bottom_menu_drawer.dart';
-import 'package:app/widgets/buttons.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview_stack.dart';
@@ -63,7 +63,8 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                       height: viewHeight / 2 - styles.Measurements.m);
                 }
               },
-              separatorBuilder: (BuildContext context, int index) => Divider(height: styles.Measurements.m),
+              separatorBuilder: (BuildContext context, int index) =>
+                  Divider(height: styles.Measurements.m),
             )),
         BottomMenuDrawer(
           menuItems: [

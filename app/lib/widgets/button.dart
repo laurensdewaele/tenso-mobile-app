@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/icon.dart';
 
 class Button extends StatelessWidget {
   const Button(
@@ -40,20 +41,23 @@ class _ButtonIconRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Expanded(flex: 1, child: Container()),
-      Expanded(
-          flex: 2,
-          child: Text(
-            text,
-            style: styles.Typography.buttonWhite,
-            textAlign: TextAlign.center,
-          )),
-      Expanded(
-          flex: 1,
-          child: Icon(Icons.keyboard_arrow_right,
-              size: styles.Measurements.l, color: styles.Colors.white))
-    ]);
+    return Stack(
+      children: <Widget>[
+        Positioned.fill(
+            child: Text(
+          text,
+          style: styles.Typography.buttonWhite,
+          textAlign: TextAlign.center,
+        )),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Icon(
+              iconData: CupertinoIcons.forward,
+              size: styles.Measurements.l,
+              color: styles.Colors.white),
+        )
+      ],
+    );
   }
 }
 
