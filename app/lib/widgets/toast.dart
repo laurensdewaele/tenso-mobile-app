@@ -7,7 +7,7 @@ import 'package:app/styles/styles.dart' as styles;
 class Toast extends StatefulWidget {
   Toast({this.messageStream});
 
-  final Stream<String> messageStream;
+  final Stream<Widget> messageStream;
 
   @override
   _ToastState createState() => _ToastState();
@@ -16,12 +16,12 @@ class Toast extends StatefulWidget {
 class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
   StreamSubscription _subscription;
 
-  List<String> messages = [];
+  List<Widget> messages = [];
 
   @override
   void initState() {
     super.initState();
-    _subscription = widget.messageStream.listen((String message) {
+    _subscription = widget.messageStream.listen((Widget message) {
       setState(() {
         messages.add(message);
       });
@@ -37,15 +37,16 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Stack(
-        children: [...messages.map((message) => _ToastUI(message: message))]);
+    return Stack(children: [
+      ...messages.map((message) => _ToastUI(message: message))
+    ]);
   }
 }
 
 class _ToastUI extends StatefulWidget {
   _ToastUI({this.message});
 
-  final String message;
+  final Widget message;
 
   @override
   _ToastUIState createState() => _ToastUIState();
@@ -97,9 +98,10 @@ class _ToastUIState extends State<_ToastUI>
               colors: [styles.Colors.bgGrayStop, styles.Colors.bgWhite],
             ),
           ),
-          padding: EdgeInsets.all(styles.Measurements.m),
-          child: SafeArea(
-              child: Text(widget.message, style: styles.Typography.toast))),
+          padding: EdgeInsets.symmetric(
+              vertical: styles.Measurements.m,
+              horizontal: styles.Measurements.m * 2),
+          child: SafeArea(child: widget.message)),
     );
   }
 }

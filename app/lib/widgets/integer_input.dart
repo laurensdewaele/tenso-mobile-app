@@ -15,7 +15,7 @@ class IntegerInput extends StatefulWidget {
   final int initialIntValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
-  final Function(String) handleErrorMessage;
+  final Function(Widget) handleErrorMessage;
   final bool isFirst;
 
   @override
@@ -67,7 +67,16 @@ class _IntegerInputState extends State<IntegerInput> {
 
   void _validationError() {
     _textEditingController.text = widget.initialIntValue.toString();
-    widget.handleErrorMessage('Please input a value bigger than 0.');
+    widget.handleErrorMessage(RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+          text: 'Please input a value ',
+          style: styles.Typography.toast,
+          children: [
+            TextSpan(
+                text: 'bigger than 0.', style: styles.Typography.toastBold),
+          ]),
+    ));
   }
 
   void _onTap() {

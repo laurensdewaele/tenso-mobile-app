@@ -16,7 +16,7 @@ class IntegerInputAndDescription extends StatelessWidget {
   final WorkoutElement workoutElement;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
-  final Function(String) handleErrorMessage;
+  final Function(Widget) handleErrorMessage;
   final bool isFirst;
 
   @override

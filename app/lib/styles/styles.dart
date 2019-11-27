@@ -61,6 +61,11 @@ class Typography {
       TextStyle(fontFamily: 'Lato', fontSize: 24, color: Colors.black);
   static TextStyle toast =
       TextStyle(fontFamily: 'Lato', fontSize: 18, color: Colors.black);
+  static TextStyle toastBold = TextStyle(
+      fontFamily: 'Lato',
+      fontSize: 18,
+      color: Colors.black,
+      fontWeight: FontWeight.w700);
 }
 
 const double kAppBorderRadiusValue = 5.0;

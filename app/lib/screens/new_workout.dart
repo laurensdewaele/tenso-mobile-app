@@ -22,8 +22,8 @@ class NewWorkoutScreen extends StatefulWidget {
 class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   final StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
-  final StreamController<String> _errorMessageStreamController =
-      StreamController<String>();
+  final StreamController<Widget> _errorMessageStreamController =
+      StreamController<Widget>();
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
     _shouldLoseFocusStreamController.sink.add(true);
   }
 
-  void _handleErrorMessage(String message) {
+  void _handleErrorMessage(Widget message) {
     _errorMessageStreamController.sink.add(message);
   }
 
