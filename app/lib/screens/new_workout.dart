@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:flutter/scheduler.dart';
 
 import 'package:app/models/workout_ui_configuration.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/integer_input_and_description.dart';
-import 'package:app/widgets/screen.dart';
+import 'package:app/widgets/keyboard_screen.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
@@ -24,6 +25,9 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
       StreamController<bool>.broadcast();
   final StreamController<Widget> _errorMessageStreamController =
       StreamController<Widget>();
+  final ScrollController _scrollController = ScrollController();
+
+  double _keyboardOffsetHeight = 0;
 
   @override
   void initState() {
@@ -39,6 +43,9 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
 
   void _onScreenTap() {
     _shouldLoseFocusStreamController.sink.add(true);
+    setState(() {
+      _keyboardOffsetHeight = 0;
+    });
   }
 
   void _handleErrorMessage(Widget message) {
@@ -97,46 +104,70 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
     }
   }
 
+  void _handleOffset(double offset) {
+    setState(() {
+      _keyboardOffsetHeight = offset;
+    });
+
+    final double originalScrollDifference =
+        _scrollController.position.maxScrollExtent - _scrollController.offset;
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent - originalScrollDifference,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         GestureDetector(
           onTap: _onScreenTap,
-          child: Screen(
+          child: KeyBoardScreen(
+              handleOffset: _handleOffset,
               gradientStartColor: styles.Colors.primary,
               gradientStopColor: styles.Colors.bgRedStop,
-              child: ListView(physics: ClampingScrollPhysics(), children: [
-                Column(
-                  children: <Widget>[
-                    TopNavigation(title: 'New workout'),
-                    Card(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: styles.Measurements.m,
-                          vertical: styles.Measurements.l),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          ...widget.workoutSections
-                              .map((WorkoutSection workoutSection) {
-                                return [
-                                  Text(workoutSection.title,
-                                      style: styles.Typography.title),
-                                  Divider(height: styles.Measurements.l),
-                                  ..._mapWorkoutElementsToInputWidgets(
-                                      workoutSection.workoutElements),
-                                  Divider(height: styles.Measurements.l),
-                                ];
-                              })
-                              .expand((section) => section)
-                              .toList()
-                        ],
-                      ),
+              child: ListView(
+                  controller: _scrollController,
+                  physics: ClampingScrollPhysics(),
+                  children: [
+                    Column(
+                      children: <Widget>[
+                        TopNavigation(title: 'New workout'),
+                        Card(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: styles.Measurements.m,
+                              vertical: styles.Measurements.l),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ...widget.workoutSections
+                                  .map((WorkoutSection workoutSection) {
+                                    return [
+                                      Text(workoutSection.title,
+                                          style: styles.Typography.title),
+                                      Divider(height: styles.Measurements.l),
+                                      ..._mapWorkoutElementsToInputWidgets(
+                                          workoutSection.workoutElements),
+                                      Divider(height: styles.Measurements.l),
+                                    ];
+                                  })
+                                  .expand((section) => section)
+                                  .toList(),
+                              SizedBox(
+                                height: _keyboardOffsetHeight,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     )
-                  ],
-                )
-              ])),
+                  ])),
         ),
         Toast(messageStream: _errorMessageStreamController.stream),
       ],

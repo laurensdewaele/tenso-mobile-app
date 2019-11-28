@@ -1,56 +1,89 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/screen.dart';
 
+// Notifies the parent to move the screen up with an Offset when the native keyboard overlaps.
+// Only when the input field is out of sight.
+// Therefore we need to know the tap position of the input field.
+// We have a Listener that wraps around our input field.
+// We know that once an input field is tapped, the keyboard is shown.
+// The Listener forwards that tap information to our KeyBoardScreen class
+// via an onTap callback that we provide via Context.
 class KeyBoardScreen extends StatefulWidget {
   const KeyBoardScreen(
       {@required this.gradientStartColor,
       @required this.gradientStopColor,
+      @required this.handleOffset,
       @required this.child});
 
   final Color gradientStartColor;
   final Color gradientStopColor;
   final Widget child;
+  final Function(double offset) handleOffset;
+
+  static Function(Offset) of(BuildContext context) {
+    return (context.inheritFromWidgetOfExactType(_OnTapCallbackProvider)
+            as _OnTapCallbackProvider)
+        .onTapCallback;
+  }
 
   @override
   _KeyBoardScreenState createState() => _KeyBoardScreenState();
 }
 
 class _KeyBoardScreenState extends State<KeyBoardScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  double _keyboardHeight = 0;
+  double _screenHeight = 0;
+
+  void _onTapCallback(Offset tapPosition) {
+    final double cutoffHeight = _screenHeight - _keyboardHeight;
+    final double idealCutoffHeight = cutoffHeight - styles.Measurements.xxl;
+
+    if (tapPosition.dy > idealCutoffHeight) {
+      final double offset = tapPosition.dy - idealCutoffHeight;
+      widget.handleOffset(offset);
+    }
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+  void _setDeviceHeight(double sizeHeight, double viewInsetBottom) {
+    if (_screenHeight != sizeHeight && sizeHeight > 0) {
+      setState(() {
+        _screenHeight = sizeHeight;
+      });
+    }
 
-  void _onTapUp(TapUpDetails details) {
-    // determine height of the keyboard
-
-    // determine the y of the click
-
-    // if the y click > total screen height - keyboardheight - standard margin
-    // => move it up
-
-    // Calculate differce of click y and (height - keyboardheight - standard margin)
-    // Calculate what offset that translates to
-    // offset the screen with an animation
-    // provide methods in the context in order for children to call that it must animate back
+    if (_keyboardHeight != viewInsetBottom && viewInsetBottom > 0) {
+      setState(() {
+        _keyboardHeight = viewInsetBottom;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapUp: _onTapUp,
+    final double viewInsetBottom = MediaQuery.of(context).viewInsets.bottom;
+    final double sizeHeight = MediaQuery.of(context).size.height;
+    _setDeviceHeight(sizeHeight, viewInsetBottom);
+    return _OnTapCallbackProvider(
+      onTapCallback: _onTapCallback,
       child: Screen(
           gradientStartColor: widget.gradientStartColor,
           gradientStopColor: widget.gradientStopColor,
           child: widget.child),
     );
   }
+}
+
+class _OnTapCallbackProvider extends InheritedWidget {
+  _OnTapCallbackProvider({
+    Key key,
+    @required this.onTapCallback,
+    @required Widget child,
+  }) : super(key: key, child: child);
+
+  final Function(Offset) onTapCallback;
+
+  @override
+  bool updateShouldNotify(_OnTapCallbackProvider old) => false;
 }

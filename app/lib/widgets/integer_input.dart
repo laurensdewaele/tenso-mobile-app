@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/keyboard_screen.dart';
 
 class IntegerInput extends StatefulWidget {
   IntegerInput(
@@ -83,26 +84,34 @@ class _IntegerInputState extends State<IntegerInput> {
     _textEditingController.clear();
   }
 
+  _onPointerDown(PointerEvent event) {
+    final onTapCallback = KeyBoardScreen.of(context);
+    onTapCallback(event.position);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: styles.Measurements.xl,
-      child: CupertinoTextField(
-        autofocus: widget.isFirst,
-        autocorrect: false,
-        controller: _textEditingController,
-        cursorColor: styles.Colors.white,
-        decoration: BoxDecoration(
-            color: styles.Colors.primary,
-            borderRadius: styles.kAppBorderRadiusAll),
-        focusNode: _focusNode,
-        keyboardType: TextInputType.number,
-        maxLength: 3,
-        onTap: _onTap,
-        onEditingComplete: _validateInput,
-        onSubmitted: (String text) => {_validateInput},
-        style: styles.Typography.inputDescriptionSquare,
-        textAlign: TextAlign.center,
+      child: Listener(
+        onPointerDown: _onPointerDown,
+        child: CupertinoTextField(
+          autofocus: widget.isFirst,
+          autocorrect: false,
+          controller: _textEditingController,
+          cursorColor: styles.Colors.white,
+          decoration: BoxDecoration(
+              color: styles.Colors.primary,
+              borderRadius: styles.kAppBorderRadiusAll),
+          focusNode: _focusNode,
+          keyboardType: TextInputType.number,
+          maxLength: 3,
+          onTap: _onTap,
+          onEditingComplete: _validateInput,
+          onSubmitted: (String text) => {_validateInput},
+          style: styles.Typography.inputDescriptionSquare,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
