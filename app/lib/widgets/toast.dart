@@ -37,9 +37,8 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Stack(children: [
-      ...messages.map((message) => _ToastUI(message: message))
-    ]);
+    return Stack(
+        children: [...messages.map((message) => _ToastUI(message: message))]);
   }
 }
 
@@ -76,7 +75,7 @@ class _ToastUIState extends State<_ToastUI>
   void _openClose() {
     _animationController.forward().then((_) async {
       await Future.delayed(Duration(milliseconds: 3000));
-      _animationController.reverse();
+      _animationController?.reverse();
     });
   }
 
