@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' hide Card, Divider;
+import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:flutter/material.dart' hide Card, Divider, Icon;
 
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/difficulty.dart';
+import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/divider.dart';
 
 class WorkoutOverviewCardExpanded extends StatelessWidget {
@@ -54,8 +55,11 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
         Container(
             width: 175.0, child: Button(text: 'start', handleTap: handleStart)),
         Divider(height: styles.Measurements.m),
-        Icon(Icons.keyboard_arrow_up,
-            size: styles.Measurements.l, color: styles.Colors.primary)
+        Icon(
+            iconData: IconData(0xf3f9,
+                fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+            size: styles.Measurements.l,
+            color: styles.Colors.primary)
       ],
     );
   }

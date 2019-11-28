@@ -14,3 +14,8 @@ Review the app on smaller and larger screens.
 ## Implement a feedback button
 
 ##  Stop all globals (singletons as well)
+
+## Perf
+
+Performance seems acceptable at the moment.
+Except for the initial dialog.

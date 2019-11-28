@@ -57,6 +57,8 @@ class _ToastUIState extends State<_ToastUI>
   final Animatable<Offset> _offSetTween =
       Tween<Offset>(begin: Offset(0, -1), end: Offset(0.0, 0.0))
           .chain(CurveTween(curve: Curves.easeIn));
+  final Future _delayedTicker = Future.delayed(Duration(milliseconds: 3000));
+  StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -70,13 +72,18 @@ class _ToastUIState extends State<_ToastUI>
   void dispose() {
     super.dispose();
     _animationController.dispose();
+    _subscription.cancel();
   }
 
   void _openClose() {
     _animationController.forward().then((_) async {
-      await Future.delayed(Duration(milliseconds: 3000));
-      // It could be null because it might have already been disposed.
-      if (_animationController != null) _animationController.reverse();
+      // We need to properly dispose the Future.
+      // Futures in Dart cannot be cancelled. Streams can.
+      _subscription = _delayedTicker.asStream().listen((_) => {
+            // It could be null because it might have already been disposed.
+            if (_animationController != null)
+              _animationController.reverse()
+          });
     });
   }
 

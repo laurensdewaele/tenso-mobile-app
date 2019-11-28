@@ -138,16 +138,15 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                           key: ValueKey(workoutSection.title),
                                           style: styles.Typography.title),
                                       Divider(
-                                          key: ValueKey(styles.Measurements.l),
-                                          height: styles.Measurements.l),
+                                          height: styles.Measurements.l,
+                                          key: UniqueKey()),
                                       ...workoutSection.workoutElements
                                           .map((WorkoutElement workoutElement) {
                                             return [
                                               _determineInputElement(
                                                   workoutElement),
                                               Divider(
-                                                key: ValueKey(
-                                                    styles.Measurements.m),
+                                                key: UniqueKey(),
                                                 height: styles.Measurements.m,
                                               )
                                             ];
@@ -156,14 +155,13 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                               inputElementPlusDivider)
                                           .toList(),
                                       Divider(
-                                          key: ValueKey(styles.Measurements.l),
+                                          key: UniqueKey(),
                                           height: styles.Measurements.l),
                                     ];
                                   })
                                   .expand((section) => section)
                                   .toList(),
                               SizedBox(
-                                key: UniqueKey(),
                                 height: _keyboardOffsetHeight,
                               )
                             ],
