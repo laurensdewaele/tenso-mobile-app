@@ -84,7 +84,7 @@ class _IntegerInputState extends State<IntegerInput> {
     _textEditingController.clear();
   }
 
-  _onPointerDown(PointerEvent event) {
+  void _onPointerDown(PointerEvent event) {
     final onTapCallback = KeyBoardScreen.of(context);
     onTapCallback(event.position);
   }
