@@ -7,10 +7,6 @@ Add transition from card expand to collapse.
 
 See if you can make them bigger than their containers.
 
-## Top navigation
-
-Top navigation on new workout should be fixed
-
 ## Smaller width screens
 
 Review the app on smaller and larger screens.
