@@ -64,29 +64,11 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
       HoldWorkoutConfigurationProperties holdWorkoutConfigurationProperty,
       ExtraWorkoutConfigurationProperties extraWorkoutConfigurationProperty) {}
 
-  List<Widget> _mapWorkoutElementsToInputWidgets(
-      List<WorkoutElement> workoutElements) {
-    return workoutElements
-        // A trick in order to get the index whilst mapping.
-        .asMap()
-        .map((int index, WorkoutElement workoutElement) {
-          return MapEntry(index, [
-            _determineInputElement(workoutElement, index == 0),
-            Divider(
-              height: styles.Measurements.m,
-            )
-          ]);
-        })
-        .values
-        .expand((inputElementPlusDivider) => inputElementPlusDivider)
-        .toList();
-  }
-
-  Widget _determineInputElement(WorkoutElement workoutElement, bool isFirst) {
+  Widget _determineInputElement(WorkoutElement workoutElement) {
     switch (workoutElement.workoutInputType) {
       case WorkoutInputTypes.number:
         return IntegerInputAndDescription(
-          isFirst: isFirst,
+          isFirst: workoutElement.isFirst,
           workoutElement: workoutElement,
           handleErrorMessage: _handleErrorMessage,
           shouldLoseFocusStream: _shouldLoseFocusStreamController.stream,
@@ -152,8 +134,19 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                       Text(workoutSection.title,
                                           style: styles.Typography.title),
                                       Divider(height: styles.Measurements.l),
-                                      ..._mapWorkoutElementsToInputWidgets(
-                                          workoutSection.workoutElements),
+                                      ...workoutSection.workoutElements
+                                          .map((WorkoutElement workoutElement) {
+                                            return [
+                                              _determineInputElement(
+                                                  workoutElement),
+                                              Divider(
+                                                height: styles.Measurements.m,
+                                              )
+                                            ];
+                                          })
+                                          .expand((inputElementPlusDivider) =>
+                                              inputElementPlusDivider)
+                                          .toList(),
                                       Divider(height: styles.Measurements.l),
                                     ];
                                   })

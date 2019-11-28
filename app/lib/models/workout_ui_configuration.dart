@@ -11,7 +11,8 @@ class WorkoutSection {
 
 class WorkoutElement {
   WorkoutElement(
-      {this.generalWorkoutConfigurationProperty,
+      {this.isFirst = false,
+      this.generalWorkoutConfigurationProperty,
       this.holdWorkoutConfigurationProperty,
       this.extraWorkoutConfigurationProperty,
       this.workoutInputType,
@@ -22,6 +23,7 @@ class WorkoutElement {
       this.description,
       this.handleValueChanged});
 
+  final bool isFirst;
   final WorkoutInputTypes workoutInputType;
   final int initialIntValue;
   final String initialStringValue;

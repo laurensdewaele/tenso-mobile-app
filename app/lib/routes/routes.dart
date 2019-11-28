@@ -18,6 +18,7 @@ class Routes {
 final List<WorkoutSection> testSections = [
   WorkoutSection(title: 'Basics', workoutElements: [
     WorkoutElement(
+        isFirst: true,
         generalWorkoutConfigurationProperty:
             GeneralWorkoutConfigurationProperties.holdAmount,
         workoutInputType: WorkoutInputTypes.number,
