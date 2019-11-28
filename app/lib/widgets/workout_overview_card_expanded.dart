@@ -56,7 +56,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
             width: 175.0, child: Button(text: 'start', handleTap: handleStart)),
         Divider(height: styles.Measurements.m),
         Icon(
-            iconData: IconData(0xf3f9,
+            iconData: IconData(0xf3d8,
                 fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
             size: styles.Measurements.l,
             color: styles.Colors.primary)
