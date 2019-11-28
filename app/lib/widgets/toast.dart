@@ -75,7 +75,8 @@ class _ToastUIState extends State<_ToastUI>
   void _openClose() {
     _animationController.forward().then((_) async {
       await Future.delayed(Duration(milliseconds: 3000));
-      _animationController?.reverse();
+      // It could be null because it might have already been disposed.
+      if (_animationController != null) _animationController.reverse();
     });
   }
 

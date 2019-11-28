@@ -134,14 +134,10 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final bool closed = !_isExpanded && _controller.isDismissed;
-
     return AnimatedBuilder(
         animation: _controller.view,
         builder: _buildChildren,
-        child: closed
-            ? null
-            : WorkoutOverviewCardExpanded(
-                workout: widget.workout, handleStart: _handleStart));
+        child: WorkoutOverviewCardExpanded(
+            workout: widget.workout, handleStart: _handleStart));
   }
 }
