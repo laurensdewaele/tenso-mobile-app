@@ -64,6 +64,9 @@ class _IntegerInputState extends State<IntegerInput> {
     }
 
     _focusNode.unfocus();
+    final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
+        KeyBoardScreen.of(context);
+    keyboardScreenCallbacks.resetKeyboardOffset();
   }
 
   void _validationError() {
@@ -85,8 +88,9 @@ class _IntegerInputState extends State<IntegerInput> {
   }
 
   void _onPointerDown(PointerEvent event) {
-    final onTapCallback = KeyBoardScreen.of(context);
-    onTapCallback(event.position);
+    final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
+        KeyBoardScreen.of(context);
+    keyboardScreenCallbacks.handlePointerDown(event.position);
   }
 
   @override

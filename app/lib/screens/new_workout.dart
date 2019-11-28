@@ -86,10 +86,12 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
     }
   }
 
-  void _handleOffset(double offset) {
+  void _handleKeyboardOffset(Offset offset) {
     setState(() {
-      _keyboardOffsetHeight = offset;
+      _keyboardOffsetHeight = offset.dy;
     });
+
+    if (offset.dy == 0) return;
 
     final double originalScrollDifference =
         _scrollController.position.maxScrollExtent - _scrollController.offset;
@@ -110,7 +112,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
         GestureDetector(
           onTap: _onScreenTap,
           child: KeyBoardScreen(
-              handleOffset: _handleOffset,
+              handleKeyboardOffset: _handleKeyboardOffset,
               gradientStartColor: styles.Colors.primary,
               gradientStopColor: styles.Colors.bgRedStop,
               child: ListView(

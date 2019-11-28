@@ -14,18 +14,17 @@ class KeyBoardScreen extends StatefulWidget {
   const KeyBoardScreen(
       {@required this.gradientStartColor,
       @required this.gradientStopColor,
-      @required this.handleOffset,
+      @required this.handleKeyboardOffset,
       @required this.child});
 
   final Color gradientStartColor;
   final Color gradientStopColor;
   final Widget child;
-  final Function(double offset) handleOffset;
+  final Function(Offset offset) handleKeyboardOffset;
 
-  static Function(Offset) of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(_OnTapCallbackProvider)
-            as _OnTapCallbackProvider)
-        .onTapCallback;
+  static KeyboardScreenCallbackProvider of(BuildContext context) {
+    return (context.inheritFromWidgetOfExactType(KeyboardScreenCallbackProvider)
+        as KeyboardScreenCallbackProvider);
   }
 
   @override
@@ -36,13 +35,13 @@ class _KeyBoardScreenState extends State<KeyBoardScreen> {
   double _keyboardHeight = 0;
   double _screenHeight = 0;
 
-  void _onTapCallback(Offset tapPosition) {
+  void _handlePointerDown(Offset tapPosition) {
     final double cutoffHeight = _screenHeight - _keyboardHeight;
     final double idealCutoffHeight = cutoffHeight - styles.Measurements.xxl;
 
     if (tapPosition.dy > idealCutoffHeight) {
       final double offset = tapPosition.dy - idealCutoffHeight;
-      widget.handleOffset(offset);
+      widget.handleKeyboardOffset(Offset(0.0, offset));
     }
   }
 
@@ -60,13 +59,18 @@ class _KeyBoardScreenState extends State<KeyBoardScreen> {
     }
   }
 
+  void _resetKeyboardOffset() {
+    widget.handleKeyboardOffset(Offset.zero);
+  }
+
   @override
   Widget build(BuildContext context) {
     final double viewInsetBottom = MediaQuery.of(context).viewInsets.bottom;
     final double sizeHeight = MediaQuery.of(context).size.height;
     _setDeviceHeight(sizeHeight, viewInsetBottom);
-    return _OnTapCallbackProvider(
-      onTapCallback: _onTapCallback,
+    return KeyboardScreenCallbackProvider(
+      handlePointerDown: _handlePointerDown,
+      resetKeyboardOffset: _resetKeyboardOffset,
       child: Screen(
           gradientStartColor: widget.gradientStartColor,
           gradientStopColor: widget.gradientStopColor,
@@ -75,15 +79,17 @@ class _KeyBoardScreenState extends State<KeyBoardScreen> {
   }
 }
 
-class _OnTapCallbackProvider extends InheritedWidget {
-  _OnTapCallbackProvider({
+class KeyboardScreenCallbackProvider extends InheritedWidget {
+  KeyboardScreenCallbackProvider({
     Key key,
-    @required this.onTapCallback,
+    @required this.handlePointerDown,
+    @required this.resetKeyboardOffset,
     @required Widget child,
   }) : super(key: key, child: child);
 
-  final Function(Offset) onTapCallback;
+  final Function(Offset) handlePointerDown;
+  final VoidCallback resetKeyboardOffset;
 
   @override
-  bool updateShouldNotify(_OnTapCallbackProvider old) => false;
+  bool updateShouldNotify(KeyboardScreenCallbackProvider old) => false;
 }
