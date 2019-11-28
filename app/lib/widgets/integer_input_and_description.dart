@@ -7,11 +7,13 @@ import 'package:app/widgets/divider.dart';
 
 class IntegerInputAndDescription extends StatelessWidget {
   IntegerInputAndDescription(
-      {this.workoutElement,
+      {Key key,
+      this.workoutElement,
       this.handleValueChanged,
       this.shouldLoseFocusStream,
       this.handleErrorMessage,
-      this.isFirst});
+      this.isFirst})
+      : super(key: key);
 
   final WorkoutElement workoutElement;
   final ValueChanged<int> handleValueChanged;

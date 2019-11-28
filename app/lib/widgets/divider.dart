@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class Divider extends StatelessWidget {
-  Divider({this.height, this.width});
+  Divider({Key key, this.height, this.width}) : super(key: key);
 
   final double height;
   final double width;

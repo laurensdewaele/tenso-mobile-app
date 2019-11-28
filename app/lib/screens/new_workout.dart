@@ -68,6 +68,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
     switch (workoutElement.workoutInputType) {
       case WorkoutInputTypes.number:
         return IntegerInputAndDescription(
+          key: ObjectKey(workoutElement),
           isFirst: workoutElement.isFirst,
           workoutElement: workoutElement,
           handleErrorMessage: _handleErrorMessage,
@@ -134,14 +135,19 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                   .map((WorkoutSection workoutSection) {
                                     return [
                                       Text(workoutSection.title,
+                                          key: ValueKey(workoutSection.title),
                                           style: styles.Typography.title),
-                                      Divider(height: styles.Measurements.l),
+                                      Divider(
+                                          key: ValueKey(styles.Measurements.l),
+                                          height: styles.Measurements.l),
                                       ...workoutSection.workoutElements
                                           .map((WorkoutElement workoutElement) {
                                             return [
                                               _determineInputElement(
                                                   workoutElement),
                                               Divider(
+                                                key: ValueKey(
+                                                    styles.Measurements.m),
                                                 height: styles.Measurements.m,
                                               )
                                             ];
@@ -149,12 +155,15 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                           .expand((inputElementPlusDivider) =>
                                               inputElementPlusDivider)
                                           .toList(),
-                                      Divider(height: styles.Measurements.l),
+                                      Divider(
+                                          key: ValueKey(styles.Measurements.l),
+                                          height: styles.Measurements.l),
                                     ];
                                   })
                                   .expand((section) => section)
                                   .toList(),
                               SizedBox(
+                                key: UniqueKey(),
                                 height: _keyboardOffsetHeight,
                               )
                             ],
