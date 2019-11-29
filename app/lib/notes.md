@@ -13,6 +13,8 @@ Make the back button click area much bigger.
 This means putting it above the screen widget.
 That means we need a stack. 
 Maybe also take a look at SliverAppBar to see if that could be any good.
+Or maybe unconstrainedbox widget?
+
 
 ## Smaller width screens
 
