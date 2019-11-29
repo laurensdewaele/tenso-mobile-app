@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/mock_data.dart';
+import 'package:app/models/settings.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/models/workout_ui_config.dart';
 import 'package:app/screens/new_workout.dart';
@@ -16,7 +17,8 @@ class Routes {
   static const String progressScreen = '/progressScreen';
 }
 
-final config = WorkoutUIConfig.fromWorkoutConfig(WorkoutConfig());
+final config = WorkoutUIConfig.fromWorkoutConfig(
+    WorkoutConfig.fromSettings(Settings.basic()));
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {

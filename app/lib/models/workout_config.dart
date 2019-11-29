@@ -2,15 +2,26 @@ import 'package:app/models/settings.dart';
 import 'package:flutter/foundation.dart';
 
 class WorkoutConfig {
-  GeneralConfig _generalConfig = GeneralConfig.basic();
-  HoldConfig _holdConfig = HoldConfig.basic();
-  ExtraConfig _extraConfig = ExtraConfig.basic();
+  WorkoutConfig.fromSettings(Settings settings) {
+    _generalConfig = GeneralConfig.basic();
+    _holdConfig = HoldConfig.basic();
+    _extraConfig = ExtraConfig.basic();
 
+    _settings = settings;
+    _parseControlSettings(settings.controlSettings);
+  }
+
+  Settings _settings;
+  GeneralConfig _generalConfig;
+  HoldConfig _holdConfig;
+  ExtraConfig _extraConfig;
+
+  Settings get settings => _settings;
   GeneralConfig get generalConfig => _generalConfig;
   HoldConfig get holdConfig => _holdConfig;
   ExtraConfig get extraConfig => _extraConfig;
 
-  void setConfig(ControlSettings settings) {
+  void _parseControlSettings(ControlSettings settings) {
     _toggleAddedWeight(settings.addedWeight);
     _toggleAdvancedTimers(settings.advancedTimers);
     _toggleBoardSelection(settings.boardSelection);

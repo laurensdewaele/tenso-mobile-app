@@ -1,3 +1,4 @@
+import 'package:app/models/settings.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/models/hold.dart';
@@ -6,13 +7,13 @@ import 'package:app/models/workout_config.dart';
 
 class WorkoutUIConfig {
   WorkoutUIConfig.fromWorkoutConfig(WorkoutConfig workoutConfig) {
-    this._generalConfig = _generateGeneralConfig(workoutConfig);
-    this._holdConfig = _generateHoldConfig(workoutConfig);
-    this._extraConfig = _generateExtraConfig(workoutConfig);
+    this._generalConfig = _generateGeneralConfig(workoutConfig.generalConfig);
+    this._holdConfig =
+        _generateHoldConfig(workoutConfig.holdConfig, workoutConfig.settings);
+    this._extraConfig =
+        _generateExtraConfig(workoutConfig.extraConfig, workoutConfig.settings);
   }
 
-  Map<String, List<WorkoutSection>> get config =>
-      {'general': _generalConfig, 'hold': _holdConfig, 'extra': _extraConfig};
   List<WorkoutSection> get generalConfig => _generalConfig;
   List<WorkoutSection> get holdConfig => _holdConfig;
   List<WorkoutSection> get extraConfig => _extraConfig;
@@ -22,8 +23,7 @@ class WorkoutUIConfig {
   List<WorkoutSection> _extraConfig;
 
   static List<WorkoutSection> _generateGeneralConfig(
-      WorkoutConfig workoutConfig) {
-    final GeneralConfig generalConfig = workoutConfig.generalConfig;
+      GeneralConfig generalConfig) {
     return [
       WorkoutSection(title: 'Basics', workoutElements: [
         generalConfig.holdAmount
@@ -91,8 +91,8 @@ class WorkoutUIConfig {
     ];
   }
 
-  static List<WorkoutSection> _generateHoldConfig(WorkoutConfig workoutConfig) {
-    final HoldConfig holdConfig = workoutConfig.holdConfig;
+  static List<WorkoutSection> _generateHoldConfig(
+      HoldConfig holdConfig, Settings settings) {
     final bool hasBasics = holdConfig.repetitions;
     final bool hasTimers = holdConfig.restBetweenHolds ||
         holdConfig.restBetweenRepetitions ||
@@ -176,7 +176,7 @@ class WorkoutUIConfig {
                   workoutProperty: WorkoutProperties.holds,
                   holdProperty: HoldProperties.addedWeight,
                   workoutInputType: WorkoutInputTypes.number,
-                  description: 'kg',
+                  description: settings.unit.toString(),
                   initialValue: 200)
             ])
           : null
@@ -184,8 +184,7 @@ class WorkoutUIConfig {
   }
 
   static List<WorkoutSection> _generateExtraConfig(
-      WorkoutConfig workoutConfig) {
-    final extraConfig = workoutConfig.extraConfig;
+      ExtraConfig extraConfig, Settings settings) {
     return [
       extraConfig.difficulty
           ? WorkoutSection(title: 'Difficulty', workoutElements: [
