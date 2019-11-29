@@ -7,6 +7,13 @@ Add transition from card expand to collapse.
 
 See if you can make them bigger than their containers.
 
+## Topnavigation
+
+Make the back button click area much bigger.
+This means putting it above the screen widget.
+That means we need a stack. 
+Maybe also take a look at SliverAppBar to see if that could be any good.
+
 ## Smaller width screens
 
 Review the app on smaller and larger screens.
@@ -19,3 +26,5 @@ Review the app on smaller and larger screens.
 
 Performance seems acceptable at the moment.
 Except for the initial dialog.
+
+Try to convert as much as possible to consts.
