@@ -7,13 +7,13 @@ import 'package:app/widgets/keyboard_screen.dart';
 
 class IntegerInput extends StatefulWidget {
   IntegerInput(
-      {this.initialIntValue,
+      {this.initialValue,
       this.handleValueChanged,
       this.shouldLoseFocusStream,
       this.handleErrorMessage,
       this.isFirst});
 
-  final int initialIntValue;
+  final int initialValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
@@ -31,7 +31,7 @@ class _IntegerInputState extends State<IntegerInput> {
   @override
   void initState() {
     super.initState();
-    _textEditingController.text = widget.initialIntValue.toString();
+    _textEditingController.text = widget.initialValue.toString();
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
         _validateInput();
@@ -70,7 +70,7 @@ class _IntegerInputState extends State<IntegerInput> {
   }
 
   void _validationError() {
-    _textEditingController.text = widget.initialIntValue.toString();
+    _textEditingController.text = widget.initialValue.toString();
     widget.handleErrorMessage(RichText(
       textAlign: TextAlign.center,
       text: TextSpan(

@@ -33,7 +33,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
             ),
             _WorkoutInfo(
               title: 'repetitions',
-              value: workout.repetitions,
+              value: workout.repetitions.toString(),
             ),
           ],
         ),

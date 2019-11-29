@@ -1,38 +1,61 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:app/models/board.dart';
 import 'package:app/models/sound.dart';
 
 class Settings {
   Settings(
-      {this.controlSettings,
-      this.defaultBoard,
-      this.grade,
-      this.hangSound,
-      this.preparationTimer,
-      this.restSound,
-      this.unit});
+      {@required this.controlSettings,
+      @required this.defaultBoard,
+      @required this.grade,
+      @required this.hangSound,
+      @required this.preparationTimer,
+      @required this.restSound,
+      @required this.unit});
 
-  final Board defaultBoard;
-  final int preparationTimer;
-  final Sound hangSound;
-  final Sound restSound;
-  final ControlSettings controlSettings;
-  final Units unit;
-  final List<String> grade;
+  Settings.basic() {
+    this.defaultBoard = beastmaker1000;
+    this.preparationTimer = 35;
+    this.hangSound = Sound();
+    this.restSound = Sound();
+    this.controlSettings = ControlSettings.basic();
+    this.unit = Units.metric;
+    this.grade = Grades.sportFrench;
+  }
+
+  Board defaultBoard;
+  int preparationTimer;
+  Sound hangSound;
+  Sound restSound;
+  ControlSettings controlSettings;
+  Units unit;
+  List<String> grade;
 }
 
 class ControlSettings {
   ControlSettings(
-      {this.oneHanded,
-      this.addedWeight,
-      this.allGrips,
-      this.boardSelection,
-      this.variableHangTime});
+      {@required this.oneHanded,
+      @required this.addedWeight,
+      @required this.allGrips,
+      @required this.boardSelection,
+      @required this.advancedTimers,
+      @required this.variableRepetitions});
 
-  final bool allGrips;
-  final bool boardSelection;
-  final bool addedWeight;
-  final bool oneHanded;
-  final bool variableHangTime;
+  ControlSettings.basic() {
+    this.allGrips = false;
+    this.oneHanded = false;
+    this.boardSelection = false;
+    this.advancedTimers = false;
+    this.addedWeight = false;
+    this.variableRepetitions = false;
+  }
+
+  bool allGrips;
+  bool boardSelection;
+  bool addedWeight;
+  bool oneHanded;
+  bool advancedTimers;
+  bool variableRepetitions;
 }
 
 enum Units { imperial, metric }

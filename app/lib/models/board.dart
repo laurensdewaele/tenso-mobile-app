@@ -1,7 +1,13 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
+
 class Board {
-  Board({this.manufacturer, this.model, this.size, this.holds})
+  Board(
+      {@required this.manufacturer,
+      @required this.model,
+      @required this.size,
+      @required this.holds})
       : aspectRatio = size.aspectRatio;
 
   final String manufacturer;
@@ -25,3 +31,12 @@ class BoardHold {
 // The depth of the pocket.
 // Etc...
 enum HoldType { sloper, pocket, jug }
+
+final beastmaker1000 = Board(
+    manufacturer: 'Beastmaker',
+    model: '1000',
+    size: Size(10, 10),
+    holds: [
+      BoardHold(
+          offset: Offset(0, 0), size: Size(10, 20), holdType: HoldType.jug)
+    ]);

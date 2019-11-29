@@ -1,26 +1,39 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/models/board.dart';
+
+enum HoldProperties {
+  grip,
+  handHold,
+  boardHolds,
+  repetitions,
+  restBeforeNextHold,
+  restBetweenRepetitions,
+  hangTime,
+  addedWeight
+}
+
 @immutable
 class Hold {
   const Hold(
       // TODO: Mark all as required
       {this.grip,
-      this.twoHanded,
-      this.oneHandLeft,
-      this.oneHandRight,
-      this.pockets,
+      this.handHold,
+      this.boardHolds,
       this.repetitions,
+      this.restBeforeNextHold,
       this.restBetweenRepetitions,
       this.hangTime,
       this.addedWeight});
 
   final String grip;
-  final bool twoHanded;
-  final bool oneHandLeft;
-  final bool oneHandRight;
-  final List<int> pockets;
+  final HandHolds handHold;
+  final List<BoardHold> boardHolds;
   final int repetitions;
+  final int restBeforeNextHold;
   final int restBetweenRepetitions;
   final int hangTime;
   final int addedWeight;
 }
+
+enum HandHolds { twoHanded, oneHandedLeft, oneHandedRight }

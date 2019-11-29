@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:app/models/hold.dart';
+import 'package:app/models/workout.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
-import 'package:app/models/workout_ui_configuration.dart';
+import 'package:app/models/workout_ui_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
@@ -13,8 +15,8 @@ import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
 class NewWorkoutScreen extends StatefulWidget {
-  NewWorkoutScreen({this.workoutSections});
-  final List<WorkoutSection> workoutSections;
+  NewWorkoutScreen({this.config});
+  final WorkoutUIConfig config;
 
   @override
   _NewWorkoutScreenState createState() => _NewWorkoutScreenState();
@@ -58,11 +60,8 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   // Fine for now. Assuming this does not cause too much of a performance hit.
   // It might be when we integrate state management.
   // TODO: Keep track of performance impact
-  void _handleIntValueChanged(
-      int value,
-      GeneralWorkoutConfigurationProperties generalWorkoutConfigurationProperty,
-      HoldWorkoutConfigurationProperties holdWorkoutConfigurationProperty,
-      ExtraWorkoutConfigurationProperties extraWorkoutConfigurationProperty) {}
+  void _handleIntValueChanged(int value, WorkoutProperties workoutProperty,
+      HoldProperties holdProperty) {}
 
   Widget _determineInputElement(WorkoutElement workoutElement) {
     switch (workoutElement.workoutInputType) {
@@ -75,10 +74,10 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
           shouldLoseFocusStream: _shouldLoseFocusStreamController.stream,
           handleValueChanged: (int value) => {
             _handleIntValueChanged(
-                value,
-                workoutElement.generalWorkoutConfigurationProperty,
-                workoutElement.holdWorkoutConfigurationProperty,
-                workoutElement.extraWorkoutConfigurationProperty)
+              value,
+              workoutElement.workoutProperty,
+              workoutElement.holdProperty,
+            )
           },
         );
         break;
@@ -131,7 +130,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ...widget.workoutSections
+                              ...widget.config.generalConfig
                                   .map((WorkoutSection workoutSection) {
                                     return [
                                       Text(workoutSection.title,
