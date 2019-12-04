@@ -24,6 +24,10 @@ class WorkoutUIConfig {
 
   static List<WorkoutSection> _generateGeneralConfig(
       GeneralConfig generalConfig) {
+
+    final Map<String, Map<String, bool>> config = generalConfig.toSectionedMap();
+    return config.map<String, List<WorkoutElement>
+
     return [
       WorkoutSection(title: 'Basics', workoutElements: [
         generalConfig.holdAmount
@@ -212,7 +216,7 @@ class WorkoutSection {
   WorkoutSection({this.title, this.workoutElements});
 
   final String title;
-  final List<WorkoutElement> workoutElements;
+  List<WorkoutElement> workoutElements;
 }
 
 class WorkoutElement {
