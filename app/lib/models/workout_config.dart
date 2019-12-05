@@ -116,6 +116,21 @@ class GeneralConfig {
   bool hangTime;
   bool board;
 
+  final basics = {
+    GeneralConfigProperties.holdAmount : false,
+    GeneralConfigProperties.repetitions : false,
+    GeneralConfigProperties.sets : true,
+  };
+  final timers = {
+    GeneralConfigProperties.hangTime : false,
+    GeneralConfigProperties.restBetweenRepetitions : false,
+    GeneralConfigProperties.restBetweenHolds : false,
+    GeneralConfigProperties.restBetweenSets: false,
+  }
+  final board = {
+    board: false
+  }
+
   Map<String, Map<String, bool>> toSectionedMap() {
     final map = {
       'Basics': {'holdAmount': false, 'repetitions': false, 'sets': true},
@@ -125,7 +140,7 @@ class GeneralConfig {
         'restBetweenHolds': true,
         'restBetweenSets': false,
       },
-      'Board': {'board': board}
+      'Board': {'board': false}
     };
     return removeFalseValues(map)
   }

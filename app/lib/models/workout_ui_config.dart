@@ -1,9 +1,11 @@
-import 'package:app/models/settings.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/models/hold.dart';
+import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
+
+/// This
 
 class WorkoutUIConfig {
   WorkoutUIConfig.fromWorkoutConfig(WorkoutConfig workoutConfig) {

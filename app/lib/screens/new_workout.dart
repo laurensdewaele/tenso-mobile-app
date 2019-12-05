@@ -60,8 +60,10 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   // Fine for now. Assuming this does not cause too much of a performance hit.
   // It might be when we integrate state management.
   // TODO: Keep track of performance impact
-  void _handleIntValueChanged(int value, WorkoutProperties workoutProperty,
-      HoldProperties holdProperty) {}
+  void _handleIntValueChanged(
+      {int value,
+      WorkoutProperties workoutProperty,
+      HoldProperties holdProperty}) {}
 
   Widget _determineInputElement(WorkoutElement workoutElement) {
     switch (workoutElement.workoutInputType) {
@@ -74,9 +76,9 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
           shouldLoseFocusStream: _shouldLoseFocusStreamController.stream,
           handleValueChanged: (int value) => {
             _handleIntValueChanged(
-              value,
-              workoutElement.workoutProperty,
-              workoutElement.holdProperty,
+              value: value,
+              workoutProperty: workoutElement.workoutProperty,
+              holdProperty: workoutElement.holdProperty,
             )
           },
         );
