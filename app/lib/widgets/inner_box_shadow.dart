@@ -14,9 +14,9 @@ class InnerBoxShadow extends StatelessWidget {
   static BorderRadius _determineBorderRadius(
       InnerBoxShadowRadiusPosition position) {
     if (position == InnerBoxShadowRadiusPosition.left) {
-      return BorderRadius.only(topLeft: styles.kAppBorderRadius);
+      return BorderRadius.only(topLeft: styles.kBorderRadius);
     }
-    return BorderRadius.only(topRight: styles.kAppBorderRadius);
+    return BorderRadius.only(topRight: styles.kBorderRadius);
   }
 
   @override

@@ -106,7 +106,7 @@ class _IntegerInputState extends State<IntegerInput> {
           cursorColor: styles.Colors.white,
           decoration: BoxDecoration(
               color: styles.Colors.primary,
-              borderRadius: styles.kAppBorderRadiusAll),
+              borderRadius: styles.kBorderRadiusAll),
           focusNode: _focusNode,
           keyboardType: TextInputType.number,
           maxLength: 3,

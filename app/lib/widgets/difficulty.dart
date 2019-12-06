@@ -19,8 +19,8 @@ class Difficulty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          boxShadow: [styles.kAppBoxShadow],
-          borderRadius: styles.kAppBorderRadiusAll,
+          boxShadow: [styles.kBoxShadow],
+          borderRadius: styles.kBorderRadiusAll,
           color: difficultyColor),
       height: height,
       width: width,

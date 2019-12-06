@@ -66,12 +66,14 @@ class Typography {
       fontWeight: FontWeight.w700);
 }
 
-const double kAppBorderRadiusValue = 5.0;
-const Radius kAppBorderRadius = Radius.circular(kAppBorderRadiusValue);
-const BorderRadius kAppBorderRadiusAll =
-    BorderRadius.all(Radius.circular(kAppBorderRadiusValue));
-const BoxShadow kAppBoxShadow =
-    BoxShadow(color: Colors.shadow, offset: Offset(0, 4), blurRadius: 4.0);
+const double kBorderRadiusValue = 5.0;
+const Radius kBorderRadius = Radius.circular(kBorderRadiusValue);
+const BorderRadius kBorderRadiusAll =
+    BorderRadius.all(Radius.circular(kBorderRadiusValue));
+const Offset kShadowOffset = Offset(0, 4);
+const double kShadowBlurRadius = 4.0;
+const BoxShadow kBoxShadow = BoxShadow(
+    color: Colors.shadow, offset: kShadowOffset, blurRadius: kShadowBlurRadius);
 
 const double kDialogBackdropBlurAmount = 20.0;
 const BoxDecoration kDialogBlurOverlayDecoration = BoxDecoration(

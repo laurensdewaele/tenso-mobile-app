@@ -152,8 +152,8 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
               decoration: BoxDecoration(
                 color: styles.Colors.bgWhite,
                 borderRadius: BorderRadius.only(
-                    topLeft: styles.kAppBorderRadius,
-                    topRight: styles.kAppBorderRadius),
+                    topLeft: styles.kBorderRadius,
+                    topRight: styles.kBorderRadius),
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -212,7 +212,7 @@ class _RedDragIndicatorRectangle extends StatelessWidget {
       height: _kRedDragIndicatorHeight,
       decoration: BoxDecoration(
           color: styles.Colors.primary,
-          borderRadius: styles.kAppBorderRadiusAll),
+          borderRadius: styles.kBorderRadiusAll),
     );
   }
 }

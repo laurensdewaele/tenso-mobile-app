@@ -13,9 +13,9 @@ class Card extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: styles.kAppBorderRadiusAll,
+          borderRadius: styles.kBorderRadiusAll,
           color: styles.Colors.bgWhite,
-          boxShadow: [styles.kAppBoxShadow]),
+          boxShadow: [styles.kBoxShadow]),
       padding: padding,
       child: child,
     );

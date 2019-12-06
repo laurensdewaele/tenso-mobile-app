@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/routes/routes.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
@@ -9,6 +10,7 @@ import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/keyboard_screen.dart';
+import 'package:app/widgets/new_workout/tabs_container.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
@@ -107,6 +109,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              TabsContainer(config: widget.config),
                               SizedBox(
                                 height: _keyboardOffsetHeight,
                               )

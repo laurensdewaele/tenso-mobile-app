@@ -24,7 +24,7 @@ class AppDialog extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: styles.Measurements.m),
                   child: ClipRRect(
-                    borderRadius: styles.kAppBorderRadiusAll,
+                    borderRadius: styles.kBorderRadiusAll,
                     child: BackdropFilter(
                       filter: ImageFilter.blur(
                           sigmaX: styles.kDialogBackdropBlurAmount,

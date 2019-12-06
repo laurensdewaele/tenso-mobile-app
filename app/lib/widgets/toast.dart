@@ -96,8 +96,8 @@ class _ToastUIState extends State<_ToastUI>
           decoration: BoxDecoration(
             color: styles.Colors.bgWhite,
             borderRadius: BorderRadius.only(
-                bottomLeft: styles.kAppBorderRadius,
-                bottomRight: styles.kAppBorderRadius),
+                bottomLeft: styles.kBorderRadius,
+                bottomRight: styles.kBorderRadius),
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,

@@ -17,8 +17,8 @@ class WorkoutOverviewEditAction extends StatelessWidget {
             decoration: const BoxDecoration(
                 color: styles.Colors.difficultyBlue,
                 borderRadius: BorderRadius.only(
-                    topLeft: styles.kAppBorderRadius,
-                    bottomLeft: styles.kAppBorderRadius)),
+                    topLeft: styles.kBorderRadius,
+                    bottomLeft: styles.kBorderRadius)),
             child: Center(
                 child: Text(
               'EDIT',

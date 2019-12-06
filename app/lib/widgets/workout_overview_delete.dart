@@ -19,8 +19,8 @@ class WorkoutOverviewDeleteAction extends StatelessWidget {
               decoration: const BoxDecoration(
                   color: styles.Colors.primary,
                   borderRadius: BorderRadius.only(
-                      topRight: styles.kAppBorderRadius,
-                      bottomRight: styles.kAppBorderRadius)),
+                      topRight: styles.kBorderRadius,
+                      bottomRight: styles.kBorderRadius)),
               child: Center(
                   child: Text(
                 'DELETE',
