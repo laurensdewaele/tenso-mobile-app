@@ -1,18 +1,6 @@
 import 'package:app/models/settings.dart';
 import 'package:flutter/foundation.dart';
 
-Map<String, Map<String, bool>> removeFalseValues(
-    Map<String, Map<String, bool>> map) {
-  final clone = Map.from(map);
-  clone.forEach((key, value) => {
-        value.removeWhere((key2, value2) {
-          return value2 == false;
-        })
-      });
-  clone.removeWhere((key, value) => value.isEmpty);
-  return clone;
-}
-
 class WorkoutConfig {
   WorkoutConfig.fromSettings(Settings settings) {
     _generalConfig = GeneralConfig.basic();
@@ -74,17 +62,6 @@ class WorkoutConfig {
   }
 }
 
-enum GeneralConfigProperties {
-  hangTime,
-  restBetweenHolds,
-  restBetweenSets,
-  restBetweenRepetitions,
-  repetitions,
-  holdAmount,
-  board,
-  sets
-}
-
 class GeneralConfig {
   GeneralConfig(
       {@required this.hangTime,
@@ -115,60 +92,8 @@ class GeneralConfig {
   bool restBetweenSets;
   bool hangTime;
   bool board;
-
-  final basics = {
-    GeneralConfigProperties.holdAmount : false,
-    GeneralConfigProperties.repetitions : false,
-    GeneralConfigProperties.sets : true,
-  };
-  final timers = {
-    GeneralConfigProperties.hangTime : false,
-    GeneralConfigProperties.restBetweenRepetitions : false,
-    GeneralConfigProperties.restBetweenHolds : false,
-    GeneralConfigProperties.restBetweenSets: false,
-  }
-  final board = {
-    board: false
-  }
-
-  Map<String, Map<String, bool>> toSectionedMap() {
-    final map = {
-      'Basics': {'holdAmount': false, 'repetitions': false, 'sets': true},
-      'Timers': {
-        'hangTime': true,
-        'restBetweenRepetitions': true,
-        'restBetweenHolds': true,
-        'restBetweenSets': false,
-      },
-      'Board': {'board': false}
-    };
-    return removeFalseValues(map)
-  }
-
-  Map<String, bool> toMap() {
-    return {
-      'holdAmount': holdAmount,
-      'repetitions': repetitions,
-      'sets': sets,
-      'restBetweenHolds': restBetweenHolds,
-      'restBetweenRepetitions': restBetweenRepetitions,
-      'restBetweenSets': restBetweenSets,
-      'hangTime': hangTime,
-      'board': board,
-    };
-  }
 }
 
-enum HoldConfigProperties {
-  basicGrips,
-  advancedGrips,
-  oneHanded,
-  repetitions,
-  hangTime,
-  restBetweenRepetitions,
-  restBetweenHolds,
-  addedWeight
-}
 
 class HoldConfig {
   HoldConfig(
@@ -200,19 +125,6 @@ class HoldConfig {
   bool restBetweenRepetitions;
   bool restBetweenHolds;
   bool addedWeight;
-
-  Map<String, bool> toMap() {
-    return {
-      'basicGrips': basicGrips,
-      'advancedGrips': advancedGrips,
-      'oneHanded': oneHanded,
-      'repetitions': repetitions,
-      'hangTime': hangTime,
-      'restBetweenRepetitions': restBetweenRepetitions,
-      'restBetweenHolds': restBetweenHolds,
-      'addedWeight': addedWeight,
-    };
-  }
 }
 
 enum ExtraConfigProperties { difficulty, name }
@@ -227,11 +139,4 @@ class ExtraConfig {
 
   bool difficulty;
   bool name;
-
-  Map<String, bool> toMap() {
-    return {
-      'difficulty': difficulty,
-      'name': name,
-    };
-  }
 }
