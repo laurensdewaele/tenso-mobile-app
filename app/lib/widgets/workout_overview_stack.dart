@@ -188,9 +188,9 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
 
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-      sizeFactor: _sizeAnimation,
-      child: Card(
+    return Card(
+      child: SizeTransition(
+        sizeFactor: _sizeAnimation,
         child: Stack(
           children: <Widget>[
             Positioned.fill(
