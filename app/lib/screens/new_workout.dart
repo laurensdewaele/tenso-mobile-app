@@ -1,22 +1,20 @@
 import 'dart:async';
 
-import 'package:app/models/hold.dart';
-import 'package:app/models/workout.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
-import 'package:app/models/workout_ui_config.dart';
+import 'package:app/models/hold.dart';
+import 'package:app/models/workout.dart';
+import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/widgets/keyboard_screen.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
 class NewWorkoutScreen extends StatefulWidget {
   NewWorkoutScreen({this.config});
-  final WorkoutUIConfig config;
+  final WorkoutConfig config;
 
   @override
   _NewWorkoutScreenState createState() => _NewWorkoutScreenState();
@@ -60,33 +58,10 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   // Fine for now. Assuming this does not cause too much of a performance hit.
   // It might be when we integrate state management.
   // TODO: Keep track of performance impact
-  void _handleIntValueChanged(
+  void _handleValueChanged(
       {int value,
       WorkoutProperties workoutProperty,
       HoldProperties holdProperty}) {}
-
-  Widget _determineInputElement(WorkoutElement workoutElement) {
-    switch (workoutElement.workoutInputType) {
-      case WorkoutInputTypes.number:
-        return IntegerInputAndDescription(
-          key: ObjectKey(workoutElement),
-          isFirst: workoutElement.isFirst,
-          workoutElement: workoutElement,
-          handleErrorMessage: _handleErrorMessage,
-          shouldLoseFocusStream: _shouldLoseFocusStreamController.stream,
-          handleValueChanged: (int value) => {
-            _handleIntValueChanged(
-              value: value,
-              workoutProperty: workoutElement.workoutProperty,
-              holdProperty: workoutElement.holdProperty,
-            )
-          },
-        );
-        break;
-      default:
-        return null;
-    }
-  }
 
   void _handleKeyboardOffset(Offset offset) {
     setState(() {
@@ -131,37 +106,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ...widget.config.generalConfig
-                                  .map((WorkoutSection workoutSection) {
-                                    return [
-                                      Text(workoutSection.title,
-                                          key: ValueKey(workoutSection.title),
-                                          style: styles.Typography.title),
-                                      Divider(
-                                          height: styles.Measurements.l,
-                                          key: UniqueKey()),
-                                      ...workoutSection.workoutElements
-                                          .map((WorkoutElement workoutElement) {
-                                            return [
-                                              _determineInputElement(
-                                                  workoutElement),
-                                              Divider(
-                                                key: UniqueKey(),
-                                                height: styles.Measurements.m,
-                                              )
-                                            ];
-                                          })
-                                          .expand((inputElementPlusDivider) =>
-                                              inputElementPlusDivider)
-                                          .toList(),
-                                      Divider(
-                                          key: UniqueKey(),
-                                          height: styles.Measurements.l),
-                                    ];
-                                  })
-                                  .expand((section) => section)
-                                  .toList(),
+                            children: [
                               SizedBox(
                                 height: _keyboardOffsetHeight,
                               )

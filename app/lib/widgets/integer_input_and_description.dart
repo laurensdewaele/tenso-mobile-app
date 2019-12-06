@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/workout_ui_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/integer_input.dart';
 import 'package:app/widgets/divider.dart';
@@ -8,14 +7,16 @@ import 'package:app/widgets/divider.dart';
 class IntegerInputAndDescription extends StatelessWidget {
   IntegerInputAndDescription(
       {Key key,
-      this.workoutElement,
+      this.description,
+      this.initialValue,
       this.handleValueChanged,
       this.shouldLoseFocusStream,
       this.handleErrorMessage,
       this.isFirst})
       : super(key: key);
 
-  final WorkoutElement workoutElement;
+  final String description;
+  final int initialValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
@@ -29,13 +30,13 @@ class IntegerInputAndDescription extends StatelessWidget {
             isFirst: isFirst,
             handleValueChanged: handleValueChanged,
             handleErrorMessage: handleErrorMessage,
-            initialValue: workoutElement.initialValue,
+            initialValue: initialValue,
             shouldLoseFocusStream: shouldLoseFocusStream),
         Divider(
           width: styles.Measurements.s,
         ),
         Expanded(
-          child: Text(workoutElement.description,
+          child: Text(description,
               style: styles.Typography.text, overflow: TextOverflow.clip),
         )
       ],
