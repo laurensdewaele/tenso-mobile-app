@@ -25,7 +25,12 @@ class Tabs extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        LeftChevron(handleTap: handleBackNavigation),
+        active != 1
+            ? LeftChevron(handleTap: handleBackNavigation)
+            : SizedBox(
+                width: styles.Measurements.xxl,
+                height: styles.Measurements.xxl,
+              ),
         Expanded(
           child: FittedBox(
             fit: BoxFit.scaleDown,
@@ -35,9 +40,14 @@ class Tabs extends StatelessWidget {
             ),
           ),
         ),
-        RightChevron(
-          handleTap: handleForwardNavigation,
-        )
+        active != amount
+            ? RightChevron(
+                handleTap: handleForwardNavigation,
+              )
+            : SizedBox(
+                width: styles.Measurements.xxl,
+                height: styles.Measurements.xxl,
+              )
       ],
     );
   }

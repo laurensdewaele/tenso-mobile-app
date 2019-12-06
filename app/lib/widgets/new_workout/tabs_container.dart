@@ -14,11 +14,10 @@ class TabsContainer extends StatefulWidget {
 
 class _TabsContainerState extends State<TabsContainer> {
   int _amount = 7;
-  int _active = 1;
+  int _active = 7;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
