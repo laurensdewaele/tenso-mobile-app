@@ -10,7 +10,7 @@ import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/workout_overview_stack.dart';
+import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
 
 class WorkoutOverviewScreen extends StatefulWidget {
   WorkoutOverviewScreen({@required this.workouts});

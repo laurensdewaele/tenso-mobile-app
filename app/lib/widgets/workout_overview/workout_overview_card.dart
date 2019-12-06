@@ -4,7 +4,7 @@ import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
-import 'package:app/widgets/workout_overview_card_expanded.dart';
+import 'package:app/widgets/workout_overview/workout_overview_card_expanded.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
   WorkoutOverviewCard({

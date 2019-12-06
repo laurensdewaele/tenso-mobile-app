@@ -28,8 +28,13 @@ class _TabsContainerState extends State<TabsContainer> {
     super.dispose();
   }
 
-  void _handleBackNavigation(int currentTab) {}
-  void _handleForwardNavigation(int currentTab) {}
+  void _handleBackNavigation() {
+    print('back');
+  }
+
+  void _handleForwardNavigation() {
+    print('forward');
+  }
 
   @override
   Widget build(BuildContext context) {

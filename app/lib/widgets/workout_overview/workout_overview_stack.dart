@@ -7,10 +7,10 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/workout_dialog_delete.dart';
-import 'package:app/widgets/workout_overview_card.dart';
-import 'package:app/widgets/workout_overview_delete.dart';
-import 'package:app/widgets/workout_overview_edit.dart';
+import 'package:app/widgets/workout_overview/workout_dialog_delete.dart';
+import 'package:app/widgets/workout_overview/workout_overview_card.dart';
+import 'package:app/widgets/workout_overview/workout_overview_delete.dart';
+import 'package:app/widgets/workout_overview/workout_overview_edit.dart';
 
 enum _SlideDirection { left, right }
 

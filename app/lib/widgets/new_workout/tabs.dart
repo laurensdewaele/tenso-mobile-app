@@ -1,8 +1,8 @@
-import 'package:app/widgets/icon_button.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/divider.dart';
 
 class Tabs extends StatelessWidget {
@@ -14,8 +14,8 @@ class Tabs extends StatelessWidget {
       this.active})
       : super(key: key);
 
-  final Function(int currentTab) handleBackNavigation;
-  final Function(int currentTab) handleForwardNavigation;
+  final GestureTapCallback handleBackNavigation;
+  final GestureTapCallback handleForwardNavigation;
   final int amount;
   final int active;
 
@@ -25,7 +25,7 @@ class Tabs extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        LeftChevron(),
+        LeftChevron(handleTap: handleBackNavigation),
         Expanded(
           child: FittedBox(
             fit: BoxFit.scaleDown,
@@ -35,7 +35,9 @@ class Tabs extends StatelessWidget {
             ),
           ),
         ),
-        RightChevron()
+        RightChevron(
+          handleTap: handleForwardNavigation,
+        )
       ],
     );
   }
@@ -118,17 +120,15 @@ class NonActiveCircle extends StatelessWidget {
 }
 
 class RightChevron extends StatelessWidget {
-  const RightChevron({
-    Key key,
-  }) : super(key: key);
+  const RightChevron({Key key, this.handleTap}) : super(key: key);
+
+  final GestureTapCallback handleTap;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       offset: Offset(20, 0),
-      handleTap: () {
-        print('tapped');
-      },
+      handleTap: handleTap,
       icon: Icon(
           iconData: IconData(0xf3d1,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
@@ -139,17 +139,15 @@ class RightChevron extends StatelessWidget {
 }
 
 class LeftChevron extends StatelessWidget {
-  const LeftChevron({
-    Key key,
-  }) : super(key: key);
+  const LeftChevron({Key key, this.handleTap}) : super(key: key);
+
+  final GestureTapCallback handleTap;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       offset: Offset(-20, 0),
-      handleTap: () {
-        print('tapped');
-      },
+      handleTap: handleTap,
       icon: Icon(
           iconData: IconData(0xf3cf,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
