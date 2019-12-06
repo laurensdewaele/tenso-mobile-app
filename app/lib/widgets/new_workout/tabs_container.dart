@@ -33,9 +33,11 @@ class _TabsContainerState extends State<TabsContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final content = Container();
+    final content = Container(
+      width: double.infinity,
+    );
 
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         content,
