@@ -69,7 +69,7 @@ class _TabsContainerState extends State<TabsContainer> {
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
           latestWorkout: mockWorkout,
           config: widget.config.generalConfig,
-          handleHoldCountChange: _handleHoldCountChange,
+          handleHoldCountChanged: _handleHoldCountChanged,
           key: ValueKey('new-workout-page-1'),
         ),
         ...List.generate(holdCount, (i) => i + 1).map((n) {
@@ -80,7 +80,7 @@ class _TabsContainerState extends State<TabsContainer> {
     });
   }
 
-  void _handleHoldCountChange(int count) {
+  void _handleHoldCountChanged(int count) {
     _buildPages(count);
   }
 

@@ -14,14 +14,14 @@ class GeneralTab extends StatefulWidget {
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
       @required this.latestWorkout,
-      @required this.handleHoldCountChange,
+      @required this.handleHoldCountChanged,
       @required this.shouldFocusOnInput})
       : super(key: key);
 
   final GeneralConfig config;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
-  final Function(int count) handleHoldCountChange;
+  final Function(int count) handleHoldCountChanged;
   final Workout latestWorkout;
   final bool shouldFocusOnInput;
 
@@ -30,17 +30,9 @@ class GeneralTab extends StatefulWidget {
 }
 
 class _GeneralTabState extends State<GeneralTab> {
-  bool hasTimers;
-  bool hasBoard;
-
   @override
   void initState() {
     super.initState();
-    hasTimers = widget.config.restBetweenSets ||
-        widget.config.restBetweenHolds ||
-        widget.config.restBetweenRepetitions ||
-        widget.config.hangTime;
-    hasBoard = widget.config.board;
   }
 
   @override
@@ -55,6 +47,12 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasTimers = widget.config.restBetweenSets ||
+        widget.config.restBetweenHolds ||
+        widget.config.restBetweenRepetitions ||
+        widget.config.hangTime;
+    final bool hasBoard = widget.config.board;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -66,7 +64,7 @@ class _GeneralTabState extends State<GeneralTab> {
                 description: 'holds',
                 shouldFocus: widget.shouldFocusOnInput,
                 handleValueChanged: (int value) {
-                  widget.handleHoldCountChange(value);
+                  widget.handleHoldCountChanged(value);
                   _handleValueChanged(
                       workoutProperty: WorkoutProperties.holdCount,
                       value: value);

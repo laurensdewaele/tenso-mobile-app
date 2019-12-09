@@ -30,8 +30,8 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _subscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -69,9 +69,9 @@ class _ToastUIState extends State<_ToastUI>
 
   @override
   void dispose() {
-    super.dispose();
     _animationController.dispose();
     _subscription.cancel();
+    super.dispose();
   }
 
   void _openClose() {

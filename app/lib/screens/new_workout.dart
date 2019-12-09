@@ -38,9 +38,9 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _shouldLoseFocusStreamController.close();
     _errorMessageStreamController.close();
+    super.dispose();
   }
 
   void _onScreenTap() {

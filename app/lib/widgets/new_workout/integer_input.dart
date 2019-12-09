@@ -44,8 +44,8 @@ class _IntegerInputState extends State<IntegerInput> {
 
   @override
   void dispose() {
-    super.dispose();
     _subscription.cancel();
+    super.dispose();
   }
 
   void _validateInput() {
