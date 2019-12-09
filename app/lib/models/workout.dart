@@ -8,7 +8,7 @@ enum WorkoutProperties {
   difficulty,
   duration,
   sets,
-  holdAmount,
+  holdCount,
   restBetweenSets,
   board,
   holds,
@@ -25,7 +25,7 @@ class Workout {
     @required this.difficulty,
     @required this.duration,
     @required this.sets,
-    @required this.holdAmount,
+    @required this.holdCount,
     @required this.restBetweenSets,
     @required this.board,
     @required this.holds,
@@ -41,7 +41,7 @@ class Workout {
   final String difficulty;
   final Color difficultyColor;
   final int duration;
-  final int holdAmount;
+  final int holdCount;
   final int sets;
   final int restBetweenSets;
   final Board board;

@@ -10,13 +10,13 @@ class Tabs extends StatelessWidget {
       {Key key,
       @required this.handleBackNavigation,
       @required this.handleForwardNavigation,
-      @required this.amount,
+      @required this.count,
       @required this.active})
       : super(key: key);
 
   final GestureTapCallback handleBackNavigation;
   final GestureTapCallback handleForwardNavigation;
-  final int amount;
+  final int count;
   final int active;
 
   @override
@@ -35,12 +35,12 @@ class Tabs extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: CircleContainer(
-              amount: amount,
+              count: count,
               active: active,
             ),
           ),
         ),
-        active != amount
+        active != count
             ? RightChevron(
                 handleTap: handleForwardNavigation,
               )
@@ -54,14 +54,14 @@ class Tabs extends StatelessWidget {
 }
 
 class CircleContainer extends StatelessWidget {
-  CircleContainer({this.amount, this.active});
+  CircleContainer({this.count, this.active});
 
-  final int amount;
+  final int count;
   final int active;
 
   @override
   Widget build(BuildContext context) {
-    final List<int> list = List.generate(amount, (i) => i + 1);
+    final List<int> list = List.generate(count, (i) => i + 1);
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[...list.map((n) => Circle(active: n == active))],

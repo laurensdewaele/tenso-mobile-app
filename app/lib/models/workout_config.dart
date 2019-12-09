@@ -69,12 +69,12 @@ class GeneralConfig {
       @required this.restBetweenSets,
       @required this.restBetweenRepetitions,
       @required this.repetitions,
-      @required this.holdAmount,
+      @required this.holdCount,
       @required this.board,
       @required this.sets});
 
   GeneralConfig.basic() {
-    this.holdAmount = true;
+    this.holdCount = true;
     this.repetitions = true;
     this.sets = true;
     this.restBetweenHolds = true;
@@ -84,7 +84,7 @@ class GeneralConfig {
     this.board = false;
   }
 
-  bool holdAmount;
+  bool holdCount;
   bool repetitions;
   bool sets;
   bool restBetweenHolds;

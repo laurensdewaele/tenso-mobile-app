@@ -11,13 +11,13 @@ class IntegerInput extends StatefulWidget {
       @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.isFirst});
+      @required this.shouldFocus});
 
   final int initialValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
-  final bool isFirst;
+  final bool shouldFocus;
 
   @override
   _IntegerInputState createState() => _IntegerInputState();
@@ -60,7 +60,7 @@ class _IntegerInputState extends State<IntegerInput> {
       _validationError();
     }
 
-    if (value != null && value > 1) {
+    if (value != null && value >= 1) {
       widget.handleValueChanged(value);
     }
 
@@ -101,7 +101,7 @@ class _IntegerInputState extends State<IntegerInput> {
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
-          autofocus: widget.isFirst,
+          autofocus: widget.shouldFocus,
           autocorrect: false,
           controller: _textEditingController,
           cursorColor: styles.Colors.white,

@@ -12,7 +12,7 @@ class IntegerInputAndDescription extends StatelessWidget {
       @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.isFirst})
+      @required this.shouldFocus})
       : super(key: key);
 
   final String description;
@@ -20,14 +20,14 @@ class IntegerInputAndDescription extends StatelessWidget {
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
-  final bool isFirst;
+  final bool shouldFocus;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         IntegerInput(
-            isFirst: isFirst,
+            shouldFocus: shouldFocus,
             handleValueChanged: handleValueChanged,
             handleErrorMessage: handleErrorMessage,
             initialValue: initialValue,

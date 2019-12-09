@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/data/mock_data.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
@@ -83,6 +84,10 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
     });
   }
 
+  void _scrollToTop() {
+    _scrollController.jumpTo(0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -109,6 +114,8 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TabsContainer(
+                                  onNavigation: _scrollToTop,
+                                  latestWorkout: mockWorkout,
                                   config: widget.config,
                                   shouldLoseFocusStream:
                                       _shouldLoseFocusStreamController.stream,

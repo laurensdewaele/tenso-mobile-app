@@ -23,20 +23,20 @@ class BottomMenuDrawer extends StatefulWidget {
   final double heightToHide;
   final double offsetHeight;
 
-  static double _determineTotalHeight(int menuItemsAmount) {
-    final totalHeight = menuItemsAmount * _kMenuItemTextHeight +
+  static double _determineTotalHeight(int menuItemsCount) {
+    final totalHeight = menuItemsCount * _kMenuItemTextHeight +
         _kDividerHeight +
         _kRedDragIndicatorContainerHeight;
     return totalHeight;
   }
 
-  static double _determineHeightToHide(int menuItemsAmount) {
-    return menuItemsAmount * _kMenuItemTextHeight + _kDividerHeight;
+  static double _determineHeightToHide(int menuItemsCount) {
+    return menuItemsCount * _kMenuItemTextHeight + _kDividerHeight;
   }
 
-  static double _determineHeightOffset(int menuItemsAmount) {
-    final double totalHeight = _determineTotalHeight(menuItemsAmount);
-    final heightToHide = _determineHeightToHide(menuItemsAmount);
+  static double _determineHeightOffset(int menuItemsCount) {
+    final double totalHeight = _determineTotalHeight(menuItemsCount);
+    final heightToHide = _determineHeightToHide(menuItemsCount);
     return heightToHide / totalHeight;
   }
 

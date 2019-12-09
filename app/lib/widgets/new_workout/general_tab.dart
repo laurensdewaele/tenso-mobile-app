@@ -13,13 +13,17 @@ class GeneralTab extends StatefulWidget {
       @required this.config,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.latestWorkout})
+      @required this.latestWorkout,
+      @required this.handleHoldCountChange,
+      @required this.shouldFocusOnInput})
       : super(key: key);
 
   final GeneralConfig config;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
+  final Function(int count) handleHoldCountChange;
   final Workout latestWorkout;
+  final bool shouldFocusOnInput;
 
   @override
   _GeneralTabState createState() => _GeneralTabState();
@@ -57,23 +61,24 @@ class _GeneralTabState extends State<GeneralTab> {
         Section(
           title: 'basics',
           children: <Widget>[
-            if (widget.config.holdAmount)
+            if (widget.config.holdCount)
               InputAndDivider(
                 description: 'holds',
-                isFirst: true,
+                shouldFocus: widget.shouldFocusOnInput,
                 handleValueChanged: (int value) {
+                  widget.handleHoldCountChange(value);
                   _handleValueChanged(
-                      workoutProperty: WorkoutProperties.holdAmount,
+                      workoutProperty: WorkoutProperties.holdCount,
                       value: value);
                 },
-                initialValue: widget.latestWorkout.holdAmount,
+                initialValue: widget.latestWorkout.holdCount,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
             if (widget.config.repetitions)
               InputAndDivider(
                 description: 'repetittions per hold',
-                isFirst: false,
+                shouldFocus: false,
                 handleValueChanged: (int value) {
                   _handleValueChanged(
                       workoutProperty: WorkoutProperties.holds,
@@ -87,7 +92,7 @@ class _GeneralTabState extends State<GeneralTab> {
             if (widget.config.sets)
               InputAndDivider(
                 description: 'sets',
-                isFirst: false,
+                shouldFocus: false,
                 handleValueChanged: (int value) {
                   _handleValueChanged(
                       workoutProperty: WorkoutProperties.sets, value: value);
@@ -105,7 +110,7 @@ class _GeneralTabState extends State<GeneralTab> {
               if (widget.config.hangTime)
                 InputAndDivider(
                   description: 'hang time seconds',
-                  isFirst: false,
+                  shouldFocus: false,
                   handleValueChanged: (int value) {
                     _handleValueChanged(
                         workoutProperty: WorkoutProperties.holds,
@@ -119,7 +124,7 @@ class _GeneralTabState extends State<GeneralTab> {
               if (widget.config.restBetweenRepetitions)
                 InputAndDivider(
                   description: 'rest seconds between repetitions',
-                  isFirst: false,
+                  shouldFocus: false,
                   handleValueChanged: (int value) {
                     _handleValueChanged(
                         workoutProperty: WorkoutProperties.holds,
@@ -134,7 +139,7 @@ class _GeneralTabState extends State<GeneralTab> {
               if (widget.config.restBetweenHolds)
                 InputAndDivider(
                   description: 'rest seconds between holds',
-                  isFirst: false,
+                  shouldFocus: false,
                   handleValueChanged: (int value) {
                     _handleValueChanged(
                         workoutProperty: WorkoutProperties.holds,
@@ -148,7 +153,7 @@ class _GeneralTabState extends State<GeneralTab> {
               if (widget.config.restBetweenSets)
                 InputAndDivider(
                   description: 'rest seconds between sets',
-                  isFirst: false,
+                  shouldFocus: false,
                   handleValueChanged: (int value) {
                     _handleValueChanged(
                         workoutProperty: WorkoutProperties.restBetweenSets,
@@ -203,7 +208,7 @@ class InputAndDivider extends StatelessWidget {
       @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.isFirst})
+      this.shouldFocus})
       : super(key: key);
 
   final String description;
@@ -211,7 +216,7 @@ class InputAndDivider extends StatelessWidget {
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
-  final bool isFirst;
+  final bool shouldFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -219,7 +224,7 @@ class InputAndDivider extends StatelessWidget {
       children: <Widget>[
         IntegerInputAndDescription(
           description: description,
-          isFirst: isFirst,
+          shouldFocus: shouldFocus,
           handleValueChanged: handleValueChanged,
           initialValue: initialValue,
           shouldLoseFocusStream: shouldLoseFocusStream,
