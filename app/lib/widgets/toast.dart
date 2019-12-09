@@ -36,7 +36,6 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Stack(
         children: [...messages.map((message) => _ToastUI(message: message))]);
   }

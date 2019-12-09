@@ -16,15 +16,14 @@ enum HoldProperties {
 @immutable
 class Hold {
   const Hold(
-      // TODO: Mark all as required
-      {this.grip,
-      this.handHold,
-      this.boardHolds,
-      this.repetitions,
-      this.restBeforeNextHold,
-      this.restBetweenRepetitions,
-      this.hangTime,
-      this.addedWeight});
+      {@required this.grip,
+      @required this.handHold,
+      @required this.boardHolds,
+      @required this.repetitions,
+      @required this.restBeforeNextHold,
+      @required this.restBetweenRepetitions,
+      @required this.hangTime,
+      @required this.addedWeight});
 
   final String grip;
   final HandHolds handHold;

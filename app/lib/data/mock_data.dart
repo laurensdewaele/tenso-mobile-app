@@ -1,73 +1,36 @@
+import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 
+final Workout mockWorkout = Workout(
+  difficulty: '7A',
+  duration: 20 * 60,
+  sets: 3,
+  holdAmount: 3,
+  restBetweenSets: 60 * 3,
+  board: beastmaker1000,
+  holds: [
+    Hold(
+        grip: '2 handed',
+        handHold: HandHolds.twoHanded,
+        boardHolds: beastmaker1000.holds,
+        repetitions: 8,
+        restBeforeNextHold: 60 * 2,
+        restBetweenRepetitions: 60,
+        hangTime: 7,
+        addedWeight: 0)
+  ],
+  name: 'Latest workout',
+);
+
 final List<Workout> mockWorkouts = [
-  Workout(
-      name: 'Beginner routine',
-      difficulty: '4A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 5),
-  Workout(
-      name: 'Beginner routine',
-      difficulty: '5A',
-      holds: [Hold(repetitions: 5), Hold(repetitions: 7)],
-      duration: 25,
-      sets: 5),
-  Workout(
-      name: 'Medium stuff',
-      difficulty: '5B',
-      holds: [Hold(repetitions: 5)],
-      duration: 30,
-      sets: 3),
-  Workout(
-      name: 'Medium stuff',
-      difficulty: '6A',
-      holds: [Hold(repetitions: 5)],
-      duration: 30,
-      sets: 3),
-  Workout(
-      name: 'Intermediate',
-      difficulty: '7A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
-  Workout(
-      name: 'Tendon snapper',
-      difficulty: '8A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
-  Workout(
-      name: 'Tendon snapper',
-      difficulty: '9A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
-  Workout(
-      name: 'Tendon snapper',
-      difficulty: '9A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
-  Workout(
-      name: 'Tendon snapper',
-      difficulty: '9A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
-  Workout(
-      name: 'Tendon snapper',
-      difficulty: '4A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
-  Workout(
-      name: 'Tendon snapper',
-      difficulty: '4A',
-      holds: [Hold(repetitions: 5)],
-      duration: 25,
-      sets: 4),
+  mockWorkout,
+  mockWorkout,
+  mockWorkout,
+  mockWorkout,
+  mockWorkout,
+  mockWorkout,
+  mockWorkout,
 ];
 
 final List<Workout> mockAlotOfWorkouts = [

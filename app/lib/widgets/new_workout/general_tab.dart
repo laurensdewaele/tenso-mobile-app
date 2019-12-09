@@ -12,12 +12,14 @@ class GeneralTab extends StatefulWidget {
       {Key key,
       @required this.config,
       @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage})
+      @required this.handleErrorMessage,
+      @required this.latestWorkout})
       : super(key: key);
 
   final GeneralConfig config;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
+  final Workout latestWorkout;
 
   @override
   _GeneralTabState createState() => _GeneralTabState();
@@ -39,7 +41,6 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -65,7 +66,7 @@ class _GeneralTabState extends State<GeneralTab> {
                       workoutProperty: WorkoutProperties.holdAmount,
                       value: value);
                 },
-                initialValue: 4,
+                initialValue: widget.latestWorkout.holdAmount,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
@@ -79,7 +80,7 @@ class _GeneralTabState extends State<GeneralTab> {
                       holdProperty: HoldProperties.repetitions,
                       value: value);
                 },
-                initialValue: 4,
+                initialValue: widget.latestWorkout.averageRepetitions,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
@@ -91,7 +92,7 @@ class _GeneralTabState extends State<GeneralTab> {
                   _handleValueChanged(
                       workoutProperty: WorkoutProperties.sets, value: value);
                 },
-                initialValue: 4,
+                initialValue: widget.latestWorkout.sets,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
@@ -111,7 +112,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         holdProperty: HoldProperties.hangTime,
                         value: value);
                   },
-                  initialValue: 4,
+                  initialValue: widget.latestWorkout.averageHangTime,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
@@ -125,7 +126,8 @@ class _GeneralTabState extends State<GeneralTab> {
                         holdProperty: HoldProperties.restBetweenRepetitions,
                         value: value);
                   },
-                  initialValue: 4,
+                  initialValue:
+                      widget.latestWorkout.averageRestBetweenRepetitions,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
@@ -139,7 +141,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         holdProperty: HoldProperties.restBeforeNextHold,
                         value: value);
                   },
-                  initialValue: 4,
+                  initialValue: widget.latestWorkout.averageRestBetweenHolds,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
@@ -152,7 +154,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         workoutProperty: WorkoutProperties.restBetweenSets,
                         value: value);
                   },
-                  initialValue: 4,
+                  initialValue: widget.latestWorkout.restBetweenSets,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),

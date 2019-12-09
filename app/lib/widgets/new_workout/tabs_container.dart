@@ -1,7 +1,8 @@
-import 'package:app/widgets/new_workout/general_tab.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/data/mock_data.dart';
 import 'package:app/models/workout_config.dart';
+import 'package:app/widgets/new_workout/general_tab.dart';
 import 'package:app/widgets/new_workout/tabs.dart';
 
 class TabsContainer extends StatefulWidget {
@@ -31,7 +32,6 @@ class _TabsContainerState extends State<TabsContainer> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -48,6 +48,7 @@ class _TabsContainerState extends State<TabsContainer> {
     final content = GeneralTab(
       handleErrorMessage: widget.handleErrorMessage,
       shouldLoseFocusStream: widget.shouldLoseFocusStream,
+      latestWorkout: mockWorkout,
       config: widget.config.generalConfig,
     );
 
