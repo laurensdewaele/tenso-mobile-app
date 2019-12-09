@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:app/routes/routes.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
@@ -109,7 +108,11 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              TabsContainer(config: widget.config),
+                              TabsContainer(
+                                  config: widget.config,
+                                  shouldLoseFocusStream:
+                                      _shouldLoseFocusStreamController.stream,
+                                  handleErrorMessage: _handleErrorMessage),
                               SizedBox(
                                 height: _keyboardOffsetHeight,
                               )

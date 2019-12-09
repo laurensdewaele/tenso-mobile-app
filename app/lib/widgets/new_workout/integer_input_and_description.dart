@@ -7,12 +7,12 @@ import 'package:app/widgets/divider.dart';
 class IntegerInputAndDescription extends StatelessWidget {
   IntegerInputAndDescription(
       {Key key,
-      this.description,
-      this.initialValue,
-      this.handleValueChanged,
-      this.shouldLoseFocusStream,
-      this.handleErrorMessage,
-      this.isFirst})
+      @required this.description,
+      @required this.initialValue,
+      @required this.handleValueChanged,
+      @required this.shouldLoseFocusStream,
+      @required this.handleErrorMessage,
+      @required this.isFirst})
       : super(key: key);
 
   final String description;

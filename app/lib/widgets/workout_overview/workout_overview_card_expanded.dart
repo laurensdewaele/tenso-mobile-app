@@ -32,8 +32,8 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               difficultyColor: workout.difficultyColor,
             ),
             _WorkoutInfo(
-              title: 'repetitions',
-              value: workout.repetitions.toString(),
+              title: 'av. repetitions',
+              value: workout.averageRepetitions.toString(),
             ),
           ],
         ),

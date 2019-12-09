@@ -8,10 +8,10 @@ import 'package:app/widgets/divider.dart';
 class Tabs extends StatelessWidget {
   Tabs(
       {Key key,
-      this.handleBackNavigation,
-      this.handleForwardNavigation,
-      this.amount,
-      this.active})
+      @required this.handleBackNavigation,
+      @required this.handleForwardNavigation,
+      @required this.amount,
+      @required this.active})
       : super(key: key);
 
   final GestureTapCallback handleBackNavigation;

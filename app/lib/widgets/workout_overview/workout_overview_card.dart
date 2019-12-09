@@ -66,8 +66,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
   }
 
   void _handleTap() {

@@ -1,12 +1,20 @@
+import 'package:app/widgets/new_workout/general_tab.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/workout_config.dart';
 import 'package:app/widgets/new_workout/tabs.dart';
 
 class TabsContainer extends StatefulWidget {
-  TabsContainer({this.config});
+  TabsContainer(
+      {Key key,
+      this.config,
+      this.shouldLoseFocusStream,
+      this.handleErrorMessage})
+      : super(key: key);
 
   final WorkoutConfig config;
+  final Stream<bool> shouldLoseFocusStream;
+  final Function(Widget message) handleErrorMessage;
 
   @override
   _TabsContainerState createState() => _TabsContainerState();
@@ -37,8 +45,10 @@ class _TabsContainerState extends State<TabsContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final content = Container(
-      width: double.infinity,
+    final content = GeneralTab(
+      handleErrorMessage: widget.handleErrorMessage,
+      shouldLoseFocusStream: widget.shouldLoseFocusStream,
+      config: widget.config.generalConfig,
     );
 
     return Column(
