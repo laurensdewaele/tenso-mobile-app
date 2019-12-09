@@ -4,7 +4,6 @@ import 'package:app/models/workout.dart';
 
 final Workout mockWorkout = Workout(
   difficulty: '7A',
-  duration: 20 * 60,
   sets: 3,
   holdCount: 3,
   restBetweenSets: 60 * 3,

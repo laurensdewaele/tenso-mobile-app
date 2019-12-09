@@ -23,7 +23,6 @@ enum WorkoutProperties {
 class Workout {
   Workout({
     @required this.difficulty,
-    @required this.duration,
     @required this.sets,
     @required this.holdCount,
     @required this.restBetweenSets,
@@ -35,7 +34,9 @@ class Workout {
         averageHangTime = _determineAverageHangTime(holds),
         averageRestBetweenRepetitions =
             _determineAverageRestBetweenRepetitions(holds),
-        averageRestBetweenHolds = _determineAverageRestBetweenHolds(holds);
+        averageRestBetweenHolds = _determineAverageRestBetweenHolds(holds),
+        duration = _calculateDuration(
+            holds: holds, restBetweenSets: restBetweenSets, sets: sets);
 
   final String name;
   final String difficulty;
@@ -87,5 +88,16 @@ class Workout {
     int value = 0;
     holds.forEach((hold) => value += hold.restBeforeNextHold);
     return value ~/ holds.length;
+  }
+
+  static int _calculateDuration({List<Hold> holds, sets, restBetweenSets}) {
+    int value = 0;
+    value += sets * restBetweenSets;
+    holds.forEach((hold) {
+      value += hold.restBetweenRepetitions * hold.repetitions;
+      value += hold.restBeforeNextHold;
+      value += hold.hangTime;
+    });
+    return value.toInt();
   }
 }
