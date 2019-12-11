@@ -1,8 +1,10 @@
-import 'package:app/widgets/new_workout/section.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/models/grips.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
+import 'package:app/widgets/new_workout/grip_picker.dart';
+import 'package:app/widgets/new_workout/section.dart';
 
 class HoldTab extends StatefulWidget {
   HoldTab(
@@ -37,6 +39,8 @@ class _HoldTabState extends State<HoldTab> {
     super.dispose();
   }
 
+  void _handleGripChanged(Grip grip) {}
+
   @override
   Widget build(BuildContext context) {
     final String currentGrip = widget.currentGrip.toString();
@@ -48,7 +52,12 @@ class _HoldTabState extends State<HoldTab> {
       children: <Widget>[
         Section(
           title: 'choose grip $currentGrip / $totalGrips',
-          children: <Widget>[Text('test')],
+          children: <Widget>[
+            GripPicker(
+                grips: widget.config.basicGrips ? Grips.basic : Grips.advanced,
+                handleGripChanged: _handleGripChanged,
+                initialGrip: Grips.frontThree)
+          ],
         )
       ],
     );

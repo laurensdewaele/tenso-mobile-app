@@ -85,7 +85,8 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   }
 
   void _scrollToTop() {
-    _scrollController.jumpTo(0);
+    _scrollController.animateTo(0,
+        duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
   @override
