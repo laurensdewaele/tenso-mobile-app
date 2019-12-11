@@ -54,9 +54,11 @@ class _HoldTabState extends State<HoldTab> {
           title: 'choose grip $currentGrip / $totalGrips',
           children: <Widget>[
             GripPicker(
-                grips: widget.config.basicGrips ? Grips.basic : Grips.advanced,
+                grips: widget.config.basicGrips
+                    ? Grips.advancedR
+                    : Grips.advancedR,
                 handleGripChanged: _handleGripChanged,
-                initialGrip: Grips.frontThree)
+                initialGrip: Grips.frontThreeR)
           ],
         )
       ],

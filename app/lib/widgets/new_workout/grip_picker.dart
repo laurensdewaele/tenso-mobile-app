@@ -32,8 +32,7 @@ class _GripPickerState extends State<GripPicker> {
   void initState() {
     super.initState();
     _selected = widget.initialGrip;
-    WidgetsBinding.instance
-        .addPostFrameCallback((Duration timeStamp) => _scrollToSelected());
+    WidgetsBinding.instance.addPostFrameCallback(_afterInitialRender);
   }
 
   @override
@@ -41,13 +40,20 @@ class _GripPickerState extends State<GripPicker> {
     super.dispose();
   }
 
+  void _afterInitialRender(Duration timeStamp) {
+    _scrollToSelected();
+  }
+
   void _scrollToSelected() {
+    print('scrolling to selected');
+    print(_selected.name);
     final RenderBox container =
         _kGripPickerContainerKey.currentContext.findRenderObject();
     final Size size = container.size;
     final double center = size.width / 2;
     final int index = widget.grips.indexOf(_selected);
     final double totalWidth = _kGripWidth * widget.grips.length;
+    print(index);
 
     if (index * _kGripWidth < center) {
       _scrollController.animateTo(0,
@@ -92,7 +98,7 @@ class _GripPickerState extends State<GripPicker> {
               ...widget.grips.map((Grip grip) => _Grip(
                   grip: grip,
                   handleGripSelected: _handleGripSelected,
-                  selected: _selected.name == grip.name)),
+                  selected: _selected == grip)),
             ],
           ),
         ),
