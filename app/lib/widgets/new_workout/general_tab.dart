@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/new_workout/integer_input_and_description.dart';
+import 'package:app/widgets/new_workout/integer_input_and_divider.dart';
+import 'package:app/widgets/new_workout/section.dart';
 
 class GeneralTab extends StatefulWidget {
   GeneralTab(
@@ -60,7 +59,7 @@ class _GeneralTabState extends State<GeneralTab> {
           title: 'basics',
           children: <Widget>[
             if (widget.config.holdCount)
-              InputAndDivider(
+              IntegerInputAndDivider(
                 description: 'holds',
                 shouldFocus: widget.shouldFocusOnInput,
                 handleValueChanged: (int value) {
@@ -74,7 +73,7 @@ class _GeneralTabState extends State<GeneralTab> {
                 handleErrorMessage: widget.handleErrorMessage,
               ),
             if (widget.config.repetitions)
-              InputAndDivider(
+              IntegerInputAndDivider(
                 description: 'repetittions per hold',
                 shouldFocus: false,
                 handleValueChanged: (int value) {
@@ -88,7 +87,7 @@ class _GeneralTabState extends State<GeneralTab> {
                 handleErrorMessage: widget.handleErrorMessage,
               ),
             if (widget.config.sets)
-              InputAndDivider(
+              IntegerInputAndDivider(
                 description: 'sets',
                 shouldFocus: false,
                 handleValueChanged: (int value) {
@@ -106,7 +105,7 @@ class _GeneralTabState extends State<GeneralTab> {
             title: 'timers',
             children: <Widget>[
               if (widget.config.hangTime)
-                InputAndDivider(
+                IntegerInputAndDivider(
                   description: 'hang time seconds',
                   shouldFocus: false,
                   handleValueChanged: (int value) {
@@ -120,7 +119,7 @@ class _GeneralTabState extends State<GeneralTab> {
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
               if (widget.config.restBetweenRepetitions)
-                InputAndDivider(
+                IntegerInputAndDivider(
                   description: 'rest seconds between repetitions',
                   shouldFocus: false,
                   handleValueChanged: (int value) {
@@ -135,7 +134,7 @@ class _GeneralTabState extends State<GeneralTab> {
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
               if (widget.config.restBetweenHolds)
-                InputAndDivider(
+                IntegerInputAndDivider(
                   description: 'rest seconds between holds',
                   shouldFocus: false,
                   handleValueChanged: (int value) {
@@ -149,7 +148,7 @@ class _GeneralTabState extends State<GeneralTab> {
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
               if (widget.config.restBetweenSets)
-                InputAndDivider(
+                IntegerInputAndDivider(
                   description: 'rest seconds between sets',
                   shouldFocus: false,
                   handleValueChanged: (int value) {
@@ -170,68 +169,6 @@ class _GeneralTabState extends State<GeneralTab> {
               // TODO: Board selector
             ],
           )
-      ],
-    );
-  }
-}
-
-class Section extends StatelessWidget {
-  Section({@required this.title, @required this.children});
-
-  final String title;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: styles.Typography.title,
-        ),
-        Divider(height: styles.Measurements.l),
-        ...children,
-        Divider(height: styles.Measurements.xxl),
-      ],
-    );
-  }
-}
-
-class InputAndDivider extends StatelessWidget {
-  InputAndDivider(
-      {Key key,
-      @required this.description,
-      @required this.initialValue,
-      @required this.handleValueChanged,
-      @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage,
-      this.shouldFocus})
-      : super(key: key);
-
-  final String description;
-  final int initialValue;
-  final ValueChanged<int> handleValueChanged;
-  final Stream<bool> shouldLoseFocusStream;
-  final Function(Widget) handleErrorMessage;
-  final bool shouldFocus;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        IntegerInputAndDescription(
-          description: description,
-          shouldFocus: shouldFocus,
-          handleValueChanged: handleValueChanged,
-          initialValue: initialValue,
-          shouldLoseFocusStream: shouldLoseFocusStream,
-          handleErrorMessage: handleErrorMessage,
-        ),
-        Divider(
-          key: UniqueKey(),
-          height: styles.Measurements.m,
-        ),
       ],
     );
   }

@@ -1,3 +1,5 @@
+import 'package:app/routes/routes.dart' as prefix0;
+import 'package:app/widgets/new_workout/hold_tab.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/mock_data.dart';
@@ -50,11 +52,6 @@ class _TabsContainerState extends State<TabsContainer> {
   void _buildPages(
     int holdCount,
   ) {
-    final Widget holdTab = Container(
-      height: 1500,
-      width: double.infinity,
-      decoration: BoxDecoration(color: styles.Colors.difficultyBlue),
-    );
     final Widget extraTab = Container(
       height: 1500,
       width: double.infinity,
@@ -73,7 +70,14 @@ class _TabsContainerState extends State<TabsContainer> {
           key: ValueKey('new-workout-page-1'),
         ),
         ...List.generate(holdCount, (i) => i + 1).map((n) {
-          return holdTab;
+          return HoldTab(
+              key: UniqueKey(),
+              latestWorkout: mockWorkout,
+              handleErrorMessage: widget.handleErrorMessage,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              config: prefix0.config.holdConfig,
+              currentGrip: n,
+              totalGrips: holdCount);
         }),
         extraTab
       ];
