@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 
@@ -23,6 +22,11 @@ class TopNavigation extends StatelessWidget {
             GestureDetector(
                 onTap: () => _handleTap(context),
                 child: IconButton(
+                  padding: EdgeInsets.fromLTRB(
+                      styles.Measurements.xs,
+                      styles.Measurements.m,
+                      styles.Measurements.m,
+                      styles.Measurements.m),
                   handleTap: () => _handleTap(context),
                   icon: Icon(
                     iconData: CupertinoIcons.back,

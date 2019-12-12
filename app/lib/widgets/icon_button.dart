@@ -7,10 +7,14 @@ import 'package:app/widgets/icon.dart';
 // Not a perfect solution, but apparently it cannot be done.
 // https://laurens.codes/flutter_icon_button.html
 class IconButton extends StatelessWidget {
-  IconButton({@required this.handleTap, @required this.icon});
+  IconButton(
+      {@required this.handleTap,
+      @required this.icon,
+      this.padding = const EdgeInsets.all(styles.Measurements.m)});
 
   final VoidCallback handleTap;
   final Icon icon;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class IconButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(color: styles.Colors.translucent),
           child: Padding(
-            padding: EdgeInsets.all(styles.Measurements.m),
+            padding: padding,
             child: icon,
           ),
         ));
