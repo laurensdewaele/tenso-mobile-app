@@ -1,14 +1,15 @@
 import 'dart:async';
 
-import 'package:app/data/mock_data.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
+import 'package:app/data/mock_data.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';
 import 'package:app/widgets/new_workout/tabs_container.dart';
 import 'package:app/widgets/toast.dart';
@@ -122,33 +123,40 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                     Column(
                       children: <Widget>[
                         TopNavigation(title: 'New workout'),
-                        GestureDetector(
-                          onHorizontalDragEnd: _onHorizontalDragEnd,
-                          child: Card(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TabsContainer(
-                                    onNavigation: _scrollToTop,
-                                    latestWorkout: mockWorkout,
-                                    config: widget.config,
-                                    shouldLoseFocusStream:
-                                        _shouldLoseFocusStreamController.stream,
-                                    handleErrorMessage: _handleErrorMessage,
-                                    navigateForwardTabStream:
-                                        _navigateForwardTabStreamController
-                                            .stream,
-                                    navigateBackTabStream:
-                                        _navigateBackTabStreamController
-                                            .stream),
-                                SizedBox(
-                                  height: _keyboardOffsetHeight,
-                                )
-                              ],
+                        Divider(height: styles.Measurements.xxl),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: styles.Measurements.xs),
+                          child: GestureDetector(
+                            onHorizontalDragEnd: _onHorizontalDragEnd,
+                            child: Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TabsContainer(
+                                      onNavigation: _scrollToTop,
+                                      latestWorkout: mockWorkout,
+                                      config: widget.config,
+                                      shouldLoseFocusStream:
+                                          _shouldLoseFocusStreamController
+                                              .stream,
+                                      handleErrorMessage: _handleErrorMessage,
+                                      navigateForwardTabStream:
+                                          _navigateForwardTabStreamController
+                                              .stream,
+                                      navigateBackTabStream:
+                                          _navigateBackTabStreamController
+                                              .stream),
+                                  SizedBox(
+                                    height: _keyboardOffsetHeight,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        )
+                        ),
+                        Divider(height: styles.Measurements.xxl)
                       ],
                     )
                   ])),

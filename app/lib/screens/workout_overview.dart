@@ -43,7 +43,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     return Stack(
       children: <Widget>[
         Screen(
-            padding: EdgeInsets.all(styles.Measurements.m),
+            padding: EdgeInsets.all(styles.Measurements.xs),
             gradientStartColor: styles.Colors.bgGrayStart,
             gradientStopColor: styles.Colors.bgGrayStop,
             child: ListView.separated(

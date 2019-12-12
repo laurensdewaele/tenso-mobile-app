@@ -39,7 +39,6 @@ class TopNavigation extends StatelessWidget {
           ),
         ),
       ]),
-      Divider(height: styles.Measurements.xxl)
     ]);
   }
 }
