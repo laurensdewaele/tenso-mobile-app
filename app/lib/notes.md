@@ -16,3 +16,7 @@ Performance seems acceptable at the moment.
 Except for the initial dialog.
 
 Try to convert as much as possible to consts.
+
+## New workout
+
+- Keep the pages alive somehow? => state store

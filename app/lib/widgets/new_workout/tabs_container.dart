@@ -130,6 +130,12 @@ class _TabsContainerState extends State<TabsContainer> {
     }
   }
 
+  void _handleNavigation(int page) {
+    setState(() {
+      _activePage = page;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -142,6 +148,7 @@ class _TabsContainerState extends State<TabsContainer> {
           child: _pages[_activePage - 1],
         ),
         Tabs(
+            handleNavigation: _handleNavigation,
             handleBackNavigation: _handleBackNavigation,
             handleForwardNavigation: _handleForwardNavigation,
             count: _pageCount,

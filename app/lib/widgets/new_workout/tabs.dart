@@ -11,13 +11,15 @@ class Tabs extends StatelessWidget {
       @required this.handleBackNavigation,
       @required this.handleForwardNavigation,
       @required this.count,
-      @required this.active})
+      @required this.active,
+      @required this.handleNavigation})
       : super(key: key);
 
   final GestureTapCallback handleBackNavigation;
   final GestureTapCallback handleForwardNavigation;
   final int count;
   final int active;
+  final Function(int page) handleNavigation;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class Tabs extends StatelessWidget {
             child: CircleContainer(
               count: count,
               active: active,
+              handleNavigation: handleNavigation,
             ),
           ),
         ),
@@ -54,17 +57,24 @@ class Tabs extends StatelessWidget {
 }
 
 class CircleContainer extends StatelessWidget {
-  CircleContainer({this.count, this.active});
+  CircleContainer({this.count, this.active, this.handleNavigation});
 
   final int count;
   final int active;
+  final Function(int page) handleNavigation;
 
   @override
   Widget build(BuildContext context) {
     final List<int> list = List.generate(count, (i) => i + 1);
     return Row(
       mainAxisSize: MainAxisSize.max,
-      children: <Widget>[...list.map((n) => Circle(active: n == active))],
+      children: <Widget>[
+        ...list.map((n) => GestureDetector(
+            onTap: () {
+              handleNavigation(n);
+            },
+            child: Circle(active: n == active)))
+      ],
     );
   }
 }
