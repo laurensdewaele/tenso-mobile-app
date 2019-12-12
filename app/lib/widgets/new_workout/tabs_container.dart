@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/routes/routes.dart' as prefix0;
 import 'package:app/widgets/new_workout/hold_tab.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +18,9 @@ class TabsContainer extends StatefulWidget {
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
       @required this.latestWorkout,
-      @required this.onNavigation})
+      @required this.onNavigation,
+      this.navigateForwardTabStream,
+      this.navigateBackTabStream})
       : super(key: key);
 
   final WorkoutConfig config;
@@ -24,6 +28,8 @@ class TabsContainer extends StatefulWidget {
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final VoidCallback onNavigation;
+  final Stream<bool> navigateForwardTabStream;
+  final Stream<bool> navigateBackTabStream;
 
   @override
   _TabsContainerState createState() => _TabsContainerState();
@@ -34,18 +40,32 @@ class _TabsContainerState extends State<TabsContainer> {
   int _activePage;
   List<Widget> _pages;
   bool firstTimeConstructed = true;
+  StreamSubscription _navigateForwardTabSub;
+  StreamSubscription _navigateBackTabSub;
+  List<int> _pageCountList;
 
   @override
   void initState() {
     super.initState();
     _pageCount = widget.latestWorkout.holdCount + 2;
+    _pageCountList = List.generate(_pageCount, (i) => i + 1);
     _activePage = 1;
     _buildPages(widget.latestWorkout.holdCount);
     firstTimeConstructed = false;
+    _navigateForwardTabSub =
+        widget.navigateForwardTabStream.listen((bool shouldNavigate) {
+      _handleForwardNavigation();
+    });
+    _navigateBackTabSub =
+        widget.navigateBackTabStream.listen((bool shouldNavigate) {
+      _handleBackNavigation();
+    });
   }
 
   @override
   void dispose() {
+    _navigateBackTabSub.cancel();
+    _navigateForwardTabSub.cancel();
     super.dispose();
   }
 
@@ -89,17 +109,25 @@ class _TabsContainerState extends State<TabsContainer> {
   }
 
   void _handleBackNavigation() {
-    widget.onNavigation();
-    setState(() {
-      --_activePage;
-    });
+    final int newPage = _activePage - 1;
+
+    if (_pageCountList.contains(newPage)) {
+      widget.onNavigation();
+      setState(() {
+        _activePage = newPage;
+      });
+    }
   }
 
   void _handleForwardNavigation() {
-    widget.onNavigation();
-    setState(() {
-      ++_activePage;
-    });
+    final int newPage = _activePage + 1;
+
+    if (_pageCountList.contains(newPage)) {
+      widget.onNavigation();
+      setState(() {
+        _activePage = newPage;
+      });
+    }
   }
 
   @override

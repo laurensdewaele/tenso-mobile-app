@@ -28,6 +28,10 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   final StreamController<Widget> _errorMessageStreamController =
       StreamController<Widget>();
   final ScrollController _scrollController = ScrollController();
+  final StreamController<bool> _navigateForwardTabStreamController =
+      StreamController<bool>();
+  final StreamController<bool> _navigateBackTabStreamController =
+      StreamController<bool>();
 
   double _keyboardOffsetHeight = 0;
 
@@ -40,6 +44,8 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   void dispose() {
     _shouldLoseFocusStreamController.close();
     _errorMessageStreamController.close();
+    _navigateForwardTabStreamController.close();
+    _navigateBackTabStreamController.close();
     super.dispose();
   }
 
@@ -89,6 +95,16 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
         duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
+  void _onHorizontalDragEnd(DragEndDetails details) {
+    if (details.primaryVelocity > 0) {
+      _navigateBackTabStreamController.sink.add(true);
+    }
+
+    if (details.primaryVelocity < 0) {
+      _navigateForwardTabStreamController.sink.add(true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -106,22 +122,31 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                     Column(
                       children: <Widget>[
                         TopNavigation(title: 'New workout'),
-                        Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TabsContainer(
-                                  onNavigation: _scrollToTop,
-                                  latestWorkout: mockWorkout,
-                                  config: widget.config,
-                                  shouldLoseFocusStream:
-                                      _shouldLoseFocusStreamController.stream,
-                                  handleErrorMessage: _handleErrorMessage),
-                              SizedBox(
-                                height: _keyboardOffsetHeight,
-                              )
-                            ],
+                        GestureDetector(
+                          onHorizontalDragEnd: _onHorizontalDragEnd,
+                          child: Card(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TabsContainer(
+                                    onNavigation: _scrollToTop,
+                                    latestWorkout: mockWorkout,
+                                    config: widget.config,
+                                    shouldLoseFocusStream:
+                                        _shouldLoseFocusStreamController.stream,
+                                    handleErrorMessage: _handleErrorMessage,
+                                    navigateForwardTabStream:
+                                        _navigateForwardTabStreamController
+                                            .stream,
+                                    navigateBackTabStream:
+                                        _navigateBackTabStreamController
+                                            .stream),
+                                SizedBox(
+                                  height: _keyboardOffsetHeight,
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
