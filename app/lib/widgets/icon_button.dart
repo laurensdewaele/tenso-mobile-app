@@ -18,15 +18,11 @@ class IconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: handleTap,
-        child: Transform.translate(
-          offset: offset,
-          child: Container(
-            width: styles.Measurements.xxl,
-            height: styles.Measurements.xxl,
-            decoration: BoxDecoration(color: styles.Colors.translucent),
-            child: Center(
-              child: icon,
-            ),
+        child: Container(
+          decoration: BoxDecoration(color: styles.Colors.translucent),
+          child: Padding(
+            padding: EdgeInsets.all(styles.Measurements.m),
+            child: icon,
           ),
         ));
   }

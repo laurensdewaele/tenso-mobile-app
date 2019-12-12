@@ -107,7 +107,12 @@ class _TabsContainerState extends State<TabsContainer> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _pages[_activePage - 1],
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: styles.Measurements.m,
+              vertical: styles.Measurements.l),
+          child: _pages[_activePage - 1],
+        ),
         Tabs(
             handleBackNavigation: _handleBackNavigation,
             handleForwardNavigation: _handleForwardNavigation,

@@ -23,8 +23,8 @@ class KeyBoardScreen extends StatefulWidget {
   final Function(Offset offset) handleKeyboardOffset;
 
   static KeyboardScreenCallbackProvider of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(KeyboardScreenCallbackProvider)
-        as KeyboardScreenCallbackProvider);
+    return context
+        .dependOnInheritedWidgetOfExactType<KeyboardScreenCallbackProvider>();
   }
 
   @override

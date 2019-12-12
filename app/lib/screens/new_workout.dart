@@ -107,9 +107,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                       children: <Widget>[
                         TopNavigation(title: 'New workout'),
                         Card(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: styles.Measurements.m,
-                              vertical: styles.Measurements.l),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
