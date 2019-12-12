@@ -20,3 +20,7 @@ Try to convert as much as possible to consts.
 ## New workout
 
 - Keep the pages alive somehow? => state store
+
+## Buttons
+
+Make all buttons very big and clickable

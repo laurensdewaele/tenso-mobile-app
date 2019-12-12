@@ -6,11 +6,13 @@ class Screen extends StatelessWidget {
   const Screen(
       {@required this.gradientStartColor,
       @required this.gradientStopColor,
-      @required this.child});
+      @required this.child,
+      this.padding});
 
   final Color gradientStartColor;
   final Color gradientStopColor;
   final Widget child;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class Screen extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [this.gradientStartColor, this.gradientStopColor]),
         ),
-        padding: EdgeInsets.all(styles.Measurements.m),
+        padding: padding,
         child: this.child,
       )),
     );
