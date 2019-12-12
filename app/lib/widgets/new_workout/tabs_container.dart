@@ -117,6 +117,10 @@ class _TabsContainerState extends State<TabsContainer> {
         _activePage = newPage;
       });
     }
+
+    if (newPage == 0) {
+      Navigator.of(context).pop();
+    }
   }
 
   void _handleForwardNavigation() {
