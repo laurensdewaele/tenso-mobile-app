@@ -7,10 +7,8 @@ import 'package:app/widgets/icon.dart';
 // Not a perfect solution, but apparently it cannot be done.
 // https://laurens.codes/flutter_icon_button.html
 class IconButton extends StatelessWidget {
-  IconButton(
-      {@required this.offset, @required this.handleTap, @required this.icon});
+  IconButton({@required this.handleTap, @required this.icon});
 
-  final Offset offset;
   final VoidCallback handleTap;
   final Icon icon;
 

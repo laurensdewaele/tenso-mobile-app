@@ -147,7 +147,6 @@ class RightChevron extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      offset: Offset(20, 0),
       handleTap: handleTap,
       icon: Icon(
           iconData: IconData(0xf3d1,
@@ -166,7 +165,6 @@ class LeftChevron extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      offset: Offset(-20, 0),
       handleTap: handleTap,
       icon: Icon(
           iconData: IconData(0xf3cf,

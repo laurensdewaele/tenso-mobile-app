@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icon_button.dart';
 
 class TopNavigation extends StatelessWidget {
   TopNavigation({this.title});
@@ -18,23 +19,23 @@ class TopNavigation extends StatelessWidget {
     return Column(children: <Widget>[
       Stack(children: [
         Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              child: Text(title,
-                  style: styles.Typography.topNavigationTitle,
-                  textAlign: TextAlign.center),
-            ),
+          children: [
+            GestureDetector(
+                onTap: () => _handleTap(context),
+                child: IconButton(
+                  handleTap: () => _handleTap(context),
+                  icon: Icon(
+                    iconData: CupertinoIcons.back,
+                    color: styles.Colors.white,
+                  ),
+                ))
           ],
         ),
-        GestureDetector(
-          onTap: () => _handleTap(context),
-          child: Container(
-            width: styles.Measurements.xxl,
-            child: Icon(
-              iconData: CupertinoIcons.back,
-              color: styles.Colors.white,
-            ),
+        Positioned.fill(
+          child: Center(
+            child: Text(title,
+                style: styles.Typography.topNavigationTitle,
+                textAlign: TextAlign.center),
           ),
         ),
       ]),
