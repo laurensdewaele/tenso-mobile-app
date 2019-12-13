@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/sound.dart';
 

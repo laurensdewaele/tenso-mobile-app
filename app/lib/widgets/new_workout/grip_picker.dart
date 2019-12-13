@@ -43,7 +43,7 @@ class _GripPickerState extends State<GripPicker> {
     super.initState();
     _selectedGrip = widget.initialGrip;
     _selectedHandHold = widget.initialHandHold;
-    WidgetsBinding.instance.addPostFrameCallback(_afterInitialRender);
+    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
   }
 
   @override
@@ -51,7 +51,7 @@ class _GripPickerState extends State<GripPicker> {
     super.dispose();
   }
 
-  void _afterInitialRender(Duration timeStamp) {
+  void _afterLayout(Duration timeStamp) {
     _scrollToSelected();
   }
 

@@ -48,6 +48,7 @@ flutter:
     - assets/images/grips/open_hand_L.png
     - assets/images/grips/half_crimp_L.png
     - assets/images/grips/full_crimp_L.png
+    - assets/images/boards/beastmaker_1000.png
 
   uses-material-design: false
   fonts:

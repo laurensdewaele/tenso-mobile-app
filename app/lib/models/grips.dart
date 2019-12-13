@@ -126,15 +126,23 @@ class Grip {
 }
 
 class Fingers {
-  const Fingers(
+  Fingers(
       {this.pinky = false,
       this.ring = false,
       this.middle = false,
       this.index = false,
-      this.thumb = false});
+      this.thumb = false})
+      : length = _determineLength(pinky, ring, middle, index, thumb);
   final bool pinky;
   final bool ring;
   final bool middle;
   final bool index;
   final bool thumb;
+  final int length;
+
+  static int _determineLength(pinky, ring, middle, index, thumb) {
+    final list = [pinky, ring, middle, index, thumb];
+    list.removeWhere((finger) => !finger);
+    return list.length;
+  }
 }

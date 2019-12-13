@@ -1,4 +1,4 @@
-import 'package:app/models/board.dart';
+import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/models/grips.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
@@ -14,7 +14,7 @@ final Workout mockWorkout = Workout(
     Hold(
         grip: Grips.openHand,
         handHold: HandHolds.twoHanded,
-        boardHolds: beastmaker1000.holds,
+        boardHolds: beastmaker1000.boardHolds,
         repetitions: 8,
         restBeforeNextHold: 60 * 2,
         restBetweenRepetitions: 60,

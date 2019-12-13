@@ -11,19 +11,21 @@ class GripImage extends StatelessWidget {
       @required this.handHold,
       @required this.imageWidth,
       @required this.assetSrc,
-      @required this.selected})
+      @required this.selected,
+      this.color = styles.Colors.lightGray})
       : super(key: key);
 
   final HandHolds handHold;
   final double imageWidth;
   final String assetSrc;
   final bool selected;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     final Widget image = Image.asset(
       assetSrc,
-      color: selected ? styles.Colors.black : styles.Colors.lightGray,
+      color: selected ? styles.Colors.black : color,
     );
 
     return handHold == HandHolds.oneHandedLeft

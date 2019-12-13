@@ -1,42 +1,59 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 
 class Board {
   Board(
       {@required this.manufacturer,
       @required this.model,
       @required this.size,
-      @required this.holds})
+      @required this.boardHolds,
+      @required this.assetSrc})
       : aspectRatio = size.aspectRatio;
 
   final String manufacturer;
   final String model;
   final Size size;
   final double aspectRatio;
-  final List<BoardHold> holds;
+  final List<BoardHold> boardHolds;
+  final String assetSrc;
 }
 
 class BoardHold {
-  BoardHold({this.offset, this.size, this.holdType})
-      : relativeRect = offset & size;
+  BoardHold(
+      {@required this.rect,
+      @required this.holdType,
+      @required this.referenceImage,
+      @required this.maxAllowedFingers,
+      this.sloperDegrees,
+      this.minPocketDepth,
+      this.maxPocketDepth,
+      this.pocketDepth})
+      : relativeRect = _determineRelativeRect(rect, referenceImage),
+        aspectRatio = AspectRatio(
+            aspectRatio: referenceImage.width / referenceImage.height);
 
-  final Offset offset;
-  final Size size;
-  final Rect relativeRect;
   final HoldType holdType;
+  final Size referenceImage;
+  final int maxAllowedFingers;
+  final Rect rect;
+  final Rect relativeRect;
+  final AspectRatio aspectRatio;
+  final int sloperDegrees;
+  final int minPocketDepth;
+  final int maxPocketDepth;
+  final int pocketDepth;
+
+  static Rect _determineRelativeRect(Rect rect, Size boardSize) {
+    return Rect.fromLTWH(
+        rect.left / boardSize.width,
+        rect.top / boardSize.height,
+        rect.width / boardSize.width,
+        rect.height / boardSize.height);
+  }
 }
 
 // At a later stage we can specify the degrees of the sloper.
 // The depth of the pocket.
 // Etc...
 enum HoldType { sloper, pocket, jug }
-
-final beastmaker1000 = Board(
-    manufacturer: 'Beastmaker',
-    model: '1000',
-    size: Size(10, 10),
-    holds: [
-      BoardHold(
-          offset: Offset(0, 0), size: Size(10, 20), holdType: HoldType.jug)
-    ]);
