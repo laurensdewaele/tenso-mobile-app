@@ -95,8 +95,8 @@ class _TabsContainerState extends State<TabsContainer> {
               handleErrorMessage: widget.handleErrorMessage,
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               config: widget.config.holdConfig,
-              currentGrip: n,
-              totalGrips: holdCount);
+              currentHold: n,
+              totalHolds: holdCount);
         }),
         extraTab
       ];
