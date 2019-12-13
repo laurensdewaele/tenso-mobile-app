@@ -8,7 +8,8 @@ class Board {
       @required this.model,
       @required this.size,
       @required this.boardHolds,
-      @required this.assetSrc})
+      @required this.assetSrc,
+      @required this.handToBoardHeightRatio})
       : aspectRatio = size.aspectRatio;
 
   final String manufacturer;
@@ -16,6 +17,7 @@ class Board {
   final Size size;
   final double aspectRatio;
   final List<BoardHold> boardHolds;
+  final double handToBoardHeightRatio;
   final String assetSrc;
 }
 
@@ -23,22 +25,19 @@ class BoardHold {
   BoardHold(
       {@required this.rect,
       @required this.holdType,
-      @required this.referenceImage,
+      @required this.boardSize,
       @required this.maxAllowedFingers,
       this.sloperDegrees,
       this.minPocketDepth,
       this.maxPocketDepth,
       this.pocketDepth})
-      : relativeRect = _determineRelativeRect(rect, referenceImage),
-        aspectRatio = AspectRatio(
-            aspectRatio: referenceImage.width / referenceImage.height);
+      : relativeRect = _determineRelativeRect(rect, boardSize);
 
   final HoldType holdType;
-  final Size referenceImage;
+  final Size boardSize;
   final int maxAllowedFingers;
   final Rect rect;
   final Rect relativeRect;
-  final AspectRatio aspectRatio;
   final int sloperDegrees;
   final int minPocketDepth;
   final int maxPocketDepth;

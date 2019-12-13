@@ -6,9 +6,6 @@ import 'package:app/models/board.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-final double _kGripHeight = 100;
-final double _kGripWidth = 80;
-
 class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker(
       {Key key,
@@ -36,17 +33,25 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     super.dispose();
   }
 
+  void _onPointerDown(PointerDownEvent event) {
+    Offset position = event.localPosition;
+    print(position);
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
+        final double boardImageWidth = constraints.maxWidth;
+        final double boardImageHeight =
+            boardImageWidth / widget.board.aspectRatio;
+        final double _kGripImageHeight =
+            boardImageHeight * widget.board.handToBoardHeightRatio;
+
         return Stack(
           children: <Widget>[
             Container(child: Image.asset(widget.board.assetSrc)),
             ...widget.board.boardHolds.map((BoardHold boardHold) {
-              final double boardImageWidth = constraints.maxWidth;
-              final double boardImageHeight =
-                  boardImageWidth / boardHold.aspectRatio.aspectRatio;
               return Positioned.fromRect(
                   rect: Rect.fromLTWH(
                       boardHold.relativeRect.left * boardImageWidth,
@@ -95,30 +100,35 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                     },
                   ));
             }),
-            Draggable(
-              data: widget.grip,
-              feedback: Container(
-                height: _kGripHeight,
-                child: GripImage(
-                  assetSrc: widget.grip.assetSrc,
-                  selected: false,
-                  imageWidth: _kGripWidth,
-                  handHold: widget.handHold,
-                  color: styles.Colors.lighestGray,
+            Listener(
+              onPointerDown: _onPointerDown,
+              child: Draggable(
+                // TODO: Calculate feedback offset
+                feedbackOffset: Offset(0, -60),
+                data: widget.grip,
+                feedback: Container(
+                  height: _kGripImageHeight,
+                  child: GripImage(
+                    assetSrcL: widget.grip.assetSrcL,
+                    assetSrcR: widget.grip.assetSrcR,
+                    selected: false,
+                    handHold: widget.handHold,
+                    color: styles.Colors.lighestGray,
+                  ),
                 ),
-              ),
-              child: Container(
-                height: _kGripHeight,
-                child: GripImage(
-                  assetSrc: widget.grip.assetSrc,
-                  selected: false,
-                  imageWidth: _kGripWidth,
-                  handHold: widget.handHold,
-                  color: styles.Colors.lighestGray,
+                child: Container(
+                  height: _kGripImageHeight,
+                  child: GripImage(
+                    assetSrcL: widget.grip.assetSrcL,
+                    assetSrcR: widget.grip.assetSrcR,
+                    selected: false,
+                    handHold: widget.handHold,
+                    color: styles.Colors.lighestGray,
+                  ),
                 ),
-              ),
-              childWhenDragging: Container(
-                height: _kGripHeight,
+                childWhenDragging: Container(
+                  height: _kGripImageHeight,
+                ),
               ),
             ),
           ],

@@ -212,15 +212,15 @@ class _Grip extends StatelessWidget {
           child: selected
               ? GripImage(
                   handHold: handHold,
-                  imageWidth: _kGripWidth,
-                  assetSrc: grip.assetSrc,
+                  assetSrcL: grip.assetSrcL,
+                  assetSrcR: grip.assetSrcR,
                   selected: selected)
               : Transform.scale(
                   scale: .8,
                   child: GripImage(
                     handHold: handHold,
-                    imageWidth: _kGripWidth,
-                    assetSrc: grip.assetSrc,
+                    assetSrcL: grip.assetSrcL,
+                    assetSrcR: grip.assetSrcR,
                     selected: selected,
                   ),
                 ),
