@@ -37,29 +37,17 @@ flutter:
   # https://flutter.dev/assets-and-images/#resolution-aware.
   assets:
     - assets/images/grips/back_three_L.png
-    - assets/images/grips/back_three_R.png
     - assets/images/grips/back_two_L.png
-    - assets/images/grips/back_two_R.png
     - assets/images/grips/front_three_L.png
-    - assets/images/grips/front_three_R.png
     - assets/images/grips/front_two_L.png
-    - assets/images/grips/front_two_R.png
     - assets/images/grips/middle_two_L.png
-    - assets/images/grips/middle_two_R.png
     - assets/images/grips/mono_index_L.png
-    - assets/images/grips/mono_index_R.png
     - assets/images/grips/mono_middle_L.png
-    - assets/images/grips/mono_middle_R.png
     - assets/images/grips/mono_ring_L.png
-    - assets/images/grips/mono_ring_R.png
     - assets/images/grips/mono_pinky_L.png
-    - assets/images/grips/mono_pinky_R.png
     - assets/images/grips/open_hand_L.png
-    - assets/images/grips/open_hand_R.png
     - assets/images/grips/half_crimp_L.png
-    - assets/images/grips/half_crimp_R.png
     - assets/images/grips/full_crimp_L.png
-    - assets/images/grips/full_crimp_R.png
 
   uses-material-design: false
   fonts:

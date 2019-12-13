@@ -16,7 +16,7 @@ class Routes {
   static const String progressScreen = '/progressScreen';
 }
 
-final config = WorkoutConfig.fromSettings(Settings.basic());
+final config = WorkoutConfig.fromSettings(Settings.advanced());
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {

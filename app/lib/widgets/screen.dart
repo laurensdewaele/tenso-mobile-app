@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:app/styles/styles.dart' as styles;
-
 class Screen extends StatelessWidget {
   const Screen(
       {@required this.gradientStartColor,

@@ -23,6 +23,16 @@ class Settings {
     this.grade = Grades.sportFrench;
   }
 
+  Settings.advanced() {
+    this.defaultBoard = beastmaker1000;
+    this.preparationTimer = 35;
+    this.hangSound = Sound();
+    this.restSound = Sound();
+    this.controlSettings = ControlSettings.advanced();
+    this.unit = Units.metric;
+    this.grade = Grades.sportFrench;
+  }
+
   Board defaultBoard;
   int preparationTimer;
   Sound hangSound;
@@ -48,6 +58,15 @@ class ControlSettings {
     this.advancedTimers = false;
     this.addedWeight = false;
     this.variableRepetitions = false;
+  }
+
+  ControlSettings.advanced() {
+    this.allGrips = true;
+    this.oneHanded = true;
+    this.boardSelection = true;
+    this.advancedTimers = true;
+    this.addedWeight = true;
+    this.variableRepetitions = true;
   }
 
   bool allGrips;

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
+import 'package:app/models/grips.dart';
+import 'package:app/models/hand_hold.dart';
 
 enum HoldProperties {
   grip,
@@ -25,7 +27,7 @@ class Hold {
       @required this.hangTime,
       @required this.addedWeight});
 
-  final String grip;
+  final Grip grip;
   final HandHolds handHold;
   final List<BoardHold> boardHolds;
   final int repetitions;
@@ -34,5 +36,3 @@ class Hold {
   final int hangTime;
   final int addedWeight;
 }
-
-enum HandHolds { twoHanded, oneHandedLeft, oneHandedRight }

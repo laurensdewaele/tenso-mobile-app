@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:app/routes/routes.dart' as prefix0;
-import 'package:app/widgets/new_workout/hold_tab.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/mock_data.dart';
@@ -9,6 +7,7 @@ import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/new_workout/general_tab.dart';
+import 'package:app/widgets/new_workout/hold_tab.dart';
 import 'package:app/widgets/new_workout/tabs.dart';
 
 class TabsContainer extends StatefulWidget {
@@ -95,7 +94,7 @@ class _TabsContainerState extends State<TabsContainer> {
               latestWorkout: mockWorkout,
               handleErrorMessage: widget.handleErrorMessage,
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              config: prefix0.config.holdConfig,
+              config: widget.config.holdConfig,
               currentGrip: n,
               totalGrips: holdCount);
         }),
