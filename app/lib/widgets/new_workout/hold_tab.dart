@@ -1,3 +1,4 @@
+import 'package:app/widgets/new_workout/hand_tabs.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
@@ -39,6 +40,7 @@ class _HoldTabState extends State<HoldTab> {
   BoardHold _selectedLeftGripBoardHold;
   BoardHold _selectedRightGripBoardHold;
   HandHolds _selectedHandHold;
+  HandTabTypes _selectedTab;
 
   @override
   void initState() {
@@ -47,8 +49,11 @@ class _HoldTabState extends State<HoldTab> {
     _selectedRightGrip = widget.hold.rightGrip;
     _selectedLeftGripBoardHold = widget.hold.leftGripBoardHold;
     _selectedRightGripBoardHold = widget.hold.rightGripBoardHold;
-
     _selectedHandHold = widget.hold.handHold;
+    _selectedTab = widget.hold.handHold == HandHolds.oneHanded &&
+            widget.hold.rightGrip != null
+        ? HandTabTypes.rightHand
+        : HandTabTypes.leftHand;
   }
 
   @override
@@ -74,8 +79,29 @@ class _HoldTabState extends State<HoldTab> {
     });
   }
 
-  void _handleLeftGripBoardHoldChanged(BoardHold boardHold) {}
-  void _handleRightGripBoardHoldChanged(BoardHold boardHold) {}
+  void _handleLeftGripBoardHoldChanged(BoardHold boardHold) {
+    setState(() {
+      _selectedLeftGripBoardHold = boardHold;
+    });
+  }
+
+  void _handleRightGripBoardHoldChanged(BoardHold boardHold) {
+    setState(() {
+      _selectedRightGripBoardHold = boardHold;
+    });
+  }
+
+  void _handleLeftHandSelected() {
+    setState(() {
+      _selectedTab = HandTabTypes.leftHand;
+    });
+  }
+
+  void _handleRightHandSelected() {
+    setState(() {
+      _selectedTab = HandTabTypes.rightHand;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +116,19 @@ class _HoldTabState extends State<HoldTab> {
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
             GripPickerContainer(
-                advanced: widget.config.advancedGrips,
-                initialLeftGrip: _selectedLeftGrip,
-                initialRightGrip: _selectedRightGrip,
-                initialHandHold: _selectedHandHold,
-                handleLeftGripChanged: _handleLeftGripChanged,
-                handleRightGripChanged: _handleRightGripChanged,
-                handleHandHoldChanged: _handleHandHoldChanged)
+              isLeftHandSelected: _selectedTab == HandTabTypes.leftHand,
+              isRightHandSelected: _selectedTab == HandTabTypes.rightHand,
+              advanced: widget.config.advancedGrips,
+              selectedLeftGrip: _selectedLeftGrip,
+              selectedRightGrip: _selectedRightGrip,
+              selectedHandHold: _selectedHandHold,
+              selectedTab: _selectedTab,
+              handleLeftGripChanged: _handleLeftGripChanged,
+              handleRightGripChanged: _handleRightGripChanged,
+              handleHandHoldChanged: _handleHandHoldChanged,
+              handleLeftHandSelected: _handleLeftHandSelected,
+              handleRightHandSelected: _handleRightHandSelected,
+            )
           ],
         ),
         Section(

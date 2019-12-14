@@ -10,11 +10,11 @@ final double _kGripPickerHeight = 100;
 final double _kGripWidth = 80;
 
 class GripPicker extends StatefulWidget {
-  GripPicker({Key key, this.grips, this.initialGrip, this.handleGripChanged})
+  GripPicker({Key key, this.grips, this.selectedGrip, this.handleGripChanged})
       : super(key: key);
 
   final List<Grip> grips;
-  final Grip initialGrip;
+  final Grip selectedGrip;
   final Function(Grip grip) handleGripChanged;
 
   @override
@@ -22,13 +22,11 @@ class GripPicker extends StatefulWidget {
 }
 
 class _GripPickerState extends State<GripPicker> {
-  Grip _selectedGrip;
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _selectedGrip = widget.initialGrip;
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
   }
 
@@ -47,7 +45,7 @@ class _GripPickerState extends State<GripPicker> {
         _kGripPickerContainerKey.currentContext.findRenderObject();
     final Size size = container.size;
     final double center = size.width / 2;
-    final int index = widget.grips.indexOf(_selectedGrip);
+    final int index = widget.grips.indexOf(widget.selectedGrip);
     final double totalWidth = _kGripWidth * widget.grips.length;
 
     if (index * _kGripWidth < center) {
@@ -65,9 +63,6 @@ class _GripPickerState extends State<GripPicker> {
   }
 
   void _handleGripChanged(Grip grip) {
-    setState(() {
-      _selectedGrip = grip;
-    });
     widget.handleGripChanged(grip);
     _scrollToSelected();
   }
@@ -77,7 +72,7 @@ class _GripPickerState extends State<GripPicker> {
     return Column(
       children: <Widget>[
         Text(
-          _selectedGrip.description,
+          widget.selectedGrip.description,
           style: styles.Typography.textInfoBold,
           textAlign: TextAlign.center,
         ),
@@ -94,7 +89,7 @@ class _GripPickerState extends State<GripPicker> {
               ...widget.grips.map((Grip grip) => _Grip(
                     grip: grip,
                     handleGripChanged: _handleGripChanged,
-                    selected: _selectedGrip == grip,
+                    selected: widget.selectedGrip == grip,
                   )),
             ],
           ),
