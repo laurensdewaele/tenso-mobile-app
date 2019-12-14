@@ -32,7 +32,7 @@ class HoldTab extends StatefulWidget {
 
 class _HoldTabState extends State<HoldTab> {
   Grip _selectedGrip;
-  HandHolds _initialHandHold;
+  HandHolds _selectedHandHold;
 
   @override
   void initState() {
@@ -41,13 +41,13 @@ class _HoldTabState extends State<HoldTab> {
         List.generate(widget.latestWorkout.holds.length, (i) => i);
 
     if (holdCountList.contains(widget.currentHold - 1)) {
-      _initialHandHold =
+      _selectedHandHold =
           widget.latestWorkout.holds[widget.currentHold - 1].handHold ??
               HandHolds.twoHanded;
       _selectedGrip = widget.latestWorkout.holds[widget.currentHold - 1].grip ??
           Grips.openHand;
     } else {
-      _initialHandHold = HandHolds.twoHanded;
+      _selectedHandHold = HandHolds.twoHanded;
       _selectedGrip = Grips.openHand;
     }
   }
@@ -65,7 +65,9 @@ class _HoldTabState extends State<HoldTab> {
   }
 
   void _handleHandHoldChanged(HandHolds handHold) {
-    //TODO:  Do i keep this container container connected to the store and fix things here or in the gripPicker?
+    setState(() {
+      _selectedHandHold = handHold;
+    });
   }
 
   @override
@@ -85,7 +87,7 @@ class _HoldTabState extends State<HoldTab> {
                 handleGripChanged: _handleGripChanged,
                 initialGrip: Grips.frontThree,
                 oneHanded: widget.config.oneHanded,
-                initialHandHold: _initialHandHold,
+                initialHandHold: _selectedHandHold,
                 handleHandHoldChanged: _handleHandHoldChanged)
           ],
         ),
@@ -94,7 +96,7 @@ class _HoldTabState extends State<HoldTab> {
           children: <Widget>[
             BoardHoldPicker(
               board: mockWorkout.board,
-              handHold: HandHolds.twoHanded,
+              handHold: _selectedHandHold,
               grip: _selectedGrip,
             )
           ],
