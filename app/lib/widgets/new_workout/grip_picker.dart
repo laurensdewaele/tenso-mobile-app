@@ -40,6 +40,14 @@ class _GripPickerState extends State<GripPicker> {
     _scrollToSelected();
   }
 
+  @override
+  void didUpdateWidget(GripPicker oldWidget) {
+    if (oldWidget.selectedGrip != widget.selectedGrip) {
+      _scrollToSelected();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   void _scrollToSelected() {
     final RenderBox container =
         _kGripPickerContainerKey.currentContext.findRenderObject();
@@ -64,7 +72,6 @@ class _GripPickerState extends State<GripPicker> {
 
   void _handleGripChanged(Grip grip) {
     widget.handleGripChanged(grip);
-    _scrollToSelected();
   }
 
   @override
