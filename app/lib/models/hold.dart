@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/grips.dart';
+import 'package:app/models/board_hold.dart';
+import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 
 enum HoldProperties {
@@ -18,18 +18,22 @@ enum HoldProperties {
 @immutable
 class Hold {
   const Hold(
-      {@required this.grip,
+      {this.leftGrip,
+      this.rightGrip,
       @required this.handHold,
-      @required this.boardHolds,
+      @required this.leftGripBoardHold,
+      @required this.rightGripBoardHold,
       @required this.repetitions,
       @required this.restBeforeNextHold,
       @required this.restBetweenRepetitions,
       @required this.hangTime,
       @required this.addedWeight});
 
-  final Grip grip;
+  final Grip leftGrip;
+  final Grip rightGrip;
   final HandHolds handHold;
-  final List<BoardHold> boardHolds;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
   final int repetitions;
   final int restBeforeNextHold;
   final int restBetweenRepetitions;

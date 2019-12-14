@@ -1,5 +1,6 @@
-import 'package:app/models/settings.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:app/models/settings.dart';
 
 class WorkoutConfig {
   WorkoutConfig.fromSettings(Settings settings) {
@@ -26,7 +27,6 @@ class WorkoutConfig {
     _toggleAdvancedTimers(settings.advancedTimers);
     _toggleBoardSelection(settings.boardSelection);
     _toggleAllGrips(settings.allGrips);
-    _toggleOneHanded(settings.oneHanded);
     _toggleVariableRepetitions(settings.variableRepetitions);
   }
 
@@ -50,10 +50,6 @@ class WorkoutConfig {
   void _toggleAllGrips(bool advancedGrips) {
     _holdConfig.basicGrips = !advancedGrips;
     _holdConfig.advancedGrips = advancedGrips;
-  }
-
-  void _toggleOneHanded(bool oneHanded) {
-    _holdConfig.oneHanded = oneHanded;
   }
 
   void _toggleVariableRepetitions(bool variableRepetitions) {
@@ -94,12 +90,10 @@ class GeneralConfig {
   bool board;
 }
 
-
 class HoldConfig {
   HoldConfig(
       {@required this.basicGrips,
       @required this.advancedGrips,
-      @required this.oneHanded,
       @required this.repetitions,
       @required this.hangTime,
       @required this.restBetweenRepetitions,
@@ -109,7 +103,6 @@ class HoldConfig {
   HoldConfig.basic() {
     this.basicGrips = true;
     this.advancedGrips = false;
-    this.oneHanded = false;
     this.repetitions = false;
     this.hangTime = false;
     this.restBetweenRepetitions = false;
@@ -119,7 +112,6 @@ class HoldConfig {
 
   bool basicGrips;
   bool advancedGrips;
-  bool oneHanded;
   bool repetitions;
   bool hangTime;
   bool restBetweenRepetitions;

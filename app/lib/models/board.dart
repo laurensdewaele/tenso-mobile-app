@@ -1,16 +1,20 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
+import 'package:app/models/board_hold.dart';
 
 class Board {
-  Board(
+  const Board(
       {@required this.manufacturer,
       @required this.model,
       @required this.size,
       @required this.boardHolds,
       @required this.assetSrc,
-      @required this.handToBoardHeightRatio})
-      : aspectRatio = size.aspectRatio;
+      @required this.handToBoardHeightRatio,
+      @required this.aspectRatio,
+      @required this.defaultLeftGripHold,
+      @required this.defaultRightGripHold});
 
   final String manufacturer;
   final String model;
@@ -19,42 +23,6 @@ class Board {
   final List<BoardHold> boardHolds;
   final double handToBoardHeightRatio;
   final String assetSrc;
+  final BoardHold defaultLeftGripHold;
+  final BoardHold defaultRightGripHold;
 }
-
-class BoardHold {
-  BoardHold(
-      {@required this.rect,
-      @required this.holdType,
-      @required this.boardSize,
-      @required this.maxAllowedFingers,
-      this.sloperDegrees,
-      this.minPocketDepth,
-      this.maxPocketDepth,
-      this.pocketDepth})
-      : relativeRect = _determineRelativeRect(rect, boardSize),
-        averagePocketDepth = (maxPocketDepth + minPocketDepth) / 2;
-
-  final HoldType holdType;
-  final Size boardSize;
-  final int maxAllowedFingers;
-  final Rect rect;
-  final Rect relativeRect;
-  final double sloperDegrees;
-  final double minPocketDepth;
-  final double maxPocketDepth;
-  final double pocketDepth;
-  final double averagePocketDepth;
-
-  static Rect _determineRelativeRect(Rect rect, Size boardSize) {
-    return Rect.fromLTWH(
-        rect.left / boardSize.width,
-        rect.top / boardSize.height,
-        rect.width / boardSize.width,
-        rect.height / boardSize.height);
-  }
-}
-
-// At a later stage we can specify the degrees of the sloper.
-// The depth of the pocket.
-// Etc...
-enum HoldType { sloper, pocket, jug }

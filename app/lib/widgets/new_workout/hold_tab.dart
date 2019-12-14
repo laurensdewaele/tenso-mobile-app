@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/data/mock_data.dart';
-import 'package:app/models/grips.dart';
+import 'package:app/models/board.dart';
+import 'package:app/models/board_hold.dart';
+import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/hold.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/widgets/new_workout/board_hold_picker.dart';
-import 'package:app/widgets/new_workout/grip_picker.dart';
+import 'package:app/widgets/new_workout/grip_picker_container.dart';
 import 'package:app/widgets/new_workout/section.dart';
 
 class HoldTab extends StatefulWidget {
@@ -15,52 +16,55 @@ class HoldTab extends StatefulWidget {
       this.config,
       this.currentHold,
       this.shouldLoseFocusStream,
-      this.latestWorkout,
       this.handleErrorMessage,
+      this.hold,
+      this.board,
       this.totalHolds})
       : super(key: key);
 
+  final Hold hold;
   final HoldConfig config;
   final int currentHold;
   final Function(Widget message) handleErrorMessage;
-  final Workout latestWorkout;
   final Stream<bool> shouldLoseFocusStream;
   final int totalHolds;
+  final Board board;
   @override
   _HoldTabState createState() => _HoldTabState();
 }
 
 class _HoldTabState extends State<HoldTab> {
-  Grip _selectedGrip;
+  Grip _selectedLeftGrip;
+  Grip _selectedRightGrip;
+  BoardHold _selectedLeftGripBoardHold;
+  BoardHold _selectedRightGripBoardHold;
   HandHolds _selectedHandHold;
 
   @override
   void initState() {
     super.initState();
-    final List<int> holdCountList =
-        List.generate(widget.latestWorkout.holds.length, (i) => i);
+    _selectedLeftGrip = widget.hold.leftGrip;
+    _selectedRightGrip = widget.hold.rightGrip;
+    _selectedLeftGripBoardHold = widget.hold.leftGripBoardHold;
+    _selectedRightGripBoardHold = widget.hold.rightGripBoardHold;
 
-    if (holdCountList.contains(widget.currentHold - 1)) {
-      _selectedHandHold =
-          widget.latestWorkout.holds[widget.currentHold - 1].handHold ??
-              HandHolds.twoHanded;
-      _selectedGrip = widget.latestWorkout.holds[widget.currentHold - 1].grip ??
-          Grips.openHand;
-    } else {
-      _selectedHandHold = HandHolds.twoHanded;
-      _selectedGrip = Grips.openHand;
-    }
+    _selectedHandHold = widget.hold.handHold;
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
-  void _handleGripChanged(Grip grip) {
+  void _handleLeftGripChanged(Grip grip) {
     setState(() {
-      _selectedGrip = grip;
+      _selectedLeftGrip = grip;
+    });
+  }
+
+  void _handleRightGripChanged(Grip grip) {
+    setState(() {
+      _selectedRightGrip = grip;
     });
   }
 
@@ -69,6 +73,9 @@ class _HoldTabState extends State<HoldTab> {
       _selectedHandHold = handHold;
     });
   }
+
+  void _handleLeftGripBoardHoldChanged(BoardHold boardHold) {}
+  void _handleRightGripBoardHoldChanged(BoardHold boardHold) {}
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +89,13 @@ class _HoldTabState extends State<HoldTab> {
         Section(
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
-            GripPicker(
-                grips: widget.config.basicGrips ? Grips.basic : Grips.advanced,
-                handleGripChanged: _handleGripChanged,
-                initialGrip: Grips.frontThree,
-                oneHanded: widget.config.oneHanded,
+            GripPickerContainer(
+                advanced: widget.config.advancedGrips,
+                initialLeftGrip: _selectedLeftGrip,
+                initialRightGrip: _selectedRightGrip,
                 initialHandHold: _selectedHandHold,
+                handleLeftGripChanged: _handleLeftGripChanged,
+                handleRightGripChanged: _handleRightGripChanged,
                 handleHandHoldChanged: _handleHandHoldChanged)
           ],
         ),
@@ -95,9 +103,13 @@ class _HoldTabState extends State<HoldTab> {
           title: 'drag to choose',
           children: <Widget>[
             BoardHoldPicker(
-              board: mockWorkout.board,
-              handHold: _selectedHandHold,
-              grip: _selectedGrip,
+              board: widget.board,
+              leftGrip: _selectedLeftGrip,
+              rightGrip: _selectedRightGrip,
+              initialLeftGripBoardHold: _selectedLeftGripBoardHold,
+              initialRightGripBoardHold: _selectedRightGripBoardHold,
+              handleLeftGripBoardHoldChanged: _handleLeftGripBoardHoldChanged,
+              handleRightGripBoardHoldChanged: _handleRightGripBoardHoldChanged,
             )
           ],
         )

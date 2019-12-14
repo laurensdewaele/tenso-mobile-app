@@ -12,7 +12,7 @@ class GeneralTab extends StatefulWidget {
       @required this.config,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.latestWorkout,
+      @required this.workout,
       @required this.handleHoldCountChanged,
       @required this.shouldFocusOnInput})
       : super(key: key);
@@ -21,7 +21,7 @@ class GeneralTab extends StatefulWidget {
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final Function(int count) handleHoldCountChanged;
-  final Workout latestWorkout;
+  final Workout workout;
   final bool shouldFocusOnInput;
 
   @override
@@ -68,7 +68,7 @@ class _GeneralTabState extends State<GeneralTab> {
                       workoutProperty: WorkoutProperties.holdCount,
                       value: value);
                 },
-                initialValue: widget.latestWorkout.holdCount,
+                initialValue: widget.workout.holdCount,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
@@ -82,7 +82,7 @@ class _GeneralTabState extends State<GeneralTab> {
                       holdProperty: HoldProperties.repetitions,
                       value: value);
                 },
-                initialValue: widget.latestWorkout.averageRepetitions,
+                initialValue: widget.workout.averageRepetitions,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
@@ -94,7 +94,7 @@ class _GeneralTabState extends State<GeneralTab> {
                   _handleValueChanged(
                       workoutProperty: WorkoutProperties.sets, value: value);
                 },
-                initialValue: widget.latestWorkout.sets,
+                initialValue: widget.workout.sets,
                 shouldLoseFocusStream: widget.shouldLoseFocusStream,
                 handleErrorMessage: widget.handleErrorMessage,
               ),
@@ -114,7 +114,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         holdProperty: HoldProperties.hangTime,
                         value: value);
                   },
-                  initialValue: widget.latestWorkout.averageHangTime,
+                  initialValue: widget.workout.averageHangTime,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
@@ -128,8 +128,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         holdProperty: HoldProperties.restBetweenRepetitions,
                         value: value);
                   },
-                  initialValue:
-                      widget.latestWorkout.averageRestBetweenRepetitions,
+                  initialValue: widget.workout.averageRestBetweenRepetitions,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
@@ -143,7 +142,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         holdProperty: HoldProperties.restBeforeNextHold,
                         value: value);
                   },
-                  initialValue: widget.latestWorkout.averageRestBetweenHolds,
+                  initialValue: widget.workout.averageRestBetweenHolds,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
@@ -156,7 +155,7 @@ class _GeneralTabState extends State<GeneralTab> {
                         workoutProperty: WorkoutProperties.restBetweenSets,
                         value: value);
                   },
-                  initialValue: widget.latestWorkout.restBetweenSets,
+                  initialValue: widget.workout.restBetweenSets,
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),

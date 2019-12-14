@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
-import 'package:app/data/mock_data.dart';
+import 'package:app/data/basic_workout.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
@@ -136,7 +136,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
-                                      latestWorkout: mockWorkout,
+                                      workout: basicWorkout,
                                       config: widget.config,
                                       shouldLoseFocusStream:
                                           _shouldLoseFocusStreamController

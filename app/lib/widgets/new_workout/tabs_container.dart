@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/data/mock_data.dart';
+import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -16,14 +16,14 @@ class TabsContainer extends StatefulWidget {
       @required this.config,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.latestWorkout,
+      @required this.workout,
       @required this.onNavigation,
       this.navigateForwardTabStream,
       this.navigateBackTabStream})
       : super(key: key);
 
   final WorkoutConfig config;
-  final Workout latestWorkout;
+  final Workout workout;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final VoidCallback onNavigation;
@@ -46,10 +46,10 @@ class _TabsContainerState extends State<TabsContainer> {
   @override
   void initState() {
     super.initState();
-    _pageCount = widget.latestWorkout.holdCount + 2;
+    _pageCount = widget.workout.holdCount + 2;
     _pageCountList = List.generate(_pageCount, (i) => i + 1);
     _activePage = 1;
-    _buildPages(widget.latestWorkout.holdCount);
+    _buildPages(widget.workout.holdCount);
     firstTimeConstructed = false;
     _navigateForwardTabSub =
         widget.navigateForwardTabStream.listen((bool shouldNavigate) {
@@ -68,6 +68,26 @@ class _TabsContainerState extends State<TabsContainer> {
     super.dispose();
   }
 
+  Hold _generateHoldFromBasicConfigAndGlobalSettings() {
+    // TODO: Implement this
+    return Hold();
+  }
+
+  Hold _getHold(int n) {
+    final List<Hold> holds = widget.workout.holds;
+    Hold hold;
+    try {
+      hold = holds[n];
+    } on RangeError catch (_) {
+      if (holds.length > 0) {
+        hold = holds[holds.length - 1];
+      } else {
+        hold = _generateHoldFromBasicConfigAndGlobalSettings();
+      }
+    }
+    return hold;
+  }
+
   void _buildPages(
     int holdCount,
   ) {
@@ -83,15 +103,16 @@ class _TabsContainerState extends State<TabsContainer> {
           shouldFocusOnInput: firstTimeConstructed,
           handleErrorMessage: widget.handleErrorMessage,
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
-          latestWorkout: mockWorkout,
+          workout: widget.workout,
           config: widget.config.generalConfig,
           handleHoldCountChanged: _handleHoldCountChanged,
           key: ValueKey('new-workout-page-1'),
         ),
         ...List.generate(holdCount, (i) => i + 1).map((n) {
           return HoldTab(
+              board: widget.workout.board,
               key: UniqueKey(),
-              latestWorkout: mockWorkout,
+              hold: _getHold(n),
               handleErrorMessage: widget.handleErrorMessage,
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               config: widget.config.holdConfig,
