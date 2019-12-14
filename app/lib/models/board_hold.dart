@@ -12,8 +12,7 @@ class BoardHold {
       this.minPocketDepth,
       this.maxPocketDepth,
       this.pocketDepth})
-      : relativeRect = _determineRelativeRect(rect, boardSize),
-        averagePocketDepth = (maxPocketDepth + minPocketDepth) / 2;
+      : relativeRect = _determineRelativeRect(rect, boardSize);
 
   final Rect rect;
   final HoldType holdType;
@@ -24,7 +23,6 @@ class BoardHold {
   final double minPocketDepth;
   final double maxPocketDepth;
   final double pocketDepth;
-  final double averagePocketDepth;
 
   static Rect _determineRelativeRect(Rect rect, Size boardSize) {
     return Rect.fromLTWH(
