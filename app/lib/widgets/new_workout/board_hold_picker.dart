@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
+import 'package:app/models/hand_types.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
 
@@ -31,6 +32,9 @@ class BoardHoldPicker extends StatefulWidget {
 }
 
 class _BoardHoldPickerState extends State<BoardHoldPicker> {
+  Offset _leftHandFeedbackOffset = Offset.zero;
+  Offset _rightHandFeedbackOffset = Offset.zero;
+
   @override
   void initState() {
     super.initState();
@@ -41,8 +45,21 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     super.dispose();
   }
 
-  void _onPointerDown(PointerDownEvent event) {
+  void _setHandFeedbackOffset(PointerDownEvent event, double boardImageHeight,
+      double dyRelativeHangAnchorPoint, HandTypes handType) {
     Offset position = event.localPosition;
+    final double dyHangAnchorPoint =
+        dyRelativeHangAnchorPoint * boardImageHeight;
+    final double dy = position.dy - dyHangAnchorPoint;
+    if (handType == HandTypes.leftHand) {
+      setState(() {
+        _leftHandFeedbackOffset = Offset(0, -dy);
+      });
+    } else {
+      setState(() {
+        _rightHandFeedbackOffset = Offset(0, -dy);
+      });
+    }
   }
 
   @override
@@ -98,10 +115,16 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   ));
             }),
             Listener(
-              onPointerDown: _onPointerDown,
+              onPointerDown: (event) {
+                _setHandFeedbackOffset(
+                    event,
+                    boardImageHeight,
+                    widget.leftGrip.dyRelativeHangAnchorPoint,
+                    widget.leftGrip.handType);
+              },
               child: Draggable(
                 // TODO: Calculate feedback offset
-                feedbackOffset: Offset(0, -60),
+                feedbackOffset: _leftHandFeedbackOffset,
                 data: widget.leftGrip,
                 feedback: Container(
                   height: _kGripImageHeight,

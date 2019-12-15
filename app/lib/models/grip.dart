@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:app/models/fingers.dart';
+import 'package:app/models/hand_types.dart';
 
 class Grip {
   const Grip(
@@ -9,8 +10,10 @@ class Grip {
       @required this.assetSrc,
       @required this.description,
       @required this.dyRelativeHangAnchorPoint,
-      this.name});
+      @required this.handType,
+      @required this.name});
 
+  final HandTypes handType;
   final Fingers fingers;
   final bool crimped;
   final String assetSrc;

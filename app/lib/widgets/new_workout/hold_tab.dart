@@ -1,10 +1,10 @@
-import 'package:app/widgets/new_workout/hand_tabs.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
+import 'package:app/models/hand_types.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/widgets/new_workout/board_hold_picker.dart';
@@ -40,7 +40,7 @@ class _HoldTabState extends State<HoldTab> {
   BoardHold _selectedLeftGripBoardHold;
   BoardHold _selectedRightGripBoardHold;
   HandHolds _selectedHandHold;
-  HandTabTypes _selectedTab;
+  HandTypes _selectedTab;
 
   @override
   void initState() {
@@ -52,8 +52,8 @@ class _HoldTabState extends State<HoldTab> {
     _selectedHandHold = widget.hold.handHold;
     _selectedTab = widget.hold.handHold == HandHolds.oneHanded &&
             widget.hold.rightGrip != null
-        ? HandTabTypes.rightHand
-        : HandTabTypes.leftHand;
+        ? HandTypes.rightHand
+        : HandTypes.leftHand;
   }
 
   @override
@@ -93,13 +93,13 @@ class _HoldTabState extends State<HoldTab> {
 
   void _handleLeftHandSelected() {
     setState(() {
-      _selectedTab = HandTabTypes.leftHand;
+      _selectedTab = HandTypes.leftHand;
     });
   }
 
   void _handleRightHandSelected() {
     setState(() {
-      _selectedTab = HandTabTypes.rightHand;
+      _selectedTab = HandTypes.rightHand;
     });
   }
 
@@ -116,8 +116,8 @@ class _HoldTabState extends State<HoldTab> {
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
             GripPickerContainer(
-              isLeftHandSelected: _selectedTab == HandTabTypes.leftHand,
-              isRightHandSelected: _selectedTab == HandTabTypes.rightHand,
+              isLeftHandSelected: _selectedTab == HandTypes.leftHand,
+              isRightHandSelected: _selectedTab == HandTypes.rightHand,
               advanced: widget.config.advancedGrips,
               selectedLeftGrip: _selectedLeftGrip,
               selectedRightGrip: _selectedRightGrip,

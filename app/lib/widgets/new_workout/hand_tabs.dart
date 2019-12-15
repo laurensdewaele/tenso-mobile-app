@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 
-enum HandTabTypes { leftHand, rightHand }
-
 class HandTabs extends StatelessWidget {
   HandTabs(
       {Key key,

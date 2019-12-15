@@ -1,0 +1,1 @@
+enum HandTypes { leftHand, rightHand }

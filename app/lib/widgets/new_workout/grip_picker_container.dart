@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/data/grips.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
+import 'package:app/models/hand_types.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/new_workout/grip_picker.dart';
@@ -35,7 +36,7 @@ class GripPickerContainer extends StatelessWidget {
   final Function(HandHolds handHold) handleHandHoldChanged;
   final VoidCallback handleLeftHandSelected;
   final VoidCallback handleRightHandSelected;
-  final HandTabTypes selectedTab;
+  final HandTypes selectedTab;
   final bool isLeftHandSelected;
   final bool isRightHandSelected;
 
