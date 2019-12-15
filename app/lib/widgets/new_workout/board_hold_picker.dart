@@ -51,15 +51,13 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     final double dyHangAnchorPoint =
         dyRelativeHangAnchorPoint * boardImageHeight;
     final double dy = position.dy - dyHangAnchorPoint;
-    if (handType == HandTypes.leftHand) {
-      setState(() {
+    setState(() {
+      if (handType == HandTypes.leftHand) {
         _leftHandFeedbackOffset = Offset(0, -dy);
-      });
-    } else {
-      setState(() {
+      } else {
         _rightHandFeedbackOffset = Offset(0, -dy);
-      });
-    }
+      }
+    });
   }
 
   @override
