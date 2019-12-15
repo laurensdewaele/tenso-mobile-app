@@ -8,6 +8,7 @@ class Grip {
       this.crimped = false,
       @required this.assetSrc,
       @required this.description,
+      @required this.dyRelativeHangAnchorPoint,
       this.name});
 
   final Fingers fingers;
@@ -15,6 +16,7 @@ class Grip {
   final String assetSrc;
   final String name;
   final String description;
+  final double dyRelativeHangAnchorPoint;
 
   @override
   bool operator ==(Object other) =>
