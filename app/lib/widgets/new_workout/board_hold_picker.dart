@@ -122,7 +122,6 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                       widget.leftGrip.handType);
                 },
                 child: Draggable(
-                  // TODO: Calculate feedback offset
                   feedbackOffset: _leftHandFeedbackOffset,
                   data: widget.leftGrip,
                   feedback: Container(
