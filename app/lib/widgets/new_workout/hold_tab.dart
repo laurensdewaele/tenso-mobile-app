@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/data/grips.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -40,7 +41,7 @@ class _HoldTabState extends State<HoldTab> {
   BoardHold _selectedLeftGripBoardHold;
   BoardHold _selectedRightGripBoardHold;
   HandHolds _selectedHandHold;
-  HandTypes _selectedTab;
+  HandTypes _selectedHand;
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _HoldTabState extends State<HoldTab> {
     _selectedLeftGripBoardHold = widget.hold.leftGripBoardHold;
     _selectedRightGripBoardHold = widget.hold.rightGripBoardHold;
     _selectedHandHold = widget.hold.handHold;
-    _selectedTab = widget.hold.handHold == HandHolds.oneHanded &&
+    _selectedHand = widget.hold.handHold == HandHolds.oneHanded &&
             widget.hold.rightGrip != null
         ? HandTypes.rightHand
         : HandTypes.leftHand;
@@ -73,10 +74,39 @@ class _HoldTabState extends State<HoldTab> {
     });
   }
 
+  void _checkOneHanded() {
+    if (_selectedHandHold == HandHolds.oneHanded) {
+      setState(() {
+        if (_selectedHand == HandTypes.leftHand) {
+          _selectedRightGrip = null;
+        } else {
+          _selectedLeftGrip = null;
+        }
+      });
+    }
+  }
+
+  void _checkTwoHanded() {
+    if (_selectedHandHold == HandHolds.twoHanded) {
+      if (_selectedLeftGrip == null) {
+        setState(() {
+          _selectedLeftGrip = Grips.openHandL;
+        });
+      }
+      if (_selectedRightGrip == null) {
+        setState(() {
+          _selectedRightGrip = Grips.openHandR;
+        });
+      }
+    }
+  }
+
   void _handleHandHoldChanged(HandHolds handHold) {
     setState(() {
       _selectedHandHold = handHold;
     });
+    _checkOneHanded();
+    _checkTwoHanded();
   }
 
   void _handleLeftGripBoardHoldChanged(BoardHold boardHold) {
@@ -93,14 +123,22 @@ class _HoldTabState extends State<HoldTab> {
 
   void _handleLeftHandSelected() {
     setState(() {
-      _selectedTab = HandTypes.leftHand;
+      if (_selectedLeftGrip == null) {
+        _selectedLeftGrip = Grips.openHandL;
+      }
+      _selectedHand = HandTypes.leftHand;
     });
+    _checkOneHanded();
   }
 
   void _handleRightHandSelected() {
     setState(() {
-      _selectedTab = HandTypes.rightHand;
+      if (_selectedRightGrip == null) {
+        _selectedRightGrip = Grips.openHandR;
+      }
+      _selectedHand = HandTypes.rightHand;
     });
+    _checkOneHanded();
   }
 
   @override
@@ -116,13 +154,13 @@ class _HoldTabState extends State<HoldTab> {
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
             GripPickerContainer(
-              isLeftHandSelected: _selectedTab == HandTypes.leftHand,
-              isRightHandSelected: _selectedTab == HandTypes.rightHand,
+              isLeftHandSelected: _selectedHand == HandTypes.leftHand,
+              isRightHandSelected: _selectedHand == HandTypes.rightHand,
               advanced: widget.config.advancedGrips,
               selectedLeftGrip: _selectedLeftGrip,
               selectedRightGrip: _selectedRightGrip,
               selectedHandHold: _selectedHandHold,
-              selectedTab: _selectedTab,
+              selectedTab: _selectedHand,
               handleLeftGripChanged: _handleLeftGripChanged,
               handleRightGripChanged: _handleRightGripChanged,
               handleHandHoldChanged: _handleHandHoldChanged,

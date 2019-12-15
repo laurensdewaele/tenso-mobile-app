@@ -114,39 +114,74 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                     onLeave: (data) {},
                   ));
             }),
-            Listener(
-              onPointerDown: (event) {
-                _setHandFeedbackOffset(
-                    event,
-                    boardImageHeight,
-                    widget.leftGrip.dyRelativeHangAnchorPoint,
-                    widget.leftGrip.handType);
-              },
-              child: Draggable(
-                // TODO: Calculate feedback offset
-                feedbackOffset: _leftHandFeedbackOffset,
-                data: widget.leftGrip,
-                feedback: Container(
-                  height: _kGripImageHeight,
-                  child: GripImage(
-                    assetSrc: widget.leftGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
+            if (widget.leftGrip != null)
+              Listener(
+                onPointerDown: (event) {
+                  _setHandFeedbackOffset(
+                      event,
+                      boardImageHeight,
+                      widget.leftGrip.dyRelativeHangAnchorPoint,
+                      widget.leftGrip.handType);
+                },
+                child: Draggable(
+                  // TODO: Calculate feedback offset
+                  feedbackOffset: _leftHandFeedbackOffset,
+                  data: widget.leftGrip,
+                  feedback: Container(
+                    height: _kGripImageHeight,
+                    child: GripImage(
+                      assetSrc: widget.leftGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
                   ),
-                ),
-                child: Container(
-                  height: _kGripImageHeight,
-                  child: GripImage(
-                    assetSrc: widget.leftGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
+                  child: Container(
+                    height: _kGripImageHeight,
+                    child: GripImage(
+                      assetSrc: widget.leftGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
                   ),
-                ),
-                childWhenDragging: Container(
-                  height: _kGripImageHeight,
+                  childWhenDragging: Container(
+                    height: _kGripImageHeight,
+                  ),
                 ),
               ),
-            ),
+            if (widget.rightGrip != null)
+              Listener(
+                onPointerDown: (event) {
+                  _setHandFeedbackOffset(
+                      event,
+                      boardImageHeight,
+                      widget.rightGrip.dyRelativeHangAnchorPoint,
+                      widget.rightGrip.handType);
+                },
+                child: Draggable(
+                  // TODO: Calculate feedback offset
+                  feedbackOffset: _rightHandFeedbackOffset,
+                  data: widget.rightGrip,
+                  feedback: Container(
+                    height: _kGripImageHeight,
+                    child: GripImage(
+                      assetSrc: widget.rightGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
+                  ),
+                  child: Container(
+                    height: _kGripImageHeight,
+                    child: GripImage(
+                      assetSrc: widget.rightGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
+                  ),
+                  childWhenDragging: Container(
+                    height: _kGripImageHeight,
+                  ),
+                ),
+              ),
           ],
         );
       },
