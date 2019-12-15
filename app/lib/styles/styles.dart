@@ -60,7 +60,9 @@ class Typography {
   static TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
   static TextStyle textBgWhite =
-  TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.bgWhite);
+      TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.bgWhite);
+  static TextStyle textPrimary =
+      TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.primary);
   static TextStyle textInfo =
       TextStyle(fontFamily: 'Lato', fontSize: 18, color: Colors.black);
   static TextStyle textInfoBold = TextStyle(

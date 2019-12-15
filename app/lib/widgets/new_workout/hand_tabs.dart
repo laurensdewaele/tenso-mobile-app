@@ -24,7 +24,7 @@ class HandTabs extends StatelessWidget {
       height: styles.Measurements.l,
       width: double.infinity,
       decoration: BoxDecoration(
-          border: Border.all(color: styles.Colors.black),
+          border: Border.all(color: styles.Colors.primary),
           borderRadius: styles.kBorderRadiusAll),
       child: Row(
         children: <Widget>[
@@ -34,13 +34,13 @@ class HandTabs extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     color: isLeftHandSelected
-                        ? styles.Colors.black
+                        ? styles.Colors.primary
                         : styles.Colors.translucent),
                 child: Center(
                     child: Text('Left',
                         style: isLeftHandSelected
                             ? styles.Typography.textBgWhite
-                            : styles.Typography.text)),
+                            : styles.Typography.textPrimary)),
               ),
             ),
           ),
@@ -50,13 +50,13 @@ class HandTabs extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     color: isRightHandSelected
-                        ? styles.Colors.black
+                        ? styles.Colors.primary
                         : styles.Colors.translucent),
                 child: Center(
                     child: Text('Right',
                         style: isRightHandSelected
                             ? styles.Typography.textBgWhite
-                            : styles.Typography.text)),
+                            : styles.Typography.textPrimary)),
               ),
             ),
           ),
