@@ -124,19 +124,20 @@ class _Grip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget image = GripImage(
+        assetSrc: grip.assetSrc,
+        selected: selected,
+        color: styles.Colors.lighestGray);
+
     return GestureDetector(
         onTap: _handleTap,
         child: Container(
-          width: _kGripWidth,
-          child: selected
-              ? GripImage(assetSrc: grip.assetSrc, selected: selected)
-              : Transform.scale(
-                  scale: .8,
-                  child: GripImage(
-                    assetSrc: grip.assetSrc,
-                    selected: selected,
-                  ),
-                ),
-        ));
+            width: _kGripWidth,
+            child: selected
+                ? image
+                : Transform.scale(
+                    scale: .8,
+                    child: image,
+                  )));
   }
 }
