@@ -142,6 +142,8 @@ final List<BoardHold> boardHolds = [
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
+      dxHangAnchor: 74,
+      dyHangAnchor: 89.5,
       maxPocketDepth: 16,
       minPocketDepth: 15,
       rect: Rect.fromLTWH(35, 64, 72, 36),
@@ -149,7 +151,7 @@ final List<BoardHold> boardHolds = [
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
-      dxHangAnchor: 74,
+      dxHangAnchor: 127,
       dyHangAnchor: 89.5,
       maxPocketDepth: 22,
       minPocketDepth: 19,
@@ -158,7 +160,7 @@ final List<BoardHold> boardHolds = [
       maxAllowedFingers: 2,
       boardSize: _kBoardSize),
   BoardHold(
-      dxHangAnchor: 127,
+      dxHangAnchor: 172,
       dyHangAnchor: 89.5,
       maxPocketDepth: 17,
       minPocketDepth: 14,
@@ -167,7 +169,7 @@ final List<BoardHold> boardHolds = [
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
-      dxHangAnchor: 172,
+      dxHangAnchor: 224,
       dyHangAnchor: 89.5,
       maxPocketDepth: 17,
       minPocketDepth: 14,
@@ -176,7 +178,7 @@ final List<BoardHold> boardHolds = [
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
-      dxHangAnchor: 224,
+      dxHangAnchor: 269,
       dyHangAnchor: 89.5,
       maxPocketDepth: 22,
       minPocketDepth: 19,
@@ -185,7 +187,7 @@ final List<BoardHold> boardHolds = [
       maxAllowedFingers: 2,
       boardSize: _kBoardSize),
   BoardHold(
-      dxHangAnchor: 269,
+      dxHangAnchor: 322,
       dyHangAnchor: 89.5,
       maxPocketDepth: 16,
       minPocketDepth: 15,
