@@ -76,14 +76,14 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
         boardHold.dyRelativeHangAnchor * boardSize.height;
     final double holdDXHangAnchor =
         boardHold.dxRelativeHangAnchor * boardSize.width;
+    final Offset offset = Offset(holdDXHangAnchor - imageDXHangAnchor,
+        holdDYHangAnchor - imageDYHangAnchor);
 
     setState(() {
       if (grip.handType == HandTypes.leftHand) {
-        _leftHandOffset = Offset(holdDXHangAnchor - imageDXHangAnchor,
-            holdDYHangAnchor - imageDYHangAnchor);
+        _leftHandOffset = offset;
       } else {
-        _rightHandOffset = Offset(holdDXHangAnchor - imageDXHangAnchor,
-            holdDYHangAnchor - imageDYHangAnchor);
+        _rightHandOffset = offset;
       }
     });
   }
@@ -163,7 +163,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                       child: GripImage(
                         assetSrc: widget.leftGrip.assetSrc,
                         selected: false,
-                        color: styles.Colors.gray,
+                        color: styles.Colors.lighestGray,
                       ),
                     ),
                     child: Container(
@@ -171,7 +171,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                       child: GripImage(
                         assetSrc: widget.leftGrip.assetSrc,
                         selected: false,
-                        color: styles.Colors.gray,
+                        color: styles.Colors.lighestGray,
                       ),
                     ),
                     childWhenDragging: Container(
@@ -200,7 +200,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                       child: GripImage(
                         assetSrc: widget.rightGrip.assetSrc,
                         selected: false,
-                        color: styles.Colors.gray,
+                        color: styles.Colors.lighestGray,
                       ),
                     ),
                     child: Container(
@@ -208,7 +208,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                       child: GripImage(
                         assetSrc: widget.rightGrip.assetSrc,
                         selected: false,
-                        color: styles.Colors.gray,
+                        color: styles.Colors.lighestGray,
                       ),
                     ),
                     childWhenDragging: Container(

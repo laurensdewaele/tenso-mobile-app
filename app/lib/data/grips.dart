@@ -13,13 +13,13 @@ class Grips {
     handType: HandTypes.leftHand,
     dxHangAnchor: 45.0 - 20,
     dyHangAnchor: 33.0 - 26,
-    assetWidth: 234,
-    assetHeight: 330,
+    assetWidth: 234 / (330 / 120),
+    assetHeight: 120,
   );
 
   static const Grip monoPinkyR = const Grip(
-      assetWidth: 234,
-      assetHeight: 330,
+      assetWidth: 234 / (330 / 120),
+      assetHeight: 120,
       dxHangAnchor: 45.0 + 14.0,
       dyHangAnchor: 33.0 - 26.0,
       description: 'mono pinky',
@@ -29,8 +29,8 @@ class Grips {
       handType: HandTypes.rightHand);
 
   static const Grip monoRingL = const Grip(
-    assetHeight: 219,
-    assetWidth: 336,
+    assetWidth: 336 / (219 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 16.0,
     dyHangAnchor: 33.0 - 27.0,
     description: 'mono ring finger',
@@ -41,8 +41,8 @@ class Grips {
   );
 
   static const Grip monoRingR = const Grip(
-    assetWidth: 219,
-    assetHeight: 336,
+    assetWidth: 219 / (336 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 + 4.0,
     dyHangAnchor: 33.0 - 27.0,
     description: 'mono ring finger',
@@ -53,8 +53,8 @@ class Grips {
   );
 
   static const Grip monoMiddleL = const Grip(
-    assetWidth: 211,
-    assetHeight: 369,
+    assetWidth: 211 / (369 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 11,
     dyHangAnchor: 33.0 - 27,
     description: 'mono middle finger',
@@ -65,8 +65,8 @@ class Grips {
   );
 
   static const Grip monoMiddleR = const Grip(
-    assetWidth: 211,
-    assetHeight: 369,
+    assetWidth: 211 / (369 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 11,
     dyHangAnchor: 33.0 - 27,
     description: 'mono middle finger',
@@ -77,8 +77,8 @@ class Grips {
   );
 
   static const Grip monoIndexL = const Grip(
-    assetWidth: 176,
-    assetHeight: 317,
+    assetWidth: 176 / (317 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 1,
     dyHangAnchor: 33.0 - 25,
     description: 'mono index finger',
@@ -89,8 +89,8 @@ class Grips {
   );
 
   static const Grip monoIndexR = const Grip(
-    assetWidth: 176,
-    assetHeight: 317,
+    assetWidth: 176 / (317 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 23,
     dyHangAnchor: 33.0 - 25,
     description: 'mono index finger',
@@ -101,8 +101,8 @@ class Grips {
   );
 
   static const Grip frontTwoL = const Grip(
-    assetWidth: 210,
-    assetHeight: 300,
+    assetWidth: 210 / (300 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 3,
     dyHangAnchor: 33.0 - 27,
     description: 'front two',
@@ -113,8 +113,8 @@ class Grips {
   );
 
   static const Grip frontTwoR = const Grip(
-    assetWidth: 210,
-    assetHeight: 300,
+    assetWidth: 210 / (300 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 3,
     dyHangAnchor: 33.0 - 27,
     description: 'front two',
@@ -125,8 +125,8 @@ class Grips {
   );
 
   static const Grip middleTwoL = const Grip(
-    assetWidth: 236,
-    assetHeight: 332,
+    assetWidth: 236 / (332 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 11,
     dyHangAnchor: 33.0 - 21,
     description: 'middle two',
@@ -136,8 +136,8 @@ class Grips {
     assetSrc: 'assets/images/grips/middle_two_L.png',
   );
   static const Grip middleTwoR = const Grip(
-    assetWidth: 236,
-    assetHeight: 332,
+    assetWidth: 236 / (332 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 + 8,
     dyHangAnchor: 33.0 - 21,
     description: 'middle two',
@@ -148,8 +148,8 @@ class Grips {
   );
 
   static const Grip backTwoL = const Grip(
-    assetWidth: 219,
-    assetHeight: 322,
+    assetWidth: 219 / (322 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 25,
     dyHangAnchor: 33.0 - 25,
     description: 'back two',
@@ -160,8 +160,8 @@ class Grips {
   );
 
   static const Grip backTwoR = const Grip(
-    assetWidth: 219,
-    assetHeight: 322,
+    assetWidth: 219 / (332 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 + 17.0,
     dyHangAnchor: 33.0 - 25,
     description: 'back two',
@@ -172,8 +172,8 @@ class Grips {
   );
 
   static const Grip frontThreeL = const Grip(
-    assetWidth: 177,
-    assetHeight: 297,
+    assetWidth: 177 / (297 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 9.0,
     dyHangAnchor: 33.0 - 24.0,
     description: 'front three',
@@ -183,8 +183,8 @@ class Grips {
     assetSrc: 'assets/images/grips/front_three_L.png',
   );
   static const Grip frontThreeR = const Grip(
-    assetWidth: 177,
-    assetHeight: 297,
+    assetWidth: 177 / (297 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 9,
     dyHangAnchor: 33.0 - 24.0,
     description: 'front three',
@@ -195,8 +195,8 @@ class Grips {
   );
 
   static const Grip backThreeL = const Grip(
-    assetWidth: 241,
-    assetHeight: 292,
+    assetWidth: 241 / (292 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 5,
     dyHangAnchor: 33.0 - 20,
     description: 'back three',
@@ -206,8 +206,8 @@ class Grips {
     assetSrc: 'assets/images/grips/back_three_L.png',
   );
   static const Grip backThreeR = const Grip(
-    assetWidth: 241,
-    assetHeight: 292,
+    assetWidth: 241 / (292 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 + 18.0,
     dyHangAnchor: 33.0 - 20.0,
     description: 'back three',
@@ -218,8 +218,8 @@ class Grips {
   );
 
   static const Grip openHandL = const Grip(
-    assetWidth: 238,
-    assetHeight: 316,
+    assetWidth: 238 / (316 / 120),
+    assetHeight: 120,
     dxHangAnchor: 39.5,
     dyHangAnchor: 10,
     description: 'open hand',
@@ -230,8 +230,8 @@ class Grips {
     assetSrc: 'assets/images/grips/open_hand_L.png',
   );
   static const Grip openHandR = const Grip(
-    assetWidth: 238,
-    assetHeight: 316,
+    assetWidth: 238 / (316 / 120),
+    assetHeight: 120,
     dxHangAnchor: 51,
     dyHangAnchor: 10,
     description: 'open hand',
@@ -243,8 +243,8 @@ class Grips {
   );
 
   static const Grip halfCrimpL = const Grip(
-    assetWidth: 274,
-    assetHeight: 318,
+    assetWidth: 274 / (318 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0,
     dyHangAnchor: 33.0 - 10,
     description: 'half crimp',
@@ -257,8 +257,8 @@ class Grips {
   );
 
   static const Grip halfCrimpR = const Grip(
-    assetWidth: 274,
-    assetHeight: 318,
+    assetWidth: 274 / (318 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 + 16.0,
     dyHangAnchor: 33.0 - 10.0,
     description: 'half crimp',
@@ -271,8 +271,8 @@ class Grips {
   );
 
   static const Grip fullCrimpL = const Grip(
-    assetWidth: 177,
-    assetHeight: 282,
+    assetWidth: 177 / (282 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 6,
     dyHangAnchor: 33.0 - 7,
     description: 'full crimp',
@@ -289,8 +289,8 @@ class Grips {
     assetSrc: 'assets/images/grips/full_crimp_L.png',
   );
   static const Grip fullCrimpR = const Grip(
-    assetWidth: 177,
-    assetHeight: 282,
+    assetWidth: 177 / (282 / 120),
+    assetHeight: 120,
     dxHangAnchor: 45.0 - 6,
     dyHangAnchor: 33.0 - 7,
     description: 'full crimp',
