@@ -8,11 +8,15 @@ class BoardHold {
       @required this.maxAllowedFingers,
       @required this.rect,
       @required this.boardSize,
+      @required this.dxHangAnchor,
+      @required this.dyHangAnchor,
       this.sloperDegrees,
       this.minPocketDepth,
       this.maxPocketDepth,
       this.pocketDepth})
-      : relativeRect = _determineRelativeRect(rect, boardSize);
+      : relativeRect = _determineRelativeRect(rect, boardSize),
+        dxRelativeHangAnchor = dxHangAnchor / boardSize.width,
+        dyRelativeHangAnchor = dyHangAnchor / boardSize.height;
 
   final Rect rect;
   final HoldType holdType;
@@ -23,6 +27,10 @@ class BoardHold {
   final double minPocketDepth;
   final double maxPocketDepth;
   final double pocketDepth;
+  final double dxHangAnchor;
+  final double dyHangAnchor;
+  final double dxRelativeHangAnchor;
+  final double dyRelativeHangAnchor;
 
   static Rect _determineRelativeRect(Rect rect, Size boardSize) {
     return Rect.fromLTWH(

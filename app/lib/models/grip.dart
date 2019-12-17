@@ -9,9 +9,15 @@ class Grip {
       this.crimped = false,
       @required this.assetSrc,
       @required this.description,
-      @required this.dyRelativeHangAnchorPoint,
+      @required this.assetWidth,
+      @required this.assetHeight,
+      @required this.dxHangAnchor,
+      @required this.dyHangAnchor,
       @required this.handType,
-      @required this.name});
+      @required this.name})
+      : dxRelativeHangAnchor = dxHangAnchor / assetWidth,
+        dyRelativeHangAnchor = dyHangAnchor / assetHeight,
+        assetAspectRatio = assetWidth / assetHeight;
 
   final HandTypes handType;
   final Fingers fingers;
@@ -19,7 +25,13 @@ class Grip {
   final String assetSrc;
   final String name;
   final String description;
-  final double dyRelativeHangAnchorPoint;
+  final double dxHangAnchor;
+  final double dyHangAnchor;
+  final double dxRelativeHangAnchor;
+  final double dyRelativeHangAnchor;
+  final double assetWidth;
+  final double assetHeight;
+  final double assetAspectRatio;
 
   @override
   bool operator ==(Object other) =>
