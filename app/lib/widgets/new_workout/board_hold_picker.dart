@@ -33,13 +33,12 @@ class BoardHoldPicker extends StatefulWidget {
 }
 
 class _BoardHoldPickerState extends State<BoardHoldPicker> {
-  // We already calculate board size in the LayoutBuilder.
-  // We're doing it here again with a addPostFrameCallback.
-  // Because we cannot set state in the build method.
-  // We're drawing the hands after the board has been rendered.
-  // TODO: Find out
-  // I hope it scales with on rotating the screen.
+  // We're setting the containerHeight via 'props' to BoardDragTargets
+  // because we it needs the grip size to calculate it.
+  // It needs to be in this Widget's Stack because
+  // it needs to absorb the pointer events from switching the tabs.
   double _containerHeight;
+
   Size _boardSize;
   double _gripHeight;
   Offset _leftHandOffset;
@@ -72,26 +71,41 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     super.didUpdateWidget(oldWidget);
   }
 
-  void _handleBoardDimensions(Size size) {
+  void _handleBoardDimensions(Size boardSize) {
     setState(() {
-      _boardSize = size;
-      _gripHeight = size.height * widget.board.handToBoardHeightRatio;
+      _boardSize = boardSize;
+      _gripHeight = boardSize.height * widget.board.handToBoardHeightRatio;
     });
     if (_leftHandOffset == null && _rightHandOffset == null) {
       _setInitialHandOffset();
     } else {
       _recalculateHandOffset();
     }
+    _setContainerHeight(boardSize, _gripHeight);
   }
 
   void _setInitialHandOffset() {
-    _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
-    _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
+    if (widget.leftGrip != null) {
+      _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
+    }
+    if (widget.rightGrip != null) {
+      _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
+    }
   }
 
   void _recalculateHandOffset() {
-    _setHandOffset(widget.leftGrip, _leftGripBoardHold);
-    _setHandOffset(widget.rightGrip, _rightGripBoardHold);
+    if (widget.leftGrip != null && _leftGripBoardHold != null) {
+      _setHandOffset(widget.leftGrip, _leftGripBoardHold);
+    }
+    if (widget.rightGrip != null && _rightGripBoardHold != null) {
+      _setHandOffset(widget.rightGrip, _rightGripBoardHold);
+    }
+  }
+
+  void _setContainerHeight(Size boardSize, double gripHeight) {
+    setState(() {
+      _containerHeight = boardSize.height + gripHeight;
+    });
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {
@@ -141,16 +155,12 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     return Stack(
       overflow: Overflow.visible,
       children: <Widget>[
-        Container(
-          width: double.infinity,
-          height: _containerHeight,
-          child: Container(),
-        ),
         BoardDragTargets(
           board: widget.board,
           handleBoardDimensions: _handleBoardDimensions,
           setHandOffset: _setHandOffset,
           orientation: MediaQuery.of(context).orientation,
+          containerHeight: _containerHeight,
         ),
         if (widget.leftGrip != null && _leftHandOffset != null)
           Positioned(

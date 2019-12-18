@@ -8,16 +8,22 @@ import 'package:app/styles/styles.dart' as styles;
 class BoardDragTargets extends StatefulWidget {
   BoardDragTargets(
       {Key key,
-      this.handleBoardDimensions,
-      this.board,
-      this.setHandOffset,
-      this.orientation})
+      @required this.handleBoardDimensions,
+      @required this.board,
+      @required this.setHandOffset,
+      @required this.orientation,
+      @required this.containerHeight})
       : super(key: key);
 
   final Board board;
   final Function(Size boardSize) handleBoardDimensions;
   final Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
+  // We're setting the containerHeight via 'props'
+  // because we it needs the grip size to calculate it.
+  // It needs to be in this Widget's Stack because
+  // it needs to absorb the pointer events from switching the tabs.
+  final double containerHeight;
 
   @override
   _BoardDragTargetsState createState() => _BoardDragTargetsState();
@@ -69,6 +75,11 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
       }
       return Stack(
         children: <Widget>[
+          Container(
+            width: double.infinity,
+            height: widget.containerHeight,
+            child: Container(),
+          ),
           Container(
               child: Image.asset(
             widget.board.assetSrc,
