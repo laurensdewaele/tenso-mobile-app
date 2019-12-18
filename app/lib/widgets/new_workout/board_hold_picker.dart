@@ -1,3 +1,4 @@
+import 'package:app/widgets/new_workout/board_drag_targets.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
@@ -6,8 +7,6 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/hand_types.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
-
-final GlobalKey _kBoardContainerKey = GlobalKey();
 
 class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker(
@@ -40,12 +39,13 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   // We're drawing the hands after the board has been rendered.
   // TODO: Find out
   // I hope it scales with on rotating the screen.
-  Size _boardSizeForCalc = Size.zero;
-  double _gripHeightForCalc;
-  Offset _leftHandOffset = Offset.zero;
-  Offset _rightHandOffset = Offset.zero;
-  Offset _leftHandFeedbackOffset = Offset.zero;
-  Offset _rightHandFeedbackOffset = Offset.zero;
+  double _containerHeight;
+  Size _boardSize;
+  double _gripHeight;
+  Offset _leftHandOffset;
+  Offset _rightHandOffset;
+  Offset _leftHandFeedbackOffset;
+  Offset _rightHandFeedbackOffset;
   BoardHold _leftGripBoardHold;
   BoardHold _rightGripBoardHold;
 
@@ -54,7 +54,6 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     super.initState();
     _leftGripBoardHold = widget.initialLeftGripBoardHold;
     _rightGripBoardHold = widget.initialRightGripBoardHold;
-    WidgetsBinding.instance.addPostFrameCallback(_afterBoardPaint);
   }
 
   @override
@@ -65,47 +64,35 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   @override
   void didUpdateWidget(BoardHoldPicker oldWidget) {
     if (oldWidget.leftGrip != widget.leftGrip && widget.leftGrip != null) {
-      _setHandOffset(_boardSizeForCalc, widget.leftGrip, _gripHeightForCalc,
-          _leftGripBoardHold);
+      _setHandOffset(widget.leftGrip, _leftGripBoardHold);
     }
     if (oldWidget.rightGrip != widget.rightGrip && widget.rightGrip != null) {
-      _setHandOffset(_boardSizeForCalc, widget.rightGrip, _gripHeightForCalc,
-          _rightGripBoardHold);
+      _setHandOffset(widget.rightGrip, _rightGripBoardHold);
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  void _afterBoardPaint(Duration timeStamp) {
-    final RenderBox container =
-        _kBoardContainerKey.currentContext.findRenderObject();
+  void _handleBoardDimensions(Size size) {
     setState(() {
-      _boardSizeForCalc = Size(container.size.width,
-          container.size.width / widget.board.aspectRatio);
-      _gripHeightForCalc =
-          _boardSizeForCalc.height * widget.board.handToBoardHeightRatio;
+      _boardSize = size;
+      _gripHeight = size.height * widget.board.handToBoardHeightRatio;
     });
     _setInitialHandOffset();
   }
 
   void _setInitialHandOffset() {
-    _setHandOffset(_boardSizeForCalc, widget.leftGrip, _gripHeightForCalc,
-        widget.initialLeftGripBoardHold);
-    _setHandOffset(_boardSizeForCalc, widget.rightGrip, _gripHeightForCalc,
-        widget.initialRightGripBoardHold);
+    _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
+    _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
   }
 
-  _setHandOffset(
-      Size boardSize, Grip grip, double gripHeight, BoardHold boardHold) {
-    print('method ----');
-    print(boardSize);
-    print(gripHeight);
-    final double gripDYHangAnchor = grip.dyRelativeHangAnchor * gripHeight;
+  _setHandOffset(Grip grip, BoardHold boardHold) {
+    final double gripDYHangAnchor = grip.dyRelativeHangAnchor * _gripHeight;
     final double gripDXHangAnchor =
-        grip.dxRelativeHangAnchor * grip.assetAspectRatio * gripHeight;
+        grip.dxRelativeHangAnchor * grip.assetAspectRatio * _gripHeight;
     final double holdDYHangAnchor =
-        boardHold.dyRelativeHangAnchor * boardSize.height;
+        boardHold.dyRelativeHangAnchor * _boardSize.height;
     final double holdDXHangAnchor =
-        boardHold.dxRelativeHangAnchor * boardSize.width;
+        boardHold.dxRelativeHangAnchor * _boardSize.width;
     final Offset offset = Offset(holdDXHangAnchor - gripDXHangAnchor,
         holdDYHangAnchor - gripDYHangAnchor);
 
@@ -142,151 +129,94 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final Size _boardSize = Size(constraints.maxWidth,
-            constraints.maxWidth / widget.board.aspectRatio);
-        final double _gripHeight =
-            _boardSize.height * widget.board.handToBoardHeightRatio;
-        // We need an empty container,
-        // otherwise the hitbox of the draggable hands are clipped when positioned low.
-        final double _containerHeight = _boardSize.height + _gripHeight;
-        print('---build');
-        print(_boardSize);
-        print(_gripHeight);
-
-        return Stack(
-          overflow: Overflow.visible,
-          children: <Widget>[
-            Container(
-              key: _kBoardContainerKey,
-              width: double.infinity,
-              height: _containerHeight,
-              child: Container(),
+    return Stack(
+      overflow: Overflow.visible,
+      children: <Widget>[
+        Container(
+          width: double.infinity,
+          height: _containerHeight,
+          child: Container(),
+        ),
+        BoardDragTargets(
+          board: widget.board,
+          handleBoardDimensions: _handleBoardDimensions,
+          setHandOffset: _setHandOffset,
+        ),
+        if (widget.leftGrip != null && _leftHandOffset != null)
+          Positioned(
+            left: _leftHandOffset.dx,
+            top: _leftHandOffset.dy,
+            child: Listener(
+              onPointerDown: (event) {
+                _setHandFeedbackOffset(
+                  event,
+                  widget.leftGrip,
+                  _gripHeight,
+                );
+              },
+              child: Draggable(
+                feedbackOffset: _leftHandFeedbackOffset,
+                data: widget.leftGrip,
+                feedback: Container(
+                  height: _gripHeight,
+                  child: GripImage(
+                    assetSrc: widget.leftGrip.assetSrc,
+                    selected: false,
+                    color: styles.Colors.lighestGray,
+                  ),
+                ),
+                child: Container(
+                  height: _gripHeight,
+                  child: GripImage(
+                    assetSrc: widget.leftGrip.assetSrc,
+                    selected: false,
+                    color: styles.Colors.lighestGray,
+                  ),
+                ),
+                childWhenDragging: Container(
+                  height: _gripHeight,
+                ),
+              ),
             ),
-            Container(
-                child: Image.asset(
-              widget.board.assetSrc,
-            )),
-            ...widget.board.boardHolds.map((BoardHold boardHold) {
-              final Rect rect = Rect.fromLTWH(
-                  boardHold.relativeRect.left * _boardSize.width,
-                  boardHold.relativeRect.top * _boardSize.height,
-                  boardHold.relativeRect.width * _boardSize.width,
-                  boardHold.relativeRect.height * _boardSize.height);
-              return Positioned.fromRect(
-                  rect: rect,
-                  child: DragTarget(
-                    builder: (BuildContext context, List<Grip> candidateData,
-                        List<dynamic> rejectedData) {
-                      if (candidateData.length > 0) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: styles.Colors.difficultyBlue)),
-                        );
-                      }
-                      if (rejectedData.length > 0) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: styles.Colors.primary)),
-                        );
-                      }
-                      return Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: styles.Colors.black)),
-                      );
-                    },
-                    onWillAccept: (Grip grip) {
-                      if (grip.fingers.count > boardHold.maxAllowedFingers) {
-                        return false;
-                      } else {
-                        return true;
-                      }
-                    },
-                    onAccept: (data) {
-                      _setHandOffset(_boardSize, data, _gripHeight, boardHold);
-                    },
-                    onLeave: (data) {},
-                  ));
-            }),
-            if (widget.leftGrip != null && _leftHandOffset != Offset.zero)
-              Positioned(
-                left: _leftHandOffset.dx,
-                top: _leftHandOffset.dy,
-                child: Listener(
-                  onPointerDown: (event) {
-                    _setHandFeedbackOffset(
-                      event,
-                      widget.leftGrip,
-                      _gripHeight,
-                    );
-                  },
-                  child: Draggable(
-                    feedbackOffset: _leftHandFeedbackOffset,
-                    data: widget.leftGrip,
-                    feedback: Container(
-                      height: _gripHeight,
-                      child: GripImage(
-                        assetSrc: widget.leftGrip.assetSrc,
-                        selected: false,
-                        color: styles.Colors.lighestGray,
-                      ),
-                    ),
-                    child: Container(
-                      height: _gripHeight,
-                      child: GripImage(
-                        assetSrc: widget.leftGrip.assetSrc,
-                        selected: false,
-                        color: styles.Colors.lighestGray,
-                      ),
-                    ),
-                    childWhenDragging: Container(
-                      height: _gripHeight,
-                    ),
+          ),
+        if (widget.rightGrip != null && _rightHandOffset != null)
+          Positioned(
+            left: _rightHandOffset.dx,
+            top: _rightHandOffset.dy,
+            child: Listener(
+              onPointerDown: (event) {
+                _setHandFeedbackOffset(
+                  event,
+                  widget.rightGrip,
+                  _gripHeight,
+                );
+              },
+              child: Draggable(
+                feedbackOffset: _rightHandFeedbackOffset,
+                data: widget.rightGrip,
+                feedback: Container(
+                  height: _gripHeight,
+                  child: GripImage(
+                    assetSrc: widget.rightGrip.assetSrc,
+                    selected: false,
+                    color: styles.Colors.lighestGray,
                   ),
                 ),
-              ),
-            if (widget.rightGrip != null && _rightHandOffset != Offset.zero)
-              Positioned(
-                left: _rightHandOffset.dx,
-                top: _rightHandOffset.dy,
-                child: Listener(
-                  onPointerDown: (event) {
-                    _setHandFeedbackOffset(
-                      event,
-                      widget.rightGrip,
-                      _gripHeight,
-                    );
-                  },
-                  child: Draggable(
-                    feedbackOffset: _rightHandFeedbackOffset,
-                    data: widget.rightGrip,
-                    feedback: Container(
-                      height: _gripHeight,
-                      child: GripImage(
-                        assetSrc: widget.rightGrip.assetSrc,
-                        selected: false,
-                        color: styles.Colors.lighestGray,
-                      ),
-                    ),
-                    child: Container(
-                      height: _gripHeight,
-                      child: GripImage(
-                        assetSrc: widget.rightGrip.assetSrc,
-                        selected: false,
-                        color: styles.Colors.lighestGray,
-                      ),
-                    ),
-                    childWhenDragging: Container(
-                      height: _gripHeight,
-                    ),
+                child: Container(
+                  height: _gripHeight,
+                  child: GripImage(
+                    assetSrc: widget.rightGrip.assetSrc,
+                    selected: false,
+                    color: styles.Colors.lighestGray,
                   ),
                 ),
+                childWhenDragging: Container(
+                  height: _gripHeight,
+                ),
               ),
-          ],
-        );
-      },
+            ),
+          ),
+      ],
     );
   }
 }
