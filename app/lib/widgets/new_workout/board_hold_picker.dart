@@ -77,12 +77,21 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
       _boardSize = size;
       _gripHeight = size.height * widget.board.handToBoardHeightRatio;
     });
-    _setInitialHandOffset();
+    if (_leftHandOffset == null && _rightHandOffset == null) {
+      _setInitialHandOffset();
+    } else {
+      _recalculateHandOffset();
+    }
   }
 
   void _setInitialHandOffset() {
     _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
     _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
+  }
+
+  void _recalculateHandOffset() {
+    _setHandOffset(widget.leftGrip, _leftGripBoardHold);
+    _setHandOffset(widget.rightGrip, _rightGripBoardHold);
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {
@@ -137,15 +146,11 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
           height: _containerHeight,
           child: Container(),
         ),
-        OrientationBuilder(
-          builder: (BuildContext context, Orientation orientation) {
-            return BoardDragTargets(
-              board: widget.board,
-              handleBoardDimensions: _handleBoardDimensions,
-              setHandOffset: _setHandOffset,
-              orientation: orientation,
-            );
-          },
+        BoardDragTargets(
+          board: widget.board,
+          handleBoardDimensions: _handleBoardDimensions,
+          setHandOffset: _setHandOffset,
+          orientation: MediaQuery.of(context).orientation,
         ),
         if (widget.leftGrip != null && _leftHandOffset != null)
           Positioned(
