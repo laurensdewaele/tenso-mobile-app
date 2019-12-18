@@ -137,10 +137,15 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
           height: _containerHeight,
           child: Container(),
         ),
-        BoardDragTargets(
-          board: widget.board,
-          handleBoardDimensions: _handleBoardDimensions,
-          setHandOffset: _setHandOffset,
+        OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            return BoardDragTargets(
+              board: widget.board,
+              handleBoardDimensions: _handleBoardDimensions,
+              setHandOffset: _setHandOffset,
+              orientation: orientation,
+            );
+          },
         ),
         if (widget.leftGrip != null && _leftHandOffset != null)
           Positioned(

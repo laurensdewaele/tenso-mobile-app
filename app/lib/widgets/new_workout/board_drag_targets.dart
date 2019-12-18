@@ -10,18 +10,22 @@ class BoardDragTargets extends StatefulWidget {
       {Key key,
       this.handleBoardDimensions,
       this.board,
-      this.setHandOffset})
+      this.setHandOffset,
+      this.orientation})
       : super(key: key);
 
   final Board board;
   final Function(Size boardSize) handleBoardDimensions;
   final Function(Grip grip, BoardHold boardHold) setHandOffset;
+  final Orientation orientation;
 
   @override
   _BoardDragTargetsState createState() => _BoardDragTargetsState();
 }
 
 class _BoardDragTargetsState extends State<BoardDragTargets> {
+  bool _shouldCheckDimensions = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,12 +39,34 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
   }
 
   @override
+  void didUpdateWidget(BoardDragTargets oldWidget) {
+    if (oldWidget.orientation != widget.orientation) {
+      setState(() {
+        _shouldCheckDimensions = true;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _triggerPostFrameCallback(Size boardSize) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.handleBoardDimensions(boardSize);
+      setState(() {
+        _shouldCheckDimensions = false;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final Size _boardSize = Size(constraints.maxWidth,
           constraints.maxWidth / widget.board.aspectRatio);
-      widget.handleBoardDimensions(_boardSize);
+
+      if (_shouldCheckDimensions == true) {
+        _triggerPostFrameCallback(_boardSize);
+      }
       return Stack(
         children: <Widget>[
           Container(
