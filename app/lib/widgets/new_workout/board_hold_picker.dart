@@ -150,93 +150,106 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     });
   }
 
+  void _onHorizontalDragEnd(DragEndDetails detail) {
+    // This is just here so it competes with the
+    // horizontalDragEnd from NewWorkout
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      overflow: Overflow.visible,
-      children: <Widget>[
-        BoardDragTargets(
-          board: widget.board,
-          handleBoardDimensions: _handleBoardDimensions,
-          setHandOffset: _setHandOffset,
-          orientation: MediaQuery.of(context).orientation,
-          containerHeight: _containerHeight,
-        ),
-        if (widget.leftGrip != null && _leftHandOffset != null)
-          Positioned(
-            left: _leftHandOffset.dx,
-            top: _leftHandOffset.dy,
-            child: Listener(
-              onPointerDown: (event) {
-                _setHandFeedbackOffset(
-                  event,
-                  widget.leftGrip,
-                  _gripHeight,
-                );
-              },
-              child: Draggable(
-                feedbackOffset: _leftHandFeedbackOffset,
-                data: widget.leftGrip,
-                feedback: Container(
-                  height: _gripHeight,
-                  child: GripImage(
-                    assetSrc: widget.leftGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onHorizontalDragEnd: _onHorizontalDragEnd,
+      child: Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            height: _containerHeight,
+            child: Container(),
+          ),
+          BoardDragTargets(
+            board: widget.board,
+            handleBoardDimensions: _handleBoardDimensions,
+            setHandOffset: _setHandOffset,
+            orientation: MediaQuery.of(context).orientation,
+          ),
+          if (widget.leftGrip != null && _leftHandOffset != null)
+            Positioned(
+              left: _leftHandOffset.dx,
+              top: _leftHandOffset.dy,
+              child: Listener(
+                onPointerDown: (event) {
+                  _setHandFeedbackOffset(
+                    event,
+                    widget.leftGrip,
+                    _gripHeight,
+                  );
+                },
+                child: Draggable(
+                  feedbackOffset: _leftHandFeedbackOffset,
+                  data: widget.leftGrip,
+                  feedback: Container(
+                    height: _gripHeight,
+                    child: GripImage(
+                      assetSrc: widget.leftGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
                   ),
-                ),
-                child: Container(
-                  height: _gripHeight,
-                  child: GripImage(
-                    assetSrc: widget.leftGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
+                  child: Container(
+                    height: _gripHeight,
+                    child: GripImage(
+                      assetSrc: widget.leftGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
                   ),
-                ),
-                childWhenDragging: Container(
-                  height: _gripHeight,
+                  childWhenDragging: Container(
+                    height: _gripHeight,
+                  ),
                 ),
               ),
             ),
-          ),
-        if (widget.rightGrip != null && _rightHandOffset != null)
-          Positioned(
-            left: _rightHandOffset.dx,
-            top: _rightHandOffset.dy,
-            child: Listener(
-              onPointerDown: (event) {
-                _setHandFeedbackOffset(
-                  event,
-                  widget.rightGrip,
-                  _gripHeight,
-                );
-              },
-              child: Draggable(
-                feedbackOffset: _rightHandFeedbackOffset,
-                data: widget.rightGrip,
-                feedback: Container(
-                  height: _gripHeight,
-                  child: GripImage(
-                    assetSrc: widget.rightGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
+          if (widget.rightGrip != null && _rightHandOffset != null)
+            Positioned(
+              left: _rightHandOffset.dx,
+              top: _rightHandOffset.dy,
+              child: Listener(
+                onPointerDown: (event) {
+                  _setHandFeedbackOffset(
+                    event,
+                    widget.rightGrip,
+                    _gripHeight,
+                  );
+                },
+                child: Draggable(
+                  feedbackOffset: _rightHandFeedbackOffset,
+                  data: widget.rightGrip,
+                  feedback: Container(
+                    height: _gripHeight,
+                    child: GripImage(
+                      assetSrc: widget.rightGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
                   ),
-                ),
-                child: Container(
-                  height: _gripHeight,
-                  child: GripImage(
-                    assetSrc: widget.rightGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
+                  child: Container(
+                    height: _gripHeight,
+                    child: GripImage(
+                      assetSrc: widget.rightGrip.assetSrc,
+                      selected: false,
+                      color: styles.Colors.lighestGray,
+                    ),
                   ),
-                ),
-                childWhenDragging: Container(
-                  height: _gripHeight,
+                  childWhenDragging: Container(
+                    height: _gripHeight,
+                  ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
