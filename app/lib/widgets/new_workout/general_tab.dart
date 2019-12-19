@@ -42,16 +42,12 @@ class _GeneralTabState extends State<GeneralTab> {
   void _handleValueChanged(
       {@required WorkoutProperties workoutProperty,
       HoldProperties holdProperty,
-      @required int value}) {}
+      @required int value}) {
+    // TODO: Connect to store
+  }
 
   @override
   Widget build(BuildContext context) {
-    final bool hasTimers = widget.config.restBetweenSets ||
-        widget.config.restBetweenHolds ||
-        widget.config.restBetweenRepetitions ||
-        widget.config.hangTime;
-    final bool hasBoard = widget.config.board;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -100,7 +96,7 @@ class _GeneralTabState extends State<GeneralTab> {
               ),
           ],
         ),
-        if (hasTimers)
+        if (widget.config.hasTimers)
           Section(
             title: 'timers',
             children: <Widget>[
@@ -161,7 +157,7 @@ class _GeneralTabState extends State<GeneralTab> {
                 ),
             ],
           ),
-        if (hasBoard)
+        if (widget.config.hasBoard)
           Section(
             title: 'board',
             children: <Widget>[

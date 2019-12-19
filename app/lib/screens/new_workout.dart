@@ -136,6 +136,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
+                                      // TODO: Replace
                                       workout: basicWorkout,
                                       config: widget.config,
                                       shouldLoseFocusStream:

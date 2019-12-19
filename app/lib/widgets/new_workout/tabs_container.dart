@@ -110,14 +110,15 @@ class _TabsContainerState extends State<TabsContainer> {
         ),
         ...List.generate(holdCount, (i) => i + 1).map((n) {
           return HoldTab(
-              board: widget.workout.board,
-              key: UniqueKey(),
-              hold: _getHold(n),
-              handleErrorMessage: widget.handleErrorMessage,
-              shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              config: widget.config.holdConfig,
-              currentHold: n,
-              totalHolds: holdCount);
+            board: widget.workout.board,
+            key: UniqueKey(),
+            hold: _getHold(n),
+            handleErrorMessage: widget.handleErrorMessage,
+            shouldLoseFocusStream: widget.shouldLoseFocusStream,
+            config: widget.config.holdConfig,
+            currentHold: n,
+            totalHolds: holdCount,
+          );
         }),
         extraTab
       ];

@@ -37,10 +37,11 @@ class WorkoutConfig {
   void _toggleAdvancedTimers(bool advancedTimers) {
     _generalConfig.hangTime = !advancedTimers;
     _generalConfig.restBetweenRepetitions = !advancedTimers;
+    _generalConfig.restBetweenHolds = !advancedTimers;
 
     _holdConfig.hangTime = advancedTimers;
     _holdConfig.restBetweenRepetitions = advancedTimers;
-    _holdConfig.restBetweenHolds = advancedTimers;
+    _holdConfig.restBeforeNextHold = advancedTimers;
   }
 
   void _toggleBoardSelection(bool board) {
@@ -88,6 +89,17 @@ class GeneralConfig {
   bool restBetweenSets;
   bool hangTime;
   bool board;
+
+  bool get hasTimers {
+    return restBetweenSets ||
+        restBetweenHolds ||
+        restBetweenRepetitions ||
+        hangTime;
+  }
+
+  bool get hasBoard {
+    return board;
+  }
 }
 
 class HoldConfig {
@@ -97,7 +109,7 @@ class HoldConfig {
       @required this.repetitions,
       @required this.hangTime,
       @required this.restBetweenRepetitions,
-      @required this.restBetweenHolds,
+      @required this.restBeforeNextHold,
       @required this.addedWeight});
 
   HoldConfig.basic() {
@@ -106,7 +118,7 @@ class HoldConfig {
     this.repetitions = false;
     this.hangTime = false;
     this.restBetweenRepetitions = false;
-    this.restBetweenHolds = false;
+    this.restBeforeNextHold = false;
     this.addedWeight = false;
   }
 
@@ -115,8 +127,20 @@ class HoldConfig {
   bool repetitions;
   bool hangTime;
   bool restBetweenRepetitions;
-  bool restBetweenHolds;
+  bool restBeforeNextHold;
   bool addedWeight;
+
+  bool get hasRepetitions {
+    return repetitions;
+  }
+
+  bool get hasTimers {
+    return hangTime || restBetweenRepetitions || restBeforeNextHold;
+  }
+
+  bool get hasAddedWeight {
+    return addedWeight;
+  }
 }
 
 enum ExtraConfigProperties { difficulty, name }
