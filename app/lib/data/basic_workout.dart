@@ -21,7 +21,7 @@ final Workout basicWorkout = Workout(
         restBeforeNextHold: 60 * 2,
         restBetweenRepetitions: 60,
         hangTime: 7,
-        addedWeight: 0)
+        addedWeight: 20)
   ],
   name: 'Basic workout',
 );
