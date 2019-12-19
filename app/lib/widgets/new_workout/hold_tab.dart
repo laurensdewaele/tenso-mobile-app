@@ -17,13 +17,13 @@ import 'package:app/widgets/new_workout/section.dart';
 class HoldTab extends StatefulWidget {
   HoldTab({
     Key key,
-    this.config,
-    this.currentHold,
-    this.shouldLoseFocusStream,
-    this.handleErrorMessage,
-    this.hold,
-    this.board,
-    this.totalHolds,
+    @required this.config,
+    @required this.currentHold,
+    @required this.shouldLoseFocusStream,
+    @required this.handleErrorMessage,
+    @required this.hold,
+    @required this.board,
+    @required this.totalHolds,
   }) : super(key: key);
 
   final Hold hold;
