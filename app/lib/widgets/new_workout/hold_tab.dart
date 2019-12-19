@@ -180,6 +180,7 @@ class _HoldTabState extends State<HoldTab> {
               initialRightGripBoardHold: _selectedRightGripBoardHold,
               handleLeftGripBoardHoldChanged: _handleLeftGripBoardHoldChanged,
               handleRightGripBoardHoldChanged: _handleRightGripBoardHoldChanged,
+              handleErrorMessage: widget.handleErrorMessage
             )
           ],
         )

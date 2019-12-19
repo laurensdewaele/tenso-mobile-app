@@ -213,6 +213,6 @@ final beastmaker1000 = Board(
   handToBoardHeightRatio: 1.2,
   aspectRatio: _kBoardSize.aspectRatio,
   boardHolds: boardHolds,
-  defaultLeftGripHold: boardHolds[9],
-  defaultRightGripHold: boardHolds[15],
+  defaultLeftGripHold: boardHolds[10],
+  defaultRightGripHold: boardHolds[16],
 );

@@ -1,12 +1,13 @@
-import 'package:app/widgets/new_workout/board_drag_targets.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/functions/board_hold_grip_compatibility.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_types.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
+import 'package:app/widgets/new_workout/board_drag_targets.dart';
 
 class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker(
@@ -17,7 +18,8 @@ class BoardHoldPicker extends StatefulWidget {
       @required this.handleLeftGripBoardHoldChanged,
       @required this.handleRightGripBoardHoldChanged,
       @required this.leftGrip,
-      @required this.rightGrip})
+      @required this.rightGrip,
+      @required this.handleErrorMessage})
       : super(key: key);
 
   final Board board;
@@ -27,6 +29,7 @@ class BoardHoldPicker extends StatefulWidget {
   final Grip rightGrip;
   final Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
   final Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
+  final Function(Widget errorMessage) handleErrorMessage;
 
   @override
   _BoardHoldPickerState createState() => _BoardHoldPickerState();
@@ -39,6 +42,11 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   // it needs to absorb the pointer events from switching the tabs.
   double _containerHeight;
 
+  Widget _errorMessage;
+  final Widget _updatedGripErrorMessage = Text(
+    'The chosen hand hold was reset.\n The grip is not compatible',
+    textAlign: TextAlign.center,
+  );
   Size _boardSize;
   double _gripHeight;
   Offset _leftHandOffset;
@@ -63,10 +71,24 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   @override
   void didUpdateWidget(BoardHoldPicker oldWidget) {
     if (oldWidget.leftGrip != widget.leftGrip && widget.leftGrip != null) {
-      _setHandOffset(widget.leftGrip, _leftGripBoardHold);
+      final Widget errorMessage =
+          checkCompatibility(widget.leftGrip, _leftGripBoardHold);
+      if (errorMessage != null) {
+        widget.handleErrorMessage(_updatedGripErrorMessage);
+        _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
+      } else {
+        _setHandOffset(widget.leftGrip, _leftGripBoardHold);
+      }
     }
     if (oldWidget.rightGrip != widget.rightGrip && widget.rightGrip != null) {
-      _setHandOffset(widget.rightGrip, _rightGripBoardHold);
+      final Widget errorMessage =
+          checkCompatibility(widget.rightGrip, _rightGripBoardHold);
+      if (errorMessage != null) {
+        widget.handleErrorMessage(_updatedGripErrorMessage);
+        _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
+      } else {
+        _setHandOffset(widget.rightGrip, _rightGripBoardHold);
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -155,6 +177,18 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     // horizontalDragEnd from NewWorkout
   }
 
+  void _onDragEnd(DraggableDetails details) {
+    if (_errorMessage != null) {
+      widget.handleErrorMessage(_errorMessage);
+    }
+  }
+
+  void _setErrorMessage(Widget errorMessage) {
+    setState(() {
+      _errorMessage = errorMessage;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -173,6 +207,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
             handleBoardDimensions: _handleBoardDimensions,
             setHandOffset: _setHandOffset,
             orientation: MediaQuery.of(context).orientation,
+            setErrorMessage: _setErrorMessage,
           ),
           if (widget.leftGrip != null && _leftHandOffset != null)
             Positioned(
@@ -187,6 +222,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   );
                 },
                 child: Draggable(
+                  onDragEnd: _onDragEnd,
                   feedbackOffset: _leftHandFeedbackOffset,
                   data: widget.leftGrip,
                   feedback: Container(
@@ -224,6 +260,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   );
                 },
                 child: Draggable(
+                  onDragEnd: _onDragEnd,
                   feedbackOffset: _rightHandFeedbackOffset,
                   data: widget.rightGrip,
                   feedback: Container(

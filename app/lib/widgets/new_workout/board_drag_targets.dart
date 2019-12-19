@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/functions/board_hold_grip_compatibility.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -12,12 +13,14 @@ class BoardDragTargets extends StatefulWidget {
     @required this.board,
     @required this.setHandOffset,
     @required this.orientation,
+    @required this.setErrorMessage,
   }) : super(key: key);
 
   final Board board;
   final Function(Size boardSize) handleBoardDimensions;
   final Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
+  final Function(Widget errorMessage) setErrorMessage;
 
   @override
   _BoardDragTargetsState createState() => _BoardDragTargetsState();
@@ -103,13 +106,17 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                     return Container();
                   },
                   onWillAccept: (Grip grip) {
-                    if (grip.fingers.count > boardHold.maxAllowedFingers) {
-                      return false;
-                    } else {
+                    final Widget errorMessage =
+                        checkCompatibility(grip, boardHold);
+                    if (errorMessage == null) {
                       return true;
+                    } else {
+                      widget.setErrorMessage(errorMessage);
+                      return false;
                     }
                   },
                   onAccept: (data) {
+                    widget.setErrorMessage(null);
                     widget.setHandOffset(data, boardHold);
                   },
                   onLeave: (data) {},
