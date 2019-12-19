@@ -58,7 +58,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 12,
       minPocketDepth: 10,
       rect: Rect.fromLTWH(0, 15, 83, 22),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
@@ -66,7 +66,7 @@ final List<BoardHold> boardHolds = [
       dyHangAnchor: 33,
       pocketDepth: 30,
       rect: Rect.fromLTWH(147, 15, 50, 22),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
@@ -74,7 +74,7 @@ final List<BoardHold> boardHolds = [
       dyHangAnchor: 33,
       pocketDepth: 30,
       rect: Rect.fromLTWH(197, 15, 53, 22),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
@@ -83,7 +83,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 12,
       minPocketDepth: 10,
       rect: Rect.fromLTWH(314, 15, 82, 22),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
@@ -92,7 +92,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 43,
       minPocketDepth: 40,
       rect: Rect.fromLTWH(0, 37, 72, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
@@ -101,7 +101,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 48,
       minPocketDepth: 45,
       rect: Rect.fromLTWH(72, 37, 40, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 2,
       boardSize: _kBoardSize),
   BoardHold(
@@ -110,7 +110,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 43,
       minPocketDepth: 40,
       rect: Rect.fromLTWH(112, 37, 50, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
@@ -119,7 +119,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 50,
       minPocketDepth: 46,
       rect: Rect.fromLTWH(162, 37, 72, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
@@ -128,7 +128,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 43,
       minPocketDepth: 40,
       rect: Rect.fromLTWH(234, 37, 52, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
@@ -137,7 +137,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 48,
       minPocketDepth: 45,
       rect: Rect.fromLTWH(286, 37, 39, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 2,
       boardSize: _kBoardSize),
   BoardHold(
@@ -146,7 +146,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 43,
       minPocketDepth: 40,
       rect: Rect.fromLTWH(325, 37, 71, 27),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
@@ -155,7 +155,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 16,
       minPocketDepth: 15,
       rect: Rect.fromLTWH(35, 64, 72, 36),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
   BoardHold(
@@ -164,7 +164,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 22,
       minPocketDepth: 19,
       rect: Rect.fromLTWH(107, 64, 40, 36),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 2,
       boardSize: _kBoardSize),
   BoardHold(
@@ -173,7 +173,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 17,
       minPocketDepth: 14,
       rect: Rect.fromLTWH(147, 64, 50, 36),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
@@ -182,7 +182,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 17,
       minPocketDepth: 14,
       rect: Rect.fromLTWH(197, 64, 53, 36),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 3,
       boardSize: _kBoardSize),
   BoardHold(
@@ -191,7 +191,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 22,
       minPocketDepth: 19,
       rect: Rect.fromLTWH(250, 64, 39, 36),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 2,
       boardSize: _kBoardSize),
   BoardHold(
@@ -200,7 +200,7 @@ final List<BoardHold> boardHolds = [
       maxPocketDepth: 16,
       minPocketDepth: 15,
       rect: Rect.fromLTWH(289, 64, 72, 36),
-      holdType: HoldType.pocket,
+      holdType: HoldType.roundedPocket,
       maxAllowedFingers: 5,
       boardSize: _kBoardSize),
 ];

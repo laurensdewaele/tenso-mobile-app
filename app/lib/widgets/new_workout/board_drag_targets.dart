@@ -87,20 +87,20 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                     if (candidateData.length > 0) {
                       return Container(
                         decoration: BoxDecoration(
+                            borderRadius: styles.kBorderRadiusAll,
                             border: Border.all(
-                                color: styles.Colors.difficultyBlue)),
+                                width: 2, color: styles.Colors.green)),
                       );
                     }
                     if (rejectedData.length > 0) {
                       return Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: styles.Colors.primary)),
+                            borderRadius: styles.kBorderRadiusAll,
+                            border: Border.all(
+                                width: 2, color: styles.Colors.primary)),
                       );
                     }
-                    return Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: styles.Colors.black)),
-                    );
+                    return Container();
                   },
                   onWillAccept: (Grip grip) {
                     if (grip.fingers.count > boardHold.maxAllowedFingers) {

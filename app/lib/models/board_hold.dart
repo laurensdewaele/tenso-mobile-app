@@ -41,4 +41,4 @@ class BoardHold {
   }
 }
 
-enum HoldType { sloper, pocket, jug }
+enum HoldType { sloper, pocket, jug, roundedPocket }

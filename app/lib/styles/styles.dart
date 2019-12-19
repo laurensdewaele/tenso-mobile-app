@@ -21,6 +21,7 @@ class Colors {
   static const Color difficultyYellow = const Color.fromRGBO(241, 196, 15, 1);
   static const Color difficultyOrange = const Color.fromRGBO(230, 126, 34, 1);
   static const Color difficultyBlue = const Color.fromRGBO(52, 152, 219, 1);
+  static const Color green = const Color.fromRGBO(46, 204, 113, 1.0);
 }
 
 class Measurements {
