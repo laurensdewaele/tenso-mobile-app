@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 
 class BoardHold {
+//class BoardHold {
   BoardHold(
       {@required this.holdType,
       @required this.maxAllowedFingers,
@@ -19,7 +20,7 @@ class BoardHold {
         dyRelativeHangAnchor = dyHangAnchor / boardSize.height;
 
   final Rect rect;
-  final HoldType holdType;
+  final HoldTypes holdType;
   final int maxAllowedFingers;
   final Size boardSize;
   final Rect relativeRect;
@@ -41,4 +42,4 @@ class BoardHold {
   }
 }
 
-enum HoldType { sloper, pocket, jug, roundedPocket }
+enum HoldTypes { sloper, pocket, jug, roundedPocket }
