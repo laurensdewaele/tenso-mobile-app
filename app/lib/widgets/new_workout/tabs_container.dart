@@ -93,11 +93,6 @@ class _TabsContainerState extends State<TabsContainer> {
   void _buildPages(
     int holdCount,
   ) {
-    final Widget extraTab = Container(
-      height: 1500,
-      width: double.infinity,
-      decoration: BoxDecoration(color: styles.Colors.difficultyOrange),
-    );
     setState(() {
       _pageCount = holdCount + 2;
       _pages = [
@@ -129,6 +124,7 @@ class _TabsContainerState extends State<TabsContainer> {
           difficulty: widget.workout.difficulty,
           grades: Grades.boulderFont,
           key: UniqueKey(),
+          handleSave: _handleSave,
         )
       ];
     });
@@ -168,6 +164,10 @@ class _TabsContainerState extends State<TabsContainer> {
     setState(() {
       _activePage = page;
     });
+  }
+
+  void _handleSave() {
+    Navigator.of(context).pop();
   }
 
   @override

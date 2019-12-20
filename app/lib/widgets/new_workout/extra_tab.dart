@@ -1,16 +1,18 @@
+import 'package:app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/new_workout/section.dart';
 import 'package:app/widgets/new_workout/text_input.dart';
 
-class ExtraTab extends StatefulWidget {
+class ExtraTab extends StatelessWidget {
   ExtraTab(
       {Key key,
       @required this.difficulty,
       @required this.name,
       @required this.grades,
       @required this.shouldLoseFocusStream,
+      @required this.handleSave,
       @required this.handleErrorMessage})
       : super(key: key);
 
@@ -19,22 +21,7 @@ class ExtraTab extends StatefulWidget {
   final List<String> grades;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
-
-  @override
-  _ExtraTabState createState() => _ExtraTabState();
-}
-
-class _ExtraTabState extends State<ExtraTab> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+  final VoidCallback handleSave;
 
   void _handleNameChanged(String name) {
     // TODO: Connect to store
@@ -52,11 +39,13 @@ class _ExtraTabState extends State<ExtraTab> {
             Container(
               height: 150,
               child: CupertinoPicker(
+                useMagnifier: true,
+                magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
                 onSelectedItemChanged: (int item) {},
                 itemExtent: 40,
                 children: <Widget>[
-                  ...widget.grades.map((grade) => Center(
+                  ...grades.map((grade) => Center(
                         child: Text(
                           grade,
                           style: styles.Typography.text,
@@ -71,12 +60,20 @@ class _ExtraTabState extends State<ExtraTab> {
           title: 'name',
           children: <Widget>[
             TextInput(
-                initialValue: widget.name,
+                initialValue: name,
                 handleValueChanged: _handleNameChanged,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
+                shouldLoseFocusStream: shouldLoseFocusStream,
+                handleErrorMessage: handleErrorMessage,
                 shouldFocus: false)
           ],
+        ),
+        Center(
+          child: Button(
+            width: styles.Measurements.xxl * 2,
+            text: 'save',
+            handleTap: handleSave,
+            displayIcon: false,
+          ),
         )
       ],
     );

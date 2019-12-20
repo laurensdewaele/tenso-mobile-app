@@ -5,18 +5,22 @@ import 'package:app/widgets/icon.dart';
 
 class Button extends StatelessWidget {
   const Button(
-      {@required this.text, @required this.handleTap, this.displayIcon = true});
+      {@required this.text,
+      @required this.handleTap,
+      this.displayIcon = true,
+      this.width = double.infinity});
 
   final String text;
   final VoidCallback handleTap;
   final bool displayIcon;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: handleTap,
         child: Container(
-            width: double.infinity,
+            width: width,
             decoration: BoxDecoration(
                 borderRadius: styles.kBorderRadiusAll,
                 color: styles.Colors.primary,
