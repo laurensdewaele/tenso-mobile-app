@@ -115,7 +115,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
           child: KeyBoardScreen(
               handleKeyboardOffset: _handleKeyboardOffset,
               gradientStartColor: styles.Colors.primary,
-              gradientStopColor: styles.Colors.bgRedStop,
+              gradientStopColor: styles.Colors.primary,
               child: ListView(
                   controller: _scrollController,
                   physics: ClampingScrollPhysics(),
