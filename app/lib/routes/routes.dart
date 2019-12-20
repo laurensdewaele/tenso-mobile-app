@@ -5,6 +5,7 @@ import 'package:app/models/settings.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/screens/new_workout.dart';
 import 'package:app/screens/settings.dart';
+import 'package:app/screens/sound_settings.dart';
 import 'package:app/screens/workout_overview.dart';
 
 class Routes {
@@ -15,6 +16,7 @@ class Routes {
   static const String workoutOverviewScreen = '/workoutOverviewScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String progressScreen = '/progressScreen';
+  static const String soundSettingsScreen = '/soundSettingsScreen';
 }
 
 final config = WorkoutConfig.fromSettings(Settings.advanced());
@@ -25,6 +27,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.newWorkoutScreen: (context) => NewWorkoutScreen(config: config),
     Routes.workoutOverviewScreen: (context) =>
         WorkoutOverviewScreen(workouts: mockWorkouts),
-    Routes.settingsScreen: (context) => SettingsScreen()
+    Routes.settingsScreen: (context) => SettingsScreen(),
+    Routes.soundSettingsScreen: (context) => SoundSettingsScreen()
   };
 }

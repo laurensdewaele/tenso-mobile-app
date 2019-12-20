@@ -2,7 +2,7 @@ import 'package:app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/new_workout/section.dart';
+import 'package:app/widgets/section.dart';
 import 'package:app/widgets/new_workout/text_input.dart';
 
 class ExtraTab extends StatelessWidget {

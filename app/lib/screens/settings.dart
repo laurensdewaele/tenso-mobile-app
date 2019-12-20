@@ -3,10 +3,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
+import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/widgets/keyboard_screen.dart';
+import 'package:app/widgets/section.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
@@ -69,9 +74,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
-    if (details.primaryVelocity < 0) {
+    if (details.primaryVelocity > 0) {
       Navigator.of(context).pop();
     }
+  }
+
+  void _handlePreparationTimerChanged(int value) {}
+
+  void _handleSoundNavigation() {
+    Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
   }
 
   @override
@@ -101,23 +112,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: GestureDetector(
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                    vertical: styles.Measurements.l),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      width: double.infinity,
-                                    ),
-                                    Text('hahah'),
-                                    SizedBox(
-                                      height: _keyboardOffsetHeight,
-                                    )
-                                  ],
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: styles.Measurements.m,
+                                          vertical: styles.Measurements.l),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Section(
+                                            title: 'default board',
+                                            children: <Widget>[],
+                                          ),
+                                          Section(
+                                            title: 'preparation timer',
+                                            children: <Widget>[
+                                              IntegerInputAndDescription(
+                                                description: 'seconds',
+                                                initialValue: 35,
+                                                handleValueChanged:
+                                                    _handlePreparationTimerChanged,
+                                                shouldLoseFocusStream:
+                                                    _shouldLoseFocusStreamController
+                                                        .stream,
+                                                handleErrorMessage:
+                                                    _handleErrorMessage,
+                                                shouldFocus: false,
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                  _SoundSection(
+                                      title: 'sound',
+                                      handleNavigation: _handleSoundNavigation),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: styles.Measurements.m,
+                                          vertical: styles.Measurements.l),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Section(
+                                            title: 'advanced controls',
+                                            children: <Widget>[],
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: _keyboardOffsetHeight,
+                                  )
+                                ],
                               ),
                             ),
                           ),
@@ -128,6 +176,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ])),
         ),
         Toast(messageStream: _errorMessageStreamController.stream),
+      ],
+    );
+  }
+}
+
+class _SoundSection extends StatelessWidget {
+  _SoundSection(
+      {Key key, @required this.title, @required this.handleNavigation})
+      : super(key: key);
+
+  final String title;
+  final VoidCallback handleNavigation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: styles.Measurements.m,
+                ),
+                child: Text(
+                  title,
+                  style: styles.Typography.title,
+                )),
+            IconButton(
+                handleTap: handleNavigation,
+                icon: Icon(
+                    iconData: CupertinoIcons.forward,
+                    size: styles.Measurements.l,
+                    color: styles.Colors.black))
+          ],
+        ),
+        Divider(height: styles.Measurements.xxl),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/new_workout/integer_input_and_description.dart';
+import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class IntegerInputAndDivider extends StatelessWidget {
