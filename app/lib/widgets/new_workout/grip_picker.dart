@@ -127,7 +127,7 @@ class _Grip extends StatelessWidget {
     final Widget image = GripImage(
         assetSrc: grip.assetSrc,
         selected: selected,
-        color: styles.Colors.lighestGray);
+        color: styles.Colors.lightGray);
 
     return GestureDetector(
         onTap: _handleTap,

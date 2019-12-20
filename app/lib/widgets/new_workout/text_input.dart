@@ -62,8 +62,7 @@ class _TextInputState extends State<TextInput> {
   void _validationError() {
     _textEditingController.text = widget.initialValue.toString();
     widget.handleErrorMessage(
-      Text('Workout name must be filled in.',
-          style: styles.Typography.textInfo),
+      Text('Name must be filled in.', style: styles.Typography.textInfo),
     );
   }
 
@@ -89,10 +88,10 @@ class _TextInputState extends State<TextInput> {
           controller: _textEditingController,
           cursorColor: styles.Colors.black,
           decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: styles.Colors.primary, width: 3),
-              ),
-              borderRadius: styles.kBorderRadiusAll),
+            border: Border(
+              bottom: BorderSide(color: styles.Colors.primary, width: 3),
+            ),
+          ),
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
 //          maxLength: 100,
