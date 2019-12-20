@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:app/models/settings.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/hold.dart';
+import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
