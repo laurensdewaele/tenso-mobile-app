@@ -180,7 +180,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                       ...widget.menuItems.map(
                         (menuItem) => GestureDetector(
                           onTap: () {
-                            // TODO: Navigate to the proper route
+                            Navigator.of(context).pushNamed(menuItem.route);
                           },
                           child: Container(
                             height: _kMenuItemTextHeight,
@@ -211,8 +211,7 @@ class _RedDragIndicatorRectangle extends StatelessWidget {
       width: _kRedDragIndicatorWidth,
       height: _kRedDragIndicatorHeight,
       decoration: BoxDecoration(
-          color: styles.Colors.primary,
-          borderRadius: styles.kBorderRadiusAll),
+          color: styles.Colors.primary, borderRadius: styles.kBorderRadiusAll),
     );
   }
 }

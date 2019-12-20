@@ -46,8 +46,10 @@ class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 26, color: Colors.white);
   static TextStyle inputDescriptionSquare =
       TextStyle(fontFamily: 'Staatliches', fontSize: 18, color: Colors.white);
-  static TextStyle topNavigationTitle =
+  static TextStyle topNavigationTitleWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.white);
+  static TextStyle topNavigationTitleBlack =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.black);
   static TextStyle buttonWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
   static TextStyle buttonGray =

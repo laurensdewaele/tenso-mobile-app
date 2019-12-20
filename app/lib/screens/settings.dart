@@ -90,7 +90,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Column(
                       children: <Widget>[
-                        TopNavigation(title: 'settings'),
+                        TopNavigation(
+                          title: 'settings',
+                          dark: true,
+                        ),
                         Divider(height: styles.Measurements.xxl),
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -102,7 +105,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text('settttingss'),
+                                  Divider(
+                                    height: styles.Measurements.xl,
+                                  ),
+                                  Container(
+                                      width: double.infinity,
+                                      child: Text('settttingss')),
+                                  Divider(
+                                    height: styles.Measurements.xl,
+                                  ),
                                   SizedBox(
                                     height: _keyboardOffsetHeight,
                                   )

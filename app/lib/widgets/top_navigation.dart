@@ -5,9 +5,10 @@ import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 
 class TopNavigation extends StatelessWidget {
-  TopNavigation({this.title});
+  TopNavigation({this.title, this.dark = false});
 
   final String title;
+  final bool dark;
 
   void _handleTap(BuildContext context) {
     Navigator.of(context).pop();
@@ -30,7 +31,7 @@ class TopNavigation extends StatelessWidget {
                   handleTap: () => _handleTap(context),
                   icon: Icon(
                     iconData: CupertinoIcons.back,
-                    color: styles.Colors.white,
+                    color: dark ? styles.Colors.black : styles.Colors.white,
                   ),
                 ))
           ],
@@ -38,7 +39,9 @@ class TopNavigation extends StatelessWidget {
         Positioned.fill(
           child: Center(
             child: Text(title,
-                style: styles.Typography.topNavigationTitle,
+                style: dark
+                    ? styles.Typography.topNavigationTitleBlack
+                    : styles.Typography.topNavigationTitleWhite,
                 textAlign: TextAlign.center),
           ),
         ),
