@@ -4,6 +4,7 @@ import 'package:app/data/mock_data.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout_config.dart';
 import 'package:app/screens/new_workout.dart';
+import 'package:app/screens/settings.dart';
 import 'package:app/screens/workout_overview.dart';
 
 class Routes {
@@ -24,5 +25,6 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.newWorkoutScreen: (context) => NewWorkoutScreen(config: config),
     Routes.workoutOverviewScreen: (context) =>
         WorkoutOverviewScreen(workouts: mockWorkouts),
+    Routes.settingsScreen: (context) => SettingsScreen()
   };
 }
