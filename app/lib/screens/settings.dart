@@ -101,23 +101,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: GestureDetector(
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Divider(
-                                    height: styles.Measurements.xl,
-                                  ),
-                                  Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.m,
+                                    vertical: styles.Measurements.l),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
                                       width: double.infinity,
-                                      child: Text('settttingss')),
-                                  Divider(
-                                    height: styles.Measurements.xl,
-                                  ),
-                                  SizedBox(
-                                    height: _keyboardOffsetHeight,
-                                  )
-                                ],
+                                    ),
+                                    Text('hahah'),
+                                    SizedBox(
+                                      height: _keyboardOffsetHeight,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
