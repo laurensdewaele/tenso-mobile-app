@@ -83,6 +83,7 @@ class _TextInputState extends State<TextInput> {
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
+          // TODO: Figure out if it needs a max-length
           autofocus: widget.shouldFocus,
           autocorrect: false,
           controller: _textEditingController,
@@ -94,7 +95,6 @@ class _TextInputState extends State<TextInput> {
           ),
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
-//          maxLength: 100,
           onTap: _onTap,
           onEditingComplete: _validateInput,
           onSubmitted: (String text) => {_validateInput},
