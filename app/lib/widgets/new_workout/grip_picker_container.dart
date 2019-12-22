@@ -33,7 +33,7 @@ class GripPickerContainer extends StatelessWidget {
   final HandHolds selectedHandHold;
   final Function(Grip grip) handleLeftGripChanged;
   final Function(Grip grip) handleRightGripChanged;
-  final Function(HandHolds handHold) handleHandHoldChanged;
+  final Function(dynamic handHold) handleHandHoldChanged;
   final VoidCallback handleLeftHandSelected;
   final VoidCallback handleRightHandSelected;
   final HandTypes selectedTab;
@@ -75,7 +75,7 @@ class _HandHoldsRadioGroup extends StatelessWidget {
   _HandHoldsRadioGroup({this.selectedHandHold, this.handleHandHoldChanged});
 
   final HandHolds selectedHandHold;
-  final Function(HandHolds handHold) handleHandHoldChanged;
+  final Function(dynamic handHold) handleHandHoldChanged;
 
   @override
   Widget build(BuildContext context) {

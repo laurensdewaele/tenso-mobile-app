@@ -13,8 +13,8 @@ class RadioButton extends StatelessWidget {
 
   final bool active;
   final String description;
-  final HandHolds value;
-  final Function(HandHolds value) handleSelected;
+  final dynamic value;
+  final Function(dynamic value) handleSelected;
 
   Widget build(BuildContext context) {
     return GestureDetector(

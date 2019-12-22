@@ -1,16 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'package:app/models/grades.dart';
+import 'package:app/models/settings.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/integer_input_and_description.dart';
 import 'package:app/widgets/keyboard_screen.dart';
+import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
@@ -30,6 +36,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final ScrollController _scrollController = ScrollController();
 
   double _keyboardOffsetHeight = 0;
+  Units _selectedUnit = Units.metric;
+  GradeTypes _selectedGrade = GradeTypes.boulderFont;
+  // Advanced Controls
+  bool _allGrips = false;
+  bool _boardSelection = false;
+  bool _addedWeights = false;
+  bool _advancedTimers = false;
+  bool _variableReps = false;
 
   @override
   void initState() {
@@ -85,6 +99,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
   }
 
+  void _handleUnitChanged(dynamic unit) {
+    setState(() {
+      _selectedUnit = unit;
+    });
+  }
+
+  void _handleGradeChanged(dynamic gradeType) {
+    setState(() {
+      _selectedGrade = gradeType;
+    });
+  }
+
+  void _handleAllGripsChanged(bool b) {
+    setState(() {
+      _allGrips = b;
+    });
+  }
+
+  void _handleBoardSelectionChanged(bool b) {
+    setState(() {
+      _boardSelection = b;
+    });
+  }
+
+  void _handleAddedWeightsChanged(bool b) {
+    setState(() {
+      _addedWeights = b;
+    });
+  }
+
+  void _handleAdvancedTimersChanged(bool b) {
+    setState(() {
+      _advancedTimers = b;
+    });
+  }
+
+  void _handleVariableRepsChanged(bool b) {
+    setState(() {
+      _variableReps = b;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -118,12 +174,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 children: [
                                   Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: styles.Measurements.m,
-                                          vertical: styles.Measurements.l),
+                                        horizontal: styles.Measurements.m,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
+                                          Divider(
+                                            height: styles.Measurements.l,
+                                          ),
                                           Section(
                                             title: 'default board',
                                             children: <Widget>[],
@@ -150,16 +209,118 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   _SoundSection(
                                       title: 'sound',
                                       handleNavigation: _handleSoundNavigation),
+                                  Divider(
+                                    height: styles.Measurements.xxl,
+                                  ),
                                   Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: styles.Measurements.m,
-                                          vertical: styles.Measurements.l),
+                                        horizontal: styles.Measurements.m,
+                                      ),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Section(
                                             title: 'advanced controls',
-                                            children: <Widget>[],
+                                            children: <Widget>[
+                                              AdvancedControlSetting(
+                                                  description: 'All grips',
+                                                  active: _allGrips,
+                                                  handleChanged:
+                                                      _handleAllGripsChanged,
+                                                  infoText:
+                                                      'This will display crimps and monos!'),
+                                              AdvancedControlSetting(
+                                                  description:
+                                                      'Board selection',
+                                                  active: _boardSelection,
+                                                  handleChanged:
+                                                      _handleBoardSelectionChanged,
+                                                  infoText:
+                                                      'For badasses with multiple hangboards.'),
+                                              AdvancedControlSetting(
+                                                description: 'Added weights',
+                                                active: _addedWeights,
+                                                handleChanged:
+                                                    _handleAddedWeightsChanged,
+                                              ),
+                                              AdvancedControlSetting(
+                                                  description:
+                                                      'Advanced timers',
+                                                  active: _advancedTimers,
+                                                  handleChanged:
+                                                      _handleAdvancedTimersChanged,
+                                                  infoText:
+                                                      'Variable hang time, rest time between reps, and rest before next hold, per hold.'),
+                                              AdvancedControlSetting(
+                                                description:
+                                                    'Variable repetitions per hold',
+                                                active: _variableReps,
+                                                handleChanged:
+                                                    _handleVariableRepsChanged,
+                                              ),
+                                            ],
                                           ),
+                                          Section(
+                                            title: 'units',
+                                            children: <Widget>[
+                                              RadioButton(
+                                                description: 'Metric (kg)',
+                                                value: Units.metric,
+                                                active: _selectedUnit ==
+                                                    Units.metric,
+                                                handleSelected:
+                                                    _handleUnitChanged,
+                                              ),
+                                              RadioButton(
+                                                description:
+                                                    'Imperial (pounds)',
+                                                value: Units.imperial,
+                                                active: _selectedUnit ==
+                                                    Units.imperial,
+                                                handleSelected:
+                                                    _handleUnitChanged,
+                                              ),
+                                            ],
+                                          ),
+                                          Section(
+                                            title: 'grading system',
+                                            children: <Widget>[
+                                              RadioButton(
+                                                description: 'Sport French',
+                                                value: GradeTypes.sportFrench,
+                                                active: _selectedGrade ==
+                                                    GradeTypes.sportFrench,
+                                                handleSelected:
+                                                    _handleGradeChanged,
+                                              ),
+                                              RadioButton(
+                                                description: 'Sport USA',
+                                                value: GradeTypes.sportUSA,
+                                                active: _selectedGrade ==
+                                                    GradeTypes.sportUSA,
+                                                handleSelected:
+                                                    _handleGradeChanged,
+                                              ),
+                                              RadioButton(
+                                                description:
+                                                    'Boulder fontainebleau',
+                                                value: GradeTypes.boulderFont,
+                                                active: _selectedGrade ==
+                                                    GradeTypes.boulderFont,
+                                                handleSelected:
+                                                    _handleGradeChanged,
+                                              ),
+                                              RadioButton(
+                                                description: 'Boulder V scale',
+                                                value: GradeTypes.boulderVScale,
+                                                active: _selectedGrade ==
+                                                    GradeTypes.boulderVScale,
+                                                handleSelected:
+                                                    _handleGradeChanged,
+                                              ),
+                                            ],
+                                          )
                                         ],
                                       )),
                                   SizedBox(
@@ -191,8 +352,7 @@ class _SoundSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
       children: <Widget>[
         Row(
           mainAxisSize: MainAxisSize.max,
@@ -207,14 +367,94 @@ class _SoundSection extends StatelessWidget {
                   style: styles.Typography.title,
                 )),
             IconButton(
-                handleTap: handleNavigation,
+                handleTap: () {},
                 icon: Icon(
                     iconData: CupertinoIcons.forward,
                     size: styles.Measurements.l,
                     color: styles.Colors.black))
           ],
         ),
-        Divider(height: styles.Measurements.xxl),
+        GestureDetector(
+            onTap: handleNavigation,
+            child: Container(
+              decoration: BoxDecoration(color: styles.Colors.translucent),
+              width: double.infinity,
+              height: 73,
+            )),
+      ],
+    );
+  }
+}
+
+class AdvancedControlSetting extends StatelessWidget {
+  AdvancedControlSetting(
+      {Key key,
+      @required this.description,
+      this.infoText,
+      @required this.active,
+      @required this.handleChanged})
+      : super(key: key);
+
+  final String description;
+  final String infoText;
+  final bool active;
+  final Function(bool) handleChanged;
+
+  void _handleInfoTap(BuildContext context) {
+    showAppDialog(
+        context: context,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              infoText,
+              style: styles.Typography.textInfo,
+              textAlign: TextAlign.center,
+            ),
+            Divider(height: styles.Measurements.l),
+            Transform.scale(
+              scale: .8,
+              child: TextButton(
+                  text: 'Ok',
+                  handleTap: () {
+                    Navigator.of(context).pop();
+                  }),
+            )
+          ],
+        ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              description,
+              style: styles.Typography.text,
+            ),
+            if (infoText != null)
+              IconButton(
+                padding: EdgeInsets.fromLTRB(
+                    styles.Measurements.m, 0, styles.Measurements.m, 0),
+                handleTap: () => _handleInfoTap(context),
+                icon: Icon(
+                    iconData: IconData(0xf445,
+                        fontFamily: 'CupertinoIcons',
+                        fontPackage: 'cupertino_icons'),
+                    size: styles.Measurements.l,
+                    color: styles.Colors.primary),
+              )
+          ],
+        ),
+        CupertinoSwitch(
+          value: active,
+          onChanged: handleChanged,
+          activeColor: styles.Colors.primary,
+        )
       ],
     );
   }

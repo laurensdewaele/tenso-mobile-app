@@ -104,7 +104,7 @@ class _HoldTabState extends State<HoldTab> {
     }
   }
 
-  void _handleHandHoldChanged(HandHolds handHold) {
+  void _handleHandHoldChanged(dynamic handHold) {
     setState(() {
       _selectedHandHold = handHold;
     });
