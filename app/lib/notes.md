@@ -15,3 +15,11 @@ Try to convert as much as possible to consts.
 ## New workout
 
 - Keep the pages alive somehow? => state store
+
+## Code todo
+
+- Refactor keyboard screen. Now code is duplicated across settings screen and new workout.
+
+## Play sound that says which grip is next and which hold (pocket) is next.
+
+## Add open crimp
