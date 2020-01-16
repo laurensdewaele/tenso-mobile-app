@@ -5,8 +5,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'package:app/models/grades.dart';
-import 'package:app/models/settings.dart';
+import 'package:app/models/units.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/state/settings.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
@@ -20,6 +21,7 @@ import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -87,7 +89,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  void _handlePreparationTimerChanged(int value) {}
+  void _handlePreparationTimerChanged(int value) {
+    Provider.of<SettingsModel>(context, listen: false)
+        .setPreparationTimer(value);
+  }
 
   void _handleSoundNavigation() {
     Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
@@ -132,124 +137,140 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: GestureDetector(
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: styles.Measurements.m,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Divider(
-                                            height: styles.Measurements.l,
-                                          ),
-                                          Section(
-                                            title: 'default board',
-                                            children: <Widget>[],
-                                          ),
-                                          Section(
-                                            title: 'preparation timer',
-                                            children: <Widget>[
-                                              IntegerInputAndDescription(
-                                                description: 'seconds',
-                                                initialValue: 35,
-                                                handleValueChanged:
-                                                    _handlePreparationTimerChanged,
-                                                shouldLoseFocusStream:
-                                                    _shouldLoseFocusStreamController
-                                                        .stream,
-                                                handleErrorMessage:
-                                                    _handleErrorMessage,
-                                                shouldFocus: false,
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  _SoundSection(
-                                      title: 'sound',
-                                      handleNavigation: _handleSoundNavigation),
-                                  Divider(
-                                    height: styles.Measurements.xxl,
-                                  ),
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: styles.Measurements.m,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Section(
-                                            title: 'units',
-                                            children: <Widget>[
-                                              RadioButton(
-                                                description: 'Metric (kg)',
-                                                value: Units.metric,
-                                                active: _selectedUnit ==
-                                                    Units.metric,
-                                                handleSelected:
-                                                    _handleUnitChanged,
-                                              ),
-                                              RadioButton(
-                                                description:
-                                                    'Imperial (pounds)',
-                                                value: Units.imperial,
-                                                active: _selectedUnit ==
-                                                    Units.imperial,
-                                                handleSelected:
-                                                    _handleUnitChanged,
-                                              ),
-                                            ],
-                                          ),
-                                          Section(
-                                            title: 'grading system',
-                                            children: <Widget>[
-                                              RadioButton(
-                                                description: 'Sport French',
-                                                value: GradeTypes.sportFrench,
-                                                active: _selectedGrade ==
-                                                    GradeTypes.sportFrench,
-                                                handleSelected:
-                                                    _handleGradeChanged,
-                                              ),
-                                              RadioButton(
-                                                description: 'Sport USA',
-                                                value: GradeTypes.sportUSA,
-                                                active: _selectedGrade ==
-                                                    GradeTypes.sportUSA,
-                                                handleSelected:
-                                                    _handleGradeChanged,
-                                              ),
-                                              RadioButton(
-                                                description:
-                                                    'Boulder fontainebleau',
-                                                value: GradeTypes.boulderFont,
-                                                active: _selectedGrade ==
-                                                    GradeTypes.boulderFont,
-                                                handleSelected:
-                                                    _handleGradeChanged,
-                                              ),
-                                              RadioButton(
-                                                description: 'Boulder V scale',
-                                                value: GradeTypes.boulderVScale,
-                                                active: _selectedGrade ==
-                                                    GradeTypes.boulderVScale,
-                                                handleSelected:
-                                                    _handleGradeChanged,
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )),
-                                  SizedBox(
-                                    height: _keyboardOffsetHeight,
-                                  )
-                                ],
+                              child: Consumer<SettingsModel>(
+                                builder: (context, settings, child) {
+                                  return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: styles.Measurements.m,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Divider(
+                                                  height: styles.Measurements.l,
+                                                ),
+                                                Section(
+                                                  title: 'default board',
+                                                  children: <Widget>[],
+                                                ),
+                                                Section(
+                                                  title: 'preparation timer',
+                                                  children: <Widget>[
+                                                    IntegerInputAndDescription(
+                                                      description: 'seconds',
+                                                      initialValue: settings
+                                                          .preparationTimer,
+                                                      handleValueChanged:
+                                                          _handlePreparationTimerChanged,
+                                                      shouldLoseFocusStream:
+                                                          _shouldLoseFocusStreamController
+                                                              .stream,
+                                                      handleErrorMessage:
+                                                          _handleErrorMessage,
+                                                      shouldFocus: false,
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                        _SoundSection(
+                                            title: 'sound',
+                                            handleNavigation:
+                                                _handleSoundNavigation),
+                                        Divider(
+                                          height: styles.Measurements.xxl,
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: styles.Measurements.m,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Section(
+                                                  title: 'units',
+                                                  children: <Widget>[
+                                                    RadioButton(
+                                                      description:
+                                                          'Metric (kg)',
+                                                      value: Units.metric,
+                                                      active: _selectedUnit ==
+                                                          Units.metric,
+                                                      handleSelected:
+                                                          _handleUnitChanged,
+                                                    ),
+                                                    RadioButton(
+                                                      description:
+                                                          'Imperial (pounds)',
+                                                      value: Units.imperial,
+                                                      active: _selectedUnit ==
+                                                          Units.imperial,
+                                                      handleSelected:
+                                                          _handleUnitChanged,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Section(
+                                                  title: 'grading system',
+                                                  children: <Widget>[
+                                                    RadioButton(
+                                                      description:
+                                                          'Sport French',
+                                                      value: GradeTypes
+                                                          .sportFrench,
+                                                      active: _selectedGrade ==
+                                                          GradeTypes
+                                                              .sportFrench,
+                                                      handleSelected:
+                                                          _handleGradeChanged,
+                                                    ),
+                                                    RadioButton(
+                                                      description: 'Sport USA',
+                                                      value:
+                                                          GradeTypes.sportUSA,
+                                                      active: _selectedGrade ==
+                                                          GradeTypes.sportUSA,
+                                                      handleSelected:
+                                                          _handleGradeChanged,
+                                                    ),
+                                                    RadioButton(
+                                                      description:
+                                                          'Boulder fontainebleau',
+                                                      value: GradeTypes
+                                                          .boulderFont,
+                                                      active: _selectedGrade ==
+                                                          GradeTypes
+                                                              .boulderFont,
+                                                      handleSelected:
+                                                          _handleGradeChanged,
+                                                    ),
+                                                    RadioButton(
+                                                      description:
+                                                          'Boulder V scale',
+                                                      value: GradeTypes
+                                                          .boulderVScale,
+                                                      active: _selectedGrade ==
+                                                          GradeTypes
+                                                              .boulderVScale,
+                                                      handleSelected:
+                                                          _handleGradeChanged,
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            )),
+                                        SizedBox(
+                                          height: _keyboardOffsetHeight,
+                                        )
+                                      ]);
+                                },
                               ),
                             ),
                           ),
