@@ -1,7 +1,7 @@
-import 'package:app/models/grades.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/models/board.dart';
+import 'package:app/models/grades.dart';
 import 'package:app/models/sound.dart';
 
 class Settings {
