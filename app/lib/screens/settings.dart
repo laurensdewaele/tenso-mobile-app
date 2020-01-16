@@ -38,12 +38,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double _keyboardOffsetHeight = 0;
   Units _selectedUnit = Units.metric;
   GradeTypes _selectedGrade = GradeTypes.boulderFont;
-  // Advanced Controls
-  bool _allGrips = false;
-  bool _boardSelection = false;
-  bool _addedWeights = false;
-  bool _advancedTimers = false;
-  bool _variableReps = false;
 
   @override
   void initState() {
@@ -108,36 +102,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _handleGradeChanged(dynamic gradeType) {
     setState(() {
       _selectedGrade = gradeType;
-    });
-  }
-
-  void _handleAllGripsChanged(bool b) {
-    setState(() {
-      _allGrips = b;
-    });
-  }
-
-  void _handleBoardSelectionChanged(bool b) {
-    setState(() {
-      _boardSelection = b;
-    });
-  }
-
-  void _handleAddedWeightsChanged(bool b) {
-    setState(() {
-      _addedWeights = b;
-    });
-  }
-
-  void _handleAdvancedTimersChanged(bool b) {
-    setState(() {
-      _advancedTimers = b;
-    });
-  }
-
-  void _handleVariableRepsChanged(bool b) {
-    setState(() {
-      _variableReps = b;
     });
   }
 
@@ -220,47 +184,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Section(
-                                            title: 'advanced controls',
-                                            children: <Widget>[
-                                              AdvancedControlSetting(
-                                                  description: 'All grips',
-                                                  active: _allGrips,
-                                                  handleChanged:
-                                                      _handleAllGripsChanged,
-                                                  infoText:
-                                                      'This will display crimps and monos!'),
-                                              AdvancedControlSetting(
-                                                  description:
-                                                      'Board selection',
-                                                  active: _boardSelection,
-                                                  handleChanged:
-                                                      _handleBoardSelectionChanged,
-                                                  infoText:
-                                                      'For badasses with multiple hangboards.'),
-                                              AdvancedControlSetting(
-                                                description: 'Added weights',
-                                                active: _addedWeights,
-                                                handleChanged:
-                                                    _handleAddedWeightsChanged,
-                                              ),
-                                              AdvancedControlSetting(
-                                                  description:
-                                                      'Advanced timers',
-                                                  active: _advancedTimers,
-                                                  handleChanged:
-                                                      _handleAdvancedTimersChanged,
-                                                  infoText:
-                                                      'Variable hang time, rest time between reps, and rest before next hold, per hold.'),
-                                              AdvancedControlSetting(
-                                                description:
-                                                    'Variable repetitions per hold',
-                                                active: _variableReps,
-                                                handleChanged:
-                                                    _handleVariableRepsChanged,
-                                              ),
-                                            ],
-                                          ),
                                           Section(
                                             title: 'units',
                                             children: <Widget>[

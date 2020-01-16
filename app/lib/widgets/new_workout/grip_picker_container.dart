@@ -13,7 +13,6 @@ import 'package:app/widgets/radio_button.dart';
 class GripPickerContainer extends StatelessWidget {
   GripPickerContainer(
       {Key key,
-      @required this.advanced,
       this.selectedRightGrip,
       this.selectedLeftGrip,
       @required this.selectedHandHold,
@@ -27,7 +26,6 @@ class GripPickerContainer extends StatelessWidget {
       @required this.isRightHandSelected})
       : super(key: key);
 
-  final bool advanced;
   final Grip selectedLeftGrip;
   final Grip selectedRightGrip;
   final HandHolds selectedHandHold;
@@ -58,12 +56,12 @@ class GripPickerContainer extends StatelessWidget {
         Divider(height: styles.Measurements.m),
         if (isLeftHandSelected)
           GripPicker(
-              grips: advanced ? Grips.advancedL : Grips.basicL,
+              grips: Grips.left,
               selectedGrip: selectedLeftGrip,
               handleGripChanged: handleLeftGripChanged),
         if (isRightHandSelected)
           GripPicker(
-              grips: advanced ? Grips.advancedR : Grips.basicR,
+              grips: Grips.right,
               handleGripChanged: handleRightGripChanged,
               selectedGrip: selectedRightGrip),
       ],

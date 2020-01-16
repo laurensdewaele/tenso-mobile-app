@@ -23,3 +23,13 @@ Try to convert as much as possible to consts.
 ## Play sound that says which grip is next and which hold (pocket) is next.
 
 ## Add open crimp
+
+## Add info button on most elements
+
+## Validation needs to be on input field itself, not triggered on every input
+
+## Unhandled exception when rapidly closing and opening an accordion on the overview page.
+[VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle state: created))
+null
+
+## Rest between holds on generalTab (reduces complexity)

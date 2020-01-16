@@ -5,9 +5,11 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 
 enum HoldProperties {
-  grip,
+  leftGrip,
+  rightGrip,
   handHold,
-  boardHolds,
+  leftGripBoardHold,
+  rightGripBoardHold,
   repetitions,
   restBeforeNextHold,
   restBetweenRepetitions,

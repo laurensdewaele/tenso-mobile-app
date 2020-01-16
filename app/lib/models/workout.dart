@@ -32,11 +32,6 @@ class Workout {
     @required this.holds,
     @required this.name,
   })  : difficultyColor = _determineDifficultyColor(difficulty),
-        averageRepetitions = _determineAverageRepetitions(holds),
-        averageHangTime = _determineAverageHangTime(holds),
-        averageRestBetweenRepetitions =
-            _determineAverageRestBetweenRepetitions(holds),
-        averageRestBetweenHolds = _determineAverageRestBetweenHolds(holds),
         duration = _calculateDuration(
             holds: holds, restBetweenSets: restBetweenSets, sets: sets);
 
@@ -50,11 +45,6 @@ class Workout {
   final Board board;
   final List<Hold> holds;
 
-  final int averageRepetitions;
-  final int averageHangTime;
-  final int averageRestBetweenRepetitions;
-  final int averageRestBetweenHolds;
-
   static Color _determineDifficultyColor(String difficulty) {
     final int difficultyNo = int.parse(difficulty.split('')[0]);
 
@@ -66,30 +56,6 @@ class Workout {
       return styles.difficultyColors[4];
     }
     return styles.difficultyColors[difficultyNo - 5];
-  }
-
-  static int _determineAverageRepetitions(List<Hold> holds) {
-    int value = 0;
-    holds.forEach((hold) => value += hold.repetitions);
-    return value ~/ holds.length;
-  }
-
-  static int _determineAverageHangTime(List<Hold> holds) {
-    int value = 0;
-    holds.forEach((hold) => value += hold.hangTime);
-    return value ~/ holds.length;
-  }
-
-  static int _determineAverageRestBetweenRepetitions(List<Hold> holds) {
-    int value = 0;
-    holds.forEach((hold) => value += hold.restBetweenRepetitions);
-    return value ~/ holds.length;
-  }
-
-  static int _determineAverageRestBetweenHolds(List<Hold> holds) {
-    int value = 0;
-    holds.forEach((hold) => value += hold.restBeforeNextHold);
-    return value ~/ holds.length;
   }
 
   static int _calculateDuration({List<Hold> holds, sets, restBetweenSets}) {

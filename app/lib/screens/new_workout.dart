@@ -6,7 +6,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
@@ -16,8 +15,7 @@ import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
 class NewWorkoutScreen extends StatefulWidget {
-  NewWorkoutScreen({this.config});
-  final WorkoutConfig config;
+  NewWorkoutScreen();
 
   @override
   _NewWorkoutScreenState createState() => _NewWorkoutScreenState();
@@ -138,7 +136,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                       onNavigation: _scrollToTop,
                                       // TODO: Replace
                                       workout: basicWorkout,
-                                      config: widget.config,
                                       shouldLoseFocusStream:
                                           _shouldLoseFocusStreamController
                                               .stream,

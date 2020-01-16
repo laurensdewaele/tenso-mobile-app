@@ -11,12 +11,6 @@ Widget checkCompatibility(Grip grip, BoardHold boardHold) {
       textAlign: TextAlign.center,
     );
   }
-  if (grip.crimped == true && boardHold.holdType == HoldTypes.sloper) {
-    return Text(
-      'You should not crimp on slopers',
-      textAlign: TextAlign.center,
-    );
-  }
   if (grip.crimped == true && boardHold.holdType == HoldTypes.jug) {
     return Text(
       'You should not crimp on jugs',

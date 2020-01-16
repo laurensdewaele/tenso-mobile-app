@@ -8,7 +8,6 @@ import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_types.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/models/workout_config.dart';
 import 'package:app/widgets/new_workout/board_hold_picker.dart';
 import 'package:app/widgets/new_workout/grip_picker_container.dart';
 import 'package:app/widgets/new_workout/integer_input_and_divider.dart';
@@ -17,7 +16,6 @@ import 'package:app/widgets/section.dart';
 class HoldTab extends StatefulWidget {
   HoldTab({
     Key key,
-    @required this.config,
     @required this.currentHold,
     @required this.shouldLoseFocusStream,
     @required this.handleErrorMessage,
@@ -27,7 +25,6 @@ class HoldTab extends StatefulWidget {
   }) : super(key: key);
 
   final Hold hold;
-  final HoldConfig config;
   final int currentHold;
   final Function(Widget message) handleErrorMessage;
   final Stream<bool> shouldLoseFocusStream;
@@ -166,7 +163,6 @@ class _HoldTabState extends State<HoldTab> {
             GripPickerContainer(
               isLeftHandSelected: _selectedHand == HandTypes.leftHand,
               isRightHandSelected: _selectedHand == HandTypes.rightHand,
-              advanced: widget.config.advancedGrips,
               selectedLeftGrip: _selectedLeftGrip,
               selectedRightGrip: _selectedRightGrip,
               selectedHandHold: _selectedHandHold,
@@ -194,7 +190,6 @@ class _HoldTabState extends State<HoldTab> {
                 handleErrorMessage: widget.handleErrorMessage)
           ],
         ),
-        if (widget.config.hasRepetitions)
           Section(
             title: 'basics',
             children: <Widget>[
@@ -213,11 +208,9 @@ class _HoldTabState extends State<HoldTab> {
               ),
             ],
           ),
-        if (widget.config.hasTimers)
           Section(
             title: 'timers',
             children: <Widget>[
-              if (widget.config.hangTime)
                 IntegerInputAndDivider(
                   description: 'hang time seconds',
                   shouldFocus: false,
@@ -231,7 +224,6 @@ class _HoldTabState extends State<HoldTab> {
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
-              if (widget.config.restBetweenRepetitions)
                 IntegerInputAndDivider(
                   description: 'rest seconds between repetitions',
                   shouldFocus: false,
@@ -245,7 +237,6 @@ class _HoldTabState extends State<HoldTab> {
                   shouldLoseFocusStream: widget.shouldLoseFocusStream,
                   handleErrorMessage: widget.handleErrorMessage,
                 ),
-              if (widget.config.restBeforeNextHold)
                 IntegerInputAndDivider(
                   description: 'rest before next hold',
                   shouldFocus: false,
@@ -261,7 +252,6 @@ class _HoldTabState extends State<HoldTab> {
                 ),
             ],
           ),
-        if (widget.config.hasAddedWeight)
           Section(
             title: 'added weight',
             children: <Widget>[

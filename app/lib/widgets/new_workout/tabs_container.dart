@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/grades.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/models/workout_config.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/new_workout/extra_tab.dart';
 import 'package:app/widgets/new_workout/general_tab.dart';
@@ -15,7 +14,6 @@ import 'package:app/widgets/new_workout/tabs.dart';
 class TabsContainer extends StatefulWidget {
   TabsContainer(
       {Key key,
-      @required this.config,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
       @required this.workout,
@@ -24,7 +22,6 @@ class TabsContainer extends StatefulWidget {
       this.navigateBackTabStream})
       : super(key: key);
 
-  final WorkoutConfig config;
   final Workout workout;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
@@ -101,7 +98,6 @@ class _TabsContainerState extends State<TabsContainer> {
           handleErrorMessage: widget.handleErrorMessage,
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
           workout: widget.workout,
-          config: widget.config.generalConfig,
           handleHoldCountChanged: _handleHoldCountChanged,
           key: ValueKey('new-workout-page-1'),
         ),
@@ -112,7 +108,6 @@ class _TabsContainerState extends State<TabsContainer> {
             hold: _getHold(n),
             handleErrorMessage: widget.handleErrorMessage,
             shouldLoseFocusStream: widget.shouldLoseFocusStream,
-            config: widget.config.holdConfig,
             currentHold: n,
             totalHolds: holdCount,
           );

@@ -307,24 +307,7 @@ class Grips {
     assetSrc: 'assets/images/grips/full_crimp_R.png',
   );
 
-  static const List<Grip> basicL = [
-    Grips.openHandL,
-    Grips.frontThreeL,
-    Grips.backThreeL,
-    Grips.frontTwoL,
-    Grips.middleTwoL,
-    Grips.backTwoL,
-  ];
-  static const List<Grip> basicR = [
-    Grips.openHandR,
-    Grips.frontThreeR,
-    Grips.backThreeR,
-    Grips.frontTwoR,
-    Grips.middleTwoR,
-    Grips.backTwoR,
-  ];
-
-  static const List<Grip> advancedL = [
+  static const List<Grip> left = [
     Grips.fullCrimpL,
     Grips.halfCrimpL,
     Grips.openHandL,
@@ -338,7 +321,7 @@ class Grips {
     Grips.monoRingL,
     Grips.monoPinkyL,
   ];
-  static const List<Grip> advancedR = [
+  static const List<Grip> right = [
     Grips.fullCrimpR,
     Grips.halfCrimpR,
     Grips.openHandR,
