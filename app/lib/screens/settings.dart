@@ -9,9 +9,7 @@ import 'package:app/models/units.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/settings.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
@@ -38,8 +36,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final ScrollController _scrollController = ScrollController();
 
   double _keyboardOffsetHeight = 0;
-  Units _selectedUnit = Units.metric;
-  GradeTypes _selectedGrade = GradeTypes.boulderFont;
 
   @override
   void initState() {
@@ -99,15 +95,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _handleUnitChanged(dynamic unit) {
-    setState(() {
-      _selectedUnit = unit;
-    });
+    Provider.of<SettingsModel>(context, listen: false).setUnit(unit);
   }
 
   void _handleGradeChanged(dynamic gradeType) {
-    setState(() {
-      _selectedGrade = gradeType;
-    });
+    Provider.of<SettingsModel>(context, listen: false).setGradeType(gradeType);
   }
 
   @override
@@ -201,7 +193,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Metric (kg)',
                                                       value: Units.metric,
-                                                      active: _selectedUnit ==
+                                                      active: settings.unit ==
                                                           Units.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
@@ -210,7 +202,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Units.imperial,
-                                                      active: _selectedUnit ==
+                                                      active: settings.unit ==
                                                           Units.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,
@@ -225,9 +217,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Sport French',
                                                       value: GradeTypes
                                                           .sportFrench,
-                                                      active: _selectedGrade ==
-                                                          GradeTypes
-                                                              .sportFrench,
+                                                      active:
+                                                          settings.gradeType ==
+                                                              GradeTypes
+                                                                  .sportFrench,
                                                       handleSelected:
                                                           _handleGradeChanged,
                                                     ),
@@ -235,7 +228,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description: 'Sport USA',
                                                       value:
                                                           GradeTypes.sportUSA,
-                                                      active: _selectedGrade ==
+                                                      active: settings
+                                                              .gradeType ==
                                                           GradeTypes.sportUSA,
                                                       handleSelected:
                                                           _handleGradeChanged,
@@ -245,9 +239,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Boulder fontainebleau',
                                                       value: GradeTypes
                                                           .boulderFont,
-                                                      active: _selectedGrade ==
-                                                          GradeTypes
-                                                              .boulderFont,
+                                                      active:
+                                                          settings.gradeType ==
+                                                              GradeTypes
+                                                                  .boulderFont,
                                                       handleSelected:
                                                           _handleGradeChanged,
                                                     ),
@@ -256,7 +251,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Boulder V scale',
                                                       value: GradeTypes
                                                           .boulderVScale,
-                                                      active: _selectedGrade ==
+                                                      active: settings
+                                                              .gradeType ==
                                                           GradeTypes
                                                               .boulderVScale,
                                                       handleSelected:
@@ -325,80 +321,6 @@ class _SoundSection extends StatelessWidget {
               width: double.infinity,
               height: 73,
             )),
-      ],
-    );
-  }
-}
-
-class AdvancedControlSetting extends StatelessWidget {
-  AdvancedControlSetting(
-      {Key key,
-      @required this.description,
-      this.infoText,
-      @required this.active,
-      @required this.handleChanged})
-      : super(key: key);
-
-  final String description;
-  final String infoText;
-  final bool active;
-  final Function(bool) handleChanged;
-
-  void _handleInfoTap(BuildContext context) {
-    showAppDialog(
-        context: context,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              infoText,
-              style: styles.Typography.textInfo,
-              textAlign: TextAlign.center,
-            ),
-            Divider(height: styles.Measurements.l),
-            Transform.scale(
-              scale: .8,
-              child: TextButton(
-                  text: 'Ok',
-                  handleTap: () {
-                    Navigator.of(context).pop();
-                  }),
-            )
-          ],
-        ));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text(
-              description,
-              style: styles.Typography.text,
-            ),
-            if (infoText != null)
-              IconButton(
-                padding: EdgeInsets.fromLTRB(
-                    styles.Measurements.m, 0, styles.Measurements.m, 0),
-                handleTap: () => _handleInfoTap(context),
-                icon: Icon(
-                    iconData: IconData(0xf445,
-                        fontFamily: 'CupertinoIcons',
-                        fontPackage: 'cupertino_icons'),
-                    size: styles.Measurements.l,
-                    color: styles.Colors.primary),
-              )
-          ],
-        ),
-        CupertinoSwitch(
-          value: active,
-          onChanged: handleChanged,
-          activeColor: styles.Colors.primary,
-        )
       ],
     );
   }
