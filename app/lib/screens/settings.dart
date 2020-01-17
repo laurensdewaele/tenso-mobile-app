@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:app/models/grades.dart';
 import 'package:app/models/units.dart';
 import 'package:app/routes/routes.dart';
@@ -19,7 +21,6 @@ import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
-import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -130,7 +131,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
                               child: Consumer<SettingsModel>(
-                                builder: (context, settings, child) {
+                                builder: (context, settingsModel, child) {
                                   return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -156,8 +157,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                   children: <Widget>[
                                                     IntegerInputAndDescription(
                                                       description: 'seconds',
-                                                      initialValue: settings
-                                                          .preparationTimer,
+                                                      initialValue:
+                                                          settingsModel
+                                                              .preparationTimer,
                                                       handleValueChanged:
                                                           _handlePreparationTimerChanged,
                                                       shouldLoseFocusStream:
@@ -193,8 +195,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Metric (kg)',
                                                       value: Units.metric,
-                                                      active: settings.unit ==
-                                                          Units.metric,
+                                                      active:
+                                                          settingsModel.unit ==
+                                                              Units.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
                                                     ),
@@ -202,8 +205,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Units.imperial,
-                                                      active: settings.unit ==
-                                                          Units.imperial,
+                                                      active:
+                                                          settingsModel.unit ==
+                                                              Units.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,
                                                     ),
@@ -217,10 +221,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Sport French',
                                                       value: GradeTypes
                                                           .sportFrench,
-                                                      active:
-                                                          settings.gradeType ==
-                                                              GradeTypes
-                                                                  .sportFrench,
+                                                      active: settingsModel
+                                                              .gradeType ==
+                                                          GradeTypes
+                                                              .sportFrench,
                                                       handleSelected:
                                                           _handleGradeChanged,
                                                     ),
@@ -228,7 +232,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description: 'Sport USA',
                                                       value:
                                                           GradeTypes.sportUSA,
-                                                      active: settings
+                                                      active: settingsModel
                                                               .gradeType ==
                                                           GradeTypes.sportUSA,
                                                       handleSelected:
@@ -239,10 +243,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Boulder fontainebleau',
                                                       value: GradeTypes
                                                           .boulderFont,
-                                                      active:
-                                                          settings.gradeType ==
-                                                              GradeTypes
-                                                                  .boulderFont,
+                                                      active: settingsModel
+                                                              .gradeType ==
+                                                          GradeTypes
+                                                              .boulderFont,
                                                       handleSelected:
                                                           _handleGradeChanged,
                                                     ),
@@ -251,7 +255,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Boulder V scale',
                                                       value: GradeTypes
                                                           .boulderVScale,
-                                                      active: settings
+                                                      active: settingsModel
                                                               .gradeType ==
                                                           GradeTypes
                                                               .boulderVScale,

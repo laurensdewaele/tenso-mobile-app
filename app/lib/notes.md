@@ -1,4 +1,3 @@
-## Rest between holds on generalTab (reduces complexity)
 ## New workout
 - Keep the pages alive somehow? => state store in a provider that is just above the new workout section.
 ## Validation needs to be on input field itself, not triggered on every input

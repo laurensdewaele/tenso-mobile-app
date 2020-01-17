@@ -37,7 +37,7 @@ class _TabsContainerState extends State<TabsContainer> {
   int _pageCount;
   int _activePage;
   List<Widget> _pages;
-  bool firstTimeConstructed = true;
+  bool _firstTimeConstructed = true;
   StreamSubscription _navigateForwardTabSub;
   StreamSubscription _navigateBackTabSub;
   List<int> _pageCountList;
@@ -49,7 +49,7 @@ class _TabsContainerState extends State<TabsContainer> {
     _pageCountList = List.generate(_pageCount, (i) => i + 1);
     _activePage = 1;
     _buildPages(widget.workout.holdCount);
-    firstTimeConstructed = false;
+    _firstTimeConstructed = false;
     _navigateForwardTabSub =
         widget.navigateForwardTabStream.listen((bool shouldNavigate) {
       _handleForwardNavigation();
@@ -67,11 +67,12 @@ class _TabsContainerState extends State<TabsContainer> {
     super.dispose();
   }
 
+  // TODO: Put in model
   Hold _generateHoldFromBasicConfigAndGlobalSettings() {
-    // TODO: Implement this
     return Hold();
   }
 
+  // TODO: Put in model
   Hold _getHold(int n) {
     final List<Hold> holds = widget.workout.holds;
     Hold hold;
@@ -93,22 +94,21 @@ class _TabsContainerState extends State<TabsContainer> {
     setState(() {
       _pageCount = holdCount + 2;
       _pages = [
+        // TODO: Connect with store
         GeneralTab(
-          shouldFocusOnInput: firstTimeConstructed,
+          shouldFocusOnInput: _firstTimeConstructed,
           handleErrorMessage: widget.handleErrorMessage,
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
-          workout: widget.workout,
-          handleHoldCountChanged: _handleHoldCountChanged,
           key: ValueKey('new-workout-page-1'),
         ),
-        ...List.generate(holdCount, (i) => i + 1).map((n) {
+        ...List.generate(holdCount, (i) => i + 1).map((h) {
           return HoldTab(
             board: widget.workout.board,
             key: UniqueKey(),
-            hold: _getHold(n),
+            hold: _getHold(h),
             handleErrorMessage: widget.handleErrorMessage,
             shouldLoseFocusStream: widget.shouldLoseFocusStream,
-            currentHold: n,
+            currentHold: h,
             totalHolds: holdCount,
           );
         }),
@@ -123,10 +123,6 @@ class _TabsContainerState extends State<TabsContainer> {
         )
       ];
     });
-  }
-
-  void _handleHoldCountChanged(int count) {
-    _buildPages(count);
   }
 
   void _handleBackNavigation() {
