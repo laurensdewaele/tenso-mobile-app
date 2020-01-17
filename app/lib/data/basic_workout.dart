@@ -8,6 +8,7 @@ final Workout basicWorkout = Workout(
   difficulty: '5A',
   sets: 3,
   holdCount: 3,
+  restBetweenHolds: 60 * 2,
   restBetweenSets: 60 * 3,
   board: beastmaker1000,
   holds: [
@@ -18,7 +19,6 @@ final Workout basicWorkout = Workout(
         leftGripBoardHold: beastmaker1000.defaultLeftGripHold,
         rightGripBoardHold: beastmaker1000.defaultRightGripHold,
         repetitions: 8,
-        restBeforeNextHold: 60 * 2,
         restBetweenRepetitions: 60,
         hangTime: 7,
         addedWeight: 20)

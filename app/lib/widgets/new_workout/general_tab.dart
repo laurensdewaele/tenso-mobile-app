@@ -80,6 +80,18 @@ class _GeneralTabState extends State<GeneralTab> {
           title: 'timers',
           children: <Widget>[
             IntegerInputAndDivider(
+              description: 'rest seconds between holds',
+              shouldFocus: false,
+              handleValueChanged: (int value) {
+                _handleValueChanged(
+                    workoutProperty: WorkoutProperties.restBetweenHolds,
+                    value: value);
+              },
+              initialValue: widget.workout.restBetweenHolds,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+            IntegerInputAndDivider(
               description: 'rest seconds between sets',
               shouldFocus: false,
               handleValueChanged: (int value) {

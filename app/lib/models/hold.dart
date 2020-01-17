@@ -11,7 +11,6 @@ enum HoldProperties {
   leftGripBoardHold,
   rightGripBoardHold,
   repetitions,
-  restBeforeNextHold,
   restBetweenRepetitions,
   hangTime,
   addedWeight
@@ -26,7 +25,6 @@ class Hold {
       @required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
       @required this.repetitions,
-      @required this.restBeforeNextHold,
       @required this.restBetweenRepetitions,
       @required this.hangTime,
       @required this.addedWeight});
@@ -37,7 +35,6 @@ class Hold {
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final int repetitions;
-  final int restBeforeNextHold;
   final int restBetweenRepetitions;
   final int hangTime;
   final int addedWeight;

@@ -190,87 +190,74 @@ class _HoldTabState extends State<HoldTab> {
                 handleErrorMessage: widget.handleErrorMessage)
           ],
         ),
-          Section(
-            title: 'basics',
-            children: <Widget>[
-              IntegerInputAndDivider(
-                description: 'repetitions',
-                shouldFocus: false,
-                handleValueChanged: (int value) {
-                  _handleValueChanged(
-                      workoutProperty: WorkoutProperties.holds,
-                      holdProperty: HoldProperties.repetitions,
-                      value: value);
-                },
-                initialValue: widget.hold.repetitions,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
-              ),
-            ],
-          ),
-          Section(
-            title: 'timers',
-            children: <Widget>[
-                IntegerInputAndDivider(
-                  description: 'hang time seconds',
-                  shouldFocus: false,
-                  handleValueChanged: (int value) {
-                    _handleValueChanged(
-                        workoutProperty: WorkoutProperties.holds,
-                        holdProperty: HoldProperties.hangTime,
-                        value: value);
-                  },
-                  initialValue: widget.hold.hangTime,
-                  shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                  handleErrorMessage: widget.handleErrorMessage,
-                ),
-                IntegerInputAndDivider(
-                  description: 'rest seconds between repetitions',
-                  shouldFocus: false,
-                  handleValueChanged: (int value) {
-                    _handleValueChanged(
-                        workoutProperty: WorkoutProperties.holds,
-                        holdProperty: HoldProperties.restBetweenRepetitions,
-                        value: value);
-                  },
-                  initialValue: widget.hold.restBetweenRepetitions,
-                  shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                  handleErrorMessage: widget.handleErrorMessage,
-                ),
-                IntegerInputAndDivider(
-                  description: 'rest before next hold',
-                  shouldFocus: false,
-                  handleValueChanged: (int value) {
-                    _handleValueChanged(
-                        workoutProperty: WorkoutProperties.holds,
-                        holdProperty: HoldProperties.restBeforeNextHold,
-                        value: value);
-                  },
-                  initialValue: widget.hold.restBeforeNextHold,
-                  shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                  handleErrorMessage: widget.handleErrorMessage,
-                ),
-            ],
-          ),
-          Section(
-            title: 'added weight',
-            children: <Widget>[
-              IntegerInputAndDivider(
-                // TODO: Implement units from store
-                description: 'kg',
-                shouldFocus: false,
-                handleValueChanged: (int value) {
-                  _handleValueChanged(
-                      workoutProperty: WorkoutProperties.holds,
-                      holdProperty: HoldProperties.addedWeight,
-                      value: value);
-                },
-                initialValue: widget.hold.addedWeight,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
-              ),
-            ],
-          ),
+        Section(
+          title: 'basics',
+          children: <Widget>[
+            IntegerInputAndDivider(
+              description: 'repetitions',
+              shouldFocus: false,
+              handleValueChanged: (int value) {
+                _handleValueChanged(
+                    workoutProperty: WorkoutProperties.holds,
+                    holdProperty: HoldProperties.repetitions,
+                    value: value);
+              },
+              initialValue: widget.hold.repetitions,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+          ],
+        ),
+        Section(
+          title: 'timers',
+          children: <Widget>[
+            IntegerInputAndDivider(
+              description: 'hang time seconds',
+              shouldFocus: false,
+              handleValueChanged: (int value) {
+                _handleValueChanged(
+                    workoutProperty: WorkoutProperties.holds,
+                    holdProperty: HoldProperties.hangTime,
+                    value: value);
+              },
+              initialValue: widget.hold.hangTime,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+            IntegerInputAndDivider(
+              description: 'rest seconds between repetitions',
+              shouldFocus: false,
+              handleValueChanged: (int value) {
+                _handleValueChanged(
+                    workoutProperty: WorkoutProperties.holds,
+                    holdProperty: HoldProperties.restBetweenRepetitions,
+                    value: value);
+              },
+              initialValue: widget.hold.restBetweenRepetitions,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+          ],
+        ),
+        Section(
+          title: 'added weight',
+          children: <Widget>[
+            IntegerInputAndDivider(
+              // TODO: Implement units from store
+              description: 'kg',
+              shouldFocus: false,
+              handleValueChanged: (int value) {
+                _handleValueChanged(
+                    workoutProperty: WorkoutProperties.holds,
+                    holdProperty: HoldProperties.addedWeight,
+                    value: value);
+              },
+              initialValue: widget.hold.addedWeight,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+          ],
+        ),
       ],
     );
   }

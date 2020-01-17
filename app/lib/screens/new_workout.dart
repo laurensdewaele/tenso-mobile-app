@@ -134,7 +134,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
-                                      // TODO: Replace
+                                      // TODO: Replace with last added workout or the one passed in, to edit.
                                       workout: basicWorkout,
                                       shouldLoseFocusStream:
                                           _shouldLoseFocusStreamController
