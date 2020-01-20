@@ -11,14 +11,14 @@ class Tabs extends StatelessWidget {
       @required this.handleBackNavigation,
       @required this.handleForwardNavigation,
       @required this.count,
-      @required this.active,
+      @required this.activeIndex,
       @required this.handleNavigation})
       : super(key: key);
 
   final GestureTapCallback handleBackNavigation;
   final GestureTapCallback handleForwardNavigation;
   final int count;
-  final int active;
+  final int activeIndex;
   final Function(int page) handleNavigation;
 
   @override
@@ -27,7 +27,7 @@ class Tabs extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        active != 1
+        activeIndex != 0
             ? LeftChevron(handleTap: handleBackNavigation)
             : SizedBox(
                 width: styles.Measurements.xxl,
@@ -38,12 +38,12 @@ class Tabs extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: CircleContainer(
               count: count,
-              active: active,
+              activeIndex: activeIndex,
               handleNavigation: handleNavigation,
             ),
           ),
         ),
-        active != count
+        activeIndex != count - 1
             ? RightChevron(
                 handleTap: handleForwardNavigation,
               )
@@ -57,10 +57,10 @@ class Tabs extends StatelessWidget {
 }
 
 class CircleContainer extends StatelessWidget {
-  CircleContainer({this.count, this.active, this.handleNavigation});
+  CircleContainer({this.count, this.activeIndex, this.handleNavigation});
 
   final int count;
-  final int active;
+  final int activeIndex;
   final Function(int page) handleNavigation;
 
   @override
@@ -71,18 +71,18 @@ class CircleContainer extends StatelessWidget {
       children: <Widget>[
         ...list.map((n) => GestureDetector(
             onTap: () {
-              handleNavigation(n);
+              handleNavigation(n - 1);
             },
-            child: Circle(active: n == active)))
+            child: Circle(activeIndex: n == activeIndex + 1)))
       ],
     );
   }
 }
 
 class Circle extends StatelessWidget {
-  Circle({this.active});
+  Circle({this.activeIndex});
 
-  final bool active;
+  final bool activeIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class Circle extends StatelessWidget {
         Divider(
           width: styles.Measurements.xs / 2,
         ),
-        active ? ActiveCircle() : NonActiveCircle(),
+        activeIndex ? ActiveCircle() : NonActiveCircle(),
         Divider(
           width: styles.Measurements.xs / 2,
         ),

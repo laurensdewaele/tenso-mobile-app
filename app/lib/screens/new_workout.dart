@@ -5,8 +5,6 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/data/basic_workout.dart';
-import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/state/workout.dart';
@@ -136,25 +134,25 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  // TODO: Inject correct workout.
-                                  ChangeNotifierProvider<WorkoutModel>(
-                                    create: (context) => WorkoutModel(
-                                        3, 3, 20, 20, beastmaker1000),
-                                    child: TabsContainer(
-                                        onNavigation: _scrollToTop,
-                                        // TODO: Replace with last added workout or the one passed in, to edit.
-                                        workout: basicWorkout,
-                                        shouldLoseFocusStream:
-                                            _shouldLoseFocusStreamController
-                                                .stream,
-                                        handleErrorMessage: _handleErrorMessage,
-                                        navigateForwardTabStream:
-                                            _navigateForwardTabStreamController
-                                                .stream,
-                                        navigateBackTabStream:
-                                            _navigateBackTabStreamController
-                                                .stream),
-                                  ),
+                                  TabsContainer(
+                                      onNavigation: _scrollToTop,
+                                      holdCount: Provider.of<WorkoutModel>(
+                                              context,
+                                              listen: true)
+                                          .holdCount,
+                                      workoutModel: Provider.of<WorkoutModel>(
+                                          context,
+                                          listen: true),
+                                      shouldLoseFocusStream:
+                                          _shouldLoseFocusStreamController
+                                              .stream,
+                                      handleErrorMessage: _handleErrorMessage,
+                                      navigateForwardTabStream:
+                                          _navigateForwardTabStreamController
+                                              .stream,
+                                      navigateBackTabStream:
+                                          _navigateBackTabStreamController
+                                              .stream),
                                   SizedBox(
                                     height: _keyboardOffsetHeight,
                                   )

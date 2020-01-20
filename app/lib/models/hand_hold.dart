@@ -1,1 +1,1 @@
-enum HandHolds { twoHanded, oneHanded }
+enum HandHolds { twoHanded, oneHandedLeft, oneHandedRight }

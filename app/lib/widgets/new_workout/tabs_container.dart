@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/grades.dart';
-import 'package:app/models/hold.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/new_workout/extra_tab.dart';
 import 'package:app/widgets/new_workout/general_tab.dart';
@@ -14,15 +13,17 @@ import 'package:app/widgets/new_workout/tabs.dart';
 class TabsContainer extends StatefulWidget {
   TabsContainer(
       {Key key,
+      @required this.holdCount,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.workout,
+      @required this.workoutModel,
       @required this.onNavigation,
       this.navigateForwardTabStream,
       this.navigateBackTabStream})
       : super(key: key);
 
-  final Workout workout;
+  final int holdCount;
+  final WorkoutModel workoutModel;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final VoidCallback onNavigation;
@@ -34,21 +35,17 @@ class TabsContainer extends StatefulWidget {
 }
 
 class _TabsContainerState extends State<TabsContainer> {
-  int _pageCount;
-  int _activePage;
+  int _activePageIndex;
   List<Widget> _pages;
   bool _firstTimeConstructed = true;
   StreamSubscription _navigateForwardTabSub;
   StreamSubscription _navigateBackTabSub;
-  List<int> _pageCountList;
 
   @override
   void initState() {
     super.initState();
-    _pageCount = widget.workout.holdCount + 2;
-    _pageCountList = List.generate(_pageCount, (i) => i + 1);
-    _activePage = 1;
-    _buildPages(widget.workout.holdCount);
+    _activePageIndex = 0;
+    _buildPages(widget.holdCount);
     _firstTimeConstructed = false;
     _navigateForwardTabSub =
         widget.navigateForwardTabStream.listen((bool shouldNavigate) {
@@ -67,32 +64,18 @@ class _TabsContainerState extends State<TabsContainer> {
     super.dispose();
   }
 
-  // TODO: Put in model
-  Hold _generateHoldFromBasicConfigAndGlobalSettings() {
-    return Hold();
-  }
-
-  // TODO: Put in model
-  Hold _getHold(int n) {
-    final List<Hold> holds = widget.workout.holds;
-    Hold hold;
-    try {
-      hold = holds[n];
-    } on RangeError catch (_) {
-      if (holds.length > 0) {
-        hold = holds[holds.length - 1];
-      } else {
-        hold = _generateHoldFromBasicConfigAndGlobalSettings();
-      }
+  @override
+  void didUpdateWidget(TabsContainer oldWidget) {
+    if (oldWidget.holdCount != widget.holdCount) {
+      _buildPages(widget.holdCount);
     }
-    return hold;
+    super.didUpdateWidget(oldWidget);
   }
 
   void _buildPages(
     int holdCount,
   ) {
     setState(() {
-      _pageCount = holdCount + 2;
       _pages = [
         // TODO: Connect with store
         GeneralTab(
@@ -101,22 +84,19 @@ class _TabsContainerState extends State<TabsContainer> {
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
           key: ValueKey('new-workout-page-1'),
         ),
-        ...List.generate(holdCount, (i) => i + 1).map((h) {
+        ...List.generate(holdCount, (i) => i).map((n) {
           return HoldTab(
-            board: widget.workout.board,
             key: UniqueKey(),
-            hold: _getHold(h),
             handleErrorMessage: widget.handleErrorMessage,
             shouldLoseFocusStream: widget.shouldLoseFocusStream,
-            currentHold: h,
-            totalHolds: holdCount,
+            currentHold: n,
           );
         }),
         ExtraTab(
           handleErrorMessage: widget.handleErrorMessage,
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
-          name: widget.workout.name,
-          difficulty: widget.workout.difficulty,
+          name: widget.workoutModel.name,
+          difficulty: widget.workoutModel.difficulty,
           grades: Grades.boulderFont,
           key: UniqueKey(),
           handleSave: _handleSave,
@@ -126,34 +106,25 @@ class _TabsContainerState extends State<TabsContainer> {
   }
 
   void _handleBackNavigation() {
-    final int newPage = _activePage - 1;
-
-    if (_pageCountList.contains(newPage)) {
-      widget.onNavigation();
-      setState(() {
-        _activePage = newPage;
-      });
-    }
-
-    if (newPage == 0) {
+    if (_activePageIndex == 0) {
       Navigator.of(context).pop();
+    } else {
+      setState(() {
+        --_activePageIndex;
+      });
     }
   }
 
   void _handleForwardNavigation() {
-    final int newPage = _activePage + 1;
-
-    if (_pageCountList.contains(newPage)) {
-      widget.onNavigation();
+    if (_activePageIndex <= _pages.length - 2)
       setState(() {
-        _activePage = newPage;
+        ++_activePageIndex;
       });
-    }
   }
 
-  void _handleNavigation(int page) {
+  void _handleNavigation(int index) {
     setState(() {
-      _activePage = page;
+      _activePageIndex = index;
     });
   }
 
@@ -170,14 +141,14 @@ class _TabsContainerState extends State<TabsContainer> {
           padding: EdgeInsets.symmetric(
               horizontal: styles.Measurements.m,
               vertical: styles.Measurements.l),
-          child: _pages[_activePage - 1],
+          child: _pages[_activePageIndex],
         ),
         Tabs(
             handleNavigation: _handleNavigation,
             handleBackNavigation: _handleBackNavigation,
             handleForwardNavigation: _handleForwardNavigation,
-            count: _pageCount,
-            active: _activePage)
+            count: _pages.length,
+            activeIndex: _activePageIndex)
       ],
     );
   }

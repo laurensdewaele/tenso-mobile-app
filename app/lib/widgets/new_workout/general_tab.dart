@@ -35,68 +35,68 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WorkoutModel>(builder: (context, workoutModel, child) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Section(
-            title: 'basics',
-            children: <Widget>[
-              IntegerInputAndDivider(
-                description: 'holds',
-                shouldFocus: widget.shouldFocusOnInput,
-                handleValueChanged: (int n) {
-                  workoutModel.setHoldCount(n);
-                },
-                initialValue: workoutModel.holdCount,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
-              ),
-              IntegerInputAndDivider(
-                description: 'sets',
-                shouldFocus: false,
-                handleValueChanged: (int n) {
-                  workoutModel.setSets(n);
-                },
-                initialValue: workoutModel.sets,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
-              ),
-            ],
-          ),
-          Section(
-            title: 'timers',
-            children: <Widget>[
-              IntegerInputAndDivider(
-                description: 'rest seconds between holds',
-                shouldFocus: false,
-                handleValueChanged: (int n) {
-                  workoutModel.setRestBetweenHolds(n);
-                },
-                initialValue: workoutModel.restBetweenHolds,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
-              ),
-              IntegerInputAndDivider(
-                description: 'rest seconds between sets',
-                shouldFocus: false,
-                handleValueChanged: (int n) {
-                  workoutModel.setRestBetweenSets(n);
-                },
-                initialValue: workoutModel.restBetweenSets,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-                handleErrorMessage: widget.handleErrorMessage,
-              ),
-            ],
-          ),
-          Section(
-            title: 'board',
-            children: <Widget>[
-              // TODO: Board selector
-            ],
-          )
-        ],
-      );
-    });
+    final workoutModel = Provider.of<WorkoutModel>(context, listen: false);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Section(
+          title: 'basics',
+          children: <Widget>[
+            IntegerInputAndDivider(
+              description: 'holds',
+              shouldFocus: widget.shouldFocusOnInput,
+              handleValueChanged: (int n) {
+                workoutModel.setHoldCount(n);
+              },
+              initialValue: workoutModel.holdCount,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+            IntegerInputAndDivider(
+              description: 'sets',
+              shouldFocus: false,
+              handleValueChanged: (int n) {
+                workoutModel.setSets(n);
+              },
+              initialValue: workoutModel.sets,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+          ],
+        ),
+        Section(
+          title: 'timers',
+          children: <Widget>[
+            IntegerInputAndDivider(
+              description: 'rest seconds between holds',
+              shouldFocus: false,
+              handleValueChanged: (int n) {
+                workoutModel.setRestBetweenHolds(n);
+              },
+              initialValue: workoutModel.restBetweenHolds,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+            IntegerInputAndDivider(
+              description: 'rest seconds between sets',
+              shouldFocus: false,
+              handleValueChanged: (int n) {
+                workoutModel.setRestBetweenSets(n);
+              },
+              initialValue: workoutModel.restBetweenSets,
+              shouldLoseFocusStream: widget.shouldLoseFocusStream,
+              handleErrorMessage: widget.handleErrorMessage,
+            ),
+          ],
+        ),
+        Section(
+          title: 'board',
+          children: <Widget>[
+            // TODO: Board selector
+          ],
+        )
+      ],
+    );
   }
 }

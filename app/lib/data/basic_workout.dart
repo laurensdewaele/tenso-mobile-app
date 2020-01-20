@@ -3,6 +3,29 @@ import 'package:app/data/grips.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
+import 'package:app/state/workout.dart';
+
+final WorkoutModel basicWorkoutModel = WorkoutModel(
+  difficulty: '5A',
+  sets: 3,
+  holdCount: 1,
+  restBetweenHolds: 60 * 2,
+  restBetweenSets: 60 * 3,
+  board: beastmaker1000,
+  holds: [
+    Hold(
+        leftGrip: Grips.openHandL,
+        rightGrip: Grips.openHandR,
+        handHold: HandHolds.twoHanded,
+        leftGripBoardHold: beastmaker1000.defaultLeftGripHold,
+        rightGripBoardHold: beastmaker1000.defaultRightGripHold,
+        repetitions: 8,
+        restBetweenRepetitions: 60,
+        hangTime: 7,
+        addedWeight: 20)
+  ],
+  name: 'Basic workout',
+);
 
 final Workout basicWorkout = Workout(
   difficulty: '5A',
