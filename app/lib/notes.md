@@ -1,29 +1,23 @@
-## Refactor added weight integer input  => allow for 0 values and doubles
-## New workout
-- Keep the pages alive somehow? => state store in a provider that is just above the new workout section.
-## Validation needs to be on input field itself, not triggered on every input
-## Link up to database / SQL.
+## Large prio
 
-## Add board selection. Only beastmaker1000 atm.
-## Add info button on most elements
-## Add open crimp
+- Link up to database / SQL.
+- Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
+- Add board selection. Only beastmaker1000 atm.
+- Implement a feedback button.
 
-## Smaller width screens
-Review the app on smaller and larger screens.
+## Medium prio
 
-## Implement a feedback button
-## Stop all globals (singletons as well)
-## Perf
-Performance seems acceptable at the moment.
-Except for the initial dialog.
-Try to convert as much as possible to consts.
+- Review app on smaller and larger screens.
+- Validation needs to be on input field itself, not triggered on every input
+- Add open crimp
 
-## Code todo
+## Small prio
+
+- Add info button on most elements
+- Stop all globals (singletons as well). Do I have any?
+- Check out perf.
 - Refactor keyboard screen. Now code is duplicated across settings screen and new workout.
-
-## Play sound that says which grip is next and which hold (pocket) is next.
-
-## Unhandled exception when rapidly closing and opening an accordion on the overview page.
-[VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle state: created))
-null
+- Unhandled exception when rapidly closing and opening an accordion on the overview page.
+  [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle state: created))
+  null
 
