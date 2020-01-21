@@ -14,7 +14,7 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
-import 'package:app/widgets/integer_input_and_description.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/keyboard_screen.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
@@ -157,7 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           settingsModel
                                                               .preparationTimer
                                                               .toDouble(),
-                                                      handleValueChanged:
+                                                      handleIntValueChanged:
                                                           _handlePreparationTimerChanged,
                                                       shouldLoseFocusStream:
                                                           _shouldLoseFocusStreamController

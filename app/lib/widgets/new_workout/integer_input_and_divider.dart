@@ -1,37 +1,43 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/integer_input_and_description.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class NumberInputAndDivider extends StatelessWidget {
   NumberInputAndDivider(
       {Key key,
+      this.handleIntValueChanged,
+      this.handleDoubleValueChanged,
       @required this.description,
       @required this.initialValue,
-      @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-        @required this.isDouble,
+      @required this.isDouble,
+      this.zeroValueAllowed,
       this.shouldFocus})
       : super(key: key);
 
   final String description;
   final double initialValue;
-  final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
   final bool shouldFocus;
   final bool isDouble;
+  final bool zeroValueAllowed;
+  final ValueChanged<int> handleIntValueChanged;
+  final ValueChanged<double> handleDoubleValueChanged;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         NumberInputAndDescription(
+          zeroValueAllowed: zeroValueAllowed,
           description: description,
           shouldFocus: shouldFocus,
-          handleValueChanged: handleValueChanged,
+          handleIntValueChanged: handleIntValueChanged,
+          handleDoubleValueChanged: handleDoubleValueChanged,
           initialValue: initialValue,
           shouldLoseFocusStream: shouldLoseFocusStream,
           handleErrorMessage: handleErrorMessage,

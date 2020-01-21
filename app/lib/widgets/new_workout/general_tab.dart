@@ -47,7 +47,7 @@ class _GeneralTabState extends State<GeneralTab> {
               isDouble: false,
               description: 'holds',
               shouldFocus: widget.shouldFocusOnInput,
-              handleValueChanged: (int n) {
+              handleIntValueChanged: (int n) {
                 workoutModel.setHoldCount(n);
               },
               initialValue: workoutModel.holdCount.toDouble(),
@@ -58,7 +58,7 @@ class _GeneralTabState extends State<GeneralTab> {
               isDouble: false,
               description: 'sets',
               shouldFocus: false,
-              handleValueChanged: (int n) {
+              handleIntValueChanged: (int n) {
                 workoutModel.setSets(n);
               },
               initialValue: workoutModel.sets.toDouble(),
@@ -74,7 +74,7 @@ class _GeneralTabState extends State<GeneralTab> {
               isDouble: false,
               description: 'rest seconds between holds',
               shouldFocus: false,
-              handleValueChanged: (int n) {
+              handleIntValueChanged: (int n) {
                 workoutModel.setRestBetweenHolds(n);
               },
               initialValue: workoutModel.restBetweenHolds.toDouble(),
@@ -85,7 +85,7 @@ class _GeneralTabState extends State<GeneralTab> {
               isDouble: false,
               description: 'rest seconds between sets',
               shouldFocus: false,
-              handleValueChanged: (int n) {
+              handleIntValueChanged: (int n) {
                 workoutModel.setRestBetweenSets(n);
               },
               initialValue: workoutModel.restBetweenSets.toDouble(),

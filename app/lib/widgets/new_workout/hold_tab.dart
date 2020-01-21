@@ -92,7 +92,7 @@ class HoldTab extends StatelessWidget {
               isDouble: false,
               description: 'repetitions',
               shouldFocus: false,
-              handleValueChanged: (int n) {
+              handleIntValueChanged: (int n) {
                 workoutModel.setHoldRepetitions(currentHold, n);
               },
               initialValue:
@@ -109,7 +109,7 @@ class HoldTab extends StatelessWidget {
               isDouble: false,
               description: 'hang time seconds',
               shouldFocus: false,
-              handleValueChanged: (int s) {
+              handleIntValueChanged: (int s) {
                 workoutModel.setHoldHangTime(currentHold, s);
               },
               initialValue: workoutModel.holds[currentHold].hangTime.toDouble(),
@@ -120,7 +120,7 @@ class HoldTab extends StatelessWidget {
               isDouble: false,
               description: 'rest seconds between repetitions',
               shouldFocus: false,
-              handleValueChanged: (int s) {
+              handleIntValueChanged: (int s) {
                 workoutModel.setHoldRestBetweenRepetitions(currentHold, s);
               },
               initialValue: workoutModel
@@ -135,14 +135,15 @@ class HoldTab extends StatelessWidget {
           title: 'added weight',
           children: <Widget>[
             NumberInputAndDivider(
+              zeroValueAllowed: true,
               description: settingsModel.unit == Units.metric ? 'kg' : 'pounds',
               shouldFocus: false,
-              handleValueChanged: (int n) {
+              handleDoubleValueChanged: (double n) {
                 workoutModel.setHoldAddedWeight(
                     currentHold, n.toDouble(), settingsModel.unit);
               },
               initialValue: settingsModel.unit == Units.metric
-                  ? workoutModel.holds[currentHold].addedWeight.toInt()
+                  ? workoutModel.holds[currentHold].addedWeight
                   : UnitConversion.convertPoundsToKg(
                       workoutModel.holds[currentHold].addedWeight),
               isDouble: true,

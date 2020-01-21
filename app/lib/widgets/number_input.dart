@@ -8,18 +8,22 @@ import 'package:app/widgets/keyboard_screen.dart';
 class NumberInput extends StatefulWidget {
   NumberInput(
       {@required this.initialValue,
-      @required this.handleValueChanged,
+      this.handleDoubleValueChanged,
+      this.handleIntValueChanged,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
       @required this.isDouble,
-      @required this.shouldFocus});
+      @required this.shouldFocus,
+      this.zeroValueAllowed});
 
   final double initialValue;
-  final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
   final bool shouldFocus;
   final bool isDouble;
+  final bool zeroValueAllowed;
+  final ValueChanged<int> handleIntValueChanged;
+  final ValueChanged<double> handleDoubleValueChanged;
 
   @override
   _NumberInputState createState() => _NumberInputState();
@@ -33,7 +37,9 @@ class _NumberInputState extends State<NumberInput> {
   @override
   void initState() {
     super.initState();
-    _textEditingController.text = widget.initialValue.toString();
+    final dynamic initialValue =
+        widget.isDouble ? widget.initialValue : widget.initialValue.toInt();
+    _textEditingController.text = initialValue.toString();
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
         _validateInput();
@@ -51,19 +57,29 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _validateInput() {
-    int value;
+    dynamic value;
     try {
-      value = int.parse(_textEditingController.text);
+      value = widget.isDouble
+          ? double.parse(_textEditingController.text)
+          : int.parse(_textEditingController.text);
     } on FormatException catch (_) {
       _validationError();
     }
 
-    if (value != null && value < 1) {
+    if (value != null && widget.zeroValueAllowed == true && value < 0) {
       _validationError();
     }
 
-    if (value != null && value >= 1) {
-      widget.handleValueChanged(value);
+    if (value != null && widget.zeroValueAllowed != true && value < 1) {
+      _validationError();
+    }
+
+    if (value != null && widget.zeroValueAllowed == true && value >= 0) {
+      widget.handleDoubleValueChanged(value);
+    }
+
+    if (value != null && widget.zeroValueAllowed != true && value >= 1) {
+      widget.handleIntValueChanged(value);
     }
 
     _focusNode.unfocus();
@@ -74,7 +90,8 @@ class _NumberInputState extends State<NumberInput> {
 
   void _validationError() {
     _textEditingController.text = widget.initialValue.toString();
-    widget.handleErrorMessage(RichText(
+
+    final Widget biggerThanZero = RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
           text: 'Please input a value ',
@@ -83,7 +100,22 @@ class _NumberInputState extends State<NumberInput> {
             TextSpan(
                 text: 'bigger than 0.', style: styles.Typography.textInfoBold),
           ]),
-    ));
+    );
+
+    final Widget biggerEqualThanZero = RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+          text: 'Please input a value ',
+          style: styles.Typography.textInfo,
+          children: [
+            TextSpan(
+                text: 'bigger or equal than 0.',
+                style: styles.Typography.textInfoBold),
+          ]),
+    );
+
+    widget.handleErrorMessage(
+        widget.zeroValueAllowed ? biggerEqualThanZero : biggerThanZero);
   }
 
   void _onTap() {
@@ -99,7 +131,7 @@ class _NumberInputState extends State<NumberInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: styles.Measurements.xl,
+      width: widget.isDouble ? styles.Measurements.xxl : styles.Measurements.xl,
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
@@ -114,7 +146,7 @@ class _NumberInputState extends State<NumberInput> {
           keyboardType: widget.isDouble
               ? TextInputType.numberWithOptions(decimal: true)
               : TextInputType.number,
-          maxLength: 3,
+          maxLength: widget.isDouble ? 4 : 3,
           onTap: _onTap,
           onEditingComplete: _validateInput,
           onSubmitted: (String text) => {_validateInput},
