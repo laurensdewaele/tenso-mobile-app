@@ -150,11 +150,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                 Section(
                                                   title: 'preparation timer',
                                                   children: <Widget>[
-                                                    IntegerInputAndDescription(
+                                                    NumberInputAndDescription(
+                                                      isDouble: false,
                                                       description: 'seconds',
                                                       initialValue:
                                                           settingsModel
-                                                              .preparationTimer,
+                                                              .preparationTimer
+                                                              .toDouble(),
                                                       handleValueChanged:
                                                           _handlePreparationTimerChanged,
                                                       shouldLoseFocusStream:

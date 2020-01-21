@@ -5,25 +5,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/keyboard_screen.dart';
 
-class IntegerInput extends StatefulWidget {
-  IntegerInput(
+class NumberInput extends StatefulWidget {
+  NumberInput(
       {@required this.initialValue,
       @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
+      @required this.isDouble,
       @required this.shouldFocus});
 
-  final int initialValue;
+  final double initialValue;
   final ValueChanged<int> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget) handleErrorMessage;
   final bool shouldFocus;
+  final bool isDouble;
 
   @override
-  _IntegerInputState createState() => _IntegerInputState();
+  _NumberInputState createState() => _NumberInputState();
 }
 
-class _IntegerInputState extends State<IntegerInput> {
+class _NumberInputState extends State<NumberInput> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
   StreamSubscription _subscription;
@@ -109,7 +111,9 @@ class _IntegerInputState extends State<IntegerInput> {
               color: styles.Colors.primary,
               borderRadius: styles.kBorderRadiusAll),
           focusNode: _focusNode,
-          keyboardType: TextInputType.number,
+          keyboardType: widget.isDouble
+              ? TextInputType.numberWithOptions(decimal: true)
+              : TextInputType.number,
           maxLength: 3,
           onTap: _onTap,
           onEditingComplete: _validateInput,

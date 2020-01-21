@@ -88,13 +88,15 @@ class HoldTab extends StatelessWidget {
         Section(
           title: 'basics',
           children: <Widget>[
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'repetitions',
               shouldFocus: false,
               handleValueChanged: (int n) {
                 workoutModel.setHoldRepetitions(currentHold, n);
               },
-              initialValue: workoutModel.holds[currentHold].repetitions,
+              initialValue:
+                  workoutModel.holds[currentHold].repetitions.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),
@@ -103,24 +105,27 @@ class HoldTab extends StatelessWidget {
         Section(
           title: 'timers',
           children: <Widget>[
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'hang time seconds',
               shouldFocus: false,
               handleValueChanged: (int s) {
                 workoutModel.setHoldHangTime(currentHold, s);
               },
-              initialValue: workoutModel.holds[currentHold].hangTime,
+              initialValue: workoutModel.holds[currentHold].hangTime.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'rest seconds between repetitions',
               shouldFocus: false,
               handleValueChanged: (int s) {
                 workoutModel.setHoldRestBetweenRepetitions(currentHold, s);
               },
-              initialValue:
-                  workoutModel.holds[currentHold].restBetweenRepetitions,
+              initialValue: workoutModel
+                  .holds[currentHold].restBetweenRepetitions
+                  .toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),
@@ -129,20 +134,18 @@ class HoldTab extends StatelessWidget {
         Section(
           title: 'added weight',
           children: <Widget>[
-            IntegerInputAndDivider(
-              // TODO: Implement units from store
+            NumberInputAndDivider(
               description: settingsModel.unit == Units.metric ? 'kg' : 'pounds',
               shouldFocus: false,
               handleValueChanged: (int n) {
                 workoutModel.setHoldAddedWeight(
                     currentHold, n.toDouble(), settingsModel.unit);
               },
-              // TODO: Make this a double input
               initialValue: settingsModel.unit == Units.metric
                   ? workoutModel.holds[currentHold].addedWeight.toInt()
                   : UnitConversion.convertPoundsToKg(
-                          workoutModel.holds[currentHold].addedWeight)
-                      .toInt(),
+                      workoutModel.holds[currentHold].addedWeight),
+              isDouble: true,
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),

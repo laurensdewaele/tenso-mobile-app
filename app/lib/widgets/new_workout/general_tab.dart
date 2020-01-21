@@ -43,23 +43,25 @@ class _GeneralTabState extends State<GeneralTab> {
         Section(
           title: 'basics',
           children: <Widget>[
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'holds',
               shouldFocus: widget.shouldFocusOnInput,
               handleValueChanged: (int n) {
                 workoutModel.setHoldCount(n);
               },
-              initialValue: workoutModel.holdCount,
+              initialValue: workoutModel.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'sets',
               shouldFocus: false,
               handleValueChanged: (int n) {
                 workoutModel.setSets(n);
               },
-              initialValue: workoutModel.sets,
+              initialValue: workoutModel.sets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -68,23 +70,25 @@ class _GeneralTabState extends State<GeneralTab> {
         Section(
           title: 'timers',
           children: <Widget>[
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'rest seconds between holds',
               shouldFocus: false,
               handleValueChanged: (int n) {
                 workoutModel.setRestBetweenHolds(n);
               },
-              initialValue: workoutModel.restBetweenHolds,
+              initialValue: workoutModel.restBetweenHolds.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
-            IntegerInputAndDivider(
+            NumberInputAndDivider(
+              isDouble: false,
               description: 'rest seconds between sets',
               shouldFocus: false,
               handleValueChanged: (int n) {
                 workoutModel.setRestBetweenSets(n);
               },
-              initialValue: workoutModel.restBetweenSets,
+              initialValue: workoutModel.restBetweenSets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),

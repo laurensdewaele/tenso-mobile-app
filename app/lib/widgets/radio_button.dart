@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/hand_hold.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/styles/styles.dart' as styles;
 
