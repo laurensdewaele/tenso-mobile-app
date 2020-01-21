@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/models/board.dart';
-import 'package:app/models/grades.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/models/units.dart';
 
@@ -11,18 +10,17 @@ import 'package:app/models/units.dart';
 // Setters and getters are needed for Provider classes.
 // Otherwise, we cannot make a call to notifyListeners() when setting as value.
 
-final SettingsModel defaultSettings = SettingsModel(
-    beastmaker1000, 20, null, null, Units.metric, GradeTypes.sportFrench);
+final SettingsModel defaultSettings =
+    SettingsModel(beastmaker1000, 20, null, null, Units.metric);
 
 class SettingsModel extends ChangeNotifier {
   SettingsModel(Board defaultBoard, int preparationTimer, Sound hangSound,
-      Sound restSound, Units unit, GradeTypes gradeType) {
+      Sound restSound, Units unit) {
     this._defaultBoard = defaultBoard;
     this._preparationTimer = preparationTimer;
     this._hangSound = hangSound;
     this._restSound = restSound;
     this._unit = unit;
-    this._gradeType = gradeType;
   }
 
   Board _defaultBoard;
@@ -57,13 +55,6 @@ class SettingsModel extends ChangeNotifier {
   Units get unit => _unit;
   void setUnit(Units unit) {
     _unit = unit;
-    notifyListeners();
-  }
-
-  GradeTypes _gradeType;
-  GradeTypes get gradeType => _gradeType;
-  void setGradeType(GradeTypes gradeType) {
-    _gradeType = gradeType;
     notifyListeners();
   }
 }

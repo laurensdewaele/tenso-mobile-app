@@ -145,9 +145,11 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
       if (grip.handType == HandTypes.leftHand) {
         _leftHandOffset = offset;
         _leftGripBoardHold = boardHold;
+        widget.handleLeftGripBoardHoldChanged(boardHold);
       } else {
         _rightHandOffset = offset;
         _rightGripBoardHold = boardHold;
+        widget.handleRightGripBoardHoldChanged(boardHold);
       }
     });
   }

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/grades.dart';
 import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/new_workout/extra_tab.dart';
@@ -95,11 +94,7 @@ class _TabsContainerState extends State<TabsContainer> {
         ExtraTab(
           handleErrorMessage: widget.handleErrorMessage,
           shouldLoseFocusStream: widget.shouldLoseFocusStream,
-          name: widget.workoutModel.name,
-          difficulty: widget.workoutModel.difficulty,
-          grades: Grades.boulderFont,
           key: UniqueKey(),
-          handleSave: _handleSave,
         )
       ];
     });
@@ -126,10 +121,6 @@ class _TabsContainerState extends State<TabsContainer> {
     setState(() {
       _activePageIndex = index;
     });
-  }
-
-  void _handleSave() {
-    Navigator.of(context).pop();
   }
 
   @override

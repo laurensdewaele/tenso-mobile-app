@@ -1,3 +1,4 @@
+## Refactor added weight integer input  => allow for 0 values and doubles
 ## New workout
 - Keep the pages alive somehow? => state store in a provider that is just above the new workout section.
 ## Validation needs to be on input field itself, not triggered on every input
@@ -25,6 +26,4 @@ Try to convert as much as possible to consts.
 ## Unhandled exception when rapidly closing and opening an accordion on the overview page.
 [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle state: created))
 null
-
-
 

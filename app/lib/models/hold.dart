@@ -37,5 +37,5 @@ class Hold {
   final int repetitions;
   final int restBetweenRepetitions;
   final int hangTime;
-  final int addedWeight;
+  final double addedWeight;
 }

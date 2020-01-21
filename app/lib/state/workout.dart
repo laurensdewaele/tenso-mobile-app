@@ -1,11 +1,13 @@
-import 'package:app/data/grips.dart';
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_hold.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/data/grips.dart';
+import 'package:app/functions/unit_conversion.dart';
+import 'package:app/models/board_hold.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
+import 'package:app/models/grip.dart';
+import 'package:app/models/hand_hold.dart';
+import 'package:app/models/units.dart';
 
 // ignore_for_file: unnecessary_getters_setters
 
@@ -228,7 +230,15 @@ class WorkoutModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setHoldAddedWeight(int holdNo, int addedWeight) {
+  void setHoldAddedWeight(int holdNo, double addedWeight, Units unit) {
+    // Units (metric or imperial) will be saved in kg's.
+    // And converted to pounds when needed.
+    double weight = addedWeight;
+
+    if (unit == Units.imperial) {
+      weight = UnitConversion.convertPoundsToKg(addedWeight);
+    }
+
     _holds[holdNo] = Hold(
         leftGrip: _holds[holdNo].leftGrip,
         rightGrip: _holds[holdNo].rightGrip,
@@ -238,7 +248,7 @@ class WorkoutModel extends ChangeNotifier {
         repetitions: _holds[holdNo].repetitions,
         restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
         hangTime: _holds[holdNo].hangTime,
-        addedWeight: addedWeight);
+        addedWeight: weight);
     notifyListeners();
   }
 

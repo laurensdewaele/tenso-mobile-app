@@ -57,6 +57,7 @@ class _TextInputState extends State<TextInput> {
     final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
         KeyBoardScreen.of(context);
     keyboardScreenCallbacks.resetKeyboardOffset();
+    widget.handleValueChanged(_textEditingController.text);
   }
 
   void _validationError() {

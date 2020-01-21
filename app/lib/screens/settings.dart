@@ -6,7 +6,6 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/grades.dart';
 import 'package:app/models/units.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/settings.dart';
@@ -97,10 +96,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _handleUnitChanged(dynamic unit) {
     Provider.of<SettingsModel>(context, listen: false).setUnit(unit);
-  }
-
-  void _handleGradeChanged(dynamic gradeType) {
-    Provider.of<SettingsModel>(context, listen: false).setGradeType(gradeType);
   }
 
   @override
@@ -213,57 +208,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     ),
                                                   ],
                                                 ),
-                                                Section(
-                                                  title: 'grading system',
-                                                  children: <Widget>[
-                                                    RadioButton(
-                                                      description:
-                                                          'Sport French',
-                                                      value: GradeTypes
-                                                          .sportFrench,
-                                                      active: settingsModel
-                                                              .gradeType ==
-                                                          GradeTypes
-                                                              .sportFrench,
-                                                      handleSelected:
-                                                          _handleGradeChanged,
-                                                    ),
-                                                    RadioButton(
-                                                      description: 'Sport USA',
-                                                      value:
-                                                          GradeTypes.sportUSA,
-                                                      active: settingsModel
-                                                              .gradeType ==
-                                                          GradeTypes.sportUSA,
-                                                      handleSelected:
-                                                          _handleGradeChanged,
-                                                    ),
-                                                    RadioButton(
-                                                      description:
-                                                          'Boulder fontainebleau',
-                                                      value: GradeTypes
-                                                          .boulderFont,
-                                                      active: settingsModel
-                                                              .gradeType ==
-                                                          GradeTypes
-                                                              .boulderFont,
-                                                      handleSelected:
-                                                          _handleGradeChanged,
-                                                    ),
-                                                    RadioButton(
-                                                      description:
-                                                          'Boulder V scale',
-                                                      value: GradeTypes
-                                                          .boulderVScale,
-                                                      active: settingsModel
-                                                              .gradeType ==
-                                                          GradeTypes
-                                                              .boulderVScale,
-                                                      handleSelected:
-                                                          _handleGradeChanged,
-                                                    ),
-                                                  ],
-                                                )
                                               ],
                                             )),
                                         SizedBox(

@@ -1,3 +1,4 @@
+import 'package:app/functions/unit_conversion.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
@@ -6,6 +7,8 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_types.dart';
+import 'package:app/models/units.dart';
+import 'package:app/state/settings.dart';
 import 'package:app/state/workout.dart';
 import 'package:app/widgets/new_workout/board_hold_picker.dart';
 import 'package:app/widgets/new_workout/grip_picker_container.dart';
@@ -27,6 +30,7 @@ class HoldTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final workoutModel = Provider.of<WorkoutModel>(context, listen: true);
+    final settingsModel = Provider.of<SettingsModel>(context, listen: false);
 
     final String _currentHoldString = (currentHold + 1).toString();
     final String _totalHoldsString = workoutModel.holdCount.toString();
@@ -127,12 +131,18 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             IntegerInputAndDivider(
               // TODO: Implement units from store
-              description: 'kg',
+              description: settingsModel.unit == Units.metric ? 'kg' : 'pounds',
               shouldFocus: false,
               handleValueChanged: (int n) {
-                workoutModel.setHoldAddedWeight(currentHold, n);
+                workoutModel.setHoldAddedWeight(
+                    currentHold, n.toDouble(), settingsModel.unit);
               },
-              initialValue: workoutModel.holds[currentHold].addedWeight,
+              // TODO: Make this a double input
+              initialValue: settingsModel.unit == Units.metric
+                  ? workoutModel.holds[currentHold].addedWeight.toInt()
+                  : UnitConversion.convertPoundsToKg(
+                          workoutModel.holds[currentHold].addedWeight)
+                      .toInt(),
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),
