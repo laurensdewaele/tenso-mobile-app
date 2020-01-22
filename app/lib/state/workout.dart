@@ -14,8 +14,8 @@ import 'package:app/models/units.dart';
 // Setters and getters are needed for Provider classes.
 // Otherwise, we cannot make a call to notifyListeners() when setting as value.
 
-class WorkoutModel extends ChangeNotifier {
-  WorkoutModel(
+class WorkoutState extends ChangeNotifier {
+  WorkoutState(
       {int holdCount,
       int sets,
       int restBetweenHolds,

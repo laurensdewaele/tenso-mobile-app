@@ -21,7 +21,7 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutModel = Provider.of<WorkoutModel>(context, listen: true);
+    final workoutState = Provider.of<WorkoutState>(context, listen: true);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,12 +35,12 @@ class ExtraTab extends StatelessWidget {
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
                     initialItem:
-                        Grades.sportFrench.indexOf(workoutModel.difficulty)),
+                        Grades.sportFrench.indexOf(workoutState.difficulty)),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
                 onSelectedItemChanged: (int item) {
-                  workoutModel.setDifficulty(Grades.sportFrench[item]);
+                  workoutState.setDifficulty(Grades.sportFrench[item]);
                 },
                 itemExtent: 40,
                 children: <Widget>[
@@ -59,9 +59,9 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
-                initialValue: workoutModel.name,
+                initialValue: workoutState.name,
                 handleValueChanged: (n) {
-                  workoutModel.setName(n);
+                  workoutState.setName(n);
                 },
                 shouldLoseFocusStream: shouldLoseFocusStream,
                 handleErrorMessage: handleErrorMessage,

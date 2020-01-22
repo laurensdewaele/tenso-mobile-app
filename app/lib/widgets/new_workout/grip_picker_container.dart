@@ -58,7 +58,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleLeftHandSelected() {
     if (widget.selectedHandHold != HandHolds.twoHanded) {
-      Provider.of<WorkoutModel>(context, listen: false)
+      Provider.of<WorkoutState>(context, listen: false)
           .setHoldHandHold(widget.currentHold, HandHolds.oneHandedLeft);
     }
     setState(() {
@@ -68,7 +68,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleRightHandSelected() {
     if (widget.selectedHandHold != HandHolds.twoHanded) {
-      Provider.of<WorkoutModel>(context, listen: false)
+      Provider.of<WorkoutState>(context, listen: false)
           .setHoldHandHold(widget.currentHold, HandHolds.oneHandedRight);
     }
     setState(() {

@@ -29,11 +29,11 @@ class HoldTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutModel = Provider.of<WorkoutModel>(context, listen: true);
-    final settingsModel = Provider.of<SettingsModel>(context, listen: false);
+    final workoutState = Provider.of<WorkoutState>(context, listen: true);
+    final settingsState = Provider.of<SettingsState>(context, listen: false);
 
     final String _currentHoldString = (currentHold + 1).toString();
-    final String _totalHoldsString = workoutModel.holdCount.toString();
+    final String _totalHoldsString = workoutState.holdCount.toString();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,13 +44,13 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             GripPickerContainer(
               currentHold: currentHold,
-              selectedLeftGrip: workoutModel.holds[currentHold].leftGrip,
-              selectedRightGrip: workoutModel.holds[currentHold].rightGrip,
-              selectedHandHold: workoutModel.holds[currentHold].handHold,
+              selectedLeftGrip: workoutState.holds[currentHold].leftGrip,
+              selectedRightGrip: workoutState.holds[currentHold].rightGrip,
+              selectedHandHold: workoutState.holds[currentHold].handHold,
               handleLeftGripChanged: (Grip grip) =>
-                  workoutModel.setHoldLeftGrip(currentHold, grip),
+                  workoutState.setHoldLeftGrip(currentHold, grip),
               handleRightGripChanged: (Grip grip) =>
-                  workoutModel.setHoldRightGrip(currentHold, grip),
+                  workoutState.setHoldRightGrip(currentHold, grip),
               handleOneHandedTap: (HandTypes handType) {
                 HandHolds handHold;
                 if (handType == HandTypes.leftHand) {
@@ -58,9 +58,9 @@ class HoldTab extends StatelessWidget {
                 } else {
                   handHold = HandHolds.oneHandedRight;
                 }
-                workoutModel.setHoldHandHold(currentHold, handHold);
+                workoutState.setHoldHandHold(currentHold, handHold);
               },
-              handleTwoHandedTap: () => workoutModel.setHoldHandHold(
+              handleTwoHandedTap: () => workoutState.setHoldHandHold(
                   currentHold, HandHolds.twoHanded),
             )
           ],
@@ -69,18 +69,18 @@ class HoldTab extends StatelessWidget {
           title: 'drag to choose',
           children: <Widget>[
             BoardHoldPicker(
-                board: workoutModel.board,
-                leftGrip: workoutModel.holds[currentHold].leftGrip,
-                rightGrip: workoutModel.holds[currentHold].rightGrip,
+                board: workoutState.board,
+                leftGrip: workoutState.holds[currentHold].leftGrip,
+                rightGrip: workoutState.holds[currentHold].rightGrip,
                 initialLeftGripBoardHold:
-                    workoutModel.holds[currentHold].leftGripBoardHold,
+                    workoutState.holds[currentHold].leftGripBoardHold,
                 initialRightGripBoardHold:
-                    workoutModel.holds[currentHold].rightGripBoardHold,
+                    workoutState.holds[currentHold].rightGripBoardHold,
                 handleLeftGripBoardHoldChanged: (BoardHold boardHold) =>
-                    workoutModel.setHoldLeftGripBoardHold(
+                    workoutState.setHoldLeftGripBoardHold(
                         currentHold, boardHold),
                 handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
-                    workoutModel.setHoldRightGripBoardHold(
+                    workoutState.setHoldRightGripBoardHold(
                         currentHold, boardHold),
                 handleErrorMessage: handleErrorMessage)
           ],
@@ -93,10 +93,10 @@ class HoldTab extends StatelessWidget {
               description: 'repetitions',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutModel.setHoldRepetitions(currentHold, n);
+                workoutState.setHoldRepetitions(currentHold, n);
               },
               initialValue:
-                  workoutModel.holds[currentHold].repetitions.toDouble(),
+                  workoutState.holds[currentHold].repetitions.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),
@@ -110,9 +110,9 @@ class HoldTab extends StatelessWidget {
               description: 'hang time seconds',
               shouldFocus: false,
               handleIntValueChanged: (int s) {
-                workoutModel.setHoldHangTime(currentHold, s);
+                workoutState.setHoldHangTime(currentHold, s);
               },
-              initialValue: workoutModel.holds[currentHold].hangTime.toDouble(),
+              initialValue: workoutState.holds[currentHold].hangTime.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,
             ),
@@ -121,9 +121,9 @@ class HoldTab extends StatelessWidget {
               description: 'rest seconds between repetitions',
               shouldFocus: false,
               handleIntValueChanged: (int s) {
-                workoutModel.setHoldRestBetweenRepetitions(currentHold, s);
+                workoutState.setHoldRestBetweenRepetitions(currentHold, s);
               },
-              initialValue: workoutModel
+              initialValue: workoutState
                   .holds[currentHold].restBetweenRepetitions
                   .toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
@@ -136,16 +136,16 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             NumberInputAndDivider(
               zeroValueAllowed: true,
-              description: settingsModel.unit == Units.metric ? 'kg' : 'pounds',
+              description: settingsState.unit == Units.metric ? 'kg' : 'pounds',
               shouldFocus: false,
               handleDoubleValueChanged: (double n) {
-                workoutModel.setHoldAddedWeight(
-                    currentHold, n.toDouble(), settingsModel.unit);
+                workoutState.setHoldAddedWeight(
+                    currentHold, n.toDouble(), settingsState.unit);
               },
-              initialValue: settingsModel.unit == Units.metric
-                  ? workoutModel.holds[currentHold].addedWeight
+              initialValue: settingsState.unit == Units.metric
+                  ? workoutState.holds[currentHold].addedWeight
                   : UnitConversion.convertPoundsToKg(
-                      workoutModel.holds[currentHold].addedWeight),
+                      workoutState.holds[currentHold].addedWeight),
               isDouble: true,
               shouldLoseFocusStream: shouldLoseFocusStream,
               handleErrorMessage: handleErrorMessage,

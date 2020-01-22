@@ -35,7 +35,7 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    final workoutModel = Provider.of<WorkoutModel>(context, listen: false);
+    final workoutState = Provider.of<WorkoutState>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,9 +48,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'holds',
               shouldFocus: widget.shouldFocusOnInput,
               handleIntValueChanged: (int n) {
-                workoutModel.setHoldCount(n);
+                workoutState.setHoldCount(n);
               },
-              initialValue: workoutModel.holdCount.toDouble(),
+              initialValue: workoutState.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -59,9 +59,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'sets',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutModel.setSets(n);
+                workoutState.setSets(n);
               },
-              initialValue: workoutModel.sets.toDouble(),
+              initialValue: workoutState.sets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -75,9 +75,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'rest seconds between holds',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutModel.setRestBetweenHolds(n);
+                workoutState.setRestBetweenHolds(n);
               },
-              initialValue: workoutModel.restBetweenHolds.toDouble(),
+              initialValue: workoutState.restBetweenHolds.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -86,9 +86,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'rest seconds between sets',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutModel.setRestBetweenSets(n);
+                workoutState.setRestBetweenSets(n);
               },
-              initialValue: workoutModel.restBetweenSets.toDouble(),
+              initialValue: workoutState.restBetweenSets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),

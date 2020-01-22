@@ -15,11 +15,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<SettingsModel>(
+        ChangeNotifierProvider<SettingsState>(
           create: (context) => defaultSettings,
         ),
-        ChangeNotifierProvider<WorkoutModel>(
-            create: (context) => basicWorkoutModel)
+        ChangeNotifierProvider<WorkoutState>(
+            create: (context) => basicWorkoutState)
       ],
       child: CupertinoApp(
           routes: getRoutes(context), color: styles.Colors.primary),

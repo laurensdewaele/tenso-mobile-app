@@ -1,6 +1,11 @@
 ## Large prio
 
 - Link up to database / SQL.
+
+Do i need SQL => yes.
+
+
+
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.
 - Implement a feedback button.
