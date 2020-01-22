@@ -2,8 +2,7 @@ library styles;
 
 import 'package:flutter/cupertino.dart';
 
-class Colors {
-  Colors._();
+abstract class Colors {
   static const Color primary = const Color.fromRGBO(220, 88, 88, 1);
   static const Color white = const Color.fromRGBO(255, 255, 255, 1);
   static const Color translucent = const Color.fromRGBO(255, 255, 255, 0);
@@ -24,9 +23,7 @@ class Colors {
   static const Color green = const Color.fromRGBO(46, 204, 113, 1.0);
 }
 
-class Measurements {
-  Measurements._();
-
+abstract class Measurements {
   static const double xs = 10.0;
   static const double s = 15.0;
   static const double m = 20.0;
@@ -35,9 +32,7 @@ class Measurements {
   static const double xxl = 50.0;
 }
 
-class Typography {
-  Typography._();
-
+abstract class Typography {
   static TextStyle title =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
   static TextStyle subtitle =

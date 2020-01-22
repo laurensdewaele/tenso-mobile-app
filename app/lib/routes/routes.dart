@@ -6,9 +6,7 @@ import 'package:app/screens/settings.dart';
 import 'package:app/screens/sound_settings.dart';
 import 'package:app/screens/workout_overview.dart';
 
-class Routes {
-  Routes._();
-
+abstract class Routes {
   static const String home = '/';
   static const String newWorkoutScreen = '/newWorkoutScreen';
   static const String workoutOverviewScreen = '/workoutOverviewScreen';

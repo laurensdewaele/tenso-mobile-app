@@ -2,9 +2,7 @@ import 'package:app/models/fingers.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_types.dart';
 
-class Grips {
-  Grips._();
-
+abstract class Grips {
   static const Grip monoPinkyL = const Grip(
     description: 'mono pinky',
     name: 'monoPinkyL',
