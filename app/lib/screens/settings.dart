@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _handlePreparationTimerChanged(int value) {
-    Provider.of<SettingsState>(context, listen: false)
+    Provider.of<SettingsStateModel>(context, listen: false)
         .setPreparationTimer(value);
   }
 
@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _handleUnitChanged(dynamic unit) {
-    Provider.of<SettingsState>(context, listen: false).setUnit(unit);
+    Provider.of<SettingsStateModel>(context, listen: false).setUnit(unit);
   }
 
   @override
@@ -125,8 +125,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: GestureDetector(
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
-                              child: Consumer<SettingsState>(
-                                builder: (context, settingsState, child) {
+                              child: Consumer<SettingsStateModel>(
+                                builder: (context, settingsStateModel, child) {
                                   return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -154,7 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       isDouble: false,
                                                       description: 'seconds',
                                                       initialValue:
-                                                          settingsState
+                                                          settingsStateModel
                                                               .preparationTimer
                                                               .toDouble(),
                                                       handleIntValueChanged:
@@ -193,7 +193,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Metric (kg)',
                                                       value: Units.metric,
                                                       active:
-                                                          settingsState.unit ==
+                                                          settingsStateModel.unit ==
                                                               Units.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
@@ -203,7 +203,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           'Imperial (pounds)',
                                                       value: Units.imperial,
                                                       active:
-                                                          settingsState.unit ==
+                                                          settingsStateModel.unit ==
                                                               Units.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,

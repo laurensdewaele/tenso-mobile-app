@@ -5,7 +5,7 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/state/workout.dart';
 
-final WorkoutState basicWorkoutState = WorkoutState(
+final WorkoutStateModel basicWorkoutState = WorkoutStateModel(
   difficulty: '5A',
   sets: 3,
   holdCount: 1,

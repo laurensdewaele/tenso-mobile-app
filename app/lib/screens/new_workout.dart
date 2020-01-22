@@ -123,11 +123,11 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
-                                      holdCount: Provider.of<WorkoutState>(
+                                      holdCount: Provider.of<WorkoutStateModel>(
                                               context,
                                               listen: true)
                                           .holdCount,
-                                      workoutState: Provider.of<WorkoutState>(
+                                      workoutStateModel: Provider.of<WorkoutStateModel>(
                                           context,
                                           listen: true),
                                       shouldLoseFocusStream:

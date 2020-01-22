@@ -16,10 +16,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<SettingsState>(
-          create: (context) => defaultSettingsState,
+        ChangeNotifierProvider<SettingsStateModel>(
+          create: (context) => defaultSettingsStateModel,
         ),
-        ChangeNotifierProvider<WorkoutState>(
+        ChangeNotifierProvider<WorkoutStateModel>(
             create: (context) => basicWorkoutState)
       ],
       child: CupertinoApp(

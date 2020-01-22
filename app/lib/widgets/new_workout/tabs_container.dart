@@ -15,14 +15,14 @@ class TabsContainer extends StatefulWidget {
       @required this.holdCount,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.workoutState,
+      @required this.workoutStateModel,
       @required this.onNavigation,
       this.navigateForwardTabStream,
       this.navigateBackTabStream})
       : super(key: key);
 
   final int holdCount;
-  final WorkoutState workoutState;
+  final WorkoutStateModel workoutStateModel;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final VoidCallback onNavigation;

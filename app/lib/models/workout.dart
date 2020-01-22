@@ -22,12 +22,12 @@ enum WorkoutProperties {
 @immutable
 class Workout {
   Workout({
-    @required this.difficulty,
-    @required this.sets,
     @required this.holdCount,
+    @required this.sets,
     @required this.restBetweenHolds,
     @required this.restBetweenSets,
     @required this.board,
+    @required this.difficulty,
     @required this.holds,
     @required this.name,
   })  : difficultyColor = _determineDifficultyColor(difficulty),

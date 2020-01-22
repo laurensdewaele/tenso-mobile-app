@@ -9,8 +9,8 @@ import 'package:app/models/units.dart';
 // Setters and getters are needed for Provider classes.
 // Otherwise, we cannot make a call to notifyListeners() when setting as value.
 
-class SettingsState extends ChangeNotifier {
-  SettingsState(Board defaultBoard, int preparationTimer, Sound hangSound,
+class SettingsStateModel extends ChangeNotifier {
+  SettingsStateModel(Board defaultBoard, int preparationTimer, Sound hangSound,
       Sound restSound, Units unit) {
     this._defaultBoard = defaultBoard;
     this._preparationTimer = preparationTimer;
