@@ -91,31 +91,22 @@ class _NumberInputState extends State<NumberInput> {
   void _validationError() {
     _textEditingController.text = widget.initialValue.toString();
 
-    final Widget biggerThanZero = RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'Please input a value ',
-          style: styles.Typography.textInfo,
-          children: [
-            TextSpan(
-                text: 'bigger than 0.', style: styles.Typography.textInfoBold),
-          ]),
-    );
+    final String biggerThanZero = 'bigger than 0.';
+    final String biggerEqualThanZero = 'bigger or equal than 0.';
 
-    final Widget biggerEqualThanZero = RichText(
+    final Widget errorMessage = RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
           text: 'Please input a value ',
           style: styles.Typography.textInfo,
           children: [
             TextSpan(
-                text: 'bigger or equal than 0.',
+                text: widget.isDouble ? biggerEqualThanZero : biggerThanZero,
                 style: styles.Typography.textInfoBold),
           ]),
     );
 
-    widget.handleErrorMessage(
-        widget.zeroValueAllowed ? biggerEqualThanZero : biggerThanZero);
+    widget.handleErrorMessage(errorMessage);
   }
 
   void _onTap() {

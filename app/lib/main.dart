@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/settings.dart';
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<SettingsState>(
-          create: (context) => defaultSettings,
+          create: (context) => defaultSettingsState,
         ),
         ChangeNotifierProvider<WorkoutState>(
             create: (context) => basicWorkoutState)

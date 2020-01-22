@@ -118,6 +118,9 @@ class WorkoutState extends ChangeNotifier {
   }
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
+    // You have to set a new Hold object.
+    // It has to be immutable, otherwise changeNotifier will not pick up on it.
+    // I tried it via a much less verbose, mutable way.
     _holds[holdNo] = Hold(
         leftGrip: grip,
         rightGrip: _holds[holdNo].rightGrip,
@@ -188,14 +191,14 @@ class WorkoutState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setHoldRepetitions(int holdNo, int reps) {
+  void setHoldRepetitions(int holdNo, int repetitions) {
     _holds[holdNo] = Hold(
         leftGrip: _holds[holdNo].leftGrip,
         rightGrip: _holds[holdNo].rightGrip,
         handHold: _holds[holdNo].handHold,
         leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
         rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: reps,
+        repetitions: repetitions,
         restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
         hangTime: _holds[holdNo].hangTime,
         addedWeight: _holds[holdNo].addedWeight);

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/models/units.dart';
@@ -9,9 +8,6 @@ import 'package:app/models/units.dart';
 
 // Setters and getters are needed for Provider classes.
 // Otherwise, we cannot make a call to notifyListeners() when setting as value.
-
-final SettingsState defaultSettings =
-    SettingsState(beastmaker1000, 20, null, null, Units.metric);
 
 class SettingsState extends ChangeNotifier {
   SettingsState(Board defaultBoard, int preparationTimer, Sound hangSound,

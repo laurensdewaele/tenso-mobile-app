@@ -1,10 +1,7 @@
 ## Large prio
 
 - Link up to database / SQL.
-
 Do i need SQL => yes.
-
-
 
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.
@@ -12,12 +9,15 @@ Do i need SQL => yes.
 
 ## Medium prio
 
+- Leave out grading all together, it's subjective anyway. They should decide themselves??
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
 - Add open crimp
 
 ## Small prio
 
+- Tests :D
+- Refactor / redesign the alert toaster. This can be done with Provider (will be a lot cleaner)
 - Add info button on most elements
 - Stop all globals (singletons as well). Do I have any?
 - Check out perf.
