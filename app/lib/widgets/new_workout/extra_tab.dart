@@ -21,7 +21,7 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutState = Provider.of<WorkoutState>(context, listen: true);
+    final workoutState = Provider.of<WorkoutState>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

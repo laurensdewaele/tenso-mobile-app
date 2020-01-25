@@ -76,7 +76,6 @@ class _TabsContainerState extends State<TabsContainer> {
   ) {
     setState(() {
       _pages = [
-        // TODO: Connect with store
         GeneralTab(
           shouldFocusOnInput: _firstTimeConstructed,
           handleErrorMessage: widget.handleErrorMessage,
