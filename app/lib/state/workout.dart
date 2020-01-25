@@ -1,3 +1,4 @@
+import 'package:app/models/hand_types.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/grips.dart';
@@ -36,6 +37,24 @@ class WorkoutState extends ChangeNotifier {
     _name = name;
     _difficultyColor = difficultyColor;
     _duration = duration;
+  }
+
+  HandTypes _selectedHand;
+  void setSelectedHand(HandTypes h) {
+    this._selectedHand = h;
+    notifyListeners();
+  }
+
+  HandTypes getSelectedHand(int holdNo) {
+    if (_selectedHand == null) {
+      final HandHolds handHold = _holds[holdNo].handHold;
+      if (handHold == HandHolds.oneHandedRight) {
+        _selectedHand = HandTypes.rightHand;
+      } else {
+        _selectedHand = HandTypes.leftHand;
+      }
+    }
+    return _selectedHand;
   }
 
   int _holdCount;

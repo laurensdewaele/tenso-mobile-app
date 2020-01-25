@@ -44,6 +44,7 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             GripPickerContainer(
               currentHold: currentHold,
+              selectedHand: workoutState.getSelectedHand(currentHold),
               selectedLeftGrip: workoutState.holds[currentHold].leftGrip,
               selectedRightGrip: workoutState.holds[currentHold].rightGrip,
               selectedHandHold: workoutState.holds[currentHold].handHold,
@@ -62,6 +63,20 @@ class HoldTab extends StatelessWidget {
               },
               handleTwoHandedTap: () => workoutState.setHoldHandHold(
                   currentHold, HandHolds.twoHanded),
+              handleLeftHandSelected: (HandHolds selectedHandHold) {
+                if (selectedHandHold != HandHolds.twoHanded) {
+                  workoutState.setHoldHandHold(
+                      currentHold, HandHolds.oneHandedLeft);
+                }
+                workoutState.setSelectedHand(HandTypes.leftHand);
+              },
+              handleRightHandSelected: (HandHolds selectedHandHold) {
+                if (selectedHandHold != HandHolds.twoHanded) {
+                  workoutState.setHoldHandHold(
+                      currentHold, HandHolds.oneHandedRight);
+                }
+                workoutState.setSelectedHand(HandTypes.rightHand);
+              },
             )
           ],
         ),
