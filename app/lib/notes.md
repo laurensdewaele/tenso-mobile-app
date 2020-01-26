@@ -19,7 +19,16 @@ Dus =>
 
 - Als je de model populate moet je ook meegeven welke save er moet gebeuren
 - Een soort van depency injection dat weet hij (als het edit is) dat hij de bestaande workout update.
- 
+
+ProxyProvider<workouts, workout>
+builder (context, workouts, ...) => Workout(save: workouts)
+Or I can have workout(edit/new) depend on workouts so I get access to the save function.
+I can specify the which method it should be when constructing the edit/new workout. Wether it be saving to new or updating.
+
+
+
+De complexiteit ontstaat omdat er op elke input change alles gesaved moet worden.
+Als we saven op een navigate is er weinig probleem.
 
 
 ## Large prio
