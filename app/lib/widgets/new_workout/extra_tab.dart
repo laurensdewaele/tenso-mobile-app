@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/models/grades.dart';
-import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/new_workout/text_input.dart';
@@ -21,7 +21,7 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutState = Provider.of<WorkoutState>(context, listen: false);
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,12 +35,12 @@ class ExtraTab extends StatelessWidget {
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
                     initialItem:
-                        Grades.sportFrench.indexOf(workoutState.difficulty)),
+                        Grades.sportFrench.indexOf(workoutViewModel.difficulty)),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
                 onSelectedItemChanged: (int item) {
-                  workoutState.setDifficulty(Grades.sportFrench[item]);
+                  workoutViewModel.setDifficulty(Grades.sportFrench[item]);
                 },
                 itemExtent: 40,
                 children: <Widget>[
@@ -59,9 +59,9 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
-                initialValue: workoutState.name,
+                initialValue: workoutViewModel.name,
                 handleValueChanged: (n) {
-                  workoutState.setName(n);
+                  workoutViewModel.setName(n);
                 },
                 shouldLoseFocusStream: shouldLoseFocusStream,
                 handleErrorMessage: handleErrorMessage,

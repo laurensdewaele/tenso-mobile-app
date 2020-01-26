@@ -4,8 +4,8 @@ import 'package:app/data/grips.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_types.dart';
-import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/new_workout/grip_picker.dart';
 import 'package:app/widgets/new_workout/hand_tabs.dart';
@@ -58,7 +58,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleLeftHandSelected() {
     if (widget.selectedHandHold != HandHolds.twoHanded) {
-      Provider.of<WorkoutState>(context, listen: false)
+      Provider.of<WorkoutViewModel>(context, listen: false)
           .setHoldHandHold(widget.currentHold, HandHolds.oneHandedLeft);
     }
     setState(() {
@@ -68,7 +68,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleRightHandSelected() {
     if (widget.selectedHandHold != HandHolds.twoHanded) {
-      Provider.of<WorkoutState>(context, listen: false)
+      Provider.of<WorkoutViewModel>(context, listen: false)
           .setHoldHandHold(widget.currentHold, HandHolds.oneHandedRight);
     }
     setState(() {

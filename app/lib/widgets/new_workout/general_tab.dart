@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/state/workout.dart';
+import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/new_workout/integer_input_and_divider.dart';
 import 'package:app/widgets/section.dart';
 
@@ -35,7 +35,7 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    final workoutState = Provider.of<WorkoutState>(context, listen: false);
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,9 +48,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'holds',
               shouldFocus: widget.shouldFocusOnInput,
               handleIntValueChanged: (int n) {
-                workoutState.setHoldCount(n);
+                workoutViewModel.setHoldCount(n);
               },
-              initialValue: workoutState.holdCount.toDouble(),
+              initialValue: workoutViewModel.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -59,9 +59,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'sets',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutState.setSets(n);
+                workoutViewModel.setSets(n);
               },
-              initialValue: workoutState.sets.toDouble(),
+              initialValue: workoutViewModel.sets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -75,9 +75,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'rest seconds between holds',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutState.setRestBetweenHolds(n);
+                workoutViewModel.setRestBetweenHolds(n);
               },
-              initialValue: workoutState.restBetweenHolds.toDouble(),
+              initialValue: workoutViewModel.restBetweenHolds.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),
@@ -86,9 +86,9 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'rest seconds between sets',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
-                workoutState.setRestBetweenSets(n);
+                workoutViewModel.setRestBetweenSets(n);
               },
-              initialValue: workoutState.restBetweenSets.toDouble(),
+              initialValue: workoutViewModel.restBetweenSets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
               handleErrorMessage: widget.handleErrorMessage,
             ),

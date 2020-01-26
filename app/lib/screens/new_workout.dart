@@ -5,8 +5,8 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';
@@ -123,11 +123,11 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
-                                      holdCount: Provider.of<WorkoutState>(
+                                      holdCount: Provider.of<WorkoutViewModel>(
                                               context,
                                               listen: true)
                                           .holdCount,
-                                      workoutState: Provider.of<WorkoutState>(
+                                      workoutViewModel: Provider.of<WorkoutViewModel>(
                                           context,
                                           listen: true),
                                       shouldLoseFocusStream:

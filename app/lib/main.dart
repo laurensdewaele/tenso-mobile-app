@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/state/settings.dart';
-import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/settings.dart';
+import 'package:app/view_models/workout.dart';
 
 void main() => runApp(App());
 
@@ -16,11 +16,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<SettingsState>(
-          create: (context) => defaultSettingsState,
+        ChangeNotifierProvider<SettingsViewModel>(
+          create: (context) => defaultSettingsViewModel,
         ),
-        ChangeNotifierProvider<WorkoutState>(
-            create: (context) => basicWorkoutState)
+        ChangeNotifierProvider<WorkoutViewModel>(
+            create: (context) => basicWorkoutViewModel)
       ],
       child: CupertinoApp(
           routes: getRoutes(context), color: styles.Colors.primary),

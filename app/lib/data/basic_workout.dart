@@ -3,9 +3,9 @@ import 'package:app/data/grips.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/state/workout.dart';
+import 'package:app/view_models/workout.dart';
 
-final WorkoutState basicWorkoutState = WorkoutState(
+final WorkoutViewModel basicWorkoutViewModel = WorkoutViewModel(
   difficulty: '5A',
   sets: 3,
   holdCount: 1,

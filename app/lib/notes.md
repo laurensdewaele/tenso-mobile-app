@@ -1,35 +1,35 @@
-What I pondered about yesterday was about the state management.
-This all came to be because of an error.
-- Hold-Tab sets it's own internal state _selectedHand.
-- But in that method also dispatches a new state to the store.
-- And thus hold-tab also receives new props from the store.
-- Therefor it spits out an error that it cannot mark dirty while it's building.
+Sooo as for services: 
 
-My pondering of yesterday:
+- I have a persistent service that persists my data to disk
+  **persistenceService**
+- I have a workouts view_models with all my workouts
+  **workoutsViewModel**
+- I have a an active workout view_models, that has the workout loaded onto it.
+  **activeWorkoutViewModel** 
+  This can be to start/edit/play a workout.
 
-My globale app state heeft een aantal states:
+When the app starts:
 
-- Settings
-- Workouts[]
-- Workout / edit / new
+- Read all the workouts saved to persistent storage.
+- Write that in the workouts view_models.
 
-Wanneer je gaat naar new workout moet je de temp workout populaten met de laatst aangemaakte workout.
-Maar je moet ofwel een bestaande workout kunnen editen en saven in Workouts[] of er een nieuwe aan toevoegen. En dat liefst op elke state change (als ze de app sluiten).
-Dus =>
+independant
+Provider: persistenceService
 
-- Als je de model populate moet je ook meegeven welke save er moet gebeuren
-- Een soort van depency injection dat weet hij (als het edit is) dat hij de bestaande workout update.
+dependant
+ProxyProvider<persistenceService, WorkoutsViewModel> WorkoutsViewModel
+ProxyProvider<WorkoutsState, ActiveWorkout> ActiveWorkoutViewModel
 
-ProxyProvider<workouts, workout>
-builder (context, workouts, ...) => Workout(save: workouts)
-Or I can have workout(edit/new) depend on workouts so I get access to the save function.
-I can specify the which method it should be when constructing the edit/new workout. Wether it be saving to new or updating.
+ProxyChangeNotifierProvider? 
 
+ActiveWorkoutState.fromLatestWorkout
+ActiveWorkoutState.fromWorkoutId
 
-
-De complexiteit ontstaat omdat er op elke input change alles gesaved moet worden.
-Als we saven op een navigate is er weinig probleem.
-
+Every widget it's own model?
+GeneralTabModel
+HoldTabModel
+ExtraTabModel
+=> Yes, makes everything less verbose.
 
 ## Large prio
 
@@ -55,6 +55,6 @@ Do i need SQL => yes.
 - Check out perf.
 - Refactor keyboard screen. Now code is duplicated across settings screen and new workout.
 - Unhandled exception when rapidly closing and opening an accordion on the overview page.
-  [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle state: created))
+  [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle view_models: created))
   null
 

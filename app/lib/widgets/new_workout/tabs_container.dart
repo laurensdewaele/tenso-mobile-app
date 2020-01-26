@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/state/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/new_workout/extra_tab.dart';
 import 'package:app/widgets/new_workout/general_tab.dart';
 import 'package:app/widgets/new_workout/hold_tab.dart';
@@ -15,14 +15,14 @@ class TabsContainer extends StatefulWidget {
       @required this.holdCount,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
-      @required this.workoutState,
+      @required this.workoutViewModel,
       @required this.onNavigation,
       this.navigateForwardTabStream,
       this.navigateBackTabStream})
       : super(key: key);
 
   final int holdCount;
-  final WorkoutState workoutState;
+  final WorkoutViewModel workoutViewModel;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final VoidCallback onNavigation;
