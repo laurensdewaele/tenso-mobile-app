@@ -1,3 +1,27 @@
+What I pondered about yesterday was about the state management.
+This all came to be because of an error.
+- Hold-Tab sets it's own internal state _selectedHand.
+- But in that method also dispatches a new state to the store.
+- And thus hold-tab also receives new props from the store.
+- Therefor it spits out an error that it cannot mark dirty while it's building.
+
+My pondering of yesterday:
+
+My globale app state heeft een aantal states:
+
+- Settings
+- Workouts[]
+- Workout / edit / new
+
+Wanneer je gaat naar new workout moet je de temp workout populaten met de laatst aangemaakte workout.
+Maar je moet ofwel een bestaande workout kunnen editen en saven in Workouts[] of er een nieuwe aan toevoegen. En dat liefst op elke state change (als ze de app sluiten).
+Dus =>
+
+- Als je de model populate moet je ook meegeven welke save er moet gebeuren
+- Een soort van depency injection dat weet hij (als het edit is) dat hij de bestaande workout update.
+ 
+
+
 ## Large prio
 
 - Link up to database / SQL.
