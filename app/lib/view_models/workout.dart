@@ -7,7 +7,7 @@ import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
-import 'package:app/models/units.dart';
+import 'package:app/models/unit.dart';
 
 // ignore_for_file: unnecessary_getters_setters
 
@@ -164,12 +164,12 @@ class WorkoutViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setHoldAddedWeight(int holdNo, double addedWeight, Units unit) {
-    // Units (metric or imperial) will be saved in kg's.
+  void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
+    // Unit (metric or imperial) will be saved in kg's.
     // And converted to pounds when needed.
     double weight = addedWeight;
 
-    if (unit == Units.imperial) {
+    if (unit == Unit.imperial) {
       weight = UnitConversion.convertPoundsToKg(addedWeight);
     }
 

@@ -24,7 +24,7 @@ part 'serializers.g.dart';
   Hold,
   MenuItem,
 //  Sound,
-//  Units,
+//  Unit,
 //  Workout
 ])
 final Serializers serializers =

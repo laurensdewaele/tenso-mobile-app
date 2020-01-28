@@ -7,7 +7,7 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_type.dart';
-import 'package:app/models/units.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/view_models/settings.dart';
 import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/new_workout/board_hold_picker.dart';
@@ -136,13 +136,13 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             NumberInputAndDivider(
               zeroValueAllowed: true,
-              description: settingsViewModel.unit == Units.metric ? 'kg' : 'pounds',
+              description: settingsViewModel.unit == Unit.metric ? 'kg' : 'pounds',
               shouldFocus: false,
               handleDoubleValueChanged: (double n) {
                 workoutViewModel.setHoldAddedWeight(
                     currentHold, n.toDouble(), settingsViewModel.unit);
               },
-              initialValue: settingsViewModel.unit == Units.metric
+              initialValue: settingsViewModel.unit == Unit.metric
                   ? workoutViewModel.holds[currentHold].addedWeight
                   : UnitConversion.convertPoundsToKg(
                       workoutViewModel.holds[currentHold].addedWeight),

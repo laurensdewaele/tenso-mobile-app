@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/sound.dart';
-import 'package:app/models/units.dart';
+import 'package:app/models/unit.dart';
 
 // ignore_for_file: unnecessary_getters_setters
 
@@ -11,7 +11,7 @@ import 'package:app/models/units.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel(Board defaultBoard, int preparationTimer, Sound hangSound,
-      Sound restSound, Units unit) {
+      Sound restSound, Unit unit) {
     this._defaultBoard = defaultBoard;
     this._preparationTimer = preparationTimer;
     this._hangSound = hangSound;
@@ -47,9 +47,9 @@ class SettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Units _unit;
-  Units get unit => _unit;
-  void setUnit(Units unit) {
+  Unit _unit;
+  Unit get unit => _unit;
+  void setUnit(Unit unit) {
     _unit = unit;
     notifyListeners();
   }

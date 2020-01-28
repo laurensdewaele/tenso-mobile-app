@@ -6,7 +6,7 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/units.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings.dart';
@@ -191,20 +191,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     RadioButton(
                                                       description:
                                                           'Metric (kg)',
-                                                      value: Units.metric,
+                                                      value: Unit.metric,
                                                       active:
                                                           settingsViewModel.unit ==
-                                                              Units.metric,
+                                                              Unit.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
                                                     ),
                                                     RadioButton(
                                                       description:
                                                           'Imperial (pounds)',
-                                                      value: Units.imperial,
+                                                      value: Unit.imperial,
                                                       active:
                                                           settingsViewModel.unit ==
-                                                              Units.imperial,
+                                                              Unit.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,
                                                     ),
