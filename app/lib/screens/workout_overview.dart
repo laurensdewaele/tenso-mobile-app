@@ -1,3 +1,5 @@
+import 'package:app/data/basic_workout.dart';
+import 'package:app/services/persistence.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
 import 'package:flutter/widgets.dart';
@@ -34,8 +36,16 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     }
   }
 
+  void test() {
+    final PersistenceService service = PersistenceService();
+    service.writeWorkouts([basicWorkout]);
+    service.readWorkouts();
+  }
+
   @override
   Widget build(BuildContext context) {
+    test();
+
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
