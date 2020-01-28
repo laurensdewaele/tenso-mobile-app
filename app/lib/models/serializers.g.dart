@@ -9,7 +9,13 @@ part of 'serializers.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Board.serializer)
       ..add(BoardHold.serializer)
+      ..add(Fingers.serializer)
+      ..add(Grip.serializer)
+      ..add(HandHold.serializer)
+      ..add(HandType.serializer)
+      ..add(Hold.serializer)
       ..add(HoldType.serializer)
+      ..add(MenuItem.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(BoardHold)]),
           () => new ListBuilder<BoardHold>()))

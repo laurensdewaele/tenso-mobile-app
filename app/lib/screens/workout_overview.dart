@@ -71,8 +71,12 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
             )),
         BottomMenuDrawer(
           menuItems: [
-            MenuItem(name: 'settings', route: Routes.settingsScreen),
-            MenuItem(name: 'progress', route: Routes.progressScreen)
+            MenuItem((b) => b
+              ..name = 'settings'
+              ..route = Routes.settingsScreen),
+            MenuItem((b) => b
+              ..name = 'progress'
+              ..route = Routes.progressScreen),
           ],
         )
       ],

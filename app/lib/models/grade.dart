@@ -1,6 +1,4 @@
-enum GradeTypes { sportFrench, sportUSA, boulderVScale, boulderFont }
-
-abstract class Grades {
+abstract class Grade {
   static const List<String> sportFrench = [
     '1',
     '2',

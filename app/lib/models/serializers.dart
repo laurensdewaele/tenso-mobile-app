@@ -1,4 +1,9 @@
-import 'package:built_collection/built_collection.dart';
+import 'package:app/models/fingers.dart';
+import 'package:app/models/grip.dart';
+import 'package:app/models/hand_hold.dart';
+import 'package:app/models/hand_type.dart';
+import 'package:app/models/hold.dart';
+import 'package:app/models/menu_item.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
@@ -12,13 +17,12 @@ part 'serializers.g.dart';
   Board,
   BoardHold,
   HoldType,
-//  Fingers,
-//  Grades,
-//  Grip,
-//  HandHold,
-//  HandType,
-//  Hold,
-//  MenuItem,
+  Fingers,
+  Grip,
+  HandHold,
+  HandType,
+  Hold,
+  MenuItem,
 //  Sound,
 //  Units,
 //  Workout
