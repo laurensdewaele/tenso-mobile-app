@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/data/grips.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
-import 'package:app/models/hand_types.dart';
+import 'package:app/models/hand_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/divider.dart';
@@ -32,22 +32,22 @@ class GripPickerContainer extends StatefulWidget {
   final Function(Grip grip) handleLeftGripChanged;
   final Function(Grip grip) handleRightGripChanged;
   final VoidCallback handleTwoHandedTap;
-  final Function(HandTypes handType) handleOneHandedTap;
+  final Function(HandType handType) handleOneHandedTap;
 
   @override
   _GripPickerContainerState createState() => _GripPickerContainerState();
 }
 
 class _GripPickerContainerState extends State<GripPickerContainer> {
-  HandTypes _selectedHand;
+  HandType _selectedHand;
 
   @override
   void initState() {
     super.initState();
     if (widget.selectedHandHold == HandHolds.oneHandedRight) {
-      _selectedHand = HandTypes.rightHand;
+      _selectedHand = HandType.rightHand;
     } else {
-      _selectedHand = HandTypes.leftHand;
+      _selectedHand = HandType.leftHand;
     }
   }
 
@@ -62,7 +62,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
           .setHoldHandHold(widget.currentHold, HandHolds.oneHandedLeft);
     }
     setState(() {
-      _selectedHand = HandTypes.leftHand;
+      _selectedHand = HandType.leftHand;
     });
   }
 
@@ -72,7 +72,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
           .setHoldHandHold(widget.currentHold, HandHolds.oneHandedRight);
     }
     setState(() {
-      _selectedHand = HandTypes.rightHand;
+      _selectedHand = HandType.rightHand;
     });
   }
 
@@ -88,16 +88,16 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
         HandTabs(
           handleLeftHandTap: _handleLeftHandSelected,
           handleRightHandTap: _handleRightHandSelected,
-          isLeftHandSelected: _selectedHand == HandTypes.leftHand,
-          isRightHandSelected: _selectedHand == HandTypes.rightHand,
+          isLeftHandSelected: _selectedHand == HandType.leftHand,
+          isRightHandSelected: _selectedHand == HandType.rightHand,
         ),
         Divider(height: styles.Measurements.m),
-        if (_selectedHand == HandTypes.leftHand)
+        if (_selectedHand == HandType.leftHand)
           GripPicker(
               grips: Grips.left,
               selectedGrip: widget.selectedLeftGrip,
               handleGripChanged: widget.handleLeftGripChanged),
-        if (_selectedHand == HandTypes.rightHand)
+        if (_selectedHand == HandType.rightHand)
           GripPicker(
               grips: Grips.right,
               handleGripChanged: widget.handleRightGripChanged,

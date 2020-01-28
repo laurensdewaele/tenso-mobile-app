@@ -4,7 +4,7 @@ import 'package:app/functions/board_hold_grip_compatibility.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
-import 'package:app/models/hand_types.dart';
+import 'package:app/models/hand_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
 import 'package:app/widgets/new_workout/board_drag_targets.dart';
@@ -142,7 +142,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
         holdDYHangAnchor - gripDYHangAnchor);
 
     setState(() {
-      if (grip.handType == HandTypes.leftHand) {
+      if (grip.handType == HandType.leftHand) {
         _leftHandOffset = offset;
         _leftGripBoardHold = boardHold;
         widget.handleLeftGripBoardHoldChanged(boardHold);
@@ -166,7 +166,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     final double dy = position.dy - dyHangAnchor;
     final double dx = position.dx - dxHangAnchor;
     setState(() {
-      if (grip.handType == HandTypes.leftHand) {
+      if (grip.handType == HandType.leftHand) {
         _leftHandFeedbackOffset = Offset(-dx, -dy);
       } else {
         _rightHandFeedbackOffset = Offset(-dx, -dy);

@@ -16,7 +16,7 @@ part 'serializers.g.dart';
 //  Grades,
 //  Grip,
 //  HandHold,
-//  HandTypes,
+//  HandType,
 //  Hold,
 //  MenuItem,
 //  Sound,

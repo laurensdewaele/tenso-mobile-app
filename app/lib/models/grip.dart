@@ -1,43 +1,40 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 import 'package:app/models/fingers.dart';
-import 'package:app/models/hand_types.dart';
+import 'package:app/models/hand_type.dart';
+import 'package:app/models/serializers.dart';
 
-class Grip {
-  const Grip(
-      {@required this.fingers,
-      this.crimped = false,
-      @required this.assetSrc,
-      @required this.description,
-      @required this.assetWidth,
-      @required this.assetHeight,
-      @required this.dxHangAnchor,
-      @required this.dyHangAnchor,
-      @required this.handType,
-      @required this.name})
-      : dxRelativeHangAnchor = dxHangAnchor / assetWidth,
-        dyRelativeHangAnchor = dyHangAnchor / assetHeight,
-        assetAspectRatio = assetWidth / assetHeight;
+part 'grip.g.dart';
 
-  final HandTypes handType;
-  final Fingers fingers;
-  final bool crimped;
-  final String assetSrc;
-  final String name;
-  final String description;
-  final double dxHangAnchor;
-  final double dyHangAnchor;
-  final double dxRelativeHangAnchor;
-  final double dyRelativeHangAnchor;
-  final double assetWidth;
-  final double assetHeight;
-  final double assetAspectRatio;
+abstract class Grip implements Built<Grip, GripBuilder> {
+  static Serializer<Grip> get serializer => _$gripSerializer;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Grip && runtimeType == other.runtimeType && name == other.name;
+  HandType get handType;
+  Fingers get fingers;
+  bool get crimped;
+  String get assetSrc;
+  String get name;
+  String get description;
+  double get dxHangAnchor;
+  double get dyHangAnchor;
+  double get dxRelativeHangAnchor => dxHangAnchor / assetWidth;
+  double get dyRelativeHangAnchor => dyHangAnchor / assetHeight;
+  double get assetWidth;
+  double get assetHeight;
+  double get assetAspectRatio => assetWidth / assetHeight;
 
-  @override
-  int get hashCode => name.hashCode;
+  factory Grip([void Function(GripBuilder) updates]) = _$Grip;
+  Grip._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Grip.serializer, this));
+  }
+
+  static Grip fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Grip.serializer, json.decode(jsonString));
+  }
 }

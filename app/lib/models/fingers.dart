@@ -1,18 +1,31 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
-class Fingers {
-  const Fingers(
-      {this.pinky = false,
-      this.ring = false,
-      this.middle = false,
-      this.index = false,
-      this.thumb = false,
-      @required this.count});
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
-  final bool pinky;
-  final bool ring;
-  final bool middle;
-  final bool index;
-  final bool thumb;
-  final int count;
+import 'package:app/models/serializers.dart';
+
+part 'fingers.g.dart';
+
+abstract class Fingers implements Built<Fingers, FingersBuilder> {
+  static Serializer<Fingers> get serializer => _$fingersSerializer;
+
+  bool get pinky;
+  bool get ring;
+  bool get middle;
+  bool get index;
+  bool get thumb;
+  int get count;
+
+  factory Fingers([void Function(FingersBuilder) updates]) = _$Fingers;
+  Fingers._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Fingers.serializer, this));
+  }
+
+  static Fingers fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Fingers.serializer, json.decode(jsonString));
+  }
 }

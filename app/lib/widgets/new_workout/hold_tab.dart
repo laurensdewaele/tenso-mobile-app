@@ -6,7 +6,7 @@ import 'package:app/functions/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
-import 'package:app/models/hand_types.dart';
+import 'package:app/models/hand_type.dart';
 import 'package:app/models/units.dart';
 import 'package:app/view_models/settings.dart';
 import 'package:app/view_models/workout.dart';
@@ -51,9 +51,9 @@ class HoldTab extends StatelessWidget {
                   workoutViewModel.setHoldLeftGrip(currentHold, grip),
               handleRightGripChanged: (Grip grip) =>
                   workoutViewModel.setHoldRightGrip(currentHold, grip),
-              handleOneHandedTap: (HandTypes handType) {
+              handleOneHandedTap: (HandType handType) {
                 HandHolds handHold;
-                if (handType == HandTypes.leftHand) {
+                if (handType == HandType.leftHand) {
                   handHold = HandHolds.oneHandedLeft;
                 } else {
                   handHold = HandHolds.oneHandedRight;
