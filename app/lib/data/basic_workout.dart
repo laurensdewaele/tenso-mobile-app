@@ -27,14 +27,14 @@ final WorkoutViewModel basicWorkoutViewModel = WorkoutViewModel(
   name: 'Basic workout',
 );
 
-final Workout basicWorkout = Workout(
-  difficulty: '5A',
-  sets: 3,
-  holdCount: 3,
-  restBetweenHolds: 60 * 2,
-  restBetweenSets: 60 * 3,
-  board: beastmaker1000,
-  holds: [
+final Workout basicWorkout = Workout((b) => b
+  ..difficulty = '5A'
+  ..sets = 3
+  ..holdCount = 3
+  ..restBetweenHolds = 60 * 2
+  ..restBetweenSets = 60 * 3
+  ..board = beastmaker1000.toBuilder()
+  ..holds.addAll([
     Hold((b) => b
       ..leftGrip = Grips.openHandL.toBuilder()
       ..rightGrip = Grips.openHandR.toBuilder()
@@ -45,6 +45,5 @@ final Workout basicWorkout = Workout(
       ..restBetweenRepetitions = 60
       ..hangTime = 7
       ..addedWeight = 20)
-  ],
-  name: 'Basic workout',
-);
+  ])
+  ..name = 'Basic workout');

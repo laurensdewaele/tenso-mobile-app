@@ -1,54 +1,44 @@
+import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
+import 'package:app/models/serializers.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-enum WorkoutProperties {
-  difficulty,
-  sets,
-  holdCount,
-  restBetweenHolds,
-  restBetweenSets,
-  board,
-  holds,
-  name,
-  difficultyColor,
-  duration,
-}
+part 'workout.g.dart';
 
-@immutable
-class Workout {
-  Workout({
-    @required this.difficulty,
-    @required this.sets,
-    @required this.holdCount,
-    @required this.restBetweenHolds,
-    @required this.restBetweenSets,
-    @required this.board,
-    @required this.holds,
-    @required this.name,
-  })  : difficultyColor = _determineDifficultyColor(difficulty),
-        duration = _calculateDuration(
-            holds: holds,
-            restBetweenSets: restBetweenSets,
-            sets: sets,
-            restBetweenHolds: restBetweenHolds);
+abstract class Workout implements Built<Workout, WorkoutBuilder> {
+  static Serializer<Workout> get serializer => _$workoutSerializer;
 
-  final String difficulty;
-  final int sets;
-  final int holdCount;
-  final int restBetweenHolds;
-  final int restBetweenSets;
-  final Board board;
-  final List<Hold> holds;
-  final String name;
-  final Color difficultyColor;
-  final int duration;
+  String get difficulty;
+  int get sets;
+  int get holdCount;
+  int get restBetweenHolds;
+  int get restBetweenSets;
+  Board get board;
+  BuiltList<Hold> get holds;
+  String get name;
+  Color get difficultyColor => _determineDifficultyColor();
+  int get duration => _calculateDuration();
 
-  static Color _determineDifficultyColor(String difficulty) {
+  factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;
+  Workout._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Workout.serializer, this));
+  }
+
+  static Workout fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Workout.serializer, json.decode(jsonString));
+  }
+
+  Color _determineDifficultyColor() {
     final int difficultyNo = int.parse(difficulty.split('')[0]);
 
     if (difficultyNo - 5 <= 0) {
@@ -61,8 +51,7 @@ class Workout {
     return styles.difficultyColors[difficultyNo - 5];
   }
 
-  static int _calculateDuration(
-      {List<Hold> holds, sets, restBetweenSets, restBetweenHolds}) {
+  int _calculateDuration() {
     int value = 0;
     value += (sets - 1) * restBetweenSets;
     value += sets * (holds.length - 1) * restBetweenHolds;
@@ -72,7 +61,4 @@ class Workout {
     });
     return value.toInt();
   }
-
-
-
 }
