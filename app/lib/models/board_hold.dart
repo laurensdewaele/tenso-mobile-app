@@ -1,43 +1,48 @@
+import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
-class BoardHold {
-//class BoardHold {
-  BoardHold(
-      {@required this.position,
-      @required this.holdType,
-      @required this.maxAllowedFingers,
-      @required this.rect,
-      @required this.boardSize,
-      @required this.dxHangAnchor,
-      @required this.dyHangAnchor,
-      this.sloperDegrees,
-      this.pocketDepth})
-      : relativeRect = _determineRelativeRect(rect, boardSize),
-        dxRelativeHangAnchor = dxHangAnchor / boardSize.width,
-        dyRelativeHangAnchor = dyHangAnchor / boardSize.height;
+import 'package:app/models/hold_type.dart';
+import 'package:app/models/serializers.dart';
 
-  final int position;
-  final Rect rect;
-  final HoldTypes holdType;
-  final int maxAllowedFingers;
-  final Size boardSize;
-  final Rect relativeRect;
-  final double sloperDegrees;
-  final double pocketDepth;
-  final double dxHangAnchor;
-  final double dyHangAnchor;
-  final double dxRelativeHangAnchor;
-  final double dyRelativeHangAnchor;
+part 'board_hold.g.dart';
 
-  static Rect _determineRelativeRect(Rect rect, Size boardSize) {
+abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
+  static Serializer<BoardHold> get serializer => _$boardHoldSerializer;
+
+  int get position;
+  Rect get rect;
+  HoldType get holdType;
+  int get maxAllowedFingers;
+  Size get boardSize;
+  @nullable
+  double get sloperDegrees;
+  @nullable
+  double get pocketDepth;
+  double get dxHangAnchor;
+  double get dyHangAnchor;
+  Rect get relativeRect {
     return Rect.fromLTWH(
         rect.left / boardSize.width,
         rect.top / boardSize.height,
         rect.width / boardSize.width,
         rect.height / boardSize.height);
   }
-}
 
-enum HoldTypes { sloper, pocket, jug, roundedPocket }
+  double get dxRelativeHangAnchor => dxHangAnchor / boardSize.width;
+  double get dyRelativeHangAnchor => dyHangAnchor / boardSize.height;
+
+  factory BoardHold([void Function(BoardHoldBuilder) updates]) = _$BoardHold;
+  BoardHold._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(BoardHold.serializer, this));
+  }
+
+  static BoardHold fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        BoardHold.serializer, json.decode(jsonString));
+  }
+}

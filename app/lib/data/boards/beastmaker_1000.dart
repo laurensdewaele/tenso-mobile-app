@@ -2,227 +2,229 @@ import 'dart:ui';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
+import 'package:app/models/hold_type.dart';
 
 const Size _kBoardSize = const Size(395.88, 100);
 
 final List<BoardHold> boardHolds = [
-  BoardHold(
-      position: 1,
-      dxHangAnchor: 55,
-      dyHangAnchor: 0,
-      rect: Rect.fromLTWH(0, 0, 83, 15),
-      holdType: HoldTypes.jug,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 2,
-      dxHangAnchor: 115,
-      dyHangAnchor: 19,
-      sloperDegrees: 35,
-      rect: Rect.fromLTWH(83, 0, 64, 19),
-      holdType: HoldTypes.sloper,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 3,
-      dxHangAnchor: 147 + (50 / 2),
-      dyHangAnchor: 15,
-      sloperDegrees: 20,
-      rect: Rect.fromLTWH(147, 0, 50, 15),
-      holdType: HoldTypes.sloper,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 4,
-      dxHangAnchor: 197 + (53 / 2),
-      dyHangAnchor: 15,
-      sloperDegrees: 20,
-      rect: Rect.fromLTWH(197, 0, 53, 15),
-      holdType: HoldTypes.sloper,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 5,
-      dxHangAnchor: 250 + (64 / 2),
-      dyHangAnchor: 19,
-      sloperDegrees: 35,
-      rect: Rect.fromLTWH(250, 0, 64, 19),
-      holdType: HoldTypes.sloper,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 6,
-      dxHangAnchor: 342,
-      dyHangAnchor: 0,
-      rect: Rect.fromLTWH(313, 0, 83, 15),
-      holdType: HoldTypes.jug,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 7,
-      dxHangAnchor: 45,
-      dyHangAnchor: 33,
-      pocketDepth: 11,
-      rect: Rect.fromLTWH(0, 15, 83, 22),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 8,
-      dxHangAnchor: 171,
-      dyHangAnchor: 33,
-      pocketDepth: 30,
-      rect: Rect.fromLTWH(147, 15, 50, 22),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 3,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 9,
-      dxHangAnchor: 224,
-      dyHangAnchor: 33,
-      pocketDepth: 30,
-      rect: Rect.fromLTWH(197, 15, 53, 22),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 3,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 10,
-      dxHangAnchor: 350,
-      dyHangAnchor: 33,
-      pocketDepth: 11,
-      rect: Rect.fromLTWH(314, 15, 82, 22),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 11,
-      dxHangAnchor: 36,
-      dyHangAnchor: 57.5,
-      pocketDepth: 41.5,
-      rect: Rect.fromLTWH(0, 37, 72, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 12,
-      dxHangAnchor: 92.5,
-      dyHangAnchor: 57.5,
-      pocketDepth: 41.5,
-      rect: Rect.fromLTWH(72, 37, 40, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 2,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 13,
-      dxHangAnchor: 137.5,
-      dyHangAnchor: 57.5,
-      pocketDepth: 41.5,
-      rect: Rect.fromLTWH(112, 37, 50, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 3,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 14,
-      dxHangAnchor: 197.5,
-      dyHangAnchor: 57.5,
-      pocketDepth: 48,
-      rect: Rect.fromLTWH(162, 37, 72, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 15,
-      dxHangAnchor: 260,
-      dyHangAnchor: 57.5,
-      pocketDepth: 41.5,
-      rect: Rect.fromLTWH(234, 37, 52, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 3,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 16,
-      dxHangAnchor: 305,
-      dyHangAnchor: 57.5,
-      pocketDepth: 46.5,
-      rect: Rect.fromLTWH(286, 37, 39, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 2,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 17,
-      dxHangAnchor: 360.5,
-      dyHangAnchor: 57.5,
-      pocketDepth: 46.5,
-      rect: Rect.fromLTWH(325, 37, 71, 27),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 18,
-      dxHangAnchor: 74,
-      dyHangAnchor: 89.5,
-      pocketDepth: 15.5,
-      rect: Rect.fromLTWH(35, 64, 72, 36),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 19,
-      dxHangAnchor: 127,
-      dyHangAnchor: 89.5,
-      pocketDepth: 20.5,
-      rect: Rect.fromLTWH(107, 64, 40, 36),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 2,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 20,
-      dxHangAnchor: 172,
-      dyHangAnchor: 89.5,
-      pocketDepth: 15.5,
-      rect: Rect.fromLTWH(147, 64, 50, 36),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 3,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 21,
-      dxHangAnchor: 224,
-      dyHangAnchor: 89.5,
-      pocketDepth: 15.5,
-      rect: Rect.fromLTWH(197, 64, 53, 36),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 3,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 22,
-      dxHangAnchor: 269,
-      dyHangAnchor: 89.5,
-      pocketDepth: 20.5,
-      rect: Rect.fromLTWH(250, 64, 39, 36),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 2,
-      boardSize: _kBoardSize),
-  BoardHold(
-      position: 23,
-      dxHangAnchor: 322,
-      dyHangAnchor: 89.5,
-      pocketDepth: 15.5,
-      rect: Rect.fromLTWH(289, 64, 72, 36),
-      holdType: HoldTypes.roundedPocket,
-      maxAllowedFingers: 5,
-      boardSize: _kBoardSize),
+  BoardHold((b) => b
+    ..position = 1
+    ..dxHangAnchor = 55
+    ..dyHangAnchor = 0
+    ..rect = Rect.fromLTWH(0, 0, 83, 15)
+    ..holdType = HoldType.jug
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 2
+    ..dxHangAnchor = 115
+    ..dyHangAnchor = 19
+    ..sloperDegrees = 35
+    ..rect = Rect.fromLTWH(83, 0, 64, 19)
+    ..holdType = HoldType.sloper
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 3
+    ..dxHangAnchor = 147 + (50 / 2)
+    ..dyHangAnchor = 15
+    ..sloperDegrees = 20
+    ..rect = Rect.fromLTWH(147, 0, 50, 15)
+    ..holdType = HoldType.sloper
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 4
+    ..dxHangAnchor = 197 + (53 / 2)
+    ..dyHangAnchor = 15
+    ..sloperDegrees = 20
+    ..rect = Rect.fromLTWH(197, 0, 53, 15)
+    ..holdType = HoldType.sloper
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 5
+    ..dxHangAnchor = 250 + (64 / 2)
+    ..dyHangAnchor = 19
+    ..sloperDegrees = 35
+    ..rect = Rect.fromLTWH(250, 0, 64, 19)
+    ..holdType = HoldType.sloper
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 6
+    ..dxHangAnchor = 342
+    ..dyHangAnchor = 0
+    ..rect = Rect.fromLTWH(313, 0, 83, 15)
+    ..holdType = HoldType.jug
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 7
+    ..dxHangAnchor = 45
+    ..dyHangAnchor = 33
+    ..pocketDepth = 11
+    ..rect = Rect.fromLTWH(0, 15, 83, 22)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 8
+    ..dxHangAnchor = 171
+    ..dyHangAnchor = 33
+    ..pocketDepth = 30
+    ..rect = Rect.fromLTWH(147, 15, 50, 22)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 3
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 9
+    ..dxHangAnchor = 224
+    ..dyHangAnchor = 33
+    ..pocketDepth = 30
+    ..rect = Rect.fromLTWH(197, 15, 53, 22)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 3
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 10
+    ..dxHangAnchor = 350
+    ..dyHangAnchor = 33
+    ..pocketDepth = 11
+    ..rect = Rect.fromLTWH(314, 15, 82, 22)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 11
+    ..dxHangAnchor = 36
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 41.5
+    ..rect = Rect.fromLTWH(0, 37, 72, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 12
+    ..dxHangAnchor = 92.5
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 41.5
+    ..rect = Rect.fromLTWH(72, 37, 40, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 2
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 13
+    ..dxHangAnchor = 137.5
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 41.5
+    ..rect = Rect.fromLTWH(112, 37, 50, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 3
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 14
+    ..dxHangAnchor = 197.5
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 48
+    ..rect = Rect.fromLTWH(162, 37, 72, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 15
+    ..dxHangAnchor = 260
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 41.5
+    ..rect = Rect.fromLTWH(234, 37, 52, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 3
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 16
+    ..dxHangAnchor = 305
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 46.5
+    ..rect = Rect.fromLTWH(286, 37, 39, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 2
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 17
+    ..dxHangAnchor = 360.5
+    ..dyHangAnchor = 57.5
+    ..pocketDepth = 46.5
+    ..rect = Rect.fromLTWH(325, 37, 71, 27)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 18
+    ..dxHangAnchor = 74
+    ..dyHangAnchor = 89.5
+    ..pocketDepth = 15.5
+    ..rect = Rect.fromLTWH(35, 64, 72, 36)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 19
+    ..dxHangAnchor = 127
+    ..dyHangAnchor = 89.5
+    ..pocketDepth = 20.5
+    ..rect = Rect.fromLTWH(107, 64, 40, 36)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 2
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 20
+    ..dxHangAnchor = 172
+    ..dyHangAnchor = 89.5
+    ..pocketDepth = 15.5
+    ..rect = Rect.fromLTWH(147, 64, 50, 36)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 3
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 21
+    ..dxHangAnchor = 224
+    ..dyHangAnchor = 89.5
+    ..pocketDepth = 15.5
+    ..rect = Rect.fromLTWH(197, 64, 53, 36)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 3
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 22
+    ..dxHangAnchor = 269
+    ..dyHangAnchor = 89.5
+    ..pocketDepth = 20.5
+    ..rect = Rect.fromLTWH(250, 64, 39, 36)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 2
+    ..boardSize = _kBoardSize),
+  BoardHold((b) => b
+    ..position = 23
+    ..dxHangAnchor = 322
+    ..dyHangAnchor = 89.5
+    ..pocketDepth = 15.5
+    ..rect = Rect.fromLTWH(289, 64, 72, 36)
+    ..holdType = HoldType.roundedPocket
+    ..maxAllowedFingers = 5
+    ..boardSize = _kBoardSize),
 ];
 
-final beastmaker1000 = Board(
-  manufacturer: 'Beastmaker',
-  model: '1000',
-  size: _kBoardSize,
-  assetSrc: 'assets/images/boards/beastmaker_1000.png',
-  handToBoardHeightRatio: 1.2,
-  aspectRatio: _kBoardSize.aspectRatio,
-  boardHolds: boardHolds,
-  defaultLeftGripHold:
-      boardHolds.singleWhere((boardHold) => boardHold.position == 11),
-  defaultRightGripHold:
-      boardHolds.singleWhere((boardHold) => boardHold.position == 17),
-);
+final beastmaker1000 = Board((b) => b
+  ..manufacturer = 'Beastmaker'
+  ..model = '1000'
+  ..size = _kBoardSize
+  ..assetSrc = 'assets/images/boards/beastmaker_1000.png'
+  ..handToBoardHeightRatio = 1.2
+  ..aspectRatio = _kBoardSize.aspectRatio
+  ..boardHolds.addAll(boardHolds)
+  ..defaultLeftGripHold = boardHolds
+      .singleWhere((boardHold) => boardHold.position == 11)
+      .toBuilder()
+  ..defaultRightGripHold = boardHolds
+      .singleWhere((boardHold) => boardHold.position == 17)
+      .toBuilder());

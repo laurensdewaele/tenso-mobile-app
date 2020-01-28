@@ -1,28 +1,36 @@
+import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:app/models/board_hold.dart';
+import 'package:app/models/serializers.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
-class Board {
-  const Board(
-      {@required this.manufacturer,
-      @required this.model,
-      @required this.size,
-      @required this.boardHolds,
-      @required this.assetSrc,
-      @required this.handToBoardHeightRatio,
-      @required this.aspectRatio,
-      @required this.defaultLeftGripHold,
-      @required this.defaultRightGripHold});
+part 'board.g.dart';
 
-  final String manufacturer;
-  final String model;
-  final Size size;
-  final double aspectRatio;
-  final List<BoardHold> boardHolds;
-  final double handToBoardHeightRatio;
-  final String assetSrc;
-  final BoardHold defaultLeftGripHold;
-  final BoardHold defaultRightGripHold;
+abstract class Board implements Built<Board, BoardBuilder> {
+  static Serializer<Board> get serializer => _$boardSerializer;
+
+  String get manufacturer;
+  String get model;
+  Size get size;
+  double get aspectRatio;
+  BuiltList<BoardHold> get boardHolds;
+  double get handToBoardHeightRatio;
+  String get assetSrc;
+  BoardHold get defaultLeftGripHold;
+  BoardHold get defaultRightGripHold;
+
+  factory Board([void Function(BoardBuilder) updates]) = _$Board;
+  Board._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Board.serializer, this));
+  }
+
+  static Board fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Board.serializer, json.decode(jsonString));
+  }
 }
