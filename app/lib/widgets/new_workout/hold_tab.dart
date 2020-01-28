@@ -52,16 +52,16 @@ class HoldTab extends StatelessWidget {
               handleRightGripChanged: (Grip grip) =>
                   workoutViewModel.setHoldRightGrip(currentHold, grip),
               handleOneHandedTap: (HandType handType) {
-                HandHolds handHold;
+                HandHold handHold;
                 if (handType == HandType.leftHand) {
-                  handHold = HandHolds.oneHandedLeft;
+                  handHold = HandHold.oneHandedLeft;
                 } else {
-                  handHold = HandHolds.oneHandedRight;
+                  handHold = HandHold.oneHandedRight;
                 }
                 workoutViewModel.setHoldHandHold(currentHold, handHold);
               },
               handleTwoHandedTap: () => workoutViewModel.setHoldHandHold(
-                  currentHold, HandHolds.twoHanded),
+                  currentHold, HandHold.twoHanded),
             )
           ],
         ),

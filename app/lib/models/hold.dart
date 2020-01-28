@@ -1,41 +1,38 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
+import 'package:app/models/serializers.dart';
 
-enum HoldProperties {
-  leftGrip,
-  rightGrip,
-  handHold,
-  leftGripBoardHold,
-  rightGripBoardHold,
-  repetitions,
-  restBetweenRepetitions,
-  hangTime,
-  addedWeight
-}
+part 'hold.g.dart';
 
-@immutable
-class Hold {
-  const Hold(
-      {this.leftGrip,
-      this.rightGrip,
-      @required this.handHold,
-      @required this.leftGripBoardHold,
-      @required this.rightGripBoardHold,
-      @required this.repetitions,
-      @required this.restBetweenRepetitions,
-      @required this.hangTime,
-      @required this.addedWeight});
+abstract class Hold implements Built<Hold, HoldBuilder> {
+  static Serializer<Hold> get serializer => _$holdSerializer;
 
-  final Grip leftGrip;
-  final Grip rightGrip;
-  final HandHolds handHold;
-  final BoardHold leftGripBoardHold;
-  final BoardHold rightGripBoardHold;
-  final int repetitions;
-  final int restBetweenRepetitions;
-  final int hangTime;
-  final double addedWeight;
+  Grip get leftGrip;
+  Grip get rightGrip;
+  HandHold get handHold;
+  BoardHold get leftGripBoardHold;
+  BoardHold get rightGripBoardHold;
+  int get repetitions;
+  int get restBetweenRepetitions;
+  int get hangTime;
+  double get addedWeight;
+
+  factory Hold([void Function(HoldBuilder) updates]) = _$Hold;
+
+  Hold._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Hold.serializer, this));
+  }
+
+  static Hold fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Hold.serializer, json.decode(jsonString));
+  }
 }

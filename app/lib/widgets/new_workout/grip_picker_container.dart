@@ -28,7 +28,7 @@ class GripPickerContainer extends StatefulWidget {
   final int currentHold;
   final Grip selectedLeftGrip;
   final Grip selectedRightGrip;
-  final HandHolds selectedHandHold;
+  final HandHold selectedHandHold;
   final Function(Grip grip) handleLeftGripChanged;
   final Function(Grip grip) handleRightGripChanged;
   final VoidCallback handleTwoHandedTap;
@@ -44,7 +44,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
   @override
   void initState() {
     super.initState();
-    if (widget.selectedHandHold == HandHolds.oneHandedRight) {
+    if (widget.selectedHandHold == HandHold.oneHandedRight) {
       _selectedHand = HandType.rightHand;
     } else {
       _selectedHand = HandType.leftHand;
@@ -57,9 +57,9 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
   }
 
   void _handleLeftHandSelected() {
-    if (widget.selectedHandHold != HandHolds.twoHanded) {
+    if (widget.selectedHandHold != HandHold.twoHanded) {
       Provider.of<WorkoutViewModel>(context, listen: false)
-          .setHoldHandHold(widget.currentHold, HandHolds.oneHandedLeft);
+          .setHoldHandHold(widget.currentHold, HandHold.oneHandedLeft);
     }
     setState(() {
       _selectedHand = HandType.leftHand;
@@ -67,9 +67,9 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
   }
 
   void _handleRightHandSelected() {
-    if (widget.selectedHandHold != HandHolds.twoHanded) {
+    if (widget.selectedHandHold != HandHold.twoHanded) {
       Provider.of<WorkoutViewModel>(context, listen: false)
-          .setHoldHandHold(widget.currentHold, HandHolds.oneHandedRight);
+          .setHoldHandHold(widget.currentHold, HandHold.oneHandedRight);
     }
     setState(() {
       _selectedHand = HandType.rightHand;
@@ -80,7 +80,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        _HandHoldsRadioGroup(
+        _HandHoldRadioGroup(
             selectedHandHold: widget.selectedHandHold,
             handleTwoHandedTap: widget.handleTwoHandedTap,
             handleOneHandedTap: () => widget.handleOneHandedTap(_selectedHand)),
@@ -107,13 +107,13 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
   }
 }
 
-class _HandHoldsRadioGroup extends StatelessWidget {
-  _HandHoldsRadioGroup(
+class _HandHoldRadioGroup extends StatelessWidget {
+  _HandHoldRadioGroup(
       {@required this.selectedHandHold,
       @required this.handleOneHandedTap,
       @required this.handleTwoHandedTap});
 
-  final HandHolds selectedHandHold;
+  final HandHold selectedHandHold;
   final VoidCallback handleTwoHandedTap;
   final VoidCallback handleOneHandedTap;
 
@@ -123,14 +123,14 @@ class _HandHoldsRadioGroup extends StatelessWidget {
       RadioButton(
         description: 'Two handed',
         value: null,
-        active: selectedHandHold == HandHolds.twoHanded,
+        active: selectedHandHold == HandHold.twoHanded,
         handleSelected: (v) => handleTwoHandedTap(),
       ),
       RadioButton(
         description: 'One handed',
         value: null,
-        active: selectedHandHold == HandHolds.oneHandedLeft ||
-            selectedHandHold == HandHolds.oneHandedRight,
+        active: selectedHandHold == HandHold.oneHandedLeft ||
+            selectedHandHold == HandHold.oneHandedRight,
         handleSelected: (v) => handleOneHandedTap(),
       ),
     ]);

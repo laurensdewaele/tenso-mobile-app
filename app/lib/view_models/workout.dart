@@ -118,118 +118,49 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
-    // You have to set a new Hold object.
-    // It has to be immutable, otherwise changeNotifier will not pick up on it.
-    // I tried it via a much less verbose, mutable way.
-    _holds[holdNo] = Hold(
-        leftGrip: grip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] =
+        _holds[holdNo].rebuild((b) => b..leftGrip = grip.toBuilder());
     notifyListeners();
   }
 
   void setHoldRightGrip(int holdNo, Grip grip) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: grip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] =
+        _holds[holdNo].rebuild((b) => b..rightGrip = grip.toBuilder());
     notifyListeners();
   }
 
-  void setHoldHandHold(int holdNo, HandHolds handHold) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+  void setHoldHandHold(int holdNo, HandHold handHold) {
+    _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
     _checkHands(holdNo);
     notifyListeners();
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: boardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] = _holds[holdNo]
+        .rebuild((b) => b..leftGripBoardHold = boardHold.toBuilder());
     notifyListeners();
   }
 
   void setHoldRightGripBoardHold(int holdNo, BoardHold boardHold) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: boardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] = _holds[holdNo]
+        .rebuild((b) => b..rightGripBoardHold = boardHold.toBuilder());
     notifyListeners();
   }
 
   void setHoldRepetitions(int holdNo, int repetitions) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] =
+        _holds[holdNo].rebuild((b) => b..repetitions = repetitions);
     notifyListeners();
   }
 
   void setHoldRestBetweenRepetitions(int holdNo, int seconds) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: seconds,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] =
+        _holds[holdNo].rebuild((b) => b..restBetweenRepetitions = seconds);
     notifyListeners();
   }
 
   void setHoldHangTime(int holdNo, int seconds) {
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: seconds,
-        addedWeight: _holds[holdNo].addedWeight);
+    _holds[holdNo] = _holds[holdNo].rebuild((b) => b..hangTime = seconds);
     notifyListeners();
   }
 
@@ -242,16 +173,7 @@ class WorkoutViewModel extends ChangeNotifier {
       weight = UnitConversion.convertPoundsToKg(addedWeight);
     }
 
-    _holds[holdNo] = Hold(
-        leftGrip: _holds[holdNo].leftGrip,
-        rightGrip: _holds[holdNo].rightGrip,
-        handHold: _holds[holdNo].handHold,
-        leftGripBoardHold: _holds[holdNo].leftGripBoardHold,
-        rightGripBoardHold: _holds[holdNo].rightGripBoardHold,
-        repetitions: _holds[holdNo].repetitions,
-        restBetweenRepetitions: _holds[holdNo].restBetweenRepetitions,
-        hangTime: _holds[holdNo].hangTime,
-        addedWeight: weight);
+    _holds[holdNo] = _holds[holdNo].rebuild((b) => b..addedWeight = weight);
     notifyListeners();
   }
 
@@ -259,34 +181,34 @@ class WorkoutViewModel extends ChangeNotifier {
     final hold = _holds[holdNo];
 
     if (hold.leftGrip == null) {
-      setHoldHandHold(holdNo, HandHolds.oneHandedRight);
+      setHoldHandHold(holdNo, HandHold.oneHandedRight);
     }
 
     if (hold.rightGrip == null) {
-      setHoldHandHold(holdNo, HandHolds.oneHandedLeft);
+      setHoldHandHold(holdNo, HandHold.oneHandedLeft);
     }
   }
 
   void _checkHands(int holdNo) {
     final hold = _holds[holdNo];
 
-    if (hold.handHold == HandHolds.oneHandedLeft) {
+    if (hold.handHold == HandHold.oneHandedLeft) {
       setHoldRightGrip(holdNo, null);
     }
 
-    if (hold.handHold == HandHolds.oneHandedLeft && hold.leftGrip == null) {
+    if (hold.handHold == HandHold.oneHandedLeft && hold.leftGrip == null) {
       setHoldLeftGrip(holdNo, Grips.openHandL);
     }
 
-    if (hold.handHold == HandHolds.oneHandedRight) {
+    if (hold.handHold == HandHold.oneHandedRight) {
       setHoldLeftGrip(holdNo, null);
     }
 
-    if (hold.handHold == HandHolds.oneHandedRight && hold.rightGrip == null) {
+    if (hold.handHold == HandHold.oneHandedRight && hold.rightGrip == null) {
       setHoldRightGrip(holdNo, Grips.openHandR);
     }
 
-    if (hold.handHold == HandHolds.twoHanded) {
+    if (hold.handHold == HandHold.twoHanded) {
       if (hold.leftGrip == null) {
         setHoldLeftGrip(holdNo, Grips.openHandL);
       }
