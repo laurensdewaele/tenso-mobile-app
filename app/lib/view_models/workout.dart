@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:app/models/workout.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -93,7 +95,7 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   List<Hold> _holds;
-  List<Hold> get holds => _holds;
+  UnmodifiableListView<Hold> get holds => UnmodifiableListView(_holds);
   void setHolds(List<Hold> h) {
     _holds = h;
     notifyListeners();
