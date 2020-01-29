@@ -63,4 +63,3 @@ Do i need SQL => yes.
 - Unhandled exception when rapidly closing and opening an accordion on the overview page.
   [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle view_models: created))
   null
-

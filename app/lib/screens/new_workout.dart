@@ -127,9 +127,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                               context,
                                               listen: true)
                                           .holdCount,
-                                      workoutViewModel: Provider.of<WorkoutViewModel>(
-                                          context,
-                                          listen: true),
                                       shouldLoseFocusStream:
                                           _shouldLoseFocusStreamController
                                               .stream,
