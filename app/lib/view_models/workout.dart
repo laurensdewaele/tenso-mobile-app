@@ -120,14 +120,14 @@ class WorkoutViewModel extends ChangeNotifier {
   void setHoldLeftGrip(int holdNo, Grip grip) {
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
-        ..rightGrip = _holds[holdNo].rightGrip.toBuilder()
+        ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
         ..handHold = _holds[holdNo].handHold
         ..addedWeight = _holds[holdNo].addedWeight
         ..hangTime = _holds[holdNo].hangTime
         ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
         ..repetitions = _holds[holdNo].repetitions
-        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold.toBuilder()
-        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold.toBuilder());
+        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold?.toBuilder()
+        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold?.toBuilder());
     } else {
       _holds[holdNo] =
           _holds[holdNo].rebuild((b) => b..leftGrip = grip.toBuilder());
@@ -138,14 +138,14 @@ class WorkoutViewModel extends ChangeNotifier {
   void setHoldRightGrip(int holdNo, Grip grip) {
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
-        ..leftGrip = _holds[holdNo].leftGrip.toBuilder()
+        ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
         ..handHold = _holds[holdNo].handHold
         ..addedWeight = _holds[holdNo].addedWeight
         ..hangTime = _holds[holdNo].hangTime
         ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
         ..repetitions = _holds[holdNo].repetitions
-        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold.toBuilder()
-        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold.toBuilder());
+        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold?.toBuilder()
+        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold?.toBuilder());
     } else {
       _holds[holdNo] =
           _holds[holdNo].rebuild((b) => b..rightGrip = grip.toBuilder());
@@ -160,12 +160,35 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
+    if (boardHold == null) {
+      _holds[holdNo] = Hold((b) => b
+        ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
+        ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
+        ..handHold = _holds[holdNo].handHold
+        ..addedWeight = _holds[holdNo].addedWeight
+        ..hangTime = _holds[holdNo].hangTime
+        ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
+        ..repetitions = _holds[holdNo].repetitions
+        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold?.toBuilder());
+    }
+
     _holds[holdNo] = _holds[holdNo]
         .rebuild((b) => b..leftGripBoardHold = boardHold.toBuilder());
     notifyListeners();
   }
 
   void setHoldRightGripBoardHold(int holdNo, BoardHold boardHold) {
+    if (boardHold == null) {
+      _holds[holdNo] = Hold((b) => b
+        ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
+        ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
+        ..handHold = _holds[holdNo].handHold
+        ..addedWeight = _holds[holdNo].addedWeight
+        ..hangTime = _holds[holdNo].hangTime
+        ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
+        ..repetitions = _holds[holdNo].repetitions
+        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold?.toBuilder());
+    }
     _holds[holdNo] = _holds[holdNo]
         .rebuild((b) => b..rightGripBoardHold = boardHold.toBuilder());
     notifyListeners();
@@ -218,6 +241,7 @@ class WorkoutViewModel extends ChangeNotifier {
 
     if (hold.handHold == HandHold.oneHandedLeft) {
       setHoldRightGrip(holdNo, null);
+      setHoldRightGripBoardHold(holdNo, null);
     }
 
     if (hold.handHold == HandHold.oneHandedLeft && hold.leftGrip == null) {
@@ -226,6 +250,7 @@ class WorkoutViewModel extends ChangeNotifier {
 
     if (hold.handHold == HandHold.oneHandedRight) {
       setHoldLeftGrip(holdNo, null);
+      setHoldLeftGripBoardHold(holdNo, null);
     }
 
     if (hold.handHold == HandHold.oneHandedRight && hold.rightGrip == null) {
