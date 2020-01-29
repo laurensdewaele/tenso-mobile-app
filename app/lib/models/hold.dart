@@ -13,11 +13,20 @@ part 'hold.g.dart';
 abstract class Hold implements Built<Hold, HoldBuilder> {
   static Serializer<Hold> get serializer => _$holdSerializer;
 
+  @nullable
   Grip get leftGrip;
+
+  @nullable
   Grip get rightGrip;
+
   HandHold get handHold;
+
+  @nullable
   BoardHold get leftGripBoardHold;
+
+  @nullable
   BoardHold get rightGripBoardHold;
+
   int get repetitions;
   int get restBetweenRepetitions;
   int get hangTime;

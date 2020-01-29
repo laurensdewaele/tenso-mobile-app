@@ -18,21 +18,9 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
   Iterable<Object> serialize(Serializers serializers, Hold object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'leftGrip',
-      serializers.serialize(object.leftGrip,
-          specifiedType: const FullType(Grip)),
-      'rightGrip',
-      serializers.serialize(object.rightGrip,
-          specifiedType: const FullType(Grip)),
       'handHold',
       serializers.serialize(object.handHold,
           specifiedType: const FullType(HandHold)),
-      'leftGripBoardHold',
-      serializers.serialize(object.leftGripBoardHold,
-          specifiedType: const FullType(BoardHold)),
-      'rightGripBoardHold',
-      serializers.serialize(object.rightGripBoardHold,
-          specifiedType: const FullType(BoardHold)),
       'repetitions',
       serializers.serialize(object.repetitions,
           specifiedType: const FullType(int)),
@@ -46,7 +34,30 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
       serializers.serialize(object.addedWeight,
           specifiedType: const FullType(double)),
     ];
-
+    if (object.leftGrip != null) {
+      result
+        ..add('leftGrip')
+        ..add(serializers.serialize(object.leftGrip,
+            specifiedType: const FullType(Grip)));
+    }
+    if (object.rightGrip != null) {
+      result
+        ..add('rightGrip')
+        ..add(serializers.serialize(object.rightGrip,
+            specifiedType: const FullType(Grip)));
+    }
+    if (object.leftGripBoardHold != null) {
+      result
+        ..add('leftGripBoardHold')
+        ..add(serializers.serialize(object.leftGripBoardHold,
+            specifiedType: const FullType(BoardHold)));
+    }
+    if (object.rightGripBoardHold != null) {
+      result
+        ..add('rightGripBoardHold')
+        ..add(serializers.serialize(object.rightGripBoardHold,
+            specifiedType: const FullType(BoardHold)));
+    }
     return result;
   }
 
@@ -138,20 +149,8 @@ class _$Hold extends Hold {
       this.hangTime,
       this.addedWeight})
       : super._() {
-    if (leftGrip == null) {
-      throw new BuiltValueNullFieldError('Hold', 'leftGrip');
-    }
-    if (rightGrip == null) {
-      throw new BuiltValueNullFieldError('Hold', 'rightGrip');
-    }
     if (handHold == null) {
       throw new BuiltValueNullFieldError('Hold', 'handHold');
-    }
-    if (leftGripBoardHold == null) {
-      throw new BuiltValueNullFieldError('Hold', 'leftGripBoardHold');
-    }
-    if (rightGripBoardHold == null) {
-      throw new BuiltValueNullFieldError('Hold', 'rightGripBoardHold');
     }
     if (repetitions == null) {
       throw new BuiltValueNullFieldError('Hold', 'repetitions');
@@ -306,11 +305,11 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
     try {
       _$result = _$v ??
           new _$Hold._(
-              leftGrip: leftGrip.build(),
-              rightGrip: rightGrip.build(),
+              leftGrip: _leftGrip?.build(),
+              rightGrip: _rightGrip?.build(),
               handHold: handHold,
-              leftGripBoardHold: leftGripBoardHold.build(),
-              rightGripBoardHold: rightGripBoardHold.build(),
+              leftGripBoardHold: _leftGripBoardHold?.build(),
+              rightGripBoardHold: _rightGripBoardHold?.build(),
               repetitions: repetitions,
               restBetweenRepetitions: restBetweenRepetitions,
               hangTime: hangTime,
@@ -319,14 +318,14 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
       String _$failedField;
       try {
         _$failedField = 'leftGrip';
-        leftGrip.build();
+        _leftGrip?.build();
         _$failedField = 'rightGrip';
-        rightGrip.build();
+        _rightGrip?.build();
 
         _$failedField = 'leftGripBoardHold';
-        leftGripBoardHold.build();
+        _leftGripBoardHold?.build();
         _$failedField = 'rightGripBoardHold';
-        rightGripBoardHold.build();
+        _rightGripBoardHold?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Hold', _$failedField, e.toString());

@@ -118,14 +118,38 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
-    _holds[holdNo] =
-        _holds[holdNo].rebuild((b) => b..leftGrip = grip.toBuilder());
+    if (grip == null) {
+      _holds[holdNo] = Hold((b) => b
+        ..rightGrip = _holds[holdNo].rightGrip.toBuilder()
+        ..handHold = _holds[holdNo].handHold
+        ..addedWeight = _holds[holdNo].addedWeight
+        ..hangTime = _holds[holdNo].hangTime
+        ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
+        ..repetitions = _holds[holdNo].repetitions
+        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold.toBuilder()
+        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold.toBuilder());
+    } else {
+      _holds[holdNo] =
+          _holds[holdNo].rebuild((b) => b..leftGrip = grip.toBuilder());
+    }
     notifyListeners();
   }
 
   void setHoldRightGrip(int holdNo, Grip grip) {
-    _holds[holdNo] =
-        _holds[holdNo].rebuild((b) => b..rightGrip = grip.toBuilder());
+    if (grip == null) {
+      _holds[holdNo] = Hold((b) => b
+        ..leftGrip = _holds[holdNo].leftGrip.toBuilder()
+        ..handHold = _holds[holdNo].handHold
+        ..addedWeight = _holds[holdNo].addedWeight
+        ..hangTime = _holds[holdNo].hangTime
+        ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
+        ..repetitions = _holds[holdNo].repetitions
+        ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold.toBuilder()
+        ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold.toBuilder());
+    } else {
+      _holds[holdNo] =
+          _holds[holdNo].rebuild((b) => b..rightGrip = grip.toBuilder());
+    }
     notifyListeners();
   }
 
