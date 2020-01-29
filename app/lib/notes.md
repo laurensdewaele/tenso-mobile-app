@@ -1,3 +1,15 @@
+It makes no sense to have this kind of a separation between my Workout model and my WorkoutViewModel.
+I should just have a Workout workout field in my WorkoutViewModel that I update correspondently.
+Otherwise it's very error prone.
+
+
+Built value babby!
+
+
+
+
+
+
 Sooo as for services: 
 
 - I have a persistent service that persists my data to disk
