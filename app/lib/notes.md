@@ -3,12 +3,6 @@ I should just have a Workout workout field in my WorkoutViewModel that I update 
 Otherwise it's very error prone.
 
 
-Built value babby!
-
-
-
-
-
 
 Sooo as for services: 
 
