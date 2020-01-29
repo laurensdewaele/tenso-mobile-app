@@ -69,6 +69,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   }
 
   @override
+  // TODO: Move all logic to viewModel
   void didUpdateWidget(BoardHoldPicker oldWidget) {
     if (oldWidget.leftGrip != widget.leftGrip && widget.leftGrip != null) {
       final Widget errorMessage =

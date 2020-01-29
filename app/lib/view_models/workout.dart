@@ -1,3 +1,4 @@
+import 'package:app/models/workout.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/grips.dart';
@@ -15,27 +16,29 @@ import 'package:app/models/unit.dart';
 // Otherwise, we cannot make a call to notifyListeners() when setting as value.
 
 class WorkoutViewModel extends ChangeNotifier {
-  WorkoutViewModel(
-      {int holdCount,
-      int sets,
-      int restBetweenHolds,
-      int restBetweenSets,
-      Board board,
-      String difficulty,
-      List<Hold> holds,
-      String name,
-      Color difficultyColor,
-      int duration}) {
-    _holdCount = holdCount;
-    _sets = sets;
-    _restBetweenHolds = restBetweenHolds;
-    _restBetweenSets = restBetweenSets;
-    _board = board;
-    _difficulty = difficulty;
-    _holds = holds;
-    _name = name;
-    _difficultyColor = difficultyColor;
-    _duration = duration;
+  WorkoutViewModel.fromWorkoutModel(Workout workout) {
+    _holdCount = workout.holdCount;
+    _sets = workout.sets;
+    _restBetweenHolds = workout.restBetweenHolds;
+    _restBetweenSets = workout.restBetweenSets;
+    _board = workout.board;
+    _difficulty = workout.difficulty;
+    _holds = workout.holds.toList();
+    _name = workout.name;
+    _difficultyColor = workout.difficultyColor;
+    _duration = workout.duration;
+  }
+
+  Workout toWorkoutModel() {
+    return Workout((b) => b
+      ..holdCount = holdCount
+      ..sets = sets
+      ..restBetweenSets = restBetweenSets
+      ..restBetweenHolds = restBetweenHolds
+      ..board = board.toBuilder()
+      ..difficulty = difficulty
+      ..holds.addAll(holds)
+      ..name = name);
   }
 
   int _holdCount;
@@ -170,10 +173,10 @@ class WorkoutViewModel extends ChangeNotifier {
         ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
         ..repetitions = _holds[holdNo].repetitions
         ..rightGripBoardHold = _holds[holdNo].rightGripBoardHold?.toBuilder());
+    } else {
+      _holds[holdNo] = _holds[holdNo]
+          .rebuild((b) => b..leftGripBoardHold = boardHold.toBuilder());
     }
-
-    _holds[holdNo] = _holds[holdNo]
-        .rebuild((b) => b..leftGripBoardHold = boardHold.toBuilder());
     notifyListeners();
   }
 
@@ -188,9 +191,11 @@ class WorkoutViewModel extends ChangeNotifier {
         ..restBetweenRepetitions = _holds[holdNo].restBetweenRepetitions
         ..repetitions = _holds[holdNo].repetitions
         ..leftGripBoardHold = _holds[holdNo].leftGripBoardHold?.toBuilder());
+    } else {
+      _holds[holdNo] = _holds[holdNo]
+          .rebuild((b) => b..rightGripBoardHold = boardHold.toBuilder());
     }
-    _holds[holdNo] = _holds[holdNo]
-        .rebuild((b) => b..rightGripBoardHold = boardHold.toBuilder());
+
     notifyListeners();
   }
 

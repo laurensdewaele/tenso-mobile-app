@@ -20,7 +20,8 @@ class App extends StatelessWidget {
           create: (context) => defaultSettingsViewModel,
         ),
         ChangeNotifierProvider<WorkoutViewModel>(
-            create: (context) => basicWorkoutViewModel)
+            create: (context) =>
+                WorkoutViewModel.fromWorkoutModel(basicWorkout))
       ],
       child: CupertinoApp(
           routes: getRoutes(context), color: styles.Colors.primary),
