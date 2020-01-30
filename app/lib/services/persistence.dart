@@ -28,8 +28,32 @@ class PersistenceService {
     return File('$path/workouts.txt');
   }
 
+  // TODO: Refact ofc.
   Future<Workout> fetchLatestCreatedWorkout() {
     return Future.delayed(Duration(milliseconds: 20), () => basicWorkout);
+  }
+
+  void saveWorkout(Workout workout) async {
+    try {
+      final file = await _localFile;
+      String test = workout.toJson().toString();
+      print(test);
+      print('writing test');
+      file.writeAsString(workout.toJson().toString());
+    } catch (e) {
+      print(e);
+      // TODO: Error handling
+    }
+  }
+
+  Future<Workout> getWorkout() async {
+    try {
+      final file = await _localFile;
+      String contents = await file.readAsString();
+      return Workout.fromJson(contents);
+    } catch (e) {
+      // TODO: Error handling.
+    }
   }
 
   Future<File> writeWorkouts(List<Workout> workouts) async {

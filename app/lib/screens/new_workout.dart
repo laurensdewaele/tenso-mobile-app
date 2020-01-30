@@ -6,7 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/active_workout.dart';
+import 'package:app/view_models/workout_state.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';

@@ -1,6 +1,6 @@
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/active_workout.dart';
+import 'package:app/view_models/workout_state.dart';
 
 class GeneralTabViewModel {
   GeneralTabViewModel(this._workoutState);

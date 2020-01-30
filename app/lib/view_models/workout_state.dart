@@ -21,8 +21,10 @@ class WorkoutState extends ChangeNotifier {
     }
     return _workout;
   }
+
   void setWorkout(Workout workout) {
     _workout = workout;
+    _persistenceService.saveWorkout(workout);
     notifyListeners();
   }
 }

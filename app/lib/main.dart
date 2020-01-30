@@ -7,7 +7,7 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/active_workout.dart';
+import 'package:app/view_models/workout_state.dart';
 import 'package:app/view_models/general_tab.dart';
 import 'package:app/view_models/settings.dart';
 import 'package:app/view_models/workout.dart';
