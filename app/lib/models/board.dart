@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
@@ -15,7 +14,8 @@ abstract class Board implements Built<Board, BoardBuilder> {
 
   String get manufacturer;
   String get model;
-  Size get size;
+  double get width;
+  double get height;
   double get aspectRatio;
   BuiltList<BoardHold> get boardHolds;
   double get handToBoardHeightRatio;

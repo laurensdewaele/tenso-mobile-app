@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -13,26 +12,18 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   static Serializer<BoardHold> get serializer => _$boardHoldSerializer;
 
   int get position;
-  Rect get rect;
   HoldType get holdType;
   int get maxAllowedFingers;
-  Size get boardSize;
   @nullable
   double get sloperDegrees;
   @nullable
   double get pocketDepth;
-  double get dxHangAnchor;
-  double get dyHangAnchor;
-  Rect get relativeRect {
-    return Rect.fromLTWH(
-        rect.left / boardSize.width,
-        rect.top / boardSize.height,
-        rect.width / boardSize.width,
-        rect.height / boardSize.height);
-  }
-
-  double get dxRelativeHangAnchor => dxHangAnchor / boardSize.width;
-  double get dyRelativeHangAnchor => dyHangAnchor / boardSize.height;
+  double get dxRelativeHangAnchor;
+  double get dyRelativeHangAnchor;
+  double get relativeLeft;
+  double get relativeTop;
+  double get relativeWidth;
+  double get relativeHeight;
 
   factory BoardHold([void Function(BoardHoldBuilder) updates]) = _$BoardHold;
   BoardHold._();

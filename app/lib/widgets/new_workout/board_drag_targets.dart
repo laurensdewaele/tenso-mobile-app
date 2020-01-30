@@ -76,10 +76,10 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
           )),
           ...widget.board.boardHolds.map((BoardHold boardHold) {
             final Rect rect = Rect.fromLTWH(
-                boardHold.relativeRect.left * _boardSize.width,
-                boardHold.relativeRect.top * _boardSize.height,
-                boardHold.relativeRect.width * _boardSize.width,
-                boardHold.relativeRect.height * _boardSize.height);
+                boardHold.relativeLeft * _boardSize.width,
+                boardHold.relativeTop * _boardSize.height,
+                boardHold.relativeWidth * _boardSize.width,
+                boardHold.relativeHeight * _boardSize.height);
             return Positioned.fromRect(
                 rect: rect,
                 child: DragTarget(

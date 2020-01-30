@@ -24,8 +24,12 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
       'model',
       serializers.serialize(object.model,
           specifiedType: const FullType(String)),
-      'size',
-      serializers.serialize(object.size, specifiedType: const FullType(Size)),
+      'width',
+      serializers.serialize(object.width,
+          specifiedType: const FullType(double)),
+      'height',
+      serializers.serialize(object.height,
+          specifiedType: const FullType(double)),
       'aspectRatio',
       serializers.serialize(object.aspectRatio,
           specifiedType: const FullType(double)),
@@ -69,9 +73,13 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
           result.model = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'size':
-          result.size = serializers.deserialize(value,
-              specifiedType: const FullType(Size)) as Size;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
           break;
         case 'aspectRatio':
           result.aspectRatio = serializers.deserialize(value,
@@ -112,7 +120,9 @@ class _$Board extends Board {
   @override
   final String model;
   @override
-  final Size size;
+  final double width;
+  @override
+  final double height;
   @override
   final double aspectRatio;
   @override
@@ -132,7 +142,8 @@ class _$Board extends Board {
   _$Board._(
       {this.manufacturer,
       this.model,
-      this.size,
+      this.width,
+      this.height,
       this.aspectRatio,
       this.boardHolds,
       this.handToBoardHeightRatio,
@@ -146,8 +157,11 @@ class _$Board extends Board {
     if (model == null) {
       throw new BuiltValueNullFieldError('Board', 'model');
     }
-    if (size == null) {
-      throw new BuiltValueNullFieldError('Board', 'size');
+    if (width == null) {
+      throw new BuiltValueNullFieldError('Board', 'width');
+    }
+    if (height == null) {
+      throw new BuiltValueNullFieldError('Board', 'height');
     }
     if (aspectRatio == null) {
       throw new BuiltValueNullFieldError('Board', 'aspectRatio');
@@ -182,7 +196,8 @@ class _$Board extends Board {
     return other is Board &&
         manufacturer == other.manufacturer &&
         model == other.model &&
-        size == other.size &&
+        width == other.width &&
+        height == other.height &&
         aspectRatio == other.aspectRatio &&
         boardHolds == other.boardHolds &&
         handToBoardHeightRatio == other.handToBoardHeightRatio &&
@@ -200,9 +215,11 @@ class _$Board extends Board {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, manufacturer.hashCode),
-                                    model.hashCode),
-                                size.hashCode),
+                                $jc(
+                                    $jc($jc(0, manufacturer.hashCode),
+                                        model.hashCode),
+                                    width.hashCode),
+                                height.hashCode),
                             aspectRatio.hashCode),
                         boardHolds.hashCode),
                     handToBoardHeightRatio.hashCode),
@@ -216,7 +233,8 @@ class _$Board extends Board {
     return (newBuiltValueToStringHelper('Board')
           ..add('manufacturer', manufacturer)
           ..add('model', model)
-          ..add('size', size)
+          ..add('width', width)
+          ..add('height', height)
           ..add('aspectRatio', aspectRatio)
           ..add('boardHolds', boardHolds)
           ..add('handToBoardHeightRatio', handToBoardHeightRatio)
@@ -238,9 +256,13 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
   String get model => _$this._model;
   set model(String model) => _$this._model = model;
 
-  Size _size;
-  Size get size => _$this._size;
-  set size(Size size) => _$this._size = size;
+  double _width;
+  double get width => _$this._width;
+  set width(double width) => _$this._width = width;
+
+  double _height;
+  double get height => _$this._height;
+  set height(double height) => _$this._height = height;
 
   double _aspectRatio;
   double get aspectRatio => _$this._aspectRatio;
@@ -279,7 +301,8 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
     if (_$v != null) {
       _manufacturer = _$v.manufacturer;
       _model = _$v.model;
-      _size = _$v.size;
+      _width = _$v.width;
+      _height = _$v.height;
       _aspectRatio = _$v.aspectRatio;
       _boardHolds = _$v.boardHolds?.toBuilder();
       _handToBoardHeightRatio = _$v.handToBoardHeightRatio;
@@ -312,7 +335,8 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
           new _$Board._(
               manufacturer: manufacturer,
               model: model,
-              size: size,
+              width: width,
+              height: height,
               aspectRatio: aspectRatio,
               boardHolds: boardHolds.build(),
               handToBoardHeightRatio: handToBoardHeightRatio,

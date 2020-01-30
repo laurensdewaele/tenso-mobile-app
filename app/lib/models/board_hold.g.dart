@@ -21,22 +21,29 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
       'position',
       serializers.serialize(object.position,
           specifiedType: const FullType(int)),
-      'rect',
-      serializers.serialize(object.rect, specifiedType: const FullType(Rect)),
       'holdType',
       serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
       'maxAllowedFingers',
       serializers.serialize(object.maxAllowedFingers,
           specifiedType: const FullType(int)),
-      'boardSize',
-      serializers.serialize(object.boardSize,
-          specifiedType: const FullType(Size)),
-      'dxHangAnchor',
-      serializers.serialize(object.dxHangAnchor,
+      'dxRelativeHangAnchor',
+      serializers.serialize(object.dxRelativeHangAnchor,
           specifiedType: const FullType(double)),
-      'dyHangAnchor',
-      serializers.serialize(object.dyHangAnchor,
+      'dyRelativeHangAnchor',
+      serializers.serialize(object.dyRelativeHangAnchor,
+          specifiedType: const FullType(double)),
+      'relativeLeft',
+      serializers.serialize(object.relativeLeft,
+          specifiedType: const FullType(double)),
+      'relativeTop',
+      serializers.serialize(object.relativeTop,
+          specifiedType: const FullType(double)),
+      'relativeWidth',
+      serializers.serialize(object.relativeWidth,
+          specifiedType: const FullType(double)),
+      'relativeHeight',
+      serializers.serialize(object.relativeHeight,
           specifiedType: const FullType(double)),
     ];
     if (object.sloperDegrees != null) {
@@ -69,10 +76,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.position = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'rect':
-          result.rect = serializers.deserialize(value,
-              specifiedType: const FullType(Rect)) as Rect;
-          break;
         case 'holdType':
           result.holdType = serializers.deserialize(value,
               specifiedType: const FullType(HoldType)) as HoldType;
@@ -80,10 +83,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
         case 'maxAllowedFingers':
           result.maxAllowedFingers = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
-          break;
-        case 'boardSize':
-          result.boardSize = serializers.deserialize(value,
-              specifiedType: const FullType(Size)) as Size;
           break;
         case 'sloperDegrees':
           result.sloperDegrees = serializers.deserialize(value,
@@ -93,12 +92,28 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.pocketDepth = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'dxHangAnchor':
-          result.dxHangAnchor = serializers.deserialize(value,
+        case 'dxRelativeHangAnchor':
+          result.dxRelativeHangAnchor = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'dyHangAnchor':
-          result.dyHangAnchor = serializers.deserialize(value,
+        case 'dyRelativeHangAnchor':
+          result.dyRelativeHangAnchor = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'relativeLeft':
+          result.relativeLeft = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'relativeTop':
+          result.relativeTop = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'relativeWidth':
+          result.relativeWidth = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'relativeHeight':
+          result.relativeHeight = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
       }
@@ -112,41 +127,44 @@ class _$BoardHold extends BoardHold {
   @override
   final int position;
   @override
-  final Rect rect;
-  @override
   final HoldType holdType;
   @override
   final int maxAllowedFingers;
-  @override
-  final Size boardSize;
   @override
   final double sloperDegrees;
   @override
   final double pocketDepth;
   @override
-  final double dxHangAnchor;
+  final double dxRelativeHangAnchor;
   @override
-  final double dyHangAnchor;
+  final double dyRelativeHangAnchor;
+  @override
+  final double relativeLeft;
+  @override
+  final double relativeTop;
+  @override
+  final double relativeWidth;
+  @override
+  final double relativeHeight;
 
   factory _$BoardHold([void Function(BoardHoldBuilder) updates]) =>
       (new BoardHoldBuilder()..update(updates)).build();
 
   _$BoardHold._(
       {this.position,
-      this.rect,
       this.holdType,
       this.maxAllowedFingers,
-      this.boardSize,
       this.sloperDegrees,
       this.pocketDepth,
-      this.dxHangAnchor,
-      this.dyHangAnchor})
+      this.dxRelativeHangAnchor,
+      this.dyRelativeHangAnchor,
+      this.relativeLeft,
+      this.relativeTop,
+      this.relativeWidth,
+      this.relativeHeight})
       : super._() {
     if (position == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'position');
-    }
-    if (rect == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'rect');
     }
     if (holdType == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'holdType');
@@ -154,14 +172,23 @@ class _$BoardHold extends BoardHold {
     if (maxAllowedFingers == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'maxAllowedFingers');
     }
-    if (boardSize == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'boardSize');
+    if (dxRelativeHangAnchor == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'dxRelativeHangAnchor');
     }
-    if (dxHangAnchor == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'dxHangAnchor');
+    if (dyRelativeHangAnchor == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'dyRelativeHangAnchor');
     }
-    if (dyHangAnchor == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'dyHangAnchor');
+    if (relativeLeft == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'relativeLeft');
+    }
+    if (relativeTop == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'relativeTop');
+    }
+    if (relativeWidth == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'relativeWidth');
+    }
+    if (relativeHeight == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'relativeHeight');
     }
   }
 
@@ -177,14 +204,16 @@ class _$BoardHold extends BoardHold {
     if (identical(other, this)) return true;
     return other is BoardHold &&
         position == other.position &&
-        rect == other.rect &&
         holdType == other.holdType &&
         maxAllowedFingers == other.maxAllowedFingers &&
-        boardSize == other.boardSize &&
         sloperDegrees == other.sloperDegrees &&
         pocketDepth == other.pocketDepth &&
-        dxHangAnchor == other.dxHangAnchor &&
-        dyHangAnchor == other.dyHangAnchor;
+        dxRelativeHangAnchor == other.dxRelativeHangAnchor &&
+        dyRelativeHangAnchor == other.dyRelativeHangAnchor &&
+        relativeLeft == other.relativeLeft &&
+        relativeTop == other.relativeTop &&
+        relativeWidth == other.relativeWidth &&
+        relativeHeight == other.relativeHeight;
   }
 
   @override
@@ -195,28 +224,36 @@ class _$BoardHold extends BoardHold {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, position.hashCode), rect.hashCode),
-                                holdType.hashCode),
-                            maxAllowedFingers.hashCode),
-                        boardSize.hashCode),
-                    sloperDegrees.hashCode),
-                pocketDepth.hashCode),
-            dxHangAnchor.hashCode),
-        dyHangAnchor.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, position.hashCode),
+                                            holdType.hashCode),
+                                        maxAllowedFingers.hashCode),
+                                    sloperDegrees.hashCode),
+                                pocketDepth.hashCode),
+                            dxRelativeHangAnchor.hashCode),
+                        dyRelativeHangAnchor.hashCode),
+                    relativeLeft.hashCode),
+                relativeTop.hashCode),
+            relativeWidth.hashCode),
+        relativeHeight.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('BoardHold')
           ..add('position', position)
-          ..add('rect', rect)
           ..add('holdType', holdType)
           ..add('maxAllowedFingers', maxAllowedFingers)
-          ..add('boardSize', boardSize)
           ..add('sloperDegrees', sloperDegrees)
           ..add('pocketDepth', pocketDepth)
-          ..add('dxHangAnchor', dxHangAnchor)
-          ..add('dyHangAnchor', dyHangAnchor))
+          ..add('dxRelativeHangAnchor', dxRelativeHangAnchor)
+          ..add('dyRelativeHangAnchor', dyRelativeHangAnchor)
+          ..add('relativeLeft', relativeLeft)
+          ..add('relativeTop', relativeTop)
+          ..add('relativeWidth', relativeWidth)
+          ..add('relativeHeight', relativeHeight))
         .toString();
   }
 }
@@ -228,10 +265,6 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   int get position => _$this._position;
   set position(int position) => _$this._position = position;
 
-  Rect _rect;
-  Rect get rect => _$this._rect;
-  set rect(Rect rect) => _$this._rect = rect;
-
   HoldType _holdType;
   HoldType get holdType => _$this._holdType;
   set holdType(HoldType holdType) => _$this._holdType = holdType;
@@ -240,10 +273,6 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   int get maxAllowedFingers => _$this._maxAllowedFingers;
   set maxAllowedFingers(int maxAllowedFingers) =>
       _$this._maxAllowedFingers = maxAllowedFingers;
-
-  Size _boardSize;
-  Size get boardSize => _$this._boardSize;
-  set boardSize(Size boardSize) => _$this._boardSize = boardSize;
 
   double _sloperDegrees;
   double get sloperDegrees => _$this._sloperDegrees;
@@ -254,27 +283,49 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   double get pocketDepth => _$this._pocketDepth;
   set pocketDepth(double pocketDepth) => _$this._pocketDepth = pocketDepth;
 
-  double _dxHangAnchor;
-  double get dxHangAnchor => _$this._dxHangAnchor;
-  set dxHangAnchor(double dxHangAnchor) => _$this._dxHangAnchor = dxHangAnchor;
+  double _dxRelativeHangAnchor;
+  double get dxRelativeHangAnchor => _$this._dxRelativeHangAnchor;
+  set dxRelativeHangAnchor(double dxRelativeHangAnchor) =>
+      _$this._dxRelativeHangAnchor = dxRelativeHangAnchor;
 
-  double _dyHangAnchor;
-  double get dyHangAnchor => _$this._dyHangAnchor;
-  set dyHangAnchor(double dyHangAnchor) => _$this._dyHangAnchor = dyHangAnchor;
+  double _dyRelativeHangAnchor;
+  double get dyRelativeHangAnchor => _$this._dyRelativeHangAnchor;
+  set dyRelativeHangAnchor(double dyRelativeHangAnchor) =>
+      _$this._dyRelativeHangAnchor = dyRelativeHangAnchor;
+
+  double _relativeLeft;
+  double get relativeLeft => _$this._relativeLeft;
+  set relativeLeft(double relativeLeft) => _$this._relativeLeft = relativeLeft;
+
+  double _relativeTop;
+  double get relativeTop => _$this._relativeTop;
+  set relativeTop(double relativeTop) => _$this._relativeTop = relativeTop;
+
+  double _relativeWidth;
+  double get relativeWidth => _$this._relativeWidth;
+  set relativeWidth(double relativeWidth) =>
+      _$this._relativeWidth = relativeWidth;
+
+  double _relativeHeight;
+  double get relativeHeight => _$this._relativeHeight;
+  set relativeHeight(double relativeHeight) =>
+      _$this._relativeHeight = relativeHeight;
 
   BoardHoldBuilder();
 
   BoardHoldBuilder get _$this {
     if (_$v != null) {
       _position = _$v.position;
-      _rect = _$v.rect;
       _holdType = _$v.holdType;
       _maxAllowedFingers = _$v.maxAllowedFingers;
-      _boardSize = _$v.boardSize;
       _sloperDegrees = _$v.sloperDegrees;
       _pocketDepth = _$v.pocketDepth;
-      _dxHangAnchor = _$v.dxHangAnchor;
-      _dyHangAnchor = _$v.dyHangAnchor;
+      _dxRelativeHangAnchor = _$v.dxRelativeHangAnchor;
+      _dyRelativeHangAnchor = _$v.dyRelativeHangAnchor;
+      _relativeLeft = _$v.relativeLeft;
+      _relativeTop = _$v.relativeTop;
+      _relativeWidth = _$v.relativeWidth;
+      _relativeHeight = _$v.relativeHeight;
       _$v = null;
     }
     return this;
@@ -298,14 +349,16 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
     final _$result = _$v ??
         new _$BoardHold._(
             position: position,
-            rect: rect,
             holdType: holdType,
             maxAllowedFingers: maxAllowedFingers,
-            boardSize: boardSize,
             sloperDegrees: sloperDegrees,
             pocketDepth: pocketDepth,
-            dxHangAnchor: dxHangAnchor,
-            dyHangAnchor: dyHangAnchor);
+            dxRelativeHangAnchor: dxRelativeHangAnchor,
+            dyRelativeHangAnchor: dyRelativeHangAnchor,
+            relativeLeft: relativeLeft,
+            relativeTop: relativeTop,
+            relativeWidth: relativeWidth,
+            relativeHeight: relativeHeight);
     replace(_$result);
     return _$result;
   }
