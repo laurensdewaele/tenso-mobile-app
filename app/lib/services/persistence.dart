@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app/data/basic_workout.dart';
 import 'package:app/models/workout.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -25,6 +26,10 @@ class PersistenceService {
   Future<File> get _localFile async {
     final path = await _localPath;
     return File('$path/workouts.txt');
+  }
+
+  Future<Workout> fetchLatestCreatedWorkout() {
+    return Future.delayed(Duration(milliseconds: 20), () => basicWorkout);
   }
 
   Future<File> writeWorkouts(List<Workout> workouts) async {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/view_models/general_tab.dart';
 import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/new_workout/integer_input_and_divider.dart';
 import 'package:app/widgets/section.dart';
@@ -35,7 +36,10 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    final workoutViewModel = Provider.of<WorkoutViewModel>(context, listen: false);
+    final workoutViewModel =
+        Provider.of<WorkoutViewModel>(context, listen: false);
+    final generalTabViewModel =
+        Provider.of<GeneralTabViewModel>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +52,8 @@ class _GeneralTabState extends State<GeneralTab> {
               description: 'holds',
               shouldFocus: widget.shouldFocusOnInput,
               handleIntValueChanged: (int n) {
-                workoutViewModel.setHoldCount(n);
+//                workoutViewModel.setHoldCount(n);
+                generalTabViewModel.setHoldCount(n);
               },
               initialValue: workoutViewModel.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
