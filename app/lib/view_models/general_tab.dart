@@ -1,13 +1,13 @@
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/workout_state.dart';
+import 'package:app/view_models/app_state.dart';
 
 class GeneralTabViewModel {
-  GeneralTabViewModel(this._workoutState);
-  WorkoutState _workoutState;
+  GeneralTabViewModel(this._appState);
+  AppState _appState;
 
   void setHoldCount(int count) {
-    final Workout _workout = _workoutState.workout;
+    final Workout _workout = _appState.workout;
 
     if (count == _workout.holdCount) {
       return;
@@ -29,6 +29,6 @@ class GeneralTabViewModel {
     final Workout w = _workout.rebuild((b) => b
       ..holdCount = count
       ..holds.replace(_holds));
-    _workoutState.setWorkout(w);
+    _appState.setWorkout(w);
   }
 }

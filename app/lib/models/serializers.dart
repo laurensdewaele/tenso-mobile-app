@@ -11,8 +11,11 @@ import 'package:app/models/hand_type.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/hold_type.dart';
 import 'package:app/models/menu_item.dart';
+import 'package:app/models/settings.dart';
+import 'package:app/models/sound.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
+import 'package:app/models/workouts.dart';
 
 part 'serializers.g.dart';
 
@@ -27,7 +30,10 @@ part 'serializers.g.dart';
   Hold,
   MenuItem,
   Unit,
-  Workout
+  Workout,
+  Workouts,
+  Settings,
+  Sound
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

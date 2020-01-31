@@ -7,7 +7,7 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout_state.dart';
+import 'package:app/view_models/app_state.dart';
 import 'package:app/view_models/general_tab.dart';
 import 'package:app/view_models/settings.dart';
 import 'package:app/view_models/workout.dart';
@@ -20,12 +20,12 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<PersistenceService>(create: (context) => PersistenceService()),
-        ChangeNotifierProxyProvider<PersistenceService, WorkoutState>(
-            update: (context, persistenceService, workoutState) =>
-                WorkoutState(persistenceService)),
-        ProxyProvider<WorkoutState, GeneralTabViewModel>(
-            update: (context, workoutState, generalTabViewModel) =>
-                GeneralTabViewModel(workoutState)),
+        ChangeNotifierProvider(
+            create: (context) => AppState(
+                Provider.of<PersistenceService>(context, listen: false))),
+        Provider<GeneralTabViewModel>(
+            create: (context) => GeneralTabViewModel(
+                Provider.of<AppState>(context, listen: false))),
         ChangeNotifierProvider<SettingsViewModel>(
           create: (context) => defaultSettingsViewModel,
         ),
