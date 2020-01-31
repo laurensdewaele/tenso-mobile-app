@@ -11,7 +11,9 @@ class WorkoutState extends ChangeNotifier {
   PersistenceService _persistenceService;
 
   void _fetchLatestCreatedWorkout() async {
-    _workout = await _persistenceService.fetchLatestCreatedWorkout();
+    _workout = await _persistenceService.getWorkout();
+    print(workout);
+    notifyListeners();
   }
 
   Workout _workout;

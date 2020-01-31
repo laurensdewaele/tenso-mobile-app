@@ -36,9 +36,6 @@ class PersistenceService {
   void saveWorkout(Workout workout) async {
     try {
       final file = await _localFile;
-      String test = workout.toJson().toString();
-      print(test);
-      print('writing test');
       file.writeAsString(workout.toJson().toString());
     } catch (e) {
       print(e);
@@ -46,6 +43,7 @@ class PersistenceService {
     }
   }
 
+  // TODO: Get latest workout
   Future<Workout> getWorkout() async {
     try {
       final file = await _localFile;
