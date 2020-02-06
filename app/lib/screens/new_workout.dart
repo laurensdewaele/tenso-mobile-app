@@ -123,10 +123,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
-//                                      holdCount: Provider.of<WorkoutViewModel>(
-//                                              context,
-//                                              listen: true)
-//                                          .holdCount,
                                       holdCount: Provider.of<AppState>(context,
                                               listen: true)
                                           .workout
