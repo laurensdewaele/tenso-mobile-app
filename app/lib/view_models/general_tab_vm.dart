@@ -1,14 +1,17 @@
+import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/app_state.dart';
+import 'package:app/view_models/app_state_vm.dart';
 
 class GeneralTabViewModel {
-  GeneralTabViewModel(this._appState);
+  GeneralTabViewModel(AppState appState) {
+    _appState = appState;
+    _workout = appState.workout;
+  }
   AppState _appState;
+  Workout _workout;
 
   void setHoldCount(int count) {
-    final Workout _workout = _appState.workout;
-
     if (count == _workout.holdCount) {
       return;
     }
@@ -30,5 +33,22 @@ class GeneralTabViewModel {
       ..holdCount = count
       ..holds.replace(_holds));
     _appState.setWorkout(w);
+  }
+
+  void setSets(int s) {
+    _appState.setWorkout((_workout.rebuild((b) => b..sets = s)));
+  }
+
+  void setRestBetweenHolds(int s) {
+    _appState.setWorkout((_workout.rebuild((b) => b..restBetweenHolds = s)));
+  }
+
+  void setRestBetweenSets(int s) {
+    _appState.setWorkout((_workout.rebuild((b) => b..restBetweenSets = s)));
+  }
+
+  void setBoard(Board board) {
+    _appState
+        .setWorkout((_workout.rebuild((b) => b..board = board.toBuilder())));
   }
 }

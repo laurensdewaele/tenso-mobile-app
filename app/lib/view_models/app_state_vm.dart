@@ -1,6 +1,6 @@
-import 'package:app/data/basic_settings.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';

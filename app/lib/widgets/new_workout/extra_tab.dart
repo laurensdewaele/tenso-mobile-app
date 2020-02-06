@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/grade.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout.dart';
+import 'package:app/view_models/app_state_vm.dart';
+import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/new_workout/text_input.dart';
@@ -21,8 +22,8 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutViewModel =
-        Provider.of<WorkoutViewModel>(context, listen: false);
+    final _workout = Provider.of<AppState>(context, listen: false).workout;
+    final _viewModel = Provider.of<ExtraTabViewModel>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,12 +37,12 @@ class ExtraTab extends StatelessWidget {
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
                     initialItem:
-                        Grade.sportFrench.indexOf(workoutViewModel.difficulty)),
+                        Grade.sportFrench.indexOf(_workout.difficulty)),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
                 onSelectedItemChanged: (int item) {
-                  workoutViewModel.setDifficulty(Grade.sportFrench[item]);
+                  _viewModel.setDifficulty(Grade.sportFrench[item]);
                 },
                 itemExtent: 40,
                 children: <Widget>[
@@ -60,9 +61,9 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
-                initialValue: workoutViewModel.name,
+                initialValue: _workout.name,
                 handleValueChanged: (n) {
-                  workoutViewModel.setName(n);
+                  _viewModel.setName(n);
                 },
                 shouldLoseFocusStream: shouldLoseFocusStream,
                 handleErrorMessage: handleErrorMessage,

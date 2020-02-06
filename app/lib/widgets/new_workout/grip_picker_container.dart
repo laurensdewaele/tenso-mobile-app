@@ -5,12 +5,10 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_type.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/new_workout/grip_picker.dart';
 import 'package:app/widgets/new_workout/hand_tabs.dart';
 import 'package:app/widgets/radio_button.dart';
-import 'package:provider/provider.dart';
 
 class GripPickerContainer extends StatefulWidget {
   GripPickerContainer({
@@ -21,6 +19,8 @@ class GripPickerContainer extends StatefulWidget {
     @required this.selectedHandHold,
     @required this.handleLeftGripChanged,
     @required this.handleRightGripChanged,
+    @required this.handleLeftHandSelected,
+    @required this.handleRightHandSelected,
     @required this.handleOneHandedTap,
     @required this.handleTwoHandedTap,
   }) : super(key: key);
@@ -31,6 +31,8 @@ class GripPickerContainer extends StatefulWidget {
   final HandHold selectedHandHold;
   final Function(Grip grip) handleLeftGripChanged;
   final Function(Grip grip) handleRightGripChanged;
+  final Function(int currentHold, HandHold handHold) handleLeftHandSelected;
+  final Function(int currentHold, HandHold handHold) handleRightHandSelected;
   final VoidCallback handleTwoHandedTap;
   final Function(HandType handType) handleOneHandedTap;
 
@@ -58,8 +60,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleLeftHandSelected() {
     if (widget.selectedHandHold != HandHold.twoHanded) {
-      Provider.of<WorkoutViewModel>(context, listen: false)
-          .setHoldHandHold(widget.currentHold, HandHold.oneHandedLeft);
+      widget.handleLeftHandSelected(widget.currentHold, HandHold.oneHandedLeft);
     }
     setState(() {
       _selectedHand = HandType.leftHand;
@@ -68,8 +69,8 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleRightHandSelected() {
     if (widget.selectedHandHold != HandHold.twoHanded) {
-      Provider.of<WorkoutViewModel>(context, listen: false)
-          .setHoldHandHold(widget.currentHold, HandHold.oneHandedRight);
+      widget.handleRightHandSelected(
+          widget.currentHold, HandHold.oneHandedRight);
     }
     setState(() {
       _selectedHand = HandType.rightHand;

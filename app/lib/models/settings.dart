@@ -8,7 +8,7 @@ import 'package:app/models/serializers.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/models/unit.dart';
 
-part 'settings.g.dart';
+part 'package:app/models/settings.g.dart';
 
 abstract class Settings implements Built<Settings, SettingsBuilder> {
   static Serializer<Settings> get serializer => _$settingsSerializer;

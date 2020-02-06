@@ -5,7 +5,7 @@ import 'package:built_value/serializer.dart';
 
 import 'package:app/models/serializers.dart';
 
-part 'menu_item.g.dart';
+part 'package:app/models/menu_item.g.dart';
 
 abstract class MenuItem implements Built<MenuItem, MenuItemBuilder> {
   static Serializer<MenuItem> get serializer => _$menuItemSerializer;

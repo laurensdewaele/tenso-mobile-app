@@ -7,7 +7,7 @@ import 'package:built_value/serializer.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/serializers.dart';
 
-part 'board.g.dart';
+part 'package:app/models/board.g.dart';
 
 abstract class Board implements Built<Board, BoardBuilder> {
   static Serializer<Board> get serializer => _$boardSerializer;

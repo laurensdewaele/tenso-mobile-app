@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'unit.g.dart';
+part 'package:app/models/unit.g.dart';
 
 class Unit extends EnumClass {
   static Serializer<Unit> get serializer => _$unitSerializer;

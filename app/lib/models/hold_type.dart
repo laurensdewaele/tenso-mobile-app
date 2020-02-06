@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'hold_type.g.dart';
+part 'package:app/models/hold_type.g.dart';
 
 class HoldType extends EnumClass {
   static Serializer<HoldType> get serializer => _$holdTypeSerializer;

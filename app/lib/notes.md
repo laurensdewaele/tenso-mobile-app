@@ -1,57 +1,26 @@
-It makes no sense to have this kind of a separation between my Workout model and my WorkoutViewModel.
-I should just have a Workout workout field in my WorkoutViewModel that I update correspondently.
-Otherwise it's very error prone.
+## Commands
+Built value command.
+Build
+`flutter packages pub run build_runner build`
+Watch
+`flutter packages pub run build_runner watch`
 
+## TODO
+### Large prio
 
-
-Sooo as for services: 
-
-- I have a persistent service that persists my data to disk
-  **persistenceService**
-- I have a workouts view_models with all my workouts
-  **workoutsViewModel**
-- I have a an active workout view_models, that has the workout loaded onto it.
-  **activeWorkoutViewModel** 
-  This can be to start/edit/play a workout.
-
-When the app starts:
-
-- Read all the workouts saved to persistent storage.
-- Write that in the workouts view_models.
-
-independant
-Provider: persistenceService
-
-dependant
-ProxyProvider<persistenceService, WorkoutsViewModel> WorkoutsViewModel
-ProxyProvider<WorkoutsState, ActiveWorkout> ActiveWorkoutViewModel
-
-ProxyChangeNotifierProvider? 
-
-ActiveWorkoutState.fromLatestWorkout
-ActiveWorkoutState.fromWorkoutId
-
-Every widget it's own model?
-GeneralTabModel
-HoldTabModel
-ExtraTabModel
-=> Yes, makes everything less verbose.
-
-## Large prio
-
-- Link up to database / SQL.
-Do i need SQL => yes.
+- Try to move all logic to ViewModel
+- Write to file on every change.
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.
 - Implement a feedback button.
 
-## Medium prio
+### Medium prio
 
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
 - Add open crimp
 
-## Small prio
+### Small prio
 
 - Mutliple grades
 - Tests :D

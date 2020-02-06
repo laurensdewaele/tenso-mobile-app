@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/settings.dart';
+import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';

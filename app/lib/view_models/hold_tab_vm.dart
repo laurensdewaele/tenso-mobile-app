@@ -1,129 +1,27 @@
-import 'dart:collection';
-
-import 'package:app/models/workout.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/data/grips.dart';
 import 'package:app/functions/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
-import 'package:app/models/board.dart';
-import 'package:app/models/hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
+import 'package:app/models/hold.dart';
 import 'package:app/models/unit.dart';
+import 'package:app/models/workout.dart';
+import 'package:app/view_models/app_state_vm.dart';
 
-// ignore_for_file: unnecessary_getters_setters
+// TODO: there's a shit ton of repetitin going on with `final List<Hold> _holds = _workout.holds.toList();`
+// TODO: Refactor it. Think about setting a curentHold or currentTab on the viewModel instead of on the Widgets.
 
-// Setters and getters are needed for Provider classes.
-// Otherwise, we cannot make a call to notifyListeners() when setting as value.
-
-// TODO: Slowly disband and delete for better architecture.
-class WorkoutViewModel extends ChangeNotifier {
-  WorkoutViewModel.fromWorkoutModel(Workout workout) {
-    _holdCount = workout.holdCount;
-    _sets = workout.sets;
-    _restBetweenHolds = workout.restBetweenHolds;
-    _restBetweenSets = workout.restBetweenSets;
-    _board = workout.board;
-    _difficulty = workout.difficulty;
-    _holds = workout.holds.toList();
-    _name = workout.name;
-    _difficultyColor = workout.difficultyColor;
-    _duration = workout.duration;
+class HoldTabViewModel {
+  HoldTabViewModel(AppState appState) {
+    _appState = appState;
+    _workout = appState.workout;
   }
 
-  Workout toWorkoutModel() {
-    return Workout((b) => b
-      ..holdCount = holdCount
-      ..sets = sets
-      ..restBetweenSets = restBetweenSets
-      ..restBetweenHolds = restBetweenHolds
-      ..board = board.toBuilder()
-      ..difficulty = difficulty
-      ..holds.addAll(holds)
-      ..name = name);
-  }
-
-  int _holdCount;
-  int get holdCount => _holdCount;
-  void setHoldCount(int count) {
-    if (count < _holdCount) {
-      _holds = _holds.take(count).toList();
-    }
-    if (count > holdCount) {
-      final Hold defaultHold = _holds[0];
-      final int difference = count - holdCount;
-      final List<Hold> newHolds = List.generate(difference, (i) => defaultHold);
-      _holds.addAll(newHolds);
-    }
-    _holdCount = count;
-    notifyListeners();
-  }
-
-  int _sets;
-  int get sets => _sets;
-  void setSets(int s) {
-    _sets = s;
-    notifyListeners();
-  }
-
-  int _restBetweenHolds;
-  int get restBetweenHolds => _restBetweenHolds;
-  void setRestBetweenHolds(int s) {
-    _restBetweenHolds = s;
-    notifyListeners();
-  }
-
-  int _restBetweenSets;
-  int get restBetweenSets => _restBetweenSets;
-  void setRestBetweenSets(int s) {
-    _restBetweenSets = s;
-    notifyListeners();
-  }
-
-  Board _board;
-  Board get board => _board;
-  void setBoard(Board b) {
-    _board = b;
-    notifyListeners();
-  }
-
-  String _difficulty;
-  String get difficulty => _difficulty;
-  void setDifficulty(String d) {
-    _difficulty = d;
-    notifyListeners();
-  }
-
-  List<Hold> _holds;
-  UnmodifiableListView<Hold> get holds => UnmodifiableListView(_holds);
-  void setHolds(List<Hold> h) {
-    _holds = h;
-    notifyListeners();
-  }
-
-  String _name;
-  String get name => _name;
-  void setName(String n) {
-    _name = n;
-    notifyListeners();
-  }
-
-  Color _difficultyColor;
-  Color get difficultyColor => _difficultyColor;
-  void setDifficultyColor(Color c) {
-    _difficultyColor = c;
-    notifyListeners();
-  }
-
-  int _duration;
-  int get duration => _duration;
-  void setDuration(int n) {
-    _duration = n;
-    notifyListeners();
-  }
+  AppState _appState;
+  Workout _workout;
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
+    final List<Hold> _holds = _workout.holds.toList();
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
         ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
@@ -138,10 +36,11 @@ class WorkoutViewModel extends ChangeNotifier {
       _holds[holdNo] =
           _holds[holdNo].rebuild((b) => b..leftGrip = grip.toBuilder());
     }
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRightGrip(int holdNo, Grip grip) {
+    final List<Hold> _holds = _workout.holds.toList();
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
@@ -156,16 +55,18 @@ class WorkoutViewModel extends ChangeNotifier {
       _holds[holdNo] =
           _holds[holdNo].rebuild((b) => b..rightGrip = grip.toBuilder());
     }
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldHandHold(int holdNo, HandHold handHold) {
+    final List<Hold> _holds = _workout.holds.toList();
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
     _checkHands(holdNo);
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
+    final List<Hold> _holds = _workout.holds.toList();
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
@@ -180,10 +81,11 @@ class WorkoutViewModel extends ChangeNotifier {
       _holds[holdNo] = _holds[holdNo]
           .rebuild((b) => b..leftGripBoardHold = boardHold.toBuilder());
     }
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRightGripBoardHold(int holdNo, BoardHold boardHold) {
+    final List<Hold> _holds = _workout.holds.toList();
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
@@ -198,28 +100,32 @@ class WorkoutViewModel extends ChangeNotifier {
       _holds[holdNo] = _holds[holdNo]
           .rebuild((b) => b..rightGripBoardHold = boardHold.toBuilder());
     }
-
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRepetitions(int holdNo, int repetitions) {
+    final List<Hold> _holds = _workout.holds.toList();
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..repetitions = repetitions);
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRestBetweenRepetitions(int holdNo, int seconds) {
+    final List<Hold> _holds = _workout.holds.toList();
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..restBetweenRepetitions = seconds);
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldHangTime(int holdNo, int seconds) {
+    final List<Hold> _holds = _workout.holds.toList();
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..hangTime = seconds);
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
+    final List<Hold> _holds = _workout.holds.toList();
+
     // Unit (metric or imperial) will be saved in kg's.
     // And converted to pounds when needed.
     double weight = addedWeight;
@@ -229,10 +135,11 @@ class WorkoutViewModel extends ChangeNotifier {
     }
 
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..addedWeight = weight);
-    notifyListeners();
+    _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldOneHandedTap(int holdNo) {
+    final List<Hold> _holds = _workout.holds.toList();
     final hold = _holds[holdNo];
 
     if (hold.leftGrip == null) {
@@ -245,6 +152,7 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void _checkHands(int holdNo) {
+    final List<Hold> _holds = _workout.holds.toList();
     final hold = _holds[holdNo];
 
     if (hold.handHold == HandHold.oneHandedLeft) {

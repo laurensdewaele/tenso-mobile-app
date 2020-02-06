@@ -7,7 +7,7 @@ import 'package:built_value/serializer.dart';
 
 import 'package:app/models/serializers.dart';
 
-part 'workouts.g.dart';
+part 'package:app/models/workouts.g.dart';
 
 abstract class Workouts implements Built<Workouts, WorkoutsBuilder> {
   static Serializer<Workouts> get serializer => _$workoutsSerializer;
