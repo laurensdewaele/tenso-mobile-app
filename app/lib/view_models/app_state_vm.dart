@@ -42,15 +42,15 @@ class AppState extends ChangeNotifier {
   }
 
   void _initializeBasicState() {
-    _workout = basicWorkout;
-    _workouts = Workouts((b) => b);
-    _settings = basicSettings;
+    setWorkout(basicWorkout);
+    setWorkouts(Workouts((b) => b));
+    setSettings(basicSettings);
   }
 
   void _initializePersistence() async {
-    _workout = await _persistenceService.getWorkout();
-    _workouts = await _persistenceService.getWorkouts();
-    _settings = await _persistenceService.getSettings();
+    setWorkout(await _persistenceService.getWorkout());
+    setWorkouts(await _persistenceService.getWorkouts());
+    setSettings(await _persistenceService.getSettings());
     notifyListeners();
   }
 }

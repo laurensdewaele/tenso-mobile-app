@@ -22,7 +22,7 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _workout = Provider.of<AppState>(context, listen: false).workout;
+    final _workout = Provider.of<AppState>(context, listen: true).workout;
     final _viewModel = Provider.of<ExtraTabViewModel>(context, listen: false);
 
     return Column(
