@@ -14,11 +14,10 @@ import 'package:app/view_models/app_state_vm.dart';
 class HoldTabViewModel {
   HoldTabViewModel(AppState appState) {
     _appState = appState;
-    _workout = appState.workout;
   }
 
   AppState _appState;
-  Workout _workout;
+  Workout get _workout => _appState.workout;
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
     final List<Hold> _holds = _workout.holds.toList();
@@ -61,8 +60,8 @@ class HoldTabViewModel {
   void setHoldHandHold(int holdNo, HandHold handHold) {
     final List<Hold> _holds = _workout.holds.toList();
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
-    _checkHands(holdNo);
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+    _checkHands(holdNo);
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {

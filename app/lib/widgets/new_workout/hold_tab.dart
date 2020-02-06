@@ -48,17 +48,17 @@ class HoldTab extends StatelessWidget {
               selectedLeftGrip: _workout.holds[currentHold].leftGrip,
               selectedRightGrip: _workout.holds[currentHold].rightGrip,
               selectedHandHold: _workout.holds[currentHold].handHold,
-              handleLeftHandSelected: (int currentHold, HandHold handHold) =>
-                  _viewModel.setHoldHandHold(currentHold, handHold),
-              handleRightHandSelected: (int currentHold, HandHold handHold) =>
-                  _viewModel.setHoldHandHold(currentHold, handHold),
+              handleLeftHandSelected: (int currentHold, HandHold handHold) {
+                _viewModel.setHoldHandHold(currentHold, handHold);
+              },
+              handleRightHandSelected: (int currentHold, HandHold handHold) {
+                _viewModel.setHoldHandHold(currentHold, handHold);
+              },
               handleLeftGripChanged: (Grip grip) =>
                   _viewModel.setHoldLeftGrip(currentHold, grip),
               handleRightGripChanged: (Grip grip) =>
                   _viewModel.setHoldRightGrip(currentHold, grip),
               handleOneHandedTap: (HandType handType) {
-                print('handleOneHandedTap hold tab');
-                print(handType.toString());
                 HandHold handHold;
                 if (handType == HandType.leftHand) {
                   handHold = HandHold.oneHandedLeft;
