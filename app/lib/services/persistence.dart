@@ -54,6 +54,7 @@ class PersistenceService {
       String contents = await file.readAsString();
       return Workout.fromJson(contents);
     } catch (e) {
+      print(e);
       // TODO: Error handling.
     }
   }
@@ -63,6 +64,7 @@ class PersistenceService {
       final file = await _localWorkoutsFile;
       file.writeAsString(workouts.toJson().toString());
     } catch (e) {
+      print(e);
       // TODO: Error handling.
     }
   }
@@ -73,6 +75,7 @@ class PersistenceService {
       String contents = await file.readAsString();
       return Workouts.fromJson(contents);
     } catch (e) {
+      print(e);
       // TODO: Error handling.
     }
   }
@@ -82,6 +85,7 @@ class PersistenceService {
       final file = await _localSettingsFile;
       file.writeAsString(settings.toJson().toString());
     } catch (e) {
+      print(e);
       // TODO: Error handling.
     }
   }
@@ -92,6 +96,7 @@ class PersistenceService {
       String contents = await file.readAsString();
       return Settings.fromJson(contents);
     } catch (e) {
+      print(e);
       // TODO: Error handling.
     }
   }

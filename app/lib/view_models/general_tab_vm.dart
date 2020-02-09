@@ -6,10 +6,10 @@ import 'package:app/view_models/app_state_vm.dart';
 class GeneralTabViewModel {
   GeneralTabViewModel(AppState appState) {
     _appState = appState;
-    _workout = appState.workout;
   }
+
   AppState _appState;
-  Workout _workout;
+  Workout get _workout => _appState.workout;
 
   void setHoldCount(int count) {
     if (count == _workout.holdCount) {

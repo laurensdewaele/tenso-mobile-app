@@ -4,9 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'package:app/functions/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_hold.dart';
-import 'package:app/models/hand_type.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/view_models/app_state_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
@@ -45,30 +42,6 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             GripPickerContainer(
               currentHold: currentHold,
-              selectedLeftGrip: _workout.holds[currentHold].leftGrip,
-              selectedRightGrip: _workout.holds[currentHold].rightGrip,
-              selectedHandHold: _workout.holds[currentHold].handHold,
-              handleLeftHandSelected: (int currentHold, HandHold handHold) {
-                _viewModel.setHoldHandHold(currentHold, handHold);
-              },
-              handleRightHandSelected: (int currentHold, HandHold handHold) {
-                _viewModel.setHoldHandHold(currentHold, handHold);
-              },
-              handleLeftGripChanged: (Grip grip) =>
-                  _viewModel.setHoldLeftGrip(currentHold, grip),
-              handleRightGripChanged: (Grip grip) =>
-                  _viewModel.setHoldRightGrip(currentHold, grip),
-              handleOneHandedTap: (HandType handType) {
-                HandHold handHold;
-                if (handType == HandType.leftHand) {
-                  handHold = HandHold.oneHandedLeft;
-                } else {
-                  handHold = HandHold.oneHandedRight;
-                }
-                _viewModel.setHoldHandHold(currentHold, handHold);
-              },
-              handleTwoHandedTap: () =>
-                  _viewModel.setHoldHandHold(currentHold, HandHold.twoHanded),
             )
           ],
         ),
@@ -88,7 +61,8 @@ class HoldTab extends StatelessWidget {
                 handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
                     _viewModel.setHoldRightGripBoardHold(
                         currentHold, boardHold),
-                handleErrorMessage: handleErrorMessage)
+                handleErrorMessage: (Widget message) =>
+                    handleErrorMessage(message))
           ],
         ),
         Section(

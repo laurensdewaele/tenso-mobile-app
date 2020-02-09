@@ -4,10 +4,9 @@ import 'package:app/view_models/app_state_vm.dart';
 class ExtraTabViewModel {
   ExtraTabViewModel(AppState appState) {
     _appState = appState;
-    _workout = appState.workout;
   }
   AppState _appState;
-  Workout _workout;
+  Workout get _workout => _appState.workout;
 
   void setDifficulty(String difficulty) {
     _appState.setWorkout(_workout.rebuild((b) => b..difficulty = difficulty));

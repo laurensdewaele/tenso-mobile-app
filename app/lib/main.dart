@@ -19,19 +19,32 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<PersistenceService>(create: (context) => PersistenceService()),
+        Provider<PersistenceService>(
+          create: (context) => PersistenceService(),
+          lazy: false,
+        ),
         ChangeNotifierProvider(
-            create: (context) => AppState(
-                Provider.of<PersistenceService>(context, listen: false))),
+          create: (context) =>
+              AppState(Provider.of<PersistenceService>(context, listen: false)),
+          lazy: false,
+        ),
         ProxyProvider<AppState, GeneralTabViewModel>(
-            update: (context, appState, generalTabViewModel) =>
-                GeneralTabViewModel(appState)),
-        ProxyProvider<AppState, HoldTabViewModel>(
-            update: (context, appState, holdTabViewModel) =>
-                HoldTabViewModel(appState)),
+          update: (context, appState, generalTabViewModel) =>
+              GeneralTabViewModel(appState),
+          lazy: false,
+        ),
+        ChangeNotifierProxyProvider<AppState, HoldTabViewModel>(
+          create: (context) => HoldTabViewModel(),
+          update: (context, appState, holdTabViewModel) =>
+              holdTabViewModel..update(appState),
+          lazy: false,
+        ),
         ProxyProvider<AppState, ExtraTabViewModel>(
-            update: (context, appState, extraTabViewModel) =>
-                ExtraTabViewModel(appState)),
+          update: (context, appState, extraTabViewModel) =>
+              ExtraTabViewModel(appState),
+          lazy: false,
+        ),
+        // TODO: Refactor
         ChangeNotifierProvider<SettingsViewModel>(
           create: (context) => defaultSettingsViewModel,
         ),
