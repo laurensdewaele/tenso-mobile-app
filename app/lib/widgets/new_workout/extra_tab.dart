@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/models/grade.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/app_state_vm.dart';
 import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/section.dart';

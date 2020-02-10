@@ -1,5 +1,5 @@
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/app_state_vm.dart';
+import 'package:app/state/app_state.dart';
 
 class ExtraTabViewModel {
   ExtraTabViewModel(AppState appState) {

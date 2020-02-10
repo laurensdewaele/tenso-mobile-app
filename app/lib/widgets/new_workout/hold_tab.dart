@@ -7,7 +7,7 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/unit.dart';
-import 'package:app/view_models/app_state_vm.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
 import 'package:app/widgets/new_workout/board_hold_picker.dart';
 import 'package:app/widgets/new_workout/grip_picker_container.dart';

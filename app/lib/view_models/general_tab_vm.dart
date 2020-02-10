@@ -1,7 +1,7 @@
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/app_state_vm.dart';
+import 'package:app/state/app_state.dart';
 
 class GeneralTabViewModel {
   GeneralTabViewModel(AppState appState) {
