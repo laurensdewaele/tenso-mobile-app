@@ -69,37 +69,16 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     setState(() {
       _boardSize = boardSize;
       _gripHeight = boardSize.height * widget.board.handToBoardHeightRatio;
+      _containerHeight = boardSize.height +
+          (boardSize.height * widget.board.handToBoardHeightRatio);
     });
-    if (_leftHandOffset == null && _rightHandOffset == null) {
-      _setInitialHandOffset();
-    } else {
-      _recalculateHandOffset();
-    }
-    _setContainerHeight(boardSize, _gripHeight);
-  }
 
-  void _setInitialHandOffset() {
-    if (widget.leftGrip != null) {
-      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
-    }
-    if (widget.rightGrip != null) {
-      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
-    }
-  }
-
-  void _recalculateHandOffset() {
     if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
       _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
     }
     if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
       _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
     }
-  }
-
-  void _setContainerHeight(Size boardSize, double gripHeight) {
-    setState(() {
-      _containerHeight = boardSize.height + gripHeight;
-    });
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {

@@ -34,3 +34,28 @@ Watch
 - Unhandled exception when rapidly closing and opening an accordion on the overview page.
   [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle view_models: created))
   null
+  
+  
+  
+### Pesky error
+```Dart
+The following assertion was thrown while dispatching notifications for AppState:
+setState() or markNeedsBuild() called during build.
+
+This _DefaultInheritedProviderScope<AppState> widget cannot be marked as needing to build because the framework is already in the process of building widgets.  A widget can be marked as needing to be built during the build phase only if one of its ancestors is currently building. This exception is allowed because the framework builds parent widgets before children, which means a dirty descendant will always be built. Otherwise, the framework might not visit this widget during this build phase.
+The widget on which setState() or markNeedsBuild() was called was: _DefaultInheritedProviderScope<AppState>
+  value: Instance of 'AppState'
+  listening to value
+The widget which was currently being built when the offending call was made was: Section
+```
+
+This comes from BoardHoldPicker. 
+It receives a new leftGrip or rightGrip from it's parent (emitted by AppState).
+And therefor enters into it's didUpdateWidget method to set the correct offset for the new grip.
+This also sets state, whilst it's already building and therefor the error is thrown.
+
+Possible solutions:
+
+- leave it as is. The error is non breaking?
+- addPostFrameCallback gets rid of the error, but then there's a slight delay you notice when the feedback is being set.
+
