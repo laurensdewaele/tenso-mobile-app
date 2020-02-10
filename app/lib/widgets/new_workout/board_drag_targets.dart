@@ -1,22 +1,25 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/functions/board_hold_grip_compatibility.dart';
-import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class BoardDragTargets extends StatefulWidget {
-  BoardDragTargets({
-    Key key,
-    @required this.handleBoardDimensions,
-    @required this.board,
-    @required this.setHandOffset,
-    @required this.orientation,
-    @required this.setErrorMessage,
-  }) : super(key: key);
+  BoardDragTargets(
+      {Key key,
+      @required this.handleBoardDimensions,
+      @required this.setHandOffset,
+      @required this.orientation,
+      @required this.setErrorMessage,
+      @required this.boardAspectRatio,
+      @required this.boardAssetSrc,
+      @required this.boardHolds})
+      : super(key: key);
 
-  final Board board;
+  final double boardAspectRatio;
+  final String boardAssetSrc;
+  final List<BoardHold> boardHolds;
   final Function(Size boardSize) handleBoardDimensions;
   final Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
@@ -62,8 +65,8 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      final Size _boardSize = Size(constraints.maxWidth,
-          constraints.maxWidth / widget.board.aspectRatio);
+      final Size _boardSize = Size(
+          constraints.maxWidth, constraints.maxWidth / widget.boardAspectRatio);
 
       if (_shouldCheckDimensions == true) {
         _triggerPostFrameCallback(_boardSize);
@@ -72,9 +75,9 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
         children: <Widget>[
           Container(
               child: Image.asset(
-            widget.board.assetSrc,
+            widget.boardAssetSrc,
           )),
-          ...widget.board.boardHolds.map((BoardHold boardHold) {
+          ...widget.boardHolds.map((BoardHold boardHold) {
             final Rect rect = Rect.fromLTWH(
                 boardHold.relativeLeft * _boardSize.width,
                 boardHold.relativeTop * _boardSize.height,
