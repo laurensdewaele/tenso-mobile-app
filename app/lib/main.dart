@@ -40,8 +40,8 @@ class App extends StatelessWidget {
           lazy: false,
         ),
         ProxyProvider<AppState, HoldTabViewModel>(
-          update: (context, appState, holdTabViewModel) =>
-              HoldTabViewModel(appState),
+          update: (context, appState, holdTabViewModel) => HoldTabViewModel(
+              appState, Provider.of<ToastService>(context, listen: false)),
           lazy: false,
         ),
         ProxyProvider<AppState, ExtraTabViewModel>(

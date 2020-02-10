@@ -25,6 +25,7 @@ Watch
 
 ### Small prio
 
+- styles trough Provider instead of globals
 - Mutliple grades
 - Tests :D
 - Add info button on most elements

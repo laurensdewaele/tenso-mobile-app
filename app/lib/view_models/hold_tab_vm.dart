@@ -7,14 +7,17 @@ import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
+import 'package:app/services/toast.dart';
 import 'package:app/view_models/app_state_vm.dart';
 import 'package:flutter/cupertino.dart';
 
 class HoldTabViewModel {
-  HoldTabViewModel(AppState appState) {
+  HoldTabViewModel(AppState appState, ToastService toastService) {
+    _toastService = toastService;
     _appState = appState;
   }
 
+  ToastService _toastService;
   AppState _appState;
   Workout get _workout => _appState.workout;
   List<Hold> get _holdList => _appState.workout.holds.toList();
@@ -223,8 +226,7 @@ class HoldTabViewModel {
     if (errorMessage == null) {
       setHoldRightGrip(holdNo, grip);
     } else {
-      print('error, not compatible!');
-      // TODO: Decent error handling
+      _toastService.add(errorMessage);
     }
   }
 
@@ -235,8 +237,7 @@ class HoldTabViewModel {
     if (errorMessage == null) {
       setHoldLeftGrip(holdNo, grip);
     } else {
-      print('error, not compatible!');
-      // TODO: Decent error handling
+      _toastService.add(errorMessage);
     }
   }
 }
