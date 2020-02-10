@@ -8,8 +8,7 @@ Watch
 ## TODO
 ### Large prio
 
-- Refactor / redesign the alert toaster. This can be done with Provider (will be a lot cleaner)
-- Error when you have a small finger and try to pick a bigger hand for a not suitable hold.
+- Settings view model the same way I've structured the rest.
 
 - Draw diagram when all is refactored.
 - Write to file on every change.
@@ -21,6 +20,7 @@ Watch
 
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
+- ShouldLooseFocus stream controller onto Provider.
 - Add open crimp
 
 ### Small prio
