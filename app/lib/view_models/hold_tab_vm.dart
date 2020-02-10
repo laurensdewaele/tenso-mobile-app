@@ -15,9 +15,10 @@ class HoldTabViewModel {
 
   AppState _appState;
   Workout get _workout => _appState.workout;
-  List<Hold> get _holds => _workout.holds.toList();
+  List<Hold> get _holdList => _appState.workout.holds.toList();
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
+    final _holds = _holdList;
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
         ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
@@ -36,6 +37,7 @@ class HoldTabViewModel {
   }
 
   void setHoldRightGrip(int holdNo, Grip grip) {
+    final _holds = _holdList;
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
@@ -54,12 +56,14 @@ class HoldTabViewModel {
   }
 
   void setHoldHandHold(int holdNo, HandHold handHold) {
+    final _holds = _holdList;
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
     _checkHands(holdNo);
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
+    final _holds = _holdList;
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
@@ -78,6 +82,7 @@ class HoldTabViewModel {
   }
 
   void setHoldRightGripBoardHold(int holdNo, BoardHold boardHold) {
+    final _holds = _holdList;
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
@@ -96,23 +101,27 @@ class HoldTabViewModel {
   }
 
   void setHoldRepetitions(int holdNo, int repetitions) {
+    final _holds = _holdList;
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..repetitions = repetitions);
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRestBetweenRepetitions(int holdNo, int seconds) {
+    final _holds = _holdList;
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..restBetweenRepetitions = seconds);
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldHangTime(int holdNo, int seconds) {
+    final _holds = _holdList;
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..hangTime = seconds);
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
+    final _holds = _holdList;
     // Unit (metric or imperial) will be saved in kg's.
     // And converted to pounds when needed.
     double weight = addedWeight;
@@ -126,6 +135,7 @@ class HoldTabViewModel {
   }
 
   void setHoldOneHandedTap(int holdNo) {
+    final _holds = _holdList;
     final hold = _holds[holdNo];
 
     if (hold.leftGrip == null) {
@@ -138,6 +148,7 @@ class HoldTabViewModel {
   }
 
   void _checkHands(int holdNo) {
+    final _holds = _holdList;
     final hold = _holds[holdNo];
 
     if (hold.handHold == HandHold.oneHandedLeft) {
