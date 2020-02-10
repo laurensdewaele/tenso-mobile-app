@@ -31,8 +31,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
-  final StreamController<Widget> _errorMessageStreamController =
-      StreamController<Widget>();
   final ScrollController _scrollController = ScrollController();
 
   double _keyboardOffsetHeight = 0;
@@ -45,7 +43,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void dispose() {
     _shouldLoseFocusStreamController.close();
-    _errorMessageStreamController.close();
     super.dispose();
   }
 
@@ -54,10 +51,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _keyboardOffsetHeight = 0;
     });
-  }
-
-  void _handleErrorMessage(Widget message) {
-    _errorMessageStreamController.sink.add(message);
   }
 
   void _handleKeyboardOffset(Offset offset) {
@@ -162,8 +155,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       shouldLoseFocusStream:
                                                           _shouldLoseFocusStreamController
                                                               .stream,
-                                                      handleErrorMessage:
-                                                          _handleErrorMessage,
                                                       shouldFocus: false,
                                                     )
                                                   ],
@@ -192,9 +183,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Metric (kg)',
                                                       value: Unit.metric,
-                                                      active:
-                                                          settingsViewModel.unit ==
-                                                              Unit.metric,
+                                                      active: settingsViewModel
+                                                              .unit ==
+                                                          Unit.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
                                                     ),
@@ -202,9 +193,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Unit.imperial,
-                                                      active:
-                                                          settingsViewModel.unit ==
-                                                              Unit.imperial,
+                                                      active: settingsViewModel
+                                                              .unit ==
+                                                          Unit.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,
                                                     ),
@@ -226,7 +217,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     )
                   ])),
         ),
-        Toast(messageStream: _errorMessageStreamController.stream),
+        Toast(),
       ],
     );
   }

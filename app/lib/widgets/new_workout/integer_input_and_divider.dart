@@ -12,7 +12,6 @@ class NumberInputAndDivider extends StatelessWidget {
       @required this.description,
       @required this.initialValue,
       @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage,
       @required this.isDouble,
       this.zeroValueAllowed,
       this.shouldFocus})
@@ -21,7 +20,6 @@ class NumberInputAndDivider extends StatelessWidget {
   final String description;
   final double initialValue;
   final Stream<bool> shouldLoseFocusStream;
-  final Function(Widget) handleErrorMessage;
   final bool shouldFocus;
   final bool isDouble;
   final bool zeroValueAllowed;
@@ -40,7 +38,6 @@ class NumberInputAndDivider extends StatelessWidget {
           handleDoubleValueChanged: handleDoubleValueChanged,
           initialValue: initialValue,
           shouldLoseFocusStream: shouldLoseFocusStream,
-          handleErrorMessage: handleErrorMessage,
           isDouble: isDouble,
         ),
         Divider(

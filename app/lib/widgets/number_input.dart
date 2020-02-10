@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/keyboard_screen.dart';
 
@@ -11,14 +14,12 @@ class NumberInput extends StatefulWidget {
       this.handleDoubleValueChanged,
       this.handleIntValueChanged,
       @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage,
       @required this.isDouble,
       @required this.shouldFocus,
       this.zeroValueAllowed});
 
   final double initialValue;
   final Stream<bool> shouldLoseFocusStream;
-  final Function(Widget) handleErrorMessage;
   final bool shouldFocus;
   final bool isDouble;
   final bool zeroValueAllowed;
@@ -106,7 +107,7 @@ class _NumberInputState extends State<NumberInput> {
           ]),
     );
 
-    widget.handleErrorMessage(errorMessage);
+    Provider.of<ToastService>(context, listen: false).add(errorMessage);
   }
 
   void _onTap() {

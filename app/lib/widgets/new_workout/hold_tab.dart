@@ -19,11 +19,9 @@ class HoldTab extends StatelessWidget {
     Key key,
     @required this.currentHold,
     @required this.shouldLoseFocusStream,
-    @required this.handleErrorMessage,
   }) : super(key: key);
 
   final int currentHold;
-  final Function(Widget message) handleErrorMessage;
   final Stream<bool> shouldLoseFocusStream;
 
   @override
@@ -65,20 +63,17 @@ class HoldTab extends StatelessWidget {
           title: 'drag to choose',
           children: <Widget>[
             BoardHoldPicker(
-                board: _workout.board,
-                leftGrip: _workout.holds[currentHold].leftGrip,
-                rightGrip: _workout.holds[currentHold].rightGrip,
-                leftGripBoardHold:
-                    _workout.holds[currentHold].leftGripBoardHold,
-                rightGripBoardHold:
-                    _workout.holds[currentHold].rightGripBoardHold,
-                handleLeftGripBoardHoldChanged: (BoardHold boardHold) =>
-                    _viewModel.setHoldLeftGripBoardHold(currentHold, boardHold),
-                handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
-                    _viewModel.setHoldRightGripBoardHold(
-                        currentHold, boardHold),
-                handleErrorMessage: (Widget message) =>
-                    handleErrorMessage(message))
+              board: _workout.board,
+              leftGrip: _workout.holds[currentHold].leftGrip,
+              rightGrip: _workout.holds[currentHold].rightGrip,
+              leftGripBoardHold: _workout.holds[currentHold].leftGripBoardHold,
+              rightGripBoardHold:
+                  _workout.holds[currentHold].rightGripBoardHold,
+              handleLeftGripBoardHoldChanged: (BoardHold boardHold) =>
+                  _viewModel.setHoldLeftGripBoardHold(currentHold, boardHold),
+              handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
+                  _viewModel.setHoldRightGripBoardHold(currentHold, boardHold),
+            )
           ],
         ),
         Section(
@@ -93,7 +88,6 @@ class HoldTab extends StatelessWidget {
               },
               initialValue: _workout.holds[currentHold].repetitions.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
-              handleErrorMessage: handleErrorMessage,
             ),
           ],
         ),
@@ -109,7 +103,6 @@ class HoldTab extends StatelessWidget {
               },
               initialValue: _workout.holds[currentHold].hangTime.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
-              handleErrorMessage: handleErrorMessage,
             ),
             NumberInputAndDivider(
               isDouble: false,
@@ -121,7 +114,6 @@ class HoldTab extends StatelessWidget {
               initialValue:
                   _workout.holds[currentHold].restBetweenRepetitions.toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
-              handleErrorMessage: handleErrorMessage,
             ),
           ],
         ),
@@ -142,7 +134,6 @@ class HoldTab extends StatelessWidget {
                       _workout.holds[currentHold].addedWeight),
               isDouble: true,
               shouldLoseFocusStream: shouldLoseFocusStream,
-              handleErrorMessage: handleErrorMessage,
             ),
           ],
         ),

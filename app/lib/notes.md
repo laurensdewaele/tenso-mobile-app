@@ -8,8 +8,8 @@ Watch
 ## TODO
 ### Large prio
 
-- Error when you have a small finger and try to pick a bigger hand for a not suitable hold.
 - Refactor / redesign the alert toaster. This can be done with Provider (will be a lot cleaner)
+- Error when you have a small finger and try to pick a bigger hand for a not suitable hold.
 
 - Draw diagram when all is refactored.
 - Write to file on every change.
@@ -37,7 +37,8 @@ Watch
   
   
   
-### Pesky error
+## Errors
+### BoardHoldPicker - setState() or markNeedsBuild() called during build
 ```Dart
 The following assertion was thrown while dispatching notifications for AppState:
 setState() or markNeedsBuild() called during build.

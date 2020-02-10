@@ -24,8 +24,6 @@ class NewWorkoutScreen extends StatefulWidget {
 class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   final StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
-  final StreamController<Widget> _errorMessageStreamController =
-      StreamController<Widget>();
   final ScrollController _scrollController = ScrollController();
   final StreamController<bool> _navigateForwardTabStreamController =
       StreamController<bool>();
@@ -42,7 +40,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   @override
   void dispose() {
     _shouldLoseFocusStreamController.close();
-    _errorMessageStreamController.close();
     _navigateForwardTabStreamController.close();
     _navigateBackTabStreamController.close();
     super.dispose();
@@ -53,10 +50,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
     setState(() {
       _keyboardOffsetHeight = 0;
     });
-  }
-
-  void _handleErrorMessage(Widget message) {
-    _errorMessageStreamController.sink.add(message);
   }
 
   void _handleKeyboardOffset(Offset offset) {
@@ -130,7 +123,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                       shouldLoseFocusStream:
                                           _shouldLoseFocusStreamController
                                               .stream,
-                                      handleErrorMessage: _handleErrorMessage,
                                       navigateForwardTabStream:
                                           _navigateForwardTabStreamController
                                               .stream,
@@ -150,7 +142,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                     )
                   ])),
         ),
-        Toast(messageStream: _errorMessageStreamController.stream),
+        Toast(),
       ],
     );
   }

@@ -4,22 +4,23 @@ import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_type.dart';
+import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
 import 'package:app/widgets/new_workout/board_drag_targets.dart';
+import 'package:provider/provider.dart';
 
 class BoardHoldPicker extends StatefulWidget {
-  BoardHoldPicker(
-      {Key key,
-      @required this.board,
-      @required this.leftGripBoardHold,
-      @required this.rightGripBoardHold,
-      @required this.handleLeftGripBoardHoldChanged,
-      @required this.handleRightGripBoardHoldChanged,
-      @required this.leftGrip,
-      @required this.rightGrip,
-      @required this.handleErrorMessage})
-      : super(key: key);
+  BoardHoldPicker({
+    Key key,
+    @required this.board,
+    @required this.leftGripBoardHold,
+    @required this.rightGripBoardHold,
+    @required this.handleLeftGripBoardHoldChanged,
+    @required this.handleRightGripBoardHoldChanged,
+    @required this.leftGrip,
+    @required this.rightGrip,
+  }) : super(key: key);
 
   final Board board;
   final BoardHold leftGripBoardHold;
@@ -28,7 +29,6 @@ class BoardHoldPicker extends StatefulWidget {
   final Grip rightGrip;
   final Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
   final Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
-  final Function(Widget errorMessage) handleErrorMessage;
 
   @override
   _BoardHoldPickerState createState() => _BoardHoldPickerState();
@@ -132,7 +132,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
 
   void _onDragEnd(DraggableDetails details) {
     if (_errorMessage != null) {
-      widget.handleErrorMessage(_errorMessage);
+      Provider.of<ToastService>(context, listen: false).add(_errorMessage);
     }
   }
 

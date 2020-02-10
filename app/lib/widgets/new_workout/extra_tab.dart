@@ -14,11 +14,10 @@ class ExtraTab extends StatelessWidget {
   ExtraTab(
       {Key key,
       @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage})
+      })
       : super(key: key);
 
   final Stream<bool> shouldLoseFocusStream;
-  final Function(Widget message) handleErrorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +65,6 @@ class ExtraTab extends StatelessWidget {
                   _viewModel.setName(n);
                 },
                 shouldLoseFocusStream: shouldLoseFocusStream,
-                handleErrorMessage: handleErrorMessage,
                 shouldFocus: false)
           ],
         ),

@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/keyboard_screen.dart';
 
@@ -10,13 +13,11 @@ class TextInput extends StatefulWidget {
       {@required this.initialValue,
       @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage,
       @required this.shouldFocus});
 
   final String initialValue;
   final ValueChanged<String> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
-  final Function(Widget) handleErrorMessage;
   final bool shouldFocus;
 
   @override
@@ -62,9 +63,8 @@ class _TextInputState extends State<TextInput> {
 
   void _validationError() {
     _textEditingController.text = widget.initialValue.toString();
-    widget.handleErrorMessage(
-      Text('Name must be filled in.', style: styles.Typography.textInfo),
-    );
+    Provider.of<ToastService>(context, listen: false).add(
+        Text('Name must be filled in.', style: styles.Typography.textInfo));
   }
 
   void _onTap() {

@@ -11,12 +11,10 @@ class GeneralTab extends StatefulWidget {
   GeneralTab(
       {Key key,
       @required this.shouldLoseFocusStream,
-      @required this.handleErrorMessage,
       @required this.shouldFocusOnInput})
       : super(key: key);
 
   final Stream<bool> shouldLoseFocusStream;
-  final Function(Widget message) handleErrorMessage;
   final bool shouldFocusOnInput;
 
   @override
@@ -54,7 +52,6 @@ class _GeneralTabState extends State<GeneralTab> {
               },
               initialValue: _workout.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              handleErrorMessage: widget.handleErrorMessage,
             ),
             NumberInputAndDivider(
               isDouble: false,
@@ -65,7 +62,6 @@ class _GeneralTabState extends State<GeneralTab> {
               },
               initialValue: _workout.sets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              handleErrorMessage: widget.handleErrorMessage,
             ),
           ],
         ),
@@ -81,7 +77,6 @@ class _GeneralTabState extends State<GeneralTab> {
               },
               initialValue: _workout.restBetweenHolds.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              handleErrorMessage: widget.handleErrorMessage,
             ),
             NumberInputAndDivider(
               isDouble: false,
@@ -92,7 +87,6 @@ class _GeneralTabState extends State<GeneralTab> {
               },
               initialValue: _workout.restBetweenSets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              handleErrorMessage: widget.handleErrorMessage,
             ),
           ],
         ),
