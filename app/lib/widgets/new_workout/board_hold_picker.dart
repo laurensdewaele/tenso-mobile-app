@@ -180,7 +180,10 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
             boardAspectRatio: widget.board.aspectRatio,
             boardAssetSrc: widget.board.assetSrc,
             boardHolds: widget.board.boardHolds.toList(),
-            activeBoardHolds: [widget.rightGripBoardHold, widget.leftGripBoardHold],
+            activeBoardHolds: [
+              widget.rightGripBoardHold,
+              widget.leftGripBoardHold
+            ],
             handleBoardDimensions: _handleBoardDimensions,
             setHandOffset: _setHandOffset,
             orientation: MediaQuery.of(context).orientation,
