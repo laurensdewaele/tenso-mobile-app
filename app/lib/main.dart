@@ -1,3 +1,4 @@
+import 'package:app/view_models/active_workout_vm.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
@@ -31,6 +32,12 @@ class App extends StatelessWidget {
         ProxyProvider<AppState, GeneralTabViewModel>(
           update: (context, appState, generalTabViewModel) =>
               GeneralTabViewModel(appState),
+          lazy: false,
+        ),
+        ChangeNotifierProxyProvider<AppState, ActiveWorkoutViewModel>(
+          create: (context) => ActiveWorkoutViewModel(context),
+          update: (context, appState, activeWorkoutViewModel) =>
+          activeWorkoutViewModel..update(context, appState),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, HoldTabViewModel>(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/view_models/active_workout_vm.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
@@ -7,11 +8,11 @@ import 'package:app/widgets/new_workout/extra_tab.dart';
 import 'package:app/widgets/new_workout/general_tab.dart';
 import 'package:app/widgets/new_workout/hold_tab.dart';
 import 'package:app/widgets/new_workout/tabs.dart';
+import 'package:provider/provider.dart';
 
 class TabsContainer extends StatefulWidget {
   TabsContainer(
       {Key key,
-      @required this.holdCount,
       @required this.shouldLoseFocusStream,
       @required this.handleErrorMessage,
       @required this.onNavigation,
@@ -19,7 +20,6 @@ class TabsContainer extends StatefulWidget {
       this.navigateBackTabStream})
       : super(key: key);
 
-  final int holdCount;
   final Stream<bool> shouldLoseFocusStream;
   final Function(Widget message) handleErrorMessage;
   final VoidCallback onNavigation;
@@ -41,7 +41,6 @@ class _TabsContainerState extends State<TabsContainer> {
   void initState() {
     super.initState();
     _activePageIndex = 0;
-    _buildPages(widget.holdCount);
     _firstTimeConstructed = false;
     _navigateForwardTabSub =
         widget.navigateForwardTabStream.listen((bool shouldNavigate) {
@@ -51,21 +50,6 @@ class _TabsContainerState extends State<TabsContainer> {
         widget.navigateBackTabStream.listen((bool shouldNavigate) {
       _handleBackNavigation();
     });
-  }
-
-  @override
-  void dispose() {
-    _navigateBackTabSub.cancel();
-    _navigateForwardTabSub.cancel();
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(TabsContainer oldWidget) {
-    if (oldWidget.holdCount != widget.holdCount) {
-      _buildPages(widget.holdCount);
-    }
-    super.didUpdateWidget(oldWidget);
   }
 
   void _buildPages(
@@ -96,6 +80,13 @@ class _TabsContainerState extends State<TabsContainer> {
     });
   }
 
+  @override
+  void dispose() {
+    _navigateBackTabSub.cancel();
+    _navigateForwardTabSub.cancel();
+    super.dispose();
+  }
+
   void _handleBackNavigation() {
     if (_activePageIndex == 0) {
       Navigator.of(context).pop();
@@ -121,6 +112,11 @@ class _TabsContainerState extends State<TabsContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final _viewModel =
+        Provider.of<ActiveWorkoutViewModel>(context, listen: false);
+
+    _buildPages(_viewModel.holdCount);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
