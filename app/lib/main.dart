@@ -33,10 +33,9 @@ class App extends StatelessWidget {
               GeneralTabViewModel(appState),
           lazy: false,
         ),
-        ChangeNotifierProxyProvider<AppState, HoldTabViewModel>(
-          create: (context) => HoldTabViewModel(),
+        ProxyProvider<AppState, HoldTabViewModel>(
           update: (context, appState, holdTabViewModel) =>
-              holdTabViewModel..update(appState),
+              HoldTabViewModel(appState),
           lazy: false,
         ),
         ProxyProvider<AppState, ExtraTabViewModel>(

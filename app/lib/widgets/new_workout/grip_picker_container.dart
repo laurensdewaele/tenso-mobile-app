@@ -1,9 +1,7 @@
-import 'package:app/models/grip.dart';
-import 'package:app/view_models/app_state_vm.dart';
-import 'package:app/view_models/hold_tab_vm.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/grips.dart';
+import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_type.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -11,23 +9,40 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/new_workout/grip_picker.dart';
 import 'package:app/widgets/new_workout/hand_tabs.dart';
 import 'package:app/widgets/radio_button.dart';
-import 'package:provider/provider.dart';
 
 class GripPickerContainer extends StatefulWidget {
-  GripPickerContainer({Key key, @required this.currentHold}) : super(key: key);
+  GripPickerContainer({
+    Key key,
+    @required this.rightGrip,
+    @required this.leftGrip,
+    @required this.handHold,
+    @required this.setHoldLeftGrip,
+    @required this.setHoldRightGrip,
+    @required this.setHoldHandHold,
+  }) : super(key: key);
 
-  final int currentHold;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final HandHold handHold;
+  final Function(Grip grip) setHoldLeftGrip;
+  final Function(Grip grip) setHoldRightGrip;
+  final Function(HandHold handHold) setHoldHandHold;
 
   @override
   _GripPickerContainerState createState() => _GripPickerContainerState();
 }
 
 class _GripPickerContainerState extends State<GripPickerContainer> {
+  HandType _handType;
+
   @override
   void initState() {
     super.initState();
-    Provider.of<HoldTabViewModel>(context, listen: false)
-        .initState(widget.currentHold);
+    if (widget.handHold == HandHold.oneHandedRight) {
+      _handType = HandType.rightHand;
+    } else {
+      _handType = HandType.leftHand;
+    }
   }
 
   @override
@@ -35,41 +50,65 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
     super.dispose();
   }
 
+  void _handleTwoHandedTap() {
+    widget.setHoldHandHold(HandHold.twoHanded);
+  }
+
+  void _handleOneHandedTap() {
+    HandHold handHold;
+    if (_handType == HandType.leftHand) {
+      handHold = HandHold.oneHandedLeft;
+    } else {
+      handHold = HandHold.oneHandedRight;
+    }
+    widget.setHoldHandHold(handHold);
+  }
+
+  void _handleLeftHandSelected() {
+    if (widget.handHold != HandHold.twoHanded) {
+      widget.setHoldHandHold(HandHold.oneHandedLeft);
+    }
+    setState(() {
+      _handType = HandType.leftHand;
+    });
+  }
+
+  void _handleRightHandSelected() {
+    if (widget.handHold != HandHold.twoHanded) {
+      widget.setHoldHandHold(HandHold.oneHandedRight);
+    }
+    setState(() {
+      _handType = HandType.rightHand;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _viewModel = Provider.of<HoldTabViewModel>(context, listen: true);
-    final _workout = Provider.of<AppState>(context, listen: true).workout;
-
     return Column(
       children: <Widget>[
         _HandHoldRadioGroup(
-            selectedHandHold: _workout.holds[widget.currentHold].handHold,
-            handleTwoHandedTap: () =>
-                _viewModel.handleTwoHandedTap(widget.currentHold),
-            handleOneHandedTap: () =>
-                _viewModel.handleOneHandedTap(widget.currentHold)),
-        Divider(height: styles.Measurements.m),
-        HandTabs(
-          handleLeftHandTap: () =>
-              _viewModel.handleLeftHandSelected(widget.currentHold),
-          handleRightHandTap: () =>
-              _viewModel.handleRightHandSelected(widget.currentHold),
-          isLeftHandSelected: _viewModel.selectedHand == HandType.leftHand,
-          isRightHandSelected: _viewModel.selectedHand == HandType.rightHand,
+          handHold: widget.handHold,
+          handleTwoHandedTap: _handleTwoHandedTap,
+          handleOneHandedTap: _handleOneHandedTap,
         ),
         Divider(height: styles.Measurements.m),
-        if (_viewModel.selectedHand == HandType.leftHand)
+        HandTabs(
+          handleLeftHandTap: _handleLeftHandSelected,
+          handleRightHandTap: _handleRightHandSelected,
+          isLeftHandSelected: _handType == HandType.leftHand,
+          isRightHandSelected: _handType == HandType.rightHand,
+        ),
+        Divider(height: styles.Measurements.m),
+        if (_handType == HandType.leftHand)
           GripPicker(
               grips: Grips.left,
-              selectedGrip: _workout.holds[widget.currentHold].leftGrip,
-              handleGripChanged: (Grip grip) =>
-                  _viewModel.handleLeftGripChanged(widget.currentHold, grip)),
-        if (_viewModel.selectedHand == HandType.rightHand)
+              selectedGrip: widget.leftGrip,
+              handleGripChanged: widget.setHoldLeftGrip),
+        if (_handType == HandType.rightHand)
           GripPicker(
               grips: Grips.right,
-              handleGripChanged: (Grip grip) =>
-                  _viewModel.handleRightGripChanged(widget.currentHold, grip),
-              selectedGrip: _workout.holds[widget.currentHold].rightGrip),
+              handleGripChanged: widget.setHoldRightGrip,
+              selectedGrip: widget.rightGrip),
       ],
     );
   }
@@ -77,11 +116,11 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
 class _HandHoldRadioGroup extends StatelessWidget {
   _HandHoldRadioGroup(
-      {@required this.selectedHandHold,
+      {@required this.handHold,
       @required this.handleOneHandedTap,
       @required this.handleTwoHandedTap});
 
-  final HandHold selectedHandHold;
+  final HandHold handHold;
   final VoidCallback handleTwoHandedTap;
   final VoidCallback handleOneHandedTap;
 
@@ -91,14 +130,14 @@ class _HandHoldRadioGroup extends StatelessWidget {
       RadioButton(
         description: 'Two handed',
         value: null,
-        active: selectedHandHold == HandHold.twoHanded,
+        active: handHold == HandHold.twoHanded,
         handleSelected: (v) => handleTwoHandedTap(),
       ),
       RadioButton(
         description: 'One handed',
         value: null,
-        active: selectedHandHold == HandHold.oneHandedLeft ||
-            selectedHandHold == HandHold.oneHandedRight,
+        active: handHold == HandHold.oneHandedLeft ||
+            handHold == HandHold.oneHandedRight,
         handleSelected: (v) => handleOneHandedTap(),
       ),
     ]);

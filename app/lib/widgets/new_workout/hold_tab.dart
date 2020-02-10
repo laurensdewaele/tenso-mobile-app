@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'package:app/functions/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
+import 'package:app/models/grip.dart';
+import 'package:app/models/hand_hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/view_models/app_state_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
@@ -41,7 +43,15 @@ class HoldTab extends StatelessWidget {
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
             GripPickerContainer(
-              currentHold: currentHold,
+              setHoldHandHold: (HandHold handHold) =>
+                  _viewModel.setHoldHandHold(currentHold, handHold),
+              rightGrip: _workout.holds[currentHold].rightGrip,
+              leftGrip: _workout.holds[currentHold].leftGrip,
+              setHoldRightGrip: (Grip grip) =>
+                  _viewModel.setHoldRightGrip(currentHold, grip),
+              setHoldLeftGrip: (Grip grip) =>
+                  _viewModel.setHoldLeftGrip(currentHold, grip),
+              handHold: _workout.holds[currentHold].handHold,
             )
           ],
         ),
