@@ -165,11 +165,6 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
 
   @override
   Widget build(BuildContext context) {
-    final activeBoardHolds = widget.board.boardHolds.toList()
-      ..removeWhere((boardHold) =>
-          boardHold == widget.leftGripBoardHold ||
-          boardHold == widget.rightGripBoardHold);
-
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onHorizontalDragEnd: _onHorizontalDragEnd,
@@ -184,7 +179,8 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
           BoardDragTargets(
             boardAspectRatio: widget.board.aspectRatio,
             boardAssetSrc: widget.board.assetSrc,
-            boardHolds: activeBoardHolds,
+            boardHolds: widget.board.boardHolds.toList(),
+            activeBoardHolds: [widget.rightGripBoardHold, widget.leftGripBoardHold],
             handleBoardDimensions: _handleBoardDimensions,
             setHandOffset: _setHandOffset,
             orientation: MediaQuery.of(context).orientation,

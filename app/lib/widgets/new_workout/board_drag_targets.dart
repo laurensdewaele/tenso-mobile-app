@@ -14,9 +14,11 @@ class BoardDragTargets extends StatefulWidget {
       @required this.setErrorMessage,
       @required this.boardAspectRatio,
       @required this.boardAssetSrc,
-      @required this.boardHolds})
+      @required this.boardHolds,
+      @required this.activeBoardHolds})
       : super(key: key);
 
+  final List<BoardHold> activeBoardHolds;
   final double boardAspectRatio;
   final String boardAssetSrc;
   final List<BoardHold> boardHolds;
@@ -107,6 +109,14 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                     return Container();
                   },
                   onWillAccept: (Grip grip) {
+                    if (widget.activeBoardHolds.contains(boardHold)) {
+                      widget.setErrorMessage(Text(
+                        'Hold is already taken',
+                        textAlign: TextAlign.center,
+                      ));
+                      return false;
+                    }
+
                     final Widget errorMessage =
                         checkCompatibility(grip, boardHold);
                     if (errorMessage == null) {
