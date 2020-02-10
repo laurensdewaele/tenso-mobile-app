@@ -16,17 +16,23 @@ class GripPickerContainer extends StatefulWidget {
     @required this.rightGrip,
     @required this.leftGrip,
     @required this.handHold,
-    @required this.setHoldLeftGrip,
-    @required this.setHoldRightGrip,
-    @required this.setHoldHandHold,
+    @required this.handleLeftGripSelected,
+    @required this.handleRightGripSelected,
+    @required this.handleOneHandedTap,
+    @required this.handleTwoHandedTap,
+    @required this.handleLeftHandSelected,
+    @required this.handleRightHandSelected,
   }) : super(key: key);
 
   final Grip leftGrip;
   final Grip rightGrip;
   final HandHold handHold;
-  final Function(Grip grip) setHoldLeftGrip;
-  final Function(Grip grip) setHoldRightGrip;
-  final Function(HandHold handHold) setHoldHandHold;
+  final Function(Grip grip) handleLeftGripSelected;
+  final Function(Grip grip) handleRightGripSelected;
+  final Function(HandHold handHold) handleOneHandedTap;
+  final Function(HandHold handHold) handleTwoHandedTap;
+  final Function(HandHold handHold) handleLeftHandSelected;
+  final Function(HandHold handHold) handleRightHandSelected;
 
   @override
   _GripPickerContainerState createState() => _GripPickerContainerState();
@@ -51,7 +57,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
   }
 
   void _handleTwoHandedTap() {
-    widget.setHoldHandHold(HandHold.twoHanded);
+    widget.handleTwoHandedTap(HandHold.twoHanded);
   }
 
   void _handleOneHandedTap() {
@@ -61,12 +67,12 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
     } else {
       handHold = HandHold.oneHandedRight;
     }
-    widget.setHoldHandHold(handHold);
+    widget.handleOneHandedTap(handHold);
   }
 
   void _handleLeftHandSelected() {
     if (widget.handHold != HandHold.twoHanded) {
-      widget.setHoldHandHold(HandHold.oneHandedLeft);
+      widget.handleLeftHandSelected(HandHold.oneHandedLeft);
     }
     setState(() {
       _handType = HandType.leftHand;
@@ -75,7 +81,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 
   void _handleRightHandSelected() {
     if (widget.handHold != HandHold.twoHanded) {
-      widget.setHoldHandHold(HandHold.oneHandedRight);
+      widget.handleRightHandSelected(HandHold.oneHandedRight);
     }
     setState(() {
       _handType = HandType.rightHand;
@@ -99,15 +105,15 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
           isRightHandSelected: _handType == HandType.rightHand,
         ),
         Divider(height: styles.Measurements.m),
-        if (_handType == HandType.leftHand)
+        if (_handType == HandType.leftHand && widget.leftGrip != null)
           GripPicker(
               grips: Grips.left,
               selectedGrip: widget.leftGrip,
-              handleGripChanged: widget.setHoldLeftGrip),
-        if (_handType == HandType.rightHand)
+              handleGripChanged: widget.handleLeftGripSelected),
+        if (_handType == HandType.rightHand && widget.rightGrip != null)
           GripPicker(
               grips: Grips.right,
-              handleGripChanged: widget.setHoldRightGrip,
+              handleGripChanged: widget.handleRightGripSelected,
               selectedGrip: widget.rightGrip),
       ],
     );

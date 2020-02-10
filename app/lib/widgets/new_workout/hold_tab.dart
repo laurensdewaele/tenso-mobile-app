@@ -43,14 +43,20 @@ class HoldTab extends StatelessWidget {
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
             GripPickerContainer(
-              setHoldHandHold: (HandHold handHold) =>
-                  _viewModel.setHoldHandHold(currentHold, handHold),
+              handleLeftHandSelected: (HandHold handHold) =>
+                  _viewModel.handleLeftHandSelected(currentHold, handHold),
+              handleRightHandSelected: (HandHold handHold) =>
+                  _viewModel.handleRightHandSelected(currentHold, handHold),
+              handleOneHandedTap: (HandHold handHold) =>
+                  _viewModel.handleOneHandedTap(currentHold, handHold),
+              handleTwoHandedTap: (HandHold handHold) =>
+                  _viewModel.handleTwoHandedTap(currentHold, handHold),
               rightGrip: _workout.holds[currentHold].rightGrip,
               leftGrip: _workout.holds[currentHold].leftGrip,
-              setHoldRightGrip: (Grip grip) =>
-                  _viewModel.setHoldRightGrip(currentHold, grip),
-              setHoldLeftGrip: (Grip grip) =>
-                  _viewModel.setHoldLeftGrip(currentHold, grip),
+              handleRightGripSelected: (Grip grip) =>
+                  _viewModel.handleRightGripSelected(currentHold, grip),
+              handleLeftGripSelected: (Grip grip) =>
+                  _viewModel.handleLeftGripSelected(currentHold, grip),
               handHold: _workout.holds[currentHold].handHold,
             )
           ],
@@ -62,9 +68,9 @@ class HoldTab extends StatelessWidget {
                 board: _workout.board,
                 leftGrip: _workout.holds[currentHold].leftGrip,
                 rightGrip: _workout.holds[currentHold].rightGrip,
-                initialLeftGripBoardHold:
+                leftGripBoardHold:
                     _workout.holds[currentHold].leftGripBoardHold,
-                initialRightGripBoardHold:
+                rightGripBoardHold:
                     _workout.holds[currentHold].rightGripBoardHold,
                 handleLeftGripBoardHoldChanged: (BoardHold boardHold) =>
                     _viewModel.setHoldLeftGripBoardHold(currentHold, boardHold),

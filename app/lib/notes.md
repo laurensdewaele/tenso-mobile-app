@@ -8,10 +8,9 @@ Watch
 ## TODO
 ### Large prio
 
-- Try to move all logic to ViewModel
-- Draw diagram when all is refactored.
 - Error when you have a small finger and try to pick a bigger hand for a not suitable hold.
 - Refactor / redesign the alert toaster. This can be done with Provider (will be a lot cleaner)
+- Draw diagram when all is refactored.
 - Write to file on every change.
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.

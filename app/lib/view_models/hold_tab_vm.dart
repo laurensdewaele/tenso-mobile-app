@@ -1,4 +1,5 @@
 import 'package:app/data/grips.dart';
+import 'package:app/functions/board_hold_grip_compatibility.dart';
 import 'package:app/functions/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -7,6 +8,7 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/view_models/app_state_vm.dart';
+import 'package:flutter/cupertino.dart';
 
 class HoldTabViewModel {
   HoldTabViewModel(AppState appState) {
@@ -59,7 +61,6 @@ class HoldTabViewModel {
     final _holds = _holdList;
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
-    _checkHands(holdNo);
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
@@ -134,48 +135,108 @@ class HoldTabViewModel {
     _appState.setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
-  void setHoldOneHandedTap(int holdNo) {
+  void handleLeftHandSelected(int holdNo, HandHold handHold) {
     final _holds = _holdList;
-    final hold = _holds[holdNo];
-
-    if (hold.leftGrip == null) {
-      setHoldHandHold(holdNo, HandHold.oneHandedRight);
+    if (handHold == HandHold.oneHandedLeft && _holds[holdNo].leftGrip == null) {
+      setHoldLeftGrip(holdNo, Grips.openHandL);
+      setHoldLeftGripBoardHold(holdNo, _workout.board.defaultLeftGripHold);
     }
 
-    if (hold.rightGrip == null) {
-      setHoldHandHold(holdNo, HandHold.oneHandedLeft);
-    }
-  }
-
-  void _checkHands(int holdNo) {
-    final _holds = _holdList;
-    final hold = _holds[holdNo];
-
-    if (hold.handHold == HandHold.oneHandedLeft) {
+    if (handHold == HandHold.oneHandedLeft) {
       setHoldRightGrip(holdNo, null);
       setHoldRightGripBoardHold(holdNo, null);
     }
+    setHoldHandHold(holdNo, handHold);
+  }
 
-    if (hold.handHold == HandHold.oneHandedLeft && hold.leftGrip == null) {
-      setHoldLeftGrip(holdNo, Grips.openHandL);
+  void handleRightHandSelected(int holdNo, HandHold handHold) {
+    final _holds = _holdList;
+    if (handHold == HandHold.oneHandedRight &&
+        _holds[holdNo].rightGrip == null) {
+      setHoldRightGrip(holdNo, Grips.openHandR);
+      setHoldRightGripBoardHold(holdNo, _workout.board.defaultRightGripHold);
     }
 
-    if (hold.handHold == HandHold.oneHandedRight) {
+    if (handHold == HandHold.oneHandedRight) {
       setHoldLeftGrip(holdNo, null);
       setHoldLeftGripBoardHold(holdNo, null);
     }
+    setHoldHandHold(holdNo, handHold);
+  }
 
-    if (hold.handHold == HandHold.oneHandedRight && hold.rightGrip == null) {
-      setHoldRightGrip(holdNo, Grips.openHandR);
+  void handleOneHandedTap(int holdNo, HandHold handHold) {
+    if (handHold == HandHold.oneHandedRight) {
+      setHoldLeftGrip(holdNo, null);
+      setHoldLeftGripBoardHold(holdNo, null);
+    }
+    if (handHold == HandHold.oneHandedLeft) {
+      setHoldRightGrip(holdNo, null);
+      setHoldRightGripBoardHold(holdNo, null);
+    }
+    setHoldHandHold(holdNo, handHold);
+  }
+
+  void handleTwoHandedTap(int holdNo, HandHold handHold) {
+    final _holds = _holdList;
+    final BoardHold defaultLeftGripBoardHold =
+        _workout.board.defaultLeftGripHold;
+    final BoardHold defaultRightGripBoardHold =
+        _workout.board.defaultRightGripHold;
+
+    if (_holds[holdNo].leftGrip == null) {
+      final existingPosition = _holds[holdNo].rightGripBoardHold.position;
+      if (existingPosition != defaultLeftGripBoardHold.position) {
+        setHoldLeftGripBoardHold(holdNo, defaultLeftGripBoardHold);
+      } else {
+        final List<BoardHold> _boardHolds = _workout.board.boardHolds.toList();
+        // TODO: Keep in check for other boards. This is only valid if the starting defaultBoardHold is not at position 0;
+        final BoardHold newBoardHoldPosition = _boardHolds.firstWhere(
+            (BoardHold boardHold) =>
+                boardHold.position == defaultLeftGripBoardHold.position - 1);
+        setHoldLeftGripBoardHold(holdNo, newBoardHoldPosition);
+      }
+      setHoldLeftGrip(holdNo, Grips.openHandL);
     }
 
-    if (hold.handHold == HandHold.twoHanded) {
-      if (hold.leftGrip == null) {
-        setHoldLeftGrip(holdNo, Grips.openHandL);
+    if (_holds[holdNo].rightGrip == null) {
+      final existingPosition = _holds[holdNo].leftGripBoardHold.position;
+
+      if (existingPosition != defaultRightGripBoardHold.position) {
+        setHoldRightGripBoardHold(holdNo, defaultRightGripBoardHold);
+      } else {
+        final List<BoardHold> _boardHolds = _workout.board.boardHolds.toList();
+        // TODO: Keep in check for other boards. This is only valid if the starting defaultBoardHold is not at position 0;
+        final BoardHold newBoardHoldPosition = _boardHolds.firstWhere(
+            (BoardHold boardHold) =>
+                boardHold.position == defaultRightGripBoardHold.position + 1);
+        setHoldRightGripBoardHold(holdNo, newBoardHoldPosition);
       }
-      if (hold.rightGrip == null) {
-        setHoldRightGrip(holdNo, Grips.openHandR);
-      }
+      setHoldRightGrip(holdNo, Grips.openHandR);
+    }
+    setHoldHandHold(holdNo, handHold);
+  }
+
+  void handleRightGripSelected(int holdNo, Grip grip) {
+    final _holds = _holdList;
+    Widget errorMessage =
+        checkCompatibility(grip, _holds[holdNo].rightGripBoardHold);
+    if (errorMessage == null) {
+      setHoldRightGrip(holdNo, grip);
+    } else {
+      print('error, not compatible!');
+      // TODO: Decent error handling
+    }
+  }
+
+  void handleLeftGripSelected(int holdNo, Grip grip) {
+    final _holds = _holdList;
+    Widget errorMessage =
+        checkCompatibility(grip, _holds[holdNo].leftGripBoardHold);
+    if (errorMessage == null) {
+      setHoldLeftGrip(holdNo, grip);
+    } else {
+      print('error, not compatible!');
+      // TODO: Decent error handling
     }
   }
 }

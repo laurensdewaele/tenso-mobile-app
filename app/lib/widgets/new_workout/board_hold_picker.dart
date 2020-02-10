@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/functions/board_hold_grip_compatibility.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -13,8 +12,8 @@ class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker(
       {Key key,
       @required this.board,
-      @required this.initialLeftGripBoardHold,
-      @required this.initialRightGripBoardHold,
+      @required this.leftGripBoardHold,
+      @required this.rightGripBoardHold,
       @required this.handleLeftGripBoardHoldChanged,
       @required this.handleRightGripBoardHoldChanged,
       @required this.leftGrip,
@@ -23,8 +22,8 @@ class BoardHoldPicker extends StatefulWidget {
       : super(key: key);
 
   final Board board;
-  final BoardHold initialLeftGripBoardHold;
-  final BoardHold initialRightGripBoardHold;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
   final Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
@@ -43,53 +42,25 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   double _containerHeight;
 
   Widget _errorMessage;
-  final Widget _updatedGripErrorMessage = Text(
-    'The chosen hand hold was reset.\n The grip is not compatible',
-    textAlign: TextAlign.center,
-  );
   Size _boardSize;
   double _gripHeight;
   Offset _leftHandOffset;
   Offset _rightHandOffset;
   Offset _leftHandFeedbackOffset;
   Offset _rightHandFeedbackOffset;
-  BoardHold _leftGripBoardHold;
-  BoardHold _rightGripBoardHold;
 
   @override
-  void initState() {
-    super.initState();
-    _leftGripBoardHold = widget.initialLeftGripBoardHold;
-    _rightGripBoardHold = widget.initialRightGripBoardHold;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  // TODO: Move all logic to viewModel
   void didUpdateWidget(BoardHoldPicker oldWidget) {
-    if (oldWidget.leftGrip != widget.leftGrip && widget.leftGrip != null) {
-      final Widget errorMessage =
-          checkCompatibility(widget.leftGrip, _leftGripBoardHold);
-      if (errorMessage != null) {
-        widget.handleErrorMessage(_updatedGripErrorMessage);
-        _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
-      } else {
-        _setHandOffset(widget.leftGrip, _leftGripBoardHold);
-      }
+    if (oldWidget.leftGrip != widget.leftGrip &&
+        widget.leftGrip != null &&
+        widget.leftGripBoardHold != null) {
+      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
     }
-    if (oldWidget.rightGrip != widget.rightGrip && widget.rightGrip != null) {
-      final Widget errorMessage =
-          checkCompatibility(widget.rightGrip, _rightGripBoardHold);
-      if (errorMessage != null) {
-        widget.handleErrorMessage(_updatedGripErrorMessage);
-        _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
-      } else {
-        _setHandOffset(widget.rightGrip, _rightGripBoardHold);
-      }
+
+    if (oldWidget.rightGrip != widget.rightGrip &&
+        widget.rightGrip != null &&
+        widget.rightGripBoardHold != null) {
+      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -109,19 +80,19 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
 
   void _setInitialHandOffset() {
     if (widget.leftGrip != null) {
-      _setHandOffset(widget.leftGrip, widget.initialLeftGripBoardHold);
+      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
     }
     if (widget.rightGrip != null) {
-      _setHandOffset(widget.rightGrip, widget.initialRightGripBoardHold);
+      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
     }
   }
 
   void _recalculateHandOffset() {
-    if (widget.leftGrip != null && _leftGripBoardHold != null) {
-      _setHandOffset(widget.leftGrip, _leftGripBoardHold);
+    if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
+      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
     }
-    if (widget.rightGrip != null && _rightGripBoardHold != null) {
-      _setHandOffset(widget.rightGrip, _rightGripBoardHold);
+    if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
+      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
     }
   }
 
@@ -142,17 +113,17 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     final Offset offset = Offset(holdDXHangAnchor - gripDXHangAnchor,
         holdDYHangAnchor - gripDYHangAnchor);
 
-    setState(() {
-      if (grip.handType == HandType.leftHand) {
+    if (grip.handType == HandType.leftHand) {
+      setState(() {
         _leftHandOffset = offset;
-        _leftGripBoardHold = boardHold;
-        widget.handleLeftGripBoardHoldChanged(boardHold);
-      } else {
+      });
+      widget.handleLeftGripBoardHoldChanged(boardHold);
+    } else {
+      setState(() {
         _rightHandOffset = offset;
-        _rightGripBoardHold = boardHold;
-        widget.handleRightGripBoardHoldChanged(boardHold);
-      }
-    });
+      });
+      widget.handleRightGripBoardHoldChanged(boardHold);
+    }
   }
 
   void _setHandFeedbackOffset(
