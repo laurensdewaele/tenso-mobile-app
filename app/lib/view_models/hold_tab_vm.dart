@@ -1,5 +1,5 @@
 import 'package:app/data/grips.dart';
-import 'package:app/functions/board_hold_grip_compatibility.dart';
+import 'package:app/functions/grip_board_hold_compatibility.dart';
 import 'package:app/functions/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -222,7 +222,7 @@ class HoldTabViewModel {
   void handleRightGripSelected(int holdNo, Grip grip) {
     final _holds = _holdList;
     Widget errorMessage =
-        checkCompatibility(grip, _holds[holdNo].rightGripBoardHold);
+        checkGripBoardHoldCompatibility(grip, _holds[holdNo].rightGripBoardHold);
     if (errorMessage == null) {
       setHoldRightGrip(holdNo, grip);
     } else {
@@ -233,7 +233,7 @@ class HoldTabViewModel {
   void handleLeftGripSelected(int holdNo, Grip grip) {
     final _holds = _holdList;
     Widget errorMessage =
-        checkCompatibility(grip, _holds[holdNo].leftGripBoardHold);
+        checkGripBoardHoldCompatibility(grip, _holds[holdNo].leftGripBoardHold);
     if (errorMessage == null) {
       setHoldLeftGrip(holdNo, grip);
     } else {

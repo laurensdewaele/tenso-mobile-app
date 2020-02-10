@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 
-Widget checkCompatibility(Grip grip, BoardHold boardHold) {
+Widget checkGripBoardHoldCompatibility(Grip grip, BoardHold boardHold) {
   if (boardHold != null && grip.fingers.count > boardHold.maxAllowedFingers) {
     final maxAllowedFingers = boardHold.maxAllowedFingers;
     return Text(

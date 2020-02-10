@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/functions/board_hold_grip_compatibility.dart';
+import 'package:app/functions/grip_board_hold_compatibility.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -118,7 +118,7 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                     }
 
                     final Widget errorMessage =
-                        checkCompatibility(grip, boardHold);
+                        checkGripBoardHoldCompatibility(grip, boardHold);
                     if (errorMessage == null) {
                       return true;
                     } else {
