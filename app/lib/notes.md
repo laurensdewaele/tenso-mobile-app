@@ -8,7 +8,6 @@ Watch
 ## TODO
 ### Large prio
 
-- Range error going to second page lol.
 - Settings view model the same way I've structured the rest.
 
 - Draw diagram when all is refactored.
