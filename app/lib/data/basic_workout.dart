@@ -21,6 +21,26 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
+      ..addedWeight = 20),
+    Hold((b) => b
+      ..leftGrip = Grips.halfCrimpL.toBuilder()
+      ..rightGrip = Grips.halfCrimpR.toBuilder()
+      ..handHold = HandHold.twoHanded
+      ..leftGripBoardHold = beastmaker1000.defaultLeftGripHold.toBuilder()
+      ..rightGripBoardHold = beastmaker1000.defaultRightGripHold.toBuilder()
+      ..repetitions = 8
+      ..restBetweenRepetitions = 60
+      ..hangTime = 7
+      ..addedWeight = 20),
+    Hold((b) => b
+      ..leftGrip = Grips.openHandL.toBuilder()
+      ..rightGrip = Grips.openHandR.toBuilder()
+      ..handHold = HandHold.twoHanded
+      ..leftGripBoardHold = beastmaker1000.defaultLeftGripHold.toBuilder()
+      ..rightGripBoardHold = beastmaker1000.defaultRightGripHold.toBuilder()
+      ..repetitions = 8
+      ..restBetweenRepetitions = 60
+      ..hangTime = 7
       ..addedWeight = 20)
   ])
   ..name = 'Basic workout');
