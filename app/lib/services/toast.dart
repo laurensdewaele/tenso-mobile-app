@@ -10,7 +10,7 @@ class ToastService {
   }
 
   final StreamController<Widget> _errorMessageStreamController =
-      StreamController<Widget>();
+      StreamController<Widget>.broadcast();
   Stream<Widget> get errorMessageStream => _errorMessageStreamController.stream;
 
   void dispose() {
