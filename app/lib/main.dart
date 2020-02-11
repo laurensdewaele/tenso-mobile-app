@@ -10,6 +10,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
+import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
 
 void main() => runApp(App());
@@ -33,6 +34,10 @@ class App extends StatelessWidget {
               AppState(Provider.of<PersistenceService>(context, listen: false)),
           lazy: false,
         ),
+        ProxyProvider<AppState, NewOrEditWorkoutViewModel>(
+          update: (context, appState, newOrEditWorkoutViewModel) =>
+              NewOrEditWorkoutViewModel(appState),
+        ),
         ProxyProvider<AppState, GeneralTabViewModel>(
           update: (context, appState, generalTabViewModel) =>
               GeneralTabViewModel(appState),
@@ -40,7 +45,9 @@ class App extends StatelessWidget {
         ),
         ProxyProvider<AppState, HoldTabViewModel>(
           update: (context, appState, holdTabViewModel) => HoldTabViewModel(
-              appState, Provider.of<ToastService>(context, listen: false)),
+              appState,
+              Provider.of<ToastService>(context, listen: false),
+              Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
         ProxyProvider<AppState, ExtraTabViewModel>(

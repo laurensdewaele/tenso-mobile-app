@@ -19,15 +19,24 @@ class AppState extends ChangeNotifier {
 
   Workout _workout;
   Workout get workout => _workout;
-  void setWorkout(Workout workout) {
+  void saveWorkout(Workout workout) {
     _workout = workout;
     _persistenceService.saveWorkout(workout);
     notifyListeners();
   }
 
+  void saveNewWorkout(Workout workout) {
+    saveWorkout(workout);
+    print('---AppState saving NEW workout----');
+  }
+
+  void saveEditWorkout(Workout workout) {
+    print('---AppState saving EDIT workout----');
+  }
+
   Workouts _workouts;
   Workouts get workouts => _workouts;
-  void setWorkouts(Workouts workouts) {
+  void saveWorkouts(Workouts workouts) {
     _workouts = workouts;
     _persistenceService.saveWorkouts(workouts);
     notifyListeners();

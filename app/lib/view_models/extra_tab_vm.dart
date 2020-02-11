@@ -9,10 +9,10 @@ class ExtraTabViewModel {
   Workout get _workout => _appState.workout;
 
   void setDifficulty(String difficulty) {
-    _appState.setWorkout(_workout.rebuild((b) => b..difficulty = difficulty));
+    _appState.saveWorkout(_workout.rebuild((b) => b..difficulty = difficulty));
   }
 
   void setName(String name) {
-    _appState.setWorkout(_workout.rebuild((b) => b..name = name));
+    _appState.saveWorkout(_workout.rebuild((b) => b..name = name));
   }
 }
