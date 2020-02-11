@@ -17,21 +17,30 @@ class AppState extends ChangeNotifier {
 
   PersistenceService _persistenceService;
 
+  // TODO: Rename to newWorkout and remove saveWorkout
   Workout _workout;
   Workout get workout => _workout;
-  void saveWorkout(Workout workout) {
-    _workout = workout;
-    _persistenceService.saveWorkout(workout);
+  void saveWorkout(Workout newWorkout) {
+    _workout = newWorkout;
+    _persistenceService.saveWorkout(newWorkout);
     notifyListeners();
   }
 
-  void saveNewWorkout(Workout workout) {
-    saveWorkout(workout);
-    print('---AppState saving NEW workout----');
+  void saveNewWorkout(Workout newWorkout) {
+    _workout = newWorkout;
+    _persistenceService.saveWorkout(newWorkout);
+    notifyListeners();
   }
 
-  void saveEditWorkout(Workout workout) {
-    print('---AppState saving EDIT workout----');
+  Workout _editWorkout;
+  Workout get editWorkout {
+    return _editWorkout;
+  }
+
+  void saveEditWorkout(Workout editWorkout) {
+    // TODO: Further logic of course.
+    _editWorkout = editWorkout;
+    notifyListeners();
   }
 
   Workouts _workouts;
@@ -54,6 +63,7 @@ class AppState extends ChangeNotifier {
     _workout = basicWorkout;
     _workouts = Workouts((b) => b);
     _settings = basicSettings;
+    _editWorkout = basicEditWorkout;
     notifyListeners();
   }
 

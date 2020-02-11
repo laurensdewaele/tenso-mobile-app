@@ -43,9 +43,8 @@ class App extends StatelessWidget {
               GeneralTabViewModel(appState),
           lazy: false,
         ),
-        ProxyProvider<AppState, HoldTabViewModel>(
-          update: (context, appState, holdTabViewModel) => HoldTabViewModel(
-              appState,
+        Provider<HoldTabViewModel>(
+          create: (context) => HoldTabViewModel(
               Provider.of<ToastService>(context, listen: false),
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,

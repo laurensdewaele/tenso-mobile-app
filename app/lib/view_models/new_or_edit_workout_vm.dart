@@ -12,6 +12,15 @@ class NewOrEditWorkoutViewModel {
   bool _isEditWorkout = false;
   bool get isNewWorkout => _isNewWorkout;
   bool get isEditWorkout => _isEditWorkout;
+
+  Workout get workout {
+    if (_isNewWorkout) {
+      return _appState.workout;
+    } else {
+      return _appState.editWorkout;
+    }
+  }
+
   void setNewWorkout(bool isNewWorkout) {
     _isNewWorkout = isNewWorkout;
     _isEditWorkout = !isNewWorkout;

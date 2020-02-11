@@ -11,7 +11,14 @@ Watch
 - Edit workout. 
 - Better naming because it needs to be used edit workout as well.
 
-- Draw diagram when all is refactored.
+
+OH HEAHHH SHIT WORKS SONNNY BOOY...
+So what I need to do: refactor and remove appState
+Remove _workout and call it _newWorkout;
+
+Go train hehemahhaa;
+
+- Draw diagram when all is refactored. => DO THIS THOUGH
 - Write to file on every change.
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.

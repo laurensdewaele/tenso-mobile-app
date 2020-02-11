@@ -8,23 +8,20 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/services/toast.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:flutter/cupertino.dart';
 
 class HoldTabViewModel {
-  HoldTabViewModel(AppState appState, ToastService toastService,
+  HoldTabViewModel(ToastService toastService,
       NewOrEditWorkoutViewModel newOrEditWorkoutViewModel) {
     _toastService = toastService;
-    _appState = appState;
     _newOrEditWorkoutViewModel = newOrEditWorkoutViewModel;
   }
 
   ToastService _toastService;
-  AppState _appState;
   NewOrEditWorkoutViewModel _newOrEditWorkoutViewModel;
-  Workout get _workout => _appState.workout;
-  List<Hold> get _holdList => _appState.workout.holds.toList();
+  Workout get _workout => _newOrEditWorkoutViewModel.workout;
+  List<Hold> get _holdList => _newOrEditWorkoutViewModel.workout.holds.toList();
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
     final _holds = _holdList;
