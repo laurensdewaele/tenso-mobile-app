@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -8,7 +10,6 @@ import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
 import 'package:app/widgets/new_workout/board_drag_targets.dart';
-import 'package:provider/provider.dart';
 
 class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker({
