@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -118,8 +119,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: GestureDetector(
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
-                              child: Consumer<SettingsViewModel>(
-                                builder: (context, settingsViewModel, child) {
+                              child: Consumer<AppState>(
+                                builder: (context, _appState, child) {
                                   return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -146,10 +147,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     NumberInputAndDescription(
                                                       isDouble: false,
                                                       description: 'seconds',
-                                                      initialValue:
-                                                          settingsViewModel
-                                                              .preparationTimer
-                                                              .toDouble(),
+                                                      initialValue: _appState
+                                                          .settings
+                                                          .preparationTimer
+                                                          .toDouble(),
                                                       handleIntValueChanged:
                                                           _handlePreparationTimerChanged,
                                                       shouldLoseFocusStream:
@@ -183,8 +184,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Metric (kg)',
                                                       value: Unit.metric,
-                                                      active: settingsViewModel
-                                                              .unit ==
+                                                      active: _appState
+                                                              .settings.unit ==
                                                           Unit.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
@@ -193,8 +194,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Unit.imperial,
-                                                      active: settingsViewModel
-                                                              .unit ==
+                                                      active: _appState
+                                                              .settings.unit ==
                                                           Unit.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,

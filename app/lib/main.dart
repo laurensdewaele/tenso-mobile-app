@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/data/basic_settings.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/services/persistence.dart';
@@ -49,9 +48,10 @@ class App extends StatelessWidget {
               ExtraTabViewModel(appState),
           lazy: false,
         ),
-        // TODO: Refactor
-        ChangeNotifierProvider<SettingsViewModel>(
-          create: (context) => defaultSettingsViewModel,
+        ProxyProvider<AppState, SettingsViewModel>(
+          update: (context, appState, settingsViewModel) =>
+              SettingsViewModel(appState),
+          lazy: false,
         ),
       ],
       child: CupertinoApp(

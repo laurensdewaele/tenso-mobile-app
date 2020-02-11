@@ -1,57 +1,41 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/board.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/models/unit.dart';
+import 'package:app/state/app_state.dart';
 
 // ignore_for_file: unnecessary_getters_setters
 
 // Setters and getters are needed for Provider classes.
 // Otherwise, we cannot make a call to notifyListeners() when setting as value.
 
-// TODO: Slowly disband and delete for better architecture.
-class SettingsViewModel extends ChangeNotifier {
-  SettingsViewModel(Board defaultBoard, int preparationTimer, Sound hangSound,
-      Sound restSound, Unit unit) {
-    this._defaultBoard = defaultBoard;
-    this._preparationTimer = preparationTimer;
-    this._hangSound = hangSound;
-    this._restSound = restSound;
-    this._unit = unit;
+class SettingsViewModel {
+  SettingsViewModel(AppState appState) {
+    _appState = appState;
   }
 
-  Board _defaultBoard;
-  Board get defaultBoard => _defaultBoard;
-  void setDefaultBoard(Board board) {
-    _defaultBoard = board;
-    notifyListeners();
+  AppState _appState;
+
+  void setDefaultBoard(Board defaultBoard) {
+    _appState.setSettings(_appState.settings
+        .rebuild((b) => b..defaultBoard = defaultBoard.toBuilder()));
   }
 
-  int _preparationTimer;
-  int get preparationTimer => _preparationTimer;
   void setPreparationTimer(int seconds) {
-    _preparationTimer = seconds;
-    notifyListeners();
+    _appState.setSettings(
+        _appState.settings.rebuild((b) => b..preparationTimer = seconds));
   }
 
-  Sound _hangSound;
-  Sound get hangSound => _hangSound;
   void setHangSound(Sound sound) {
-    _hangSound = sound;
-    notifyListeners();
+    _appState.setSettings(
+        _appState.settings.rebuild((b) => b..hangSound = sound.toBuilder()));
   }
 
-  Sound _restSound;
-  Sound get restSound => _restSound;
   void setRestSound(Sound sound) {
-    _restSound = sound;
-    notifyListeners();
+    _appState.setSettings(
+        _appState.settings.rebuild((b) => b..restSound = sound.toBuilder()));
   }
 
-  Unit _unit;
-  Unit get unit => _unit;
   void setUnit(Unit unit) {
-    _unit = unit;
-    notifyListeners();
+    _appState.setSettings(_appState.settings.rebuild((b) => b..unit = unit));
   }
 }
