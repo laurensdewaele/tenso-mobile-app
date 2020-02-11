@@ -8,7 +8,8 @@ Watch
 ## TODO
 ### Large prio
 
-- Settings view model the same way I've structured the rest.
+- Edit workout. 
+- Better naming because it needs to be used edit workout as well.
 
 - Draw diagram when all is refactored.
 - Write to file on every change.
