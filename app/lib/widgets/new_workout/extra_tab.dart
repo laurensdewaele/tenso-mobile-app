@@ -72,8 +72,9 @@ class ExtraTab extends StatelessWidget {
         ),
         Center(
           child: Button(
+            primaryColor: _workoutViewModel.primaryColor,
             width: styles.Measurements.xxl * 2,
-            text: 'save',
+            text: 'done',
             handleTap: () => Navigator.of(context).pop(),
             displayIcon: false,
           ),

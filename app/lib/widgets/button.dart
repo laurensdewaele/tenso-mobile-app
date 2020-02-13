@@ -8,8 +8,10 @@ class Button extends StatelessWidget {
       {@required this.text,
       @required this.handleTap,
       this.displayIcon = true,
+      this.primaryColor = styles.Colors.primary,
       this.width = double.infinity});
 
+  final Color primaryColor;
   final String text;
   final VoidCallback handleTap;
   final bool displayIcon;
@@ -23,7 +25,7 @@ class Button extends StatelessWidget {
             width: width,
             decoration: BoxDecoration(
                 borderRadius: styles.kBorderRadiusAll,
-                color: styles.Colors.primary,
+                color: primaryColor,
                 boxShadow: [styles.kBoxShadow]),
             padding: EdgeInsets.symmetric(
                 vertical: styles.Measurements.xs,
