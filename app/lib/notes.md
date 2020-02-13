@@ -11,6 +11,7 @@ Watch
 ### Edit workout.
 Make bg and inputs blue and add a proper saving method.
 
+
 - Draw diagram when all is refactored. => DO THIS THOUGH
 - Write to file on every change.
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
