@@ -8,7 +8,7 @@ class RadioButton extends StatelessWidget {
       {@required this.active,
       @required this.description,
       @required this.value,
-      @required this.primaryColor,
+      this.primaryColor = styles.Colors.primary,
       @required this.handleSelected});
 
   final Color primaryColor;

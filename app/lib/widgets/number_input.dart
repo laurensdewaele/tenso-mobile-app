@@ -11,6 +11,7 @@ import 'package:app/widgets/keyboard_screen.dart';
 class NumberInput extends StatefulWidget {
   NumberInput(
       {@required this.initialValue,
+      this.primaryColor = styles.Colors.primary,
       this.handleDoubleValueChanged,
       this.handleIntValueChanged,
       @required this.shouldLoseFocusStream,
@@ -18,6 +19,7 @@ class NumberInput extends StatefulWidget {
       @required this.shouldFocus,
       this.zeroValueAllowed});
 
+  final Color primaryColor;
   final double initialValue;
   final Stream<bool> shouldLoseFocusStream;
   final bool shouldFocus;
@@ -132,7 +134,7 @@ class _NumberInputState extends State<NumberInput> {
           controller: _textEditingController,
           cursorColor: styles.Colors.white,
           decoration: BoxDecoration(
-              color: styles.Colors.primary,
+              color: widget.primaryColor,
               borderRadius: styles.kBorderRadiusAll),
           focusNode: _focusNode,
           keyboardType: widget.isDouble

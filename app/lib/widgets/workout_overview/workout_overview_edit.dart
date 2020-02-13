@@ -15,7 +15,7 @@ class WorkoutOverviewEditAction extends StatelessWidget {
       child: Stack(overflow: Overflow.clip, children: <Widget>[
         Container(
             decoration: const BoxDecoration(
-                color: styles.Colors.difficultyBlue,
+                color: styles.Colors.blue,
                 borderRadius: BorderRadius.only(
                     topLeft: styles.kBorderRadius,
                     bottomLeft: styles.kBorderRadius)),

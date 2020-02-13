@@ -7,6 +7,7 @@ import 'package:app/widgets/divider.dart';
 class NumberInputAndDescription extends StatelessWidget {
   NumberInputAndDescription(
       {Key key,
+        this.primaryColor = styles.Colors.primary,
       @required this.description,
       @required this.initialValue,
       this.handleIntValueChanged,
@@ -17,6 +18,7 @@ class NumberInputAndDescription extends StatelessWidget {
       this.zeroValueAllowed})
       : super(key: key);
 
+  final Color primaryColor;
   final String description;
   final double initialValue;
   final ValueChanged<int> handleIntValueChanged;
@@ -31,6 +33,7 @@ class NumberInputAndDescription extends StatelessWidget {
     return Row(
       children: <Widget>[
         NumberInput(
+            primaryColor: primaryColor,
             zeroValueAllowed: zeroValueAllowed,
             isDouble: isDouble,
             shouldFocus: shouldFocus,

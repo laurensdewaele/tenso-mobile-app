@@ -45,6 +45,7 @@ class HoldTab extends StatelessWidget {
           title: 'hold $_currentHoldString / $_totalHoldsString',
           children: <Widget>[
             GripPickerContainer(
+              textPrimaryColor: _workoutViewModel.textPrimaryColor,
               primaryColor: _workoutViewModel.primaryColor,
               handleLeftHandSelected: (HandHold handHold) => _holdTabViewModel
                   .handleLeftHandSelected(currentHold, handHold),
@@ -88,6 +89,7 @@ class HoldTab extends StatelessWidget {
           title: 'basics',
           children: <Widget>[
             NumberInputAndDivider(
+              primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'repetitions',
               shouldFocus: false,
@@ -105,6 +107,7 @@ class HoldTab extends StatelessWidget {
           title: 'timers',
           children: <Widget>[
             NumberInputAndDivider(
+              primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'hang time seconds',
               shouldFocus: false,
@@ -117,6 +120,7 @@ class HoldTab extends StatelessWidget {
               shouldLoseFocusStream: shouldLoseFocusStream,
             ),
             NumberInputAndDivider(
+              primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between repetitions',
               shouldFocus: false,
@@ -134,6 +138,7 @@ class HoldTab extends StatelessWidget {
           title: 'added weight',
           children: <Widget>[
             NumberInputAndDivider(
+              primaryColor: _workoutViewModel.primaryColor,
               zeroValueAllowed: true,
               description: _settings.unit == Unit.metric ? 'kg' : 'pounds',
               shouldFocus: false,

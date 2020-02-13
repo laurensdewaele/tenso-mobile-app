@@ -17,9 +17,9 @@ abstract class Colors {
   static const Color bgRedStop = const Color.fromRGBO(185, 51, 51, 1);
   static const Color bgCardOverview = const Color.fromRGBO(1, 1, 1, 1);
   static const Color strokeMenu = const Color.fromRGBO(237, 237, 237, 1);
-  static const Color difficultyYellow = const Color.fromRGBO(241, 196, 15, 1);
-  static const Color difficultyOrange = const Color.fromRGBO(230, 126, 34, 1);
-  static const Color difficultyBlue = const Color.fromRGBO(52, 152, 219, 1);
+  static const Color yellow = const Color.fromRGBO(241, 196, 15, 1);
+  static const Color orange = const Color.fromRGBO(230, 126, 34, 1);
+  static const Color blue = const Color.fromRGBO(52, 152, 219, 1);
   static const Color green = const Color.fromRGBO(46, 204, 113, 1.0);
 }
 
@@ -33,37 +33,39 @@ abstract class Measurements {
 }
 
 abstract class Typography {
-  static TextStyle title =
+  static const TextStyle title =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
-  static TextStyle subtitle =
+  static const TextStyle subtitle =
       TextStyle(fontFamily: 'Staatliches', fontSize: 16, color: Colors.gray);
-  static TextStyle difficulty =
+  static const TextStyle difficulty =
       TextStyle(fontFamily: 'Staatliches', fontSize: 26, color: Colors.white);
-  static TextStyle inputDescriptionSquare =
+  static const TextStyle inputDescriptionSquare =
       TextStyle(fontFamily: 'Staatliches', fontSize: 18, color: Colors.white);
-  static TextStyle topNavigationTitleWhite =
+  static const TextStyle topNavigationTitleWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.white);
-  static TextStyle topNavigationTitleBlack =
+  static const TextStyle topNavigationTitleBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 20, color: Colors.black);
-  static TextStyle buttonWhite =
+  static const TextStyle buttonWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
-  static TextStyle buttonGray =
+  static const TextStyle buttonGray =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.gray);
-  static TextStyle buttonBlack =
+  static const TextStyle buttonBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.black);
-  static TextStyle indicatorWhite =
+  static const TextStyle indicatorWhite =
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.white);
-  static TextStyle indicatorBlack =
+  static const TextStyle indicatorBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.black);
-  static TextStyle text =
+  static const TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
-  static TextStyle textBgWhite =
+  static const TextStyle textBgWhite =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.bgWhite);
-  static TextStyle textPrimary =
+  static const TextStyle textRed =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.primary);
-  static TextStyle textInfo =
+  static const TextStyle textBlue =
+      TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.blue);
+  static const TextStyle textInfo =
       TextStyle(fontFamily: 'Lato', fontSize: 18, color: Colors.black);
-  static TextStyle textInfoBold = TextStyle(
+  static const TextStyle textInfoBold = TextStyle(
       fontFamily: 'Lato',
       fontSize: 18,
       color: Colors.black,
@@ -86,9 +88,9 @@ const BoxDecoration kDialogBlurOverlayDecoration = BoxDecoration(
 );
 
 const Map<int, Color> difficultyColors = {
-  0: Colors.difficultyYellow,
-  1: Colors.difficultyOrange,
-  2: Colors.difficultyBlue,
+  0: Colors.yellow,
+  1: Colors.orange,
+  2: Colors.blue,
   3: Colors.primary,
   4: Colors.black
 };

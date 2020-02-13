@@ -23,8 +23,10 @@ class GripPickerContainer extends StatefulWidget {
     @required this.handleLeftHandSelected,
     @required this.handleRightHandSelected,
     @required this.primaryColor,
+    @required this.textPrimaryColor,
   }) : super(key: key);
 
+  final TextStyle textPrimaryColor;
   final Color primaryColor;
   final Grip leftGrip;
   final Grip rightGrip;
@@ -102,6 +104,8 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
         ),
         Divider(height: styles.Measurements.m),
         HandTabs(
+          textPrimaryColor: widget.textPrimaryColor,
+          primaryColor: widget.primaryColor,
           handleLeftHandTap: _handleLeftHandSelected,
           handleRightHandTap: _handleRightHandSelected,
           isLeftHandSelected: _handType == HandType.leftHand,

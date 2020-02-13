@@ -4,11 +4,13 @@ import 'package:app/models/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class NewOrEditWorkoutViewModel extends ChangeNotifier {
   NewOrEditWorkoutViewModel() {
     _title = 'New workout';
     _primaryColor = styles.Colors.primary;
+    _textPrimaryColor = styles.Typography.textRed;
   }
   AppState _appState;
 
@@ -21,6 +23,8 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
   String get title => _title;
   Color _primaryColor;
   Color get primaryColor => _primaryColor;
+  TextStyle _textPrimaryColor;
+  TextStyle get textPrimaryColor => _textPrimaryColor;
 
   Workout get workout {
     if (_isNewWorkout) {
@@ -39,11 +43,13 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
       _isNewWorkout = true;
       _isEditWorkout = false;
       _primaryColor = styles.Colors.primary;
+      _textPrimaryColor = styles.Typography.textRed;
       _title = 'New workout';
     } else {
       _isNewWorkout = false;
       _isEditWorkout = true;
-      _primaryColor = styles.Colors.difficultyBlue;
+      _primaryColor = styles.Colors.blue;
+      _textPrimaryColor = styles.Typography.textBlue;
       _title = 'Edit workout';
     }
     notifyListeners();

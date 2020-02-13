@@ -8,6 +8,7 @@ class NumberInputAndDivider extends StatelessWidget {
   NumberInputAndDivider(
       {Key key,
       this.handleIntValueChanged,
+        this.primaryColor = styles.Colors.primary,
       this.handleDoubleValueChanged,
       @required this.description,
       @required this.initialValue,
@@ -17,6 +18,7 @@ class NumberInputAndDivider extends StatelessWidget {
       this.shouldFocus})
       : super(key: key);
 
+  final Color primaryColor;
   final String description;
   final double initialValue;
   final Stream<bool> shouldLoseFocusStream;
@@ -31,6 +33,7 @@ class NumberInputAndDivider extends StatelessWidget {
     return Column(
       children: <Widget>[
         NumberInputAndDescription(
+          primaryColor: primaryColor,
           zeroValueAllowed: zeroValueAllowed,
           description: description,
           shouldFocus: shouldFocus,

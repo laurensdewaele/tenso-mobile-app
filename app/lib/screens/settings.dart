@@ -145,6 +145,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                   title: 'preparation timer',
                                                   children: <Widget>[
                                                     NumberInputAndDescription(
+                                                      primaryColor:
+                                                          styles.Colors.primary,
                                                       isDouble: false,
                                                       description: 'seconds',
                                                       initialValue: _appState
@@ -194,7 +196,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     ),
                                                     RadioButton(
                                                       primaryColor:
-                                                      styles.Colors.primary,
+                                                          styles.Colors.primary,
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Unit.imperial,
