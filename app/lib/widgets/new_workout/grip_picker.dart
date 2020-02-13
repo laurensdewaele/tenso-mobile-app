@@ -10,9 +10,15 @@ final double _kGripPickerHeight = 100;
 final double _kGripWidth = 80;
 
 class GripPicker extends StatefulWidget {
-  GripPicker({Key key, this.grips, this.selectedGrip, this.handleGripChanged})
+  GripPicker(
+      {Key key,
+      @required this.grips,
+      @required this.selectedGrip,
+      @required this.handleGripChanged,
+      @required this.primaryColor})
       : super(key: key);
 
+  final Color primaryColor;
   final List<Grip> grips;
   final Grip selectedGrip;
   final Function(Grip grip) handleGripChanged;
@@ -94,6 +100,7 @@ class _GripPickerState extends State<GripPicker> {
             scrollDirection: Axis.horizontal,
             children: <Widget>[
               ...widget.grips.map((Grip grip) => _Grip(
+                    primaryColor: widget.primaryColor,
                     grip: grip,
                     handleGripChanged: _handleGripChanged,
                     selected: widget.selectedGrip == grip,
@@ -110,10 +117,12 @@ class _Grip extends StatelessWidget {
   _Grip(
       {Key key,
       @required this.grip,
+      this.primaryColor,
       @required this.handleGripChanged,
       @required this.selected})
       : super(key: key);
 
+  final Color primaryColor;
   final Grip grip;
   final Function(Grip grip) handleGripChanged;
   final bool selected;
@@ -125,6 +134,7 @@ class _Grip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget image = GripImage(
+        primaryColor: primaryColor,
         assetSrc: grip.assetSrc,
         selected: selected,
         color: styles.Colors.lightGray);

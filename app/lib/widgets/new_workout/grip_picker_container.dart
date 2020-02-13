@@ -114,11 +114,13 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
         Divider(height: styles.Measurements.m),
         if (_handType == HandType.leftHand && widget.leftGrip != null)
           GripPicker(
+              primaryColor: widget.primaryColor,
               grips: Grips.left,
               selectedGrip: widget.leftGrip,
               handleGripChanged: widget.handleLeftGripSelected),
         if (_handType == HandType.rightHand && widget.rightGrip != null)
           GripPicker(
+              primaryColor: widget.primaryColor,
               grips: Grips.right,
               handleGripChanged: widget.handleRightGripSelected,
               selectedGrip: widget.rightGrip),
