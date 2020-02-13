@@ -9,15 +9,7 @@ Watch
 ### Large prio
 
 ### Edit workout.
-Now navigate to edit workout screen and load it in state.
-Also make sure that i saves correctly.
-
-
-OH HEAHHH SHIT WORKS SONNNY BOOY...
-So what I need to do: refactor and remove appState
-Remove _workout and call it _newWorkout;
-
-Go train hehemahhaa;
+Make bg and inputs blue and add a proper saving method.
 
 - Draw diagram when all is refactored. => DO THIS THOUGH
 - Write to file on every change.
