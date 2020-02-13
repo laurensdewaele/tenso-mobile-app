@@ -13,8 +13,10 @@ class TextInput extends StatefulWidget {
       {@required this.initialValue,
       @required this.handleValueChanged,
       @required this.shouldLoseFocusStream,
+      this.primaryColor = styles.Colors.primary,
       @required this.shouldFocus});
 
+  final Color primaryColor;
   final String initialValue;
   final ValueChanged<String> handleValueChanged;
   final Stream<bool> shouldLoseFocusStream;
@@ -91,7 +93,7 @@ class _TextInputState extends State<TextInput> {
           cursorColor: styles.Colors.black,
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: styles.Colors.primary, width: 3),
+              bottom: BorderSide(color: widget.primaryColor, width: 3),
             ),
           ),
           focusNode: _focusNode,

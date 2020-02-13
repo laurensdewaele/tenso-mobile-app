@@ -20,9 +20,10 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _workout =
-        Provider.of<NewOrEditWorkoutViewModel>(context, listen: true).workout;
-    final _viewModel = Provider.of<ExtraTabViewModel>(context, listen: false);
+    final _workoutViewModel =
+        Provider.of<NewOrEditWorkoutViewModel>(context, listen: true);
+    final _extraTabViewModel =
+        Provider.of<ExtraTabViewModel>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,13 +36,13 @@ class ExtraTab extends StatelessWidget {
               height: 150,
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
-                    initialItem:
-                        Grade.sportFrench.indexOf(_workout.difficulty)),
+                    initialItem: Grade.sportFrench
+                        .indexOf(_workoutViewModel.workout.difficulty)),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
                 onSelectedItemChanged: (int item) {
-                  _viewModel.setDifficulty(Grade.sportFrench[item]);
+                  _extraTabViewModel.setDifficulty(Grade.sportFrench[item]);
                 },
                 itemExtent: 40,
                 children: <Widget>[
@@ -60,9 +61,10 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
-                initialValue: _workout.name,
+                primaryColor: _workoutViewModel.primaryColor,
+                initialValue: _workoutViewModel.workout.name,
                 handleValueChanged: (n) {
-                  _viewModel.setName(n);
+                  _extraTabViewModel.setName(n);
                 },
                 shouldLoseFocusStream: shouldLoseFocusStream,
                 shouldFocus: false)
