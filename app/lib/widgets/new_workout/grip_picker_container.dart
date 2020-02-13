@@ -22,8 +22,10 @@ class GripPickerContainer extends StatefulWidget {
     @required this.handleTwoHandedTap,
     @required this.handleLeftHandSelected,
     @required this.handleRightHandSelected,
+    @required this.primaryColor,
   }) : super(key: key);
 
+  final Color primaryColor;
   final Grip leftGrip;
   final Grip rightGrip;
   final HandHold handHold;
@@ -93,6 +95,7 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
     return Column(
       children: <Widget>[
         _HandHoldRadioGroup(
+          primaryColor: widget.primaryColor,
           handHold: widget.handHold,
           handleTwoHandedTap: _handleTwoHandedTap,
           handleOneHandedTap: _handleOneHandedTap,
@@ -123,9 +126,11 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
 class _HandHoldRadioGroup extends StatelessWidget {
   _HandHoldRadioGroup(
       {@required this.handHold,
+      @required this.primaryColor,
       @required this.handleOneHandedTap,
       @required this.handleTwoHandedTap});
 
+  final Color primaryColor;
   final HandHold handHold;
   final VoidCallback handleTwoHandedTap;
   final VoidCallback handleOneHandedTap;
@@ -134,12 +139,14 @@ class _HandHoldRadioGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       RadioButton(
+        primaryColor: primaryColor,
         description: 'Two handed',
         value: null,
         active: handHold == HandHold.twoHanded,
         handleSelected: (v) => handleTwoHandedTap(),
       ),
       RadioButton(
+        primaryColor: primaryColor,
         description: 'One handed',
         value: null,
         active: handHold == HandHold.oneHandedLeft ||

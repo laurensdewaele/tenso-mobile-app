@@ -8,8 +8,10 @@ class RadioButton extends StatelessWidget {
       {@required this.active,
       @required this.description,
       @required this.value,
+      @required this.primaryColor,
       @required this.handleSelected});
 
+  final Color primaryColor;
   final bool active;
   final String description;
   final dynamic value;
@@ -28,7 +30,11 @@ class RadioButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            active ? _ActiveCircle() : _NonActiveCircle(),
+            active
+                ? _ActiveCircle(
+                    primaryColor: primaryColor,
+                  )
+                : _NonActiveCircle(),
             Divider(
               width: styles.Measurements.m,
             ),
@@ -44,6 +50,10 @@ class RadioButton extends StatelessWidget {
 }
 
 class _ActiveCircle extends StatelessWidget {
+  _ActiveCircle({this.primaryColor});
+
+  Color primaryColor;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,8 +62,8 @@ class _ActiveCircle extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-                color: styles.Colors.primary, shape: BoxShape.circle),
+            decoration:
+                BoxDecoration(color: primaryColor, shape: BoxShape.circle),
           ),
           Center(
             child: Container(
@@ -67,8 +77,8 @@ class _ActiveCircle extends StatelessWidget {
             child: Container(
               width: styles.Measurements.xs,
               height: styles.Measurements.xs,
-              decoration: BoxDecoration(
-                  color: styles.Colors.primary, shape: BoxShape.circle),
+              decoration:
+                  BoxDecoration(color: primaryColor, shape: BoxShape.circle),
             ),
           ),
         ],

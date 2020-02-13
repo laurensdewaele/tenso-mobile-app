@@ -181,6 +181,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                   title: 'units',
                                                   children: <Widget>[
                                                     RadioButton(
+                                                      primaryColor:
+                                                          styles.Colors.primary,
                                                       description:
                                                           'Metric (kg)',
                                                       value: Unit.metric,
@@ -191,6 +193,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                           _handleUnitChanged,
                                                     ),
                                                     RadioButton(
+                                                      primaryColor:
+                                                      styles.Colors.primary,
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Unit.imperial,
