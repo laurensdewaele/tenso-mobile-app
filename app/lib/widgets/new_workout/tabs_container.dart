@@ -11,6 +11,7 @@ import 'package:app/widgets/new_workout/tabs.dart';
 class TabsContainer extends StatefulWidget {
   TabsContainer(
       {Key key,
+      @required this.primaryColor,
       @required this.holdCount,
       @required this.shouldLoseFocusStream,
       @required this.onNavigation,
@@ -18,6 +19,7 @@ class TabsContainer extends StatefulWidget {
       this.navigateBackTabStream})
       : super(key: key);
 
+  final Color primaryColor;
   final int holdCount;
   final Stream<bool> shouldLoseFocusStream;
   final VoidCallback onNavigation;
@@ -126,6 +128,7 @@ class _TabsContainerState extends State<TabsContainer> {
           child: _pages[_activePageIndex],
         ),
         Tabs(
+            primaryColor: widget.primaryColor,
             handleNavigation: _handleNavigation,
             handleBackNavigation: _handleBackNavigation,
             handleForwardNavigation: _handleForwardNavigation,

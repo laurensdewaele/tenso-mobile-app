@@ -116,6 +116,7 @@ class _NewOrEditWorkoutScreenState extends State<NewOrEditWorkoutScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TabsContainer(
+                                        primaryColor: _viewModel.primaryColor,
                                         onNavigation: _scrollToTop,
                                         holdCount: _viewModel.workout.holdCount,
                                         shouldLoseFocusStream:
