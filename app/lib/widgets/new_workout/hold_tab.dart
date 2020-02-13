@@ -29,7 +29,7 @@ class HoldTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final _workout =
         Provider.of<NewOrEditWorkoutViewModel>(context, listen: true).workout;
-    final _settings = Provider.of<AppState>(context, listen: false).settings;
+    final _settings = Provider.of<AppState>(context, listen: true).settings;
     final _viewModel = Provider.of<HoldTabViewModel>(context, listen: false);
 
     final String _currentHoldString = (currentHold + 1).toString();

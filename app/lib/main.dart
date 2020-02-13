@@ -34,9 +34,10 @@ class App extends StatelessWidget {
               AppState(Provider.of<PersistenceService>(context, listen: false)),
           lazy: false,
         ),
-        ProxyProvider<AppState, NewOrEditWorkoutViewModel>(
+        ChangeNotifierProxyProvider<AppState, NewOrEditWorkoutViewModel>(
+          create: (context) => NewOrEditWorkoutViewModel(),
           update: (context, appState, newOrEditWorkoutViewModel) =>
-              NewOrEditWorkoutViewModel(appState),
+              newOrEditWorkoutViewModel..update(appState),
         ),
         Provider<GeneralTabViewModel>(
           create: (context) => GeneralTabViewModel(

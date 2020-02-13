@@ -35,7 +35,7 @@ class _GeneralTabState extends State<GeneralTab> {
   @override
   Widget build(BuildContext context) {
     final _workout =
-        Provider.of<NewOrEditWorkoutViewModel>(context, listen: false).workout;
+        Provider.of<NewOrEditWorkoutViewModel>(context, listen: true).workout;
     final _viewModel = Provider.of<GeneralTabViewModel>(context, listen: false);
 
     return Column(

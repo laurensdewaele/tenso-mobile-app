@@ -3,15 +3,13 @@ import 'dart:ui';
 import 'package:app/models/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
-
-class NewOrEditWorkoutViewModel {
-  NewOrEditWorkoutViewModel(AppState appState) {
-    _appState = appState;
+class NewOrEditWorkoutViewModel extends ChangeNotifier {
+  NewOrEditWorkoutViewModel() {
     _title = 'New workout';
     _primaryColor = styles.Colors.primary;
   }
-
   AppState _appState;
 
   bool _isNewWorkout = true;
@@ -26,14 +24,18 @@ class NewOrEditWorkoutViewModel {
 
   Workout get workout {
     if (_isNewWorkout) {
-      return _appState.newWorkout;
+      return _appState?.newWorkout;
     } else {
-      return _appState.editWorkout;
+      return _appState?.editWorkout;
     }
   }
 
-  void setNewWorkout({bool isNewWorkout, bool isEditWorkout}) {
-    if (isNewWorkout) {
+  void update(AppState appState) {
+    _appState = appState;
+  }
+
+  void setWorkoutType({bool isNewWorkout, bool isEditWorkout}) {
+    if (isNewWorkout == true) {
       _isNewWorkout = true;
       _isEditWorkout = false;
       _primaryColor = styles.Colors.primary;
@@ -44,13 +46,14 @@ class NewOrEditWorkoutViewModel {
       _primaryColor = styles.Colors.difficultyBlue;
       _title = 'Edit workout';
     }
+    notifyListeners();
   }
 
   void saveWorkout(Workout workout) {
-    if (_isNewWorkout) {
-      _appState.saveNewWorkout(workout);
+    if (_isNewWorkout == true) {
+      _appState?.saveNewWorkout(workout);
     } else {
-      _appState.saveEditWorkout(workout);
+      _appState?.saveEditWorkout(workout);
     }
   }
 }
