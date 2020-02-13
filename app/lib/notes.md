@@ -8,8 +8,9 @@ Watch
 ## TODO
 ### Large prio
 
-- Edit workout. 
-- Better naming because it needs to be used edit workout as well.
+### Edit workout.
+Now navigate to edit workout screen and load it in state.
+Also make sure that i saves correctly.
 
 
 OH HEAHHH SHIT WORKS SONNNY BOOY...
@@ -26,6 +27,7 @@ Go train hehemahhaa;
 
 ### Medium prio
 
+- Rethink the difficulty. Maybe once you do a test it can be reset to what your max is?
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
 - ShouldLooseFocus stream controller onto Provider.

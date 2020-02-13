@@ -35,7 +35,6 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -101,47 +100,48 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                   controller: _scrollController,
                   physics: ClampingScrollPhysics(),
                   children: [
-                    Column(
-                      children: <Widget>[
-                        TopNavigation(title: 'New workout'),
-                        Divider(height: styles.Measurements.xxl),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: styles.Measurements.xs),
-                          child: GestureDetector(
-                            onHorizontalDragEnd: _onHorizontalDragEnd,
-                            child: Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TabsContainer(
-                                      onNavigation: _scrollToTop,
-                                      holdCount: Provider.of<
-                                                  NewOrEditWorkoutViewModel>(
-                                              context,
-                                              listen: true)
-                                          .workout
-                                          .holdCount,
-                                      shouldLoseFocusStream:
-                                          _shouldLoseFocusStreamController
-                                              .stream,
-                                      navigateForwardTabStream:
-                                          _navigateForwardTabStreamController
-                                              .stream,
-                                      navigateBackTabStream:
-                                          _navigateBackTabStreamController
-                                              .stream),
-                                  SizedBox(
-                                    height: _keyboardOffsetHeight,
-                                  )
-                                ],
+                    Consumer<NewOrEditWorkoutViewModel>(
+                      builder: (context, _viewModel, child) {
+                        return Column(
+                          children: <Widget>[
+                            TopNavigation(title: _viewModel.title),
+                            Divider(height: styles.Measurements.xxl),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.xs),
+                              child: GestureDetector(
+                                onHorizontalDragEnd: _onHorizontalDragEnd,
+                                child: Card(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TabsContainer(
+                                          onNavigation: _scrollToTop,
+                                          holdCount:
+                                              _viewModel.workout.holdCount,
+                                          shouldLoseFocusStream:
+                                              _shouldLoseFocusStreamController
+                                                  .stream,
+                                          navigateForwardTabStream:
+                                              _navigateForwardTabStreamController
+                                                  .stream,
+                                          navigateBackTabStream:
+                                              _navigateBackTabStreamController
+                                                  .stream),
+                                      SizedBox(
+                                        height: _keyboardOffsetHeight,
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        Divider(height: styles.Measurements.xxl)
-                      ],
+                            Divider(height: styles.Measurements.xxl)
+                          ],
+                        );
+                      },
                     )
                   ])),
         ),
