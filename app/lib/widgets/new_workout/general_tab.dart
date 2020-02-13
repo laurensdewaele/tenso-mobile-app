@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/state/app_state.dart';
 import 'package:app/view_models/general_tab_vm.dart';
+import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/new_workout/integer_input_and_divider.dart';
 import 'package:app/widgets/section.dart';
 
@@ -34,7 +34,8 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    final _workout = Provider.of<AppState>(context, listen: false).workout;
+    final _workout =
+        Provider.of<NewOrEditWorkoutViewModel>(context, listen: false).workout;
     final _viewModel = Provider.of<GeneralTabViewModel>(context, listen: false);
 
     return Column(

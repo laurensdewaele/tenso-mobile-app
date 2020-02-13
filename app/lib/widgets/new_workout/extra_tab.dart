@@ -3,25 +3,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/models/grade.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/extra_tab_vm.dart';
+import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/new_workout/text_input.dart';
 
 class ExtraTab extends StatelessWidget {
-  ExtraTab(
-      {Key key,
-      @required this.shouldLoseFocusStream,
-      })
-      : super(key: key);
+  ExtraTab({
+    Key key,
+    @required this.shouldLoseFocusStream,
+  }) : super(key: key);
 
   final Stream<bool> shouldLoseFocusStream;
 
   @override
   Widget build(BuildContext context) {
-    final _workout = Provider.of<AppState>(context, listen: true).workout;
+    final _workout =
+        Provider.of<NewOrEditWorkoutViewModel>(context, listen: true).workout;
     final _viewModel = Provider.of<ExtraTabViewModel>(context, listen: false);
 
     return Column(

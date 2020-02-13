@@ -48,7 +48,7 @@ class PersistenceService {
     }
   }
 
-  Future<Workout> getWorkout() async {
+  Future<Workout> getNewWorkout() async {
     try {
       final file = await _localWorkoutFile;
       String contents = await file.readAsString();

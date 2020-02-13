@@ -38,9 +38,9 @@ class App extends StatelessWidget {
           update: (context, appState, newOrEditWorkoutViewModel) =>
               NewOrEditWorkoutViewModel(appState),
         ),
-        ProxyProvider<AppState, GeneralTabViewModel>(
-          update: (context, appState, generalTabViewModel) =>
-              GeneralTabViewModel(appState),
+        Provider<GeneralTabViewModel>(
+          create: (context) => GeneralTabViewModel(
+              Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
         Provider<HoldTabViewModel>(
@@ -49,9 +49,9 @@ class App extends StatelessWidget {
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
-        ProxyProvider<AppState, ExtraTabViewModel>(
-          update: (context, appState, extraTabViewModel) =>
-              ExtraTabViewModel(appState),
+        Provider<ExtraTabViewModel>(
+          create: (context) => ExtraTabViewModel(
+              Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
         ProxyProvider<AppState, SettingsViewModel>(

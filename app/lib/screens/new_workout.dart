@@ -5,8 +5,8 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';
@@ -35,6 +35,7 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
@@ -116,7 +117,9 @@ class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
                                 children: [
                                   TabsContainer(
                                       onNavigation: _scrollToTop,
-                                      holdCount: Provider.of<AppState>(context,
+                                      holdCount: Provider.of<
+                                                  NewOrEditWorkoutViewModel>(
+                                              context,
                                               listen: true)
                                           .workout
                                           .holdCount,

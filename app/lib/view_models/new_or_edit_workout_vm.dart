@@ -15,15 +15,20 @@ class NewOrEditWorkoutViewModel {
 
   Workout get workout {
     if (_isNewWorkout) {
-      return _appState.workout;
+      return _appState.newWorkout;
     } else {
       return _appState.editWorkout;
     }
   }
 
-  void setNewWorkout(bool isNewWorkout) {
-    _isNewWorkout = isNewWorkout;
-    _isEditWorkout = !isNewWorkout;
+  void setNewWorkout({bool isNewWorkout, bool isEditWorkout}) {
+    if (isNewWorkout) {
+      _isNewWorkout = true;
+      _isEditWorkout = false;
+    } else {
+      _isNewWorkout = false;
+      _isEditWorkout = true;
+    }
   }
 
   void saveWorkout(Workout workout) {

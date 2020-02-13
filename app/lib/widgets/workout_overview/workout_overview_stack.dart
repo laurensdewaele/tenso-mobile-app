@@ -2,8 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
@@ -63,7 +66,8 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _handleEditTap() {
-    // TODO: Implement functionality
+    Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)
+        .setNewWorkout(isEditWorkout: true);
     _close();
   }
 

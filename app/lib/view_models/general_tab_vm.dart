@@ -1,15 +1,15 @@
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/state/app_state.dart';
+import 'package:app/view_models/new_or_edit_workout_vm.dart';
 
 class GeneralTabViewModel {
-  GeneralTabViewModel(AppState appState) {
-    _appState = appState;
+  GeneralTabViewModel(NewOrEditWorkoutViewModel newOrEditWorkoutViewModel) {
+    _newOrEditWorkoutViewModel = newOrEditWorkoutViewModel;
   }
 
-  AppState _appState;
-  Workout get _workout => _appState.workout;
+  NewOrEditWorkoutViewModel _newOrEditWorkoutViewModel;
+  Workout get _workout => _newOrEditWorkoutViewModel.workout;
 
   void setHoldCount(int count) {
     if (count == _workout.holdCount) {
@@ -32,23 +32,26 @@ class GeneralTabViewModel {
     final Workout w = _workout.rebuild((b) => b
       ..holdCount = count
       ..holds.replace(_holds));
-    _appState.saveWorkout(w);
+    _newOrEditWorkoutViewModel.saveWorkout(w);
   }
 
   void setSets(int s) {
-    _appState.saveWorkout((_workout.rebuild((b) => b..sets = s)));
+    _newOrEditWorkoutViewModel
+        .saveWorkout((_workout.rebuild((b) => b..sets = s)));
   }
 
   void setRestBetweenHolds(int s) {
-    _appState.saveWorkout((_workout.rebuild((b) => b..restBetweenHolds = s)));
+    _newOrEditWorkoutViewModel
+        .saveWorkout((_workout.rebuild((b) => b..restBetweenHolds = s)));
   }
 
   void setRestBetweenSets(int s) {
-    _appState.saveWorkout((_workout.rebuild((b) => b..restBetweenSets = s)));
+    _newOrEditWorkoutViewModel
+        .saveWorkout((_workout.rebuild((b) => b..restBetweenSets = s)));
   }
 
   void setBoard(Board board) {
-    _appState
+    _newOrEditWorkoutViewModel
         .saveWorkout((_workout.rebuild((b) => b..board = board.toBuilder())));
   }
 }
