@@ -14,14 +14,14 @@ import 'package:app/widgets/new_workout/tabs_container.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 
-class NewWorkoutScreen extends StatefulWidget {
-  NewWorkoutScreen();
+class NewOrEditWorkoutScreen extends StatefulWidget {
+  NewOrEditWorkoutScreen();
 
   @override
-  _NewWorkoutScreenState createState() => _NewWorkoutScreenState();
+  _NewOrEditWorkoutScreenState createState() => _NewOrEditWorkoutScreenState();
 }
 
-class _NewWorkoutScreenState extends State<NewWorkoutScreen> {
+class _NewOrEditWorkoutScreenState extends State<NewOrEditWorkoutScreen> {
   final StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
   final ScrollController _scrollController = ScrollController();

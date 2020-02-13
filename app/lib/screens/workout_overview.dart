@@ -27,7 +27,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleAddWorkout() {
     Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)
         .setWorkoutType(isNewWorkout: true);
-    Navigator.of(context).pushNamed(Routes.newWorkoutScreen);
+    Navigator.of(context).pushNamed(Routes.newOrEditWorkoutScreen);
   }
 
   void _handleDeleteTap(Workout workout) {
