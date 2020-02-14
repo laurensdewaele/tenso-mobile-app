@@ -93,17 +93,17 @@ class _NewOrEditWorkoutScreenState extends State<NewOrEditWorkoutScreen> {
         GestureDetector(
           onTap: _onScreenTap,
           child: Consumer<NewOrEditWorkoutViewModel>(
-            builder: (context, _viewModel, child) => KeyBoardScreen(
+            builder: (context, _newOrEditWorkoutViewModel, child) => KeyBoardScreen(
                 handleKeyboardOffset: _handleKeyboardOffset,
-                gradientStartColor: _viewModel.primaryColor,
-                gradientStopColor: _viewModel.primaryColor,
+                gradientStartColor: _newOrEditWorkoutViewModel.primaryColor,
+                gradientStopColor: _newOrEditWorkoutViewModel.primaryColor,
                 child: ListView(
                     controller: _scrollController,
                     physics: ClampingScrollPhysics(),
                     children: [
                       Column(
                         children: <Widget>[
-                          TopNavigation(title: _viewModel.title),
+                          TopNavigation(title: _newOrEditWorkoutViewModel.title),
                           Divider(height: styles.Measurements.xxl),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -116,9 +116,9 @@ class _NewOrEditWorkoutScreenState extends State<NewOrEditWorkoutScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TabsContainer(
-                                        primaryColor: _viewModel.primaryColor,
+                                        primaryColor: _newOrEditWorkoutViewModel.primaryColor,
                                         onNavigation: _scrollToTop,
-                                        holdCount: _viewModel.workout.holdCount,
+                                        holdCount: _newOrEditWorkoutViewModel.workout.holdCount,
                                         shouldLoseFocusStream:
                                             _shouldLoseFocusStreamController
                                                 .stream,
