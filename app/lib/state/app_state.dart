@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:uuid/uuid.dart';
+
 import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/settings.dart';
@@ -11,6 +13,9 @@ class AppState extends ChangeNotifier {
   AppState(PersistenceService persistenceService) {
     _persistenceService = persistenceService;
     // TODO: Think about something to replace this.
+    // So ideally you would want to load persistence,
+    // If nothing is there, load the default ones.
+    // Have spinners in place?
     _initializeBasicState();
     _initializePersistence();
   }
@@ -25,16 +30,32 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addNewWorkoutToWorkouts() {
+    final List<Workout> list = workoutList;
+    list.add(newWorkout.rebuild((b) => b..id = uuid.v4()));
+    saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
+  }
+
   Workout _editWorkout;
   Workout get editWorkout => _editWorkout;
   void saveEditWorkout(Workout editWorkout) {
     // TODO: Further logic of course.
     _editWorkout = editWorkout;
+    saveEditWorkoutToWorkouts();
     notifyListeners();
+  }
+
+  void saveEditWorkoutToWorkouts() {
+    final list = workoutList;
+    final int index =
+        list.indexWhere((workout) => _editWorkout.id == workout.id);
+    list[index] = _editWorkout;
+    saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
   }
 
   Workouts _workouts;
   Workouts get workouts => _workouts;
+  List<Workout> get workoutList => _workouts.workouts.toList();
   void saveWorkouts(Workouts workouts) {
     _workouts = workouts;
     _persistenceService.saveWorkouts(workouts);
@@ -53,7 +74,6 @@ class AppState extends ChangeNotifier {
     _newWorkout = basicWorkout;
     _workouts = Workouts((b) => b);
     _settings = basicSettings;
-    _editWorkout = basicEditWorkout;
     notifyListeners();
   }
 

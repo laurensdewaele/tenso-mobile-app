@@ -68,8 +68,10 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
 
   void _handleEditTap() {
     _close();
-    Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)
-        .setWorkoutType(isEditWorkout: true);
+    final _viewModel =
+        Provider.of<NewOrEditWorkoutViewModel>(context, listen: false);
+    _viewModel.setWorkoutType(isEditWorkout: true);
+    _viewModel.setActiveEditWorkout(widget.workout);
     Navigator.of(context).pushNamed(Routes.newOrEditWorkoutScreen);
   }
 

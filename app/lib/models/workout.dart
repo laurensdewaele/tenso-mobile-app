@@ -15,6 +15,7 @@ part 'package:app/models/workout.g.dart';
 abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
+  String get id;
   String get difficulty;
   int get sets;
   int get holdCount;

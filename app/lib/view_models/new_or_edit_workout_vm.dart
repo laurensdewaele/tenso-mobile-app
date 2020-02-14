@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 class NewOrEditWorkoutViewModel extends ChangeNotifier {
   NewOrEditWorkoutViewModel() {
     _title = 'New workout';
+    _extraTabButtonText = 'save';
     _primaryColor = styles.Colors.primary;
     _textPrimaryColor = styles.Typography.textRed;
   }
@@ -21,6 +22,8 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
 
   String _title;
   String get title => _title;
+  String _extraTabButtonText;
+  String get extraTabButtonText => _extraTabButtonText;
   Color _primaryColor;
   Color get primaryColor => _primaryColor;
   TextStyle _textPrimaryColor;
@@ -45,12 +48,14 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
       _primaryColor = styles.Colors.primary;
       _textPrimaryColor = styles.Typography.textRed;
       _title = 'New workout';
+      _extraTabButtonText = 'add';
     } else {
       _isNewWorkout = false;
       _isEditWorkout = true;
       _primaryColor = styles.Colors.blue;
       _textPrimaryColor = styles.Typography.textBlue;
       _title = 'Edit workout';
+      _extraTabButtonText = 'done';
     }
     notifyListeners();
   }
@@ -60,6 +65,16 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
       _appState?.saveNewWorkout(workout);
     } else {
       _appState?.saveEditWorkout(workout);
+    }
+  }
+
+  void setActiveEditWorkout(Workout workout) {
+    _appState?.saveEditWorkout(workout);
+  }
+
+  void addNewWorkoutToWorkouts() {
+    if (_isNewWorkout) {
+      _appState?.addNewWorkoutToWorkouts();
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
 import 'package:flutter/widgets.dart';
@@ -16,8 +17,7 @@ import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
 
 class WorkoutOverviewScreen extends StatefulWidget {
-  WorkoutOverviewScreen({@required this.workouts});
-  final List<Workout> workouts;
+  WorkoutOverviewScreen();
 
   @override
   _WorkoutOverviewScreenState createState() => _WorkoutOverviewScreenState();
@@ -32,11 +32,6 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
 
   void _handleDeleteTap(Workout workout) {
     // TODO: Delete from source.
-    if (widget.workouts.contains(workout)) {
-      setState(() {
-        widget.workouts.remove(workout);
-      });
-    }
   }
 
   @override
@@ -47,33 +42,35 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
 
     return Stack(
       children: <Widget>[
-        Screen(
-            padding: EdgeInsets.symmetric(
-                horizontal: styles.Measurements.xs,
-                vertical: styles.Measurements.m),
-            gradientStartColor: styles.Colors.bgGrayStart,
-            gradientStopColor: styles.Colors.bgGrayStop,
-            child: ListView.separated(
-              physics: ClampingScrollPhysics(),
-              itemCount: widget.workouts.length + 2,
-              itemBuilder: (BuildContext context, int index) {
-                if (index < widget.workouts.length) {
-                  return WorkoutOverviewStack(
-                    key: ObjectKey(widget.workouts[index]),
-                    workout: widget.workouts[index],
-                    handleDeleteTap: _handleDeleteTap,
-                  );
-                } else if (index == widget.workouts.length) {
-                  return Button(
-                      text: 'Add workout', handleTap: _handleAddWorkout);
-                } else {
-                  return Divider(
-                      height: viewHeight / 2 - styles.Measurements.m);
-                }
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  Divider(height: styles.Measurements.m),
-            )),
+        Consumer<AppState>(
+          builder: (context, _appState, child) => Screen(
+              padding: EdgeInsets.symmetric(
+                  horizontal: styles.Measurements.xs,
+                  vertical: styles.Measurements.m),
+              gradientStartColor: styles.Colors.bgGrayStart,
+              gradientStopColor: styles.Colors.bgGrayStop,
+              child: ListView.separated(
+                physics: ClampingScrollPhysics(),
+                itemCount: _appState.workoutList.length + 2,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index < _appState.workoutList.length) {
+                    return WorkoutOverviewStack(
+                      key: ObjectKey(_appState.workoutList[index]),
+                      workout: _appState.workoutList[index],
+                      handleDeleteTap: _handleDeleteTap,
+                    );
+                  } else if (index == _appState.workoutList.length) {
+                    return Button(
+                        text: 'Add workout', handleTap: _handleAddWorkout);
+                  } else {
+                    return Divider(
+                        height: viewHeight / 2 - styles.Measurements.m);
+                  }
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    Divider(height: styles.Measurements.m),
+              )),
+        ),
         BottomMenuDrawer(
           menuItems: [
             MenuItem((b) => b

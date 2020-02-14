@@ -18,6 +18,13 @@ class ExtraTab extends StatelessWidget {
 
   final Stream<bool> shouldLoseFocusStream;
 
+  void _handleButtonTap(BuildContext context) {
+    final _extraTabViewModel =
+        Provider.of<ExtraTabViewModel>(context, listen: false);
+    _extraTabViewModel.addNewWorkoutToWorkouts();
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _workoutViewModel =
@@ -74,8 +81,8 @@ class ExtraTab extends StatelessWidget {
           child: Button(
             primaryColor: _workoutViewModel.primaryColor,
             width: styles.Measurements.xxl * 2,
-            text: 'done',
-            handleTap: () => Navigator.of(context).pop(),
+            text: _workoutViewModel.extraTabButtonText,
+            handleTap: () => _handleButtonTap(context),
             displayIcon: false,
           ),
         )

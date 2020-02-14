@@ -18,4 +18,8 @@ class ExtraTabViewModel {
     _newOrEditWorkoutViewModel
         .saveWorkout(_workout.rebuild((b) => b..name = name));
   }
+
+  void addNewWorkoutToWorkouts() {
+    _newOrEditWorkoutViewModel.addNewWorkoutToWorkouts();
+  }
 }

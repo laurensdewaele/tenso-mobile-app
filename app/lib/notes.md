@@ -9,7 +9,8 @@ Watch
 ### Large prio
 
 ### Edit workout.
-Make bg and inputs blue and add a proper saving method.
+proper saving method.
+
 
 
 - Draw diagram when all is refactored. => DO THIS THOUGH
