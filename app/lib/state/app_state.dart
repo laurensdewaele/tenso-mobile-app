@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:uuid/uuid.dart';
 
-import 'package:app/data/basic_settings.dart';
-import 'package:app/data/basic_workout.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
@@ -17,7 +15,6 @@ class AppState extends ChangeNotifier {
     // So ideally you would want to load persistence,
     // If nothing is there, load the default ones.
     // Have spinners in place?
-    _initializeBasicState();
     _initializePersistence();
   }
 
@@ -68,13 +65,6 @@ class AppState extends ChangeNotifier {
   void setSettings(Settings settings) {
     _settings = settings;
     _persistenceService.saveSettings(settings);
-    notifyListeners();
-  }
-
-  void _initializeBasicState() {
-    _newWorkout = basicWorkout;
-    _workouts = Workouts((b) => b);
-    _settings = basicSettings;
     notifyListeners();
   }
 

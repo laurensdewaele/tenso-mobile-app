@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:app/data/basic_settings.dart';
+import 'package:app/data/basic_workout.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
@@ -49,17 +51,19 @@ class PersistenceService {
   }
 
   Future<Workout> getNewWorkout() async {
+    Workout workout;
     try {
       final file = await _localWorkoutFile;
       String contents = await file.readAsString();
-      return Workout.fromJson(contents);
+      workout = Workout.fromJson(contents);
     } catch (e) {
       print(e);
       // TODO: Error handling.
     }
+    return workout == null ? basicWorkout : workout;
   }
 
-  Future<File> saveWorkouts(Workouts workouts) async {
+  void saveWorkouts(Workouts workouts) async {
     try {
       final file = await _localWorkoutsFile;
       file.writeAsString(workouts.toJson().toString());
@@ -70,17 +74,19 @@ class PersistenceService {
   }
 
   Future<Workouts> getWorkouts() async {
+    Workouts workouts;
     try {
       final file = await _localWorkoutsFile;
       String contents = await file.readAsString();
-      return Workouts.fromJson(contents);
+      workouts = Workouts.fromJson(contents);
     } catch (e) {
       print(e);
       // TODO: Error handling.
     }
+    return workouts == null ? Workouts() : workouts;
   }
 
-  Future<File> saveSettings(Settings settings) async {
+  void saveSettings(Settings settings) async {
     try {
       final file = await _localSettingsFile;
       file.writeAsString(settings.toJson().toString());
@@ -91,13 +97,15 @@ class PersistenceService {
   }
 
   Future<Settings> getSettings() async {
+    Settings settings;
     try {
       final file = await _localSettingsFile;
       String contents = await file.readAsString();
-      return Settings.fromJson(contents);
+      settings = Settings.fromJson(contents);
     } catch (e) {
       print(e);
       // TODO: Error handling.
     }
+    return settings == null ? basicSettings : settings;
   }
 }
