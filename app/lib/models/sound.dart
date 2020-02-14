@@ -5,7 +5,7 @@ import 'package:built_value/serializer.dart';
 
 import 'package:app/models/serializers.dart';
 
-part 'package:app/models/sound.g.dart';
+part 'sound.g.dart';
 
 abstract class Sound implements Built<Sound, SoundBuilder> {
   static Serializer<Sound> get serializer => _$soundSerializer;

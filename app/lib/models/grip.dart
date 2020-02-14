@@ -7,7 +7,7 @@ import 'package:app/models/fingers.dart';
 import 'package:app/models/hand_type.dart';
 import 'package:app/models/serializers.dart';
 
-part 'package:app/models/grip.g.dart';
+part 'grip.g.dart';
 
 abstract class Grip implements Built<Grip, GripBuilder> {
   static Serializer<Grip> get serializer => _$gripSerializer;

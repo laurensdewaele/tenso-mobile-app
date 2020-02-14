@@ -10,7 +10,7 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/serializers.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-part 'package:app/models/workout.g.dart';
+part 'workout.g.dart';
 
 abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;

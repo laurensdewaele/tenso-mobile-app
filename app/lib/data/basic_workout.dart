@@ -5,7 +5,7 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
 
 final Workout basicWorkout = Workout((b) => b
-..id = '1'
+  ..id = '1'
   ..difficulty = '5A'
   ..sets = 3
   ..holdCount = 3

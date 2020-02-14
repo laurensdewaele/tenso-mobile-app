@@ -5,7 +5,7 @@ import 'package:built_value/serializer.dart';
 
 import 'package:app/models/serializers.dart';
 
-part 'package:app/models/fingers.g.dart';
+part 'fingers.g.dart';
 
 abstract class Fingers implements Built<Fingers, FingersBuilder> {
   static Serializer<Fingers> get serializer => _$fingersSerializer;

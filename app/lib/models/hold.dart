@@ -8,7 +8,7 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/serializers.dart';
 
-part 'package:app/models/hold.g.dart';
+part 'hold.g.dart';
 
 abstract class Hold implements Built<Hold, HoldBuilder> {
   static Serializer<Hold> get serializer => _$holdSerializer;

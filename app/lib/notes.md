@@ -1,9 +1,13 @@
 ## Commands
 Built value command.
 Build
-`flutter packages pub run build_runner build`
+```
+flutter packages pub run build_runner build
+```
 Watch
-`flutter packages pub run build_runner watch`
+```
+flutter packages pub run build_runner watch
+```
 
 ## TODO
 ### Large prio

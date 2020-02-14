@@ -12,6 +12,7 @@ import 'package:app/services/persistence.dart';
 class AppState extends ChangeNotifier {
   AppState(PersistenceService persistenceService) {
     _persistenceService = persistenceService;
+    _uuid = Uuid();
     // TODO: Think about something to replace this.
     // So ideally you would want to load persistence,
     // If nothing is there, load the default ones.
@@ -21,6 +22,7 @@ class AppState extends ChangeNotifier {
   }
 
   PersistenceService _persistenceService;
+  Uuid _uuid;
 
   Workout _newWorkout;
   Workout get newWorkout => _newWorkout;
@@ -32,14 +34,13 @@ class AppState extends ChangeNotifier {
 
   void addNewWorkoutToWorkouts() {
     final List<Workout> list = workoutList;
-    list.add(newWorkout.rebuild((b) => b..id = uuid.v4()));
+    list.add(newWorkout.rebuild((b) => b..id = _uuid.v4()));
     saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
   }
 
   Workout _editWorkout;
   Workout get editWorkout => _editWorkout;
   void saveEditWorkout(Workout editWorkout) {
-    // TODO: Further logic of course.
     _editWorkout = editWorkout;
     saveEditWorkoutToWorkouts();
     notifyListeners();

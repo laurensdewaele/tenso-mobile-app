@@ -18,6 +18,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
   Iterable<Object> serialize(Serializers serializers, Workout object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'difficulty',
       serializers.serialize(object.difficulty,
           specifiedType: const FullType(String)),
@@ -56,6 +58,10 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'difficulty':
           result.difficulty = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -99,6 +105,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
 
 class _$Workout extends Workout {
   @override
+  final String id;
+  @override
   final String difficulty;
   @override
   final int sets;
@@ -119,7 +127,8 @@ class _$Workout extends Workout {
       (new WorkoutBuilder()..update(updates)).build();
 
   _$Workout._(
-      {this.difficulty,
+      {this.id,
+      this.difficulty,
       this.sets,
       this.holdCount,
       this.restBetweenHolds,
@@ -128,6 +137,9 @@ class _$Workout extends Workout {
       this.holds,
       this.name})
       : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('Workout', 'id');
+    }
     if (difficulty == null) {
       throw new BuiltValueNullFieldError('Workout', 'difficulty');
     }
@@ -165,6 +177,7 @@ class _$Workout extends Workout {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Workout &&
+        id == other.id &&
         difficulty == other.difficulty &&
         sets == other.sets &&
         holdCount == other.holdCount &&
@@ -182,7 +195,9 @@ class _$Workout extends Workout {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, difficulty.hashCode), sets.hashCode),
+                        $jc(
+                            $jc($jc($jc(0, id.hashCode), difficulty.hashCode),
+                                sets.hashCode),
                             holdCount.hashCode),
                         restBetweenHolds.hashCode),
                     restBetweenSets.hashCode),
@@ -194,6 +209,7 @@ class _$Workout extends Workout {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Workout')
+          ..add('id', id)
           ..add('difficulty', difficulty)
           ..add('sets', sets)
           ..add('holdCount', holdCount)
@@ -208,6 +224,10 @@ class _$Workout extends Workout {
 
 class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   _$Workout _$v;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
 
   String _difficulty;
   String get difficulty => _$this._difficulty;
@@ -247,6 +267,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
 
   WorkoutBuilder get _$this {
     if (_$v != null) {
+      _id = _$v.id;
       _difficulty = _$v.difficulty;
       _sets = _$v.sets;
       _holdCount = _$v.holdCount;
@@ -279,6 +300,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
     try {
       _$result = _$v ??
           new _$Workout._(
+              id: id,
               difficulty: difficulty,
               sets: sets,
               holdCount: holdCount,

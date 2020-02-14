@@ -17,7 +17,7 @@ import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
 
-part 'package:app/models/serializers.g.dart';
+part 'serializers.g.dart';
 
 @SerializersFor(const [
   Board,
