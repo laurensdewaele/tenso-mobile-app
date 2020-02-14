@@ -34,7 +34,9 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    final _workoutViewModel =
+    // It's fine to not listen to appState here as our general practice to get the workout.
+    // This is because we don't care if it changes or not. It's only used in the initialValues.
+    final _newOrEditWorkoutViewModel =
         Provider.of<NewOrEditWorkoutViewModel>(context, listen: true);
     final _generalTabViewModel =
         Provider.of<GeneralTabViewModel>(context, listen: false);
@@ -46,25 +48,25 @@ class _GeneralTabState extends State<GeneralTab> {
           title: 'basics',
           children: <Widget>[
             NumberInputAndDivider(
-              primaryColor: _workoutViewModel.primaryColor,
+              primaryColor: _newOrEditWorkoutViewModel.primaryColor,
               isDouble: false,
               description: 'holds',
               shouldFocus: widget.shouldFocusOnInput,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setHoldCount(n);
               },
-              initialValue: _workoutViewModel.workout.holdCount.toDouble(),
+              initialValue: _newOrEditWorkoutViewModel.workout.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             NumberInputAndDivider(
-              primaryColor: _workoutViewModel.primaryColor,
+              primaryColor: _newOrEditWorkoutViewModel.primaryColor,
               isDouble: false,
               description: 'sets',
               shouldFocus: false,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setSets(n);
               },
-              initialValue: _workoutViewModel.workout.sets.toDouble(),
+              initialValue: _newOrEditWorkoutViewModel.workout.sets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
           ],
@@ -73,7 +75,7 @@ class _GeneralTabState extends State<GeneralTab> {
           title: 'timers',
           children: <Widget>[
             NumberInputAndDivider(
-              primaryColor: _workoutViewModel.primaryColor,
+              primaryColor: _newOrEditWorkoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between holds',
               shouldFocus: false,
@@ -81,11 +83,11 @@ class _GeneralTabState extends State<GeneralTab> {
                 _generalTabViewModel.setRestBetweenHolds(n);
               },
               initialValue:
-                  _workoutViewModel.workout.restBetweenHolds.toDouble(),
+                  _newOrEditWorkoutViewModel.workout.restBetweenHolds.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             NumberInputAndDivider(
-              primaryColor: _workoutViewModel.primaryColor,
+              primaryColor: _newOrEditWorkoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between sets',
               shouldFocus: false,
@@ -93,7 +95,7 @@ class _GeneralTabState extends State<GeneralTab> {
                 _generalTabViewModel.setRestBetweenSets(n);
               },
               initialValue:
-                  _workoutViewModel.workout.restBetweenSets.toDouble(),
+                  _newOrEditWorkoutViewModel.workout.restBetweenSets.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
           ],

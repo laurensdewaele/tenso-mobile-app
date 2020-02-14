@@ -27,7 +27,9 @@ class ExtraTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _workoutViewModel =
+    // It's fine to not listen to appState here as our general practice to get the workout.
+    // This is because we don't care if it changes or not. It's only used in the initialValues.
+    final _newOrEditWorkoutViewModel =
         Provider.of<NewOrEditWorkoutViewModel>(context, listen: true);
     final _extraTabViewModel =
         Provider.of<ExtraTabViewModel>(context, listen: false);
@@ -43,8 +45,8 @@ class ExtraTab extends StatelessWidget {
               height: 150,
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
-                    initialItem: Grade.sportFrench
-                        .indexOf(_workoutViewModel.workout.difficulty)),
+                    initialItem: Grade.sportFrench.indexOf(
+                        _newOrEditWorkoutViewModel.workout.difficulty)),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
@@ -68,8 +70,8 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
-                primaryColor: _workoutViewModel.primaryColor,
-                initialValue: _workoutViewModel.workout.name,
+                primaryColor: _newOrEditWorkoutViewModel.primaryColor,
+                initialValue: _newOrEditWorkoutViewModel.workout.name,
                 handleValueChanged: (n) {
                   _extraTabViewModel.setName(n);
                 },
@@ -79,9 +81,9 @@ class ExtraTab extends StatelessWidget {
         ),
         Center(
           child: Button(
-            primaryColor: _workoutViewModel.primaryColor,
+            primaryColor: _newOrEditWorkoutViewModel.primaryColor,
             width: styles.Measurements.xxl * 2,
-            text: _workoutViewModel.extraTabButtonText,
+            text: _newOrEditWorkoutViewModel.extraTabButtonText,
             handleTap: () => _handleButtonTap(context),
             displayIcon: false,
           ),

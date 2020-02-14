@@ -12,6 +12,14 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
+- Only appState can be listened to for workouts => refact hold_tab.
+Explain when drawing my diagram that it's quite intricate and it adds a lot of overhead
+if you want every widget to have it's own viewModel and not depend on others.
+It gets messy real fast with Provider lol.
+Bloc would have been better.
+
+NOPE GOT IT WRONG. NEED THE DIAGRAM LOL. Need to distuingish between editWorkout and newWorkout.
+
 - Draw diagram when all is refactored. => DO THIS THOUGH
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.
