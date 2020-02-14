@@ -39,38 +39,41 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
+    final _appState = Provider.of<AppState>(context, listen: true);
 
     return Stack(
       children: <Widget>[
-        Consumer<AppState>(
-          builder: (context, _appState, child) => Screen(
-              padding: EdgeInsets.symmetric(
-                  horizontal: styles.Measurements.xs,
-                  vertical: styles.Measurements.m),
-              gradientStartColor: styles.Colors.bgGrayStart,
-              gradientStopColor: styles.Colors.bgGrayStop,
-              child: ListView.separated(
-                physics: ClampingScrollPhysics(),
-                itemCount: _appState.workoutList.length + 2,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index < _appState.workoutList.length) {
-                    return WorkoutOverviewStack(
-                      key: ObjectKey(_appState.workoutList[index]),
-                      workout: _appState.workoutList[index],
-                      handleDeleteTap: _handleDeleteTap,
-                    );
-                  } else if (index == _appState.workoutList.length) {
-                    return Button(
-                        text: 'Add workout', handleTap: _handleAddWorkout);
-                  } else {
-                    return Divider(
-                        height: viewHeight / 2 - styles.Measurements.m);
-                  }
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    Divider(height: styles.Measurements.m),
-              )),
-        ),
+        if (_appState.workoutList != null)
+          _HomeScreen(
+            child: ListView.separated(
+              physics: ClampingScrollPhysics(),
+              itemCount: _appState.workoutList.length + 2,
+              itemBuilder: (BuildContext context, int index) {
+                if (index < _appState.workoutList.length) {
+                  return WorkoutOverviewStack(
+                    key: ObjectKey(_appState.workoutList[index]),
+                    workout: _appState.workoutList[index],
+                    handleDeleteTap: _handleDeleteTap,
+                  );
+                } else if (index == _appState.workoutList.length) {
+                  return Button(
+                      text: 'Add workout', handleTap: _handleAddWorkout);
+                } else {
+                  return Divider(
+                      height: viewHeight / 2 - styles.Measurements.m);
+                }
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  Divider(height: styles.Measurements.m),
+            ),
+          ),
+        if (_appState.workoutList == null)
+          _HomeScreen(
+              child: Column(
+            children: <Widget>[
+              Button(text: 'Add workout', handleTap: _handleAddWorkout),
+            ],
+          )),
         BottomMenuDrawer(
           menuItems: [
             MenuItem((b) => b
@@ -83,5 +86,22 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         )
       ],
     );
+  }
+}
+
+class _HomeScreen extends StatelessWidget {
+  _HomeScreen({Key key, this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Screen(
+        padding: EdgeInsets.symmetric(
+            horizontal: styles.Measurements.xs,
+            vertical: styles.Measurements.m),
+        gradientStartColor: styles.Colors.bgGrayStart,
+        gradientStopColor: styles.Colors.bgGrayStop,
+        child: child);
   }
 }

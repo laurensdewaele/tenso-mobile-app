@@ -56,7 +56,7 @@ class AppState extends ChangeNotifier {
 
   Workouts _workouts;
   Workouts get workouts => _workouts;
-  List<Workout> get workoutList => _workouts.workouts.toList();
+  List<Workout> get workoutList => _workouts?.workouts?.toList();
   void saveWorkouts(Workouts workouts) {
     _workouts = workouts;
     _persistenceService.saveWorkouts(workouts);

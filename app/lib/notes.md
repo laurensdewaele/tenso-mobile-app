@@ -47,6 +47,10 @@ proper saving method.
   
   
 ## Errors
+
+### On initial persistence - first time install app
+FileSystemException: Cannot open file, path = '/Users/laurens/Library/Developer/CoreSimulator/Devices/E75788F1-923F-495F-B1EE-EE11166390DD/data/Containers/Data/Application/0F710B87-6CE7-4451-80DA-B129B5D7193A/Documents/workout.txt' (OS Error: No such file or directory, errno = 2)
+
 ### BoardHoldPicker - setState() or markNeedsBuild() called during build
 ```Dart
 The following assertion was thrown while dispatching notifications for AppState:
