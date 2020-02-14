@@ -12,13 +12,7 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
-### Edit workout.
-proper saving method.
-
-
-
 - Draw diagram when all is refactored. => DO THIS THOUGH
-- Write to file on every change.
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
 - Add board selection. Only beastmaker1000 atm.
 - Implement a feedback button.
