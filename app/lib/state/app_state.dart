@@ -51,6 +51,12 @@ class AppState extends ChangeNotifier {
     saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
   }
 
+  void deleteWorkout(Workout workout) {
+    final list = workoutList;
+    list.removeWhere((w) => w.id == workout.id);
+    saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
+  }
+
   Workouts _workouts;
   Workouts get workouts => _workouts;
   List<Workout> get workoutList => _workouts?.workouts?.toList();

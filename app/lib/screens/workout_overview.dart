@@ -1,4 +1,3 @@
-import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Divider, Card;
 import 'package:flutter/widgets.dart';
@@ -9,6 +8,7 @@ import 'package:app/models/menu_item.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/state/app_state.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
@@ -31,7 +31,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   }
 
   void _handleDeleteTap(Workout workout) {
-    // TODO: Delete from source.
+    Provider.of<AppState>(context, listen: false).deleteWorkout(workout);
   }
 
   @override
