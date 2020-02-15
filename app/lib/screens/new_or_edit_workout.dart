@@ -10,7 +10,7 @@ import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';
-import 'package:app/widgets/new_workout/tabs_container.dart';
+import 'package:app/widgets/new_or_edit_workout/tabs_container.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
 

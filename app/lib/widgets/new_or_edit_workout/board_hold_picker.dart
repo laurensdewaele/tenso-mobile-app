@@ -9,7 +9,7 @@ import 'package:app/models/hand_type.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
-import 'package:app/widgets/new_workout/board_drag_targets.dart';
+import 'package:app/widgets/new_or_edit_workout/board_drag_targets.dart';
 
 class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker({

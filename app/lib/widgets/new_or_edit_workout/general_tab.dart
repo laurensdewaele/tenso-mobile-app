@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
-import 'package:app/widgets/new_workout/integer_input_and_divider.dart';
+import 'package:app/widgets/new_or_edit_workout/integer_input_and_divider.dart';
 import 'package:app/widgets/section.dart';
 
 class GeneralTab extends StatefulWidget {

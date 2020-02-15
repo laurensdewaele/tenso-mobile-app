@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/new_workout/extra_tab.dart';
-import 'package:app/widgets/new_workout/general_tab.dart';
-import 'package:app/widgets/new_workout/hold_tab.dart';
-import 'package:app/widgets/new_workout/tabs.dart';
+import 'package:app/widgets/new_or_edit_workout/extra_tab.dart';
+import 'package:app/widgets/new_or_edit_workout/general_tab.dart';
+import 'package:app/widgets/new_or_edit_workout/hold_tab.dart';
+import 'package:app/widgets/new_or_edit_workout/tabs.dart';
 
 class TabsContainer extends StatefulWidget {
   TabsContainer(

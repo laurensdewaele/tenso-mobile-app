@@ -8,7 +8,7 @@ import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/section.dart';
-import 'package:app/widgets/new_workout/text_input.dart';
+import 'package:app/widgets/new_or_edit_workout/text_input.dart';
 
 class ExtraTab extends StatelessWidget {
   ExtraTab({
