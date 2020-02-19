@@ -1,6 +1,6 @@
-import 'package:app/functions/total_hangs.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/functions/total_hangs.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -128,6 +128,19 @@ class CountdownViewModel extends ChangeNotifier {
         _addSetRestSequence(_currentSet, _currentHang);
       }
     }
+
+    _initializeSequence();
+  }
+
+  void stop() {}
+  void pause() {}
+  void start() {}
+
+  void _initializeSequence() {
+    // I need the timer to be accessible to other methods
+    // When countdown reaches zero it must trigger a method that
+    // resets the timer and continues on the sequence.
+    // Not going to figure this out myself => WIFI (plane now)
   }
 
   void _addPreparationSequence() {
