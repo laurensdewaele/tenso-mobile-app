@@ -14,51 +14,14 @@ flutter packages pub run build_runner watch
 
 - Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
   => What does the timer screen need?
-  It needs a mute button. => you can go to settings for now.
-  It needs a pause button. => and a play button. => yeps
-  It needs a stop button. => yeps.
-  It would be very cool if there were an animation. => yeps
-  I'm thinking that'd it be nice if you could use the whole screen. => yeps
-  The device is probably going to be a bit further away from the user.
-  So being able to see will be nice. 
-  How about flashing?
-  Also beeps.
-  I do not want to force the user to choose an orientation.
-  
-   
-  What do I need to track?
-  - Completed hangs
-
-
-  What else do I need in the app?
-  - An overview screen of the completed workouts with the date. 
-    A calendar would be awesome.
-    
-    Some stats about the workout => seconds on holds 
-    
-    
-    A stats overview tab => graph with used grips
-    => graph with used holds.
-    => graph with added weight.
-    
-    Well ideally, you want an objective score. Because you can objectively measure the stats.
-    Then you specifiy how hard it was for you.
-    
-    With those 2 ratings => you can finely measure your progression.
-    
-    I do think you need a distinction in sloper, jug and pocket.
-    - Rating of open hand => mono pinky
-    - Edge mm
-    - Added weight
-    - One handed / two handed.
-   
-    
-   
-    
-
+  Make it compatible with landscape.
+  Shortly flashing white while changing screens (state).
+  Beeps.
+  Track completed hangs
+- Progress and overview completed workouts.
 
 - Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
-  Maybe then you'll forget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
+  Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
   Explain when drawing my diagram that it's quite intricate and it adds a lot of overhead
   if you want every widget to have it's own viewModel and not depend on others.
   It gets messy real fast with Provider lol.

@@ -39,17 +39,20 @@ class App extends StatelessWidget {
           update: (context, appState, newOrEditWorkoutViewModel) =>
               newOrEditWorkoutViewModel..update(appState),
         ),
+        // TODO: This does not need to go trough provider at all
         Provider<GeneralTabViewModel>(
           create: (context) => GeneralTabViewModel(
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
+        // TODO: This does not need to go trough provider at all
         Provider<HoldTabViewModel>(
           create: (context) => HoldTabViewModel(
               Provider.of<ToastService>(context, listen: false),
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
+        // TODO: This does not need to go trough provider at all
         Provider<ExtraTabViewModel>(
           create: (context) => ExtraTabViewModel(
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
