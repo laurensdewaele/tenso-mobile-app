@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/helpers/countdown_timer.dart';
 import 'package:app/helpers/total_hangs.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
@@ -20,8 +21,8 @@ abstract class HoldLabels {
   static const String hang = 'hang';
 }
 
-class SequenceModel {
-  SequenceModel(
+class SequenceItem {
+  SequenceItem(
       {@required this.color,
       @required this.title,
       @required this.duration,
@@ -34,7 +35,8 @@ class SequenceModel {
       @required this.totalSets,
       @required this.currentSet,
       @required this.totalHangsPerSet,
-      @required this.currentHang});
+      @required this.currentHang,
+      @required this.countdownTimer});
 
   final Color color;
   final String title;
@@ -49,6 +51,7 @@ class SequenceModel {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
+  final CountdownTimer countdownTimer;
 }
 
 class CountdownViewModel extends ChangeNotifier {
@@ -60,7 +63,8 @@ class CountdownViewModel extends ChangeNotifier {
 
   Workout _workout;
   Settings _settings;
-  List<SequenceModel> _sequence;
+  List<SequenceItem> _sequence;
+  int _currentSequenceIndex = 0;
 
   Color color;
   String title;
@@ -77,6 +81,54 @@ class CountdownViewModel extends ChangeNotifier {
   int currentHang;
 
   void _initialize() {
+    _constructSequence();
+    _startSequenceForIndex();
+  }
+
+  void _startSequenceForIndex() {
+    color = _sequence[_currentSequenceIndex].color;
+    title = _sequence[_currentSequenceIndex].title;
+    remainingSeconds = _sequence[_currentSequenceIndex].duration;
+    holdLabel = _sequence[_currentSequenceIndex].holdLabel;
+    board = _sequence[_currentSequenceIndex].board;
+    leftGrip = _sequence[_currentSequenceIndex].leftGrip;
+    rightGrip = _sequence[_currentSequenceIndex].rightGrip;
+    leftGripBoardHold = _sequence[_currentSequenceIndex].leftGripBoardHold;
+    rightGripBoardHold = _sequence[_currentSequenceIndex].rightGripBoardHold;
+    totalSets = _sequence[_currentSequenceIndex].totalSets;
+    currentSet = _sequence[_currentSequenceIndex].currentSet;
+    totalHangsPerSet = _sequence[_currentSequenceIndex].totalHangsPerSet;
+    currentHang = _sequence[_currentSequenceIndex].currentHang;
+    notifyListeners();
+    // The stream closes itself once the timer reaches 0.
+    _sequence[_currentSequenceIndex]
+        .countdownTimer
+        .stream
+        .listen((_remainingSeconds) {
+      remainingSeconds = _remainingSeconds;
+      notifyListeners();
+      if (_remainingSeconds == 0) {
+        _currentSequenceIndex++;
+        if (_sequence[_currentSequenceIndex] != null) {
+          _startSequenceForIndex();
+        }
+      }
+    });
+  }
+
+  void stop() {
+    _sequence[_currentSequenceIndex].countdownTimer.cancel();
+  }
+
+  void pause() {
+    _sequence[_currentSequenceIndex].countdownTimer.pause();
+  }
+
+  void start() {
+    _sequence[_currentSequenceIndex].countdownTimer.start();
+  }
+
+  void _constructSequence() {
     _addPreparationSequence();
     // Secondly, we need to generate all holds to need to be done.
     // This means looping over sets, than all the holds and we also need to
@@ -128,24 +180,11 @@ class CountdownViewModel extends ChangeNotifier {
         _addSetRestSequence(_currentSet, _currentHang);
       }
     }
-
-    _initializeSequence();
-  }
-
-  void stop() {}
-  void pause() {}
-  void start() {}
-
-  void _initializeSequence() {
-    // I need the timer to be accessible to other methods
-    // When countdown reaches zero it must trigger a method that
-    // resets the timer and continues on the sequence.
-    // Not going to figure this out myself => WIFI (plane now)
   }
 
   void _addPreparationSequence() {
     _sequence.add(
-      SequenceModel(
+      SequenceItem(
           color: styles.Colors.blue,
           title: Titles.preparation,
           duration: _settings.preparationTimer,
@@ -158,13 +197,15 @@ class CountdownViewModel extends ChangeNotifier {
           totalSets: _workout.sets,
           currentSet: 1,
           currentHang: 1,
+          countdownTimer: CountdownTimer(_settings.preparationTimer),
           totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
     );
   }
 
   void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
     _sequence.add(
-      SequenceModel(
+      SequenceItem(
+          countdownTimer: CountdownTimer(_workout.holds[_currentHold].hangTime),
           color: styles.Colors.primary,
           title: Titles.hang,
           duration: _workout.holds[_currentHold].hangTime,
@@ -184,7 +225,9 @@ class CountdownViewModel extends ChangeNotifier {
   void _addHoldRepetitionRestSequence(
       int _currentSet, int _currentHold, int _currentHang) {
     _sequence.add(
-      SequenceModel(
+      SequenceItem(
+          countdownTimer: CountdownTimer(
+              _workout.holds[_currentHold].restBetweenRepetitions),
           color: styles.Colors.blue,
           title: Titles.restBetweenHolds,
           duration: _workout.holds[_currentHold].restBetweenRepetitions,
@@ -204,7 +247,8 @@ class CountdownViewModel extends ChangeNotifier {
   void _addHoldRestSequence(
       int _currentSet, int _currentHold, int _currentHang) {
     _sequence.add(
-      SequenceModel(
+      SequenceItem(
+          countdownTimer: CountdownTimer(_workout.restBetweenHolds),
           color: styles.Colors.blue,
           title: Titles.restBetweenHolds,
           duration: _workout.restBetweenHolds,
@@ -224,7 +268,8 @@ class CountdownViewModel extends ChangeNotifier {
 
   void _addSetRestSequence(int _currentSet, int _currentHang) {
     _sequence.add(
-      SequenceModel(
+      SequenceItem(
+          countdownTimer: CountdownTimer(_workout.restBetweenHolds),
           color: styles.Colors.blue,
           title: Titles.restBetweenSets,
           duration: _workout.restBetweenSets,

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 class CountdownTimer {
-  CountdownTimer(Duration duration) {
+  CountdownTimer(int duration) {
     _duration = duration;
   }
 
-  Duration _duration;
+  int _duration;
   Duration _interval = Duration(seconds: 1);
   StreamController _controller = StreamController<int>();
   Timer _timer;
@@ -15,7 +15,7 @@ class CountdownTimer {
 
   void start() {
     if (_elapsedSeconds == 0) {
-      _controller.sink.add(_duration.inSeconds);
+      _controller.sink.add(_duration);
     }
     _timer = Timer.periodic(_interval, _tick);
   }
@@ -33,8 +33,8 @@ class CountdownTimer {
 
   void _tick(Timer timer) {
     _elapsedSeconds++;
-    _controller.sink.add(_duration.inSeconds - _elapsedSeconds);
-    if (_elapsedSeconds == _duration.inSeconds) {
+    _controller.sink.add(_duration - _elapsedSeconds);
+    if (_elapsedSeconds == _duration) {
       cancel();
     }
   }
