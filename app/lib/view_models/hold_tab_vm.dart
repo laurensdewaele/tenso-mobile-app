@@ -1,6 +1,6 @@
 import 'package:app/data/grips.dart';
-import 'package:app/functions/grip_board_hold_compatibility.dart';
-import 'package:app/functions/unit_conversion.dart';
+import 'package:app/helpers/grip_board_hold_compatibility.dart';
+import 'package:app/helpers/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';

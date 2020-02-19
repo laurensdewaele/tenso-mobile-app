@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/functions/grip_board_hold_compatibility.dart';
+import 'package:app/helpers/grip_board_hold_compatibility.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/styles/styles.dart' as styles;
