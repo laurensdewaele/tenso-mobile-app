@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/helpers/countdown_timer.dart';
 import 'package:app/helpers/total_hangs.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
@@ -9,34 +8,34 @@ import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-abstract class Titles {
+abstract class _Titles {
   static const String preparation = 'preparation';
   static const String hang = 'hang';
   static const String restBetweenHolds = 'rest between holds';
   static const String restBetweenSets = 'rest between sets';
 }
 
-abstract class HoldLabels {
+abstract class _HoldLabels {
   static const String nextUp = 'next up';
   static const String hang = 'hang';
 }
 
-class SequenceItem {
-  SequenceItem(
-      {@required this.color,
-      @required this.title,
-      @required this.duration,
-      @required this.holdLabel,
-      @required this.board,
-      @required this.leftGrip,
-      @required this.rightGrip,
-      @required this.leftGripBoardHold,
-      @required this.rightGripBoardHold,
-      @required this.totalSets,
-      @required this.currentSet,
-      @required this.totalHangsPerSet,
-      @required this.currentHang,
-      @required this.countdownTimer});
+class CountdownViewModel {
+  CountdownViewModel({
+    @required this.color,
+    @required this.title,
+    @required this.duration,
+    @required this.holdLabel,
+    @required this.board,
+    @required this.leftGrip,
+    @required this.rightGrip,
+    @required this.leftGripBoardHold,
+    @required this.rightGripBoardHold,
+    @required this.totalSets,
+    @required this.currentSet,
+    @required this.totalHangsPerSet,
+    @required this.currentHang,
+  });
 
   final Color color;
   final String title;
@@ -51,11 +50,10 @@ class SequenceItem {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final CountdownTimer countdownTimer;
 }
 
-class CountdownViewModel {
-  CountdownViewModel({Workout workout, Settings settings}) {
+class CountdownScreenViewModel {
+  CountdownScreenViewModel({Workout workout, Settings settings}) {
     _workout = workout;
     _settings = settings;
     _initialize();
@@ -63,7 +61,7 @@ class CountdownViewModel {
 
   Workout _workout;
   Settings _settings;
-  List<SequenceItem> sequence = [];
+  List<CountdownViewModel> sequence = [];
 
   void _initialize() {
     _addPreparationSequence();
@@ -121,11 +119,11 @@ class CountdownViewModel {
 
   void _addPreparationSequence() {
     sequence.add(
-      SequenceItem(
+      CountdownViewModel(
           color: styles.Colors.blue,
-          title: Titles.preparation,
+          title: _Titles.preparation,
           duration: _settings.preparationTimer,
-          holdLabel: HoldLabels.nextUp,
+          holdLabel: _HoldLabels.nextUp,
           board: _workout.board,
           leftGrip: _workout.holds[0].leftGrip,
           rightGrip: _workout.holds[0].rightGrip,
@@ -134,19 +132,17 @@ class CountdownViewModel {
           totalSets: _workout.sets,
           currentSet: 1,
           currentHang: 1,
-          countdownTimer: CountdownTimer(_settings.preparationTimer),
           totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
     );
   }
 
   void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
-      SequenceItem(
-          countdownTimer: CountdownTimer(_workout.holds[_currentHold].hangTime),
+      CountdownViewModel(
           color: styles.Colors.primary,
-          title: Titles.hang,
+          title: _Titles.hang,
           duration: _workout.holds[_currentHold].hangTime,
-          holdLabel: HoldLabels.hang,
+          holdLabel: _HoldLabels.hang,
           board: _workout.board,
           leftGrip: _workout.holds[_currentHold].leftGrip,
           rightGrip: _workout.holds[_currentHold].rightGrip,
@@ -162,13 +158,11 @@ class CountdownViewModel {
   void _addHoldRepetitionRestSequence(
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
-      SequenceItem(
-          countdownTimer: CountdownTimer(
-              _workout.holds[_currentHold].restBetweenRepetitions),
+      CountdownViewModel(
           color: styles.Colors.blue,
-          title: Titles.restBetweenHolds,
+          title: _Titles.restBetweenHolds,
           duration: _workout.holds[_currentHold].restBetweenRepetitions,
-          holdLabel: HoldLabels.nextUp,
+          holdLabel: _HoldLabels.nextUp,
           board: _workout.board,
           leftGrip: _workout.holds[_currentHold].leftGrip,
           rightGrip: _workout.holds[_currentHold].rightGrip,
@@ -184,12 +178,11 @@ class CountdownViewModel {
   void _addHoldRestSequence(
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
-      SequenceItem(
-          countdownTimer: CountdownTimer(_workout.restBetweenHolds),
+      CountdownViewModel(
           color: styles.Colors.blue,
-          title: Titles.restBetweenHolds,
+          title: _Titles.restBetweenHolds,
           duration: _workout.restBetweenHolds,
-          holdLabel: HoldLabels.nextUp,
+          holdLabel: _HoldLabels.nextUp,
           board: _workout.board,
           leftGrip: _workout.holds[_currentHold + 1].leftGrip,
           rightGrip: _workout.holds[_currentHold + 1].rightGrip,
@@ -205,12 +198,11 @@ class CountdownViewModel {
 
   void _addSetRestSequence(int _currentSet, int _currentHang) {
     sequence.add(
-      SequenceItem(
-          countdownTimer: CountdownTimer(_workout.restBetweenHolds),
+      CountdownViewModel(
           color: styles.Colors.blue,
-          title: Titles.restBetweenSets,
+          title: _Titles.restBetweenSets,
           duration: _workout.restBetweenSets,
-          holdLabel: HoldLabels.nextUp,
+          holdLabel: _HoldLabels.nextUp,
           board: _workout.board,
           leftGrip: _workout.holds[0].leftGrip,
           rightGrip: _workout.holds[0].rightGrip,

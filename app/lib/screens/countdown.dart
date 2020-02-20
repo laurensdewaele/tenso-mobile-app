@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/countdown_vm.dart';
+import 'package:app/view_models/countdown_screen_vm.dart';
 import 'package:app/widgets/countdown.dart';
 
 class CountdownScreenArguments {
@@ -22,17 +22,16 @@ class _CountdownScreenState extends State<CountdownScreen>
   AnimationController _animationController;
   int _currentSequenceIndex = 0;
   bool _isRunning = false;
-  CountdownViewModel _countdownViewModel;
-  List<SequenceItem> get _sequence => _countdownViewModel.sequence;
-  int _remainingSeconds;
+  CountdownScreenViewModel _countdownScreenViewModel;
+  List<CountdownViewModel> get _sequence => _countdownScreenViewModel.sequence;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (_countdownViewModel == null) {
+    if (_countdownScreenViewModel == null) {
       final CountdownScreenArguments routeArguments =
           ModalRoute.of(context).settings.arguments;
-      _countdownViewModel = CountdownViewModel(
+      _countdownScreenViewModel = CountdownScreenViewModel(
           workout: routeArguments.workout, settings: routeArguments.settings);
       _startSequenceForIndex();
       start();
@@ -46,42 +45,30 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _animationController.dispose();
     super.dispose();
   }
 
   void _startSequenceForIndex() {
     final int duration =
-        _countdownViewModel.sequence[_currentSequenceIndex].duration;
-    _remainingSeconds = duration;
+        _countdownScreenViewModel.sequence[_currentSequenceIndex].duration;
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: duration))
           ..addListener(() {
             setState(() {});
+            if (_animationController.value == 1) {
+              setState(() {
+                _isRunning = false;
+                _currentSequenceIndex++;
+              });
+              _animationController.dispose();
+              if (_sequence[_currentSequenceIndex] != null) {
+                _startSequenceForIndex();
+                start();
+              }
+            }
           });
-    // The stream closes itself once the timer reaches 0.
-    // TODO: Try if you can only use the animationController for the countdown.
-
-    _sequence[_currentSequenceIndex]
-        .countdownTimer
-        .stream
-        .listen((remainingSeconds) {
-      setState(() {
-        _remainingSeconds = remainingSeconds;
-      });
-      if (_remainingSeconds == 0) {
-        setState(() {
-          _isRunning = false;
-          _currentSequenceIndex++;
-        });
-        _animationController.dispose();
-        if (_sequence[_currentSequenceIndex] != null) {
-          _startSequenceForIndex();
-          start();
-        }
-      }
-    });
   }
 
   void stop() {
@@ -89,7 +76,6 @@ class _CountdownScreenState extends State<CountdownScreen>
       _isRunning = false;
     });
     _animationController.dispose();
-    _sequence[_currentSequenceIndex].countdownTimer.cancel();
   }
 
   void pause() {
@@ -97,7 +83,6 @@ class _CountdownScreenState extends State<CountdownScreen>
       _isRunning = false;
     });
     _animationController.stop();
-    _sequence[_currentSequenceIndex].countdownTimer.pause();
   }
 
   void start() {
@@ -106,7 +91,6 @@ class _CountdownScreenState extends State<CountdownScreen>
         _isRunning = true;
       });
       _animationController.forward();
-      _sequence[_currentSequenceIndex].countdownTimer.start();
     }
   }
 
@@ -116,7 +100,11 @@ class _CountdownScreenState extends State<CountdownScreen>
       animatedBackgroundHeightFactor: _animationController.value,
       animatedBackgroundColor: _sequence[_currentSequenceIndex].color,
       title: _sequence[_currentSequenceIndex].title,
-      remainingSeconds: _remainingSeconds,
+      // TODO: Fix rounding
+      remainingSeconds: (_animationController.duration.inSeconds -
+              _animationController.duration.inSeconds *
+                  _animationController.value)
+          .round(),
       holdLabel: _sequence[_currentSequenceIndex].holdLabel,
       board: _sequence[_currentSequenceIndex].board,
       leftGrip: _sequence[_currentSequenceIndex].leftGrip,
