@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart' hide Card, Divider;
 
+import 'package:provider/provider.dart';
+
 import 'package:app/models/workout.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/countdown_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/difficulty.dart';
 import 'package:app/widgets/workout_overview/workout_overview_card_expanded.dart';
@@ -93,7 +98,10 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   }
 
   void _handleStart() {
-    // TODO: Implement route transition.
+    Provider.of<CountdownViewModel>(context, listen: false)
+        .addWorkoutAndSettings(widget.workout,
+            Provider.of<AppState>(context, listen: false).settings);
+    Navigator.of(context).pushNamed(Routes.countdownScreen);
   }
 
   Widget _buildChildren(BuildContext context, Widget child) {

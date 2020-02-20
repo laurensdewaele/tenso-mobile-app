@@ -55,16 +55,13 @@ class SequenceItem {
 }
 
 class CountdownViewModel extends ChangeNotifier {
-  CountdownViewModel(Workout workout, Settings settings) {
-    _workout = workout;
-    _settings = settings;
-    _initialize();
-  }
+  CountdownViewModel();
 
   Workout _workout;
   Settings _settings;
-  List<SequenceItem> _sequence;
+  List<SequenceItem> _sequence = [];
   int _currentSequenceIndex = 0;
+  bool _running = false;
 
   Color color;
   String title;
@@ -79,6 +76,12 @@ class CountdownViewModel extends ChangeNotifier {
   int currentSet;
   int totalHangsPerSet;
   int currentHang;
+
+  void addWorkoutAndSettings(Workout workout, Settings settings) {
+    _workout = workout;
+    _settings = settings;
+    _initialize();
+  }
 
   void _initialize() {
     _constructSequence();
@@ -108,24 +111,31 @@ class CountdownViewModel extends ChangeNotifier {
       remainingSeconds = _remainingSeconds;
       notifyListeners();
       if (_remainingSeconds == 0) {
+        _running = false;
         _currentSequenceIndex++;
         if (_sequence[_currentSequenceIndex] != null) {
           _startSequenceForIndex();
+          start();
         }
       }
     });
   }
 
   void stop() {
+    _running = false;
     _sequence[_currentSequenceIndex].countdownTimer.cancel();
   }
 
   void pause() {
+    _running = false;
     _sequence[_currentSequenceIndex].countdownTimer.pause();
   }
 
   void start() {
-    _sequence[_currentSequenceIndex].countdownTimer.start();
+    if (_running != true) {
+      _running = true;
+      _sequence[_currentSequenceIndex].countdownTimer.start();
+    }
   }
 
   void _constructSequence() {
