@@ -7,7 +7,6 @@ import 'package:app/services/toast.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/countdown_vm.dart';
 import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
@@ -54,10 +53,6 @@ class App extends StatelessWidget {
         Provider<ExtraTabViewModel>(
           create: (context) => ExtraTabViewModel(
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
-          lazy: false,
-        ),
-        ChangeNotifierProvider<CountdownViewModel>(
-          create: (context) => CountdownViewModel(),
           lazy: false,
         ),
         ProxyProvider<AppState, SettingsViewModel>(

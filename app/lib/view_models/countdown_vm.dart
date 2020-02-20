@@ -54,91 +54,18 @@ class SequenceItem {
   final CountdownTimer countdownTimer;
 }
 
-class CountdownViewModel extends ChangeNotifier {
-  CountdownViewModel();
-
-  Workout _workout;
-  Settings _settings;
-  List<SequenceItem> _sequence = [];
-  int _currentSequenceIndex = 0;
-  bool _running = false;
-
-  Color color;
-  String title;
-  int remainingSeconds;
-  String holdLabel;
-  Board board;
-  Grip leftGrip;
-  Grip rightGrip;
-  BoardHold leftGripBoardHold;
-  BoardHold rightGripBoardHold;
-  int totalSets;
-  int currentSet;
-  int totalHangsPerSet;
-  int currentHang;
-
-  void addWorkoutAndSettings(Workout workout, Settings settings) {
+class CountdownViewModel {
+  CountdownViewModel({Workout workout, Settings settings}) {
     _workout = workout;
     _settings = settings;
     _initialize();
   }
 
+  Workout _workout;
+  Settings _settings;
+  List<SequenceItem> sequence = [];
+
   void _initialize() {
-    _constructSequence();
-    _startSequenceForIndex();
-  }
-
-  void _startSequenceForIndex() {
-    color = _sequence[_currentSequenceIndex].color;
-    title = _sequence[_currentSequenceIndex].title;
-    remainingSeconds = _sequence[_currentSequenceIndex].duration;
-    holdLabel = _sequence[_currentSequenceIndex].holdLabel;
-    board = _sequence[_currentSequenceIndex].board;
-    leftGrip = _sequence[_currentSequenceIndex].leftGrip;
-    rightGrip = _sequence[_currentSequenceIndex].rightGrip;
-    leftGripBoardHold = _sequence[_currentSequenceIndex].leftGripBoardHold;
-    rightGripBoardHold = _sequence[_currentSequenceIndex].rightGripBoardHold;
-    totalSets = _sequence[_currentSequenceIndex].totalSets;
-    currentSet = _sequence[_currentSequenceIndex].currentSet;
-    totalHangsPerSet = _sequence[_currentSequenceIndex].totalHangsPerSet;
-    currentHang = _sequence[_currentSequenceIndex].currentHang;
-    notifyListeners();
-    // The stream closes itself once the timer reaches 0.
-    _sequence[_currentSequenceIndex]
-        .countdownTimer
-        .stream
-        .listen((_remainingSeconds) {
-      remainingSeconds = _remainingSeconds;
-      notifyListeners();
-      if (_remainingSeconds == 0) {
-        _running = false;
-        _currentSequenceIndex++;
-        if (_sequence[_currentSequenceIndex] != null) {
-          _startSequenceForIndex();
-          start();
-        }
-      }
-    });
-  }
-
-  void stop() {
-    _running = false;
-    _sequence[_currentSequenceIndex].countdownTimer.cancel();
-  }
-
-  void pause() {
-    _running = false;
-    _sequence[_currentSequenceIndex].countdownTimer.pause();
-  }
-
-  void start() {
-    if (_running != true) {
-      _running = true;
-      _sequence[_currentSequenceIndex].countdownTimer.start();
-    }
-  }
-
-  void _constructSequence() {
     _addPreparationSequence();
     // Secondly, we need to generate all holds to need to be done.
     // This means looping over sets, than all the holds and we also need to
@@ -193,7 +120,7 @@ class CountdownViewModel extends ChangeNotifier {
   }
 
   void _addPreparationSequence() {
-    _sequence.add(
+    sequence.add(
       SequenceItem(
           color: styles.Colors.blue,
           title: Titles.preparation,
@@ -213,7 +140,7 @@ class CountdownViewModel extends ChangeNotifier {
   }
 
   void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
-    _sequence.add(
+    sequence.add(
       SequenceItem(
           countdownTimer: CountdownTimer(_workout.holds[_currentHold].hangTime),
           color: styles.Colors.primary,
@@ -234,7 +161,7 @@ class CountdownViewModel extends ChangeNotifier {
 
   void _addHoldRepetitionRestSequence(
       int _currentSet, int _currentHold, int _currentHang) {
-    _sequence.add(
+    sequence.add(
       SequenceItem(
           countdownTimer: CountdownTimer(
               _workout.holds[_currentHold].restBetweenRepetitions),
@@ -256,7 +183,7 @@ class CountdownViewModel extends ChangeNotifier {
 
   void _addHoldRestSequence(
       int _currentSet, int _currentHold, int _currentHang) {
-    _sequence.add(
+    sequence.add(
       SequenceItem(
           countdownTimer: CountdownTimer(_workout.restBetweenHolds),
           color: styles.Colors.blue,
@@ -277,7 +204,7 @@ class CountdownViewModel extends ChangeNotifier {
   }
 
   void _addSetRestSequence(int _currentSet, int _currentHang) {
-    _sequence.add(
+    sequence.add(
       SequenceItem(
           countdownTimer: CountdownTimer(_workout.restBetweenHolds),
           color: styles.Colors.blue,
