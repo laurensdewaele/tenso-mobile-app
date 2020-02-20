@@ -104,7 +104,7 @@ class _CountdownScreenState extends State<CountdownScreen>
       remainingSeconds: (_animationController.duration.inSeconds -
               _animationController.duration.inSeconds *
                   _animationController.value)
-          .round(),
+          .ceil(),
       holdLabel: _sequence[_currentSequenceIndex].holdLabel,
       board: _sequence[_currentSequenceIndex].board,
       leftGrip: _sequence[_currentSequenceIndex].leftGrip,
