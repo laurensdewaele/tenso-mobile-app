@@ -100,7 +100,6 @@ class _CountdownScreenState extends State<CountdownScreen>
       animatedBackgroundHeightFactor: _animationController.value,
       animatedBackgroundColor: _sequence[_currentSequenceIndex].color,
       title: _sequence[_currentSequenceIndex].title,
-      // TODO: Fix rounding
       remainingSeconds: (_animationController.duration.inSeconds -
               _animationController.duration.inSeconds *
                   _animationController.value)
