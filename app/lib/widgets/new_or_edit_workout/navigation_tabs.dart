@@ -61,34 +61,11 @@ class NavigationTabs extends StatelessWidget {
   }
 }
 
-class IndicatorTabs extends StatelessWidget {
-  IndicatorTabs(
-      {this.count,
-      this.activeIndex,
-      this.primaryColor = styles.Colors.primary});
-
-  final int count;
-  final int activeIndex;
-  final Color primaryColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: _CircleContainer(
-        primaryColor: primaryColor,
-        count: count,
-        activeIndex: activeIndex,
-      ),
-    );
-  }
-}
-
 class _CircleContainer extends StatelessWidget {
   _CircleContainer(
       {@required this.count,
       @required this.activeIndex,
-      this.handleNavigation,
+      @required this.handleNavigation,
       @required this.primaryColor});
 
   final Color primaryColor;
@@ -104,9 +81,7 @@ class _CircleContainer extends StatelessWidget {
       children: <Widget>[
         ...list.map((n) => GestureDetector(
             onTap: () {
-              if (handleNavigation != null) {
-                handleNavigation(n - 1);
-              }
+              handleNavigation(n - 1);
             },
             child: _Circle(
               activeIndex: n == activeIndex + 1,
@@ -154,22 +129,7 @@ class _ActiveCircle extends StatelessWidget {
     return Container(
       width: styles.Measurements.s,
       height: styles.Measurements.s,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                color: styles.Colors.bgWhite, shape: BoxShape.circle),
-          ),
-          Center(
-            child: Container(
-              width: styles.Measurements.s - 3,
-              height: styles.Measurements.s - 3,
-              decoration:
-                  BoxDecoration(color: primaryColor, shape: BoxShape.circle),
-            ),
-          ),
-        ],
-      ),
+      decoration: BoxDecoration(color: primaryColor, shape: BoxShape.circle),
     );
   }
 }

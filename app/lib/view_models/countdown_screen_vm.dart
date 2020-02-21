@@ -5,6 +5,7 @@ import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/settings.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -13,6 +14,7 @@ abstract class _Titles {
   static const String hang = 'hang';
   static const String restBetweenHolds = 'rest between holds';
   static const String restBetweenSets = 'rest between sets';
+  static const String restBetweenRepetitions = 'rest between repetitions';
 }
 
 abstract class _HoldLabels {
@@ -27,14 +29,16 @@ class CountdownViewModel {
     @required this.duration,
     @required this.holdLabel,
     @required this.board,
-    @required this.leftGrip,
-    @required this.rightGrip,
-    @required this.leftGripBoardHold,
-    @required this.rightGripBoardHold,
+    this.leftGrip,
+    this.rightGrip,
+    this.leftGripBoardHold,
+    this.rightGripBoardHold,
     @required this.totalSets,
     @required this.currentSet,
     @required this.totalHangsPerSet,
     @required this.currentHang,
+    this.addedWeight,
+    @required this.unit,
   });
 
   final Color color;
@@ -50,6 +54,8 @@ class CountdownViewModel {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
+  final Unit unit;
+  final double addedWeight;
 }
 
 class CountdownScreenViewModel {
@@ -69,7 +75,14 @@ class CountdownScreenViewModel {
     // This means looping over sets, than all the holds and we also need to
     // include the repetitions per hold.
     int _currentHang = 1;
-    for (var _currentSet = 1; _currentSet <= _workout.sets; _currentSet++) {
+    int _currentSet = 1;
+
+    void _incrementSet() {
+      _currentSet++;
+      _currentHang = 1;
+    }
+
+    while (_currentSet <= _workout.sets) {
       for (var _currentHold = 0;
           _currentHold < _workout.holds.length;
           _currentHold++) {
@@ -78,6 +91,8 @@ class CountdownScreenViewModel {
                 _workout.holds[_currentHold].repetitions;
             _currentRepetitionPerHold++) {
           _addHoldSequence(_currentSet, _currentHold, _currentHang);
+
+          _currentHang++;
 
           // Only add a rest between repetitions if there's:
           // - More than 1 rep
@@ -88,8 +103,6 @@ class CountdownScreenViewModel {
             _addHoldRepetitionRestSequence(
                 _currentSet, _currentHold, _currentHang);
           }
-
-          _currentHang++;
         }
 
         // At this point we've added all the hold reps and their rest
@@ -110,8 +123,8 @@ class CountdownScreenViewModel {
       // Only add a rest between sets if there's:
       // - More than 1 set
       // - Not the last set
-
-      if (_workout.sets > 1 && _currentSet < _workout.sets) {
+      _incrementSet();
+      if (_workout.sets > 1 && _currentSet <= _workout.sets) {
         _addSetRestSequence(_currentSet, _currentHang);
       }
     }
@@ -120,6 +133,8 @@ class CountdownScreenViewModel {
   void _addPreparationSequence() {
     sequence.add(
       CountdownViewModel(
+          unit: _settings.unit,
+          addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.preparation,
           duration: _settings.preparationTimer,
@@ -139,6 +154,8 @@ class CountdownScreenViewModel {
   void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          unit: _settings.unit,
+          addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.primary,
           title: _Titles.hang,
           duration: _workout.holds[_currentHold].hangTime,
@@ -159,8 +176,10 @@ class CountdownScreenViewModel {
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          unit: _settings.unit,
+          addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.blue,
-          title: _Titles.restBetweenHolds,
+          title: _Titles.restBetweenRepetitions,
           duration: _workout.holds[_currentHold].restBetweenRepetitions,
           holdLabel: _HoldLabels.nextUp,
           board: _workout.board,
@@ -179,6 +198,8 @@ class CountdownScreenViewModel {
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          unit: _settings.unit,
+          addedWeight: _workout.holds[_currentHold + 1].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenHolds,
           duration: _workout.restBetweenHolds,
@@ -199,6 +220,8 @@ class CountdownScreenViewModel {
   void _addSetRestSequence(int _currentSet, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          unit: _settings.unit,
+          addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenSets,
           duration: _workout.restBetweenSets,

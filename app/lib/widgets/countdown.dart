@@ -3,28 +3,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/tabs.dart';
+import 'package:app/widgets/indicator_tabs.dart';
 
 class Countdown extends StatelessWidget {
-  Countdown(
-      {Key key,
-      @required this.animatedBackgroundHeightFactor,
-      @required this.primaryColor,
-      @required this.title,
-      @required this.remainingSeconds,
-      @required this.holdLabel,
-      @required this.board,
-      @required this.leftGrip,
-      @required this.leftGripBoardHold,
-      @required this.rightGrip,
-      @required this.rightGripBoardHold,
-      @required this.totalSets,
-      @required this.currentSet,
-      @required this.totalHangsPerSet,
-      @required this.currentHang})
-      : super(key: key);
+  Countdown({
+    Key key,
+    @required this.animatedBackgroundHeightFactor,
+    @required this.primaryColor,
+    @required this.title,
+    @required this.remainingSeconds,
+    @required this.holdLabel,
+    @required this.board,
+    this.leftGrip,
+    this.leftGripBoardHold,
+    this.rightGrip,
+    this.rightGripBoardHold,
+    @required this.totalSets,
+    @required this.currentSet,
+    @required this.totalHangsPerSet,
+    @required this.currentHang,
+    @required this.unit,
+    this.addedWeight,
+  }) : super(key: key);
 
   final double animatedBackgroundHeightFactor;
   final Color primaryColor;
@@ -40,9 +43,14 @@ class Countdown extends StatelessWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
+  final Unit unit;
+  final double addedWeight;
 
   @override
   Widget build(BuildContext context) {
+    final String unitText = unit == Unit.metric ? 'kg' : 'pounds';
+    final String addedWeightText = '+ $addedWeight $unitText';
+
     return Stack(children: <Widget>[
       Container(
         decoration: BoxDecoration(color: styles.Colors.black),
@@ -68,7 +76,7 @@ class Countdown extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(color: styles.Colors.green),
+                decoration: BoxDecoration(color: styles.Colors.black),
               ),
             ),
 //          Expanded(child: OrientationBuilder(
@@ -90,6 +98,15 @@ class Countdown extends StatelessWidget {
 //              );
 //            },
 //          )),
+            if (addedWeight != null)
+              Divider(
+                height: styles.Measurements.m,
+              ),
+            if (addedWeight != null)
+              Text(
+                addedWeightText,
+                style: styles.Typography.countdownAddedWeight,
+              ),
             Divider(
               height: styles.Measurements.xxl,
             ),
@@ -104,7 +121,7 @@ class Countdown extends StatelessWidget {
               ),
             IndicatorTabs(
               count: totalHangsPerSet,
-              activeIndex: currentHang - 1,
+              active: currentHang,
               primaryColor: primaryColor,
             ),
             Divider(

@@ -57,13 +57,17 @@ class _CountdownScreenState extends State<CountdownScreen>
         AnimationController(vsync: this, duration: Duration(seconds: duration))
           ..addListener(() {
             setState(() {});
+            // End of a single countdown
             if (_animationController.value == 1) {
-              setState(() {
-                _isRunning = false;
-                _currentSequenceIndex++;
-              });
-              _animationController.dispose();
-              if (_sequence[_currentSequenceIndex] != null) {
+              // On the end of the whole sequence, navigate back
+              if (_currentSequenceIndex == _sequence.length - 1) {
+                stop();
+                Navigator.of(context).pop();
+              } else {
+                setState(() {
+                  _isRunning = false;
+                  _currentSequenceIndex++;
+                });
                 _startSequenceForIndex();
                 start();
               }
@@ -75,7 +79,6 @@ class _CountdownScreenState extends State<CountdownScreen>
     setState(() {
       _isRunning = false;
     });
-    _animationController.dispose();
   }
 
   void pause() {
@@ -97,6 +100,8 @@ class _CountdownScreenState extends State<CountdownScreen>
   @override
   Widget build(BuildContext context) {
     return Countdown(
+      unit: _sequence[_currentSequenceIndex].unit,
+      addedWeight: _sequence[_currentSequenceIndex].addedWeight,
       animatedBackgroundHeightFactor: _animationController.value,
       primaryColor: _sequence[_currentSequenceIndex].color,
       title: _sequence[_currentSequenceIndex].title,
