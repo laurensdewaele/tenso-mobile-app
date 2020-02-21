@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
+
 import 'package:app/data/grips.dart';
 import 'package:app/helpers/grip_board_hold_compatibility.dart';
-import 'package:app/helpers/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
@@ -9,7 +10,6 @@ import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
-import 'package:flutter/cupertino.dart';
 
 class HoldTabViewModel {
   HoldTabViewModel(ToastService toastService,
@@ -135,15 +135,9 @@ class HoldTabViewModel {
 
   void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
     final _holds = _holdList;
-    // Unit (metric or imperial) will be saved in kg's.
-    // And converted to pounds when needed.
-    double weight = addedWeight;
-
-    if (unit == Unit.imperial) {
-      weight = UnitConversion.convertPoundsToKg(addedWeight);
-    }
-
-    _holds[holdNo] = _holds[holdNo].rebuild((b) => b..addedWeight = weight);
+    _holds[holdNo] = _holds[holdNo].rebuild((b) => b
+      ..addedWeight = addedWeight
+      ..unit = unit);
     _newOrEditWorkoutViewModel
         .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }

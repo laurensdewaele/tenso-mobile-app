@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/helpers/unit_conversion.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
@@ -152,13 +151,10 @@ class HoldTab extends StatelessWidget {
               shouldFocus: false,
               handleDoubleValueChanged: (double n) {
                 _holdTabViewModel.setHoldAddedWeight(
-                    currentHold, n.toDouble(), _settings.unit);
+                    currentHold, n, _settings.unit);
               },
-              initialValue: _settings.unit == Unit.metric
-                  ? _newOrEditWorkoutViewModel
-                      .workout.holds[currentHold].addedWeight
-                  : UnitConversion.convertPoundsToKg(_newOrEditWorkoutViewModel
-                      .workout.holds[currentHold].addedWeight),
+              initialValue: _newOrEditWorkoutViewModel
+                  .workout.holds[currentHold].addedWeight,
               isDouble: true,
               shouldLoseFocusStream: shouldLoseFocusStream,
             ),

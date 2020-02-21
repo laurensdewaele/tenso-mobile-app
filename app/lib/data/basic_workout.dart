@@ -2,6 +2,7 @@ import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/data/grips.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 
 final Workout basicWorkout = Workout((b) => b
@@ -22,7 +23,8 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
-      ..addedWeight = 20),
+      ..addedWeight = 20
+      ..unit = Unit.metric),
     Hold((b) => b
       ..leftGrip = Grips.halfCrimpL.toBuilder()
       ..rightGrip = Grips.halfCrimpR.toBuilder()
@@ -32,7 +34,8 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
-      ..addedWeight = 20),
+      ..addedWeight = 20
+      ..unit = Unit.metric),
     Hold((b) => b
       ..leftGrip = Grips.openHandL.toBuilder()
       ..rightGrip = Grips.openHandR.toBuilder()
@@ -42,6 +45,7 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
-      ..addedWeight = 20)
+      ..addedWeight = 20
+      ..unit = Unit.metric)
   ])
   ..name = 'Basic workout');
