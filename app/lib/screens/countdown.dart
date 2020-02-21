@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
@@ -45,7 +46,6 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   @override
   void dispose() {
-    _animationController.removeListener(animationControllerListener);
     _animationController.dispose();
     super.dispose();
   }
@@ -53,7 +53,6 @@ class _CountdownScreenState extends State<CountdownScreen>
   void _startSequenceForIndex() {
     if (_animationController != null) {
       _animationController.removeListener(animationControllerListener);
-      _animationController = null;
     }
 
     final int duration =
@@ -61,28 +60,28 @@ class _CountdownScreenState extends State<CountdownScreen>
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: duration))
-          ..addListener(() {
-            animationControllerListener();
-          });
+          ..addListener(animationControllerListener);
   }
 
   void animationControllerListener() {
-    setState(() {});
     // End of a single countdown
     if (_animationController.value == 1) {
       // On the end of the whole sequence, navigate back
       if (_currentSequenceIndex == _sequence.length - 1) {
         stop();
-        print('popping navigator stack from Countdown');
         Navigator.of(context).pop();
       } else {
         setState(() {
           _isRunning = false;
           _currentSequenceIndex++;
         });
-        _startSequenceForIndex();
-        start();
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _startSequenceForIndex();
+          start();
+        });
       }
+    } else {
+      setState(() {});
     }
   }
 
