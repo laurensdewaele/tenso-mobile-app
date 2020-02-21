@@ -12,12 +12,13 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
-- Design screens for progress and the actual hang timer (don't forget to play sounds that notify you which grip and pocket is next).
-  => What does the timer screen need?
-  Make it compatible with landscape.
+- Total duration format + recalc (it's off).
+- Screen hang timer.
   Shortly flashing white while changing screens (state).
-  Beeps.
+  Beeps and sounds.
+  Voice-over that says which grip + addedWeight.
   Track completed hangs
+  
 - Progress and overview completed workouts.
 
 - Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
@@ -56,26 +57,3 @@ flutter packages pub run build_runner watch
 
 ### On initial persistence - first time install app
 FileSystemException: Cannot open file, path = '/Users/laurens/Library/Developer/CoreSimulator/Devices/E75788F1-923F-495F-B1EE-EE11166390DD/data/Containers/Data/Application/0F710B87-6CE7-4451-80DA-B129B5D7193A/Documents/workout.txt' (OS Error: No such file or directory, errno = 2)
-
-### BoardHoldPicker - setState() or markNeedsBuild() called during build
-```Dart
-The following assertion was thrown while dispatching notifications for AppState:
-setState() or markNeedsBuild() called during build.
-
-This _DefaultInheritedProviderScope<AppState> widget cannot be marked as needing to build because the framework is already in the process of building widgets.  A widget can be marked as needing to be built during the build phase only if one of its ancestors is currently building. This exception is allowed because the framework builds parent widgets before children, which means a dirty descendant will always be built. Otherwise, the framework might not visit this widget during this build phase.
-The widget on which setState() or markNeedsBuild() was called was: _DefaultInheritedProviderScope<AppState>
-  value: Instance of 'AppState'
-  listening to value
-The widget which was currently being built when the offending call was made was: Section
-```
-
-This comes from BoardHoldPicker. 
-It receives a new leftGrip or rightGrip from it's parent (emitted by AppState).
-And therefor enters into it's didUpdateWidget method to set the correct offset for the new grip.
-This also sets state, whilst it's already building and therefor the error is thrown.
-
-Possible solutions:
-
-- leave it as is. The error is non breaking?
-- addPostFrameCallback gets rid of the error, but then there's a slight delay you notice when the feedback is being set.
-

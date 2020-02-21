@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
@@ -55,13 +56,20 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     if (oldWidget.leftGrip != widget.leftGrip &&
         widget.leftGrip != null &&
         widget.leftGripBoardHold != null) {
-      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
+      // TODO: This gives a small delay, but need it.
+      // The error is acceptable in debug mode,
+      // Release mode doesn't work :)
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
+      });
     }
 
     if (oldWidget.rightGrip != widget.rightGrip &&
         widget.rightGrip != null &&
         widget.rightGripBoardHold != null) {
-      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
+      });
     }
     super.didUpdateWidget(oldWidget);
   }

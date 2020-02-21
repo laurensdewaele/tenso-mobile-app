@@ -52,7 +52,7 @@ class RadioButton extends StatelessWidget {
 class _ActiveCircle extends StatelessWidget {
   _ActiveCircle({this.primaryColor});
 
-  Color primaryColor;
+  final Color primaryColor;
 
   @override
   Widget build(BuildContext context) {

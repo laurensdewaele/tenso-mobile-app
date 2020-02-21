@@ -133,7 +133,7 @@ class CountdownScreenViewModel {
   void _addPreparationSequence() {
     sequence.add(
       CountdownViewModel(
-          unit: _settings.unit,
+          unit: _workout.holds[0].unit,
           addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.preparation,
@@ -154,7 +154,7 @@ class CountdownScreenViewModel {
   void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
-          unit: _settings.unit,
+          unit: _workout.holds[_currentHold].unit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.primary,
           title: _Titles.hang,
@@ -176,7 +176,7 @@ class CountdownScreenViewModel {
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
-          unit: _settings.unit,
+          unit: _workout.holds[_currentHold].unit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenRepetitions,
@@ -198,7 +198,7 @@ class CountdownScreenViewModel {
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
-          unit: _settings.unit,
+          unit: _workout.holds[_currentHold + 1].unit,
           addedWeight: _workout.holds[_currentHold + 1].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenHolds,
@@ -220,7 +220,7 @@ class CountdownScreenViewModel {
   void _addSetRestSequence(int _currentSet, int _currentHang) {
     sequence.add(
       CountdownViewModel(
-          unit: _settings.unit,
+          unit: _workout.holds[0].unit,
           addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenSets,
