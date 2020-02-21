@@ -102,11 +102,11 @@ class Countdown extends StatelessWidget {
                 }
               },
             )),
-            if (addedWeight != null || addedWeight == 0)
+            if (addedWeight != null && addedWeight != 0.0)
               Divider(
                 height: styles.Measurements.m,
               ),
-            if (addedWeight != null || addedWeight == 0)
+            if (addedWeight != null && addedWeight != 0.0)
               Text(
                 addedWeightText,
                 style: styles.Typography.countdownAddedWeight,

@@ -27,6 +27,7 @@ class HoldTabViewModel {
     final _holds = _holdList;
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
+        ..unit = _holds[holdNo].unit
         ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
         ..handHold = _holds[holdNo].handHold
         ..addedWeight = _holds[holdNo].addedWeight
@@ -47,6 +48,7 @@ class HoldTabViewModel {
     final _holds = _holdList;
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
+        ..unit = _holds[holdNo].unit
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
         ..handHold = _holds[holdNo].handHold
         ..addedWeight = _holds[holdNo].addedWeight
@@ -74,6 +76,7 @@ class HoldTabViewModel {
     final _holds = _holdList;
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
+        ..unit = _holds[holdNo].unit
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
         ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
         ..handHold = _holds[holdNo].handHold
@@ -94,6 +97,7 @@ class HoldTabViewModel {
     final _holds = _holdList;
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
+        ..unit = _holds[holdNo].unit
         ..leftGrip = _holds[holdNo].leftGrip?.toBuilder()
         ..rightGrip = _holds[holdNo].rightGrip?.toBuilder()
         ..handHold = _holds[holdNo].handHold
