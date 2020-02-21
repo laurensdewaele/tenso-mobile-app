@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
@@ -74,30 +76,32 @@ class Countdown extends StatelessWidget {
             Divider(
               height: styles.Measurements.xxl,
             ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(color: styles.Colors.black),
-              ),
-            ),
-//          Expanded(child: OrientationBuilder(
-//            builder: (context, orientation) {
-//              return GridView.count(
-//                crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
-//                children: <Widget>[
-//                  Expanded(
-//                    child: Container(
-//                      decoration: BoxDecoration(color: styles.Colors.green),
-//                    ),
-//                  ),
-//                  Expanded(
-//                    child: Container(
-//                      decoration: BoxDecoration(color: styles.Colors.orange),
-//                    ),
-//                  ),
-//                ],
-//              );
-//            },
-//          )),
+            Expanded(child: OrientationBuilder(
+              builder: (context, orientation) {
+                final List<Widget> children = [
+                  Expanded(
+                    child: Center(
+                      child: AutoSizeText(
+                        remainingSeconds.toString(),
+                        style: styles.Typography.countdownTimer,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(color: styles.Colors.orange),
+                    ),
+                  ),
+                ];
+                if (orientation == Orientation.portrait) {
+                  return Column(
+                      mainAxisSize: MainAxisSize.max, children: children);
+                } else {
+                  return Row(
+                      mainAxisSize: MainAxisSize.max, children: children);
+                }
+              },
+            )),
             if (addedWeight != null)
               Divider(
                 height: styles.Measurements.m,

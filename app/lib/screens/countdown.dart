@@ -45,37 +45,49 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   @override
   void dispose() {
+    _animationController.removeListener(animationControllerListener);
     _animationController.dispose();
     super.dispose();
   }
 
   void _startSequenceForIndex() {
+    if (_animationController != null) {
+      _animationController.removeListener(animationControllerListener);
+      _animationController = null;
+    }
+
     final int duration =
         _countdownScreenViewModel.sequence[_currentSequenceIndex].duration;
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: duration))
           ..addListener(() {
-            setState(() {});
-            // End of a single countdown
-            if (_animationController.value == 1) {
-              // On the end of the whole sequence, navigate back
-              if (_currentSequenceIndex == _sequence.length - 1) {
-                stop();
-                Navigator.of(context).pop();
-              } else {
-                setState(() {
-                  _isRunning = false;
-                  _currentSequenceIndex++;
-                });
-                _startSequenceForIndex();
-                start();
-              }
-            }
+            animationControllerListener();
           });
   }
 
+  void animationControllerListener() {
+    setState(() {});
+    // End of a single countdown
+    if (_animationController.value == 1) {
+      // On the end of the whole sequence, navigate back
+      if (_currentSequenceIndex == _sequence.length - 1) {
+        stop();
+        print('popping navigator stack from Countdown');
+        Navigator.of(context).pop();
+      } else {
+        setState(() {
+          _isRunning = false;
+          _currentSequenceIndex++;
+        });
+        _startSequenceForIndex();
+        start();
+      }
+    }
+  }
+
   void stop() {
+    _animationController.removeListener(animationControllerListener);
     setState(() {
       _isRunning = false;
     });
