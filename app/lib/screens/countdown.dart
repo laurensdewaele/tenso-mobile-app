@@ -98,7 +98,7 @@ class _CountdownScreenState extends State<CountdownScreen>
   Widget build(BuildContext context) {
     return Countdown(
       animatedBackgroundHeightFactor: _animationController.value,
-      animatedBackgroundColor: _sequence[_currentSequenceIndex].color,
+      primaryColor: _sequence[_currentSequenceIndex].color,
       title: _sequence[_currentSequenceIndex].title,
       remainingSeconds: (_animationController.duration.inSeconds -
               _animationController.duration.inSeconds *

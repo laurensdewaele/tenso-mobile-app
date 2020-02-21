@@ -5,8 +5,8 @@ import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/divider.dart';
 
-class Tabs extends StatelessWidget {
-  Tabs(
+class NavigationTabs extends StatelessWidget {
+  NavigationTabs(
       {Key key,
       @required this.primaryColor,
       @required this.handleBackNavigation,
@@ -30,7 +30,7 @@ class Tabs extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         activeIndex != 0
-            ? LeftChevron(
+            ? _LeftChevron(
                 handleTap: handleBackNavigation, primaryColor: primaryColor)
             : SizedBox(
                 width: styles.Measurements.xxl,
@@ -39,7 +39,7 @@ class Tabs extends StatelessWidget {
         Expanded(
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: CircleContainer(
+            child: _CircleContainer(
               primaryColor: primaryColor,
               count: count,
               activeIndex: activeIndex,
@@ -48,7 +48,7 @@ class Tabs extends StatelessWidget {
           ),
         ),
         activeIndex != count - 1
-            ? RightChevron(
+            ? _RightChevron(
                 primaryColor: primaryColor,
                 handleTap: handleForwardNavigation,
               )
@@ -61,11 +61,34 @@ class Tabs extends StatelessWidget {
   }
 }
 
-class CircleContainer extends StatelessWidget {
-  CircleContainer(
+class IndicatorTabs extends StatelessWidget {
+  IndicatorTabs(
+      {this.count,
+      this.activeIndex,
+      this.primaryColor = styles.Colors.primary});
+
+  final int count;
+  final int activeIndex;
+  final Color primaryColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: _CircleContainer(
+        primaryColor: primaryColor,
+        count: count,
+        activeIndex: activeIndex,
+      ),
+    );
+  }
+}
+
+class _CircleContainer extends StatelessWidget {
+  _CircleContainer(
       {@required this.count,
       @required this.activeIndex,
-      @required this.handleNavigation,
+      this.handleNavigation,
       @required this.primaryColor});
 
   final Color primaryColor;
@@ -81,9 +104,11 @@ class CircleContainer extends StatelessWidget {
       children: <Widget>[
         ...list.map((n) => GestureDetector(
             onTap: () {
-              handleNavigation(n - 1);
+              if (handleNavigation != null) {
+                handleNavigation(n - 1);
+              }
             },
-            child: Circle(
+            child: _Circle(
               activeIndex: n == activeIndex + 1,
               primaryColor: primaryColor,
             )))
@@ -92,8 +117,8 @@ class CircleContainer extends StatelessWidget {
   }
 }
 
-class Circle extends StatelessWidget {
-  Circle({@required this.activeIndex, @required this.primaryColor});
+class _Circle extends StatelessWidget {
+  _Circle({@required this.activeIndex, @required this.primaryColor});
 
   final Color primaryColor;
   final bool activeIndex;
@@ -107,8 +132,8 @@ class Circle extends StatelessWidget {
           width: styles.Measurements.xs / 2,
         ),
         activeIndex
-            ? ActiveCircle(primaryColor: primaryColor)
-            : NonActiveCircle(
+            ? _ActiveCircle(primaryColor: primaryColor)
+            : _NonActiveCircle(
                 primaryColor: primaryColor,
               ),
         Divider(
@@ -119,8 +144,8 @@ class Circle extends StatelessWidget {
   }
 }
 
-class ActiveCircle extends StatelessWidget {
-  ActiveCircle({@required this.primaryColor});
+class _ActiveCircle extends StatelessWidget {
+  _ActiveCircle({@required this.primaryColor});
 
   final Color primaryColor;
 
@@ -129,13 +154,28 @@ class ActiveCircle extends StatelessWidget {
     return Container(
       width: styles.Measurements.s,
       height: styles.Measurements.s,
-      decoration: BoxDecoration(color: primaryColor, shape: BoxShape.circle),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                color: styles.Colors.bgWhite, shape: BoxShape.circle),
+          ),
+          Center(
+            child: Container(
+              width: styles.Measurements.s - 3,
+              height: styles.Measurements.s - 3,
+              decoration:
+                  BoxDecoration(color: primaryColor, shape: BoxShape.circle),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class NonActiveCircle extends StatelessWidget {
-  NonActiveCircle({@required this.primaryColor});
+class _NonActiveCircle extends StatelessWidget {
+  _NonActiveCircle({@required this.primaryColor});
 
   final Color primaryColor;
 
@@ -164,8 +204,8 @@ class NonActiveCircle extends StatelessWidget {
   }
 }
 
-class RightChevron extends StatelessWidget {
-  const RightChevron({Key key, this.handleTap, @required this.primaryColor})
+class _RightChevron extends StatelessWidget {
+  const _RightChevron({Key key, this.handleTap, @required this.primaryColor})
       : super(key: key);
 
   final Color primaryColor;
@@ -184,8 +224,8 @@ class RightChevron extends StatelessWidget {
   }
 }
 
-class LeftChevron extends StatelessWidget {
-  const LeftChevron(
+class _LeftChevron extends StatelessWidget {
+  const _LeftChevron(
       {Key key, @required this.handleTap, @required this.primaryColor})
       : super(key: key);
 

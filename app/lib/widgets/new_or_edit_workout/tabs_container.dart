@@ -6,7 +6,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/new_or_edit_workout/extra_tab.dart';
 import 'package:app/widgets/new_or_edit_workout/general_tab.dart';
 import 'package:app/widgets/new_or_edit_workout/hold_tab.dart';
-import 'package:app/widgets/new_or_edit_workout/tabs.dart';
+import 'package:app/widgets/tabs.dart';
 
 class TabsContainer extends StatefulWidget {
   TabsContainer(
@@ -127,7 +127,7 @@ class _TabsContainerState extends State<TabsContainer> {
               vertical: styles.Measurements.l),
           child: _pages[_activePageIndex],
         ),
-        Tabs(
+        NavigationTabs(
             primaryColor: widget.primaryColor,
             handleNavigation: _handleNavigation,
             handleBackNavigation: _handleBackNavigation,
