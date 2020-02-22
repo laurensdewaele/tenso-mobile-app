@@ -28,6 +28,7 @@ class Countdown extends StatelessWidget {
     @required this.totalHangsPerSet,
     @required this.currentHang,
     @required this.unit,
+    @required this.whiteBackgroundFadeAnimation,
     this.addedWeight,
   }) : super(key: key);
 
@@ -47,6 +48,7 @@ class Countdown extends StatelessWidget {
   final int currentHang;
   final Unit unit;
   final double addedWeight;
+  final Animation<double> whiteBackgroundFadeAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,7 @@ class Countdown extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      decoration: BoxDecoration(color: styles.Colors.orange),
+                      decoration: BoxDecoration(color: styles.Colors.black),
                     ),
                   ),
                 ];
@@ -133,7 +135,13 @@ class Countdown extends StatelessWidget {
             ),
           ],
         ),
-      )
+      ),
+      FadeTransition(
+        opacity: whiteBackgroundFadeAnimation,
+        child: Container(
+          decoration: BoxDecoration(color: styles.Colors.bgWhite),
+        ),
+      ),
     ]);
   }
 }

@@ -25,6 +25,10 @@ class _CountdownScreenState extends State<CountdownScreen>
   bool _isRunning = false;
   CountdownScreenViewModel _countdownScreenViewModel;
   List<CountdownViewModel> get _sequence => _countdownScreenViewModel.sequence;
+  AnimationController _whiteBackgroundAnimationController;
+  Animation<double> _whiteBackgroundAnimation;
+  // TODO: With or without a flash animation?
+  Duration _whiteBackgroundAnimationDuration = Duration(milliseconds: 0);
 
   @override
   void didChangeDependencies() {
@@ -41,11 +45,17 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   @override
   void initState() {
+    _whiteBackgroundAnimationController = AnimationController(
+        vsync: this, duration: _whiteBackgroundAnimationDuration);
     super.initState();
+    _whiteBackgroundAnimation = Tween<double>(begin: 0, end: 1)
+        .chain(CurveTween(curve: Curves.easeIn))
+        .animate(_whiteBackgroundAnimationController);
   }
 
   @override
   void dispose() {
+    _whiteBackgroundAnimationController.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -64,6 +74,16 @@ class _CountdownScreenState extends State<CountdownScreen>
   }
 
   void animationControllerListener() {
+    final double _fadeAnimationStartValue = 1 -
+        (_whiteBackgroundAnimationDuration.inMilliseconds /
+            (_sequence[_currentSequenceIndex].duration * 1000));
+
+    if (_animationController.value >= _fadeAnimationStartValue) {
+      _whiteBackgroundAnimationController.forward().then((_) {
+        _whiteBackgroundAnimationController.value = 0.0;
+      });
+    }
+
     // End of a single countdown
     if (_animationController.value == 1) {
       // On the end of the whole sequence, navigate back
@@ -111,6 +131,7 @@ class _CountdownScreenState extends State<CountdownScreen>
   @override
   Widget build(BuildContext context) {
     return Countdown(
+      whiteBackgroundFadeAnimation: _whiteBackgroundAnimation,
       unit: _sequence[_currentSequenceIndex].unit,
       addedWeight: _sequence[_currentSequenceIndex].addedWeight,
       animatedBackgroundHeightFactor: _animationController.value,
