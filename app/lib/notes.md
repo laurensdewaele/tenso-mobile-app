@@ -12,14 +12,20 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
-- Total duration format + recalc (it's off).
+
 - Screen hang timer.
   Shortly flashing white while changing screens (state).
   Beeps and sounds.
   Voice-over that says which grip + addedWeight.
   Track completed hangs
-  
+
+- Total duration format + recalc (it's off).  
 - Progress and overview completed workouts.
+  - Day overview?
+  - Graph overview with addedWeight
+  - Graph overview with hold edges
+  - Graph overview with Grips
+ 
 
 - Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
   Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
