@@ -19,7 +19,8 @@ flutter packages pub run build_runner watch
   Landscape.
   Beeps and sounds.
   Voice-over that says which grip + addedWeight.
-  Track completed hangs
+  Track completed hangs.
+  Do I display 0, or not?
 
 - Total duration format + recalc (it's off).  
 - Progress and overview completed workouts.
