@@ -14,7 +14,9 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  Shortly flashing white while changing screens (state).
+  Ask for opinions on the white screen flash.
+  calcHandoffSet needs to be in a separate class and extend that one.
+  Landscape.
   Beeps and sounds.
   Voice-over that says which grip + addedWeight.
   Track completed hangs
