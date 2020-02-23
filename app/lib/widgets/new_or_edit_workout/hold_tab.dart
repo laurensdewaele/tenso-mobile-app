@@ -147,7 +147,7 @@ class HoldTab extends StatelessWidget {
             NumberInputAndDivider(
               primaryColor: _newOrEditWorkoutViewModel.primaryColor,
               zeroValueAllowed: true,
-              description: _settings.unit == Unit.metric ? 'kg' : 'pounds',
+              description: _settings.unit == Unit.metric ? 'kg' : 'lb',
               shouldFocus: false,
               handleDoubleValueChanged: (double n) {
                 _holdTabViewModel.setHoldAddedWeight(

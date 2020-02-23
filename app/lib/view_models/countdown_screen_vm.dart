@@ -19,7 +19,8 @@ abstract class _Titles {
 
 abstract class _HoldLabels {
   static const String nextUp = 'next up';
-  static const String hang = 'hang';
+  // It needs to be empty, otherwise there's a shift in height across screens
+  static const String hang = '';
 }
 
 class CountdownViewModel {

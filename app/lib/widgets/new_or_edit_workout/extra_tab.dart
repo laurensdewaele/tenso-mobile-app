@@ -81,7 +81,7 @@ class ExtraTab extends StatelessWidget {
         ),
         Center(
           child: Button(
-            primaryColor: _newOrEditWorkoutViewModel.primaryColor,
+            backgroundColor: _newOrEditWorkoutViewModel.primaryColor,
             width: styles.Measurements.xxl * 2,
             text: _newOrEditWorkoutViewModel.extraTabButtonText,
             handleTap: () => _handleButtonTap(context),
