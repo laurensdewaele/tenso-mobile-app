@@ -14,8 +14,8 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  Ask for opinions on the white screen flash.
   calcHandoffSet needs to be in a separate class and extend that one.
+  Ask for opinions on the white screen flash. => get rid of it.
   Landscape.
   Beeps and sounds.
   Voice-over that says which grip + addedWeight.

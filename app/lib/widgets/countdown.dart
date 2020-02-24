@@ -30,7 +30,6 @@ class Countdown extends StatefulWidget {
     @required this.totalHangsPerSet,
     @required this.currentHang,
     @required this.unit,
-    @required this.whiteBackgroundFadeAnimation,
     this.addedWeight,
   }) : super(key: key);
 
@@ -50,7 +49,6 @@ class Countdown extends StatefulWidget {
   final int currentHang;
   final Unit unit;
   final double addedWeight;
-  final Animation<double> whiteBackgroundFadeAnimation;
 
   @override
   _CountdownState createState() => _CountdownState();
@@ -165,12 +163,6 @@ class _CountdownState extends State<Countdown> {
               )
             ],
           ),
-        ),
-      ),
-      FadeTransition(
-        opacity: widget.whiteBackgroundFadeAnimation,
-        child: Container(
-          decoration: BoxDecoration(color: styles.Colors.bgWhite),
         ),
       ),
     ]);
