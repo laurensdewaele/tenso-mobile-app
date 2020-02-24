@@ -5,7 +5,6 @@ import 'package:app/widgets/divider.dart';
 
 // There could be some better code re-use with the normal
 // NavigatorTabs, but this make this code much more readable.
-// YOLO!
 class IndicatorTabs extends StatelessWidget {
   IndicatorTabs(
       {this.count, this.active, this.primaryColor = styles.Colors.primary});

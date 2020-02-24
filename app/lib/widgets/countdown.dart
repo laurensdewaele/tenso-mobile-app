@@ -83,12 +83,6 @@ class _CountdownState extends State<Countdown> {
     final String _titleText = widget.title;
 
     final Orientation _orientation = MediaQuery.of(context).orientation;
-    final double _largeDividerHeight = _orientation == Orientation.portrait
-        ? styles.Measurements.xxl
-        : styles.Measurements.m;
-    final double _smallDividerHeight = _orientation == Orientation.portrait
-        ? styles.Measurements.m
-        : styles.Measurements.xs;
 
     return Stack(children: <Widget>[
       Container(
@@ -415,10 +409,10 @@ class _Board extends StatefulWidget {
   final Orientation orientation;
 
   @override
-  _BoardDragTargetsState createState() => _BoardDragTargetsState();
+  _BoardState createState() => _BoardState();
 }
 
-class _BoardDragTargetsState extends State<_Board> {
+class _BoardState extends State<_Board> {
   bool _shouldCheckDimensions = true;
 
   @override
