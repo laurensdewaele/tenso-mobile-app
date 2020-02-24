@@ -10,7 +10,7 @@ import 'package:app/models/unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/grip_image.dart';
-import 'package:app/widgets/indicator_tabs.dart';
+import 'package:app/widgets/countdown/indicator_tabs.dart';
 
 class Countdown extends StatefulWidget {
   Countdown({

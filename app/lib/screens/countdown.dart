@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/view_models/countdown_screen_vm.dart';
-import 'package:app/widgets/countdown.dart';
+import 'package:app/widgets/countdown/countdown.dart';
 
 class CountdownScreenArguments {
   CountdownScreenArguments({this.workout, this.settings});
