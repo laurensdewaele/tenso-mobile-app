@@ -80,6 +80,7 @@ class _CountdownState extends State<Countdown> {
     final String _currentSet = widget.currentSet.toString();
     final String _totalSets = widget.totalSets.toString();
     final String _addedWeightText = '+ $_addedWeight $_unitText';
+    final String _titleText = widget.title;
 
     final Orientation _orientation = MediaQuery.of(context).orientation;
     final double _largeDividerHeight = _orientation == Orientation.portrait
@@ -106,44 +107,110 @@ class _CountdownState extends State<Countdown> {
             children: <Widget>[
               Container(
                 child: Text(
-                  widget.title,
+                  _titleText,
                   style: styles.Typography.countdownLabel,
                 ),
               ),
-              Expanded(
-                child: Center(
-                  child: AutoSizeText(
-                    widget.remainingSeconds.toString(),
-                    style: styles.Typography.countdownTimer,
+              if (_orientation == Orientation.portrait)
+                Expanded(
+                  child: Center(
+                    child: AutoSizeText(
+                      widget.remainingSeconds.toString(),
+                      style: styles.Typography.countdownTimer,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                height: _hangInfoContainerHeight,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    _HangInfo(
-                      holdLabel: widget.holdLabel,
-                      addedWeightText: _addedWeightText,
-                      reportTotalHangInfoContainerHeight:
-                          setTotalHangInfoContainerHeight,
-                      leftGripBoardHold: widget.leftGripBoardHold,
-                      rightGripBoardHold: widget.rightGripBoardHold,
-                      board: widget.board,
-                      rightGrip: widget.rightGrip,
-                      leftGrip: widget.leftGrip,
-                    ),
-                  ],
+              if (_orientation == Orientation.portrait)
+                Container(
+                  height: _hangInfoContainerHeight,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      _HangInfo(
+                        holdLabel: widget.holdLabel,
+                        addedWeightText: _addedWeightText,
+                        reportTotalHangInfoContainerHeight:
+                            setTotalHangInfoContainerHeight,
+                        leftGripBoardHold: widget.leftGripBoardHold,
+                        rightGripBoardHold: widget.rightGripBoardHold,
+                        board: widget.board,
+                        rightGrip: widget.rightGrip,
+                        leftGrip: widget.leftGrip,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Divider(
-                height: styles.Measurements.xxl,
-              ),
-              Container(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+              if (_orientation == Orientation.portrait)
+                Divider(
+                  height: styles.Measurements.xxl,
+                ),
+              if (_orientation != Orientation.portrait)
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: AutoSizeText(
+                            widget.remainingSeconds.toString(),
+                            style: styles.Typography.countdownTimer,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: _hangInfoContainerHeight,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              _HangInfo(
+                                holdLabel: widget.holdLabel,
+                                addedWeightText: _addedWeightText,
+                                reportTotalHangInfoContainerHeight:
+                                    setTotalHangInfoContainerHeight,
+                                leftGripBoardHold: widget.leftGripBoardHold,
+                                rightGripBoardHold: widget.rightGripBoardHold,
+                                board: widget.board,
+                                rightGrip: widget.rightGrip,
+                                leftGrip: widget.leftGrip,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if (_orientation == Orientation.portrait)
+                Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      if (widget.totalSets > 1)
+                        Text(
+                          'set $_currentSet / $_totalSets',
+                          style: styles.Typography.countdownLabel,
+                        ),
+                      if (widget.totalSets > 1)
+                        Divider(
+                          height: styles.Measurements.m,
+                        ),
+                      IndicatorTabs(
+                        count: widget.totalHangsPerSet,
+                        active: widget.currentHang,
+                        primaryColor: widget.primaryColor,
+                      ),
+                    ],
+                  ),
+                ),
+              if (_orientation != Orientation.portrait)
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Divider(
+                      height: styles.Measurements.m,
+                    ),
                     if (widget.totalSets > 1)
                       Text(
                         'set $_currentSet / $_totalSets',
@@ -151,16 +218,15 @@ class _CountdownState extends State<Countdown> {
                       ),
                     if (widget.totalSets > 1)
                       Divider(
-                        height: styles.Measurements.m,
+                        width: styles.Measurements.m,
                       ),
                     IndicatorTabs(
                       count: widget.totalHangsPerSet,
                       active: widget.currentHang,
                       primaryColor: widget.primaryColor,
-                    ),
+                    )
                   ],
-                ),
-              )
+                )
             ],
           ),
         ),

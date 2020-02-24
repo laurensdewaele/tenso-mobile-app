@@ -14,9 +14,6 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  calcHandoffSet needs to be in a separate class and extend that one.
-  Ask for opinions on the white screen flash. => get rid of it.
-  Landscape.
   Beeps and sounds.
   Voice-over that says which grip + addedWeight.
   Track completed hangs.
@@ -29,7 +26,7 @@ flutter packages pub run build_runner watch
   - Graph overview with hold edges
   - Graph overview with Grips
  
-
+  - Overview on workout accordion => calcHandoffSet needs to be in a separate class and extend that one. => do it when incorporating it in the overview. 
 - Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
   Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
   Explain when drawing my diagram that it's quite intricate and it adds a lot of overhead
