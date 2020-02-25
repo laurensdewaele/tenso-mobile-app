@@ -6,9 +6,9 @@ import 'package:app/models/unit.dart';
 final Settings basicSettings = Settings((b) => b
   ..defaultBoard = beastmaker1000.toBuilder()
   ..preparationTimer = 20
-  ..unit = Unit.metric)
-  ..hangSound = Sounds.thudDeep
-  ..restSound = Sounds.gong
-  ..beepSound = Sounds.hitLightSoft
+  ..unit = Unit.metric
+  ..hangSound = Sounds.thudDeep.toBuilder()
+  ..restSound = Sounds.gong.toBuilder()
+  ..beepSound = Sounds.hitLightSoft.toBuilder()
   ..beepsBeforeHang = 5
-  ..beepsBeforeRest = 3;
+  ..beepsBeforeRest = 3);
