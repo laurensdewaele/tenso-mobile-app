@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/unit.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -119,8 +118,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: GestureDetector(
                             onHorizontalDragEnd: _onHorizontalDragEnd,
                             child: Card(
-                              child: Consumer<AppState>(
-                                builder: (context, _appState, child) {
+                              child: Consumer<SettingsViewModel>(
+                                builder: (context, _settingsViewModel, child) {
                                   return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -147,10 +146,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     NumberInputAndDescription(
                                                       isDouble: false,
                                                       description: 'seconds',
-                                                      initialValue: _appState
-                                                          .settings
-                                                          .preparationTimer
-                                                          .toDouble(),
+                                                      initialValue:
+                                                          _settingsViewModel
+                                                              .appState
+                                                              .settings
+                                                              .preparationTimer
+                                                              .toDouble(),
                                                       handleIntValueChanged:
                                                           _handlePreparationTimerChanged,
                                                       shouldLoseFocusStream:
@@ -184,8 +185,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Metric (kg)',
                                                       value: Unit.metric,
-                                                      active: _appState
-                                                              .settings.unit ==
+                                                      active: _settingsViewModel
+                                                              .appState
+                                                              .settings
+                                                              .unit ==
                                                           Unit.metric,
                                                       handleSelected:
                                                           _handleUnitChanged,
@@ -194,8 +197,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                       description:
                                                           'Imperial (pounds)',
                                                       value: Unit.imperial,
-                                                      active: _appState
-                                                              .settings.unit ==
+                                                      active: _settingsViewModel
+                                                              .appState
+                                                              .settings
+                                                              .unit ==
                                                           Unit.imperial,
                                                       handleSelected:
                                                           _handleUnitChanged,

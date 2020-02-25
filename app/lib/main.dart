@@ -56,14 +56,16 @@ class App extends StatelessWidget {
               Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
-        ProxyProvider<AppState, SettingsViewModel>(
+        ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
+          create: (context) => SettingsViewModel(),
           update: (context, appState, settingsViewModel) =>
-              SettingsViewModel(appState),
+              settingsViewModel..update(appState),
           lazy: false,
         ),
-        ProxyProvider<AppState, SoundSettingsViewModel>(
+        ChangeNotifierProxyProvider<AppState, SoundSettingsViewModel>(
+          create: (context) => SoundSettingsViewModel(),
           update: (context, appState, soundSettingsViewModel) =>
-              SoundSettingsViewModel(appState),
+              soundSettingsViewModel..update(appState),
           lazy: false,
         ),
       ],

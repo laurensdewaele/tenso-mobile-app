@@ -73,9 +73,16 @@ class _CountdownScreenState extends State<CountdownScreen>
       } else {
         setState(() {
           _isRunning = false;
-          _currentSequenceIndex++;
         });
+        // We need this addPostFrameCallback in order
+        // to display the actual 0 value.
+        // Also, increasing the index needs to be a frame later.
+        // If not, the sound would have already changed to the next index value,
+        // when remainingSeconds == 0.
         SchedulerBinding.instance.addPostFrameCallback((_) {
+          setState(() {
+            _currentSequenceIndex++;
+          });
           _startSequenceForIndex();
           start();
         });
@@ -111,9 +118,6 @@ class _CountdownScreenState extends State<CountdownScreen>
   @override
   Widget build(BuildContext context) {
     return Countdown(
-      endSound: _sequence[_currentSequenceIndex].endSound,
-      beepSound: _sequence[_currentSequenceIndex].beepSound,
-      beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
       unit: _sequence[_currentSequenceIndex].unit,
       addedWeight: _sequence[_currentSequenceIndex].addedWeight,
       animatedBackgroundHeightFactor: _animationController.value,
@@ -133,6 +137,9 @@ class _CountdownScreenState extends State<CountdownScreen>
       currentSet: _sequence[_currentSequenceIndex].currentSet,
       totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
       currentHang: _sequence[_currentSequenceIndex].currentHang,
+      endSound: _sequence[_currentSequenceIndex].endSound,
+      beepSound: _sequence[_currentSequenceIndex].beepSound,
+      beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
     );
   }
 }

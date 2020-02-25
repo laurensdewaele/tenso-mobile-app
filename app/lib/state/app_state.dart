@@ -68,7 +68,7 @@ class AppState extends ChangeNotifier {
 
   Settings _settings;
   Settings get settings => _settings;
-  void setSettings(Settings settings) {
+  void saveSettings(Settings settings) {
     _settings = settings;
     _persistenceService.saveSettings(settings);
     notifyListeners();
@@ -78,6 +78,9 @@ class AppState extends ChangeNotifier {
     _newWorkout = await _persistenceService.getNewWorkout();
     _workouts = await _persistenceService.getWorkouts();
     _settings = await _persistenceService.getSettings();
+    saveNewWorkout(_newWorkout);
+    saveWorkouts(_workouts);
+    saveSettings(_settings);
     notifyListeners();
   }
 }

@@ -12,7 +12,7 @@ import 'package:app/view_models/sound_settings_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';
-import 'package:app/widgets/number_input_and_description.dart';
+import 'package:app/widgets/new_or_edit_workout/integer_input_and_divider.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/toast.dart';
@@ -188,9 +188,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                 ),
                                               ],
                                             )),
-                                        Divider(
-                                          height: styles.Measurements.xxl,
-                                        ),
                                         Padding(
                                             padding: EdgeInsets.symmetric(
                                               horizontal: styles.Measurements.m,
@@ -215,7 +212,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                       handleSelected: (dynamic
                                                               s) =>
                                                           _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                              .setRestSound(s),
                                                     ),
                                                     RadioButton(
                                                       description:
@@ -230,15 +227,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                       handleSelected: (dynamic
                                                               s) =>
                                                           _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                              .setRestSound(s),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             )),
-                                        Divider(
-                                          height: styles.Measurements.xxl,
-                                        ),
                                         Padding(
                                             padding: EdgeInsets.symmetric(
                                               horizontal: styles.Measurements.m,
@@ -265,7 +259,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                       handleSelected: (dynamic
                                                               s) =>
                                                           _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                              .setBeepSound(s),
                                                     ),
                                                     RadioButton(
                                                       description: Sounds
@@ -282,7 +276,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                       handleSelected: (dynamic
                                                               s) =>
                                                           _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                              .setBeepSound(s),
                                                     ),
                                                     RadioButton(
                                                       description:
@@ -297,15 +291,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                       handleSelected: (dynamic
                                                               s) =>
                                                           _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                              .setBeepSound(s),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             )),
-                                        Divider(
-                                          height: styles.Measurements.xxl,
-                                        ),
                                         Padding(
                                             padding: EdgeInsets.symmetric(
                                               horizontal: styles.Measurements.m,
@@ -317,7 +308,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                 Section(
                                                   title: 'indicator beeps',
                                                   children: <Widget>[
-                                                    NumberInputAndDescription(
+                                                    NumberInputAndDivider(
                                                       isDouble: false,
                                                       description:
                                                           'beeps before hang',
@@ -337,7 +328,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                               .stream,
                                                       shouldFocus: false,
                                                     ),
-                                                    NumberInputAndDescription(
+                                                    NumberInputAndDivider(
                                                       isDouble: false,
                                                       description:
                                                           'beeps before rest',
@@ -370,7 +361,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                             ),
                           ),
                         ),
-                        Divider(height: styles.Measurements.xxl)
                       ],
                     )
                   ])),
