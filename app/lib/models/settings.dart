@@ -17,6 +17,9 @@ abstract class Settings implements Built<Settings, SettingsBuilder> {
   int get preparationTimer;
   Sound get hangSound;
   Sound get restSound;
+  Sound get beepSound;
+  int get beepsBeforeHang;
+  int get beepsBeforeRest;
   Unit get unit;
 
   factory Settings([void Function(SettingsBuilder) updates]) = _$Settings;

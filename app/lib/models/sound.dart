@@ -10,7 +10,9 @@ part 'sound.g.dart';
 abstract class Sound implements Built<Sound, SoundBuilder> {
   static Serializer<Sound> get serializer => _$soundSerializer;
 
-  // TODO: Add stuff
+  String get name;
+  String get filename;
+  bool get muted;
 
   factory Sound([void Function(SoundBuilder) updates]) = _$Sound;
   Sound._();

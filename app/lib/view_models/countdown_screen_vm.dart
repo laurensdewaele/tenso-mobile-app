@@ -5,6 +5,7 @@ import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/settings.dart';
+import 'package:app/models/sound.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -40,8 +41,14 @@ class CountdownViewModel {
     @required this.currentHang,
     this.addedWeight,
     @required this.unit,
+    @required this.beepsBeforeEnd,
+    @required this.beepSound,
+    @required this.endSound,
   });
 
+  final Sound endSound;
+  final Sound beepSound;
+  final int beepsBeforeEnd;
   final Color color;
   final String title;
   final int duration;
@@ -134,6 +141,9 @@ class CountdownScreenViewModel {
   void _addPreparationSequence() {
     sequence.add(
       CountdownViewModel(
+          endSound: _settings.hangSound,
+          beepSound: _settings.beepSound,
+          beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[0].unit,
           addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
@@ -155,6 +165,9 @@ class CountdownScreenViewModel {
   void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          endSound: _settings.restSound,
+          beepSound: _settings.beepSound,
+          beepsBeforeEnd: _settings.beepsBeforeRest,
           unit: _workout.holds[_currentHold].unit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.primary,
@@ -177,6 +190,9 @@ class CountdownScreenViewModel {
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          endSound: _settings.hangSound,
+          beepSound: _settings.beepSound,
+          beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[_currentHold].unit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.blue,
@@ -199,6 +215,9 @@ class CountdownScreenViewModel {
       int _currentSet, int _currentHold, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          endSound: _settings.hangSound,
+          beepSound: _settings.beepSound,
+          beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[_currentHold + 1].unit,
           addedWeight: _workout.holds[_currentHold + 1].addedWeight,
           color: styles.Colors.blue,
@@ -221,6 +240,9 @@ class CountdownScreenViewModel {
   void _addSetRestSequence(int _currentSet, int _currentHang) {
     sequence.add(
       CountdownViewModel(
+          endSound: _settings.hangSound,
+          beepSound: _settings.beepSound,
+          beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[0].unit,
           addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
