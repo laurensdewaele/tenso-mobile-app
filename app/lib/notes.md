@@ -14,12 +14,15 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  Beeps and sounds.
+  Beeps and sounds. => audioplayers package
+  What sounds do i want? => just pick whatever for now. => nope hahah picked some nice wooden sounds
+  
   Voice-over that says which grip + addedWeight.
   Track completed hangs.
   Do I display 0, or not?
 
 - Total duration format + recalc (it's off).  
+- Show edge size somewhere.
 - Progress and overview completed workouts.
   - Day overview?
   - Graph overview with addedWeight
