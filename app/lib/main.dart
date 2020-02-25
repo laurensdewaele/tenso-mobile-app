@@ -12,6 +12,7 @@ import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
+import 'package:app/view_models/sound_settings_vm.dart';
 
 void main() => runApp(App());
 
@@ -58,6 +59,11 @@ class App extends StatelessWidget {
         ProxyProvider<AppState, SettingsViewModel>(
           update: (context, appState, settingsViewModel) =>
               SettingsViewModel(appState),
+          lazy: false,
+        ),
+        ProxyProvider<AppState, SoundSettingsViewModel>(
+          update: (context, appState, soundSettingsViewModel) =>
+              SoundSettingsViewModel(appState),
           lazy: false,
         ),
       ],

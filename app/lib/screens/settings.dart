@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/unit.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
