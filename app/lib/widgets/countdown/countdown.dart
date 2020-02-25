@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_type.dart';
 import 'package:app/models/unit.dart';
+import 'package:app/models/sound.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/grip_image.dart';
@@ -30,9 +32,15 @@ class Countdown extends StatefulWidget {
     @required this.totalHangsPerSet,
     @required this.currentHang,
     @required this.unit,
+    @required this.endSound,
+    @required this.beepSound,
+    @required this.beepsBeforeEnd,
     this.addedWeight,
   }) : super(key: key);
 
+  final Sound endSound;
+  final Sound beepSound;
+  final int beepsBeforeEnd;
   final double animatedBackgroundHeightFactor;
   final Color primaryColor;
   final String title;
@@ -56,6 +64,7 @@ class Countdown extends StatefulWidget {
 
 class _CountdownState extends State<Countdown> {
   double _hangInfoContainerHeight = 0;
+  AudioCache _audioPlayer = AudioCache(prefix: 'audio/');
 
   void setTotalHangInfoContainerHeight(double h) {
     setState(() {
@@ -64,7 +73,22 @@ class _CountdownState extends State<Countdown> {
   }
 
   @override
+  void didUpdateWidget(Countdown oldWidget) {
+    if (oldWidget.remainingSeconds != widget.remainingSeconds) {
+      if (widget.remainingSeconds == 0) {
+        _audioPlayer.play(widget.endSound.filename);
+      } else {
+        _audioPlayer.play(widget.beepSound.filename);
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void initState() {
+    if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
+      _audioPlayer.play(widget.beepSound.filename);
+    }
     super.initState();
   }
 

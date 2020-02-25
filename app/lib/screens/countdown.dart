@@ -111,6 +111,9 @@ class _CountdownScreenState extends State<CountdownScreen>
   @override
   Widget build(BuildContext context) {
     return Countdown(
+      endSound: _sequence[_currentSequenceIndex].endSound,
+      beepSound: _sequence[_currentSequenceIndex].beepSound,
+      beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
       unit: _sequence[_currentSequenceIndex].unit,
       addedWeight: _sequence[_currentSequenceIndex].addedWeight,
       animatedBackgroundHeightFactor: _animationController.value,
