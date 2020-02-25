@@ -30,6 +30,15 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
       'restSound',
       serializers.serialize(object.restSound,
           specifiedType: const FullType(Sound)),
+      'beepSound',
+      serializers.serialize(object.beepSound,
+          specifiedType: const FullType(Sound)),
+      'beepsBeforeHang',
+      serializers.serialize(object.beepsBeforeHang,
+          specifiedType: const FullType(int)),
+      'beepsBeforeRest',
+      serializers.serialize(object.beepsBeforeRest,
+          specifiedType: const FullType(int)),
       'unit',
       serializers.serialize(object.unit, specifiedType: const FullType(Unit)),
     ];
@@ -64,6 +73,18 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
           result.restSound.replace(serializers.deserialize(value,
               specifiedType: const FullType(Sound)) as Sound);
           break;
+        case 'beepSound':
+          result.beepSound.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Sound)) as Sound);
+          break;
+        case 'beepsBeforeHang':
+          result.beepsBeforeHang = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'beepsBeforeRest':
+          result.beepsBeforeRest = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'unit':
           result.unit = serializers.deserialize(value,
               specifiedType: const FullType(Unit)) as Unit;
@@ -85,6 +106,12 @@ class _$Settings extends Settings {
   @override
   final Sound restSound;
   @override
+  final Sound beepSound;
+  @override
+  final int beepsBeforeHang;
+  @override
+  final int beepsBeforeRest;
+  @override
   final Unit unit;
 
   factory _$Settings([void Function(SettingsBuilder) updates]) =>
@@ -95,6 +122,9 @@ class _$Settings extends Settings {
       this.preparationTimer,
       this.hangSound,
       this.restSound,
+      this.beepSound,
+      this.beepsBeforeHang,
+      this.beepsBeforeRest,
       this.unit})
       : super._() {
     if (defaultBoard == null) {
@@ -108,6 +138,15 @@ class _$Settings extends Settings {
     }
     if (restSound == null) {
       throw new BuiltValueNullFieldError('Settings', 'restSound');
+    }
+    if (beepSound == null) {
+      throw new BuiltValueNullFieldError('Settings', 'beepSound');
+    }
+    if (beepsBeforeHang == null) {
+      throw new BuiltValueNullFieldError('Settings', 'beepsBeforeHang');
+    }
+    if (beepsBeforeRest == null) {
+      throw new BuiltValueNullFieldError('Settings', 'beepsBeforeRest');
     }
     if (unit == null) {
       throw new BuiltValueNullFieldError('Settings', 'unit');
@@ -129,6 +168,9 @@ class _$Settings extends Settings {
         preparationTimer == other.preparationTimer &&
         hangSound == other.hangSound &&
         restSound == other.restSound &&
+        beepSound == other.beepSound &&
+        beepsBeforeHang == other.beepsBeforeHang &&
+        beepsBeforeRest == other.beepsBeforeRest &&
         unit == other.unit;
   }
 
@@ -136,9 +178,17 @@ class _$Settings extends Settings {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, defaultBoard.hashCode), preparationTimer.hashCode),
-                hangSound.hashCode),
-            restSound.hashCode),
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc(0, defaultBoard.hashCode),
+                                preparationTimer.hashCode),
+                            hangSound.hashCode),
+                        restSound.hashCode),
+                    beepSound.hashCode),
+                beepsBeforeHang.hashCode),
+            beepsBeforeRest.hashCode),
         unit.hashCode));
   }
 
@@ -149,6 +199,9 @@ class _$Settings extends Settings {
           ..add('preparationTimer', preparationTimer)
           ..add('hangSound', hangSound)
           ..add('restSound', restSound)
+          ..add('beepSound', beepSound)
+          ..add('beepsBeforeHang', beepsBeforeHang)
+          ..add('beepsBeforeRest', beepsBeforeRest)
           ..add('unit', unit))
         .toString();
   }
@@ -175,6 +228,20 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
   SoundBuilder get restSound => _$this._restSound ??= new SoundBuilder();
   set restSound(SoundBuilder restSound) => _$this._restSound = restSound;
 
+  SoundBuilder _beepSound;
+  SoundBuilder get beepSound => _$this._beepSound ??= new SoundBuilder();
+  set beepSound(SoundBuilder beepSound) => _$this._beepSound = beepSound;
+
+  int _beepsBeforeHang;
+  int get beepsBeforeHang => _$this._beepsBeforeHang;
+  set beepsBeforeHang(int beepsBeforeHang) =>
+      _$this._beepsBeforeHang = beepsBeforeHang;
+
+  int _beepsBeforeRest;
+  int get beepsBeforeRest => _$this._beepsBeforeRest;
+  set beepsBeforeRest(int beepsBeforeRest) =>
+      _$this._beepsBeforeRest = beepsBeforeRest;
+
   Unit _unit;
   Unit get unit => _$this._unit;
   set unit(Unit unit) => _$this._unit = unit;
@@ -187,6 +254,9 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
       _preparationTimer = _$v.preparationTimer;
       _hangSound = _$v.hangSound?.toBuilder();
       _restSound = _$v.restSound?.toBuilder();
+      _beepSound = _$v.beepSound?.toBuilder();
+      _beepsBeforeHang = _$v.beepsBeforeHang;
+      _beepsBeforeRest = _$v.beepsBeforeRest;
       _unit = _$v.unit;
       _$v = null;
     }
@@ -216,6 +286,9 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
               preparationTimer: preparationTimer,
               hangSound: hangSound.build(),
               restSound: restSound.build(),
+              beepSound: beepSound.build(),
+              beepsBeforeHang: beepsBeforeHang,
+              beepsBeforeRest: beepsBeforeRest,
               unit: unit);
     } catch (_) {
       String _$failedField;
@@ -227,6 +300,8 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
         hangSound.build();
         _$failedField = 'restSound';
         restSound.build();
+        _$failedField = 'beepSound';
+        beepSound.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Settings', _$failedField, e.toString());
