@@ -379,6 +379,26 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                 ),
                                               ],
                                             )),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: styles.Measurements.m,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Section(
+                                                  title: 'accreditation',
+                                                  children: <Widget>[
+                                                    Text(
+                                                      'Sounds obtained from https://www.zapsplat.com',
+                                                      style: styles
+                                                          .Typography.text,
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
                                         SizedBox(
                                           height: _keyboardOffsetHeight,
                                         )
