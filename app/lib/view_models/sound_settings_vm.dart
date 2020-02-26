@@ -27,9 +27,14 @@ class SoundSettingsViewModel extends ChangeNotifier {
         _appState.settings.rebuild((b) => b..restSound = sound.toBuilder()));
   }
 
-  void setBeepSound(Sound sound) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..beepSound = sound.toBuilder()));
+  void setBeepDuringHangSound(Sound sound) {
+    _appState.saveSettings(_appState.settings
+        .rebuild((b) => b..beepDuringHangSound = sound.toBuilder()));
+  }
+
+  void setBeepDuringRestSound(Sound sound) {
+    _appState.saveSettings(_appState.settings
+        .rebuild((b) => b..beepDuringRestSound = sound.toBuilder()));
   }
 
   void setBeepsBeforeHang(int amount) {

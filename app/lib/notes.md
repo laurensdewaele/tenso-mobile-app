@@ -14,12 +14,8 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  Beeps and sounds. => audioplayers package
-  What sounds do i want? => just pick whatever for now. => nope hahah picked some nice wooden sounds
-  
-  Voice-over that says which grip + addedWeight.
   Track completed hangs.
-  Do I display 0, or not?
+
 
 - Total duration format + recalc (it's off).  
 - Show edge size somewhere.
@@ -41,7 +37,6 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
-- Attribute sounds somehow => 
 - Rethink the difficulty. Maybe once you do a test it can be reset to what your max is?
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
@@ -54,7 +49,7 @@ flutter packages pub run build_runner watch
 - Mutliple grades
 - Tests :D
 - Add info button on most elements
-- Stop all globals (singletons as well). Do I have any?
+- Stop all globals (singletons as well). Do I have any? => styles
 - Check out perf.
 - Refactor keyboard screen. Now code is duplicated across settings screen and new workout.
 - Unhandled exception when rapidly closing and opening an accordion on the overview page.

@@ -9,6 +9,7 @@ final Settings basicSettings = Settings((b) => b
   ..unit = Unit.metric
   ..hangSound = Sounds.thudDeep.toBuilder()
   ..restSound = Sounds.gong.toBuilder()
-  ..beepSound = Sounds.hitLightSoft.toBuilder()
+  ..beepDuringHangSound = Sounds.hitLightHard.toBuilder()
+  ..beepDuringRestSound = Sounds.hitLightSoft.toBuilder()
   ..beepsBeforeHang = 5
   ..beepsBeforeRest = 3);

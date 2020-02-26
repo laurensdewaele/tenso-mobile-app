@@ -142,7 +142,7 @@ class CountdownScreenViewModel {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
+          beepSound: _settings.beepDuringRestSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[0].unit,
           addedWeight: _workout.holds[0].addedWeight,
@@ -166,7 +166,7 @@ class CountdownScreenViewModel {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.restSound,
-          beepSound: _settings.beepSound,
+          beepSound: _settings.beepDuringHangSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
           unit: _workout.holds[_currentHold].unit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
@@ -191,7 +191,7 @@ class CountdownScreenViewModel {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
+          beepSound: _settings.beepDuringRestSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[_currentHold].unit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
@@ -216,7 +216,7 @@ class CountdownScreenViewModel {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
+          beepSound: _settings.beepDuringRestSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[_currentHold + 1].unit,
           addedWeight: _workout.holds[_currentHold + 1].addedWeight,
@@ -241,7 +241,7 @@ class CountdownScreenViewModel {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
+          beepSound: _settings.beepDuringRestSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
           unit: _workout.holds[0].unit,
           addedWeight: _workout.holds[0].addedWeight,
