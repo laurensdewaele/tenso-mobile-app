@@ -19,7 +19,7 @@ class CountdownScreen extends StatefulWidget {
 }
 
 class _CountdownScreenState extends State<CountdownScreen>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   int _currentSequenceIndex = 0;
   bool _isRunning = false;

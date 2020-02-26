@@ -56,9 +56,10 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     if (oldWidget.leftGrip != widget.leftGrip &&
         widget.leftGrip != null &&
         widget.leftGripBoardHold != null) {
-      // TODO: This gives a small delay, but need it.
+      // This gives a small delay, but need it.
       // The error is acceptable in debug mode,
       // Release mode doesn't work :)
+      // I haven't figured out yet how to not have delay here.
       SchedulerBinding.instance.addPostFrameCallback((_) {
         _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
       });

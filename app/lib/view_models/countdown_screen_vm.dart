@@ -79,7 +79,7 @@ class CountdownScreenViewModel {
 
   void _initialize() {
     _addPreparationSequence();
-    // Secondly, we need to generate all holds to need to be done.
+    // Secondly, we need to generate all holds that need to be done.
     // This means looping over sets, than all the holds and we also need to
     // include the repetitions per hold.
     int _currentHang = 1;

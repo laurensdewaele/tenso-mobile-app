@@ -14,6 +14,7 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
+  Stop screen dialog.
   Track completed hangs.
 
 
