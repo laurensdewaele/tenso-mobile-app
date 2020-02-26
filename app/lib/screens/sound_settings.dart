@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'package:audioplayers/audio_cache.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/data/sounds.dart';
+import 'package:app/models/sound.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/sound_settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -31,6 +33,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
   final ScrollController _scrollController = ScrollController();
 
   double _keyboardOffsetHeight = 0;
+  AudioCache _audioPlayer = AudioCache(prefix: 'audio/');
 
   @override
   void initState() {
@@ -72,6 +75,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
   void _onHorizontalDragEnd(DragEndDetails details) {
     if (details.primaryVelocity > 0) {
       Navigator.of(context).pop();
+    }
+  }
+
+  void _playSound(Sound sound) {
+    if (sound.muted != true) {
+      _audioPlayer.play(sound.filename);
     }
   }
 
@@ -134,10 +143,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .hangSound ==
                                                               Sounds.thudDeep,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setHangSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                     RadioButton(
                                                       description: Sounds
@@ -149,10 +160,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .hangSound ==
                                                               Sounds.thudHollow,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setHangSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                     RadioButton(
                                                       description:
@@ -164,10 +177,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .hangSound ==
                                                               Sounds.thudSoft,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setHangSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                     RadioButton(
                                                       description:
@@ -179,10 +194,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .hangSound ==
                                                               Sounds.off,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setHangSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setHangSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                   ],
                                                 ),
@@ -209,10 +226,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .restSound ==
                                                               Sounds.gong,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setRestSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setRestSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                     RadioButton(
                                                       description:
@@ -224,10 +243,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .restSound ==
                                                               Sounds.off,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setRestSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setRestSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                   ],
                                                 ),
@@ -256,10 +277,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .beepSound ==
                                                               Sounds
                                                                   .hitLightSoft,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setBeepSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setBeepSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                     RadioButton(
                                                       description: Sounds
@@ -273,10 +296,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .beepSound ==
                                                               Sounds
                                                                   .hitLightHard,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setBeepSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setBeepSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                     RadioButton(
                                                       description:
@@ -288,10 +313,12 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                                   .settings
                                                                   .beepSound ==
                                                               Sounds.off,
-                                                      handleSelected: (dynamic
-                                                              s) =>
-                                                          _soundSettingsScreenViewModel
-                                                              .setBeepSound(s),
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setBeepSound(s);
+                                                        _playSound(s);
+                                                      },
                                                     ),
                                                   ],
                                                 ),

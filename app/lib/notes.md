@@ -41,6 +41,7 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
+- Attribute sounds somehow => 
 - Rethink the difficulty. Maybe once you do a test it can be reset to what your max is?
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
