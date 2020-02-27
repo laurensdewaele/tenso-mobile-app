@@ -151,10 +151,15 @@ class _CountdownScreenState extends State<CountdownScreen>
                 Expanded(
                   flex: 1,
                   child: Button(
-                    text: 'play',
-                    handleTap: _handlePlayTap,
-                    displayBackground: false,
-                  ),
+                      text: 'play',
+                      handleTap: _handlePlayTap,
+                      displayBackground: false,
+                      leadingIcon: Icon(
+                          iconData: IconData(0xf488,
+                              fontFamily: 'CupertinoIcons',
+                              fontPackage: 'cupertino_icons'),
+                          size: styles.Measurements.l,
+                          color: styles.Colors.black)),
                 ),
                 Expanded(
                   flex: 1,

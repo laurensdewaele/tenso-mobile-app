@@ -59,7 +59,7 @@ abstract class Typography {
   static const TextStyle countdownTimer =
       TextStyle(fontFamily: 'Staatliches', fontSize: 400, color: Colors.white);
   static const TextStyle countdownAddedWeight =
-      TextStyle(fontFamily: 'Staatliches', fontSize: 30, color: Colors.white);
+      TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
   static const TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
   static const TextStyle textBgWhite =
