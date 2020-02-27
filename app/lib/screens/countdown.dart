@@ -135,7 +135,7 @@ class _CountdownScreenState extends State<CountdownScreen>
     _pause();
     showAppDialog(
         context: context,
-        child: Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(

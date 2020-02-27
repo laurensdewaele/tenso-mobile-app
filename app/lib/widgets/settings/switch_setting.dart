@@ -24,7 +24,7 @@ class SwitchSetting extends StatelessWidget {
   void _handleInfoTap(BuildContext context) {
     showAppDialog(
         context: context,
-        child: Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(

@@ -147,7 +147,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   void _handleLongPress() async {
     await showAppDialog(
         context: context,
-        child: Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(

@@ -1,21 +1,24 @@
 import 'dart:ui';
 
-import 'package:app/models/hold_type.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
+import 'package:app/models/hold_type.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class LandscapeInfo extends StatelessWidget {
   LandscapeInfo(
-      {this.addedWeightText,
+      {this.addedWeight,
+      this.unit,
       this.leftGrip,
       this.leftGripBoardHold,
       this.rightGrip,
       this.rightGripBoardHold});
 
-  final String addedWeightText;
+  final double addedWeight;
+  final Unit unit;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Grip rightGrip;
@@ -23,23 +26,33 @@ class LandscapeInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String leftGripName = leftGrip.description;
+    String leftGripName;
     String leftHoldInfo;
-    if (leftGripBoardHold.holdType == HoldType.pocket ||
-        leftGripBoardHold.holdType == HoldType.roundedPocket) {
-      leftHoldInfo = leftGripBoardHold.pocketDepth.toString();
-    } else {
-      leftHoldInfo = leftGripBoardHold.holdType.toString();
+    if (leftGrip != null && leftGripBoardHold != null) {
+      leftGripName = leftGrip.description;
+      if (leftGripBoardHold.holdType == HoldType.pocket ||
+          leftGripBoardHold.holdType == HoldType.roundedPocket) {
+        final String pocketDepth = leftGripBoardHold.pocketDepth.toString();
+        leftHoldInfo = '$pocketDepth MM';
+      } else {
+        leftHoldInfo = leftGripBoardHold.holdType.toString();
+      }
     }
 
-    final String rightGripName = rightGrip.description;
+    String rightGripName;
     String rightHoldInfo;
-    if (rightGripBoardHold.holdType == HoldType.pocket ||
-        rightGripBoardHold.holdType == HoldType.roundedPocket) {
-      rightHoldInfo = rightGripBoardHold.pocketDepth.toString();
-    } else {
-      rightHoldInfo = rightGripBoardHold.holdType.toString();
+    if (rightGrip != null && rightGripBoardHold != null) {
+      rightGripName = rightGrip.description;
+      if (rightGripBoardHold.holdType == HoldType.pocket ||
+          rightGripBoardHold.holdType == HoldType.roundedPocket) {
+        final String pocketDepth = rightGripBoardHold.pocketDepth.toString();
+        rightHoldInfo = '$pocketDepth MM';
+      } else {
+        rightHoldInfo = rightGripBoardHold.holdType.toString();
+      }
     }
+
+    final String _unitText = unit == Unit.metric ? 'kg' : 'lb';
 
     return Container(
         decoration: BoxDecoration(
@@ -49,44 +62,71 @@ class LandscapeInfo extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             vertical: styles.Measurements.xs,
             horizontal: styles.Measurements.m),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
+            Stack(
+              fit: StackFit.loose,
               children: <Widget>[
-                Text(
-                  leftGripName,
-                  style: styles.Typography.countdownLandscapeInfo,
-                  textAlign: TextAlign.start,
+                if (leftGripName != null && leftHoldInfo != null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            leftGripName,
+                            style: styles.Typography.countdownLandscapeInfo,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            leftHoldInfo,
+                            style: styles.Typography.countdownLandscapeInfo,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                Positioned.fill(
+                  child: Center(
+                    child: Text(
+                      '+ $addedWeight $_unitText',
+                      style: styles.Typography.countdownAddedWeight,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-                Text(
-                  '$leftHoldInfo MM',
-                  style: styles.Typography.countdownLandscapeInfo,
-                  textAlign: TextAlign.start,
-                ),
-              ],
-            ),
-            Text(
-              addedWeightText,
-              style: styles.Typography.countdownAddedWeight,
-              textAlign: TextAlign.center,
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  rightGripName,
-                  style: styles.Typography.countdownLandscapeInfo,
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  '$rightHoldInfo MM',
-                  style: styles.Typography.countdownLandscapeInfo,
-                  textAlign: TextAlign.start,
-                ),
+                if (rightGripName != null && rightHoldInfo != null)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            rightGripName,
+                            style: styles.Typography.countdownLandscapeInfo,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            rightHoldInfo,
+                            style: styles.Typography.countdownLandscapeInfo,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ],

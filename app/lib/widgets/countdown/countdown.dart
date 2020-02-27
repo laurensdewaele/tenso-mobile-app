@@ -63,14 +63,7 @@ class Countdown extends StatefulWidget {
 }
 
 class _CountdownState extends State<Countdown> {
-  double _hangInfoContainerHeight = 0;
   AudioCache _audioPlayer = AudioCache(prefix: 'audio/');
-
-  void setTotalHangInfoContainerHeight(double h) {
-    setState(() {
-      _hangInfoContainerHeight = h;
-    });
-  }
 
   @override
   void didUpdateWidget(Countdown oldWidget) {
@@ -106,15 +99,7 @@ class _CountdownState extends State<Countdown> {
 
   @override
   Widget build(BuildContext context) {
-    final String _unitText = widget.unit == Unit.metric ? 'kg' : 'lb';
-    final String _addedWeight = widget.addedWeight.toString();
-    final String _currentSet = widget.currentSet.toString();
-    final String _totalSets = widget.totalSets.toString();
-    final String _addedWeightText = '+ $_addedWeight $_unitText';
-    final String _titleText = widget.title;
-
     final Orientation _orientation = MediaQuery.of(context).orientation;
-
     return Stack(children: <Widget>[
       Container(
         decoration: BoxDecoration(color: styles.Colors.bgBlack),
@@ -126,137 +111,296 @@ class _CountdownState extends State<Countdown> {
           )),
       SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(styles.Measurements.m),
+            padding: const EdgeInsets.all(styles.Measurements.m),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (_orientation == Orientation.portrait) {
+                  return _PortraitContent(
+                    title: widget.title,
+                    unit: widget.unit,
+                    remainingSeconds: widget.remainingSeconds,
+                    orientation: _orientation,
+                    rightGripBoardHold: widget.rightGripBoardHold,
+                    rightGrip: widget.rightGrip,
+                    leftGripBoardHold: widget.leftGripBoardHold,
+                    leftGrip: widget.leftGrip,
+                    board: widget.board,
+                    currentHang: widget.currentHang,
+                    currentSet: widget.currentSet,
+                    holdLabel: widget.holdLabel,
+                    primaryColor: widget.primaryColor,
+                    totalHangsPerSet: widget.totalHangsPerSet,
+                    totalSets: widget.totalSets,
+                    addedWeight: widget.addedWeight,
+                  );
+                } else {
+                  return _LandscapeContent(
+                    title: widget.title,
+                    unit: widget.unit,
+                    orientation: _orientation,
+                    rightGripBoardHold: widget.rightGripBoardHold,
+                    rightGrip: widget.rightGrip,
+                    leftGripBoardHold: widget.leftGripBoardHold,
+                    leftGrip: widget.leftGrip,
+                    board: widget.board,
+                    currentHang: widget.currentHang,
+                    currentSet: widget.currentSet,
+                    holdLabel: widget.holdLabel,
+                    primaryColor: widget.primaryColor,
+                    totalHangsPerSet: widget.totalHangsPerSet,
+                    totalSets: widget.totalSets,
+                    addedWeight: widget.addedWeight,
+                  );
+                }
+              },
+            )),
+      ),
+    ]);
+  }
+}
+
+class _PortraitContent extends StatefulWidget {
+  _PortraitContent({
+    Key key,
+    @required this.primaryColor,
+    @required this.remainingSeconds,
+    @required this.holdLabel,
+    @required this.board,
+    @required this.leftGrip,
+    @required this.leftGripBoardHold,
+    @required this.rightGrip,
+    @required this.rightGripBoardHold,
+    @required this.totalSets,
+    @required this.currentSet,
+    @required this.totalHangsPerSet,
+    @required this.currentHang,
+    @required this.unit,
+    @required this.orientation,
+    @required this.title,
+    this.addedWeight,
+  }) : super(key: key);
+
+  final Color primaryColor;
+  final int remainingSeconds;
+  final String holdLabel;
+  final Board board;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
+  final int totalSets;
+  final int currentSet;
+  final int totalHangsPerSet;
+  final int currentHang;
+  final Unit unit;
+  final double addedWeight;
+  final Orientation orientation;
+  final String title;
+
+  @override
+  __PortraitContentState createState() => __PortraitContentState();
+}
+
+class __PortraitContentState extends State<_PortraitContent> {
+  double _hangInfoContainerHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _setTotalHangInfoContainerHeight(double h) {
+    setState(() {
+      _hangInfoContainerHeight = h;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final String _currentSet = widget.currentSet.toString();
+    final String _totalSets = widget.totalSets.toString();
+    final String _titleText = widget.title;
+
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Container(
+          child: Text(
+            _titleText,
+            style: styles.Typography.countdownLabel,
+          ),
+        ),
+        Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Container(
-                child: Text(
-                  _titleText,
-                  style: styles.Typography.countdownLabel,
+              Expanded(
+                child: Center(
+                  child: AutoSizeText(
+                    widget.remainingSeconds.toString(),
+                    style: styles.Typography.countdownTimer,
+                  ),
                 ),
               ),
-              if (_orientation == Orientation.portrait)
-                Expanded(
-                  child: Center(
-                    child: AutoSizeText(
-                      widget.remainingSeconds.toString(),
-                      style: styles.Typography.countdownTimer,
-                    ),
-                  ),
+              Container(
+                height: _hangInfoContainerHeight,
+                child: HangInfo(
+                  holdLabel: widget.holdLabel,
+                  addedWeight: widget.addedWeight,
+                  unit: widget.unit,
+                  reportTotalHangInfoContainerHeight:
+                      _setTotalHangInfoContainerHeight,
+                  leftGripBoardHold: widget.leftGripBoardHold,
+                  rightGripBoardHold: widget.rightGripBoardHold,
+                  board: widget.board,
+                  rightGrip: widget.rightGrip,
+                  leftGrip: widget.leftGrip,
+                  orientation: widget.orientation,
                 ),
-              if (_orientation == Orientation.portrait)
-                Container(
-                  height: _hangInfoContainerHeight,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      HangInfo(
-                        holdLabel: widget.holdLabel,
-                        addedWeightText: _addedWeightText,
-                        reportTotalHangInfoContainerHeight:
-                            setTotalHangInfoContainerHeight,
-                        leftGripBoardHold: widget.leftGripBoardHold,
-                        rightGripBoardHold: widget.rightGripBoardHold,
-                        board: widget.board,
-                        rightGrip: widget.rightGrip,
-                        leftGrip: widget.leftGrip,
-                        orientation: _orientation,
-                      ),
-                    ],
-                  ),
-                ),
-              if (_orientation == Orientation.portrait)
-                Divider(
-                  height: styles.Measurements.xxl,
-                ),
-              if (_orientation != Orientation.portrait)
-                Divider(
-                  height: styles.Measurements.m,
-                ),
-              if (_orientation != Orientation.portrait)
-                Expanded(
-                    child: Stack(
-                  overflow: Overflow.clip,
-                  children: <Widget>[
-                    HangInfo(
-                      orientation: _orientation,
-                      holdLabel: widget.holdLabel,
-                      addedWeightText: _addedWeightText,
-                      reportTotalHangInfoContainerHeight:
-                          setTotalHangInfoContainerHeight,
-                      leftGripBoardHold: widget.leftGripBoardHold,
-                      rightGripBoardHold: widget.rightGripBoardHold,
-                      board: widget.board,
-                      rightGrip: widget.rightGrip,
-                      leftGrip: widget.leftGrip,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: LandscapeInfo(
-                        addedWeightText: _addedWeightText,
-                        leftGrip: widget.leftGrip,
-                        leftGripBoardHold: widget.leftGripBoardHold,
-                        rightGrip: widget.rightGrip,
-                        rightGripBoardHold: widget.rightGripBoardHold,
-                      ),
-                    ),
-                  ],
-                )),
-              if (_orientation != Orientation.portrait)
-                Divider(
-                  height: styles.Measurements.m,
-                ),
-              if (_orientation == Orientation.portrait)
-                Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      if (widget.totalSets > 1)
-                        Text(
-                          'set $_currentSet / $_totalSets',
-                          style: styles.Typography.countdownLabel,
-                        ),
-                      if (widget.totalSets > 1)
-                        Divider(
-                          height: styles.Measurements.m,
-                        ),
-                      IndicatorTabs(
-                        count: widget.totalHangsPerSet,
-                        active: widget.currentHang,
-                        primaryColor: widget.primaryColor,
-                      ),
-                    ],
-                  ),
-                ),
-              if (_orientation != Orientation.portrait)
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Divider(
-                      height: styles.Measurements.m,
-                    ),
-                    if (widget.totalSets > 1)
-                      Text(
-                        'set $_currentSet / $_totalSets',
-                        style: styles.Typography.countdownLabel,
-                      ),
-                    if (widget.totalSets > 1)
-                      Divider(
-                        width: styles.Measurements.m,
-                      ),
-                    IndicatorTabs(
-                      count: widget.totalHangsPerSet,
-                      active: widget.currentHang,
-                      primaryColor: widget.primaryColor,
-                    )
-                  ],
-                )
+              ),
             ],
           ),
         ),
-      ),
-    ]);
+        Divider(
+          height: styles.Measurements.xxl,
+        ),
+        Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              if (widget.totalSets > 1)
+                Text(
+                  'set $_currentSet / $_totalSets',
+                  style: styles.Typography.countdownLabel,
+                ),
+              if (widget.totalSets > 1)
+                Divider(
+                  height: styles.Measurements.m,
+                ),
+              IndicatorTabs(
+                count: widget.totalHangsPerSet,
+                active: widget.currentHang,
+                primaryColor: widget.primaryColor,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _LandscapeContent extends StatelessWidget {
+  _LandscapeContent({
+    Key key,
+    @required this.primaryColor,
+    @required this.holdLabel,
+    @required this.board,
+    @required this.leftGrip,
+    @required this.leftGripBoardHold,
+    @required this.rightGrip,
+    @required this.rightGripBoardHold,
+    @required this.totalSets,
+    @required this.currentSet,
+    @required this.totalHangsPerSet,
+    @required this.currentHang,
+    @required this.unit,
+    @required this.orientation,
+    @required this.title,
+    this.addedWeight,
+  }) : super(key: key);
+
+  final Color primaryColor;
+  final String holdLabel;
+  final Board board;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
+  final int totalSets;
+  final int currentSet;
+  final int totalHangsPerSet;
+  final int currentHang;
+  final Unit unit;
+  final double addedWeight;
+  final Orientation orientation;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Container(
+          child: Text(
+            title,
+            style: styles.Typography.countdownLabel,
+          ),
+        ),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        Expanded(
+            child: Stack(
+          overflow: Overflow.clip,
+          children: <Widget>[
+            HangInfo(
+              orientation: orientation,
+              holdLabel: holdLabel,
+              addedWeight: addedWeight,
+              unit: unit,
+              leftGripBoardHold: leftGripBoardHold,
+              rightGripBoardHold: rightGripBoardHold,
+              reportTotalHangInfoContainerHeight: (double h) {},
+              board: board,
+              rightGrip: rightGrip,
+              leftGrip: leftGrip,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: LandscapeInfo(
+                addedWeight: addedWeight,
+                unit: unit,
+                leftGrip: leftGrip,
+                leftGripBoardHold: leftGripBoardHold,
+                rightGrip: rightGrip,
+                rightGripBoardHold: rightGripBoardHold,
+              ),
+            ),
+          ],
+        )),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Divider(
+              height: styles.Measurements.m,
+            ),
+            if (totalSets > 1)
+              Text(
+                'set $currentSet / $totalSets',
+                style: styles.Typography.countdownLabel,
+              ),
+            if (totalSets > 1)
+              Divider(
+                width: styles.Measurements.m,
+              ),
+            IndicatorTabs(
+              count: totalHangsPerSet,
+              active: currentHang,
+              primaryColor: primaryColor,
+            )
+          ],
+        )
+      ],
+    );
   }
 }

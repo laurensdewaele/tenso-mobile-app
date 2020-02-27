@@ -4,6 +4,7 @@ import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_type.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/grip_image.dart';
@@ -22,7 +23,8 @@ class HangInfo extends StatefulWidget {
     @required this.rightGrip,
     @required this.reportTotalHangInfoContainerHeight,
     @required this.orientation,
-    this.addedWeightText,
+    @required this.addedWeight,
+    @required this.unit,
   }) : super(key: key);
 
   final Orientation orientation;
@@ -33,7 +35,8 @@ class HangInfo extends StatefulWidget {
   final Grip leftGrip;
   final Grip rightGrip;
   final Function(double h) reportTotalHangInfoContainerHeight;
-  final String addedWeightText;
+  final double addedWeight;
+  final Unit unit;
 
   @override
   _HangInfoState createState() => _HangInfoState();
@@ -110,6 +113,9 @@ class _HangInfoState extends State<HangInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final String _unitText = widget.unit == Unit.metric ? 'kg' : 'lb';
+    final String _addedWeight = widget.addedWeight.toString();
+
     return Column(
       children: <Widget>[
         if (widget.holdLabel != null &&
@@ -165,7 +171,7 @@ class _HangInfoState extends State<HangInfo> {
                   ),
                 ),
               ),
-            if (widget.addedWeightText != null &&
+            if (widget.addedWeight > 0.0 &&
                 widget.orientation == Orientation.portrait)
               Container(
                 height: _boardContainerHeight,
@@ -173,7 +179,7 @@ class _HangInfoState extends State<HangInfo> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: PortraitInfo(
-                    addedWeightText: widget.addedWeightText,
+                    addedWeightText: '+ $_addedWeight $_unitText',
                   ),
                 ),
               ),

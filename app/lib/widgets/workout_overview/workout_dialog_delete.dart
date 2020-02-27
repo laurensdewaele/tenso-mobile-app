@@ -5,16 +5,17 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 
-Future<void> showDeleteDialog(
-    {@required BuildContext context,
-    @required String workoutName,
-    @required VoidCallback handleCancelTap,
-    @required VoidCallback handleDeleteTap}) {
+Future<void> showDeleteDialog({
+  @required BuildContext context,
+  @required String workoutName,
+  @required VoidCallback handleCancelTap,
+  @required VoidCallback handleDeleteTap,
+}) {
   final String name = workoutName.toLowerCase();
 
   return showAppDialog(
       context: context,
-      child: Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
