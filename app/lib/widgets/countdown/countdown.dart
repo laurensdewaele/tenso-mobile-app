@@ -6,12 +6,12 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
-import 'package:app/models/hand_type.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/countdown/hang_info.dart';
+import 'package:app/widgets/countdown/landscape_info.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/grip_image.dart';
 import 'package:app/widgets/countdown/indicator_tabs.dart';
 
 class Countdown extends StatefulWidget {
@@ -151,7 +151,7 @@ class _CountdownState extends State<Countdown> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
-                      _HangInfo(
+                      HangInfo(
                         holdLabel: widget.holdLabel,
                         addedWeightText: _addedWeightText,
                         reportTotalHangInfoContainerHeight:
@@ -161,6 +161,7 @@ class _CountdownState extends State<Countdown> {
                         board: widget.board,
                         rightGrip: widget.rightGrip,
                         leftGrip: widget.leftGrip,
+                        orientation: _orientation,
                       ),
                     ],
                   ),
@@ -170,41 +171,41 @@ class _CountdownState extends State<Countdown> {
                   height: styles.Measurements.xxl,
                 ),
               if (_orientation != Orientation.portrait)
+                Divider(
+                  height: styles.Measurements.m,
+                ),
+              if (_orientation != Orientation.portrait)
                 Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        child: Center(
-                          child: AutoSizeText(
-                            widget.remainingSeconds.toString(),
-                            style: styles.Typography.countdownTimer,
-                          ),
-                        ),
+                    child: Stack(
+                  overflow: Overflow.clip,
+                  children: <Widget>[
+                    HangInfo(
+                      orientation: _orientation,
+                      holdLabel: widget.holdLabel,
+                      addedWeightText: _addedWeightText,
+                      reportTotalHangInfoContainerHeight:
+                          setTotalHangInfoContainerHeight,
+                      leftGripBoardHold: widget.leftGripBoardHold,
+                      rightGripBoardHold: widget.rightGripBoardHold,
+                      board: widget.board,
+                      rightGrip: widget.rightGrip,
+                      leftGrip: widget.leftGrip,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: LandscapeInfo(
+                        addedWeightText: _addedWeightText,
+                        leftGrip: widget.leftGrip,
+                        leftGripBoardHold: widget.leftGripBoardHold,
+                        rightGrip: widget.rightGrip,
+                        rightGripBoardHold: widget.rightGripBoardHold,
                       ),
-                      Expanded(
-                        child: Container(
-                          height: _hangInfoContainerHeight,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              _HangInfo(
-                                holdLabel: widget.holdLabel,
-                                addedWeightText: _addedWeightText,
-                                reportTotalHangInfoContainerHeight:
-                                    setTotalHangInfoContainerHeight,
-                                leftGripBoardHold: widget.leftGripBoardHold,
-                                rightGripBoardHold: widget.rightGripBoardHold,
-                                board: widget.board,
-                                rightGrip: widget.rightGrip,
-                                leftGrip: widget.leftGrip,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
+                )),
+              if (_orientation != Orientation.portrait)
+                Divider(
+                  height: styles.Measurements.m,
                 ),
               if (_orientation == Orientation.portrait)
                 Container(
@@ -257,266 +258,5 @@ class _CountdownState extends State<Countdown> {
         ),
       ),
     ]);
-  }
-}
-
-// TODO: SO much repetition with BoardHoldPicker
-class _HangInfo extends StatefulWidget {
-  _HangInfo({
-    Key key,
-    this.holdLabel,
-    @required this.board,
-    @required this.leftGripBoardHold,
-    @required this.rightGripBoardHold,
-    @required this.leftGrip,
-    @required this.rightGrip,
-    @required this.reportTotalHangInfoContainerHeight,
-    this.addedWeightText,
-  }) : super(key: key);
-
-  final String holdLabel;
-  final Board board;
-  final BoardHold leftGripBoardHold;
-  final BoardHold rightGripBoardHold;
-  final Grip leftGrip;
-  final Grip rightGrip;
-  final Function(double h) reportTotalHangInfoContainerHeight;
-  final String addedWeightText;
-
-  @override
-  _HangInfoState createState() => _HangInfoState();
-}
-
-class _HangInfoState extends State<_HangInfo> {
-  double _boardContainerHeight;
-  Size _boardSize;
-  double _gripHeight;
-  Offset _leftHandOffset;
-  Offset _rightHandOffset;
-
-  @override
-  void didUpdateWidget(Widget oldWidget) {
-    if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
-      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
-    }
-
-    if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
-      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  void _handleBoardDimensions(Size boardSize) {
-    final gripHeight = boardSize.height * widget.board.handToBoardHeightRatio;
-    final holdLabelHeight = 45;
-    final boardContainerHeight = boardSize.height +
-        (boardSize.height * widget.board.handToBoardHeightRatio);
-
-    setState(() {
-      _boardSize = boardSize;
-      _gripHeight = gripHeight;
-      _boardContainerHeight = boardContainerHeight;
-    });
-
-    widget.reportTotalHangInfoContainerHeight(
-        boardContainerHeight + holdLabelHeight);
-
-    if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
-      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
-    }
-    if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
-      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
-    }
-  }
-
-  _setHandOffset(Grip grip, BoardHold boardHold) {
-    final double gripDYHangAnchor = grip.dyRelativeHangAnchor * _gripHeight;
-    final double gripDXHangAnchor =
-        grip.dxRelativeHangAnchor * grip.assetAspectRatio * _gripHeight;
-    final double holdDYHangAnchor =
-        boardHold.dyRelativeHangAnchor * _boardSize.height;
-    final double holdDXHangAnchor =
-        boardHold.dxRelativeHangAnchor * _boardSize.width;
-    final Offset offset = Offset(holdDXHangAnchor - gripDXHangAnchor,
-        holdDYHangAnchor - gripDYHangAnchor);
-
-    if (grip.handType == HandType.leftHand) {
-      setState(() {
-        _leftHandOffset = offset;
-      });
-    } else {
-      setState(() {
-        _rightHandOffset = offset;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        if (widget.holdLabel != null)
-          Text(
-            widget.holdLabel,
-            style: styles.Typography.countdownLabel,
-          ),
-        if (widget.holdLabel != null)
-          Divider(
-            height: styles.Measurements.m,
-          ),
-        Stack(
-          overflow: Overflow.visible,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: _boardContainerHeight,
-              child: Container(),
-            ),
-            _Board(
-              boardAspectRatio: widget.board.aspectRatio,
-              boardAssetSrc: widget.board.assetSrc,
-              handleBoardDimensions: _handleBoardDimensions,
-              setHandOffset: _setHandOffset,
-              orientation: MediaQuery.of(context).orientation,
-            ),
-            if (widget.leftGrip != null && _leftHandOffset != null)
-              Positioned(
-                left: _leftHandOffset.dx,
-                top: _leftHandOffset.dy,
-                child: Container(
-                  height: _gripHeight,
-                  child: GripImage(
-                    assetSrc: widget.leftGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
-                  ),
-                ),
-              ),
-            if (widget.rightGrip != null && _rightHandOffset != null)
-              Positioned(
-                left: _rightHandOffset.dx,
-                top: _rightHandOffset.dy,
-                child: Container(
-                  height: _gripHeight,
-                  child: GripImage(
-                    assetSrc: widget.rightGrip.assetSrc,
-                    selected: false,
-                    color: styles.Colors.lighestGray,
-                  ),
-                ),
-              ),
-            if (widget.addedWeightText != null)
-              Container(
-                height: _boardContainerHeight,
-                width: double.infinity,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _AddedWeightInfo(
-                    text: widget.addedWeightText,
-                  ),
-                ),
-              )
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _Board extends StatefulWidget {
-  _Board({
-    Key key,
-    @required this.handleBoardDimensions,
-    @required this.setHandOffset,
-    @required this.orientation,
-    @required this.boardAspectRatio,
-    @required this.boardAssetSrc,
-  }) : super(key: key);
-
-  final double boardAspectRatio;
-  final String boardAssetSrc;
-  final Function(Size boardSize) handleBoardDimensions;
-  final Function(Grip grip, BoardHold boardHold) setHandOffset;
-  final Orientation orientation;
-
-  @override
-  _BoardState createState() => _BoardState();
-}
-
-class _BoardState extends State<_Board> {
-  bool _shouldCheckDimensions = true;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(_Board oldWidget) {
-    if (oldWidget.orientation != widget.orientation) {
-      setState(() {
-        _shouldCheckDimensions = true;
-      });
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  void _triggerPostFrameCallback(Size boardSize) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.handleBoardDimensions(boardSize);
-      setState(() {
-        _shouldCheckDimensions = false;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      final Size _boardSize = Size(
-          constraints.maxWidth, constraints.maxWidth / widget.boardAspectRatio);
-
-      if (_shouldCheckDimensions == true) {
-        _triggerPostFrameCallback(_boardSize);
-      }
-      return Stack(
-        children: <Widget>[
-          Container(
-              child: Image.asset(
-            widget.boardAssetSrc,
-          )),
-        ],
-      );
-    });
-  }
-}
-
-class _AddedWeightInfo extends StatelessWidget {
-  _AddedWeightInfo({this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-        decoration: BoxDecoration(
-            borderRadius: styles.kBorderRadiusAll,
-            color: styles.Colors.darkGray,
-            boxShadow: [styles.kBoxShadow]),
-        padding: EdgeInsets.symmetric(
-            vertical: styles.Measurements.xs,
-            horizontal: styles.Measurements.m),
-        child: Text(
-          text,
-          style: styles.Typography.countdownAddedWeight,
-          textAlign: TextAlign.center,
-        ));
   }
 }

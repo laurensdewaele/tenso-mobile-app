@@ -62,6 +62,8 @@ abstract class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 400, color: Colors.white);
   static const TextStyle countdownAddedWeight =
       TextStyle(fontFamily: 'Staatliches', fontSize: 28, color: Colors.white);
+  static const TextStyle countdownLandscapeInfo =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.white);
   static const TextStyle text =
       TextStyle(fontFamily: 'Lato', fontSize: 16, color: Colors.gray);
   static const TextStyle textBgWhite =
