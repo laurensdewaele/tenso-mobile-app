@@ -34,13 +34,14 @@ Future<void> showDeleteDialog(
                   flex: 1,
                   child: Transform.scale(
                       scale: 0.8,
-                      child: TextButton(
-                          text: 'Cancel', handleTap: handleCancelTap))),
+                      child:
+                          Button(text: 'Cancel', handleTap: handleCancelTap))),
               Expanded(
                   flex: 1,
                   child: Transform.scale(
                     scale: 0.8,
                     child: Button(
+                      displayBackground: false,
                       text: 'Delete',
                       handleTap: handleDeleteTap,
                     ),

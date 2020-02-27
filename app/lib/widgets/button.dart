@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 
 class Button extends StatelessWidget {
@@ -9,85 +10,108 @@ class Button extends StatelessWidget {
       @required this.handleTap,
       this.displayNextIcon = false,
       this.backgroundColor = styles.Colors.primary,
-      this.textStyle = styles.Typography.buttonWhite,
       this.leadingIcon,
+      this.displayBackground = true,
       this.width = double.infinity});
 
   final Color backgroundColor;
-  final TextStyle textStyle;
   final String text;
   final VoidCallback handleTap;
   final bool displayNextIcon;
   final double width;
   final Icon leadingIcon;
+  final bool displayBackground;
 
   @override
   Widget build(BuildContext context) {
+    final bool _hasIcon =
+        displayNextIcon == true || leadingIcon != null ? true : false;
+    final Color _iconColor =
+        displayBackground == true ? styles.Colors.white : styles.Colors.black;
+    final TextStyle _textStyle = displayBackground == true
+        ? styles.Typography.buttonWhite
+        : styles.Typography.buttonBlack;
+    final BoxDecoration _boxDecoration = displayBackground == true
+        ? BoxDecoration(
+            borderRadius: styles.kBorderRadiusAll,
+            color: backgroundColor,
+            boxShadow: [styles.kBoxShadow])
+        : BoxDecoration(
+            borderRadius: styles.kBorderRadiusAll,
+            color: styles.Colors.translucent,
+          );
+
     return GestureDetector(
         onTap: handleTap,
         child: Container(
             width: width,
-            decoration: BoxDecoration(
-                borderRadius: styles.kBorderRadiusAll,
-                color: backgroundColor,
-                boxShadow: [styles.kBoxShadow]),
+            decoration: _boxDecoration,
             padding: EdgeInsets.symmetric(
                 vertical: styles.Measurements.xs,
                 horizontal: styles.Measurements.m),
-            child: displayNextIcon
-                ? _ButtonIconRow(text: text)
+            child: _hasIcon
+                ? _ButtonIconRow(
+                    text: text,
+                    textStyle: _textStyle,
+                    displayNextIcon: displayNextIcon,
+                    leadingIcon: leadingIcon,
+                    iconColor: _iconColor,
+                  )
                 : Text(
                     text,
-                    style: textStyle,
+                    style: _textStyle,
                     textAlign: TextAlign.center,
                   )));
   }
 }
 
 class _ButtonIconRow extends StatelessWidget {
-  const _ButtonIconRow({this.text});
+  const _ButtonIconRow(
+      {@required this.text,
+      @required this.leadingIcon,
+      @required this.displayNextIcon,
+      @required this.textStyle,
+      @required this.iconColor});
 
   final String text;
+  final TextStyle textStyle;
+  final Icon leadingIcon;
+  final bool displayNextIcon;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Positioned.fill(
-            child: Text(
-          text,
-          style: styles.Typography.buttonWhite,
-          textAlign: TextAlign.center,
-        )),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Icon(
-              iconData: CupertinoIcons.forward,
-              size: styles.Measurements.l,
-              color: styles.Colors.white),
-        )
-      ],
-    );
-  }
-}
-
-class TextButton extends StatelessWidget {
-  const TextButton({@required this.text, @required this.handleTap});
-
-  final String text;
-  final VoidCallback handleTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: handleTap,
-        child: Container(
-            decoration: BoxDecoration(color: styles.Colors.translucent),
-            width: double.infinity,
-            child: Text(
-              text,
-              style: styles.Typography.buttonBlack,
-              textAlign: TextAlign.center,
-            )));
+    if (leadingIcon == null) {
+      return Stack(
+        children: <Widget>[
+          Center(
+              child: Text(
+            text,
+            style: textStyle,
+            textAlign: TextAlign.center,
+          )),
+          if (displayNextIcon == true)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                  iconData: CupertinoIcons.forward,
+                  size: styles.Measurements.l,
+                  color: iconColor),
+            )
+        ],
+      );
+    } else {
+      return Row(
+        children: <Widget>[
+          leadingIcon,
+          Divider(width: styles.Measurements.m),
+          Text(
+            text,
+            style: textStyle,
+            textAlign: TextAlign.center,
+          )
+        ],
+      );
+    }
   }
 }

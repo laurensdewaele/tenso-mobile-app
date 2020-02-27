@@ -158,7 +158,8 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
             Divider(height: styles.Measurements.l),
             Transform.scale(
               scale: .8,
-              child: TextButton(
+              child: Button(
+                  displayBackground: false,
                   text: 'Ok',
                   handleTap: () {
                     Navigator.of(context).pop();

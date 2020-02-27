@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
 import 'package:app/models/settings.dart';
@@ -9,6 +9,7 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/countdown/countdown.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/dialog.dart';
+import 'package:app/widgets/icon.dart';
 
 class CountdownScreenArguments {
   CountdownScreenArguments({this.workout, this.settings});
@@ -149,9 +150,10 @@ class _CountdownScreenState extends State<CountdownScreen>
               children: <Widget>[
                 Expanded(
                   flex: 1,
-                  child: TextButton(
+                  child: Button(
                     text: 'play',
                     handleTap: _handlePlayTap,
+                    displayBackground: false,
                   ),
                 ),
                 Expanded(
@@ -159,6 +161,12 @@ class _CountdownScreenState extends State<CountdownScreen>
                   child: Button(
                     text: 'stop',
                     handleTap: _handleStopTap,
+                    leadingIcon: Icon(
+                        iconData: IconData(0xf371,
+                            fontFamily: 'CupertinoIcons',
+                            fontPackage: 'cupertino_icons'),
+                        size: styles.Measurements.l,
+                        color: styles.Colors.white),
                   ),
                 )
               ],
