@@ -43,7 +43,6 @@ Future<void> showDeleteDialog(
                     child: Button(
                       text: 'Delete',
                       handleTap: handleDeleteTap,
-                      displayIcon: false,
                     ),
                   ))
             ],

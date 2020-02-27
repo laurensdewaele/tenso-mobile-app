@@ -7,17 +7,19 @@ class Button extends StatelessWidget {
   const Button(
       {@required this.text,
       @required this.handleTap,
-      this.displayIcon = true,
+      this.displayNextIcon = false,
       this.backgroundColor = styles.Colors.primary,
       this.textStyle = styles.Typography.buttonWhite,
+      this.leadingIcon,
       this.width = double.infinity});
 
   final Color backgroundColor;
   final TextStyle textStyle;
   final String text;
   final VoidCallback handleTap;
-  final bool displayIcon;
+  final bool displayNextIcon;
   final double width;
+  final Icon leadingIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 vertical: styles.Measurements.xs,
                 horizontal: styles.Measurements.m),
-            child: displayIcon
+            child: displayNextIcon
                 ? _ButtonIconRow(text: text)
                 : Text(
                     text,

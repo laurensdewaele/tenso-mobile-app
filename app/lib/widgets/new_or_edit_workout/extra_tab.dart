@@ -85,7 +85,6 @@ class ExtraTab extends StatelessWidget {
             width: styles.Measurements.xxl * 2,
             text: _newOrEditWorkoutViewModel.extraTabButtonText,
             handleTap: () => _handleButtonTap(context),
-            displayIcon: false,
           ),
         )
       ],

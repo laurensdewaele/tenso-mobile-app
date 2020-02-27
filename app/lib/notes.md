@@ -16,6 +16,9 @@ flutter packages pub run build_runner watch
 - Screen hang timer.
   Stop screen dialog.
   Track completed hangs.
+  Do i display the hold edge somehow?
+  It's obvious imo for premade boards, not for custom ones.
+  => go to landscape mode and get rid of the timer.
 
 
 - Total duration format + recalc (it's off).  

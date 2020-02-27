@@ -57,7 +57,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                   );
                 } else if (index == _appState.workoutList.length) {
                   return Button(
-                      text: 'Add workout', handleTap: _handleAddWorkout);
+                      text: 'Add workout', handleTap: _handleAddWorkout, displayNextIcon: true);
                 } else {
                   return Divider(
                       height: viewHeight / 2 - styles.Measurements.m);
@@ -71,7 +71,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           _HomeScreen(
               child: Column(
             children: <Widget>[
-              Button(text: 'Add workout', handleTap: _handleAddWorkout),
+              Button(text: 'Add workout', handleTap: _handleAddWorkout, displayNextIcon: true),
             ],
           )),
         BottomMenuDrawer(

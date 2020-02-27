@@ -3,8 +3,12 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
+import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/countdown_screen_vm.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/countdown/countdown.dart';
+import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/dialog.dart';
 
 class CountdownScreenArguments {
   CountdownScreenArguments({this.workout, this.settings});
@@ -35,7 +39,7 @@ class _CountdownScreenState extends State<CountdownScreen>
       _countdownScreenViewModel = CountdownScreenViewModel(
           workout: routeArguments.workout, settings: routeArguments.settings);
       _startSequenceForIndex();
-      start();
+      _play();
     }
   }
 
@@ -52,7 +56,7 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   void _startSequenceForIndex() {
     if (_animationController != null) {
-      _animationController.removeListener(animationControllerListener);
+      _animationController.removeListener(_animationControllerListener);
     }
 
     final int duration =
@@ -60,15 +64,15 @@ class _CountdownScreenState extends State<CountdownScreen>
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: duration))
-          ..addListener(animationControllerListener);
+          ..addListener(_animationControllerListener);
   }
 
-  void animationControllerListener() {
+  void _animationControllerListener() {
     // End of a single countdown
     if (_animationController.value == 1) {
       // On the end of the whole sequence, navigate back
       if (_currentSequenceIndex == _sequence.length - 1) {
-        stop();
+        _stop();
         Navigator.of(context).pop();
       } else {
         setState(() {
@@ -84,7 +88,7 @@ class _CountdownScreenState extends State<CountdownScreen>
             _currentSequenceIndex++;
           });
           _startSequenceForIndex();
-          start();
+          _play();
         });
       }
     } else {
@@ -92,21 +96,21 @@ class _CountdownScreenState extends State<CountdownScreen>
     }
   }
 
-  void stop() {
-    _animationController.removeListener(animationControllerListener);
+  void _stop() {
+    _animationController.removeListener(_animationControllerListener);
     setState(() {
       _isRunning = false;
     });
   }
 
-  void pause() {
+  void _pause() {
     setState(() {
       _isRunning = false;
     });
     _animationController.stop();
   }
 
-  void start() {
+  void _play() {
     if (_isRunning != true) {
       setState(() {
         _isRunning = true;
@@ -115,31 +119,82 @@ class _CountdownScreenState extends State<CountdownScreen>
     }
   }
 
+  void _handlePlayTap() {
+    _play();
+    Navigator.of(context).pop();
+  }
+
+  void _handleStopTap() {
+    _stop();
+    Navigator.of(context).pop();
+    // TODO: Save completed.
+  }
+
+  void _handleTap() {
+    _pause();
+    showAppDialog(
+        context: context,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              'paused',
+              style: styles.Typography.title,
+            ),
+            Divider(
+              height: styles.Measurements.xxl,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    text: 'play',
+                    handleTap: _handlePlayTap,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Button(
+                    text: 'stop',
+                    handleTap: _handleStopTap,
+                  ),
+                )
+              ],
+            )
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Countdown(
-      unit: _sequence[_currentSequenceIndex].unit,
-      addedWeight: _sequence[_currentSequenceIndex].addedWeight,
-      animatedBackgroundHeightFactor: _animationController.value,
-      primaryColor: _sequence[_currentSequenceIndex].color,
-      title: _sequence[_currentSequenceIndex].title,
-      remainingSeconds: (_animationController.duration.inSeconds -
-              _animationController.duration.inSeconds *
-                  _animationController.value)
-          .ceil(),
-      holdLabel: _sequence[_currentSequenceIndex].holdLabel,
-      board: _sequence[_currentSequenceIndex].board,
-      leftGrip: _sequence[_currentSequenceIndex].leftGrip,
-      rightGrip: _sequence[_currentSequenceIndex].rightGrip,
-      leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
-      rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
-      totalSets: _sequence[_currentSequenceIndex].totalSets,
-      currentSet: _sequence[_currentSequenceIndex].currentSet,
-      totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
-      currentHang: _sequence[_currentSequenceIndex].currentHang,
-      endSound: _sequence[_currentSequenceIndex].endSound,
-      beepSound: _sequence[_currentSequenceIndex].beepSound,
-      beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
+    return GestureDetector(
+      onTap: _handleTap,
+      child: Countdown(
+        unit: _sequence[_currentSequenceIndex].unit,
+        addedWeight: _sequence[_currentSequenceIndex].addedWeight,
+        animatedBackgroundHeightFactor: _animationController.value,
+        primaryColor: _sequence[_currentSequenceIndex].color,
+        title: _sequence[_currentSequenceIndex].title,
+        remainingSeconds: (_animationController.duration.inSeconds -
+                _animationController.duration.inSeconds *
+                    _animationController.value)
+            .ceil(),
+        holdLabel: _sequence[_currentSequenceIndex].holdLabel,
+        board: _sequence[_currentSequenceIndex].board,
+        leftGrip: _sequence[_currentSequenceIndex].leftGrip,
+        rightGrip: _sequence[_currentSequenceIndex].rightGrip,
+        leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
+        rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
+        totalSets: _sequence[_currentSequenceIndex].totalSets,
+        currentSet: _sequence[_currentSequenceIndex].currentSet,
+        totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
+        currentHang: _sequence[_currentSequenceIndex].currentHang,
+        endSound: _sequence[_currentSequenceIndex].endSound,
+        beepSound: _sequence[_currentSequenceIndex].beepSound,
+        beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
+      ),
     );
   }
 }
