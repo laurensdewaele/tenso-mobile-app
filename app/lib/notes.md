@@ -14,7 +14,6 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  Stop screen dialog.
   Track completed hangs.
   Do i display the hold edge somehow?
   It's obvious imo for premade boards, not for custom ones.

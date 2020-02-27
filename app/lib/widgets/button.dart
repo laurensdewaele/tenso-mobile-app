@@ -102,6 +102,7 @@ class _ButtonIconRow extends StatelessWidget {
       );
     } else {
       return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           leadingIcon,
           Divider(width: styles.Measurements.m),
