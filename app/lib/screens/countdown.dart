@@ -53,7 +53,6 @@ class _CountdownScreenState extends State<CountdownScreen>
   void _startSequenceForIndex() {
     if (_animationController != null) {
       _animationController.removeListener(animationControllerListener);
-      _animationController.dispose();
     }
 
     final int duration =
@@ -95,7 +94,6 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   void stop() {
     _animationController.removeListener(animationControllerListener);
-    _animationController.dispose();
     setState(() {
       _isRunning = false;
     });

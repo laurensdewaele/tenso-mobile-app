@@ -3,10 +3,15 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 
+Future<void> showAppDialog(
+    {@required BuildContext context, @required Widget child}) {
+  return showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) => AppDialog(child: child));
+}
+
+/// Creates an iOS-style alert dialog.
 class AppDialog extends StatelessWidget {
-  /// Creates an iOS-style alert dialog.
-  ///
-  /// The [actions] must not be null.
   const AppDialog({Key key, this.child}) : super(key: key);
 
   final Widget child;
@@ -43,11 +48,4 @@ class AppDialog extends StatelessWidget {
       },
     );
   }
-}
-
-Future<void> showAppDialog(
-    {@required BuildContext context, @required Widget child}) {
-  return showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) => AppDialog(child: child));
 }
