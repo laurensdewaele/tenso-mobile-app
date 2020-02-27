@@ -6,11 +6,13 @@ abstract class Colors {
   static const Color primary = const Color.fromRGBO(220, 88, 88, 1);
   static const Color white = const Color.fromRGBO(255, 255, 255, 1);
   static const Color translucent = const Color.fromRGBO(255, 255, 255, 0);
+  static const Color darkGray = const Color.fromRGBO(71, 71, 71, 1);
   static const Color gray = const Color.fromRGBO(102, 102, 102, 1);
   static const Color lightGray = const Color.fromRGBO(214, 214, 214, 1);
   static const Color lighestGray = const Color.fromRGBO(241, 241, 241, 1);
-  static const Color black = const Color.fromRGBO(64, 64, 64, 1);
+  static const Color black = const Color.fromRGBO(52, 52, 52, 1);
   static const Color shadow = const Color.fromRGBO(0, 0, 0, 0.05);
+  static const Color bgBlack = const Color.fromRGBO(46, 46, 46, 1);
   static const Color bgWhite = const Color.fromRGBO(253, 253, 253, 1);
   static const Color bgGrayStart = const Color.fromRGBO(243, 243, 243, 1);
   static const Color bgGrayStop = const Color.fromRGBO(232, 232, 232, 1);

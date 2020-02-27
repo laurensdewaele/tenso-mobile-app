@@ -117,7 +117,7 @@ class _CountdownState extends State<Countdown> {
 
     return Stack(children: <Widget>[
       Container(
-        decoration: BoxDecoration(color: styles.Colors.black),
+        decoration: BoxDecoration(color: styles.Colors.bgBlack),
       ),
       FractionallySizedBox(
           heightFactor: widget.animatedBackgroundHeightFactor,
@@ -508,7 +508,7 @@ class _AddedWeightInfo extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
-            color: styles.Colors.gray,
+            color: styles.Colors.darkGray,
             boxShadow: [styles.kBoxShadow]),
         padding: EdgeInsets.symmetric(
             vertical: styles.Measurements.xs,
