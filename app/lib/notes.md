@@ -14,7 +14,8 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  => go to landscape mode and get rid of the timer and try to display edge info
+  Set rest sound
+  SOMETIMES it ticks together with the rest sound? on 0.
   Track completed hangs.
 
 

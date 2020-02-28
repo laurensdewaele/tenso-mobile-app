@@ -44,7 +44,7 @@ class _CircleContainer extends StatelessWidget {
       children: <Widget>[
         ...list.map((n) {
           if (n < active) {
-            return _CompletedCircleContainer(
+            return _CompletedCircle(
               primaryColor: primaryColor,
             );
           } else {
@@ -154,8 +154,8 @@ class _NonActiveCircle extends StatelessWidget {
   }
 }
 
-class _CompletedCircleContainer extends StatelessWidget {
-  _CompletedCircleContainer({@required this.primaryColor});
+class _CompletedCircle extends StatelessWidget {
+  _CompletedCircle({@required this.primaryColor});
 
   final Color primaryColor;
 
@@ -167,43 +167,30 @@ class _CompletedCircleContainer extends StatelessWidget {
         Divider(
           width: styles.Measurements.xs / 2,
         ),
-        _CompletedCircle(
-          primaryColor: primaryColor,
+        Container(
+          width: styles.Measurements.xs,
+          height: styles.Measurements.xs,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                    color: styles.Colors.bgWhite, shape: BoxShape.circle),
+              ),
+              Center(
+                child: Container(
+                  width: styles.Measurements.xs - 3,
+                  height: styles.Measurements.xs - 3,
+                  decoration: BoxDecoration(
+                      color: primaryColor, shape: BoxShape.circle),
+                ),
+              ),
+            ],
+          ),
         ),
         Divider(
           width: styles.Measurements.xs / 2,
         ),
       ],
-    );
-  }
-}
-
-class _CompletedCircle extends StatelessWidget {
-  _CompletedCircle({@required this.primaryColor});
-
-  final Color primaryColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: styles.Measurements.xs,
-      height: styles.Measurements.xs,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                color: styles.Colors.bgWhite, shape: BoxShape.circle),
-          ),
-          Center(
-            child: Container(
-              width: styles.Measurements.xs - 3,
-              height: styles.Measurements.xs - 3,
-              decoration:
-                  BoxDecoration(color: primaryColor, shape: BoxShape.circle),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

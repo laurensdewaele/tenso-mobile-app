@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 
-class HangInfoBoard extends StatefulWidget {
-  HangInfoBoard({
+class HangBoard extends StatefulWidget {
+  HangBoard({
     Key key,
     @required this.handleBoardDimensions,
     @required this.setHandOffset,
@@ -23,7 +23,7 @@ class HangInfoBoard extends StatefulWidget {
   _BoardState createState() => _BoardState();
 }
 
-class _BoardState extends State<HangInfoBoard> {
+class _BoardState extends State<HangBoard> {
   bool _shouldCheckDimensions = true;
 
   @override
@@ -37,7 +37,7 @@ class _BoardState extends State<HangInfoBoard> {
   }
 
   @override
-  void didUpdateWidget(HangInfoBoard oldWidget) {
+  void didUpdateWidget(HangBoard oldWidget) {
     if (oldWidget.orientation != widget.orientation) {
       setState(() {
         _shouldCheckDimensions = true;
