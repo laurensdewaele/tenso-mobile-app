@@ -57,6 +57,10 @@ abstract class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.white);
   static const TextStyle indicatorBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.black);
+  static const TextStyle indicatorSmallBlack =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 16, color: Colors.black);
+  static const TextStyle textDivider =
+      TextStyle(fontFamily: 'Staatliches', fontSize: 4, color: Colors.black);
   static const TextStyle countdownLabel = Typography.topNavigationTitleWhite;
   static const TextStyle countdownTimer =
       TextStyle(fontFamily: 'Staatliches', fontSize: 400, color: Colors.white);
@@ -77,6 +81,11 @@ abstract class Typography {
   static const TextStyle textInfoBold = TextStyle(
       fontFamily: 'Lato',
       fontSize: 18,
+      color: Colors.black,
+      fontWeight: FontWeight.w700);
+  static const TextStyle textInfoBigBold = TextStyle(
+      fontFamily: 'Lato',
+      fontSize: 22,
       color: Colors.black,
       fontWeight: FontWeight.w700);
 }

@@ -20,6 +20,9 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int _minutes = workout.duration ~/ 60;
+    final int _remainingSeconds = workout.duration % 60;
+
     return Column(
       children: <Widget>[
         Divider(height: styles.Measurements.l),
@@ -45,15 +48,54 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               title: 'sets',
               value: workout.sets.toString(),
             ),
-            _WorkoutInfo(
-              title: 'duration',
-              value: workout.duration.toString(),
-            ),
+            Expanded(
+                child: Column(children: <Widget>[
+              Text(
+                'duration',
+                style: styles.Typography.subtitle,
+              ),
+              Container(
+                  height: styles.Measurements.xl,
+                  child: Center(
+                      child: RichText(
+                    text: TextSpan(
+                        text: _minutes.toString(),
+                        style: styles.Typography.indicatorBlack,
+                        children: [
+                          if (_minutes != 0)
+                            TextSpan(
+                                text: ' ',
+                                style: styles.Typography.textDivider),
+                          if (_minutes != 0)
+                            TextSpan(
+                                text: 'm',
+                                style: styles.Typography.indicatorSmallBlack),
+                          if (_remainingSeconds != 0)
+                            TextSpan(
+                                text: '  ',
+                                style: styles.Typography.indicatorSmallBlack),
+                          if (_remainingSeconds != 0)
+                            TextSpan(
+                                text: '$_remainingSeconds',
+                                style: styles.Typography.indicatorBlack),
+                          if (_remainingSeconds != 0)
+                            TextSpan(
+                                text: ' ',
+                                style: styles.Typography.textDivider),
+                          if (_remainingSeconds != 0)
+                            TextSpan(
+                                text: 's',
+                                style: styles.Typography.indicatorSmallBlack)
+                        ]),
+                  )))
+            ])),
           ],
         ),
         Divider(height: styles.Measurements.m),
         Container(
-            width: 175.0, child: Button(text: 'start', handleTap: handleStart, displayNextIcon: true)),
+            width: 175.0,
+            child: Button(
+                text: 'start', handleTap: handleStart, displayNextIcon: true)),
         Divider(height: styles.Measurements.m),
         Icon(
             iconData: IconData(0xf3d8,
