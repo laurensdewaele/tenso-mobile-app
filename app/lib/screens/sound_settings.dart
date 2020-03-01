@@ -127,6 +127,9 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
+                                                Divider(
+                                                  height: styles.Measurements.l,
+                                                ),
                                                 Section(
                                                   title: 'indicator beeps',
                                                   children: <Widget>[
@@ -182,9 +185,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Divider(
-                                                  height: styles.Measurements.l,
-                                                ),
                                                 Section(
                                                   title: 'hang sound',
                                                   children: <Widget>[
