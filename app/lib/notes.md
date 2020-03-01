@@ -13,18 +13,15 @@ flutter packages pub run build_runner watch
 ### Large prio
 
 
-- Screen hang timer.
+- Total duration format + recalc (it's off).
+- Show edge size somewhere.
 
-  Wow, I got completely side-tracked with the sounds haha :D
-  Just provide 3 sounds: 
-  - beep sounds
-  - hang sounds
-  - rest sounds
+- Screen hang timer.
   Track completed hangs.
 
 
-- Total duration format + recalc (it's off).  
-- Show edge size somewhere.
+  
+
 - Progress and overview completed workouts.
   - Day overview?
   - Graph overview with addedWeight
