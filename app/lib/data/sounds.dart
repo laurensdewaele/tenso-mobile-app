@@ -35,4 +35,14 @@ abstract class Sounds {
     ..name = 'Wooden thud soft'
     ..filename = 'thud_soft.mp3'
     ..muted = false);
+
+  static Sound metalHitSmall = Sound((b) => b
+    ..name = 'Metal hit small'
+    ..filename = 'metal_hit_small.mp3'
+    ..muted = false);
+
+  static Sound metalHitLarge = Sound((b) => b
+    ..name = 'Metal hit large'
+    ..filename = 'metal_hit_large.mp3'
+    ..muted = false);
 }

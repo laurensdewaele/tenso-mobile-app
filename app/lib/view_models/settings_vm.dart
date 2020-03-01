@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
-import 'package:app/models/sound.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/state/app_state.dart';
 
@@ -29,16 +28,6 @@ class SettingsViewModel extends ChangeNotifier {
   void setPreparationTimer(int seconds) {
     _appState.saveSettings(
         _appState.settings.rebuild((b) => b..preparationTimer = seconds));
-  }
-
-  void setHangSound(Sound sound) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..hangSound = sound.toBuilder()));
-  }
-
-  void setRestSound(Sound sound) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..restSound = sound.toBuilder()));
   }
 
   void setUnit(Unit unit) {

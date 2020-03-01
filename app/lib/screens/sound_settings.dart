@@ -214,22 +214,25 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Section(
-                                                  title: 'rest sound',
+                                                  title:
+                                                      'repitition rest sound',
                                                   children: <Widget>[
                                                     RadioButton(
-                                                      description:
-                                                          Sounds.gong.name,
-                                                      value: Sounds.gong,
+                                                      description: Sounds
+                                                          .metalHitSmall.name,
+                                                      value:
+                                                          Sounds.metalHitSmall,
                                                       active:
                                                           _soundSettingsScreenViewModel
                                                                   .appState
                                                                   .settings
-                                                                  .restSound ==
-                                                              Sounds.gong,
+                                                                  .repRestSound ==
+                                                              Sounds
+                                                                  .metalHitSmall,
                                                       handleSelected:
                                                           (dynamic s) {
                                                         _soundSettingsScreenViewModel
-                                                            .setRestSound(s);
+                                                            .setRepRestSound(s);
                                                         _playSound(s);
                                                       },
                                                     ),
@@ -241,12 +244,112 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                           _soundSettingsScreenViewModel
                                                                   .appState
                                                                   .settings
-                                                                  .restSound ==
+                                                                  .repRestSound ==
                                                               Sounds.off,
                                                       handleSelected:
                                                           (dynamic s) {
                                                         _soundSettingsScreenViewModel
-                                                            .setRestSound(s);
+                                                            .setRepRestSound(s);
+                                                        _playSound(s);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: styles.Measurements.m,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Section(
+                                                  title: 'grip rest sound',
+                                                  children: <Widget>[
+                                                    RadioButton(
+                                                      description: Sounds
+                                                          .metalHitLarge.name,
+                                                      value:
+                                                          Sounds.metalHitLarge,
+                                                      active: _soundSettingsScreenViewModel
+                                                              .appState
+                                                              .settings
+                                                              .gripRestSound ==
+                                                          Sounds.metalHitLarge,
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setGripRestSound(
+                                                                s);
+                                                        _playSound(s);
+                                                      },
+                                                    ),
+                                                    RadioButton(
+                                                      description:
+                                                          Sounds.off.name,
+                                                      value: Sounds.off,
+                                                      active:
+                                                          _soundSettingsScreenViewModel
+                                                                  .appState
+                                                                  .settings
+                                                                  .gripRestSound ==
+                                                              Sounds.off,
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setGripRestSound(
+                                                                s);
+                                                        _playSound(s);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: styles.Measurements.m,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Section(
+                                                  title: 'set rest sound',
+                                                  children: <Widget>[
+                                                    RadioButton(
+                                                      description:
+                                                          Sounds.gong.name,
+                                                      value: Sounds.gong,
+                                                      active:
+                                                          _soundSettingsScreenViewModel
+                                                                  .appState
+                                                                  .settings
+                                                                  .setRestSound ==
+                                                              Sounds.gong,
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setSetRestSound(s);
+                                                        _playSound(s);
+                                                      },
+                                                    ),
+                                                    RadioButton(
+                                                      description:
+                                                          Sounds.off.name,
+                                                      value: Sounds.off,
+                                                      active:
+                                                          _soundSettingsScreenViewModel
+                                                                  .appState
+                                                                  .settings
+                                                                  .setRestSound ==
+                                                              Sounds.off,
+                                                      handleSelected:
+                                                          (dynamic s) {
+                                                        _soundSettingsScreenViewModel
+                                                            .setSetRestSound(s);
                                                         _playSound(s);
                                                       },
                                                     ),

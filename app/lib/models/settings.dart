@@ -16,9 +16,11 @@ abstract class Settings implements Built<Settings, SettingsBuilder> {
   Board get defaultBoard;
   int get preparationTimer;
   Sound get hangSound;
-  Sound get restSound;
   Sound get beepDuringHangSound;
   Sound get beepDuringRestSound;
+  Sound get repRestSound;
+  Sound get gripRestSound;
+  Sound get setRestSound;
   int get beepsBeforeHang;
   int get beepsBeforeRest;
   Unit get unit;

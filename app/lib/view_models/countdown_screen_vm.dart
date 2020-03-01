@@ -98,7 +98,19 @@ class CountdownScreenViewModel {
             _currentRepetitionPerHold <=
                 _workout.holds[_currentHold].repetitions;
             _currentRepetitionPerHold++) {
-          _addHoldSequence(_currentSet, _currentHold, _currentHang);
+          Sound endSound;
+          final bool isLastBeforeNewHold = _currentRepetitionPerHold ==
+              _workout.holds[_currentHold].repetitions;
+          final bool isLastBeforeNewSet =
+              _currentHold == _workout.holds.length - 1;
+          if (isLastBeforeNewHold == true) {
+            endSound = _settings.gripRestSound;
+          } else if (isLastBeforeNewSet == true) {
+            endSound = _settings.setRestSound;
+          } else {
+            endSound = _settings.repRestSound;
+          }
+          _addHoldSequence(_currentSet, _currentHold, _currentHang, endSound);
 
           _currentHang++;
 
@@ -162,10 +174,11 @@ class CountdownScreenViewModel {
     );
   }
 
-  void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
+  void _addHoldSequence(
+      int _currentSet, int _currentHold, int _currentHang, Sound endSound) {
     sequence.add(
       CountdownViewModel(
-          endSound: _settings.restSound,
+          endSound: endSound,
           beepSound: _settings.beepDuringHangSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
           unit: _workout.holds[_currentHold].unit,
