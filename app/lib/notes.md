@@ -13,12 +13,8 @@ flutter packages pub run build_runner watch
 ### Large prio
 
 
-- Show edge size somewhere.
 - Screen hang timer.
   Track completed hangs.
-
-
-  
 
 - Progress and overview completed workouts.
   - Day overview?
