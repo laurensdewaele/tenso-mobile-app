@@ -10,7 +10,6 @@ class HoldType extends EnumClass {
   static const HoldType sloper = _$sloper;
   static const HoldType pocket = _$pocket;
   static const HoldType jug = _$jug;
-  static const HoldType roundedPocket = _$roundedPocket;
 
   const HoldType._(String name) : super(name);
 

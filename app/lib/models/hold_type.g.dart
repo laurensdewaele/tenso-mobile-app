@@ -9,7 +9,6 @@ part of 'hold_type.dart';
 const HoldType _$sloper = const HoldType._('sloper');
 const HoldType _$pocket = const HoldType._('pocket');
 const HoldType _$jug = const HoldType._('jug');
-const HoldType _$roundedPocket = const HoldType._('roundedPocket');
 
 HoldType _$stValueOf(String name) {
   switch (name) {
@@ -19,8 +18,6 @@ HoldType _$stValueOf(String name) {
       return _$pocket;
     case 'jug':
       return _$jug;
-    case 'roundedPocket':
-      return _$roundedPocket;
     default:
       throw new ArgumentError(name);
   }
@@ -30,7 +27,6 @@ final BuiltSet<HoldType> _$stValues = new BuiltSet<HoldType>(const <HoldType>[
   _$sloper,
   _$pocket,
   _$jug,
-  _$roundedPocket,
 ]);
 
 Serializer<HoldType> _$holdTypeSerializer = new _$HoldTypeSerializer();

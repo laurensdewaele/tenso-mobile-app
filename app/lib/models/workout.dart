@@ -73,15 +73,10 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
     if (sets > 1) {
       totalRestBetweenSets += (sets - 1) * restBetweenSets;
     }
-    print(totalHangTimePerSet);
-    print(totalRestBetweenRepsPerSet);
-    print(totalRestBetweenHoldsPerSet);
-    print(totalRestBetweenSets);
     for (var i = 0; i < sets; i++) {
       total += totalHangTimePerSet +
           totalRestBetweenRepsPerSet +
           totalRestBetweenHoldsPerSet;
-      print(total);
     }
     total += totalRestBetweenSets;
     return total.toInt();

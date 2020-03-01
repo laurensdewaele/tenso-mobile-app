@@ -69,11 +69,11 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                           if (_minutes != 0)
                             TextSpan(
                                 text: 'm',
-                                style: styles.Typography.indicatorSmallBlack),
+                                style: styles.Typography.smallBlack),
                           if (_remainingSeconds != 0)
                             TextSpan(
                                 text: '  ',
-                                style: styles.Typography.indicatorSmallBlack),
+                                style: styles.Typography.smallBlack),
                           if (_remainingSeconds != 0)
                             TextSpan(
                                 text: '$_remainingSeconds',
@@ -85,7 +85,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                           if (_remainingSeconds != 0)
                             TextSpan(
                                 text: 's',
-                                style: styles.Typography.indicatorSmallBlack)
+                                style: styles.Typography.smallBlack)
                         ]),
                   )))
             ])),

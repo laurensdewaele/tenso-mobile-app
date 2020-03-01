@@ -13,9 +13,7 @@ flutter packages pub run build_runner watch
 ### Large prio
 
 
-- Total duration format + recalc (it's off).
 - Show edge size somewhere.
-
 - Screen hang timer.
   Track completed hangs.
 

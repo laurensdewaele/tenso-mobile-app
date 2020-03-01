@@ -57,7 +57,7 @@ abstract class Typography {
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.white);
   static const TextStyle indicatorBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 22, color: Colors.black);
-  static const TextStyle indicatorSmallBlack =
+  static const TextStyle smallBlack =
       TextStyle(fontFamily: 'Staatliches', fontSize: 16, color: Colors.black);
   static const TextStyle textDivider =
       TextStyle(fontFamily: 'Staatliches', fontSize: 4, color: Colors.black);
