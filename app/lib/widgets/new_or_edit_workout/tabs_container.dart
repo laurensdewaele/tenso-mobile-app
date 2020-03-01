@@ -101,6 +101,7 @@ class _TabsContainerState extends State<TabsContainer> {
         --_activePageIndex;
       });
     }
+    widget.onNavigation();
   }
 
   void _handleForwardNavigation() {
@@ -108,12 +109,14 @@ class _TabsContainerState extends State<TabsContainer> {
       setState(() {
         ++_activePageIndex;
       });
+    widget.onNavigation();
   }
 
   void _handleNavigation(int index) {
     setState(() {
       _activePageIndex = index;
     });
+    widget.onNavigation();
   }
 
   @override

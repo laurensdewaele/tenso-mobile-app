@@ -93,53 +93,60 @@ class _NewOrEditWorkoutScreenState extends State<NewOrEditWorkoutScreen> {
         GestureDetector(
           onTap: _onScreenTap,
           child: Consumer<NewOrEditWorkoutViewModel>(
-            builder: (context, _newOrEditWorkoutViewModel, child) => KeyBoardScreen(
-                handleKeyboardOffset: _handleKeyboardOffset,
-                gradientStartColor: _newOrEditWorkoutViewModel.primaryColor,
-                gradientStopColor: _newOrEditWorkoutViewModel.primaryColor,
-                child: ListView(
-                    controller: _scrollController,
-                    physics: ClampingScrollPhysics(),
-                    children: [
-                      Column(
-                        children: <Widget>[
-                          TopNavigation(title: _newOrEditWorkoutViewModel.title),
-                          Divider(height: styles.Measurements.xxl),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: styles.Measurements.xs),
-                            child: GestureDetector(
-                              onHorizontalDragEnd: _onHorizontalDragEnd,
-                              child: Card(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    TabsContainer(
-                                        primaryColor: _newOrEditWorkoutViewModel.primaryColor,
-                                        onNavigation: _scrollToTop,
-                                        holdCount: _newOrEditWorkoutViewModel.workout.holdCount,
-                                        shouldLoseFocusStream:
-                                            _shouldLoseFocusStreamController
-                                                .stream,
-                                        navigateForwardTabStream:
-                                            _navigateForwardTabStreamController
-                                                .stream,
-                                        navigateBackTabStream:
-                                            _navigateBackTabStreamController
-                                                .stream),
-                                    SizedBox(
-                                      height: _keyboardOffsetHeight,
-                                    )
-                                  ],
+            builder: (context, _newOrEditWorkoutViewModel, child) =>
+                KeyBoardScreen(
+                    handleKeyboardOffset: _handleKeyboardOffset,
+                    gradientStartColor: _newOrEditWorkoutViewModel.primaryColor,
+                    gradientStopColor: _newOrEditWorkoutViewModel.primaryColor,
+                    child: ListView(
+                        controller: _scrollController,
+                        physics: ClampingScrollPhysics(),
+                        children: [
+                          Column(
+                            children: <Widget>[
+                              TopNavigation(
+                                  title: _newOrEditWorkoutViewModel.title),
+                              Divider(height: styles.Measurements.xxl),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.xs),
+                                child: GestureDetector(
+                                  onHorizontalDragEnd: _onHorizontalDragEnd,
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TabsContainer(
+                                            primaryColor:
+                                                _newOrEditWorkoutViewModel
+                                                    .primaryColor,
+                                            onNavigation: _scrollToTop,
+                                            holdCount:
+                                                _newOrEditWorkoutViewModel
+                                                    .workout.holdCount,
+                                            shouldLoseFocusStream:
+                                                _shouldLoseFocusStreamController
+                                                    .stream,
+                                            navigateForwardTabStream:
+                                                _navigateForwardTabStreamController
+                                                    .stream,
+                                            navigateBackTabStream:
+                                                _navigateBackTabStreamController
+                                                    .stream),
+                                        SizedBox(
+                                          height: _keyboardOffsetHeight,
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          Divider(height: styles.Measurements.xxl)
-                        ],
-                      )
-                    ])),
+                              Divider(height: styles.Measurements.xxl)
+                            ],
+                          )
+                        ])),
           ),
         ),
         Toast(),
