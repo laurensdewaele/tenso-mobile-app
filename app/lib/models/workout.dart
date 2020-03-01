@@ -53,13 +53,37 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   }
 
   int _calculateDuration() {
-    int value = 0;
-    value += (sets - 1) * restBetweenSets;
-    value += sets * (holds.length - 1) * restBetweenHolds;
+    int total = 0;
+    int totalHangTimePerSet = 0;
+    int totalRestBetweenRepsPerSet = 0;
+    int totalRestBetweenHoldsPerSet = 0;
+    int totalRestBetweenSets = 0;
+
     holds.forEach((hold) {
-      value += (hold.restBetweenRepetitions - 1) * hold.repetitions;
-      value += hold.hangTime;
+      if (hold.repetitions > 1) {
+        totalRestBetweenRepsPerSet +=
+            (hold.repetitions - 1) * hold.restBetweenRepetitions;
+      }
+      totalHangTimePerSet += hold.hangTime * hold.repetitions;
     });
-    return value.toInt();
+
+    if (holds.length > 1) {
+      totalRestBetweenHoldsPerSet += (holds.length - 1) * restBetweenHolds;
+    }
+    if (sets > 1) {
+      totalRestBetweenSets += (sets - 1) * restBetweenSets;
+    }
+    print(totalHangTimePerSet);
+    print(totalRestBetweenRepsPerSet);
+    print(totalRestBetweenHoldsPerSet);
+    print(totalRestBetweenSets);
+    for (var i = 0; i < sets; i++) {
+      total += totalHangTimePerSet +
+          totalRestBetweenRepsPerSet +
+          totalRestBetweenHoldsPerSet;
+      print(total);
+    }
+    total += totalRestBetweenSets;
+    return total.toInt();
   }
 }
