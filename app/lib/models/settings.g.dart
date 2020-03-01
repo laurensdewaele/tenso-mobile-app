@@ -27,20 +27,11 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
       'hangSound',
       serializers.serialize(object.hangSound,
           specifiedType: const FullType(Sound)),
-      'beepDuringHangSound',
-      serializers.serialize(object.beepDuringHangSound,
+      'beepSound',
+      serializers.serialize(object.beepSound,
           specifiedType: const FullType(Sound)),
-      'beepDuringRestSound',
-      serializers.serialize(object.beepDuringRestSound,
-          specifiedType: const FullType(Sound)),
-      'repRestSound',
-      serializers.serialize(object.repRestSound,
-          specifiedType: const FullType(Sound)),
-      'gripRestSound',
-      serializers.serialize(object.gripRestSound,
-          specifiedType: const FullType(Sound)),
-      'setRestSound',
-      serializers.serialize(object.setRestSound,
+      'restSound',
+      serializers.serialize(object.restSound,
           specifiedType: const FullType(Sound)),
       'beepsBeforeHang',
       serializers.serialize(object.beepsBeforeHang,
@@ -78,24 +69,12 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
           result.hangSound.replace(serializers.deserialize(value,
               specifiedType: const FullType(Sound)) as Sound);
           break;
-        case 'beepDuringHangSound':
-          result.beepDuringHangSound.replace(serializers.deserialize(value,
+        case 'beepSound':
+          result.beepSound.replace(serializers.deserialize(value,
               specifiedType: const FullType(Sound)) as Sound);
           break;
-        case 'beepDuringRestSound':
-          result.beepDuringRestSound.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Sound)) as Sound);
-          break;
-        case 'repRestSound':
-          result.repRestSound.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Sound)) as Sound);
-          break;
-        case 'gripRestSound':
-          result.gripRestSound.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Sound)) as Sound);
-          break;
-        case 'setRestSound':
-          result.setRestSound.replace(serializers.deserialize(value,
+        case 'restSound':
+          result.restSound.replace(serializers.deserialize(value,
               specifiedType: const FullType(Sound)) as Sound);
           break;
         case 'beepsBeforeHang':
@@ -125,15 +104,9 @@ class _$Settings extends Settings {
   @override
   final Sound hangSound;
   @override
-  final Sound beepDuringHangSound;
+  final Sound beepSound;
   @override
-  final Sound beepDuringRestSound;
-  @override
-  final Sound repRestSound;
-  @override
-  final Sound gripRestSound;
-  @override
-  final Sound setRestSound;
+  final Sound restSound;
   @override
   final int beepsBeforeHang;
   @override
@@ -148,11 +121,8 @@ class _$Settings extends Settings {
       {this.defaultBoard,
       this.preparationTimer,
       this.hangSound,
-      this.beepDuringHangSound,
-      this.beepDuringRestSound,
-      this.repRestSound,
-      this.gripRestSound,
-      this.setRestSound,
+      this.beepSound,
+      this.restSound,
       this.beepsBeforeHang,
       this.beepsBeforeRest,
       this.unit})
@@ -166,20 +136,11 @@ class _$Settings extends Settings {
     if (hangSound == null) {
       throw new BuiltValueNullFieldError('Settings', 'hangSound');
     }
-    if (beepDuringHangSound == null) {
-      throw new BuiltValueNullFieldError('Settings', 'beepDuringHangSound');
+    if (beepSound == null) {
+      throw new BuiltValueNullFieldError('Settings', 'beepSound');
     }
-    if (beepDuringRestSound == null) {
-      throw new BuiltValueNullFieldError('Settings', 'beepDuringRestSound');
-    }
-    if (repRestSound == null) {
-      throw new BuiltValueNullFieldError('Settings', 'repRestSound');
-    }
-    if (gripRestSound == null) {
-      throw new BuiltValueNullFieldError('Settings', 'gripRestSound');
-    }
-    if (setRestSound == null) {
-      throw new BuiltValueNullFieldError('Settings', 'setRestSound');
+    if (restSound == null) {
+      throw new BuiltValueNullFieldError('Settings', 'restSound');
     }
     if (beepsBeforeHang == null) {
       throw new BuiltValueNullFieldError('Settings', 'beepsBeforeHang');
@@ -206,11 +167,8 @@ class _$Settings extends Settings {
         defaultBoard == other.defaultBoard &&
         preparationTimer == other.preparationTimer &&
         hangSound == other.hangSound &&
-        beepDuringHangSound == other.beepDuringHangSound &&
-        beepDuringRestSound == other.beepDuringRestSound &&
-        repRestSound == other.repRestSound &&
-        gripRestSound == other.gripRestSound &&
-        setRestSound == other.setRestSound &&
+        beepSound == other.beepSound &&
+        restSound == other.restSound &&
         beepsBeforeHang == other.beepsBeforeHang &&
         beepsBeforeRest == other.beepsBeforeRest &&
         unit == other.unit;
@@ -224,17 +182,11 @@ class _$Settings extends Settings {
                 $jc(
                     $jc(
                         $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc($jc(0, defaultBoard.hashCode),
-                                            preparationTimer.hashCode),
-                                        hangSound.hashCode),
-                                    beepDuringHangSound.hashCode),
-                                beepDuringRestSound.hashCode),
-                            repRestSound.hashCode),
-                        gripRestSound.hashCode),
-                    setRestSound.hashCode),
+                            $jc($jc(0, defaultBoard.hashCode),
+                                preparationTimer.hashCode),
+                            hangSound.hashCode),
+                        beepSound.hashCode),
+                    restSound.hashCode),
                 beepsBeforeHang.hashCode),
             beepsBeforeRest.hashCode),
         unit.hashCode));
@@ -246,11 +198,8 @@ class _$Settings extends Settings {
           ..add('defaultBoard', defaultBoard)
           ..add('preparationTimer', preparationTimer)
           ..add('hangSound', hangSound)
-          ..add('beepDuringHangSound', beepDuringHangSound)
-          ..add('beepDuringRestSound', beepDuringRestSound)
-          ..add('repRestSound', repRestSound)
-          ..add('gripRestSound', gripRestSound)
-          ..add('setRestSound', setRestSound)
+          ..add('beepSound', beepSound)
+          ..add('restSound', restSound)
           ..add('beepsBeforeHang', beepsBeforeHang)
           ..add('beepsBeforeRest', beepsBeforeRest)
           ..add('unit', unit))
@@ -275,33 +224,13 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
   SoundBuilder get hangSound => _$this._hangSound ??= new SoundBuilder();
   set hangSound(SoundBuilder hangSound) => _$this._hangSound = hangSound;
 
-  SoundBuilder _beepDuringHangSound;
-  SoundBuilder get beepDuringHangSound =>
-      _$this._beepDuringHangSound ??= new SoundBuilder();
-  set beepDuringHangSound(SoundBuilder beepDuringHangSound) =>
-      _$this._beepDuringHangSound = beepDuringHangSound;
+  SoundBuilder _beepSound;
+  SoundBuilder get beepSound => _$this._beepSound ??= new SoundBuilder();
+  set beepSound(SoundBuilder beepSound) => _$this._beepSound = beepSound;
 
-  SoundBuilder _beepDuringRestSound;
-  SoundBuilder get beepDuringRestSound =>
-      _$this._beepDuringRestSound ??= new SoundBuilder();
-  set beepDuringRestSound(SoundBuilder beepDuringRestSound) =>
-      _$this._beepDuringRestSound = beepDuringRestSound;
-
-  SoundBuilder _repRestSound;
-  SoundBuilder get repRestSound => _$this._repRestSound ??= new SoundBuilder();
-  set repRestSound(SoundBuilder repRestSound) =>
-      _$this._repRestSound = repRestSound;
-
-  SoundBuilder _gripRestSound;
-  SoundBuilder get gripRestSound =>
-      _$this._gripRestSound ??= new SoundBuilder();
-  set gripRestSound(SoundBuilder gripRestSound) =>
-      _$this._gripRestSound = gripRestSound;
-
-  SoundBuilder _setRestSound;
-  SoundBuilder get setRestSound => _$this._setRestSound ??= new SoundBuilder();
-  set setRestSound(SoundBuilder setRestSound) =>
-      _$this._setRestSound = setRestSound;
+  SoundBuilder _restSound;
+  SoundBuilder get restSound => _$this._restSound ??= new SoundBuilder();
+  set restSound(SoundBuilder restSound) => _$this._restSound = restSound;
 
   int _beepsBeforeHang;
   int get beepsBeforeHang => _$this._beepsBeforeHang;
@@ -324,11 +253,8 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
       _defaultBoard = _$v.defaultBoard?.toBuilder();
       _preparationTimer = _$v.preparationTimer;
       _hangSound = _$v.hangSound?.toBuilder();
-      _beepDuringHangSound = _$v.beepDuringHangSound?.toBuilder();
-      _beepDuringRestSound = _$v.beepDuringRestSound?.toBuilder();
-      _repRestSound = _$v.repRestSound?.toBuilder();
-      _gripRestSound = _$v.gripRestSound?.toBuilder();
-      _setRestSound = _$v.setRestSound?.toBuilder();
+      _beepSound = _$v.beepSound?.toBuilder();
+      _restSound = _$v.restSound?.toBuilder();
       _beepsBeforeHang = _$v.beepsBeforeHang;
       _beepsBeforeRest = _$v.beepsBeforeRest;
       _unit = _$v.unit;
@@ -359,11 +285,8 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
               defaultBoard: defaultBoard.build(),
               preparationTimer: preparationTimer,
               hangSound: hangSound.build(),
-              beepDuringHangSound: beepDuringHangSound.build(),
-              beepDuringRestSound: beepDuringRestSound.build(),
-              repRestSound: repRestSound.build(),
-              gripRestSound: gripRestSound.build(),
-              setRestSound: setRestSound.build(),
+              beepSound: beepSound.build(),
+              restSound: restSound.build(),
               beepsBeforeHang: beepsBeforeHang,
               beepsBeforeRest: beepsBeforeRest,
               unit: unit);
@@ -375,16 +298,10 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
 
         _$failedField = 'hangSound';
         hangSound.build();
-        _$failedField = 'beepDuringHangSound';
-        beepDuringHangSound.build();
-        _$failedField = 'beepDuringRestSound';
-        beepDuringRestSound.build();
-        _$failedField = 'repRestSound';
-        repRestSound.build();
-        _$failedField = 'gripRestSound';
-        gripRestSound.build();
-        _$failedField = 'setRestSound';
-        setRestSound.build();
+        _$failedField = 'beepSound';
+        beepSound.build();
+        _$failedField = 'restSound';
+        restSound.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Settings', _$failedField, e.toString());

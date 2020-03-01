@@ -14,8 +14,12 @@ flutter packages pub run build_runner watch
 
 
 - Screen hang timer.
-  Set rest sound
-  SOMETIMES it ticks together with the rest sound? on 0.
+
+  Wow, I got completely side-tracked with the sounds haha :D
+  Just provide 3 sounds: 
+  - beep sounds
+  - hang sounds
+  - rest sounds
   Track completed hangs.
 
 
@@ -39,6 +43,7 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
+- Add custom board
 - Rethink the difficulty. Maybe once you do a test it can be reset to what your max is?
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input

@@ -8,10 +8,7 @@ final Settings basicSettings = Settings((b) => b
   ..preparationTimer = 20
   ..unit = Unit.metric
   ..hangSound = Sounds.thudDeep.toBuilder()
-  ..repRestSound = Sounds.metalHitSmall.toBuilder()
-  ..gripRestSound = Sounds.metalHitLarge.toBuilder()
-  ..setRestSound = Sounds.gong.toBuilder()
-  ..beepDuringHangSound = Sounds.hitLightHard.toBuilder()
-  ..beepDuringRestSound = Sounds.hitLightSoft.toBuilder()
+  ..restSound = Sounds.gong.toBuilder()
+  ..beepSound = Sounds.hitLightHard.toBuilder()
   ..beepsBeforeHang = 5
   ..beepsBeforeRest = 3);
