@@ -7,8 +7,10 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/state/app_state.dart';
+import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/hold_tab_vm.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/new_or_edit_workout/board_hold_info.dart';
 import 'package:app/widgets/new_or_edit_workout/board_hold_picker.dart';
 import 'package:app/widgets/new_or_edit_workout/grip_picker_container.dart';
@@ -90,6 +92,10 @@ class HoldTab extends StatelessWidget {
               handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
                   _holdTabViewModel.setHoldRightGripBoardHold(
                       currentHold, boardHold),
+            ),
+            Divider(
+              key: UniqueKey(),
+              height: styles.Measurements.m,
             ),
             BoardHoldInfo(
               leftGripBoardHold: _newOrEditWorkoutViewModel
