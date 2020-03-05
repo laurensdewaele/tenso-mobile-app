@@ -58,7 +58,7 @@ class _TextInputState extends State<TextInput> {
     }
     _focusNode.unfocus();
     final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyBoardScreen.of(context);
+        KeyboardScreen.of(context);
     keyboardScreenCallbacks.resetKeyboardOffset();
     widget.handleValueChanged(_textEditingController.text);
   }
@@ -75,7 +75,7 @@ class _TextInputState extends State<TextInput> {
 
   void _onPointerDown(PointerEvent event) {
     final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyBoardScreen.of(context);
+        KeyboardScreen.of(context);
     keyboardScreenCallbacks.handlePointerDown(event.position);
   }
 

@@ -90,7 +90,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
       children: <Widget>[
         GestureDetector(
           onTap: _onScreenTap,
-          child: KeyBoardScreen(
+          child: KeyboardScreen(
               handleKeyboardOffset: _handleKeyboardOffset,
               gradientStartColor: styles.Colors.bgGrayStart,
               gradientStopColor: styles.Colors.bgGrayStop,

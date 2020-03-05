@@ -8,10 +8,10 @@ import 'package:app/widgets/screen.dart';
 // Therefore we need to know the tap position of the input field.
 // We have a Listener that wraps around our input field.
 // We know that once an input field is tapped, the keyboard is shown.
-// The Listener forwards that tap information to our KeyBoardScreen class
+// The Listener forwards that tap information to our KeyboardScreen class
 // via an onTap callback that we provide via Context.
-class KeyBoardScreen extends StatefulWidget {
-  const KeyBoardScreen(
+class KeyboardScreen extends StatefulWidget {
+  const KeyboardScreen(
       {@required this.gradientStartColor,
       @required this.gradientStopColor,
       @required this.handleKeyboardOffset,
@@ -28,10 +28,10 @@ class KeyBoardScreen extends StatefulWidget {
   }
 
   @override
-  _KeyBoardScreenState createState() => _KeyBoardScreenState();
+  _KeyboardScreenState createState() => _KeyboardScreenState();
 }
 
-class _KeyBoardScreenState extends State<KeyBoardScreen> {
+class _KeyboardScreenState extends State<KeyboardScreen> {
   double _keyboardHeight = 0;
   double _screenHeight = 0;
 

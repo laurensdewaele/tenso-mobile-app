@@ -97,7 +97,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       children: <Widget>[
         GestureDetector(
           onTap: _onScreenTap,
-          child: KeyBoardScreen(
+          child: KeyboardScreen(
               handleKeyboardOffset: _handleKeyboardOffset,
               gradientStartColor: styles.Colors.bgGrayStart,
               gradientStopColor: styles.Colors.bgGrayStop,

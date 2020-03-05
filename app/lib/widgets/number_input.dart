@@ -87,7 +87,7 @@ class _NumberInputState extends State<NumberInput> {
 
     _focusNode.unfocus();
     final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyBoardScreen.of(context);
+        KeyboardScreen.of(context);
     keyboardScreenCallbacks.resetKeyboardOffset();
   }
 
@@ -118,7 +118,7 @@ class _NumberInputState extends State<NumberInput> {
 
   void _onPointerDown(PointerEvent event) {
     final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyBoardScreen.of(context);
+        KeyboardScreen.of(context);
     keyboardScreenCallbacks.handlePointerDown(event.position);
   }
 

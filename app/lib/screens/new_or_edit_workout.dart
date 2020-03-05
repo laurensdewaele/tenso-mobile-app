@@ -94,7 +94,7 @@ class _NewOrEditWorkoutScreenState extends State<NewOrEditWorkoutScreen> {
           onTap: _onScreenTap,
           child: Consumer<NewOrEditWorkoutViewModel>(
             builder: (context, _newOrEditWorkoutViewModel, child) =>
-                KeyBoardScreen(
+                KeyboardScreen(
                     handleKeyboardOffset: _handleKeyboardOffset,
                     gradientStartColor: _newOrEditWorkoutViewModel.primaryColor,
                     gradientStopColor: _newOrEditWorkoutViewModel.primaryColor,
