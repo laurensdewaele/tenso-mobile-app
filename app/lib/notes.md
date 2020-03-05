@@ -12,6 +12,9 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
+- Graphs could be added in a later version.
+- Add categories and category colors.
+
 - Screen hang timer.
   Track completed hangs.
 
