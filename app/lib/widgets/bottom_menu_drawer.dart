@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/menu_item.dart';
+import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
+
+const Map<String, String> menuItems = {
+  'settings': Routes.settingsScreen,
+  'progress': Routes.progressScreen,
+};
 
 const double _kRedDragIndicatorHeight = 3.0;
 const double _kRedDragIndicatorContainerHeight = styles.Measurements.xl;
@@ -11,34 +16,17 @@ const double _kRedDragIndicatorWidth =
 const double _kMenuItemTextHeight = styles.Measurements.m * 2;
 const double _kDividerHeight = styles.Measurements.m;
 enum SliderPositions { begin, end }
+final double _totalHeight = menuItems.length * _kMenuItemTextHeight +
+    _kDividerHeight +
+    _kRedDragIndicatorContainerHeight;
+final double _heightToHide =
+    menuItems.length * _kMenuItemTextHeight + _kDividerHeight;
+final double _offsetHeight = _heightToHide / _totalHeight;
 
 class BottomMenuDrawer extends StatefulWidget {
-  BottomMenuDrawer({Key key, @required this.menuItems, this.handleMenuItemTap})
-      : heightToHide = _determineHeightToHide(menuItems.length),
-        offsetHeight = _determineHeightOffset(menuItems.length),
-        super(key: key);
+  BottomMenuDrawer({Key key, this.handleMenuItemTap}) : super(key: key);
 
-  final List<MenuItem> menuItems;
   final VoidCallback handleMenuItemTap;
-  final double heightToHide;
-  final double offsetHeight;
-
-  static double _determineTotalHeight(int menuItemsCount) {
-    final totalHeight = menuItemsCount * _kMenuItemTextHeight +
-        _kDividerHeight +
-        _kRedDragIndicatorContainerHeight;
-    return totalHeight;
-  }
-
-  static double _determineHeightToHide(int menuItemsCount) {
-    return menuItemsCount * _kMenuItemTextHeight + _kDividerHeight;
-  }
-
-  static double _determineHeightOffset(int menuItemsCount) {
-    final double totalHeight = _determineTotalHeight(menuItemsCount);
-    final heightToHide = _determineHeightToHide(menuItemsCount);
-    return heightToHide / totalHeight;
-  }
 
   @override
   _BottomMenuDrawerState createState() => _BottomMenuDrawerState();
@@ -59,7 +47,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     _slideAnimation =
-        Tween<Offset>(begin: Offset.zero, end: Offset(0.0, widget.offsetHeight))
+        Tween<Offset>(begin: Offset.zero, end: Offset(0.0, _offsetHeight))
             .chain(CurveTween(curve: Curves.easeIn));
   }
 
@@ -103,7 +91,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
 
   void _handleDragUpdate(DragUpdateDetails details) {
     _dy += details.delta.dy;
-    final double traversedPercentage = (_dy / (widget.heightToHide)).abs();
+    final double traversedPercentage = (_dy / (_heightToHide)).abs();
 
     if (_position == SliderPositions.begin && _dy > 0) {
       _slideController.value = traversedPercentage;
@@ -177,22 +165,24 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                           ),
                         ),
                       ),
-                      ...widget.menuItems.map(
-                        (menuItem) => GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(menuItem.route);
-                          },
-                          child: Container(
-                            height: _kMenuItemTextHeight,
-                            child: Center(
-                              child: Text(
-                                menuItem.name,
-                                style: styles.Typography.title,
+                      ...menuItems.entries
+                          .map(
+                            (menuItem) => GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(menuItem.value);
+                              },
+                              child: Container(
+                                height: _kMenuItemTextHeight,
+                                child: Center(
+                                  child: Text(
+                                    menuItem.key,
+                                    style: styles.Typography.title,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
+                          )
+                          .toList(),
                       Divider(height: styles.Measurements.m),
                     ],
                   )),

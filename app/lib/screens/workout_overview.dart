@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/menu_item.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/app_state.dart';
@@ -57,7 +56,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                   );
                 } else if (index == _appState.workoutList.length) {
                   return Button(
-                      text: 'Add workout', handleTap: _handleAddWorkout, displayNextIcon: true);
+                      text: 'Add workout',
+                      handleTap: _handleAddWorkout,
+                      displayNextIcon: true);
                 } else {
                   return Divider(
                       height: viewHeight / 2 - styles.Measurements.m);
@@ -71,19 +72,13 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           _HomeScreen(
               child: Column(
             children: <Widget>[
-              Button(text: 'Add workout', handleTap: _handleAddWorkout, displayNextIcon: true),
+              Button(
+                  text: 'Add workout',
+                  handleTap: _handleAddWorkout,
+                  displayNextIcon: true),
             ],
           )),
-        BottomMenuDrawer(
-          menuItems: [
-            MenuItem((b) => b
-              ..name = 'settings'
-              ..route = Routes.settingsScreen),
-            MenuItem((b) => b
-              ..name = 'progress'
-              ..route = Routes.progressScreen),
-          ],
-        )
+        BottomMenuDrawer()
       ],
     );
   }

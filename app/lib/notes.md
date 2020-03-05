@@ -35,7 +35,7 @@ flutter packages pub run build_runner watch
 ### Medium prio
 
 - Add custom board
-- Rethink the difficulty. Maybe once you do a test it can be reset to what your max is?
+- Rethink the difficulty.  => 0 - 10.
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
 - ShouldLooseFocus stream controller onto Provider.
@@ -43,6 +43,7 @@ flutter packages pub run build_runner watch
 
 ### Small prio
 
+- menu not visible by default on non-first app launch ever.
 - styles trough Provider instead of globals
 - Mutliple grades
 - Tests :D
