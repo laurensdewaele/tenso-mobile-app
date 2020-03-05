@@ -128,7 +128,6 @@ class _CountdownScreenState extends State<CountdownScreen>
   void _handleStopTap() {
     _stop();
     Navigator.of(context).pop();
-    // TODO: Save completed.
   }
 
   void _handleTap() {
@@ -182,6 +181,11 @@ class _CountdownScreenState extends State<CountdownScreen>
 
   @override
   Widget build(BuildContext context) {
+    final int _remainingSeconds = (_animationController.duration.inSeconds -
+            _animationController.duration.inSeconds *
+                _animationController.value)
+        .ceil();
+
     return GestureDetector(
       onTap: _handleTap,
       child: Countdown(
@@ -190,10 +194,7 @@ class _CountdownScreenState extends State<CountdownScreen>
         animatedBackgroundHeightFactor: _animationController.value,
         primaryColor: _sequence[_currentSequenceIndex].color,
         title: _sequence[_currentSequenceIndex].title,
-        remainingSeconds: (_animationController.duration.inSeconds -
-                _animationController.duration.inSeconds *
-                    _animationController.value)
-            .ceil(),
+        remainingSeconds: _remainingSeconds,
         holdLabel: _sequence[_currentSequenceIndex].holdLabel,
         board: _sequence[_currentSequenceIndex].board,
         leftGrip: _sequence[_currentSequenceIndex].leftGrip,
