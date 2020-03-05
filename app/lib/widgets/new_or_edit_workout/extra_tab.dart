@@ -28,7 +28,7 @@ class ExtraTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // It's fine to not listen to appState to get the workout.
-    // This is because we don't care if it changes or not. It's only used in the initialValues.
+    // This is because we don't care if it changes or not. It's only used for the initialValues.
     final _newOrEditWorkoutViewModel =
         Provider.of<NewOrEditWorkoutViewModel>(context, listen: true);
     final _extraTabViewModel =

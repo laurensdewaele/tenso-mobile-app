@@ -35,7 +35,7 @@ class _GeneralTabState extends State<GeneralTab> {
   @override
   Widget build(BuildContext context) {
     // It's fine to not listen to appState here as our general practice to get the workout.
-    // This is because we don't care if it changes or not. It's only used in the initialValues.
+    // This is because we don't care if it changes or not. It's only used for the initialValues.
     final _newOrEditWorkoutViewModel =
         Provider.of<NewOrEditWorkoutViewModel>(context, listen: true);
     final _generalTabViewModel =
@@ -55,7 +55,8 @@ class _GeneralTabState extends State<GeneralTab> {
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setHoldCount(n);
               },
-              initialValue: _newOrEditWorkoutViewModel.workout.holdCount.toDouble(),
+              initialValue:
+                  _newOrEditWorkoutViewModel.workout.holdCount.toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             NumberInputAndDivider(
@@ -82,8 +83,8 @@ class _GeneralTabState extends State<GeneralTab> {
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenHolds(n);
               },
-              initialValue:
-                  _newOrEditWorkoutViewModel.workout.restBetweenHolds.toDouble(),
+              initialValue: _newOrEditWorkoutViewModel.workout.restBetweenHolds
+                  .toDouble(),
               shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             NumberInputAndDivider(
