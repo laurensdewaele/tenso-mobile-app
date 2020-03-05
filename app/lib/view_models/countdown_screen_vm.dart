@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/helpers/total_hangs.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
+import 'package:app/models/hold.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/models/unit.dart';
@@ -158,7 +158,7 @@ class CountdownScreenViewModel {
           totalSets: _workout.sets,
           currentSet: 1,
           currentHang: 1,
-          totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
+          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
     );
   }
 
@@ -182,7 +182,7 @@ class CountdownScreenViewModel {
           totalSets: _workout.sets,
           currentSet: _currentSet,
           currentHang: _currentHang,
-          totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
+          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
     );
   }
 
@@ -207,7 +207,7 @@ class CountdownScreenViewModel {
           totalSets: _workout.sets,
           currentSet: _currentSet,
           currentHang: _currentHang,
-          totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
+          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
     );
   }
 
@@ -233,7 +233,7 @@ class CountdownScreenViewModel {
           totalSets: _workout.sets,
           currentSet: _currentSet,
           currentHang: _currentHang,
-          totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
+          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
     );
   }
 
@@ -257,7 +257,13 @@ class CountdownScreenViewModel {
           totalSets: _workout.sets,
           currentSet: _currentSet,
           currentHang: _currentHang,
-          totalHangsPerSet: getTotalHangs(_workout.holds.toList())),
+          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
     );
   }
+}
+
+int _getTotalHangs(List<Hold> holds) {
+  int total = 0;
+  holds.forEach((hold) => {total += hold.repetitions});
+  return total;
 }

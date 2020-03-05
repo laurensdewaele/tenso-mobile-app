@@ -11,6 +11,5 @@ Widget checkGripBoardHoldCompatibility(Grip grip, BoardHold boardHold) {
       textAlign: TextAlign.center,
     );
   }
-
   return null;
 }
