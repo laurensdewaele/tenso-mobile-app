@@ -2,10 +2,6 @@ import 'package:app/models/sound.dart';
 import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 
-// ignore_for_file: unnecessary_getters_setters
-// Setters and getters are needed for Provider classes.
-// Otherwise, we cannot make a call to notifyListeners() when setting as value.
-
 class SoundSettingsViewModel extends ChangeNotifier {
   SoundSettingsViewModel();
 
