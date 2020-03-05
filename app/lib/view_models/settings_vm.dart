@@ -4,11 +4,6 @@ import 'package:app/models/board.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/state/app_state.dart';
 
-// ignore_for_file: unnecessary_getters_setters
-
-// Setters and getters are needed for Provider classes.
-// Otherwise, we cannot make a call to notifyListeners() when setting as value.
-
 class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel();
 

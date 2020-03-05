@@ -12,7 +12,6 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
-
 - Screen hang timer.
   Track completed hangs.
 
