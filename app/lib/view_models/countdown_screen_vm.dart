@@ -102,9 +102,6 @@ class CountdownScreenViewModel {
 
           _currentHang++;
 
-          // Only add a rest between repetitions if there's:
-          // - More than 1 rep
-          // - Not the last rep
           if (_workout.holds[_currentHold].repetitions > 1 &&
               _currentRepetitionPerHold <
                   _workout.holds[_currentHold].repetitions) {
@@ -113,24 +110,12 @@ class CountdownScreenViewModel {
           }
         }
 
-        // At this point we've added all the hold reps and their rest
-        // (restBetweenRepetitions)
-
-        // Now we need to add a rest between holds.
-        // Only add a rest between holds if there's:
-        // - More than 1 hold
-        // - Not the last hold
-
         if (_workout.holds.length > 1 &&
             _currentHold < _workout.holds.length - 1) {
           _addHoldRestSequence(_currentSet, _currentHold, _currentHang);
         }
       }
 
-      // Now we need to add a rest between sets.
-      // Only add a rest between sets if there's:
-      // - More than 1 set
-      // - Not the last set
       _incrementSet();
       if (_workout.sets > 1 && _currentSet <= _workout.sets) {
         _addSetRestSequence(_currentSet, _currentHang);
