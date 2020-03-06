@@ -1,3 +1,4 @@
+import 'package:app/widgets/button.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:intl/intl.dart' show DateFormat;
 
@@ -23,6 +24,7 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _selectedDate = DateTime.now();
+  DateTime _targetDateTime = DateTime.now();
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   EventList<_CompletedWorkoutEvent> _eventList =
       _generateEventList(completedWorkouts);
@@ -58,34 +60,76 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: styles.Measurements.m,
                         vertical: styles.Measurements.l),
-                    child: Container(
-                      height: 1000,
-                      width: double.infinity,
-                      child: CalendarCarousel<_CompletedWorkoutEvent>(
-                        selectedDateTime: _selectedDate,
-                        markedDatesMap: _eventList,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _currentMonth,
+                          style: styles.Staatliches.xlBlack,
+                        ),
+                        Divider(height: styles.Measurements.l),
+                        Container(
+                          height: 500,
+                          width: double.infinity,
+                          child: CalendarCarousel<_CompletedWorkoutEvent>(
+                            selectedDateTime: _selectedDate,
+                            targetDateTime: _targetDateTime,
+                            minSelectedDate: _selectedDate
+                                .subtract(Duration(days: 360 * 100)),
+                            maxSelectedDate:
+                                _selectedDate.add(Duration(days: 360 * 100)),
+                            markedDatesMap: _eventList,
 
-                        // Needs material in order to show the header
-                        showHeader: false,
+                            // Needs material in order to show the header
+                            showHeader: false,
 
-                        firstDayOfWeek: 1,
-                        customWeekDayBuilder: _customWeekDayBuilder,
-                        weekdayTextStyle: styles.Lato.xsBlack,
+                            firstDayOfWeek: 1,
+                            customWeekDayBuilder: _customWeekDayBuilder,
+                            weekdayTextStyle: styles.Lato.xsBlack,
 
-                        prevDaysTextStyle: styles.Staatliches.xsLightGray,
-                        nextDaysTextStyle: styles.Staatliches.xsLightGray,
-                        inactiveDaysTextStyle: styles.Staatliches.xsLightGray,
+                            prevDaysTextStyle: styles.Staatliches.xsLightGray,
+                            nextDaysTextStyle: styles.Staatliches.xsLightGray,
+                            inactiveDaysTextStyle:
+                                styles.Staatliches.xsLightGray,
 
-                        daysTextStyle: styles.Staatliches.xsBlack,
-                        weekendTextStyle: styles.Staatliches.xsBlack,
-                        todayTextStyle: styles.Staatliches.xsBlack,
-                        selectedDayTextStyle: styles.Staatliches.xsWhite,
+                            daysTextStyle: styles.Staatliches.xsBlack,
+                            weekendTextStyle: styles.Staatliches.xsBlack,
+                            todayTextStyle: styles.Staatliches.xsBlack,
+                            selectedDayTextStyle: styles.Staatliches.xsWhite,
 
-                        onDayPressed: (DateTime date,
-                            List<_CompletedWorkoutEvent> events) {
-                          this.setState(() => _selectedDate = date);
-                        },
-                      ),
+                            onDayPressed: (DateTime date,
+                                List<_CompletedWorkoutEvent> events) {
+                              this.setState(() => _selectedDate = date);
+                            },
+                            onDayLongPressed: (_) {},
+                            onCalendarChanged: (DateTime date) {
+                              print('on calendar changed, $date');
+                              setState(() {
+                                _targetDateTime = date;
+                                _currentMonth = DateFormat.yMMM().format(date);
+                              });
+                            },
+
+                            isScrollable: true,
+                            customGridViewPhysics:
+                                NeverScrollableScrollPhysics(),
+                          ),
+                        ),
+                        Divider(height: styles.Measurements.xxl),
+                        Button(
+                          text: 'jump next month',
+                          handleTap: () {
+                            setState(() {
+                              // TODO: We can only jump one month, otherwise the animation freaks.
+                              _targetDateTime = DateTime(2020, 7, 30);
+//                              _targetDateTime = DateTime(_targetDateTime.year,
+//                                  _targetDateTime.month + 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime);
+                            });
+                          },
+                        )
+                      ],
                     ),
                   ),
                 ),
