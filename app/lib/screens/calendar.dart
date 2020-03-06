@@ -6,56 +6,14 @@ import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 
+import 'package:app/data/completed_workout.dart';
+import 'package:app/models/completed_workout.dart';
+import 'package:app/models/completed_workouts.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
-
-DateTime _currentDate = DateTime(2019, 2, 3);
-DateTime _currentDate2 = DateTime(2019, 2, 3);
-String _currentMonth = DateFormat.yMMM().format(DateTime(2019, 2, 3));
-DateTime _targetDateTime = DateTime(2019, 2, 3);
-Widget _eventIcon = new Container(
-  decoration: new BoxDecoration(
-      color: styles.Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(1000)),
-      border: Border.all(color: styles.Colors.blue, width: 2.0)),
-  child: Icon(
-      iconData: IconData(0xf2d8,
-          fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-      size: styles.Measurements.l,
-      color: styles.Colors.primary),
-);
-
-EventList<Event> _markedDateMap = new EventList<Event>(
-  events: {
-    new DateTime(2019, 2, 10): [
-      new Event(
-        date: new DateTime(2019, 2, 10),
-        title: 'Event 1',
-        icon: _eventIcon,
-        dot: Container(
-          margin: EdgeInsets.symmetric(horizontal: 1.0),
-          color: styles.Colors.primary,
-          height: 5.0,
-          width: 5.0,
-        ),
-      ),
-      new Event(
-        date: new DateTime(2019, 2, 10),
-        title: 'Event 2',
-        icon: _eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2019, 2, 10),
-        title: 'Event 3',
-        icon: _eventIcon,
-      ),
-    ],
-  },
-);
 
 // TODO: Screen and KeyboardScreen should be refactored
 class CalendarScreen extends StatefulWidget {
@@ -64,15 +22,18 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
+  DateTime _selectedDate = DateTime.now();
+  String _currentMonth = DateFormat.yMMM().format(DateTime.now());
+  EventList<_CompletedWorkoutEvent> _eventList =
+      _generateEventList(completedWorkouts);
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -100,60 +61,29 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     child: Container(
                       height: 1000,
                       width: double.infinity,
-                      child: CalendarCarousel<Event>(
-                        todayBorderColor: styles.Colors.green,
-                        onDayPressed: (DateTime date, List<Event> events) {
-                          this.setState(() => _currentDate2 = date);
-                          events.forEach((event) => print(event.title));
-                        },
-                        showOnlyCurrentMonthDate: false,
-                        weekendTextStyle: TextStyle(
-                          color: styles.Colors.black,
-                        ),
-                        thisMonthDayBorderColor: styles.Colors.lightGray,
-                        markedDatesMap: _markedDateMap,
-                        selectedDateTime: _currentDate2,
-                        targetDateTime: _targetDateTime,
-                        customGridViewPhysics: NeverScrollableScrollPhysics(),
-                        markedDateCustomShapeBorder: CircleBorder(
-                            side: BorderSide(color: styles.Colors.yellow)),
-                        markedDateCustomTextStyle: TextStyle(
-                          fontSize: 18,
-                          color: styles.Colors.blue,
-                        ),
+                      child: CalendarCarousel<_CompletedWorkoutEvent>(
+                        selectedDateTime: _selectedDate,
+                        markedDatesMap: _eventList,
+
+                        // Needs material in order to show the header
                         showHeader: false,
-//                         markedDateIconBuilder: (event) {
-//                           return Container(
-//                             color: Colors.blue,
-//                           );
-//                         },
-                        todayTextStyle: TextStyle(
-                          color: styles.Colors.blue,
-                        ),
-                        todayButtonColor: styles.Colors.yellow,
-                        selectedDayTextStyle: TextStyle(
-                          color: styles.Colors.yellow,
-                        ),
-                        minSelectedDate:
-                            _currentDate.subtract(Duration(days: 360)),
-                        maxSelectedDate: _currentDate.add(Duration(days: 360)),
-                        prevDaysTextStyle: TextStyle(
-                          fontSize: 16,
-                          color: styles.Colors.orange,
-                        ),
-                        inactiveDaysTextStyle: TextStyle(
-                          color: styles.Colors.green,
-                          fontSize: 16,
-                        ),
-                        onCalendarChanged: (DateTime date) {
-                          this.setState(() {
-                            _targetDateTime = date;
-                            _currentMonth =
-                                DateFormat.yMMM().format(_targetDateTime);
-                          });
-                        },
-                        onDayLongPressed: (DateTime date) {
-                          print('long pressed date $date');
+
+                        firstDayOfWeek: 1,
+                        customWeekDayBuilder: _customWeekDayBuilder,
+                        weekdayTextStyle: styles.Lato.xsBlack,
+
+                        prevDaysTextStyle: styles.Staatliches.xsLightGray,
+                        nextDaysTextStyle: styles.Staatliches.xsLightGray,
+                        inactiveDaysTextStyle: styles.Staatliches.xsLightGray,
+
+                        daysTextStyle: styles.Staatliches.xsBlack,
+                        weekendTextStyle: styles.Staatliches.xsBlack,
+                        todayTextStyle: styles.Staatliches.xsBlack,
+                        selectedDayTextStyle: styles.Staatliches.xsWhite,
+
+                        onDayPressed: (DateTime date,
+                            List<_CompletedWorkoutEvent> events) {
+                          this.setState(() => _selectedDate = date);
                         },
                       ),
                     ),
@@ -164,4 +94,122 @@ class _CalendarScreenState extends State<CalendarScreen> {
           )
         ]));
   }
+}
+
+Widget _customWeekDayBuilder(int weekday, String weekdayName) {
+  Text text;
+
+  switch (weekday) {
+    case 0:
+      text = Text(
+        'mo',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+    case 1:
+      text = Text(
+        'tu',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+    case 2:
+      text = Text(
+        'we',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+    case 3:
+      text = Text(
+        'th',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+    case 4:
+      text = Text(
+        'fr',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+    case 5:
+      text = Text(
+        'sa',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+    case 6:
+      text = Text(
+        'su',
+        style: styles.Lato.xsBlack,
+      );
+      break;
+  }
+
+  return Expanded(
+    child: Container(
+      height: styles.Measurements.xl,
+      child: Center(
+        child: text,
+      ),
+    ),
+  );
+}
+
+class _CompletedWorkoutEvent extends EventInterface {
+  final CompletedWorkout completedWorkout;
+  final DateTime date;
+
+  _CompletedWorkoutEvent({
+    @required this.completedWorkout,
+    @required this.date,
+  }) : assert(date != null);
+
+  @override
+  bool operator ==(dynamic other) {
+    return this.date == other.date &&
+        this.completedWorkout == other.completedWorkout;
+  }
+
+  @override
+  int get hashCode => hashValues(completedWorkout, date);
+
+  @override
+  DateTime getDate() {
+    return date;
+  }
+
+  @override
+  Widget getDot() {
+    return null;
+  }
+
+  @override
+  Widget getIcon() {
+    return null;
+  }
+
+  @override
+  String getTitle() {
+    return null;
+  }
+}
+
+EventList<_CompletedWorkoutEvent> _generateEventList(
+    CompletedWorkouts completedWorkouts) {
+  final List<DateTime> dates = completedWorkouts.completedWorkouts
+      .map((CompletedWorkout completedWorkout) => completedWorkout.date)
+      .toList();
+  // Remove duplicates
+  final List<DateTime> uniqueDates = dates.toSet().toList();
+  final Map<DateTime, List<_CompletedWorkoutEvent>> completedWorkoutsAsMap =
+      uniqueDates.asMap().map((int key, DateTime date) => MapEntry(
+          date,
+          completedWorkouts.completedWorkouts
+              .where((CompletedWorkout completedWorkout) =>
+                  completedWorkout.date == date)
+              .map((CompletedWorkout completedWorkout) =>
+                  _CompletedWorkoutEvent(
+                      completedWorkout: completedWorkout,
+                      date: completedWorkout.date))
+              .toList()));
+  return EventList<_CompletedWorkoutEvent>(events: completedWorkoutsAsMap);
 }

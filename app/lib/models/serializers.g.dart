@@ -9,6 +9,8 @@ part of 'serializers.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Board.serializer)
       ..add(BoardHold.serializer)
+      ..add(CompletedWorkout.serializer)
+      ..add(CompletedWorkouts.serializer)
       ..add(Fingers.serializer)
       ..add(Grip.serializer)
       ..add(HandHold.serializer)
@@ -23,6 +25,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(BoardHold)]),
           () => new ListBuilder<BoardHold>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(CompletedWorkout)]),
+          () => new ListBuilder<CompletedWorkout>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Hold)]),
           () => new ListBuilder<Hold>())

@@ -4,6 +4,8 @@ import 'package:built_value/standard_json_plugin.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
+import 'package:app/models/completed_workout.dart';
+import 'package:app/models/completed_workouts.dart';
 import 'package:app/models/fingers.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
@@ -21,17 +23,19 @@ part 'serializers.g.dart';
 @SerializersFor(const [
   Board,
   BoardHold,
-  HoldType,
+  CompletedWorkout,
+  CompletedWorkouts,
   Fingers,
   Grip,
   HandHold,
   HandType,
   Hold,
+  HoldType,
+  Settings,
+  Sound,
   Unit,
   Workout,
   Workouts,
-  Settings,
-  Sound
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
