@@ -6,7 +6,7 @@ class HandTabs extends StatelessWidget {
   HandTabs(
       {Key key,
       this.primaryColor = styles.Colors.primary,
-      this.textPrimaryColor = styles.Typography.textRed,
+      this.textPrimaryColor = styles.Lato.xsPrimary,
       this.handleLeftHandTap,
       this.handleRightHandTap,
       this.isLeftHandSelected,
@@ -41,7 +41,7 @@ class HandTabs extends StatelessWidget {
                 child: Center(
                     child: Text('Left',
                         style: isLeftHandSelected
-                            ? styles.Typography.textBgWhite
+                            ? styles.Lato.xsWhite
                             : textPrimaryColor)),
               ),
             ),
@@ -57,7 +57,7 @@ class HandTabs extends StatelessWidget {
                 child: Center(
                     child: Text('Right',
                         style: isRightHandSelected
-                            ? styles.Typography.textBgWhite
+                            ? styles.Lato.xsWhite
                             : textPrimaryColor)),
               ),
             ),

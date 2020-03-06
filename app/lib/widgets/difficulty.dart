@@ -25,7 +25,7 @@ class Difficulty extends StatelessWidget {
       height: height,
       width: width,
       child:
-          Center(child: Text(difficulty, style: styles.Typography.difficulty)),
+          Center(child: Text(difficulty, style: styles.Staatliches.difficulty)),
     );
   }
 }

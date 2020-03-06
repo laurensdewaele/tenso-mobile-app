@@ -40,7 +40,7 @@ class RadioButton extends StatelessWidget {
             ),
             Text(
               description,
-              style: styles.Typography.text,
+              style: styles.Lato.xsGray,
             )
           ],
         ),

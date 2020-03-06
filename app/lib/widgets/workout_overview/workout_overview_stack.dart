@@ -152,7 +152,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
           children: <Widget>[
             Text(
               'Swipe right to edit, left to delete.',
-              style: styles.Typography.textInfo,
+              style: styles.Lato.sBlack,
               textAlign: TextAlign.center,
             ),
             Divider(height: styles.Measurements.l),

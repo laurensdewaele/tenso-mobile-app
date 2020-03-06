@@ -24,7 +24,7 @@ class WorkoutOverviewDeleteAction extends StatelessWidget {
               child: Center(
                   child: Text(
                 'DELETE',
-                style: styles.Typography.indicatorWhite,
+                style: styles.Staatliches.lWhite,
               ))),
           InnerBoxShadow(position: InnerBoxShadowRadiusPosition.right),
         ],

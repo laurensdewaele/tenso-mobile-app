@@ -86,7 +86,7 @@ class _GripPickerState extends State<GripPicker> {
       children: <Widget>[
         Text(
           widget.selectedGrip.description,
-          style: styles.Typography.textInfoBold,
+          style: styles.Lato.sBlackBold,
           textAlign: TextAlign.center,
         ),
         Divider(height: styles.Measurements.m),

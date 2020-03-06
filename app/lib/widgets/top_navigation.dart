@@ -40,8 +40,8 @@ class TopNavigation extends StatelessWidget {
           child: Center(
             child: Text(title,
                 style: dark
-                    ? styles.Typography.topNavigationTitleBlack
-                    : styles.Typography.topNavigationTitleWhite,
+                    ? styles.Staatliches.mBlack
+                    : styles.Staatliches.mWhite,
                 textAlign: TextAlign.center),
           ),
         ),

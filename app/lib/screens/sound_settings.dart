@@ -430,8 +430,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                   children: <Widget>[
                                                     Text(
                                                       'Sounds obtained from zapsplat.com',
-                                                      style: styles
-                                                          .Typography.text,
+                                                      style: styles.Lato.xsGray,
                                                     )
                                                   ],
                                                 ),

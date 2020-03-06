@@ -58,7 +58,7 @@ class ExtraTab extends StatelessWidget {
                   ...Grade.sportFrench.map((grade) => Center(
                         child: Text(
                           grade,
-                          style: styles.Typography.text,
+                          style: styles.Lato.xsGray,
                         ),
                       ))
                 ],

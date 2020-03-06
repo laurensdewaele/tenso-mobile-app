@@ -1,7 +1,7 @@
-import 'package:app/models/hold_type.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board_hold.dart';
+import 'package:app/models/hold_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class BoardHoldInfo extends StatelessWidget {
@@ -25,44 +25,44 @@ class BoardHoldInfo extends StatelessWidget {
               RichText(
                 text: TextSpan(
                     text: 'hold: ',
-                    style: styles.Typography.smallBlack,
+                    style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(
                           text: leftGripBoardHold.position.toString(),
-                          style: styles.Typography.text),
+                          style: styles.Lato.xsGray),
                     ]),
               ),
               RichText(
                 text: TextSpan(
                     text: 'type: ',
-                    style: styles.Typography.smallBlack,
+                    style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(
                           text: leftGripBoardHold.holdType.toString(),
-                          style: styles.Typography.text),
+                          style: styles.Lato.xsGray),
                     ]),
               ),
               if (leftGripBoardHold.holdType == HoldType.pocket)
                 RichText(
                   text: TextSpan(
                       text: 'depth: ',
-                      style: styles.Typography.smallBlack,
+                      style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
                             text: leftGripBoardHold.pocketDepth.toString(),
-                            style: styles.Typography.text),
-                        TextSpan(text: ' mm', style: styles.Typography.text),
+                            style: styles.Lato.xsGray),
+                        TextSpan(text: ' mm', style: styles.Lato.xsGray),
                       ]),
                 ),
               if (leftGripBoardHold.holdType == HoldType.sloper)
                 RichText(
                   text: TextSpan(
                       text: 'degrees: ',
-                      style: styles.Typography.smallBlack,
+                      style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
                             text: leftGripBoardHold.sloperDegrees.toString(),
-                            style: styles.Typography.text),
+                            style: styles.Lato.xsGray),
                       ]),
                 )
             ],
@@ -76,22 +76,22 @@ class BoardHoldInfo extends StatelessWidget {
                 textAlign: TextAlign.right,
                 text: TextSpan(
                     text: 'hold: ',
-                    style: styles.Typography.smallBlack,
+                    style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(
                           text: rightGripBoardHold.position.toString(),
-                          style: styles.Typography.text),
+                          style: styles.Lato.xsGray),
                     ]),
               ),
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
                     text: 'type: ',
-                    style: styles.Typography.smallBlack,
+                    style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(
                           text: rightGripBoardHold.holdType.toString(),
-                          style: styles.Typography.text),
+                          style: styles.Lato.xsGray),
                     ]),
               ),
               if (rightGripBoardHold.holdType == HoldType.pocket)
@@ -99,23 +99,23 @@ class BoardHoldInfo extends StatelessWidget {
                   textAlign: TextAlign.right,
                   text: TextSpan(
                       text: 'depth: ',
-                      style: styles.Typography.smallBlack,
+                      style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
                             text: rightGripBoardHold.pocketDepth.toString(),
-                            style: styles.Typography.text),
-                        TextSpan(text: ' mm', style: styles.Typography.text),
+                            style: styles.Lato.xsGray),
+                        TextSpan(text: ' mm', style: styles.Lato.xsGray),
                       ]),
                 ),
               if (rightGripBoardHold.holdType == HoldType.sloper)
                 RichText(
                   text: TextSpan(
                       text: 'degrees: ',
-                      style: styles.Typography.smallBlack,
+                      style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
                             text: rightGripBoardHold.sloperDegrees.toString(),
-                            style: styles.Typography.text),
+                            style: styles.Lato.xsGray),
                       ]),
                 )
             ],

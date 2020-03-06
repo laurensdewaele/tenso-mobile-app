@@ -11,7 +11,7 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
     _title = 'New workout';
     _extraTabButtonText = 'save';
     _primaryColor = styles.Colors.primary;
-    _textPrimaryColor = styles.Typography.textRed;
+    _textPrimaryColor = styles.Lato.xsPrimary;
   }
   AppState _appState;
 
@@ -46,14 +46,14 @@ class NewOrEditWorkoutViewModel extends ChangeNotifier {
       _isNewWorkout = true;
       _isEditWorkout = false;
       _primaryColor = styles.Colors.primary;
-      _textPrimaryColor = styles.Typography.textRed;
+      _textPrimaryColor = styles.Lato.xsPrimary;
       _title = 'New workout';
       _extraTabButtonText = 'add';
     } else {
       _isNewWorkout = false;
       _isEditWorkout = true;
       _primaryColor = styles.Colors.blue;
-      _textPrimaryColor = styles.Typography.textBlue;
+      _textPrimaryColor = styles.Lato.xsBlue;
       _title = 'Edit workout';
       _extraTabButtonText = 'done';
     }

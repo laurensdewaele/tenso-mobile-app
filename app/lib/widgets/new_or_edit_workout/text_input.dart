@@ -65,8 +65,8 @@ class _TextInputState extends State<TextInput> {
 
   void _validationError() {
     _textEditingController.text = widget.initialValue.toString();
-    Provider.of<ToastService>(context, listen: false).add(
-        Text('Name must be filled in.', style: styles.Typography.textInfo));
+    Provider.of<ToastService>(context, listen: false)
+        .add(Text('Name must be filled in.', style: styles.Lato.sBlack));
   }
 
   void _onTap() {
@@ -101,7 +101,7 @@ class _TextInputState extends State<TextInput> {
           onTap: _onTap,
           onEditingComplete: _validateInput,
           onSubmitted: (String text) => {_validateInput},
-          style: styles.Typography.text,
+          style: styles.Lato.xsGray,
           textAlign: TextAlign.start,
         ),
       ),

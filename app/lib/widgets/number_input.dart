@@ -101,11 +101,11 @@ class _NumberInputState extends State<NumberInput> {
       textAlign: TextAlign.center,
       text: TextSpan(
           text: 'Please input a value ',
-          style: styles.Typography.textInfo,
+          style: styles.Lato.sBlack,
           children: [
             TextSpan(
                 text: widget.isDouble ? biggerEqualThanZero : biggerThanZero,
-                style: styles.Typography.textInfoBold),
+                style: styles.Lato.sBlackBold),
           ]),
     );
 
@@ -144,7 +144,7 @@ class _NumberInputState extends State<NumberInput> {
           onTap: _onTap,
           onEditingComplete: _validateInput,
           onSubmitted: (String text) => {_validateInput},
-          style: styles.Typography.inputDescriptionSquare,
+          style: styles.Staatliches.sWhite,
           textAlign: TextAlign.center,
         ),
       ),

@@ -16,7 +16,7 @@ class Section extends StatelessWidget {
       children: <Widget>[
         Text(
           title,
-          style: styles.Typography.title,
+          style: styles.Staatliches.xlBlack,
         ),
         Divider(height: styles.Measurements.l),
         ...children,

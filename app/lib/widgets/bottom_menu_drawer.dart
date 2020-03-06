@@ -178,7 +178,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                                 child: Center(
                                   child: Text(
                                     menuItem.key,
-                                    style: styles.Typography.title,
+                                    style: styles.Staatliches.xlBlack,
                                   ),
                                 ),
                               ),

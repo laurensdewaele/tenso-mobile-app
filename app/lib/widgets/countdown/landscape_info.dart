@@ -76,7 +76,7 @@ class LandscapeInfo extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: Text(
                             leftGripName,
-                            style: styles.Typography.countdownLandscapeInfo,
+                            style: styles.Staatliches.lWhite,
                             textAlign: TextAlign.left,
                           ),
                         ),
@@ -84,7 +84,7 @@ class LandscapeInfo extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: Text(
                             leftHoldInfo,
-                            style: styles.Typography.countdownLandscapeInfo,
+                            style: styles.Staatliches.lWhite,
                             textAlign: TextAlign.left,
                           ),
                         ),
@@ -95,7 +95,7 @@ class LandscapeInfo extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '+ $addedWeight $_unitText',
-                      style: styles.Typography.countdownAddedWeight,
+                      style: styles.Staatliches.xlWhite,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -110,7 +110,7 @@ class LandscapeInfo extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: Text(
                             rightGripName,
-                            style: styles.Typography.countdownLandscapeInfo,
+                            style: styles.Staatliches.lWhite,
                             textAlign: TextAlign.right,
                           ),
                         ),
@@ -118,7 +118,7 @@ class LandscapeInfo extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: Text(
                             rightHoldInfo,
-                            style: styles.Typography.countdownLandscapeInfo,
+                            style: styles.Staatliches.lWhite,
                             textAlign: TextAlign.right,
                           ),
                         ),

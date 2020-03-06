@@ -139,7 +139,7 @@ class _CountdownScreenState extends State<CountdownScreen>
           children: <Widget>[
             Text(
               'paused',
-              style: styles.Typography.title,
+              style: styles.Staatliches.xlBlack,
             ),
             Divider(
               height: styles.Measurements.xxl,

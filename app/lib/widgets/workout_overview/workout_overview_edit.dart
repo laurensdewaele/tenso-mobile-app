@@ -22,7 +22,7 @@ class WorkoutOverviewEditAction extends StatelessWidget {
             child: Center(
                 child: Text(
               'EDIT',
-              style: styles.Typography.indicatorWhite,
+              style: styles.Staatliches.lWhite,
             ))),
         InnerBoxShadow(position: InnerBoxShadowRadiusPosition.left)
       ]),

@@ -251,7 +251,7 @@ class _SoundSection extends StatelessWidget {
                 ),
                 child: Text(
                   title,
-                  style: styles.Typography.title,
+                  style: styles.Staatliches.xlBlack,
                 )),
             IconButton(
                 handleTap: () {},

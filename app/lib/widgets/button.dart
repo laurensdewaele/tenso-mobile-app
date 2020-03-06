@@ -29,8 +29,8 @@ class Button extends StatelessWidget {
     final Color _iconColor =
         displayBackground == true ? styles.Colors.white : styles.Colors.black;
     final TextStyle _textStyle = displayBackground == true
-        ? styles.Typography.buttonWhite
-        : styles.Typography.buttonBlack;
+        ? styles.Staatliches.xlWhite
+        : styles.Staatliches.xlBlack;
     final BoxDecoration _boxDecoration = displayBackground == true
         ? BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,

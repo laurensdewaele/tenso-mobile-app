@@ -54,7 +54,7 @@ class Landscape extends StatelessWidget {
         Container(
           child: Text(
             title,
-            style: styles.Typography.countdownLabel,
+            style: styles.Staatliches.mWhite,
           ),
         ),
         Divider(
@@ -99,7 +99,7 @@ class Landscape extends StatelessWidget {
             if (totalSets > 1)
               Text(
                 'set $currentSet / $totalSets',
-                style: styles.Typography.countdownLabel,
+                style: styles.Staatliches.mWhite,
               ),
             if (totalSets > 1)
               Divider(

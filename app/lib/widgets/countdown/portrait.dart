@@ -86,7 +86,7 @@ class __PortraitContentState extends State<Portrait> {
         Container(
           child: Text(
             _titleText,
-            style: styles.Typography.countdownLabel,
+            style: styles.Staatliches.mWhite,
           ),
         ),
         Expanded(
@@ -97,14 +97,14 @@ class __PortraitContentState extends State<Portrait> {
                 child: Center(
                   child: AutoSizeText(
                     widget.remainingSeconds.toString(),
-                    style: styles.Typography.countdownTimer,
+                    style: styles.Staatliches.countdownTimer,
                   ),
                 ),
               ),
               Column(children: [
                 Text(
                   widget.holdLabel,
-                  style: styles.Typography.countdownLabel,
+                  style: styles.Staatliches.mWhite,
                 ),
                 Divider(
                   height: styles.Measurements.m,
@@ -139,8 +139,7 @@ class __PortraitContentState extends State<Portrait> {
                                       horizontal: styles.Measurements.m),
                                   child: Text(
                                     '+ $_addedWeight $_unitText',
-                                    style:
-                                        styles.Typography.countdownAddedWeight,
+                                    style: styles.Staatliches.xlWhite,
                                     textAlign: TextAlign.center,
                                   ))),
                         ),
@@ -161,7 +160,7 @@ class __PortraitContentState extends State<Portrait> {
               if (widget.totalSets > 1)
                 Text(
                   'set $_currentSet / $_totalSets',
-                  style: styles.Typography.countdownLabel,
+                  style: styles.Staatliches.mWhite,
                 ),
               if (widget.totalSets > 1)
                 Divider(

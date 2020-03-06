@@ -29,7 +29,7 @@ class SwitchSetting extends StatelessWidget {
           children: <Widget>[
             Text(
               infoText,
-              style: styles.Typography.textInfo,
+              style: styles.Lato.sBlack,
               textAlign: TextAlign.center,
             ),
             Divider(height: styles.Measurements.l),
@@ -56,7 +56,7 @@ class SwitchSetting extends StatelessWidget {
           children: <Widget>[
             Text(
               description,
-              style: styles.Typography.text,
+              style: styles.Staatliches.xsGray,
             ),
             if (infoText != null)
               IconButton(

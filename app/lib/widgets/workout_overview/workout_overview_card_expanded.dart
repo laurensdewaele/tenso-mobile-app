@@ -52,7 +52,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                 child: Column(children: <Widget>[
               Text(
                 'duration',
-                style: styles.Typography.subtitle,
+                style: styles.Staatliches.xsGray,
               ),
               Container(
                   height: styles.Measurements.xl,
@@ -60,32 +60,29 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
                       child: RichText(
                     text: TextSpan(
                         text: _minutes.toString(),
-                        style: styles.Typography.indicatorBlack,
+                        style: styles.Staatliches.lBlack,
                         children: [
                           if (_minutes != 0)
                             TextSpan(
                                 text: ' ',
-                                style: styles.Typography.textDivider),
+                                style: styles.Staatliches.textDivider),
                           if (_minutes != 0)
                             TextSpan(
-                                text: 'm',
-                                style: styles.Typography.smallBlack),
+                                text: 'm', style: styles.Staatliches.xsBlack),
                           if (_remainingSeconds != 0)
                             TextSpan(
-                                text: '  ',
-                                style: styles.Typography.smallBlack),
+                                text: '  ', style: styles.Staatliches.xsBlack),
                           if (_remainingSeconds != 0)
                             TextSpan(
                                 text: '$_remainingSeconds',
-                                style: styles.Typography.indicatorBlack),
+                                style: styles.Staatliches.lBlack),
                           if (_remainingSeconds != 0)
                             TextSpan(
                                 text: ' ',
-                                style: styles.Typography.textDivider),
+                                style: styles.Staatliches.textDivider),
                           if (_remainingSeconds != 0)
                             TextSpan(
-                                text: 's',
-                                style: styles.Typography.smallBlack)
+                                text: 's', style: styles.Staatliches.xsBlack)
                         ]),
                   )))
             ])),
@@ -121,7 +118,7 @@ class _WorkoutInfo extends StatelessWidget {
         child: Column(children: <Widget>[
       Text(
         title,
-        style: styles.Typography.subtitle,
+        style: styles.Staatliches.xsGray,
       ),
       Container(
           margin: EdgeInsets.only(top: styles.Measurements.xs),
@@ -137,7 +134,7 @@ class _WorkoutInfo extends StatelessWidget {
                       child: Text(
                     value,
                     textAlign: TextAlign.center,
-                    style: styles.Typography.indicatorBlack,
+                    style: styles.Staatliches.lBlack,
                   ))))
     ]));
   }

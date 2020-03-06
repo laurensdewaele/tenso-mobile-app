@@ -117,7 +117,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                           alignment:
                               Alignment(_horizontalTitleAlignment.value, 0),
                           child: Text(widget.workout.name,
-                              style: styles.Typography.title,
+                              style: styles.Staatliches.xlBlack,
                               overflow: TextOverflow.ellipsis))),
                   SizedBox(
                     width: _sizedBoxWidth.value,
