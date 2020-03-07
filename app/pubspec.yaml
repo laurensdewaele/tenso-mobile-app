@@ -26,7 +26,6 @@ dependencies:
   built_collection: ^4.3.2
   built_value: ^7.0.8
   cupertino_icons: ^0.1.2
-  flutter_calendar_carousel: ^1.4.11
   provider: ^4.0.0
   path_provider: ^1.5.1
   uuid: ^2.0.4
