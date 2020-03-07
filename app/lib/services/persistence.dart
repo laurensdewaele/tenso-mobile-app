@@ -84,7 +84,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
-    return workouts == null ? Workouts() : workouts;
+    return workouts == null ? basicWorkouts : workouts;
   }
 
   void saveSettings(Settings settings) async {

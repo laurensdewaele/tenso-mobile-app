@@ -4,6 +4,7 @@ import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
+import 'package:app/models/workouts.dart';
 
 final Workout basicWorkout = Workout((b) => b
   ..id = '1'
@@ -49,3 +50,6 @@ final Workout basicWorkout = Workout((b) => b
       ..unit = Unit.metric)
   ])
   ..name = 'Basic workout');
+
+final Workouts basicWorkouts =
+    Workouts((b) => b..workouts.addAll([basicWorkout]));
