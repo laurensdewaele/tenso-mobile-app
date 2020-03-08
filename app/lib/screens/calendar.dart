@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/calendar/calendar.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/screen.dart';
@@ -46,12 +47,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         vertical: styles.Measurements.l),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 100,
-                          width: double.infinity,
-                        )
-                      ],
+                      children: [Calendar()],
                     ),
                   ),
                 ),
