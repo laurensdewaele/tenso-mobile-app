@@ -6,22 +6,10 @@
 - When I click on the header, a popup / modal from below appears where I can input the month.
 - Calendar where you can scroll trough months.
 
-### Calendar header
-
-#### Spec
-Just displays the current month.
-On click or tap -> open up the bottom drawer.
-#### Implementation
-It should accept as params:
-- String month + year
-- On arrow click, trigger cb to parent that opens up the drawer.
-
 
 ### Bottom drawer - generic
 Gets the content via provider.
 Opens and closes (is just gone when it closes).
-
-
 ### Bottom drawer - content
 
 ### Spec

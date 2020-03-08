@@ -18,21 +18,25 @@ class CalendarHeader extends StatelessWidget {
 
     return GestureDetector(
       onTap: handleSelectMonthTap,
-      child: Row(
-        children: [
-          Text(
-            '$month $year',
-            style: styles.Staatliches.xlBlack,
-          ),
-          IconButton(
-              handleTap: () {},
-              icon: Icon(
-                iconData: IconData(0xf3d0,
-                    fontFamily: 'CupertinoIcons',
-                    fontPackage: 'cupertino_icons'),
-                color: styles.Colors.black,
-              ))
-        ],
+      child: Container(
+        decoration: BoxDecoration(color: styles.Colors.translucent),
+        width: double.infinity,
+        child: Row(
+          children: [
+            Text(
+              '$month $year',
+              style: styles.Staatliches.xlBlack,
+            ),
+            IconButton(
+                handleTap: handleSelectMonthTap,
+                icon: Icon(
+                  iconData: IconData(0xf3d0,
+                      fontFamily: 'CupertinoIcons',
+                      fontPackage: 'cupertino_icons'),
+                  color: styles.Colors.black,
+                ))
+          ],
+        ),
       ),
     );
   }
