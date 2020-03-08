@@ -1,19 +1,37 @@
-import 'package:app/widgets/calendar/header.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/models/completed_workouts.dart';
+import 'package:app/view_models/calendar_vm.dart';
+import 'package:app/widgets/calendar/header.dart';
+
 class Calendar extends StatefulWidget {
+  Calendar({Key key, this.completedWorkouts});
+
+  final CompletedWorkouts completedWorkouts;
+
   @override
   _CalendarState createState() => _CalendarState();
 }
 
 class _CalendarState extends State<Calendar> {
+  CalendarViewModel _calendarViewModel;
+
   @override
   void initState() {
     super.initState();
+    _calendarViewModel =
+        CalendarViewModel(completedWorkouts: widget.completedWorkouts);
+    _calendarViewModel.addListener(_rebuild);
+  }
+
+  void _rebuild() {
+    setState(() {});
   }
 
   @override
   void dispose() {
+    _calendarViewModel.removeListener(_rebuild);
+    _calendarViewModel.dispose();
     super.dispose();
   }
 
@@ -23,12 +41,10 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    final DateTime _selectedMonth = DateTime.now();
-
     return Column(
       children: <Widget>[
         CalendarHeader(
-          selectedMonth: _selectedMonth,
+          selectedMonth: _calendarViewModel.selectedMonth,
           handleSelectMonthTap: _handleSelectedMonthTap,
         )
       ],

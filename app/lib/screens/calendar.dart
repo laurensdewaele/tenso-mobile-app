@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
+import 'package:app/data/completed_workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/calendar.dart';
 import 'package:app/widgets/card.dart';
@@ -47,7 +48,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         vertical: styles.Measurements.l),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Calendar()],
+                      // TODO: Implement real completedWorkouts
+                      children: [
+                        Calendar(
+                          completedWorkouts: completedWorkouts,
+                        )
+                      ],
                     ),
                   ),
                 ),
