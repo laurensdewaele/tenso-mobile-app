@@ -1,4 +1,4 @@
-const Map<int, String> months = {
+const Map<int, String> kMonths = {
   1: 'January',
   2: 'February',
   3: 'March',

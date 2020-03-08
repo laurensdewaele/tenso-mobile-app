@@ -6,14 +6,18 @@ import 'package:app/widgets/icon_button.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class CalendarHeader extends StatelessWidget {
-  CalendarHeader({Key key, this.selectedMonth, this.handleSelectMonthTap});
+  CalendarHeader(
+      {Key key,
+      @required this.selectedMonth,
+      @required this.handleSelectMonthTap})
+      : super(key: key);
 
   final DateTime selectedMonth;
   final VoidCallback handleSelectMonthTap;
 
   @override
   Widget build(BuildContext context) {
-    final String month = months[selectedMonth.month];
+    final String month = kMonths[selectedMonth.month];
     final String year = selectedMonth.year.toString();
 
     return GestureDetector(

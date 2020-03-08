@@ -35,6 +35,12 @@ class CalendarViewModel extends ChangeNotifier {
             _isSameMonth(completedWorkout.date, selectedMonth))
         .toList();
   }
+
+  void setSelectedDay(DateTime day) {
+    selectedDay = day;
+    _setCompletedWorkoutsForSelectedDay();
+    notifyListeners();
+  }
 }
 
 bool _isSameDay(DateTime first, DateTime second) {

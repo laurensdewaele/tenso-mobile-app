@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/widgets/calendar/header.dart';
+import 'package:app/widgets/calendar/table.dart';
 
 class Calendar extends StatefulWidget {
-  Calendar({Key key, this.completedWorkouts});
+  Calendar({Key key, this.completedWorkouts}) : super(key: key);
 
   final CompletedWorkouts completedWorkouts;
 
@@ -46,6 +47,11 @@ class _CalendarState extends State<Calendar> {
         CalendarHeader(
           selectedMonth: _calendarViewModel.selectedMonth,
           handleSelectMonthTap: _handleSelectedMonthTap,
+        ),
+        CalendarTable(
+          selectedMonth: _calendarViewModel.selectedMonth,
+          selectedDay: _calendarViewModel.selectedDay,
+          handleSelectedDay: _calendarViewModel.setSelectedDay,
         )
       ],
     );
