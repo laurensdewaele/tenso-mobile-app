@@ -44,7 +44,6 @@ class CalendarTable extends StatelessWidget {
 
     return GestureDetector(
       onHorizontalDragEnd: _onHorizontalDragEnd,
-      onVerticalDragEnd: (DragEndDetails details) {},
       child: Table(
         children: [
           _tableHeaderRow(),

@@ -26,11 +26,12 @@ final CompletedWorkout sameDayCompletedWorkout = completedWorkout.rebuild((b) =>
       ..workout =
           basicWorkout.rebuild((b) => b..difficulty = '9A').toBuilder());
 
-final CompletedWorkout sameDayCompletedWorkout2 =
-    completedWorkout.rebuild((b) => b
+final CompletedWorkout sameDayCompletedWorkout2 = completedWorkout.rebuild(
+    (b) => b
       ..date = DateTime.utc(2020, 3, 6)
       ..destruction = 1
-      ..workout = basicWorkout.rebuild((b) => b..difficulty = '3').toBuilder());
+      ..workout =
+          basicWorkout.rebuild((b) => b..difficulty = '7B').toBuilder());
 
 final CompletedWorkouts completedWorkouts = CompletedWorkouts((b) => b
   ..completedWorkouts.addAll([
