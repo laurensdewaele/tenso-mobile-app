@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/view_models/calendar_vm.dart';
+import 'package:app/widgets/calendar/completed_workouts_overview.dart';
 import 'package:app/widgets/calendar/header.dart';
-import 'package:app/widgets/calendar/selected_day.dart';
 import 'package:app/widgets/calendar/table.dart';
 
 class Calendar extends StatefulWidget {
@@ -51,7 +51,7 @@ class _CalendarState extends State<Calendar> {
           handleSelectedDay: _calendarViewModel.setSelectedDay,
           calendarTableDays: _calendarViewModel.calendarTableDays,
         ),
-        CalendarSelectedDay(
+        CompletedWorkoutsOverview(
             selectedDay: _calendarViewModel.selectedDay,
             completedWorkoutsForSelectedDay:
                 _calendarViewModel.completedWorkoutsForSelectedDay)

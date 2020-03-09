@@ -5,8 +5,8 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/constants.dart';
 import 'package:app/widgets/divider.dart';
 
-class CalendarSelectedDay extends StatelessWidget {
-  CalendarSelectedDay(
+class CompletedWorkoutsOverview extends StatelessWidget {
+  CompletedWorkoutsOverview(
       {Key key, this.selectedDay, this.completedWorkoutsForSelectedDay})
       : super(key: key);
 
