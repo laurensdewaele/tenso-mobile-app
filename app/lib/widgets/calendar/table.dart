@@ -63,7 +63,6 @@ class _TableElementContainer extends StatelessWidget {
   }
 }
 
-// TODO: Refactor, it's ugly AF
 class _TableElement extends StatelessWidget {
   _TableElement({Key key, this.calendarTableDay}) : super(key: key);
 
@@ -71,9 +70,14 @@ class _TableElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 1) If the day is not part of the month, return gray text
+    // 2) If the day does belong to the selected month,
+    //    - either return a big container with a border (to indicate the selected day)
+    //    - or a normal sized container without border
+    // 3) If the day has any completedWorkout colors, draw the colors.
+
     final String day = calendarTableDay.day.toString();
 
-    // Does not belong to this month
     if (calendarTableDay.belongsToSelectedMonth == false) {
       return Text(
         day,
@@ -81,8 +85,9 @@ class _TableElement extends StatelessWidget {
       );
     } else {
       final double dimension = calendarTableDay.selected == true
-          ? styles.Measurements.l + 5
+          ? styles.Measurements.xl
           : styles.Measurements.l;
+      final int amountOfColors = calendarTableDay.completedWorkoutColors.length;
 
       return Container(
         height: dimension,
@@ -113,18 +118,10 @@ class _TableElement extends StatelessWidget {
                                         topRight: i == 0
                                             ? styles.kBorderRadius
                                             : Radius.zero,
-                                        bottomLeft: i ==
-                                                calendarTableDay
-                                                        .completedWorkoutColors
-                                                        .length -
-                                                    1
+                                        bottomLeft: i == amountOfColors - 1
                                             ? styles.kBorderRadius
                                             : Radius.zero,
-                                        bottomRight: i ==
-                                                calendarTableDay
-                                                        .completedWorkoutColors
-                                                        .length -
-                                                    1
+                                        bottomRight: i == amountOfColors - 1
                                             ? styles.kBorderRadius
                                             : Radius.zero)),
                               ),
@@ -149,8 +146,6 @@ class _TableElement extends StatelessWidget {
     }
   }
 }
-
-//
 
 // Not a class/widget because TableRow is not a widget!
 TableRow _tableHeaderRow() {
