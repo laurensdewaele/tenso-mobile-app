@@ -48,9 +48,10 @@ class _CalendarState extends State<Calendar> {
           handleSelectMonthTap: _handleSelectedMonthTap,
         ),
         CalendarTable(
-          handleSelectedDay: _calendarViewModel.setSelectedDay,
-          calendarTableDays: _calendarViewModel.calendarTableDays,
-        ),
+            handleSelectedDay: _calendarViewModel.setSelectedDay,
+            calendarTableDays: _calendarViewModel.calendarTableDays,
+            handlePreviousMonthSwipe: _calendarViewModel.setPreviousMonth,
+            handleNextMonthSwipe: _calendarViewModel.setNextMonth),
         CompletedWorkoutsOverview(
             selectedDay: _calendarViewModel.selectedDay,
             completedWorkoutsForSelectedDay:
