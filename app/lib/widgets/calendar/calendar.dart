@@ -37,7 +37,6 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _handleSelectedMonthTap() {
-    print('selected month tap');
   }
 
   @override
@@ -49,9 +48,8 @@ class _CalendarState extends State<Calendar> {
           handleSelectMonthTap: _handleSelectedMonthTap,
         ),
         CalendarTable(
-          selectedMonth: _calendarViewModel.selectedMonth,
-          selectedDay: _calendarViewModel.selectedDay,
           handleSelectedDay: _calendarViewModel.setSelectedDay,
+          calendarTableDays: _calendarViewModel.calendarTableDays,
         )
       ],
     );
