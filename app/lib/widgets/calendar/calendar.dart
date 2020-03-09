@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/widgets/calendar/header.dart';
+import 'package:app/widgets/calendar/selected_day.dart';
 import 'package:app/widgets/calendar/table.dart';
+import 'package:app/widgets/divider.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 class Calendar extends StatefulWidget {
   Calendar({Key key, this.completedWorkouts}) : super(key: key);
@@ -36,8 +39,7 @@ class _CalendarState extends State<Calendar> {
     super.dispose();
   }
 
-  void _handleSelectedMonthTap() {
-  }
+  void _handleSelectedMonthTap() {}
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,12 @@ class _CalendarState extends State<Calendar> {
         CalendarTable(
           handleSelectedDay: _calendarViewModel.setSelectedDay,
           calendarTableDays: _calendarViewModel.calendarTableDays,
-        )
+        ),
+        Divider(height: styles.Measurements.xxl),
+        CalendarSelectedDay(
+            selectedDay: _calendarViewModel.selectedDay,
+            completedWorkoutsForSelectedDay:
+                _calendarViewModel.completedWorkoutsForSelectedDay)
       ],
     );
   }

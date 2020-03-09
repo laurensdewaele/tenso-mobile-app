@@ -12,3 +12,13 @@ const Map<int, String> kMonths = {
   11: 'November',
   12: 'December'
 };
+
+const Map<int, String> kWeekDays = {
+  1: 'Monday',
+  2: 'Tuesday',
+  3: 'Wednesday',
+  4: 'Thursday',
+  5: 'Friday',
+  6: 'Saturday',
+  7: 'Sunday'
+};
