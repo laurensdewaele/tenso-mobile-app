@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Card, Divider;
+import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 

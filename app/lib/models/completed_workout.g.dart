@@ -23,8 +23,8 @@ class _$CompletedWorkoutSerializer
       'workout',
       serializers.serialize(object.workout,
           specifiedType: const FullType(Workout)),
-      'date',
-      serializers.serialize(object.date,
+      'completedDate',
+      serializers.serialize(object.completedDate,
           specifiedType: const FullType(DateTime)),
       'feltDifficulty',
       serializers.serialize(object.feltDifficulty,
@@ -50,8 +50,8 @@ class _$CompletedWorkoutSerializer
           result.workout.replace(serializers.deserialize(value,
               specifiedType: const FullType(Workout)) as Workout);
           break;
-        case 'date':
-          result.date = serializers.deserialize(value,
+        case 'completedDate':
+          result.completedDate = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
           break;
         case 'feltDifficulty':
@@ -69,7 +69,7 @@ class _$CompletedWorkout extends CompletedWorkout {
   @override
   final Workout workout;
   @override
-  final DateTime date;
+  final DateTime completedDate;
   @override
   final int feltDifficulty;
 
@@ -77,13 +77,13 @@ class _$CompletedWorkout extends CompletedWorkout {
           [void Function(CompletedWorkoutBuilder) updates]) =>
       (new CompletedWorkoutBuilder()..update(updates)).build();
 
-  _$CompletedWorkout._({this.workout, this.date, this.feltDifficulty})
+  _$CompletedWorkout._({this.workout, this.completedDate, this.feltDifficulty})
       : super._() {
     if (workout == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'workout');
     }
-    if (date == null) {
-      throw new BuiltValueNullFieldError('CompletedWorkout', 'date');
+    if (completedDate == null) {
+      throw new BuiltValueNullFieldError('CompletedWorkout', 'completedDate');
     }
     if (feltDifficulty == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'feltDifficulty');
@@ -103,21 +103,21 @@ class _$CompletedWorkout extends CompletedWorkout {
     if (identical(other, this)) return true;
     return other is CompletedWorkout &&
         workout == other.workout &&
-        date == other.date &&
+        completedDate == other.completedDate &&
         feltDifficulty == other.feltDifficulty;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc(0, workout.hashCode), date.hashCode), feltDifficulty.hashCode));
+    return $jf($jc($jc($jc(0, workout.hashCode), completedDate.hashCode),
+        feltDifficulty.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CompletedWorkout')
           ..add('workout', workout)
-          ..add('date', date)
+          ..add('completedDate', completedDate)
           ..add('feltDifficulty', feltDifficulty))
         .toString();
   }
@@ -131,9 +131,10 @@ class CompletedWorkoutBuilder
   WorkoutBuilder get workout => _$this._workout ??= new WorkoutBuilder();
   set workout(WorkoutBuilder workout) => _$this._workout = workout;
 
-  DateTime _date;
-  DateTime get date => _$this._date;
-  set date(DateTime date) => _$this._date = date;
+  DateTime _completedDate;
+  DateTime get completedDate => _$this._completedDate;
+  set completedDate(DateTime completedDate) =>
+      _$this._completedDate = completedDate;
 
   int _feltDifficulty;
   int get feltDifficulty => _$this._feltDifficulty;
@@ -145,7 +146,7 @@ class CompletedWorkoutBuilder
   CompletedWorkoutBuilder get _$this {
     if (_$v != null) {
       _workout = _$v.workout?.toBuilder();
-      _date = _$v.date;
+      _completedDate = _$v.completedDate;
       _feltDifficulty = _$v.feltDifficulty;
       _$v = null;
     }
@@ -172,7 +173,7 @@ class CompletedWorkoutBuilder
       _$result = _$v ??
           new _$CompletedWorkout._(
               workout: workout.build(),
-              date: date,
+              completedDate: completedDate,
               feltDifficulty: feltDifficulty);
     } catch (_) {
       String _$failedField;

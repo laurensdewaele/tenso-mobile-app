@@ -64,7 +64,7 @@ class CalendarViewModel extends ChangeNotifier {
   void _setCompletedWorkoutsForSelectedDay() {
     completedWorkoutsForSelectedDay = completedWorkouts.completedWorkouts
         .where((completedWorkout) =>
-            _isSameDay(completedWorkout.date, selectedDay))
+            _isSameDay(completedWorkout.completedDate, selectedDay))
         .toList();
   }
 }
@@ -72,7 +72,8 @@ class CalendarViewModel extends ChangeNotifier {
 List<Color> _getCompletedWorkoutColors(
     DateTime day, CompletedWorkouts completedWorkouts) {
   return completedWorkouts.completedWorkouts
-      .where((completedWorkout) => _isSameDay(completedWorkout.date, day))
+      .where(
+          (completedWorkout) => _isSameDay(completedWorkout.completedDate, day))
       .map((completedWorkout) => completedWorkout.workout.difficultyColor)
       .toList();
 }

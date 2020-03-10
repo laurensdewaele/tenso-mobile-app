@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+
 import 'package:app/models/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class NewOrEditWorkoutViewModel extends ChangeNotifier {
   NewOrEditWorkoutViewModel() {

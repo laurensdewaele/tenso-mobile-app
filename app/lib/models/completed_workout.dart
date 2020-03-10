@@ -16,7 +16,10 @@ abstract class CompletedWorkout
       _$completedWorkoutSerializer;
 
   Workout get workout;
-  DateTime get date;
+  // Always save the date in UTC
+  // Always display the date in local
+  DateTime get completedDate;
+  DateTime get completedLocalDate => completedDate.toLocal();
   int get feltDifficulty;
   Color get feltDifficultyColor => determineDifficultyColor(feltDifficulty);
 

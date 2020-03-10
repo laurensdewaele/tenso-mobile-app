@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart' hide Icon;
-import 'package:flutter/material.dart' hide Card, Divider, Icon;
 
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/workout.dart';
@@ -23,6 +22,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool _isCompletedWorkout = completedWorkout != null;
     final Workout _workout = workout ?? completedWorkout.workout;
     final int _minutes = _workout.duration ~/ 60;
     final int _seconds = _workout.duration % 60;
@@ -30,17 +30,32 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
     return Column(
       children: <Widget>[
         Divider(height: styles.Measurements.l),
-        WorkoutRowOne(
-          difficulty: _workout.difficulty.toString(),
-          difficultyColor: _workout.difficultyColor,
-          holdCount: _workout.holdCount.toString(),
-        ),
+        if (_isCompletedWorkout == false)
+          _WorkoutRowOne(
+            difficulty: _workout.difficulty.toString(),
+            difficultyColor: _workout.difficultyColor,
+            holdCount: _workout.holdCount.toString(),
+          ),
+        if (_isCompletedWorkout == true)
+          _CompletedWorkoutRowOne(
+            difficulty: _workout.difficulty,
+            difficultyColor: _workout.difficultyColor,
+            feltDifficulty: completedWorkout.feltDifficulty,
+            feltDifficultyColor: completedWorkout.feltDifficultyColor,
+          ),
         Divider(height: styles.Measurements.m),
-        WorkoutRowTwo(
-          sets: _workout.sets,
-          durationMinutes: _minutes,
-          durationSeconds: _seconds,
-        ),
+        if (_isCompletedWorkout == false)
+          _WorkoutRowTwo(
+            sets: _workout.sets,
+            durationMinutes: _minutes,
+            durationSeconds: _seconds,
+          ),
+        if (_isCompletedWorkout == true)
+          _CompletedWorkoutRowTwo(
+            completedLocalDate: completedWorkout.completedLocalDate,
+            durationSeconds: _seconds,
+            durationMinutes: _minutes,
+          ),
         Divider(height: styles.Measurements.m),
         Container(
             width: 175.0,
@@ -128,8 +143,8 @@ class _WorkoutDuration extends StatelessWidget {
   }
 }
 
-class WorkoutRowOne extends StatelessWidget {
-  WorkoutRowOne(
+class _WorkoutRowOne extends StatelessWidget {
+  _WorkoutRowOne(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
@@ -159,8 +174,8 @@ class WorkoutRowOne extends StatelessWidget {
   }
 }
 
-class WorkoutRowTwo extends StatelessWidget {
-  WorkoutRowTwo(
+class _WorkoutRowTwo extends StatelessWidget {
+  _WorkoutRowTwo(
       {Key key,
       @required this.sets,
       @required this.durationMinutes,
@@ -196,20 +211,18 @@ class WorkoutRowTwo extends StatelessWidget {
   }
 }
 
-class CompletedWorkoutRowOne extends StatelessWidget {
-  CompletedWorkoutRowOne(
+class _CompletedWorkoutRowOne extends StatelessWidget {
+  _CompletedWorkoutRowOne(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
-      @required this.holdCount,
       @required this.feltDifficulty,
       @required this.feltDifficultyColor})
       : super(key: key);
 
   final Color difficultyColor;
-  final String difficulty;
-  final String holdCount;
-  final String feltDifficulty;
+  final int difficulty;
+  final int feltDifficulty;
   final Color feltDifficultyColor;
 
   @override
@@ -219,14 +232,55 @@ class CompletedWorkoutRowOne extends StatelessWidget {
       children: <Widget>[
         _WorkoutInfo(
           title: 'difficulty',
-          value: difficulty,
+          value: difficulty.toString(),
           difficultyColor: difficultyColor,
         ),
         _WorkoutInfo(
           title: 'felt difficulty',
-          value: holdCount,
+          value: feltDifficulty.toString(),
           difficultyColor: feltDifficultyColor,
         ),
+      ],
+    );
+  }
+}
+
+class _CompletedWorkoutRowTwo extends StatelessWidget {
+  _CompletedWorkoutRowTwo(
+      {Key key,
+      @required this.completedLocalDate,
+      @required this.durationMinutes,
+      @required this.durationSeconds})
+      : super(key: key);
+
+  final DateTime completedLocalDate;
+  final int durationMinutes;
+  final int durationSeconds;
+
+  @override
+  Widget build(BuildContext context) {
+    final int hour = completedLocalDate.hour;
+    final int minutes = completedLocalDate.minute;
+    final String timeStamp = '$hour:$minutes';
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        _WorkoutInfo(
+          title: 'completed at',
+          value: timeStamp,
+        ),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'duration',
+            style: styles.Staatliches.xsGray,
+          ),
+          _WorkoutDuration(
+            minutes: durationMinutes,
+            seconds: durationSeconds,
+          )
+        ])),
       ],
     );
   }
