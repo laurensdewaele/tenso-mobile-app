@@ -11,11 +11,11 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/hold_tab_vm.dart';
 import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/board_hold_info.dart';
 import 'package:app/widgets/workout/board_hold_picker.dart';
 import 'package:app/widgets/workout/grip_picker_container.dart';
-import 'package:app/widgets/workout/integer_input_and_divider.dart';
 
 class HoldTab extends StatelessWidget {
   HoldTab({
@@ -60,16 +60,13 @@ class HoldTab extends StatelessWidget {
                   _holdTabViewModel.handleOneHandedTap(currentHold, handHold),
               handleTwoHandedTap: (HandHold handHold) =>
                   _holdTabViewModel.handleTwoHandedTap(currentHold, handHold),
-              rightGrip: _workoutViewModel
-                  .workout.holds[currentHold].rightGrip,
-              leftGrip: _workoutViewModel
-                  .workout.holds[currentHold].leftGrip,
+              rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
+              leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
               handleRightGripSelected: (Grip grip) =>
                   _holdTabViewModel.handleRightGripSelected(currentHold, grip),
               handleLeftGripSelected: (Grip grip) =>
                   _holdTabViewModel.handleLeftGripSelected(currentHold, grip),
-              handHold: _workoutViewModel
-                  .workout.holds[currentHold].handHold,
+              handHold: _workoutViewModel.workout.holds[currentHold].handHold,
             )
           ],
         ),
@@ -78,10 +75,8 @@ class HoldTab extends StatelessWidget {
           children: <Widget>[
             BoardHoldPicker(
               board: _workoutViewModel.workout.board,
-              leftGrip: _workoutViewModel
-                  .workout.holds[currentHold].leftGrip,
-              rightGrip: _workoutViewModel
-                  .workout.holds[currentHold].rightGrip,
+              leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
+              rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
               leftGripBoardHold: _workoutViewModel
                   .workout.holds[currentHold].leftGripBoardHold,
               rightGripBoardHold: _workoutViewModel
@@ -108,7 +103,7 @@ class HoldTab extends StatelessWidget {
         Section(
           title: 'basics',
           children: <Widget>[
-            NumberInputAndDivider(
+            NumberInputAndDescription(
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'repetitions',
@@ -121,12 +116,15 @@ class HoldTab extends StatelessWidget {
                   .toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
             ),
+            Divider(
+              height: styles.Measurements.m,
+            ),
           ],
         ),
         Section(
           title: 'timers',
           children: <Widget>[
-            NumberInputAndDivider(
+            NumberInputAndDescription(
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'hang time seconds',
@@ -139,7 +137,10 @@ class HoldTab extends StatelessWidget {
                   .toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
             ),
-            NumberInputAndDivider(
+            Divider(
+              height: styles.Measurements.m,
+            ),
+            NumberInputAndDescription(
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between repetitions',
@@ -152,12 +153,15 @@ class HoldTab extends StatelessWidget {
                   .toDouble(),
               shouldLoseFocusStream: shouldLoseFocusStream,
             ),
+            Divider(
+              height: styles.Measurements.m,
+            ),
           ],
         ),
         Section(
           title: 'added weight',
           children: <Widget>[
-            NumberInputAndDivider(
+            NumberInputAndDescription(
               primaryColor: _workoutViewModel.primaryColor,
               zeroValueAllowed: true,
               description: _settings.unit == Unit.metric ? 'kg' : 'lb',
@@ -166,10 +170,13 @@ class HoldTab extends StatelessWidget {
                 _holdTabViewModel.setHoldAddedWeight(
                     currentHold, n, _settings.unit);
               },
-              initialValue: _workoutViewModel
-                  .workout.holds[currentHold].addedWeight,
+              initialValue:
+                  _workoutViewModel.workout.holds[currentHold].addedWeight,
               isDouble: true,
               shouldLoseFocusStream: shouldLoseFocusStream,
+            ),
+            Divider(
+              height: styles.Measurements.m,
             ),
           ],
         ),
