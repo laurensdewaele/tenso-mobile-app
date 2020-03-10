@@ -40,34 +40,22 @@ class ExtraTab extends StatelessWidget {
         Section(
           title: 'difficulty',
           children: <Widget>[
-            Container(
-              height: 150,
-              child: CupertinoPicker(
-                scrollController: FixedExtentScrollController(
-                    initialItem: _workoutViewModel.workout.difficulty),
-                useMagnifier: true,
-                magnification: 1,
-                backgroundColor: styles.Colors.bgWhite,
-                onSelectedItemChanged: (int index) {
-                  _extraTabViewModel.setDifficulty(index + 1);
-                },
-                itemExtent: 40,
-                children: <Widget>[
-                  ...List.generate(10, (i) => i + 1).map((n) => Center(
-                        child: Text(
-                          n.toString(),
-                          style: styles.Lato.xsGray,
-                        ),
-                      ))
-                ],
+            if (_workoutViewModel.inputsEnabled == true)
+              _CupertinoPicker(
+                difficulty: _workoutViewModel.workout.difficulty,
+                setDifficulty: _extraTabViewModel.setDifficulty,
               ),
-            )
+            if (_workoutViewModel.inputsEnabled != true)
+              _DisabledCupertinoPicker(
+                difficulty: _workoutViewModel.workout.difficulty,
+              ),
           ],
         ),
         Section(
           title: 'name',
           children: <Widget>[
             TextInput(
+                enabled: _workoutViewModel.inputsEnabled,
                 primaryColor: _workoutViewModel.primaryColor,
                 initialValue: _workoutViewModel.workout.name,
                 handleValueChanged: (n) {
@@ -86,6 +74,69 @@ class ExtraTab extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class _CupertinoPicker extends StatelessWidget {
+  _CupertinoPicker({Key key, this.difficulty, this.setDifficulty})
+      : super(key: key);
+
+  final int difficulty;
+  final void Function(int d) setDifficulty;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      child: CupertinoPicker(
+        scrollController:
+            FixedExtentScrollController(initialItem: difficulty - 1),
+        useMagnifier: true,
+        magnification: 1,
+        backgroundColor: styles.Colors.bgWhite,
+        onSelectedItemChanged: (int index) {
+          setDifficulty(index + 1);
+        },
+        itemExtent: 40,
+        children: <Widget>[
+          ...List.generate(10, (i) => i + 1).map((n) => Center(
+                child: Text(
+                  n.toString(),
+                  style: styles.Lato.xsGray,
+                ),
+              ))
+        ],
+      ),
+    );
+  }
+}
+
+class _DisabledCupertinoPicker extends StatelessWidget {
+  _DisabledCupertinoPicker({Key key, @required this.difficulty})
+      : super(key: key);
+
+  final int difficulty;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      child: CupertinoPicker(
+        useMagnifier: true,
+        magnification: 1,
+        backgroundColor: styles.Colors.bgWhite,
+        onSelectedItemChanged: (int index) {},
+        itemExtent: 40,
+        children: <Widget>[
+          Center(
+            child: Text(
+              difficulty.toString(),
+              style: styles.Lato.xsGray,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

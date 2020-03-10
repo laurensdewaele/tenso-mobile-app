@@ -104,6 +104,7 @@ class HoldTab extends StatelessWidget {
           title: 'basics',
           children: <Widget>[
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'repetitions',
@@ -125,6 +126,7 @@ class HoldTab extends StatelessWidget {
           title: 'timers',
           children: <Widget>[
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'hang time seconds',
@@ -141,6 +143,7 @@ class HoldTab extends StatelessWidget {
               height: styles.Measurements.m,
             ),
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between repetitions',
@@ -162,6 +165,7 @@ class HoldTab extends StatelessWidget {
           title: 'added weight',
           children: <Widget>[
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               zeroValueAllowed: true,
               description: _settings.unit == Unit.metric ? 'kg' : 'lb',

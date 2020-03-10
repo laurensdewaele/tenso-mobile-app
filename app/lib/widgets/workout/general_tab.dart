@@ -50,10 +50,12 @@ class _GeneralTabState extends State<GeneralTab> {
           title: 'basics',
           children: <Widget>[
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'holds',
-              shouldFocus: widget.shouldFocusOnInput,
+              shouldFocus:
+                  _workoutViewModel.inputsEnabled && widget.shouldFocusOnInput,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setHoldCount(n);
               },
@@ -64,6 +66,7 @@ class _GeneralTabState extends State<GeneralTab> {
               height: styles.Measurements.m,
             ),
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'sets',
@@ -83,6 +86,7 @@ class _GeneralTabState extends State<GeneralTab> {
           title: 'timers',
           children: <Widget>[
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between holds',
@@ -98,6 +102,7 @@ class _GeneralTabState extends State<GeneralTab> {
               height: styles.Measurements.m,
             ),
             NumberInputAndDescription(
+              enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between sets',

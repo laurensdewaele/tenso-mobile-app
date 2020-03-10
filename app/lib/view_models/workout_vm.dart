@@ -9,26 +9,19 @@ import 'package:app/styles/styles.dart' as styles;
 enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
 
 class WorkoutViewModel extends ChangeNotifier {
-  WorkoutViewModel() {
-    _title = 'New workout';
-    _extraTabButtonText = 'save';
-    _primaryColor = styles.Colors.primary;
-    _textPrimaryColor = styles.Lato.xsPrimary;
-  }
+  WorkoutViewModel();
+
   AppState _appState;
-
-  WorkoutTypes _workoutType;
-  WorkoutTypes get workoutType => _workoutType;
-
-  String _title;
-  String get title => _title;
   String _extraTabButtonText;
   String get extraTabButtonText => _extraTabButtonText;
+  bool _inputsEnabled;
+  bool get inputsEnabled => _inputsEnabled;
   Color _primaryColor;
   Color get primaryColor => _primaryColor;
   TextStyle _textPrimaryColor;
   TextStyle get textPrimaryColor => _textPrimaryColor;
-
+  String _title;
+  String get title => _title;
   Workout get workout {
     switch (workoutType) {
       case WorkoutTypes.editWorkout:
@@ -45,6 +38,9 @@ class WorkoutViewModel extends ChangeNotifier {
     }
   }
 
+  WorkoutTypes _workoutType;
+  WorkoutTypes get workoutType => _workoutType;
+
   void update(AppState appState) {
     _appState = appState;
   }
@@ -54,22 +50,25 @@ class WorkoutViewModel extends ChangeNotifier {
 
     switch (workoutType) {
       case WorkoutTypes.editWorkout:
+        _extraTabButtonText = 'done';
+        _inputsEnabled = true;
         _primaryColor = styles.Colors.blue;
         _textPrimaryColor = styles.Lato.xsBlue;
         _title = 'Edit workout';
-        _extraTabButtonText = 'done';
         break;
       case WorkoutTypes.newWorkout:
+        _extraTabButtonText = 'add';
+        _inputsEnabled = true;
         _primaryColor = styles.Colors.primary;
         _textPrimaryColor = styles.Lato.xsPrimary;
         _title = 'New workout';
-        _extraTabButtonText = 'add';
         break;
       case WorkoutTypes.viewWorkout:
+        _extraTabButtonText = 'done';
+        _inputsEnabled = false;
         _primaryColor = styles.Colors.gray;
         _textPrimaryColor = styles.Lato.xsGray;
         _title = 'View workout';
-        _extraTabButtonText = 'done';
         break;
     }
     notifyListeners();
