@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/completed_workout.dart';
-import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/constants.dart';
 import 'package:app/widgets/divider.dart';
@@ -9,11 +8,15 @@ import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
 
 class CompletedWorkoutsOverview extends StatelessWidget {
   CompletedWorkoutsOverview(
-      {Key key, this.selectedDay, this.completedWorkoutsForSelectedDay})
+      {Key key,
+      @required this.selectedDay,
+      @required this.completedWorkoutsForSelectedDay,
+      @required this.handleDeleteTap})
       : super(key: key);
 
   final DateTime selectedDay;
   final List<CompletedWorkout> completedWorkoutsForSelectedDay;
+  final Function(CompletedWorkout completedWorkout) handleDeleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                             borderRadius: styles.kBorderRadiusAll),
                         child: WorkoutOverviewStack(
                           completedWorkout: completedWorkout,
-                          handleDeleteTap: (Workout workout) {},
+                          handleCompletedWorkoutDeleteTap: handleDeleteTap,
                         ),
                       ),
                       if (i < completedWorkoutsForSelectedDay.length - 1)

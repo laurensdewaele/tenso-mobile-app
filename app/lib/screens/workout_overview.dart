@@ -50,7 +50,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                   return WorkoutOverviewStack(
                     key: ObjectKey(_appState.workoutList[index]),
                     workout: _appState.workoutList[index],
-                    handleDeleteTap: _handleDeleteTap,
+                    handleWorkoutDeleteTap: _handleDeleteTap,
                   );
                 } else if (index == _appState.workoutList.length) {
                   return Button(

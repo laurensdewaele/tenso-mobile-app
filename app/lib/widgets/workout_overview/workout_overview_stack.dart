@@ -24,13 +24,16 @@ class WorkoutOverviewStack extends StatefulWidget {
   WorkoutOverviewStack(
       {Key key,
       this.workout,
-      @required this.handleDeleteTap,
+      this.handleWorkoutDeleteTap,
+      this.handleCompletedWorkoutDeleteTap,
       this.completedWorkout})
       : super(key: key);
 
   final Workout workout;
   final CompletedWorkout completedWorkout;
-  final void Function(Workout workout) handleDeleteTap;
+  final void Function(Workout workout) handleWorkoutDeleteTap;
+  final void Function(CompletedWorkout completedWorkout)
+      handleCompletedWorkoutDeleteTap;
 
   @override
   _WorkoutOverviewStackState createState() => _WorkoutOverviewStackState();
@@ -82,20 +85,38 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _handleDeleteTap() async {
-    await showDeleteDialog(
-        context: context,
-        workoutName: widget.workout.name,
-        handleCancelTap: () {
-          Navigator.of(context).pop();
-          _close();
-        },
-        handleDeleteTap: () {
-          Navigator.of(context).pop();
-          _sizeController
-              .forward()
-              .orCancel
-              .then((_) => {widget.handleDeleteTap(widget.workout)});
-        });
+    final bool isCompletedWorkout = widget.completedWorkout != null;
+
+    if (isCompletedWorkout == false) {
+      await showWorkoutDeleteDialog(
+          context: context,
+          workoutName: widget.workout.name,
+          handleCancelTap: () {
+            Navigator.of(context).pop();
+            _close();
+          },
+          handleDeleteTap: () {
+            Navigator.of(context).pop();
+            _sizeController
+                .forward()
+                .orCancel
+                .then((_) => widget.handleWorkoutDeleteTap(widget.workout));
+          });
+    } else {
+      await showCompletedWorkoutDeleteDialog(
+          context: context,
+          workoutName: widget.completedWorkout.workout.name,
+          completedDate: widget.completedWorkout.completedLocalDate,
+          handleCancelTap: () {
+            Navigator.of(context).pop();
+            _close();
+          },
+          handleDeleteTap: () {
+            Navigator.of(context).pop();
+            _sizeController.forward().orCancel.then((_) => widget
+                .handleCompletedWorkoutDeleteTap(widget.completedWorkout));
+          });
+    }
   }
 
   void _handleDragStart(DragStartDetails details) {

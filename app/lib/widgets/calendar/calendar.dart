@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
@@ -38,6 +39,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _handleSelectedMonthTap() {}
+  void _handleDeleteTap(CompletedWorkout completedWorkout) {}
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,7 @@ class _CalendarState extends State<Calendar> {
             handlePreviousMonthSwipe: _calendarViewModel.setPreviousMonth,
             handleNextMonthSwipe: _calendarViewModel.setNextMonth),
         CompletedWorkoutsOverview(
+            handleDeleteTap: _handleDeleteTap,
             selectedDay: _calendarViewModel.selectedDay,
             completedWorkoutsForSelectedDay:
                 _calendarViewModel.completedWorkoutsForSelectedDay)

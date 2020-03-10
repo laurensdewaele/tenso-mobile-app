@@ -18,6 +18,7 @@ abstract class CompletedWorkout
   Workout get workout;
   // Always save the date in UTC
   // Always display the date in local
+  String get id;
   DateTime get completedDate;
   DateTime get completedLocalDate => completedDate.toLocal();
   int get feltDifficulty;
