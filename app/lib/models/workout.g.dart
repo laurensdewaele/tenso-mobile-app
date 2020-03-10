@@ -22,7 +22,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'difficulty',
       serializers.serialize(object.difficulty,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(int)),
       'sets',
       serializers.serialize(object.sets, specifiedType: const FullType(int)),
       'holdCount',
@@ -64,7 +64,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           break;
         case 'difficulty':
           result.difficulty = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'sets':
           result.sets = serializers.deserialize(value,
@@ -107,7 +107,7 @@ class _$Workout extends Workout {
   @override
   final String id;
   @override
-  final String difficulty;
+  final int difficulty;
   @override
   final int sets;
   @override
@@ -229,9 +229,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
-  String _difficulty;
-  String get difficulty => _$this._difficulty;
-  set difficulty(String difficulty) => _$this._difficulty = difficulty;
+  int _difficulty;
+  int get difficulty => _$this._difficulty;
+  set difficulty(int difficulty) => _$this._difficulty = difficulty;
 
   int _sets;
   int get sets => _$this._sets;

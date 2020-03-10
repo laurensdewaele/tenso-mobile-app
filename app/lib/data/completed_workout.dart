@@ -4,34 +4,32 @@ import 'package:app/models/completed_workouts.dart';
 
 final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
   ..workout = basicWorkout.toBuilder()
-  ..date = DateTime.utc(2020, 3, 1)
-  ..destruction = 3);
+  ..feltDifficulty = 3
+  ..date = DateTime.utc(2020, 3, 1));
 
 final CompletedWorkout completedWorkout2 = completedWorkout.rebuild((b) => b
   ..date = DateTime.utc(2020, 3, 4)
-  ..destruction = 4);
+  ..feltDifficulty = 4);
 
 final CompletedWorkout completedWorkout3 = completedWorkout.rebuild((b) => b
   ..date = DateTime.utc(2020, 3, 6)
-  ..destruction = 7);
+  ..feltDifficulty = 7);
 
 final CompletedWorkout completedWorkout4 = completedWorkout.rebuild((b) => b
   ..date = DateTime.utc(2020, 3, 8)
-  ..destruction = 10);
+  ..feltDifficulty = 10);
 
-final CompletedWorkout sameDayCompletedWorkout = completedWorkout.rebuild((b) =>
-    b
+final CompletedWorkout sameDayCompletedWorkout =
+    completedWorkout.rebuild((b) => b
       ..date = DateTime.utc(2020, 3, 6)
-      ..destruction = 1
-      ..workout =
-          basicWorkout.rebuild((b) => b..difficulty = '9A').toBuilder());
+      ..feltDifficulty = 1
+      ..workout = basicWorkout.rebuild((b) => b..difficulty = 4).toBuilder());
 
-final CompletedWorkout sameDayCompletedWorkout2 = completedWorkout.rebuild(
-    (b) => b
+final CompletedWorkout sameDayCompletedWorkout2 =
+    completedWorkout.rebuild((b) => b
       ..date = DateTime.utc(2020, 3, 6)
-      ..destruction = 1
-      ..workout =
-          basicWorkout.rebuild((b) => b..difficulty = '7B').toBuilder());
+      ..feltDifficulty = 1
+      ..workout = basicWorkout.rebuild((b) => b..difficulty = 7).toBuilder());
 
 final CompletedWorkouts completedWorkouts = CompletedWorkouts((b) => b
   ..completedWorkouts.addAll([

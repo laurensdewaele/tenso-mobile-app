@@ -5,10 +5,10 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
+import 'package:app/helpers/determine_difficulty_color.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/serializers.dart';
-import 'package:app/styles/styles.dart' as styles;
 
 part 'workout.g.dart';
 
@@ -16,7 +16,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
   String get id;
-  String get difficulty;
+  int get difficulty;
   int get sets;
   int get holdCount;
   int get restBetweenHolds;
@@ -24,7 +24,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   Board get board;
   BuiltList<Hold> get holds;
   String get name;
-  Color get difficultyColor => _determineDifficultyColor();
+  Color get difficultyColor => determineDifficultyColor(difficulty);
   int get duration => _calculateDuration();
 
   factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;
@@ -37,19 +37,6 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Workout fromJson(String jsonString) {
     return serializers.deserializeWith(
         Workout.serializer, json.decode(jsonString));
-  }
-
-  Color _determineDifficultyColor() {
-    final int difficultyNo = int.parse(difficulty.split('')[0]);
-
-    if (difficultyNo - 5 <= 0) {
-      return styles.difficultyColors[0];
-    }
-
-    if (difficultyNo - 5 >= 4) {
-      return styles.difficultyColors[4];
-    }
-    return styles.difficultyColors[difficultyNo - 5];
   }
 
   int _calculateDuration() {

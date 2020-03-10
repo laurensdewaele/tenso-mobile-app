@@ -37,7 +37,6 @@ flutter packages pub run build_runner watch
 
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Add custom board
-- Rethink the difficulty.  => 0 - 10.
 - Review app on smaller and larger screens.
 - Validation needs to be on input field itself, not triggered on every input
 - ShouldLooseFocus stream controller onto Provider.

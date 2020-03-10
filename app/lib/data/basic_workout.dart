@@ -8,7 +8,7 @@ import 'package:app/models/workouts.dart';
 
 final Workout basicWorkout = Workout((b) => b
   ..id = '1'
-  ..difficulty = '5A'
+  ..difficulty = 2
   ..sets = 3
   ..holdCount = 3
   ..restBetweenHolds = 60 * 2

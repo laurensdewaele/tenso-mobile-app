@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
+import 'package:app/helpers/determine_difficulty_color.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/serializers.dart';
 
@@ -15,7 +17,8 @@ abstract class CompletedWorkout
 
   Workout get workout;
   DateTime get date;
-  int get destruction;
+  int get feltDifficulty;
+  Color get feltDifficultyColor => determineDifficultyColor(feltDifficulty);
 
   factory CompletedWorkout([void Function(CompletedWorkoutBuilder) updates]) =
       _$CompletedWorkout;

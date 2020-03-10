@@ -9,7 +9,7 @@ class ExtraTabViewModel {
   NewOrEditWorkoutViewModel _newOrEditWorkoutViewModel;
   Workout get _workout => _newOrEditWorkoutViewModel.workout;
 
-  void setDifficulty(String difficulty) {
+  void setDifficulty(int difficulty) {
     _newOrEditWorkoutViewModel
         .saveWorkout(_workout.rebuild((b) => b..difficulty = difficulty));
   }

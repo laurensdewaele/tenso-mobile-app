@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/grade.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/new_or_edit_workout_vm.dart';
@@ -45,19 +44,18 @@ class ExtraTab extends StatelessWidget {
               height: 150,
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
-                    initialItem: Grade.sportFrench.indexOf(
-                        _newOrEditWorkoutViewModel.workout.difficulty)),
+                    initialItem: _newOrEditWorkoutViewModel.workout.difficulty),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
-                onSelectedItemChanged: (int item) {
-                  _extraTabViewModel.setDifficulty(Grade.sportFrench[item]);
+                onSelectedItemChanged: (int index) {
+                  _extraTabViewModel.setDifficulty(index + 1);
                 },
                 itemExtent: 40,
                 children: <Widget>[
-                  ...Grade.sportFrench.map((grade) => Center(
+                  ...List.generate(10, (i) => i + 1).map((n) => Center(
                         child: Text(
-                          grade,
+                          n.toString(),
                           style: styles.Lato.xsGray,
                         ),
                       ))
