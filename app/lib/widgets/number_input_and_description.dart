@@ -7,25 +7,27 @@ import 'package:app/widgets/divider.dart';
 class NumberInputAndDescription extends StatelessWidget {
   NumberInputAndDescription(
       {Key key,
-      this.primaryColor = styles.Colors.primary,
       @required this.description,
       @required this.initialValue,
-      this.handleIntValueChanged,
-      this.handleDoubleValueChanged,
-      @required this.shouldLoseFocusStream,
       @required this.isDouble,
       @required this.shouldFocus,
+      @required this.shouldLoseFocusStream,
+      this.enabled = true,
+      this.handleIntValueChanged,
+      this.handleDoubleValueChanged,
+      this.primaryColor = styles.Colors.primary,
       this.zeroValueAllowed})
       : super(key: key);
 
-  final Color primaryColor;
   final String description;
-  final double initialValue;
-  final ValueChanged<int> handleIntValueChanged;
+  final bool enabled;
   final ValueChanged<double> handleDoubleValueChanged;
-  final Stream<bool> shouldLoseFocusStream;
-  final bool shouldFocus;
+  final ValueChanged<int> handleIntValueChanged;
   final bool isDouble;
+  final double initialValue;
+  final Color primaryColor;
+  final bool shouldFocus;
+  final Stream<bool> shouldLoseFocusStream;
   final bool zeroValueAllowed;
 
   @override
@@ -33,6 +35,7 @@ class NumberInputAndDescription extends StatelessWidget {
     return Row(
       children: <Widget>[
         NumberInput(
+            enabled: enabled,
             primaryColor: primaryColor,
             zeroValueAllowed: zeroValueAllowed,
             isDouble: isDouble,

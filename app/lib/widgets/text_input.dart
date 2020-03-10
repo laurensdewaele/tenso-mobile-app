@@ -9,16 +9,19 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/keyboard_screen.dart';
 
 class TextInput extends StatefulWidget {
-  TextInput(
-      {@required this.initialValue,
-      @required this.handleValueChanged,
-      @required this.shouldLoseFocusStream,
-      this.primaryColor = styles.Colors.primary,
-      @required this.shouldFocus});
+  TextInput({
+    @required this.handleValueChanged,
+    @required this.initialValue,
+    @required this.shouldLoseFocusStream,
+    @required this.shouldFocus,
+    this.enabled = true,
+    this.primaryColor = styles.Colors.primary,
+  });
 
-  final Color primaryColor;
-  final String initialValue;
+  final bool enabled;
   final ValueChanged<String> handleValueChanged;
+  final String initialValue;
+  final Color primaryColor;
   final Stream<bool> shouldLoseFocusStream;
   final bool shouldFocus;
 
@@ -86,6 +89,7 @@ class _TextInputState extends State<TextInput> {
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
+          enabled: widget.enabled,
           // TODO: Figure out if it needs a max-length
           autofocus: widget.shouldFocus,
           autocorrect: false,

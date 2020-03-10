@@ -10,23 +10,25 @@ import 'package:app/widgets/keyboard_screen.dart';
 
 class NumberInput extends StatefulWidget {
   NumberInput(
-      {@required this.initialValue,
-      this.primaryColor = styles.Colors.primary,
+      {@required this.isDouble,
+      @required this.initialValue,
+      @required this.shouldFocus,
+      @required this.shouldLoseFocusStream,
+      this.enabled = true,
       this.handleDoubleValueChanged,
       this.handleIntValueChanged,
-      @required this.shouldLoseFocusStream,
-      @required this.isDouble,
-      @required this.shouldFocus,
+      this.primaryColor = styles.Colors.primary,
       this.zeroValueAllowed});
 
-  final Color primaryColor;
-  final double initialValue;
-  final Stream<bool> shouldLoseFocusStream;
-  final bool shouldFocus;
-  final bool isDouble;
-  final bool zeroValueAllowed;
+  final bool enabled;
   final ValueChanged<int> handleIntValueChanged;
   final ValueChanged<double> handleDoubleValueChanged;
+  final bool isDouble;
+  final double initialValue;
+  final Color primaryColor;
+  final bool shouldFocus;
+  final Stream<bool> shouldLoseFocusStream;
+  final bool zeroValueAllowed;
 
   @override
   _NumberInputState createState() => _NumberInputState();
@@ -146,6 +148,7 @@ class _NumberInputState extends State<NumberInput> {
           onSubmitted: (String text) => {_validateInput},
           style: styles.Staatliches.sWhite,
           textAlign: TextAlign.center,
+          enabled: widget.enabled,
         ),
       ),
     );
