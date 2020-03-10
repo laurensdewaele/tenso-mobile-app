@@ -12,7 +12,7 @@ flutter packages pub run build_runner watch
 ## TODO
 ### Large prio
 
-- Graphs could be added in a later version.
+- Graphs could be added in a later version?
 - Add categories and category colors.
 
 - Screen hang timer.
@@ -23,7 +23,6 @@ flutter packages pub run build_runner watch
   - Graph overview with addedWeight
   - Graph overview with hold edges
   - Graph overview with Grips
- 
   - Overview on workout accordion => calcHandoffSet needs to be in a separate class and extend that one. => do it when incorporating it in the overview. 
 - Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
   Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
@@ -36,6 +35,7 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
+- Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Add custom board
 - Rethink the difficulty.  => 0 - 10.
 - Review app on smaller and larger screens.
@@ -45,6 +45,7 @@ flutter packages pub run build_runner watch
 
 ### Small prio
 
+- Set reminder for workout.
 - menu not visible by default on non-first app launch ever.
 - styles trough Provider instead of globals
 - Mutliple grades

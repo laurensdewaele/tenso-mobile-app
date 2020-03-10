@@ -47,5 +47,6 @@ Args:
 
 ### Completed workouts display 
 
-It should display the completed workouts and the ability to delete them.
+- It should display the completed workouts and the ability to delete them.
+- If you start the workout from here, and it's not already in the list of workouts, add it.
 

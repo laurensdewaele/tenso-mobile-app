@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Card, Divider;
 
 import 'package:provider/provider.dart';
 
+import 'package:app/models/completed_workout.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/countdown.dart';
@@ -15,11 +16,13 @@ class WorkoutOverviewCard extends StatefulWidget {
   WorkoutOverviewCard({
     Key key,
     this.workout,
-    this.isSliderOpen,
-    this.closeSlider,
+    this.completedWorkout,
+    @required this.isSliderOpen,
+    @required this.closeSlider,
   }) : super(key: key);
 
   final Workout workout;
+  final CompletedWorkout completedWorkout;
   final bool isSliderOpen;
   final VoidCallback closeSlider;
 
@@ -46,6 +49,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   Animation<double> _horizontalDifficultyAlignment;
   Animation<double> _sizedBoxWidth;
 
+  Workout _workout;
+
   bool _isExpanded = false;
 
   @override
@@ -54,7 +59,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   @override
   void initState() {
     super.initState();
-
+    _workout = widget.workout ?? widget.completedWorkout.workout;
     _controller =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     _heightFactor = _controller.drive(_easeInOutTween);
@@ -100,7 +105,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   void _handleStart() {
     Navigator.of(context).pushNamed(Routes.countdownScreen,
         arguments: CountdownScreenArguments(
-            workout: widget.workout,
+            workout: _workout,
             settings: Provider.of<AppState>(context, listen: false).settings));
   }
 
@@ -116,7 +121,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                       child: Align(
                           alignment:
                               Alignment(_horizontalTitleAlignment.value, 0),
-                          child: Text(widget.workout.name,
+                          child: Text(_workout.name,
                               style: styles.Staatliches.xlBlack,
                               overflow: TextOverflow.ellipsis))),
                   SizedBox(
@@ -127,8 +132,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                 Positioned(
                     right: _horizontalDifficultyAlignment.value,
                     child: Difficulty(
-                      difficulty: widget.workout.difficulty.toString(),
-                      difficultyColor: widget.workout.difficultyColor,
+                      difficulty: _workout.difficulty.toString(),
+                      difficultyColor: _workout.difficultyColor,
                       width: styles.Measurements.xxl,
                       height: styles.Measurements.xxl,
                     )),
@@ -146,6 +151,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
         animation: _controller.view,
         builder: _buildChildren,
         child: WorkoutOverviewCardExpanded(
-            workout: widget.workout, handleStart: _handleStart));
+            workout: widget.workout,
+            handleStart: _handleStart,
+            completedWorkout: widget.completedWorkout));
   }
 }

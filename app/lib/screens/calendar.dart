@@ -58,6 +58,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
               ),
+              Divider(height: styles.Measurements.xxl)
             ],
           )
         ]));

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/models/completed_workout.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -20,10 +21,15 @@ import 'package:app/widgets/workout_overview/workout_overview_edit.dart';
 enum _SlideDirection { left, right }
 
 class WorkoutOverviewStack extends StatefulWidget {
-  WorkoutOverviewStack({Key key, this.workout, this.handleDeleteTap})
+  WorkoutOverviewStack(
+      {Key key,
+      this.workout,
+      @required this.handleDeleteTap,
+      this.completedWorkout})
       : super(key: key);
 
   final Workout workout;
+  final CompletedWorkout completedWorkout;
   final void Function(Workout workout) handleDeleteTap;
 
   @override
@@ -218,6 +224,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
                     child: WorkoutOverviewCard(
                         closeSlider: _close,
                         workout: widget.workout,
+                        completedWorkout: widget.completedWorkout,
                         isSliderOpen: _isSliderOpen))),
           ],
         ),

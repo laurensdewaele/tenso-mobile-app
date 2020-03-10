@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/material.dart' hide Card, Divider, Icon;
 
+import 'package:app/models/completed_workout.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
@@ -11,17 +12,20 @@ import 'package:app/widgets/divider.dart';
 class WorkoutOverviewCardExpanded extends StatelessWidget {
   WorkoutOverviewCardExpanded({
     Key key,
-    @required this.workout,
+    this.workout,
+    this.completedWorkout,
     @required this.handleStart,
   }) : super(key: key);
 
   final Workout workout;
+  final CompletedWorkout completedWorkout;
   final VoidCallback handleStart;
 
   @override
   Widget build(BuildContext context) {
-    final int _minutes = workout.duration ~/ 60;
-    final int _remainingSeconds = workout.duration % 60;
+    final Workout _workout = workout ?? completedWorkout.workout;
+    final int _minutes = _workout.duration ~/ 60;
+    final int _remainingSeconds = _workout.duration % 60;
 
     return Column(
       children: <Widget>[
@@ -31,12 +35,12 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           children: <Widget>[
             _WorkoutInfo(
               title: 'difficulty',
-              value: workout.difficulty.toString(),
-              difficultyColor: workout.difficultyColor,
+              value: _workout.difficulty.toString(),
+              difficultyColor: _workout.difficultyColor,
             ),
             _WorkoutInfo(
               title: 'holds',
-              value: workout.holdCount.toString(),
+              value: _workout.holdCount.toString(),
             ),
           ],
         ),
@@ -46,7 +50,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           children: <Widget>[
             _WorkoutInfo(
               title: 'sets',
-              value: workout.sets.toString(),
+              value: _workout.sets.toString(),
             ),
             Expanded(
                 child: Column(children: <Widget>[
