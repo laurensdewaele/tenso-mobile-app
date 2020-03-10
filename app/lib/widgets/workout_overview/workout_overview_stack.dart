@@ -15,8 +15,9 @@ import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_overview/workout_dialog_delete.dart';
 import 'package:app/widgets/workout_overview/workout_overview_card.dart';
-import 'package:app/widgets/workout_overview/workout_overview_delete.dart';
-import 'package:app/widgets/workout_overview/workout_overview_edit.dart';
+import 'package:app/widgets/workout_overview/workout_overview_delete_action.dart';
+import 'package:app/widgets/workout_overview/workout_overview_edit_action.dart';
+import 'package:app/widgets/workout_overview/workout_overview_view_action.dart';
 
 enum _SlideDirection { left, right }
 
@@ -84,39 +85,42 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     Navigator.of(context).pushNamed(Routes.newOrEditWorkoutScreen);
   }
 
-  void _handleDeleteTap() async {
-    final bool isCompletedWorkout = widget.completedWorkout != null;
+  void _handleViewTap() {
+    _close();
+    // TODO:
+  }
 
-    if (isCompletedWorkout == false) {
-      await showWorkoutDeleteDialog(
-          context: context,
-          workoutName: widget.workout.name,
-          handleCancelTap: () {
-            Navigator.of(context).pop();
-            _close();
-          },
-          handleDeleteTap: () {
-            Navigator.of(context).pop();
-            _sizeController
-                .forward()
-                .orCancel
-                .then((_) => widget.handleWorkoutDeleteTap(widget.workout));
-          });
-    } else {
-      await showCompletedWorkoutDeleteDialog(
-          context: context,
-          workoutName: widget.completedWorkout.workout.name,
-          completedDate: widget.completedWorkout.completedLocalDate,
-          handleCancelTap: () {
-            Navigator.of(context).pop();
-            _close();
-          },
-          handleDeleteTap: () {
-            Navigator.of(context).pop();
-            _sizeController.forward().orCancel.then((_) => widget
-                .handleCompletedWorkoutDeleteTap(widget.completedWorkout));
-          });
-    }
+  void _handleWorkoutDeleteTap() async {
+    await showWorkoutDeleteDialog(
+        context: context,
+        workoutName: widget.workout.name,
+        handleCancelTap: () {
+          Navigator.of(context).pop();
+          _close();
+        },
+        handleDeleteTap: () {
+          Navigator.of(context).pop();
+          _sizeController
+              .forward()
+              .orCancel
+              .then((_) => widget.handleWorkoutDeleteTap(widget.workout));
+        });
+  }
+
+  void _handleCompletedWorkoutDeleteTap() async {
+    await showCompletedWorkoutDeleteDialog(
+        context: context,
+        workoutName: widget.completedWorkout.workout.name,
+        completedDate: widget.completedWorkout.completedLocalDate,
+        handleCancelTap: () {
+          Navigator.of(context).pop();
+          _close();
+        },
+        handleDeleteTap: () {
+          Navigator.of(context).pop();
+          _sizeController.forward().orCancel.then((_) =>
+              widget.handleCompletedWorkoutDeleteTap(widget.completedWorkout));
+        });
   }
 
   void _handleDragStart(DragStartDetails details) {
@@ -225,15 +229,21 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
 
   @override
   Widget build(BuildContext context) {
+    final Widget _actions = widget.completedWorkout == null
+        ? _WorkoutActions(
+            handleWorkoutDeleteTap: _handleWorkoutDeleteTap,
+            handleEditTap: _handleEditTap)
+        : _CompletedWorkoutActions(
+            handleCompletedWorkoutDeleteTap: _handleCompletedWorkoutDeleteTap,
+            handleViewTap: _handleViewTap);
+
     return Card(
       child: SizeTransition(
         sizeFactor: _sizeAnimation,
         child: Stack(
           children: <Widget>[
             Positioned.fill(
-              child: _Actions(
-                  handleDeleteTap: _handleDeleteTap,
-                  handleEditTap: _handleEditTap),
+              child: _actions,
             ),
             GestureDetector(
                 onHorizontalDragStart: _handleDragStart,
@@ -254,12 +264,12 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 }
 
-class _Actions extends StatelessWidget {
-  _Actions({Key key, this.handleEditTap, this.handleDeleteTap})
+class _WorkoutActions extends StatelessWidget {
+  _WorkoutActions({Key key, this.handleEditTap, this.handleWorkoutDeleteTap})
       : super(key: key);
 
   final VoidCallback handleEditTap;
-  final VoidCallback handleDeleteTap;
+  final VoidCallback handleWorkoutDeleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +278,29 @@ class _Actions extends StatelessWidget {
           child: WorkoutOverviewEditAction(handleTap: handleEditTap), flex: 1),
       Expanded(child: SizedBox(), flex: 2),
       Expanded(
-          child: WorkoutOverviewDeleteAction(handleTap: handleDeleteTap),
+          child: WorkoutOverviewDeleteAction(handleTap: handleWorkoutDeleteTap),
+          flex: 1)
+    ]);
+  }
+}
+
+class _CompletedWorkoutActions extends StatelessWidget {
+  _CompletedWorkoutActions(
+      {Key key, this.handleViewTap, this.handleCompletedWorkoutDeleteTap})
+      : super(key: key);
+
+  final VoidCallback handleViewTap;
+  final VoidCallback handleCompletedWorkoutDeleteTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+      Expanded(
+          child: WorkoutOverviewViewAction(handleTap: handleViewTap), flex: 1),
+      Expanded(child: SizedBox(), flex: 2),
+      Expanded(
+          child: WorkoutOverviewDeleteAction(
+              handleTap: handleCompletedWorkoutDeleteTap),
           flex: 1)
     ]);
   }
