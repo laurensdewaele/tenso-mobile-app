@@ -64,7 +64,7 @@ class WorkoutViewModel extends ChangeNotifier {
         _title = 'New workout';
         break;
       case WorkoutTypes.viewWorkout:
-        _extraTabButtonText = 'done';
+        _extraTabButtonText = 'back';
         _inputsEnabled = false;
         _primaryColor = styles.Colors.gray;
         _textPrimaryColor = styles.Lato.xsGray;
