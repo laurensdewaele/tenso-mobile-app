@@ -80,14 +80,18 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _close();
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModel.setWorkoutType(isEditWorkout: true);
-    _workoutViewModel.setActiveEditWorkout(widget.workout);
+    _workoutViewModel.setActiveWorkout(
+        widget.workout, WorkoutTypes.editWorkout);
     Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 
   void _handleViewTap() {
     _close();
-    // TODO:
+    final _workoutViewModel =
+        Provider.of<WorkoutViewModel>(context, listen: false);
+    _workoutViewModel.setActiveWorkout(
+        widget.completedWorkout.workout, WorkoutTypes.viewWorkout);
+    Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 
   void _handleWorkoutDeleteTap() async {

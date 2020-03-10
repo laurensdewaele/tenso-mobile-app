@@ -57,6 +57,13 @@ class AppState extends ChangeNotifier {
     saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
   }
 
+  Workout _viewWorkout;
+  Workout get viewWorkout => _viewWorkout;
+  void setViewWorkout(Workout viewWorkout) {
+    _viewWorkout = viewWorkout;
+    notifyListeners();
+  }
+
   Workouts _workouts;
   Workouts get workouts => _workouts;
   List<Workout> get workoutList => _workouts?.workouts?.toList();

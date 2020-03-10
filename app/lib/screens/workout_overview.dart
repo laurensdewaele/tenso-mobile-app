@@ -23,7 +23,7 @@ class WorkoutOverviewScreen extends StatefulWidget {
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleAddWorkout() {
     Provider.of<WorkoutViewModel>(context, listen: false)
-        .setWorkoutType(isNewWorkout: true);
+        .setWorkoutType(WorkoutTypes.newWorkout);
     Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 
