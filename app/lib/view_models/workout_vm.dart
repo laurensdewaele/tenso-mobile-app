@@ -6,8 +6,8 @@ import 'package:app/models/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-class NewOrEditWorkoutViewModel extends ChangeNotifier {
-  NewOrEditWorkoutViewModel() {
+class WorkoutViewModel extends ChangeNotifier {
+  WorkoutViewModel() {
     _title = 'New workout';
     _extraTabButtonText = 'save';
     _primaryColor = styles.Colors.primary;

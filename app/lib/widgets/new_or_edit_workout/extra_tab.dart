@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/extra_tab_vm.dart';
-import 'package:app/view_models/new_or_edit_workout_vm.dart';
+import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/new_or_edit_workout/text_input.dart';
@@ -28,8 +28,8 @@ class ExtraTab extends StatelessWidget {
   Widget build(BuildContext context) {
     // It's fine to not listen to appState to get the workout.
     // This is because we don't care if it changes or not. It's only used for the initialValues.
-    final _newOrEditWorkoutViewModel =
-        Provider.of<NewOrEditWorkoutViewModel>(context, listen: true);
+    final _workoutViewModel =
+        Provider.of<WorkoutViewModel>(context, listen: true);
     final _extraTabViewModel =
         Provider.of<ExtraTabViewModel>(context, listen: false);
 
@@ -44,7 +44,7 @@ class ExtraTab extends StatelessWidget {
               height: 150,
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(
-                    initialItem: _newOrEditWorkoutViewModel.workout.difficulty),
+                    initialItem: _workoutViewModel.workout.difficulty),
                 useMagnifier: true,
                 magnification: 1,
                 backgroundColor: styles.Colors.bgWhite,
@@ -68,8 +68,8 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
-                primaryColor: _newOrEditWorkoutViewModel.primaryColor,
-                initialValue: _newOrEditWorkoutViewModel.workout.name,
+                primaryColor: _workoutViewModel.primaryColor,
+                initialValue: _workoutViewModel.workout.name,
                 handleValueChanged: (n) {
                   _extraTabViewModel.setName(n);
                 },
@@ -79,9 +79,9 @@ class ExtraTab extends StatelessWidget {
         ),
         Center(
           child: Button(
-            backgroundColor: _newOrEditWorkoutViewModel.primaryColor,
+            backgroundColor: _workoutViewModel.primaryColor,
             width: styles.Measurements.xxl * 2,
-            text: _newOrEditWorkoutViewModel.extraTabButtonText,
+            text: _workoutViewModel.extraTabButtonText,
             handleTap: () => _handleButtonTap(context),
           ),
         )

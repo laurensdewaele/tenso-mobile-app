@@ -1,25 +1,25 @@
 import 'package:app/models/workout.dart';
-import 'package:app/view_models/new_or_edit_workout_vm.dart';
+import 'package:app/view_models/workout_vm.dart';
 
 class ExtraTabViewModel {
-  ExtraTabViewModel(NewOrEditWorkoutViewModel newOrEditWorkoutViewModel) {
-    _newOrEditWorkoutViewModel = newOrEditWorkoutViewModel;
+  ExtraTabViewModel(WorkoutViewModel workoutViewModel) {
+    _workoutViewModel = workoutViewModel;
   }
 
-  NewOrEditWorkoutViewModel _newOrEditWorkoutViewModel;
-  Workout get _workout => _newOrEditWorkoutViewModel.workout;
+  WorkoutViewModel _workoutViewModel;
+  Workout get _workout => _workoutViewModel.workout;
 
   void setDifficulty(int difficulty) {
-    _newOrEditWorkoutViewModel
+    _workoutViewModel
         .saveWorkout(_workout.rebuild((b) => b..difficulty = difficulty));
   }
 
   void setName(String name) {
-    _newOrEditWorkoutViewModel
+    _workoutViewModel
         .saveWorkout(_workout.rebuild((b) => b..name = name));
   }
 
   void addNewWorkoutToWorkouts() {
-    _newOrEditWorkoutViewModel.addNewWorkoutToWorkouts();
+    _workoutViewModel.addNewWorkoutToWorkouts();
   }
 }

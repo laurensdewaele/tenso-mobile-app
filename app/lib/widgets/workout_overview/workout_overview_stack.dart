@@ -8,7 +8,7 @@ import 'package:app/models/completed_workout.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/new_or_edit_workout_vm.dart';
+import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
@@ -78,11 +78,11 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
 
   void _handleEditTap() {
     _close();
-    final _newOrEditWorkoutViewModel =
-        Provider.of<NewOrEditWorkoutViewModel>(context, listen: false);
-    _newOrEditWorkoutViewModel.setWorkoutType(isEditWorkout: true);
-    _newOrEditWorkoutViewModel.setActiveEditWorkout(widget.workout);
-    Navigator.of(context).pushNamed(Routes.newOrEditWorkoutScreen);
+    final _workoutViewModel =
+        Provider.of<WorkoutViewModel>(context, listen: false);
+    _workoutViewModel.setWorkoutType(isEditWorkout: true);
+    _workoutViewModel.setActiveEditWorkout(widget.workout);
+    Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 
   void _handleViewTap() {

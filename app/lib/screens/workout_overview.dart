@@ -6,7 +6,7 @@ import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/new_or_edit_workout_vm.dart';
+import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
@@ -22,9 +22,9 @@ class WorkoutOverviewScreen extends StatefulWidget {
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleAddWorkout() {
-    Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)
+    Provider.of<WorkoutViewModel>(context, listen: false)
         .setWorkoutType(isNewWorkout: true);
-    Navigator.of(context).pushNamed(Routes.newOrEditWorkoutScreen);
+    Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 
   void _handleDeleteTap(Workout workout) {

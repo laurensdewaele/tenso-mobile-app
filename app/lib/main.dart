@@ -10,7 +10,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
-import 'package:app/view_models/new_or_edit_workout_vm.dart';
+import 'package:app/view_models/workout_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/view_models/sound_settings_vm.dart';
 
@@ -35,25 +35,25 @@ class App extends StatelessWidget {
               AppState(Provider.of<PersistenceService>(context, listen: false)),
           lazy: false,
         ),
-        ChangeNotifierProxyProvider<AppState, NewOrEditWorkoutViewModel>(
-          create: (context) => NewOrEditWorkoutViewModel(),
-          update: (context, appState, newOrEditWorkoutViewModel) =>
-              newOrEditWorkoutViewModel..update(appState),
+        ChangeNotifierProxyProvider<AppState, WorkoutViewModel>(
+          create: (context) => WorkoutViewModel(),
+          update: (context, appState, workoutViewModel) =>
+              workoutViewModel..update(appState),
         ),
         Provider<GeneralTabViewModel>(
           create: (context) => GeneralTabViewModel(
-              Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
+              Provider.of<WorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
         Provider<HoldTabViewModel>(
           create: (context) => HoldTabViewModel(
               Provider.of<ToastService>(context, listen: false),
-              Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
+              Provider.of<WorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
         Provider<ExtraTabViewModel>(
           create: (context) => ExtraTabViewModel(
-              Provider.of<NewOrEditWorkoutViewModel>(context, listen: false)),
+              Provider.of<WorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
