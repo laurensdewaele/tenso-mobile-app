@@ -6,9 +6,9 @@ import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/new_or_edit_workout/grip_picker.dart';
-import 'package:app/widgets/new_or_edit_workout/hand_tabs.dart';
 import 'package:app/widgets/radio_button.dart';
+import 'package:app/widgets/workout/grip_picker.dart';
+import 'package:app/widgets/workout/hand_tabs.dart';
 
 class GripPickerContainer extends StatefulWidget {
   GripPickerContainer({

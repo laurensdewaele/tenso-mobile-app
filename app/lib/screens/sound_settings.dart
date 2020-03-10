@@ -14,11 +14,11 @@ import 'package:app/view_models/sound_settings_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_screen.dart';
-import 'package:app/widgets/new_or_edit_workout/integer_input_and_divider.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/toast.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:app/widgets/workout/integer_input_and_divider.dart';
 
 class SoundSettingsScreen extends StatefulWidget {
   SoundSettingsScreen({Key key}) : super(key: key);
