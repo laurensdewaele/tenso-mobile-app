@@ -10,10 +10,23 @@ flutter packages pub run build_runner watch
 ```
 
 ## TODO
+
+### Tomorrow
+
+- Cupertino datePicker. Lol so easy.
+- Build the felt difficulty after a completed workout
+- Save completed workout
+- Link actual completed workouts to calendar
+
+
 ### Large prio
 
-- Graphs could be added in a later version?
-- Add categories and category colors.
+- Graphs
+- Add categories and category colors?
+  - Repeaters
+  - Max hangs
+  It would be nice to distinguish between these.
+  Who can help? Matt?
 
 - Screen hang timer.
   Track completed hangs.
@@ -32,6 +45,7 @@ flutter packages pub run build_runner watch
   Bloc would have been better.
 - Add board selection. Only beastmaker1000 atm.
 - Implement a feedback button.
+- When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
 
 ### Medium prio
 
