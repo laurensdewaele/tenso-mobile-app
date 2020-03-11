@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_hold.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -13,9 +10,7 @@ import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
-import 'package:app/widgets/workout/board_hold_info.dart';
-import 'package:app/widgets/workout/board_hold_picker.dart';
-import 'package:app/widgets/workout/grip_picker_container.dart';
+import 'package:app/widgets/workout/hold_input_container.dart';
 
 class HoldTab extends StatelessWidget {
   HoldTab({
@@ -38,67 +33,32 @@ class HoldTab extends StatelessWidget {
     final _holdTabViewModel =
         Provider.of<HoldTabViewModel>(context, listen: false);
 
-    final String _currentHoldString = (currentHold + 1).toString();
-    final String _totalHoldsString =
-        _workoutViewModel.workout.holdCount.toString();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Section(
-          title: 'hold $_currentHoldString / $_totalHoldsString',
-          children: <Widget>[
-            GripPickerContainer(
-              textPrimaryColor: _workoutViewModel.textPrimaryColor,
-              primaryColor: _workoutViewModel.primaryColor,
-              handleLeftHandSelected: (HandHold handHold) => _holdTabViewModel
-                  .handleLeftHandSelected(currentHold, handHold),
-              handleRightHandSelected: (HandHold handHold) => _holdTabViewModel
-                  .handleRightHandSelected(currentHold, handHold),
-              handleOneHandedTap: (HandHold handHold) =>
-                  _holdTabViewModel.handleOneHandedTap(currentHold, handHold),
-              handleTwoHandedTap: (HandHold handHold) =>
-                  _holdTabViewModel.handleTwoHandedTap(currentHold, handHold),
-              rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
-              leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
-              handleRightGripSelected: (Grip grip) =>
-                  _holdTabViewModel.handleRightGripSelected(currentHold, grip),
-              handleLeftGripSelected: (Grip grip) =>
-                  _holdTabViewModel.handleLeftGripSelected(currentHold, grip),
-              handHold: _workoutViewModel.workout.holds[currentHold].handHold,
-            )
-          ],
-        ),
-        Section(
-          title: 'drag to choose',
-          children: <Widget>[
-            BoardHoldPicker(
-              board: _workoutViewModel.workout.board,
-              leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
-              rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
-              leftGripBoardHold: _workoutViewModel
-                  .workout.holds[currentHold].leftGripBoardHold,
-              rightGripBoardHold: _workoutViewModel
-                  .workout.holds[currentHold].rightGripBoardHold,
-              handleLeftGripBoardHoldChanged: (BoardHold boardHold) =>
-                  _holdTabViewModel.setHoldLeftGripBoardHold(
-                      currentHold, boardHold),
-              handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
-                  _holdTabViewModel.setHoldRightGripBoardHold(
-                      currentHold, boardHold),
-            ),
-            Divider(
-              key: UniqueKey(),
-              height: styles.Measurements.m,
-            ),
-            BoardHoldInfo(
-              leftGripBoardHold: _workoutViewModel
-                  .workout.holds[currentHold].leftGripBoardHold,
-              rightGripBoardHold: _workoutViewModel
-                  .workout.holds[currentHold].rightGripBoardHold,
-            )
-          ],
+        HoldInputContainer(
+          board: _workoutViewModel.workout.board,
+          currentHold: currentHold,
+          handHold: _workoutViewModel.workout.holds[currentHold].handHold,
+          holdCount: _workoutViewModel.workout.holdCount,
+          leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
+          leftGripBoardHold:
+              _workoutViewModel.workout.holds[currentHold].leftGripBoardHold,
+          primaryColor: _workoutViewModel.primaryColor,
+          rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
+          rightGripBoardHold:
+              _workoutViewModel.workout.holds[currentHold].rightGripBoardHold,
+          textPrimaryColor: _workoutViewModel.textPrimaryColor,
+          handleLeftGripSelected: _holdTabViewModel.handleLeftGripSelected,
+          handleLeftHandSelected: _holdTabViewModel.handleLeftHandSelected,
+          handleOneHandedTap: _holdTabViewModel.handleOneHandedTap,
+          handleRightGripSelected: _holdTabViewModel.handleRightGripSelected,
+          handleRightHandSelected: _holdTabViewModel.handleRightHandSelected,
+          handleTwoHandedTap: _holdTabViewModel.handleTwoHandedTap,
+          setHoldLeftGripBoardHold: _holdTabViewModel.setHoldLeftGripBoardHold,
+          setHoldRightGripBoardHold:
+              _holdTabViewModel.setHoldRightGripBoardHold,
         ),
         Section(
           title: 'basics',
