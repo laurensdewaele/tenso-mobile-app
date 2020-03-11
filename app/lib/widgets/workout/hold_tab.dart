@@ -11,6 +11,7 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/hold_input_container.dart';
+import 'package:app/widgets/workout/selected_grips_and_holds.dart';
 
 class HoldTab extends StatelessWidget {
   HoldTab({
@@ -24,9 +25,6 @@ class HoldTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We cannot listen to appState here to get our workout.
-    // This is because we need to determine if it's an editWorkout or newWorkout.
-    // Which WorkoutViewModel does ofc.
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
     final _settings = Provider.of<AppState>(context, listen: true).settings;
@@ -37,29 +35,43 @@ class HoldTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        HoldInputContainer(
-          board: _workoutViewModel.workout.board,
-          currentHold: currentHold,
-          handHold: _workoutViewModel.workout.holds[currentHold].handHold,
-          holdCount: _workoutViewModel.workout.holdCount,
-          leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
-          leftGripBoardHold:
-              _workoutViewModel.workout.holds[currentHold].leftGripBoardHold,
-          primaryColor: _workoutViewModel.primaryColor,
-          rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
-          rightGripBoardHold:
-              _workoutViewModel.workout.holds[currentHold].rightGripBoardHold,
-          textPrimaryColor: _workoutViewModel.textPrimaryColor,
-          handleLeftGripSelected: _holdTabViewModel.handleLeftGripSelected,
-          handleLeftHandSelected: _holdTabViewModel.handleLeftHandSelected,
-          handleOneHandedTap: _holdTabViewModel.handleOneHandedTap,
-          handleRightGripSelected: _holdTabViewModel.handleRightGripSelected,
-          handleRightHandSelected: _holdTabViewModel.handleRightHandSelected,
-          handleTwoHandedTap: _holdTabViewModel.handleTwoHandedTap,
-          setHoldLeftGripBoardHold: _holdTabViewModel.setHoldLeftGripBoardHold,
-          setHoldRightGripBoardHold:
-              _holdTabViewModel.setHoldRightGripBoardHold,
-        ),
+        if (_workoutViewModel.inputsEnabled == true)
+          HoldInputContainer(
+            board: _workoutViewModel.workout.board,
+            currentHold: currentHold,
+            handHold: _workoutViewModel.workout.holds[currentHold].handHold,
+            holdCount: _workoutViewModel.workout.holdCount,
+            leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
+            leftGripBoardHold:
+                _workoutViewModel.workout.holds[currentHold].leftGripBoardHold,
+            primaryColor: _workoutViewModel.primaryColor,
+            rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
+            rightGripBoardHold:
+                _workoutViewModel.workout.holds[currentHold].rightGripBoardHold,
+            textPrimaryColor: _workoutViewModel.textPrimaryColor,
+            handleLeftGripSelected: _holdTabViewModel.handleLeftGripSelected,
+            handleLeftHandSelected: _holdTabViewModel.handleLeftHandSelected,
+            handleOneHandedTap: _holdTabViewModel.handleOneHandedTap,
+            handleRightGripSelected: _holdTabViewModel.handleRightGripSelected,
+            handleRightHandSelected: _holdTabViewModel.handleRightHandSelected,
+            handleTwoHandedTap: _holdTabViewModel.handleTwoHandedTap,
+            setHoldLeftGripBoardHold:
+                _holdTabViewModel.setHoldLeftGripBoardHold,
+            setHoldRightGripBoardHold:
+                _holdTabViewModel.setHoldRightGripBoardHold,
+          ),
+        if (_workoutViewModel.inputsEnabled != true)
+          SelectedGripsAndHolds(
+            board: _workoutViewModel.workout.board,
+            leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
+            leftGripBoardHold:
+                _workoutViewModel.workout.holds[currentHold].leftGripBoardHold,
+            rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
+            rightGripBoardHold:
+                _workoutViewModel.workout.holds[currentHold].rightGripBoardHold,
+            holdCount: _workoutViewModel.workout.holdCount,
+            currentHold: currentHold,
+          ),
         Section(
           title: 'basics',
           children: <Widget>[

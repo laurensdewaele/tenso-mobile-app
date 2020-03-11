@@ -8,7 +8,7 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/countdown/board_with_grips.dart';
+import 'package:app/widgets/board_with_grips.dart';
 import 'package:app/widgets/countdown/indicator_tabs.dart';
 
 class Portrait extends StatefulWidget {

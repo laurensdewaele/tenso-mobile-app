@@ -119,12 +119,13 @@ class _GeneralTabState extends State<GeneralTab> {
             ),
           ],
         ),
-        Section(
-          title: 'board',
-          children: <Widget>[
-            // TODO: Board selector
-          ],
-        )
+        if (_workoutViewModel.inputsEnabled == true)
+          Section(
+            title: 'board',
+            children: <Widget>[
+              // TODO: Board selector
+            ],
+          )
       ],
     );
   }
