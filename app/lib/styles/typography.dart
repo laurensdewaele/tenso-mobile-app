@@ -14,10 +14,14 @@ abstract class Staatliches {
   // Standard
   static const TextStyle xlWhite = TextStyle(
       fontFamily: 'Staatliches', fontSize: 28, color: styles.Colors.white);
+  static const TextStyle xlGray = TextStyle(
+      fontFamily: 'Staatliches', fontSize: 28, color: styles.Colors.gray);
   static const TextStyle xlBlack = TextStyle(
       fontFamily: 'Staatliches', fontSize: 28, color: styles.Colors.black);
   static const TextStyle lWhite = TextStyle(
       fontFamily: 'Staatliches', fontSize: 22, color: styles.Colors.white);
+  static const TextStyle lGray = TextStyle(
+      fontFamily: 'Staatliches', fontSize: 22, color: styles.Colors.gray);
   static const TextStyle lBlack = TextStyle(
       fontFamily: 'Staatliches', fontSize: 22, color: styles.Colors.black);
   static const TextStyle mWhite = TextStyle(

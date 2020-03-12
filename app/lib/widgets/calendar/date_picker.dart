@@ -1,79 +1,55 @@
-import 'package:app/widgets/calendar/constants.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:built_value/built_value.dart';
-
 import 'package:app/styles/styles.dart' as styles;
-
-class CalendarDatePickerMonth {
-  CalendarDatePickerMonth({
-    @required this.date,
-    @required this.hasCompletedWorkouts,
-    @required this.isSelectedMonth,
-  });
-
-  final DateTime date;
-  final bool hasCompletedWorkouts;
-  final bool isSelectedMonth;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is CalendarDatePickerMonth &&
-        date == other.date &&
-        hasCompletedWorkouts == other.hasCompletedWorkouts &&
-        isSelectedMonth == other.isSelectedMonth;
-  }
-
-  @override
-  int get hashCode {
-    return $jc($jc($jc(0, date.hashCode), hasCompletedWorkouts.hashCode),
-        isSelectedMonth.hashCode);
-  }
-}
+import 'package:app/view_models/calendar_vm.dart';
+import 'package:app/widgets/calendar/constants.dart';
 
 class CalendarDatePicker extends StatelessWidget {
   CalendarDatePicker(
-      {Key key, @required this.months, @required this.handleSelectedMonth})
+      {Key key,
+      @required this.months,
+      @required this.handleSelectedMonth,
+      @required this.currentMonth})
       : super(key: key);
 
-  final List<CalendarDatePickerMonth> months;
+  final List<DateTime> months;
   final void Function(DateTime date) handleSelectedMonth;
+  final DateTime currentMonth;
 
   @override
   Widget build(BuildContext context) {
-    final CalendarDatePickerMonth isSelectedMonth =
-        months.firstWhere((month) => month.isSelectedMonth == true);
+    final DateTime isSelectedMonth =
+        months.firstWhere((DateTime month) => isSameMonth(month, currentMonth));
     final int initialItem = months.indexOf(isSelectedMonth);
 
-    return Container(
-      height: 150,
-      child: CupertinoPicker(
-        scrollController: FixedExtentScrollController(initialItem: initialItem),
-        useMagnifier: true,
-        magnification: 1,
-        backgroundColor: styles.Colors.bgWhite,
-        onSelectedItemChanged: (int index) {
-          handleSelectedMonth(months[index].date);
-        },
-        itemExtent: 40,
-        children: <Widget>[
-          ...months.map((CalendarDatePickerMonth month) {
-            final String _month = kMonths[month.date.month];
-            final String _year = month.date.year.toString();
-            final bool _hasCompletedWorkouts = month.hasCompletedWorkouts;
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        height: constraints.maxHeight / 4.5,
+        child: CupertinoPicker(
+          scrollController:
+              FixedExtentScrollController(initialItem: initialItem),
+          useMagnifier: false,
+          magnification: 1,
+          backgroundColor: styles.Colors.bgWhite,
+          onSelectedItemChanged: (int index) {
+            handleSelectedMonth(months[index]);
+          },
+          itemExtent: 40,
+          children: <Widget>[
+            ...months.map((DateTime month) {
+              final String _month = kMonths[month.month];
+              final String _year = month.year.toString();
 
-            return Center(
-              child: Text(
-                '$_month $_year',
-                style: _hasCompletedWorkouts == true
-                    ? styles.Staatliches.xlBlack
-                    : styles.Staatliches.xsLightGray,
-              ),
-            );
-          })
-        ],
-      ),
-    );
+              return Center(
+                child: Text(
+                  ' $_month $_year',
+                  style: styles.Staatliches.lBlack,
+                ),
+              );
+            })
+          ],
+        ),
+      );
+    });
   }
 }

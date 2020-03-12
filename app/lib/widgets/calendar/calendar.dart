@@ -44,7 +44,8 @@ class _CalendarState extends State<Calendar> {
     await showAppModalPopup(
         context: context,
         content: CalendarDatePicker(
-          months: _calendarViewModel.datePickerMonths,
+          months: _calendarViewModel.calendarDatePickerMonths,
+          currentMonth: _calendarViewModel.selectedMonth,
           handleSelectedMonth: (DateTime month) =>
               _calendarViewModel.setSelectedMonth(month),
         ));

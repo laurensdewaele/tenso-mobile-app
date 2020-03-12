@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
-import 'package:app/widgets/calendar/date_picker.dart';
 import 'package:app/widgets/calendar/table.dart';
 
 class CalendarViewModel extends ChangeNotifier {
@@ -22,13 +21,15 @@ class CalendarViewModel extends ChangeNotifier {
       _completedWorkoutsForSelectedDay;
   List<CalendarTableDay> _calendarTableDays;
   List<CalendarTableDay> get calendarTableDays => _calendarTableDays;
-  List<CalendarDatePickerMonth> get datePickerMonths => _getDatePickerMonths();
+  List<DateTime> _calendarDatePickerMonths;
+  List<DateTime> get calendarDatePickerMonths => _calendarDatePickerMonths;
 
   void _initialize() {
     _selectedDay = DateTime.now();
     _selectedMonth = _selectedDay;
     _setCompletedWorkoutsForSelectedDay();
     _setCalendarTableDays();
+    _setDatePickerMonths();
     notifyListeners();
   }
 
@@ -47,32 +48,30 @@ class CalendarViewModel extends ChangeNotifier {
   }
 
   void setPreviousMonth() {
-    if (_selectedMonth.month == 1) {
-      _selectedMonth = DateTime.utc(_selectedMonth.year - 1, 12);
-    } else {
-      _selectedMonth =
-          DateTime.utc(_selectedMonth.year, _selectedMonth.month - 1);
+    final DateTime newMonth =
+        DateTime.utc(_selectedMonth.year, _selectedMonth.month - 1);
+
+    if (calendarDatePickerMonths.where((m) => isSameMonth(m, newMonth)).length >
+        0) {
+      setSelectedMonth(newMonth);
     }
-    _setCalendarTableDays();
-    notifyListeners();
   }
 
   void setNextMonth() {
-    if (_selectedMonth.month == 12) {
-      _selectedMonth = DateTime.utc(_selectedMonth.year + 1, 1);
-    } else {
-      _selectedMonth =
-          DateTime.utc(_selectedMonth.year, _selectedMonth.month + 1);
+    final DateTime newMonth =
+        DateTime.utc(_selectedMonth.year, _selectedMonth.month + 1);
+
+    if (calendarDatePickerMonths.where((m) => isSameMonth(m, newMonth)).length >
+        0) {
+      setSelectedMonth(newMonth);
     }
-    _setCalendarTableDays();
-    notifyListeners();
   }
 
   void _setCalendarTableDays() {
     _calendarTableDays = _daysInMonth(_selectedMonth)
         .map((DateTime day) => CalendarTableDay(
             day: day,
-            belongsToSelectedMonth: _isSameMonth(day, _selectedMonth),
+            belongsToSelectedMonth: isSameMonth(day, _selectedMonth),
             selected: _isSameDay(day, _selectedDay),
             completedWorkoutColors:
                 _getCompletedWorkoutColors(day, _completedWorkouts)))
@@ -86,50 +85,21 @@ class CalendarViewModel extends ChangeNotifier {
         .toList();
   }
 
-  List<CalendarDatePickerMonth> _getDatePickerMonths() {
-    List<DateTime> completedWorkoutDates = _completedWorkouts.completedWorkouts
-        .map((completedWorkout) => completedWorkout.completedDate);
-    completedWorkoutDates.sort((DateTime a, DateTime b) => a.compareTo(b));
-    DateTime first = completedWorkoutDates[0];
-    DateTime last = completedWorkoutDates[completedWorkoutDates.length - 1];
+  void _setDatePickerMonths() {
+    List<DateTime> completedWorkoutMonths = _completedWorkouts.completedWorkouts
+        .map((completedWorkout) => DateTime.utc(
+            completedWorkout.completedDate.year,
+            completedWorkout.completedDate.month))
+        .toList();
+    completedWorkoutMonths.sort((DateTime a, DateTime b) => a.compareTo(b));
 
-    List<DateTime> threeBeforeFirst;
-    List<DateTime> threeAfterLast;
+    DateTime first = completedWorkoutMonths[0];
+    DateTime last = DateTime.now().toUtc();
+    DateTime threeBeforeFirst = DateTime(first.year, first.month - 3);
+    DateTime threeAfterLast = DateTime(last.year, last.month + 3);
 
-    for (var i = 1; i < 4; i++) {
-      if (first.month - i > 0) {
-        threeBeforeFirst.add(DateTime(first.year, first.month - i));
-      } else {
-        threeBeforeFirst.add(DateTime(first.year - 1, 12 - i + 1));
-      }
-
-      if (last.month + i > 12) {
-        threeAfterLast.add(DateTime(last.year + 1, i));
-      } else {
-        threeAfterLast.add(DateTime(last.year, last.month + i));
-      }
-    }
-
-    List<DateTime> addedMonths = [...threeBeforeFirst, ...threeAfterLast];
-
-    List<CalendarDatePickerMonth> datePickerMonths = completedWorkoutDates.map(
-        (DateTime completedWorkoutDate) => CalendarDatePickerMonth(
-            date: completedWorkoutDate,
-            hasCompletedWorkouts: true,
-            isSelectedMonth:
-                _isSameMonth(completedWorkoutDate, _selectedMonth)));
-
-    datePickerMonths.addAll(addedMonths.map(
-        (DateTime monthWithoutWorkoutDate) => CalendarDatePickerMonth(
-            date: monthWithoutWorkoutDate,
-            isSelectedMonth:
-                _isSameMonth(monthWithoutWorkoutDate, _selectedMonth),
-            hasCompletedWorkouts: false)));
-
-    datePickerMonths.sort(
-        (CalendarDatePickerMonth a, CalendarDatePickerMonth b) =>
-            a.date.compareTo(b.date));
-    return datePickerMonths;
+    _calendarDatePickerMonths =
+        _monthsInRange(threeBeforeFirst, threeAfterLast).toList();
   }
 }
 
@@ -148,7 +118,7 @@ bool _isSameDay(DateTime first, DateTime second) {
       first.day == second.day;
 }
 
-bool _isSameMonth(DateTime first, DateTime second) {
+bool isSameMonth(DateTime first, DateTime second) {
   return first.year == second.year && first.month == second.month;
 }
 
@@ -172,6 +142,16 @@ Iterable<DateTime> _daysInRange(DateTime firstDay, DateTime lastDay) sync* {
   while (temp.compareTo(lastDay) < 1) {
     yield _normalizeDate(temp);
     temp = temp.add(const Duration(days: 1));
+  }
+}
+
+Iterable<DateTime> _monthsInRange(
+    DateTime firstMonth, DateTime lastMonth) sync* {
+  var temp = firstMonth;
+
+  while (temp.compareTo(lastMonth) < 1) {
+    yield _normalizeDate(temp);
+    temp = DateTime(temp.year, temp.month + 1);
   }
 }
 
