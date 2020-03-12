@@ -4,8 +4,10 @@ import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
+import 'package:app/widgets/calendar/date_picker.dart';
 import 'package:app/widgets/calendar/header.dart';
 import 'package:app/widgets/calendar/table.dart';
+import 'package:app/widgets/modal_popup.dart';
 
 class Calendar extends StatefulWidget {
   Calendar({Key key, this.completedWorkouts}) : super(key: key);
@@ -38,7 +40,16 @@ class _CalendarState extends State<Calendar> {
     super.dispose();
   }
 
-  void _handleSelectedMonthTap() {}
+  void _handleSelectedMonthTap() async {
+    await showAppModalPopup(
+        context: context,
+        content: CalendarDatePicker(
+          months: _calendarViewModel.datePickerMonths,
+          handleSelectedMonth: (DateTime month) =>
+              _calendarViewModel.setSelectedMonth(month),
+        ));
+  }
+
   void _handleDeleteTap(CompletedWorkout completedWorkout) {}
 
   @override
