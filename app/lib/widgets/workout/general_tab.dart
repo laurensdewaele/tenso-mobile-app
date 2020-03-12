@@ -36,8 +36,6 @@ class _GeneralTabState extends State<GeneralTab> {
 
   @override
   Widget build(BuildContext context) {
-    // It's fine to not listen to appState here as our general practice to get the workout.
-    // This is because we don't care if it changes or not. It's only used for the initialValues.
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
     final _generalTabViewModel =
