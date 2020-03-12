@@ -123,14 +123,11 @@ bool isSameMonth(DateTime first, DateTime second) {
 }
 
 List<DateTime> _daysInMonth(DateTime month) {
-  final first = DateTime.utc(month.year, month.month, 1, 12);
+  final first = DateTime.utc(month.year, month.month, 1);
   final daysBefore = first.weekday - 1;
   final firstToDisplay = first.subtract(Duration(days: daysBefore));
-
-  final last = month.month < 12
-      ? DateTime.utc(month.year, month.month + 1, 1, 12)
-      : DateTime.utc(month.year + 1, 1, 1, 12)
-          .subtract(const Duration(days: 1));
+  final last = DateTime.utc(month.year, month.month + 1, 1)
+      .subtract(const Duration(days: 1));
   final daysAfter = 7 - last.weekday;
   final lastToDisplay = last.add(Duration(days: daysAfter));
   return _daysInRange(firstToDisplay, lastToDisplay).toList();
