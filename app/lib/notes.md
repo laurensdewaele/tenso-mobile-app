@@ -13,7 +13,6 @@ flutter packages pub run build_runner watch
 
 ### Tomorrow
 
-- Cupertino datePicker. Lol so easy.
 - Build the felt difficulty after a completed workout
 - Save completed workout
 - Link actual completed workouts to calendar
