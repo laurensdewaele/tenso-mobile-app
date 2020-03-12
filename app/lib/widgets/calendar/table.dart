@@ -104,12 +104,6 @@ class _TableElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1) If the day is not part of the month, return gray text
-    // 2) If the day does belong to the selected month,
-    //    - either return a big container with a border (to indicate the selected day)
-    //    - or a normal sized container without border
-    // 3) If the day has any completedWorkout colors, draw the colors.
-
     final String day = calendarTableDay.day.day.toString();
 
     if (calendarTableDay.belongsToSelectedMonth == false) {
@@ -121,7 +115,6 @@ class _TableElement extends StatelessWidget {
       final double dimension = calendarTableDay.selected == true
           ? styles.Measurements.xl
           : styles.Measurements.l;
-      final int amountOfColors = calendarTableDay.completedWorkoutColors.length;
 
       return GestureDetector(
         onTap: () {
@@ -144,36 +137,9 @@ class _TableElement extends StatelessWidget {
                 child: Container(
                   child: Stack(
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          ...calendarTableDay.completedWorkoutColors
-                              .asMap()
-                              .map((int i, Color color) => MapEntry(
-                                  i,
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: color,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: i == 0
-                                                  ? styles.kBorderRadius
-                                                  : Radius.zero,
-                                              topRight: i == 0
-                                                  ? styles.kBorderRadius
-                                                  : Radius.zero,
-                                              bottomLeft:
-                                                  i == amountOfColors - 1
-                                                      ? styles.kBorderRadius
-                                                      : Radius.zero,
-                                              bottomRight:
-                                                  i == amountOfColors - 1
-                                                      ? styles.kBorderRadius
-                                                      : Radius.zero)),
-                                    ),
-                                  )))
-                              .values
-                              .toList()
-                        ],
+                      _CompletedWorkoutColors(
+                        completedWorkoutColors:
+                            calendarTableDay.completedWorkoutColors,
                       ),
                       Center(
                         child: Text(
@@ -193,6 +159,45 @@ class _TableElement extends StatelessWidget {
         ),
       );
     }
+  }
+}
+
+class _CompletedWorkoutColors extends StatelessWidget {
+  _CompletedWorkoutColors({Key key, this.completedWorkoutColors})
+      : super(key: key);
+
+  final List<Color> completedWorkoutColors;
+
+  @override
+  Widget build(BuildContext context) {
+    final int amountOfColors = completedWorkoutColors.length;
+    return Column(
+      children: <Widget>[
+        ...completedWorkoutColors
+            .asMap()
+            .map((int i, Color color) => MapEntry(
+                i,
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.only(
+                            topLeft:
+                                i == 0 ? styles.kBorderRadius : Radius.zero,
+                            topRight:
+                                i == 0 ? styles.kBorderRadius : Radius.zero,
+                            bottomLeft: i == amountOfColors - 1
+                                ? styles.kBorderRadius
+                                : Radius.zero,
+                            bottomRight: i == amountOfColors - 1
+                                ? styles.kBorderRadius
+                                : Radius.zero)),
+                  ),
+                )))
+            .values
+            .toList()
+      ],
+    );
   }
 }
 

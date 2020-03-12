@@ -36,6 +36,12 @@ final CompletedWorkout sameDayCompletedWorkout2 =
       ..completedDate = DateTime.utc(2020, 2, 6, 13, 21)
       ..feltDifficulty = 1
       ..workout = basicWorkout.rebuild((b) => b..difficulty = 7).toBuilder());
+final CompletedWorkout sameDayCompletedWorkout3 =
+    completedWorkout.rebuild((b) => b
+      ..id = '1234568'
+      ..completedDate = DateTime.utc(2020, 2, 6, 11, 21)
+      ..feltDifficulty = 1
+      ..workout = basicWorkout.rebuild((b) => b..difficulty = 1).toBuilder());
 
 final CompletedWorkouts completedWorkouts = CompletedWorkouts((b) => b
   ..completedWorkouts.addAll([
@@ -44,5 +50,6 @@ final CompletedWorkouts completedWorkouts = CompletedWorkouts((b) => b
     completedWorkout3,
     completedWorkout4,
     sameDayCompletedWorkout,
-    sameDayCompletedWorkout2
+    sameDayCompletedWorkout2,
+    sameDayCompletedWorkout3
   ]));
