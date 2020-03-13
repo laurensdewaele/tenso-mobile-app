@@ -1,4 +1,3 @@
-import 'package:app/widgets/number_input_and_description.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -7,6 +6,7 @@ import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 
 class RateWorkoutScreen extends StatelessWidget {
   RateWorkoutScreen({Key key}) : super(key: key);
@@ -51,16 +51,16 @@ class RateWorkoutScreen extends StatelessWidget {
                       ))
                 ],
               ),
-              NumberInputAndDescription(
-                enabled: true,
-                primaryColor: styles.Colors.green,
-                isDouble: false,
-                description: 'felt destruction',
-                shouldFocus: true,
-                handleIntValueChanged: (int n) {},
-                initialValue: 5,
-                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-              ),
+//              NumberInputAndDescription(
+//                enabled: true,
+//                primaryColor: styles.Colors.green,
+//                isDouble: false,
+//                description: 'felt destruction',
+//                shouldFocus: true,
+//                handleIntValueChanged: (int n) {},
+//                initialValue: 5,
+//                shouldLoseFocusStream: widget.shouldLoseFocusStream,
+//              ),
             ],
           ),
         ),

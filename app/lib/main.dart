@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/routes/routes.dart';
+import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/state/app_state.dart';
@@ -27,6 +28,11 @@ class App extends StatelessWidget {
         ),
         Provider<ToastService>(
           create: (context) => ToastService(),
+          dispose: (context, toastService) => toastService.dispose(),
+          lazy: false,
+        ),
+        Provider<KeyboardService>(
+          create: (context) => KeyboardService(),
           dispose: (context, toastService) => toastService.dispose(),
           lazy: false,
         ),

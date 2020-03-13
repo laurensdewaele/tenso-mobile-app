@@ -79,3 +79,12 @@ flutter packages pub run build_runner watch
 
 ### On initial persistence - first time install app
 FileSystemException: Cannot open file, path = '/Users/laurens/Library/Developer/CoreSimulator/Devices/E75788F1-923F-495F-B1EE-EE11166390DD/data/Containers/Data/Application/0F710B87-6CE7-4451-80DA-B129B5D7193A/Documents/workout.txt' (OS Error: No such file or directory, errno = 2)
+
+
+## Keyboard screen
+Cannot place only 1 on top because it needs to calculate screen sizes and it cannot do so 
+without the context and stuff CupertinoApp provides and routes. 
+
+So => see if you can abstract the methods so you don't have to copy paste the whole time.
+Mixin? Extending? Also via provider?
+
