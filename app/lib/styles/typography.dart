@@ -45,27 +45,43 @@ abstract class Staatliches {
 abstract class Lato {
   // Lato - bold
   static const TextStyle lBlackBold = TextStyle(
+      height: 1.5,
       fontFamily: 'Lato',
       fontSize: 22,
       color: styles.Colors.black,
       fontWeight: FontWeight.w700);
   static const TextStyle sBlackBold = TextStyle(
+      height: 1.5,
       fontFamily: 'Lato',
       fontSize: 18,
       color: styles.Colors.black,
       fontWeight: FontWeight.w700);
 
   // Lato - regular
-  static const TextStyle sBlack =
-      TextStyle(fontFamily: 'Lato', fontSize: 18, color: styles.Colors.black);
-  static const TextStyle xsBlack =
-      TextStyle(fontFamily: 'Lato', fontSize: 16, color: styles.Colors.black);
-  static const TextStyle xsGray =
-      TextStyle(fontFamily: 'Lato', fontSize: 16, color: styles.Colors.gray);
-  static const TextStyle xsWhite =
-      TextStyle(fontFamily: 'Lato', fontSize: 16, color: styles.Colors.bgWhite);
-  static const TextStyle xsPrimary =
-      TextStyle(fontFamily: 'Lato', fontSize: 16, color: styles.Colors.primary);
-  static const TextStyle xsBlue =
-      TextStyle(fontFamily: 'Lato', fontSize: 16, color: styles.Colors.blue);
+  static const TextStyle sBlack = TextStyle(
+    height: 1.5,
+    fontFamily: 'Lato',
+    fontSize: 18,
+    color: styles.Colors.black,
+  );
+  static const TextStyle xsBlack = TextStyle(
+    height: 1.5,
+    fontFamily: 'Lato',
+    fontSize: 16,
+    color: styles.Colors.black,
+  );
+  static const TextStyle xsGray = TextStyle(
+      height: 1.5, fontFamily: 'Lato', fontSize: 16, color: styles.Colors.gray);
+  static const TextStyle xsWhite = TextStyle(
+      height: 1.5,
+      fontFamily: 'Lato',
+      fontSize: 16,
+      color: styles.Colors.bgWhite);
+  static const TextStyle xsPrimary = TextStyle(
+      height: 1.5,
+      fontFamily: 'Lato',
+      fontSize: 16,
+      color: styles.Colors.primary);
+  static const TextStyle xsBlue = TextStyle(
+      height: 1.5, fontFamily: 'Lato', fontSize: 16, color: styles.Colors.blue);
 }

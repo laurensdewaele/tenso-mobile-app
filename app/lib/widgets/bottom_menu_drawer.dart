@@ -8,7 +8,7 @@ const Map<String, String> menuItems = {
   'settings': Routes.settingsScreen,
   'progress': Routes.progressScreen,
   'calendar': Routes.calendarScreen,
-  'feeback': Routes.feedbackScreen,
+  'feeback': Routes.rateWorkoutScreen,
 };
 
 const double _kRedDragIndicatorHeight = 3.0;

@@ -48,6 +48,7 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
+- Animated logo!
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Add custom board
 - Review app on smaller and larger screens.
@@ -57,6 +58,8 @@ flutter packages pub run build_runner watch
 
 ### Small prio
 
+- Adjust sounds of countdown / female/male voice that counts down.
+- Think about a nice congratulations animation / screen.
 - Set reminder for workout.
 - menu not visible by default on non-first app launch ever.
 - styles trough Provider instead of globals
