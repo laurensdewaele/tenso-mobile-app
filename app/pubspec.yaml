@@ -48,8 +48,7 @@ flutter:
   # https://flutter.dev/assets-and-images/#resolution-aware.
   assets:
     - assets/audio/
-    - assets/images/grips/
-    - assets/images/boards/
+    - assets/images/
 
   uses-material-design: false
   fonts:
