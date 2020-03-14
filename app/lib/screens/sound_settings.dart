@@ -364,6 +364,9 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                       ),
                     ),
                   ),
+                  Divider(
+                    height: styles.Measurements.xxl,
+                  )
                 ],
               )
             ])),
