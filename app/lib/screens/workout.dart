@@ -29,8 +29,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   final StreamController<bool> _navigateBackTabStreamController =
       StreamController<bool>();
 
-  double _keyboardOffsetHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -94,9 +92,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                     navigateBackTabStream:
                                         _navigateBackTabStreamController
                                             .stream),
-                                SizedBox(
-                                  height: _keyboardOffsetHeight,
-                                )
                               ],
                             ),
                           ),

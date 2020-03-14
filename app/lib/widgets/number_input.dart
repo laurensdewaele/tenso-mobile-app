@@ -111,7 +111,7 @@ class _NumberInputState extends State<NumberInput> {
       return;
     }
 
-    widget.isDouble
+    widget.isDouble == true
         ? widget.handleDoubleValueChanged(value)
         : widget.handleIntValueChanged(value);
     _validationEnd();
