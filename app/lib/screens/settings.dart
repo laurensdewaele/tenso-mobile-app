@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -14,11 +12,12 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/keyboard_and_toast_provider.dart';
+import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/number_input_and_description.dart';
-import 'package:app/widgets/keyboard_screen.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
-import 'package:app/widgets/toast.dart';
+import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -29,49 +28,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final StreamController<bool> _shouldLoseFocusStreamController =
-      StreamController<bool>.broadcast();
-  final ScrollController _scrollController = ScrollController();
-
-  double _keyboardOffsetHeight = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _shouldLoseFocusStreamController.close();
-    super.dispose();
-  }
-
-  void _onScreenTap() {
-    _shouldLoseFocusStreamController.sink.add(true);
-    setState(() {
-      _keyboardOffsetHeight = 0;
-    });
-  }
-
-  void _handleKeyboardOffset(Offset offset) {
-    setState(() {
-      _keyboardOffsetHeight = offset.dy;
-    });
-
-    if (offset.dy == 0) return;
-
-    final double originalScrollDifference =
-        _scrollController.position.maxScrollExtent - _scrollController.offset;
-
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent - originalScrollDifference,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      );
-    });
-  }
-
   void _onHorizontalDragEnd(DragEndDetails details) {
     if (details.primaryVelocity > 0) {
       Navigator.of(context).pop();
@@ -93,138 +49,114 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        GestureDetector(
-          onTap: _onScreenTap,
-          child: KeyboardScreen(
-              handleKeyboardOffset: _handleKeyboardOffset,
-              gradientStartColor: styles.Colors.bgGrayStart,
-              gradientStopColor: styles.Colors.bgGrayStop,
-              child: ListView(
-                  controller: _scrollController,
-                  physics: ClampingScrollPhysics(),
-                  children: [
-                    Column(
-                      children: <Widget>[
-                        TopNavigation(
-                          title: 'settings',
-                          dark: true,
-                        ),
-                        Divider(height: styles.Measurements.xxl),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: styles.Measurements.xs),
-                          child: GestureDetector(
-                            onHorizontalDragEnd: _onHorizontalDragEnd,
-                            child: Card(
-                              child: Consumer<SettingsViewModel>(
-                                builder: (context, _settingsViewModel, child) {
-                                  return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: styles.Measurements.m,
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Divider(
-                                                  height: styles.Measurements.l,
-                                                ),
-                                                Section(
-                                                  title: 'default board',
-                                                  children: <Widget>[],
-                                                ),
-                                                Section(
-                                                  title: 'preparation timer',
-                                                  children: <Widget>[
-                                                    NumberInputAndDescription(
-                                                      isDouble: false,
-                                                      description: 'seconds',
-                                                      initialValue:
-                                                          _settingsViewModel
-                                                              .appState
-                                                              .settings
-                                                              .preparationTimer
-                                                              .toDouble(),
-                                                      handleIntValueChanged:
-                                                          _handlePreparationTimerChanged,
-                                                      shouldLoseFocusStream:
-                                                          _shouldLoseFocusStreamController
-                                                              .stream,
-                                                      shouldFocus: false,
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            )),
-                                        _SoundSection(
-                                            title: 'sound',
-                                            handleNavigation:
-                                                _handleSoundNavigation),
-                                        Divider(
-                                          height: styles.Measurements.xxl,
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: styles.Measurements.m,
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Section(
-                                                  title: 'units',
-                                                  children: <Widget>[
-                                                    RadioButton(
-                                                      description:
-                                                          'Metric (kg)',
-                                                      value: Unit.metric,
-                                                      active: _settingsViewModel
-                                                              .appState
-                                                              .settings
-                                                              .unit ==
-                                                          Unit.metric,
-                                                      handleSelected:
-                                                          _handleUnitChanged,
-                                                    ),
-                                                    RadioButton(
-                                                      description:
-                                                          'Imperial (pounds)',
-                                                      value: Unit.imperial,
-                                                      active: _settingsViewModel
-                                                              .appState
-                                                              .settings
-                                                              .unit ==
-                                                          Unit.imperial,
-                                                      handleSelected:
-                                                          _handleUnitChanged,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            )),
-                                        SizedBox(
-                                          height: _keyboardOffsetHeight,
-                                        )
-                                      ]);
-                                },
+    return KeyboardAndToastProvider(
+      child: Screen(
+        gradientStartColor: styles.Colors.bgGrayStart,
+        gradientStopColor: styles.Colors.bgGrayStop,
+        child: KeyboardListView(children: [
+          Column(
+            children: <Widget>[
+              TopNavigation(
+                title: 'settings',
+                dark: true,
+              ),
+              Divider(height: styles.Measurements.xxl),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
+                child: GestureDetector(
+                  onHorizontalDragEnd: _onHorizontalDragEnd,
+                  child: Card(
+                    child: Consumer<SettingsViewModel>(
+                      builder: (context, _settingsViewModel, child) {
+                        return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.m,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Divider(
+                                        height: styles.Measurements.l,
+                                      ),
+                                      Section(
+                                        title: 'default board',
+                                        children: <Widget>[],
+                                      ),
+                                      Divider(
+                                          height: styles.Measurements.xxl * 2),
+                                      Section(
+                                        title: 'preparation timer',
+                                        children: <Widget>[
+                                          NumberInputAndDescription(
+                                            isDouble: false,
+                                            description: 'seconds',
+                                            initialValue: _settingsViewModel
+                                                .appState
+                                                .settings
+                                                .preparationTimer
+                                                .toDouble(),
+                                            handleIntValueChanged:
+                                                _handlePreparationTimerChanged,
+                                            shouldFocus: false,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                              _SoundSection(
+                                  title: 'sound',
+                                  handleNavigation: _handleSoundNavigation),
+                              Divider(
+                                height: styles.Measurements.xxl,
                               ),
-                            ),
-                          ),
-                        ),
-                        Divider(height: styles.Measurements.xxl)
-                      ],
-                    )
-                  ])),
-        ),
-        Toast(),
-      ],
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.m,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Section(
+                                        title: 'units',
+                                        children: <Widget>[
+                                          RadioButton(
+                                            description: 'Metric (kg)',
+                                            value: Unit.metric,
+                                            active: _settingsViewModel
+                                                    .appState.settings.unit ==
+                                                Unit.metric,
+                                            handleSelected: _handleUnitChanged,
+                                          ),
+                                          RadioButton(
+                                            description: 'Imperial (pounds)',
+                                            value: Unit.imperial,
+                                            active: _settingsViewModel
+                                                    .appState.settings.unit ==
+                                                Unit.imperial,
+                                            handleSelected: _handleUnitChanged,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                            ]);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Divider(height: styles.Measurements.xxl),
+            ],
+          )
+        ]),
+      ),
     );
   }
 }

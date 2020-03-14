@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/keyboard_screen.dart';
 
 class NumberInput extends StatefulWidget {
   NumberInput(
@@ -38,6 +38,7 @@ class _NumberInputState extends State<NumberInput> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
   StreamSubscription _subscription;
+  KeyboardService _keyboardService;
 
   @override
   void initState() {
@@ -50,7 +51,9 @@ class _NumberInputState extends State<NumberInput> {
         _validateInput();
       }
     });
-    _subscription = widget.shouldLoseFocusStream.listen((shouldLoseFocus) {
+
+    _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+    _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
       _validateInput();
     });
   }
@@ -88,9 +91,7 @@ class _NumberInputState extends State<NumberInput> {
     }
 
     _focusNode.unfocus();
-    final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyboardScreen.of(context);
-    keyboardScreenCallbacks.resetKeyboardOffset();
+    _keyboardService.resetKeyboardOffset();
   }
 
   void _validationError() {
@@ -119,9 +120,7 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _onPointerDown(PointerEvent event) {
-    final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyboardScreen.of(context);
-    keyboardScreenCallbacks.handlePointerDown(event.position);
+    _keyboardService.handlePointerDown(event.position);
   }
 
   @override

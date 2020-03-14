@@ -7,14 +7,20 @@ import 'package:app/styles/styles.dart' as styles;
 class KeyboardService {
   StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
-  Stream get shouldLoseFocusStream => _shouldLoseFocusStreamController.stream;
+  Stream<bool> get shouldLoseFocusStream =>
+      _shouldLoseFocusStreamController.stream;
   StreamController<double> _keyboardOffsetHeightStreamController =
       StreamController<double>.broadcast();
-  Stream get keyboardOffsetHeightStream =>
+  Stream<double> get keyboardOffsetHeightStream =>
       _keyboardOffsetHeightStreamController.stream;
 
   double _keyboardHeight = 0;
   double _deviceHeight = 0;
+  // We're storing the latest tapPosition, because when it's the first time
+  // that the users clicks an input field, handlePointerDow is ran first,
+  // and only after, the device keyboard height is known and we need to run handlePointerDown again,
+  // but this time we have lost the tapPosition.
+  Offset _latestTapPosition = Offset.zero;
 
   void dispose() {
     _shouldLoseFocusStreamController.close();
@@ -28,27 +34,16 @@ class KeyboardService {
 
   void _handleKeyboardOffset(Offset offset) {
     _keyboardOffsetHeightStreamController.sink.add(offset.dy);
-
-    // TODO: Move logic to screen themselves
-//    if (offset.dy == 0) return;
-//    final double originalScrollDifference =
-//        _scrollController.position.maxScrollExtent - _scrollController.offset;
-//
-//    SchedulerBinding.instance.addPostFrameCallback((_) {
-//      _scrollController.animateTo(
-//        _scrollController.position.maxScrollExtent - originalScrollDifference,
-//        duration: const Duration(milliseconds: 200),
-//        curve: Curves.easeOut,
-//      );
-//    });
   }
 
   void handlePointerDown(Offset tapPosition) {
+    _latestTapPosition = tapPosition;
+
     final double cutoffHeight = _deviceHeight - _keyboardHeight;
     final double idealCutoffHeight = cutoffHeight - styles.Measurements.xxl;
 
     if (tapPosition.dy > idealCutoffHeight) {
-      final double offset = tapPosition.dy - idealCutoffHeight;
+      final double offset = _latestTapPosition.dy - idealCutoffHeight;
       _handleKeyboardOffset(Offset(0.0, offset));
     }
   }
@@ -56,10 +51,12 @@ class KeyboardService {
   void setDeviceHeight(double deviceHeight, double keyboardHeight) {
     if (_deviceHeight != deviceHeight && deviceHeight > 0) {
       _deviceHeight = deviceHeight;
+      _shouldLoseFocusStreamController.sink.add(true);
     }
 
     if (_keyboardHeight != keyboardHeight && keyboardHeight > 0) {
       _keyboardHeight = keyboardHeight;
+      handlePointerDown(_latestTapPosition);
     }
   }
 
