@@ -15,22 +15,33 @@ class RateWorkoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double maxContainerHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
+
     return KeyboardAndToastProvider(
       child: Container(
         decoration: BoxDecoration(color: styles.Colors.bgWhite),
         child: SafeArea(
-          child: KeyboardListView(
-            children: [
-              Padding(
+          child: KeyboardListView(children: [
+            Container(
+              height: maxContainerHeight,
+              child: Padding(
                 padding: EdgeInsets.all(styles.Measurements.m),
                 child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Image.asset(
-                      'assets/images/fist.png',
+                    Expanded(
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/fist.png',
+                        ),
+                      ),
                     ),
                     Divider(
-                      height: styles.Measurements.xxl,
+                      height: styles.Measurements.m,
                     ),
                     Text(
                       'Congratulations!',
@@ -41,53 +52,15 @@ class RateWorkoutScreen extends StatelessWidget {
                       'You’re one step closer to indestructible and indefatigable fingers!',
                       style: styles.Lato.sBlack,
                     ),
-                    Divider(height: styles.Measurements.xxl),
-                    Row(
-                      children: [
-                        Text(
-                          'Destruction level',
-                          style: styles.Staatliches.xlBlack,
-                        ),
-                        IconButton(
-                            handleTap: () {
-                              showAppDialog(
-                                  context: context,
-                                  content: _DestructionLevelInfo());
-                            },
-                            icon: Icon(
-                              size: 28,
-                              iconData: IconData(0xf44c,
-                                  fontFamily: 'CupertinoIcons',
-                                  fontPackage: 'cupertino_icons'),
-                              color: styles.Colors.black,
-                            ))
-                      ],
-                    ),
-                    NumberInputAndDescription(
-                      enabled: true,
-                      primaryColor: styles.Colors.green,
-                      isDouble: false,
-                      description: 'felt destruction',
-                      handleIntValueChanged: (int n) {},
-                      initialIntValue: 0,
-                      maxIntValue: 10,
-                    ),
                     Divider(
                       height: styles.Measurements.xxl,
                     ),
-                    Center(
-                      child: Button(
-                        backgroundColor: styles.Colors.green,
-                        width: double.infinity,
-                        text: 'done',
-                        handleTap: () {},
-                      ),
-                    )
+                    _InputDestructionLevel(),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ]),
         ),
       ),
     );
@@ -172,5 +145,53 @@ class _DestructionLevelInfo extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class _InputDestructionLevel extends StatelessWidget {
+  _InputDestructionLevel({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Row(
+        children: [
+          Text(
+            'Destruction level',
+            style: styles.Staatliches.xlBlack,
+          ),
+          IconButton(
+              handleTap: () {
+                showAppDialog(
+                    context: context, content: _DestructionLevelInfo());
+              },
+              icon: Icon(
+                size: 28,
+                iconData: IconData(0xf44c,
+                    fontFamily: 'CupertinoIcons',
+                    fontPackage: 'cupertino_icons'),
+                color: styles.Colors.black,
+              ))
+        ],
+      ),
+      NumberInputAndDescription(
+        enabled: true,
+        primaryColor: styles.Colors.turquoise,
+        isDouble: false,
+        description: 'felt destruction',
+        handleIntValueChanged: (int n) {},
+        initialIntValue: 0,
+        maxIntValue: 10,
+      ),
+      Divider(
+        height: styles.Measurements.xxl,
+      ),
+      Button(
+        backgroundColor: styles.Colors.turquoise,
+        width: double.infinity,
+        text: 'done',
+        handleTap: () {},
+      ),
+    ]);
   }
 }
