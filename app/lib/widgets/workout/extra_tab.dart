@@ -55,8 +55,7 @@ class ExtraTab extends StatelessWidget {
                 initialValue: _workoutViewModel.workout.name,
                 handleValueChanged: (n) {
                   _extraTabViewModel.setName(n);
-                },
-                shouldFocus: false)
+                })
           ],
         ),
         Center(

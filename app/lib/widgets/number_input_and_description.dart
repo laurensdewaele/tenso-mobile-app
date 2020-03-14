@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/number_input.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/number_input.dart';
 
 class NumberInputAndDescription extends StatelessWidget {
   NumberInputAndDescription(
       {Key key,
       @required this.description,
-      @required this.initialValue,
+      this.initialIntValue,
+      this.initialDoubleValue,
       @required this.isDouble,
-      @required this.shouldFocus,
+      this.shouldFocus = false,
+      this.maxIntValue,
       this.enabled = true,
       this.handleIntValueChanged,
       this.handleDoubleValueChanged,
@@ -23,10 +25,12 @@ class NumberInputAndDescription extends StatelessWidget {
   final ValueChanged<double> handleDoubleValueChanged;
   final ValueChanged<int> handleIntValueChanged;
   final bool isDouble;
-  final double initialValue;
   final Color primaryColor;
   final bool shouldFocus;
   final bool zeroValueAllowed;
+  final int maxIntValue;
+  final int initialIntValue;
+  final double initialDoubleValue;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,9 @@ class NumberInputAndDescription extends StatelessWidget {
           shouldFocus: shouldFocus,
           handleIntValueChanged: handleIntValueChanged,
           handleDoubleValueChanged: handleDoubleValueChanged,
-          initialValue: initialValue,
+          initialIntValue: initialIntValue,
+          initialDoubleValue: initialDoubleValue,
+          maxIntValue: maxIntValue,
         ),
         Divider(
           width: styles.Measurements.s,

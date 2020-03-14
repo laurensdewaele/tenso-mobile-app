@@ -10,9 +10,7 @@ import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
 
 class GeneralTab extends StatefulWidget {
-  GeneralTab({Key key, @required this.shouldFocusOnInput}) : super(key: key);
-
-  final bool shouldFocusOnInput;
+  GeneralTab({Key key}) : super(key: key);
 
   @override
   _GeneralTabState createState() => _GeneralTabState();
@@ -47,12 +45,10 @@ class _GeneralTabState extends State<GeneralTab> {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'holds',
-              shouldFocus:
-                  _workoutViewModel.inputsEnabled && widget.shouldFocusOnInput,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setHoldCount(n);
               },
-              initialValue: _workoutViewModel.workout.holdCount.toDouble(),
+              initialIntValue: _workoutViewModel.workout.holdCount,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -62,11 +58,10 @@ class _GeneralTabState extends State<GeneralTab> {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'sets',
-              shouldFocus: false,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setSets(n);
               },
-              initialValue: _workoutViewModel.workout.sets.toDouble(),
+              initialIntValue: _workoutViewModel.workout.sets,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -81,12 +76,10 @@ class _GeneralTabState extends State<GeneralTab> {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between holds',
-              shouldFocus: false,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenHolds(n);
               },
-              initialValue:
-                  _workoutViewModel.workout.restBetweenHolds.toDouble(),
+              initialIntValue: _workoutViewModel.workout.restBetweenHolds,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -96,12 +89,10 @@ class _GeneralTabState extends State<GeneralTab> {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between sets',
-              shouldFocus: false,
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenSets(n);
               },
-              initialValue:
-                  _workoutViewModel.workout.restBetweenSets.toDouble(),
+              initialIntValue: _workoutViewModel.workout.restBetweenSets,
             ),
             Divider(
               height: styles.Measurements.m,

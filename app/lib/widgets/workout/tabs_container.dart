@@ -31,7 +31,6 @@ class TabsContainer extends StatefulWidget {
 class _TabsContainerState extends State<TabsContainer> {
   int _activePageIndex;
   List<Widget> _pages;
-  bool _firstTimeConstructed = true;
   StreamSubscription _navigateForwardTabSub;
   StreamSubscription _navigateBackTabSub;
 
@@ -40,7 +39,6 @@ class _TabsContainerState extends State<TabsContainer> {
     super.initState();
     _activePageIndex = 0;
     _buildPages(widget.holdCount);
-    _firstTimeConstructed = false;
     _navigateForwardTabSub =
         widget.navigateForwardTabStream.listen((bool shouldNavigate) {
       _handleForwardNavigation();
@@ -72,8 +70,7 @@ class _TabsContainerState extends State<TabsContainer> {
     setState(() {
       _pages = [
         GeneralTab(
-          shouldFocusOnInput: _firstTimeConstructed,
-          key: ValueKey('new-workout-page-1'),
+          key: UniqueKey(),
         ),
         ...List.generate(holdCount, (i) => i).map((n) {
           return HoldTab(

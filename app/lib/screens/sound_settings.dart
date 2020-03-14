@@ -94,16 +94,14 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                             NumberInputAndDescription(
                                               isDouble: false,
                                               description: 'beeps before hang',
-                                              initialValue:
+                                              initialIntValue:
                                                   _soundSettingsScreenViewModel
                                                       .appState
                                                       .settings
-                                                      .beepsBeforeHang
-                                                      .toDouble(),
+                                                      .beepsBeforeHang,
                                               handleIntValueChanged: (int v) =>
                                                   _soundSettingsScreenViewModel
                                                       .setBeepsBeforeHang(v),
-                                              shouldFocus: false,
                                             ),
                                             Divider(
                                               height: styles.Measurements.m,
@@ -111,16 +109,14 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                             NumberInputAndDescription(
                                               isDouble: false,
                                               description: 'beeps before rest',
-                                              initialValue:
+                                              initialIntValue:
                                                   _soundSettingsScreenViewModel
                                                       .appState
                                                       .settings
-                                                      .beepsBeforeRest
-                                                      .toDouble(),
+                                                      .beepsBeforeRest,
                                               handleIntValueChanged: (int v) =>
                                                   _soundSettingsScreenViewModel
                                                       .setBeepsBeforeRest(v),
-                                              shouldFocus: false,
                                             ),
                                             Divider(
                                               height: styles.Measurements.m,

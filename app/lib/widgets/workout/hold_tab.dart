@@ -78,13 +78,11 @@ class HoldTab extends StatelessWidget {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'repetitions',
-              shouldFocus: false,
               handleIntValueChanged: (int n) {
                 _holdTabViewModel.setHoldRepetitions(currentHold, n);
               },
-              initialValue: _workoutViewModel
-                  .workout.holds[currentHold].repetitions
-                  .toDouble(),
+              initialIntValue:
+                  _workoutViewModel.workout.holds[currentHold].repetitions,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -99,13 +97,11 @@ class HoldTab extends StatelessWidget {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'hang time seconds',
-              shouldFocus: false,
               handleIntValueChanged: (int s) {
                 _holdTabViewModel.setHoldHangTime(currentHold, s);
               },
-              initialValue: _workoutViewModel
-                  .workout.holds[currentHold].hangTime
-                  .toDouble(),
+              initialIntValue:
+                  _workoutViewModel.workout.holds[currentHold].hangTime,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -115,13 +111,11 @@ class HoldTab extends StatelessWidget {
               primaryColor: _workoutViewModel.primaryColor,
               isDouble: false,
               description: 'rest seconds between repetitions',
-              shouldFocus: false,
               handleIntValueChanged: (int s) {
                 _holdTabViewModel.setHoldRestBetweenRepetitions(currentHold, s);
               },
-              initialValue: _workoutViewModel
-                  .workout.holds[currentHold].restBetweenRepetitions
-                  .toDouble(),
+              initialIntValue: _workoutViewModel
+                  .workout.holds[currentHold].restBetweenRepetitions,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -136,12 +130,11 @@ class HoldTab extends StatelessWidget {
               primaryColor: _workoutViewModel.primaryColor,
               zeroValueAllowed: true,
               description: _settings.unit == Unit.metric ? 'kg' : 'lb',
-              shouldFocus: false,
               handleDoubleValueChanged: (double n) {
                 _holdTabViewModel.setHoldAddedWeight(
                     currentHold, n, _settings.unit);
               },
-              initialValue:
+              initialDoubleValue:
                   _workoutViewModel.workout.holds[currentHold].addedWeight,
               isDouble: true,
             ),

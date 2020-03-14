@@ -94,14 +94,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           NumberInputAndDescription(
                                             isDouble: false,
                                             description: 'seconds',
-                                            initialValue: _settingsViewModel
+                                            initialIntValue: _settingsViewModel
                                                 .appState
                                                 .settings
-                                                .preparationTimer
-                                                .toDouble(),
+                                                .preparationTimer,
                                             handleIntValueChanged:
                                                 _handlePreparationTimerChanged,
-                                            shouldFocus: false,
                                           )
                                         ],
                                       ),

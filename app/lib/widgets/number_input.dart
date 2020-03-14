@@ -11,8 +11,10 @@ import 'package:app/styles/styles.dart' as styles;
 class NumberInput extends StatefulWidget {
   NumberInput(
       {@required this.isDouble,
-      @required this.initialValue,
-      @required this.shouldFocus,
+      this.initialIntValue,
+      this.initialDoubleValue,
+      this.shouldFocus = false,
+      this.maxIntValue,
       this.enabled = true,
       this.handleDoubleValueChanged,
       this.handleIntValueChanged,
@@ -23,10 +25,12 @@ class NumberInput extends StatefulWidget {
   final ValueChanged<int> handleIntValueChanged;
   final ValueChanged<double> handleDoubleValueChanged;
   final bool isDouble;
-  final double initialValue;
+  final int initialIntValue;
+  final double initialDoubleValue;
   final Color primaryColor;
   final bool shouldFocus;
   final bool zeroValueAllowed;
+  final int maxIntValue;
 
   @override
   _NumberInputState createState() => _NumberInputState();
@@ -35,29 +39,31 @@ class NumberInput extends StatefulWidget {
 class _NumberInputState extends State<NumberInput> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
-  KeyboardService _keyboardService;
-  bool _shouldValidate;
+
+  String _initialValue;
+  bool _shouldValidate = false;
+
   StreamSubscription _subscription;
+  KeyboardService _keyboardService;
+  ToastService _toastService;
 
   @override
   void initState() {
     super.initState();
-    final dynamic initialValue =
-        widget.isDouble ? widget.initialValue : widget.initialValue.toInt();
-    _textEditingController.text = initialValue.toString();
+    _initialValue = widget.initialDoubleValue?.toString() ??
+        widget.initialIntValue?.toString();
+    _textEditingController.text = _initialValue;
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
         _validateInput();
       }
     });
 
-    _shouldValidate = false;
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
     _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
-      if (_shouldValidate == true) {
-        _validateInput();
-      }
+      _validateInput();
     });
+    _toastService = Provider.of<ToastService>(context, listen: false);
   }
 
   @override
@@ -67,45 +73,85 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _validateInput() {
+    if (_shouldValidate == false) {
+      _validationEnd();
+      return;
+    }
+
     dynamic value;
     try {
       value = widget.isDouble
           ? double.parse(_textEditingController.text)
           : int.parse(_textEditingController.text);
     } on FormatException catch (_) {
+      _resetInitialValue();
       _validationError();
+      _validationEnd();
+      return;
     }
 
-    if (value != null && widget.zeroValueAllowed == true && value < 0) {
+    if (widget.zeroValueAllowed == true && value < 0) {
+      _resetInitialValue();
       _validationError();
+      _validationEnd();
+      return;
     }
 
-    if (value != null && widget.zeroValueAllowed != true && value < 1) {
+    if (widget.zeroValueAllowed != true && value < 1) {
+      _resetInitialValue();
       _validationError();
+      _validationEnd();
+      return;
     }
 
-    if (value != null && widget.zeroValueAllowed == true && value >= 0) {
-      widget.isDouble
-          ? widget.handleDoubleValueChanged(value)
-          : widget.handleIntValueChanged(value);
+    if (widget.maxIntValue != null && value > widget.maxIntValue) {
+      _resetInitialValue();
+      _exceedMaxIntValueError();
+      _validationEnd();
+      return;
     }
 
-    if (value != null && widget.zeroValueAllowed != true && value >= 1) {
-      widget.isDouble
-          ? widget.handleDoubleValueChanged(value)
-          : widget.handleIntValueChanged(value);
-    }
+    widget.isDouble
+        ? widget.handleDoubleValueChanged(value)
+        : widget.handleIntValueChanged(value);
+    _validationEnd();
+  }
 
+  void _validationEnd() {
+    _shouldValidate = false;
     _focusNode.unfocus();
     _keyboardService.resetKeyboardOffset();
-    _shouldValidate = false;
+  }
+
+  void _resetInitialValue() {
+    _textEditingController.text = _initialValue;
+  }
+
+  void _exceedMaxIntValueError() {
+    final String value = widget.maxIntValue.toString();
+    final String text = 'smaller than $value';
+    final Widget errorMessage = RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+          text: 'Please input a value ',
+          style: styles.Lato.sBlack,
+          children: [
+            TextSpan(text: text, style: styles.Lato.sBlackBold),
+          ]),
+    );
+
+    _toastService.add(errorMessage);
   }
 
   void _validationError() {
-    _textEditingController.text = widget.initialValue.toString();
-
     final String biggerThanZero = 'bigger than 0.';
     final String biggerEqualThanZero = 'bigger or equal than 0.';
+    String text;
+    if (widget.zeroValueAllowed == true) {
+      text = biggerEqualThanZero;
+    } else {
+      text = biggerThanZero;
+    }
 
     final Widget errorMessage = RichText(
       textAlign: TextAlign.center,
@@ -113,13 +159,11 @@ class _NumberInputState extends State<NumberInput> {
           text: 'Please input a value ',
           style: styles.Lato.sBlack,
           children: [
-            TextSpan(
-                text: widget.isDouble ? biggerEqualThanZero : biggerThanZero,
-                style: styles.Lato.sBlackBold),
+            TextSpan(text: text, style: styles.Lato.sBlackBold),
           ]),
     );
 
-    Provider.of<ToastService>(context, listen: false).add(errorMessage);
+    _toastService.add(errorMessage);
   }
 
   void _onTap() {

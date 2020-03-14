@@ -12,7 +12,7 @@ class TextInput extends StatefulWidget {
   TextInput({
     @required this.handleValueChanged,
     @required this.initialValue,
-    @required this.shouldFocus,
+    this.shouldFocus = false,
     this.enabled = true,
     this.primaryColor = styles.Colors.primary,
   });
