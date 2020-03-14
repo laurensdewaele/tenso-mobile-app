@@ -43,6 +43,7 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void update(AppState appState) {
     _appState = appState;
+    notifyListeners();
   }
 
   void setWorkoutType(WorkoutTypes workoutType) {

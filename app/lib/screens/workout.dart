@@ -58,50 +58,49 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final WorkoutViewModel _workoutViewModel =
+        Provider.of<WorkoutViewModel>(context, listen: true);
+
     return KeyboardAndToastProvider(
-      child: Consumer<WorkoutViewModel>(
-        builder: (context, _workoutViewModel, child) => Screen(
-            gradientStartColor: _workoutViewModel.primaryColor,
-            gradientStopColor: _workoutViewModel.primaryColor,
-            child: KeyboardListView(
-                scrollToTopStream: _scrollToTopStreamController.stream,
-                children: [
-                  Column(
-                    children: <Widget>[
-                      TopNavigation(title: _workoutViewModel.title),
-                      Divider(height: styles.Measurements.xxl),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: styles.Measurements.xs),
-                        child: GestureDetector(
-                          onHorizontalDragEnd: _onHorizontalDragEnd,
-                          child: Card(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TabsContainer(
-                                    primaryColor:
-                                        _workoutViewModel.primaryColor,
-                                    onNavigation: _scrollToTop,
-                                    holdCount:
-                                        _workoutViewModel.workout.holdCount,
-                                    navigateForwardTabStream:
-                                        _navigateForwardTabStreamController
-                                            .stream,
-                                    navigateBackTabStream:
-                                        _navigateBackTabStreamController
-                                            .stream),
-                              ],
-                            ),
+      child: Screen(
+          gradientStartColor: _workoutViewModel.primaryColor,
+          gradientStopColor: _workoutViewModel.primaryColor,
+          child: KeyboardListView(
+              scrollToTopStream: _scrollToTopStreamController.stream,
+              children: [
+                Column(
+                  children: <Widget>[
+                    TopNavigation(title: _workoutViewModel.title),
+                    Divider(height: styles.Measurements.xxl),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: styles.Measurements.xs),
+                      child: GestureDetector(
+                        onHorizontalDragEnd: _onHorizontalDragEnd,
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TabsContainer(
+                                  primaryColor: _workoutViewModel.primaryColor,
+                                  onNavigation: _scrollToTop,
+                                  holdCount:
+                                      _workoutViewModel.workout.holdCount,
+                                  navigateForwardTabStream:
+                                      _navigateForwardTabStreamController
+                                          .stream,
+                                  navigateBackTabStream:
+                                      _navigateBackTabStreamController.stream),
+                            ],
                           ),
                         ),
                       ),
-                      Divider(height: styles.Measurements.xxl)
-                    ],
-                  )
-                ])),
-      ),
+                    ),
+                    Divider(height: styles.Measurements.xxl)
+                  ],
+                )
+              ])),
     );
   }
 }
