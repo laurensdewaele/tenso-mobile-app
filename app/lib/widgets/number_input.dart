@@ -13,7 +13,6 @@ class NumberInput extends StatefulWidget {
       {@required this.isDouble,
       @required this.initialValue,
       @required this.shouldFocus,
-      @required this.shouldLoseFocusStream,
       this.enabled = true,
       this.handleDoubleValueChanged,
       this.handleIntValueChanged,
@@ -27,7 +26,6 @@ class NumberInput extends StatefulWidget {
   final double initialValue;
   final Color primaryColor;
   final bool shouldFocus;
-  final Stream<bool> shouldLoseFocusStream;
   final bool zeroValueAllowed;
 
   @override

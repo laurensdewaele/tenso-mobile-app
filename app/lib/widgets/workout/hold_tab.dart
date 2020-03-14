@@ -17,11 +17,9 @@ class HoldTab extends StatelessWidget {
   HoldTab({
     Key key,
     @required this.currentHold,
-    @required this.shouldLoseFocusStream,
   }) : super(key: key);
 
   final int currentHold;
-  final Stream<bool> shouldLoseFocusStream;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +85,6 @@ class HoldTab extends StatelessWidget {
               initialValue: _workoutViewModel
                   .workout.holds[currentHold].repetitions
                   .toDouble(),
-              shouldLoseFocusStream: shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -109,7 +106,6 @@ class HoldTab extends StatelessWidget {
               initialValue: _workoutViewModel
                   .workout.holds[currentHold].hangTime
                   .toDouble(),
-              shouldLoseFocusStream: shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -126,7 +122,6 @@ class HoldTab extends StatelessWidget {
               initialValue: _workoutViewModel
                   .workout.holds[currentHold].restBetweenRepetitions
                   .toDouble(),
-              shouldLoseFocusStream: shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -149,7 +144,6 @@ class HoldTab extends StatelessWidget {
               initialValue:
                   _workoutViewModel.workout.holds[currentHold].addedWeight,
               isDouble: true,
-              shouldLoseFocusStream: shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,

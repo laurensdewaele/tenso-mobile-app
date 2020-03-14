@@ -10,13 +10,8 @@ import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
 
 class GeneralTab extends StatefulWidget {
-  GeneralTab(
-      {Key key,
-      @required this.shouldLoseFocusStream,
-      @required this.shouldFocusOnInput})
-      : super(key: key);
+  GeneralTab({Key key, @required this.shouldFocusOnInput}) : super(key: key);
 
-  final Stream<bool> shouldLoseFocusStream;
   final bool shouldFocusOnInput;
 
   @override
@@ -58,7 +53,6 @@ class _GeneralTabState extends State<GeneralTab> {
                 _generalTabViewModel.setHoldCount(n);
               },
               initialValue: _workoutViewModel.workout.holdCount.toDouble(),
-              shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -73,7 +67,6 @@ class _GeneralTabState extends State<GeneralTab> {
                 _generalTabViewModel.setSets(n);
               },
               initialValue: _workoutViewModel.workout.sets.toDouble(),
-              shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -94,7 +87,6 @@ class _GeneralTabState extends State<GeneralTab> {
               },
               initialValue:
                   _workoutViewModel.workout.restBetweenHolds.toDouble(),
-              shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -110,7 +102,6 @@ class _GeneralTabState extends State<GeneralTab> {
               },
               initialValue:
                   _workoutViewModel.workout.restBetweenSets.toDouble(),
-              shouldLoseFocusStream: widget.shouldLoseFocusStream,
             ),
             Divider(
               height: styles.Measurements.m,

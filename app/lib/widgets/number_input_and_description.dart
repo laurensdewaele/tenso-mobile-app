@@ -11,7 +11,6 @@ class NumberInputAndDescription extends StatelessWidget {
       @required this.initialValue,
       @required this.isDouble,
       @required this.shouldFocus,
-      @required this.shouldLoseFocusStream,
       this.enabled = true,
       this.handleIntValueChanged,
       this.handleDoubleValueChanged,
@@ -27,7 +26,6 @@ class NumberInputAndDescription extends StatelessWidget {
   final double initialValue;
   final Color primaryColor;
   final bool shouldFocus;
-  final Stream<bool> shouldLoseFocusStream;
   final bool zeroValueAllowed;
 
   @override
@@ -35,15 +33,15 @@ class NumberInputAndDescription extends StatelessWidget {
     return Row(
       children: <Widget>[
         NumberInput(
-            enabled: enabled,
-            primaryColor: primaryColor,
-            zeroValueAllowed: zeroValueAllowed,
-            isDouble: isDouble,
-            shouldFocus: shouldFocus,
-            handleIntValueChanged: handleIntValueChanged,
-            handleDoubleValueChanged: handleDoubleValueChanged,
-            initialValue: initialValue,
-            shouldLoseFocusStream: shouldLoseFocusStream),
+          enabled: enabled,
+          primaryColor: primaryColor,
+          zeroValueAllowed: zeroValueAllowed,
+          isDouble: isDouble,
+          shouldFocus: shouldFocus,
+          handleIntValueChanged: handleIntValueChanged,
+          handleDoubleValueChanged: handleDoubleValueChanged,
+          initialValue: initialValue,
+        ),
         Divider(
           width: styles.Measurements.s,
         ),

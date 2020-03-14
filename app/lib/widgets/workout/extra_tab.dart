@@ -12,10 +12,7 @@ import 'package:app/widgets/text_input.dart';
 class ExtraTab extends StatelessWidget {
   ExtraTab({
     Key key,
-    @required this.shouldLoseFocusStream,
   }) : super(key: key);
-
-  final Stream<bool> shouldLoseFocusStream;
 
   void _handleButtonTap(BuildContext context) {
     final _extraTabViewModel =
@@ -59,7 +56,6 @@ class ExtraTab extends StatelessWidget {
                 handleValueChanged: (n) {
                   _extraTabViewModel.setName(n);
                 },
-                shouldLoseFocusStream: shouldLoseFocusStream,
                 shouldFocus: false)
           ],
         ),

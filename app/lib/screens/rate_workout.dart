@@ -1,3 +1,4 @@
+import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -13,55 +14,57 @@ class RateWorkoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: styles.Colors.bgWhite),
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(styles.Measurements.m),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Congratulations!',
-                style: styles.Staatliches.xlBlack,
-              ),
-              Divider(height: styles.Measurements.l),
-              Text(
-                'You’re one step closer to indestructible and indefatigable fingers!',
-                style: styles.Lato.sBlack,
-              ),
-              Divider(height: styles.Measurements.xxl),
-              Row(
-                children: [
-                  Text(
-                    'Destruction level',
-                    style: styles.Staatliches.xlBlack,
-                  ),
-                  IconButton(
-                      handleTap: () {
-                        showAppDialog(
-                            context: context, content: _DestructionLevelInfo());
-                      },
-                      icon: Icon(
-                        size: 28,
-                        iconData: IconData(0xf44c,
-                            fontFamily: 'CupertinoIcons',
-                            fontPackage: 'cupertino_icons'),
-                        color: styles.Colors.black,
-                      ))
-                ],
-              ),
-//              NumberInputAndDescription(
-//                enabled: true,
-//                primaryColor: styles.Colors.green,
-//                isDouble: false,
-//                description: 'felt destruction',
-//                shouldFocus: true,
-//                handleIntValueChanged: (int n) {},
-//                initialValue: 5,
-//                shouldLoseFocusStream: widget.shouldLoseFocusStream,
-//              ),
-            ],
+    return KeyboardAndToastProvider(
+      child: Container(
+        decoration: BoxDecoration(color: styles.Colors.bgWhite),
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(styles.Measurements.m),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Congratulations!',
+                  style: styles.Staatliches.xlBlack,
+                ),
+                Divider(height: styles.Measurements.l),
+                Text(
+                  'You’re one step closer to indestructible and indefatigable fingers!',
+                  style: styles.Lato.sBlack,
+                ),
+                Divider(height: styles.Measurements.xxl),
+                Row(
+                  children: [
+                    Text(
+                      'Destruction level',
+                      style: styles.Staatliches.xlBlack,
+                    ),
+                    IconButton(
+                        handleTap: () {
+                          showAppDialog(
+                              context: context,
+                              content: _DestructionLevelInfo());
+                        },
+                        icon: Icon(
+                          size: 28,
+                          iconData: IconData(0xf44c,
+                              fontFamily: 'CupertinoIcons',
+                              fontPackage: 'cupertino_icons'),
+                          color: styles.Colors.black,
+                        ))
+                  ],
+                ),
+                NumberInputAndDescription(
+                  enabled: true,
+                  primaryColor: styles.Colors.green,
+                  isDouble: false,
+                  description: 'felt destruction',
+                  shouldFocus: true,
+                  handleIntValueChanged: (int n) {},
+                  initialValue: 5,
+                ),
+              ],
+            ),
           ),
         ),
       ),

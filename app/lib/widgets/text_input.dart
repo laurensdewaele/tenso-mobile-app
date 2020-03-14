@@ -4,15 +4,14 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/keyboard_screen.dart';
 
 class TextInput extends StatefulWidget {
   TextInput({
     @required this.handleValueChanged,
     @required this.initialValue,
-    @required this.shouldLoseFocusStream,
     @required this.shouldFocus,
     this.enabled = true,
     this.primaryColor = styles.Colors.primary,
@@ -22,7 +21,6 @@ class TextInput extends StatefulWidget {
   final ValueChanged<String> handleValueChanged;
   final String initialValue;
   final Color primaryColor;
-  final Stream<bool> shouldLoseFocusStream;
   final bool shouldFocus;
 
   @override
@@ -30,20 +28,24 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
-  final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
+  final _textEditingController = TextEditingController();
+
+  KeyboardService _keyboardService;
   StreamSubscription _subscription;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController.text = widget.initialValue.toString();
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
         _validateInput();
       }
     });
-    _subscription = widget.shouldLoseFocusStream.listen((shouldLoseFocus) {
+    _textEditingController.text = widget.initialValue.toString();
+
+    _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+    _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
       _validateInput();
     });
   }
@@ -60,9 +62,7 @@ class _TextInputState extends State<TextInput> {
       _validationError();
     }
     _focusNode.unfocus();
-    final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyboardScreen.of(context);
-    keyboardScreenCallbacks.resetKeyboardOffset();
+    _keyboardService.resetKeyboardOffset();
     widget.handleValueChanged(_textEditingController.text);
   }
 
@@ -77,9 +77,7 @@ class _TextInputState extends State<TextInput> {
   }
 
   void _onPointerDown(PointerEvent event) {
-    final KeyboardScreenCallbackProvider keyboardScreenCallbacks =
-        KeyboardScreen.of(context);
-    keyboardScreenCallbacks.handlePointerDown(event.position);
+    _keyboardService.handlePointerDown(event.position);
   }
 
   @override

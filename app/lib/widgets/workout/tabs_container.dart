@@ -13,7 +13,6 @@ class TabsContainer extends StatefulWidget {
       {Key key,
       @required this.primaryColor,
       @required this.holdCount,
-      @required this.shouldLoseFocusStream,
       @required this.onNavigation,
       this.navigateForwardTabStream,
       this.navigateBackTabStream})
@@ -21,7 +20,6 @@ class TabsContainer extends StatefulWidget {
 
   final Color primaryColor;
   final int holdCount;
-  final Stream<bool> shouldLoseFocusStream;
   final VoidCallback onNavigation;
   final Stream<bool> navigateForwardTabStream;
   final Stream<bool> navigateBackTabStream;
@@ -75,18 +73,15 @@ class _TabsContainerState extends State<TabsContainer> {
       _pages = [
         GeneralTab(
           shouldFocusOnInput: _firstTimeConstructed,
-          shouldLoseFocusStream: widget.shouldLoseFocusStream,
           key: ValueKey('new-workout-page-1'),
         ),
         ...List.generate(holdCount, (i) => i).map((n) {
           return HoldTab(
             key: UniqueKey(),
-            shouldLoseFocusStream: widget.shouldLoseFocusStream,
             currentHold: n,
           );
         }),
         ExtraTab(
-          shouldLoseFocusStream: widget.shouldLoseFocusStream,
           key: UniqueKey(),
         )
       ];

@@ -11,9 +11,11 @@ class KeyboardListView extends StatefulWidget {
   KeyboardListView({
     Key key,
     @required this.children,
+    this.scrollToTopStream,
   }) : super(key: key);
 
   final List<Widget> children;
+  final Stream<bool> scrollToTopStream;
 
   @override
   _KeyboardListViewState createState() => _KeyboardListViewState();
@@ -25,6 +27,7 @@ class _KeyboardListViewState extends State<KeyboardListView> {
   double _keyboardOffsetHeight;
   KeyboardService _keyboardService;
   StreamSubscription<double> _subscription;
+  StreamSubscription<bool> _scrollToTopSubscription;
 
   @override
   void initState() {
@@ -32,6 +35,15 @@ class _KeyboardListViewState extends State<KeyboardListView> {
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
     _subscription = _keyboardService.keyboardOffsetHeightStream
         .listen(_handleKeyboardOffset);
+    if (widget.scrollToTopStream != null) {
+      _scrollToTopSubscription =
+          widget.scrollToTopStream.listen((_) => _scrollToTop());
+    }
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(0,
+        duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
   void _handleKeyboardOffset(double height) {
@@ -56,6 +68,9 @@ class _KeyboardListViewState extends State<KeyboardListView> {
   @override
   void dispose() {
     _subscription.cancel();
+    if (_scrollToTopSubscription != null) {
+      _scrollToTopSubscription.cancel();
+    }
     super.dispose();
   }
 
