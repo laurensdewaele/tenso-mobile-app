@@ -1,4 +1,3 @@
-import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -7,6 +6,7 @@ import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 
 class RateWorkoutScreen extends StatelessWidget {
