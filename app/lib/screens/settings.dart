@@ -50,22 +50,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return KeyboardAndToastProvider(
-      child: Screen(
-        gradientStartColor: styles.Colors.bgGrayStart,
-        gradientStopColor: styles.Colors.bgGrayStop,
-        child: KeyboardListView(children: [
-          Column(
-            children: <Widget>[
-              TopNavigation(
-                title: 'settings',
-                dark: true,
-              ),
-              Divider(height: styles.Measurements.xxl),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
-                child: GestureDetector(
-                  onHorizontalDragEnd: _onHorizontalDragEnd,
+      child: GestureDetector(
+        onHorizontalDragEnd: _onHorizontalDragEnd,
+        child: Screen(
+          gradientStartColor: styles.Colors.bgGrayStart,
+          gradientStopColor: styles.Colors.bgGrayStop,
+          child: KeyboardListView(children: [
+            Column(
+              children: <Widget>[
+                TopNavigation(
+                  title: 'settings',
+                  dark: true,
+                ),
+                Divider(height: styles.Measurements.xxl),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
                   child: Card(
                     child: Consumer<SettingsViewModel>(
                       builder: (context, _settingsViewModel, child) {
@@ -149,11 +149,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                 ),
-              ),
-              Divider(height: styles.Measurements.xxl),
-            ],
-          )
-        ]),
+                Divider(height: styles.Measurements.xxl),
+              ],
+            )
+          ]),
+        ),
       ),
     );
   }
