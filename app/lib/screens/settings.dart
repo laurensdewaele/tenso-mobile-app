@@ -88,8 +88,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         title: 'default board',
                                         children: <Widget>[],
                                       ),
-                                      Divider(
-                                          height: styles.Measurements.xxl * 2),
                                       Section(
                                         title: 'preparation timer',
                                         children: <Widget>[
