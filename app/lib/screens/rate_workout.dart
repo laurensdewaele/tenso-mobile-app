@@ -29,6 +29,9 @@ class RateWorkoutScreen extends StatelessWidget {
                     Image.asset(
                       'assets/images/fist.png',
                     ),
+                    Divider(
+                      height: styles.Measurements.xxl,
+                    ),
                     Text(
                       'Congratulations!',
                       style: styles.Staatliches.xlBlack,
