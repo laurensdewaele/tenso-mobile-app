@@ -49,6 +49,8 @@ flutter:
   assets:
     - assets/audio/
     - assets/images/
+    - assets/images/grips/
+    - assets/images/boards/
 
   uses-material-design: false
   fonts:

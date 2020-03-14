@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 abstract class Staatliches {
-  // Outliers
   static const TextStyle countdownTimer = TextStyle(
       fontFamily: 'Staatliches', fontSize: 400, color: styles.Colors.white);
   static const TextStyle difficulty = TextStyle(
@@ -11,7 +10,6 @@ abstract class Staatliches {
   static const TextStyle textDivider = TextStyle(
       fontFamily: 'Staatliches', fontSize: 4, color: styles.Colors.black);
 
-  // Standard
   static const TextStyle xlWhite = TextStyle(
       fontFamily: 'Staatliches', fontSize: 28, color: styles.Colors.white);
   static const TextStyle xlGray = TextStyle(
@@ -43,7 +41,6 @@ abstract class Staatliches {
 }
 
 abstract class Lato {
-  // Lato - bold
   static const TextStyle lBlackBold = TextStyle(
       height: 1.5,
       fontFamily: 'Lato',
@@ -56,8 +53,13 @@ abstract class Lato {
       fontSize: 18,
       color: styles.Colors.black,
       fontWeight: FontWeight.w700);
+  static const TextStyle xsBlackBold = TextStyle(
+      height: 1.5,
+      fontFamily: 'Lato',
+      fontSize: 16,
+      color: styles.Colors.black,
+      fontWeight: FontWeight.w700);
 
-  // Lato - regular
   static const TextStyle sBlack = TextStyle(
     height: 1.5,
     fontFamily: 'Lato',

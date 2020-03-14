@@ -1,3 +1,4 @@
+import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -18,53 +19,71 @@ class RateWorkoutScreen extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: styles.Colors.bgWhite),
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(styles.Measurements.m),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Congratulations!',
-                  style: styles.Staatliches.xlBlack,
-                ),
-                Divider(height: styles.Measurements.l),
-                Text(
-                  'You’re one step closer to indestructible and indefatigable fingers!',
-                  style: styles.Lato.sBlack,
-                ),
-                Divider(height: styles.Measurements.xxl),
-                Row(
-                  children: [
+          child: KeyboardListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(styles.Measurements.m),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/fist.png',
+                    ),
                     Text(
-                      'Destruction level',
+                      'Congratulations!',
                       style: styles.Staatliches.xlBlack,
                     ),
-                    IconButton(
-                        handleTap: () {
-                          showAppDialog(
-                              context: context,
-                              content: _DestructionLevelInfo());
-                        },
-                        icon: Icon(
-                          size: 28,
-                          iconData: IconData(0xf44c,
-                              fontFamily: 'CupertinoIcons',
-                              fontPackage: 'cupertino_icons'),
-                          color: styles.Colors.black,
-                        ))
+                    Divider(height: styles.Measurements.l),
+                    Text(
+                      'You’re one step closer to indestructible and indefatigable fingers!',
+                      style: styles.Lato.sBlack,
+                    ),
+                    Divider(height: styles.Measurements.xxl),
+                    Row(
+                      children: [
+                        Text(
+                          'Destruction level',
+                          style: styles.Staatliches.xlBlack,
+                        ),
+                        IconButton(
+                            handleTap: () {
+                              showAppDialog(
+                                  context: context,
+                                  content: _DestructionLevelInfo());
+                            },
+                            icon: Icon(
+                              size: 28,
+                              iconData: IconData(0xf44c,
+                                  fontFamily: 'CupertinoIcons',
+                                  fontPackage: 'cupertino_icons'),
+                              color: styles.Colors.black,
+                            ))
+                      ],
+                    ),
+                    NumberInputAndDescription(
+                      enabled: true,
+                      primaryColor: styles.Colors.green,
+                      isDouble: false,
+                      description: 'felt destruction',
+                      shouldFocus: false,
+                      handleIntValueChanged: (int n) {},
+                      initialValue: 0,
+                    ),
+                    Divider(
+                      height: styles.Measurements.xxl,
+                    ),
+                    Center(
+                      child: Button(
+                        backgroundColor: styles.Colors.green,
+                        width: double.infinity,
+                        text: 'done',
+                        handleTap: () {},
+                      ),
+                    )
                   ],
                 ),
-                NumberInputAndDescription(
-                  enabled: true,
-                  primaryColor: styles.Colors.green,
-                  isDouble: false,
-                  description: 'felt destruction',
-                  shouldFocus: true,
-                  handleIntValueChanged: (int n) {},
-                  initialValue: 5,
-                ),
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
@@ -89,9 +108,18 @@ class _DestructionLevelInfo extends StatelessWidget {
               'This value signifies how hard the workout was for you.',
               style: styles.Lato.xsBlack,
             ),
-            Text(
-              'Or, in other words, how difficult it felt to complete the workout, on a scale of 1 to 10.',
-              style: styles.Lato.xsBlack,
+            RichText(
+              text: TextSpan(
+                  text: 'Or, in other words, ',
+                  style: styles.Lato.xsBlack,
+                  children: [
+                    TextSpan(
+                        text: 'how difficult it felt to complete the workout',
+                        style: styles.Lato.xsBlackBold),
+                    TextSpan(
+                        text: ', on a scale of 1 to 10.',
+                        style: styles.Lato.xsBlack),
+                  ]),
             ),
             Divider(
               height: styles.Measurements.m,
@@ -114,9 +142,16 @@ class _DestructionLevelInfo extends StatelessWidget {
             Divider(
               height: styles.Measurements.m,
             ),
-            Text(
-              'Therefore, we kindly request you to fill out this value, so you can better track your progressions.',
-              style: styles.Lato.xsBlack,
+            RichText(
+              text: TextSpan(
+                  text:
+                      'Therefore, we kindly request you to fill out this value, ',
+                  style: styles.Lato.xsBlack,
+                  children: [
+                    TextSpan(
+                        text: 'so you can better track your progression.',
+                        style: styles.Lato.xsBlackBold),
+                  ]),
             ),
             Divider(
               height: styles.Measurements.xxl,

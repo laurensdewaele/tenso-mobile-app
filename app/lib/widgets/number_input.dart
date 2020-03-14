@@ -35,8 +35,9 @@ class NumberInput extends StatefulWidget {
 class _NumberInputState extends State<NumberInput> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
-  StreamSubscription _subscription;
   KeyboardService _keyboardService;
+  bool _shouldValidate;
+  StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -50,9 +51,12 @@ class _NumberInputState extends State<NumberInput> {
       }
     });
 
+    _shouldValidate = false;
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
     _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
-      _validateInput();
+      if (_shouldValidate == true) {
+        _validateInput();
+      }
     });
   }
 
@@ -81,15 +85,20 @@ class _NumberInputState extends State<NumberInput> {
     }
 
     if (value != null && widget.zeroValueAllowed == true && value >= 0) {
-      widget.handleDoubleValueChanged(value);
+      widget.isDouble
+          ? widget.handleDoubleValueChanged(value)
+          : widget.handleIntValueChanged(value);
     }
 
     if (value != null && widget.zeroValueAllowed != true && value >= 1) {
-      widget.handleIntValueChanged(value);
+      widget.isDouble
+          ? widget.handleDoubleValueChanged(value)
+          : widget.handleIntValueChanged(value);
     }
 
     _focusNode.unfocus();
     _keyboardService.resetKeyboardOffset();
+    _shouldValidate = false;
   }
 
   void _validationError() {
@@ -114,6 +123,7 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _onTap() {
+    _shouldValidate = true;
     _textEditingController.clear();
   }
 
