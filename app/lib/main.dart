@@ -46,17 +46,20 @@ class App extends StatelessWidget {
           update: (context, appState, workoutViewModel) =>
               workoutViewModel..update(appState),
         ),
+        // TODO: This does not need to be provided on top.
         Provider<GeneralTabViewModel>(
           create: (context) => GeneralTabViewModel(
               Provider.of<WorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
+        // TODO: This does not need to be provided on top.
         Provider<HoldTabViewModel>(
           create: (context) => HoldTabViewModel(
               Provider.of<ToastService>(context, listen: false),
               Provider.of<WorkoutViewModel>(context, listen: false)),
           lazy: false,
         ),
+        // TODO: This does not need to be provided on top.
         Provider<ExtraTabViewModel>(
           create: (context) => ExtraTabViewModel(
               Provider.of<WorkoutViewModel>(context, listen: false)),
