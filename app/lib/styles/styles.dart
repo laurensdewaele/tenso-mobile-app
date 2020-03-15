@@ -8,6 +8,7 @@ export 'package:app/styles/colors.dart';
 export 'package:app/styles/measurements.dart';
 export 'package:app/styles/typography.dart';
 
+const double kLandscapeDialogWidth = 450;
 const double kBorderRadiusValue = 5.0;
 const Radius kBorderRadius = Radius.circular(kBorderRadiusValue);
 const BorderRadius kBorderRadiusAll =

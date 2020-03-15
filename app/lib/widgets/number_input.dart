@@ -56,6 +56,8 @@ class _NumberInputState extends State<NumberInput> {
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
         _validateInput();
+      } else {
+        _textEditingController.clear();
       }
     });
 
@@ -73,6 +75,12 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _validateInput() {
+    if (_textEditingController.text == '') {
+      _resetInitialValue();
+      _validationEnd();
+      return;
+    }
+
     if (_shouldValidate == false) {
       _validationEnd();
       return;

@@ -41,8 +41,8 @@ class AppDialog extends StatelessWidget {
                     content: content,
                   ));
             } else {
-              return FractionallySizedBox(
-                  widthFactor: .54,
+              return Container(
+                  width: styles.kLandscapeDialogWidth,
                   child: _Dialog(
                     content: content,
                   ));
