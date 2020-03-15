@@ -13,12 +13,16 @@ import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/rate_workout/congratulations_content.dart';
 import 'package:app/widgets/rate_workout/rate_workout_content.dart';
 
+class RateWorkoutScreenArguments {
+  RateWorkoutScreenArguments({this.workout});
+
+  final Workout workout;
+}
+
 enum _Pages { congratulations, rateWorkout }
 
 class RateWorkoutScreen extends StatefulWidget {
-  RateWorkoutScreen({Key key, @required this.workout}) : super(key: key);
-
-  final Workout workout;
+  RateWorkoutScreen({Key key}) : super(key: key);
 
   @override
   _RateWorkoutScreenState createState() => _RateWorkoutScreenState();
@@ -28,6 +32,15 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   RateWorkoutViewModel _rateWorkoutViewModel;
   _Pages _page = _Pages.congratulations;
   int _feltDifficulty = 0;
+  Workout _workout;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final RateWorkoutScreenArguments routeArguments =
+        ModalRoute.of(context).settings.arguments;
+    _workout = routeArguments.workout;
+  }
 
   @override
   void initState() {
@@ -49,7 +62,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   void _handleCompleteWorkoutButtonTap() {
     _rateWorkoutViewModel.saveWorkout(
-        workout: widget.workout, feltDifficulty: _feltDifficulty);
+        workout: _workout, feltDifficulty: _feltDifficulty);
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }
 

@@ -74,6 +74,7 @@ class CountdownScreenViewModel {
   }
 
   Workout _workout;
+  Workout get workout => _workout;
   Settings _settings;
   List<CountdownViewModel> sequence = [];
 
