@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/completed_workout.dart';
-import 'package:app/models/completed_workouts.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
 import 'package:app/widgets/calendar/date_picker.dart';
 import 'package:app/widgets/calendar/header.dart';
 import 'package:app/widgets/calendar/table.dart';
 import 'package:app/widgets/modal_popup.dart';
+import 'package:provider/provider.dart';
 
 class Calendar extends StatefulWidget {
-  Calendar({Key key, this.completedWorkouts}) : super(key: key);
+  Calendar({Key key}) : super(key: key);
 
-  final CompletedWorkouts completedWorkouts;
 
   @override
   _CalendarState createState() => _CalendarState();
@@ -25,7 +25,7 @@ class _CalendarState extends State<Calendar> {
   void initState() {
     super.initState();
     _calendarViewModel =
-        CalendarViewModel(completedWorkouts: widget.completedWorkouts);
+        CalendarViewModel(appState:  Provider.of<AppState>(context, listen: false));
     _calendarViewModel.addListener(_rebuild);
   }
 
@@ -51,7 +51,9 @@ class _CalendarState extends State<Calendar> {
         ));
   }
 
-  void _handleDeleteTap(CompletedWorkout completedWorkout) {}
+  void _handleDeleteTap(CompletedWorkout completedWorkout) {
+    _calendarViewModel.deleteCompletedWorkout(completedWorkout);
+  }
 
   @override
   Widget build(BuildContext context) {

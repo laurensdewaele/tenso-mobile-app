@@ -1,3 +1,4 @@
+import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,11 +7,13 @@ import 'package:app/models/completed_workouts.dart';
 import 'package:app/widgets/calendar/table.dart';
 
 class CalendarViewModel extends ChangeNotifier {
-  CalendarViewModel({CompletedWorkouts completedWorkouts}) {
-    _completedWorkouts = completedWorkouts;
+  CalendarViewModel({AppState appState}) {
+    _appState = appState;
+    _completedWorkouts = appState.completedWorkouts;
     _initialize();
   }
 
+  AppState _appState;
   CompletedWorkouts _completedWorkouts;
   DateTime _selectedDay;
   DateTime get selectedDay => _selectedDay;
@@ -102,6 +105,10 @@ class CalendarViewModel extends ChangeNotifier {
 
     _calendarDatePickerMonths =
         _monthsInRange(threeBeforeFirst, threeAfterLast).toList();
+  }
+
+  void deleteCompletedWorkout(CompletedWorkout completedWorkout) {
+    _appState.deleteCompletedWorkout(completedWorkout);
   }
 }
 

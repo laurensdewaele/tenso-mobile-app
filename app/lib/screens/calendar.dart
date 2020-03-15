@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:provider/provider.dart';
-
-import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/calendar.dart';
 import 'package:app/widgets/card.dart';
@@ -28,9 +25,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _completedWorkouts =
-        Provider.of<AppState>(context, listen: false).completedWorkouts;
-
     return Screen(
         gradientStartColor: styles.Colors.bgGrayStart,
         gradientStopColor: styles.Colors.bgGrayStop,
@@ -52,11 +46,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         vertical: styles.Measurements.l),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Calendar(
-                          completedWorkouts: _completedWorkouts,
-                        )
-                      ],
+                      children: [Calendar()],
                     ),
                   ),
                 ),

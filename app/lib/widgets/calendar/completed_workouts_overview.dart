@@ -44,14 +44,9 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                   i,
                   Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: styles.Colors.black),
-                            borderRadius: styles.kBorderRadiusAll),
-                        child: WorkoutOverviewStack(
-                          completedWorkout: completedWorkout,
-                          handleCompletedWorkoutDeleteTap: handleDeleteTap,
-                        ),
+                      WorkoutOverviewStack(
+                        completedWorkout: completedWorkout,
+                        handleCompletedWorkoutDeleteTap: handleDeleteTap,
                       ),
                       if (i < completedWorkoutsForSelectedDay.length - 1)
                         Divider(

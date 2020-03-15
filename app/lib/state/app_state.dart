@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:uuid/uuid.dart';
 
+import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
@@ -48,6 +49,8 @@ class AppState extends ChangeNotifier {
     saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
   }
 
+  // TODO: Move logic to viewModel? Only keep saveWorkouts?
+  // Same goes for the rest.
   void deleteWorkout(Workout workout) {
     final list = workoutList;
     list.removeWhere((w) => w.id == workout.id);
@@ -76,6 +79,13 @@ class AppState extends ChangeNotifier {
     _completedWorkouts = completedWorkouts;
     _persistenceService.saveCompletedWorkouts(completedWorkouts);
     notifyListeners();
+  }
+
+  void deleteCompletedWorkout(CompletedWorkout completedWorkout) {
+    final list = _completedWorkouts.completedWorkouts.toList();
+    list.removeWhere((c) => c.id == completedWorkout.id);
+    saveCompletedWorkouts(
+        _completedWorkouts.rebuild((b) => b..completedWorkouts.replace(list)));
   }
 
   Settings _settings;

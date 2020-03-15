@@ -241,9 +241,10 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
             handleCompletedWorkoutDeleteTap: _handleCompletedWorkoutDeleteTap,
             handleViewTap: _handleViewTap);
 
-    return Card(
-      child: SizeTransition(
-        sizeFactor: _sizeAnimation,
+    return SizeTransition(
+      sizeFactor: _sizeAnimation,
+      child: Card(
+        border: widget.completedWorkout != null,
         child: Stack(
           children: <Widget>[
             Positioned.fill(

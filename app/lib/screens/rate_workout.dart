@@ -62,7 +62,6 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteWorkoutButtonTap() {
-    print(_feltDifficulty);
     if (_feltDifficulty < 1 || _feltDifficulty > 10) {
       Provider.of<ToastService>(context, listen: false).add(Text(
           'The felt difficulty value has to be provided.',
