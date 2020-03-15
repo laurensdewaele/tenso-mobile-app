@@ -34,13 +34,13 @@ class RateWorkoutContent extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Destruction level',
+                    'Felt difficulty level',
                     style: styles.Staatliches.xlBlack,
                   ),
                   IconButton(
                       handleTap: () {
                         showAppDialog(
-                            context: context, content: _DestructionLevelInfo());
+                            context: context, content: _FeltDifficultyLevelInfo());
                       },
                       icon: Icon(
                         size: 28,
@@ -56,7 +56,7 @@ class RateWorkoutContent extends StatelessWidget {
                 enabled: true,
                 primaryColor: styles.Colors.turquoise,
                 isDouble: false,
-                description: 'felt destruction',
+                description: 'felt difficulty',
                 handleIntValueChanged: (int n) {},
                 initialIntValue: 0,
                 maxIntValue: 10,
@@ -75,8 +75,8 @@ class RateWorkoutContent extends StatelessWidget {
   }
 }
 
-class _DestructionLevelInfo extends StatelessWidget {
-  _DestructionLevelInfo({Key key}) : super(key: key);
+class _FeltDifficultyLevelInfo extends StatelessWidget {
+  _FeltDifficultyLevelInfo({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:uuid/uuid.dart';
 
+import 'package:app/models/completed_workouts.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
@@ -11,10 +12,6 @@ class AppState extends ChangeNotifier {
   AppState(PersistenceService persistenceService) {
     _persistenceService = persistenceService;
     _uuid = Uuid();
-    // TODO: Think about something to replace this.
-    // So ideally you would want to load persistence,
-    // If nothing is there, load the default ones.
-    // Have spinners in place?
     _initializePersistence();
   }
 
@@ -73,6 +70,14 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  CompletedWorkouts _completedWorkouts;
+  CompletedWorkouts get completedWorkouts => _completedWorkouts;
+  void saveCompletedWorkouts(CompletedWorkouts completedWorkouts) {
+    _completedWorkouts = completedWorkouts;
+    _persistenceService.saveCompletedWorkouts(completedWorkouts);
+    notifyListeners();
+  }
+
   Settings _settings;
   Settings get settings => _settings;
   void saveSettings(Settings settings) {
@@ -84,9 +89,11 @@ class AppState extends ChangeNotifier {
   void _initializePersistence() async {
     _newWorkout = await _persistenceService.getNewWorkout();
     _workouts = await _persistenceService.getWorkouts();
+    _completedWorkouts = await _persistenceService.getCompletedWorkouts();
     _settings = await _persistenceService.getSettings();
     saveNewWorkout(_newWorkout);
     saveWorkouts(_workouts);
+    saveCompletedWorkouts(_completedWorkouts);
     saveSettings(_settings);
     notifyListeners();
   }

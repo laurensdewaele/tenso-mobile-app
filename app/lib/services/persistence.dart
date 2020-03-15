@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
+import 'package:app/models/completed_workouts.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
@@ -34,6 +35,11 @@ class PersistenceService {
   Future<File> get _localWorkoutsFile async {
     final path = await _localPath;
     return File('$path/workouts.txt');
+  }
+
+  Future<File> get _localCompletedWorkoutsFile async {
+    final path = await _localPath;
+    return File('$path/completed_workouts.txt');
   }
 
   Future<File> get _localSettingsFile async {
@@ -85,6 +91,29 @@ class PersistenceService {
       // TODO: Error handling.
     }
     return workouts == null ? basicWorkouts : workouts;
+  }
+
+  void saveCompletedWorkouts(CompletedWorkouts completedWorkouts) async {
+    try {
+      final file = await _localCompletedWorkoutsFile;
+      file.writeAsString(completedWorkouts.toJson().toString());
+    } catch (e) {
+      print(e);
+      // TODO: Error handling.
+    }
+  }
+
+  Future<CompletedWorkouts> getCompletedWorkouts() async {
+    CompletedWorkouts completedWorkouts;
+    try {
+      final file = await _localCompletedWorkoutsFile;
+      String contents = await file.readAsString();
+      completedWorkouts = CompletedWorkouts.fromJson(contents);
+    } catch (e) {
+      print(e);
+      // TODO: Error handling.
+    }
+    return completedWorkouts == null ? CompletedWorkouts() : completedWorkouts;
   }
 
   void saveSettings(Settings settings) async {

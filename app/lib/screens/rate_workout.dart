@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
+import 'package:provider/provider.dart';
+
+import 'package:app/models/workout.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/rate_workout_vm.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
@@ -10,17 +16,23 @@ import 'package:app/widgets/rate_workout/rate_workout_content.dart';
 enum _Pages { congratulations, rateWorkout }
 
 class RateWorkoutScreen extends StatefulWidget {
-  RateWorkoutScreen({Key key}) : super(key: key);
+  RateWorkoutScreen({Key key, @required this.workout}) : super(key: key);
+
+  final Workout workout;
 
   @override
   _RateWorkoutScreenState createState() => _RateWorkoutScreenState();
 }
 
 class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
+  RateWorkoutViewModel _rateWorkoutViewModel;
   _Pages _page = _Pages.congratulations;
+  int _feltDifficulty = 0;
 
   @override
   void initState() {
+    _rateWorkoutViewModel = RateWorkoutViewModel(
+        appState: Provider.of<AppState>(context, listen: false));
     super.initState();
   }
 
@@ -32,6 +44,18 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   void _handleRateWorkoutTap() {
     setState(() {
       _page = _Pages.rateWorkout;
+    });
+  }
+
+  void _handleCompleteWorkoutButtonTap() {
+    _rateWorkoutViewModel.saveWorkout(
+        workout: widget.workout, feltDifficulty: _feltDifficulty);
+    Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
+  }
+
+  void _handleFeltDifficultyValueChanged(int n) {
+    setState(() {
+      _feltDifficulty = n;
     });
   }
 
@@ -49,8 +73,8 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
       orientation: _orientation,
     );
     final Widget _rateWorkoutContent = RateWorkoutContent(
-      handleButtonTap: () {},
-      handleIntValueChanged: (n) {},
+      handleButtonTap: _handleCompleteWorkoutButtonTap,
+      handleIntValueChanged: _handleFeltDifficultyValueChanged,
     );
 
     if (_page == _Pages.congratulations) _content = _congratulationsContent;
@@ -101,8 +125,7 @@ class _Container extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // I do not know why I have to subtract 20px here.
-      height: maxContainerHeight - styles.Measurements.m,
+      height: maxContainerHeight,
       child: Padding(
         padding: EdgeInsets.all(styles.Measurements.m),
         child: Card(
