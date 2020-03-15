@@ -1,20 +1,18 @@
-import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/widgets/calendar/table.dart';
 
 class CalendarViewModel extends ChangeNotifier {
-  CalendarViewModel({AppState appState}) {
-    _appState = appState;
-    _completedWorkouts = appState.completedWorkouts;
-    _initialize();
+  CalendarViewModel() {
+    _selectedDay = DateTime.now();
+    _selectedMonth = _selectedDay;
   }
 
   AppState _appState;
-  CompletedWorkouts _completedWorkouts;
   DateTime _selectedDay;
   DateTime get selectedDay => _selectedDay;
   DateTime _selectedMonth;
@@ -27,13 +25,14 @@ class CalendarViewModel extends ChangeNotifier {
   List<DateTime> _calendarDatePickerMonths;
   List<DateTime> get calendarDatePickerMonths => _calendarDatePickerMonths;
 
-  void _initialize() {
-    _selectedDay = DateTime.now();
-    _selectedMonth = _selectedDay;
-    _setCompletedWorkoutsForSelectedDay();
-    _setCalendarTableDays();
-    _setDatePickerMonths();
-    notifyListeners();
+  void update(AppState appState) {
+    if (appState?.completedWorkouts?.completedWorkouts != null) {
+      _appState = appState;
+      _setCompletedWorkoutsForSelectedDay();
+      _setCalendarTableDays();
+      _setDatePickerMonths();
+      notifyListeners();
+    }
   }
 
   void setSelectedDay(DateTime day) {
@@ -77,19 +76,21 @@ class CalendarViewModel extends ChangeNotifier {
             belongsToSelectedMonth: isSameMonth(day, _selectedMonth),
             selected: _isSameDay(day, _selectedDay),
             completedWorkoutColors:
-                _getCompletedWorkoutColors(day, _completedWorkouts)))
+                _getCompletedWorkoutColors(day, _appState.completedWorkouts)))
         .toList();
   }
 
   void _setCompletedWorkoutsForSelectedDay() {
-    _completedWorkoutsForSelectedDay = _completedWorkouts.completedWorkouts
+    _completedWorkoutsForSelectedDay = _appState
+        .completedWorkouts.completedWorkouts
         .where((completedWorkout) =>
             _isSameDay(completedWorkout.completedDate, _selectedDay))
         .toList();
   }
 
   void _setDatePickerMonths() {
-    List<DateTime> completedWorkoutMonths = _completedWorkouts.completedWorkouts
+    List<DateTime> completedWorkoutMonths = _appState
+        .completedWorkouts.completedWorkouts
         .map((completedWorkout) => DateTime.utc(
             completedWorkout.completedDate.year,
             completedWorkout.completedDate.month))

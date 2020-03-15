@@ -8,6 +8,7 @@ import 'package:app/services/toast.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/hold_tab_vm.dart';
@@ -75,6 +76,12 @@ class App extends StatelessWidget {
           create: (context) => SoundSettingsViewModel(),
           update: (context, appState, soundSettingsViewModel) =>
               soundSettingsViewModel..update(appState),
+          lazy: false,
+        ),
+        ChangeNotifierProxyProvider<AppState, CalendarViewModel>(
+          create: (context) => CalendarViewModel(),
+          update: (context, appState, calendarViewModel) =>
+              calendarViewModel..update(appState),
           lazy: false,
         ),
       ],

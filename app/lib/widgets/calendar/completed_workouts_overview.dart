@@ -45,6 +45,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                   Column(
                     children: [
                       WorkoutOverviewStack(
+                        key: UniqueKey(),
                         completedWorkout: completedWorkout,
                         handleCompletedWorkoutDeleteTap: handleDeleteTap,
                       ),

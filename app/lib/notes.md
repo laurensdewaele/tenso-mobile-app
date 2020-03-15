@@ -11,9 +11,7 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Remove spaces when deleting calendar completed workouts...
-  While not connecting to store for this => more performant.
-  Nooo fuck I need to ... otherwise when switching days, it's back again.
+- Catch the .orCancel throws with Try catch.
   
 - When scrolling months => set selected day to nothing;
 - Remove up cared on extended card? Ugly
