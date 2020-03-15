@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/rate_workout_vm.dart';
@@ -61,6 +62,13 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteWorkoutButtonTap() {
+    print(_feltDifficulty);
+    if (_feltDifficulty < 1 || _feltDifficulty > 10) {
+      Provider.of<ToastService>(context, listen: false).add(Text(
+          'The felt difficulty value has to be provided.',
+          style: styles.Lato.sBlack));
+      return;
+    }
     _rateWorkoutViewModel.saveWorkout(
         workout: _workout, feltDifficulty: _feltDifficulty);
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
@@ -86,8 +94,8 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
       orientation: _orientation,
     );
     final Widget _rateWorkoutContent = RateWorkoutContent(
-      handleButtonTap: _handleCompleteWorkoutButtonTap,
-      handleIntValueChanged: _handleFeltDifficultyValueChanged,
+      handleCompleteWorkoutButtonTap: _handleCompleteWorkoutButtonTap,
+      handleFeltDifficultyValueChanged: _handleFeltDifficultyValueChanged,
     );
 
     if (_page == _Pages.congratulations) _content = _congratulationsContent;

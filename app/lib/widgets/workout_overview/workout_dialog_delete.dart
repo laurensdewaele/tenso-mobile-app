@@ -63,7 +63,7 @@ Future<void> showCompletedWorkoutDeleteDialog({
   @required VoidCallback handleCancelTap,
   @required VoidCallback handleDeleteTap,
 }) {
-  final String name = workoutName.toLowerCase();
+  final String name = workoutName.toUpperCase();
   final String weekDay = kWeekDays[completedDate.weekday];
   final String day = completedDate.day.toString();
   final String month = kMonths[completedDate.month];
@@ -89,6 +89,9 @@ Future<void> showCompletedWorkoutDeleteDialog({
             '$name',
             style: styles.Lato.sBlackBold,
             textAlign: TextAlign.center,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
           ),
           Text(
             '$date',

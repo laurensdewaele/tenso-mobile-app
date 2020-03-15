@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 Widget checkGripBoardHoldCompatibility(Grip grip, BoardHold boardHold) {
   if (boardHold != null && grip.fingers.count > boardHold.maxAllowedFingers) {
@@ -9,6 +10,7 @@ Widget checkGripBoardHoldCompatibility(Grip grip, BoardHold boardHold) {
     return Text(
       'This hold only has room for $maxAllowedFingers fingers',
       textAlign: TextAlign.center,
+      style: styles.Lato.sBlack,
     );
   }
   return null;

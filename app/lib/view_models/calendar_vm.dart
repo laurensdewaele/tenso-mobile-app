@@ -93,7 +93,9 @@ class CalendarViewModel extends ChangeNotifier {
         .toList();
     completedWorkoutMonths.sort((DateTime a, DateTime b) => a.compareTo(b));
 
-    DateTime first = completedWorkoutMonths[0];
+    DateTime first = completedWorkoutMonths.length > 0
+        ? completedWorkoutMonths[0]
+        : DateTime.now().toUtc();
     DateTime last = DateTime.now().toUtc();
     DateTime threeBeforeFirst = DateTime(first.year, first.month - 3);
     DateTime threeAfterLast = DateTime(last.year, last.month + 3);

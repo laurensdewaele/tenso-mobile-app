@@ -41,7 +41,7 @@ class _NumberInputState extends State<NumberInput> {
   final _focusNode = FocusNode();
 
   String _initialValue;
-  bool _shouldValidate = false;
+  bool _shouldValidate;
 
   StreamSubscription _subscription;
   KeyboardService _keyboardService;
@@ -50,6 +50,9 @@ class _NumberInputState extends State<NumberInput> {
   @override
   void initState() {
     super.initState();
+    widget.shouldFocus == true
+        ? _shouldValidate = true
+        : _shouldValidate = false;
     _initialValue = widget.initialDoubleValue?.toString() ??
         widget.initialIntValue?.toString();
     _textEditingController.text = _initialValue;

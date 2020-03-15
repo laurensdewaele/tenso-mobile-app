@@ -11,12 +11,12 @@ import 'package:app/widgets/number_input_and_description.dart';
 class RateWorkoutContent extends StatelessWidget {
   RateWorkoutContent(
       {Key key,
-      @required this.handleButtonTap,
-      @required this.handleIntValueChanged})
+      @required this.handleCompleteWorkoutButtonTap,
+      @required this.handleFeltDifficultyValueChanged})
       : super(key: key);
 
-  final void Function(int v) handleIntValueChanged;
-  final VoidCallback handleButtonTap;
+  final void Function(int v) handleFeltDifficultyValueChanged;
+  final VoidCallback handleCompleteWorkoutButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,8 @@ class RateWorkoutContent extends StatelessWidget {
                   IconButton(
                       handleTap: () {
                         showAppDialog(
-                            context: context, content: _FeltDifficultyLevelInfo());
+                            context: context,
+                            content: _FeltDifficultyLevelInfo());
                       },
                       icon: Icon(
                         size: 28,
@@ -57,7 +58,7 @@ class RateWorkoutContent extends StatelessWidget {
                 primaryColor: styles.Colors.turquoise,
                 isDouble: false,
                 description: 'felt difficulty',
-                handleIntValueChanged: (int n) {},
+                handleIntValueChanged: handleFeltDifficultyValueChanged,
                 initialIntValue: 0,
                 maxIntValue: 10,
               ),
@@ -68,7 +69,7 @@ class RateWorkoutContent extends StatelessWidget {
           backgroundColor: styles.Colors.turquoise,
           width: double.infinity,
           text: 'done',
-          handleTap: () {},
+          handleTap: handleCompleteWorkoutButtonTap,
         ),
       ],
     );
