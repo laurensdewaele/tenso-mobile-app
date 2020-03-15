@@ -11,11 +11,13 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-### Tomorrow
-
-- Build the felt difficulty after a completed workout
-- Save completed workout
-- Link actual completed workouts to calendar
+- Remove spaces when deleting calendar completed workouts...
+  While not connecting to store for this => more performant.
+  Nooo fuck I need to ... otherwise when switching days, it's back again.
+  
+- When scrolling months => set selected day to nothing;
+- Remove up cared on extended card? Ugly
+- Holy shit => pressing back on android to get back to rate or countdown? nooo
 
 
 ### Large prio
