@@ -28,7 +28,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   }
 
   void _handleDeleteTap(Workout workout) {
-    Provider.of<AppState>(context, listen: false).deleteWorkout(workout);
+    Provider.of<WorkoutViewModel>(context, listen: false).deleteWorkout(workout);
   }
 
   @override

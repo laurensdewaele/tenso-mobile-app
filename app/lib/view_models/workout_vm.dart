@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
+import 'package:uuid/uuid.dart';
+
 import 'package:app/models/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -11,6 +13,7 @@ enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
 class WorkoutViewModel extends ChangeNotifier {
   WorkoutViewModel();
 
+  Uuid _uuid = Uuid();
   AppState _appState;
   String _extraTabButtonText;
   String get extraTabButtonText => _extraTabButtonText;
@@ -89,6 +92,13 @@ class WorkoutViewModel extends ChangeNotifier {
     }
   }
 
+  void deleteWorkout(Workout workout) {
+    final list = _appState.workoutList;
+    list.removeWhere((w) => w.id == workout.id);
+    _appState.saveWorkouts(
+        _appState.workouts.rebuild((b) => b..workouts.replace(list)));
+  }
+
   void setActiveWorkout(Workout workout, WorkoutTypes workoutType) {
     setWorkoutType(workoutType);
     saveWorkout(workout);
@@ -96,7 +106,9 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void addNewWorkoutToWorkouts() {
     if (workoutType == WorkoutTypes.newWorkout) {
-      _appState?.addNewWorkoutToWorkouts();
+      _appState.saveWorkouts(_appState.workouts.rebuild((b) => b
+        ..workouts
+            .add(_appState.newWorkout.rebuild((b) => b..id = _uuid.v4()))));
     }
   }
 }
