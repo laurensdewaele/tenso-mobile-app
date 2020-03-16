@@ -11,7 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Remove up cared on extended card? Ugly
 - Holy shit => pressing back on android to get back to rate or countdown? nooo
 
 

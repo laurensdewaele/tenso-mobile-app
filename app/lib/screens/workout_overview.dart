@@ -38,46 +38,49 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
     final _appState = Provider.of<AppState>(context, listen: true);
 
-    return Stack(
-      children: <Widget>[
-        if (_appState.workoutList != null)
-          _HomeScreen(
-            child: ListView.separated(
-              physics: ClampingScrollPhysics(),
-              itemCount: _appState.workoutList.length + 2,
-              itemBuilder: (BuildContext context, int index) {
-                if (index < _appState.workoutList.length) {
-                  return WorkoutOverviewStack(
-                    key: ObjectKey(_appState.workoutList[index]),
-                    workout: _appState.workoutList[index],
-                    handleWorkoutDeleteTap: _handleDeleteTap,
-                  );
-                } else if (index == _appState.workoutList.length) {
-                  return Button(
-                      text: 'Add workout',
-                      handleTap: _handleAddWorkout,
-                      displayNextIcon: true);
-                } else {
-                  return Divider(
-                      height: viewHeight / 2 - styles.Measurements.m);
-                }
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  Divider(height: styles.Measurements.m),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Stack(
+        children: <Widget>[
+          if (_appState.workoutList != null)
+            _HomeScreen(
+              child: ListView.separated(
+                physics: ClampingScrollPhysics(),
+                itemCount: _appState.workoutList.length + 2,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index < _appState.workoutList.length) {
+                    return WorkoutOverviewStack(
+                      key: ObjectKey(_appState.workoutList[index]),
+                      workout: _appState.workoutList[index],
+                      handleWorkoutDeleteTap: _handleDeleteTap,
+                    );
+                  } else if (index == _appState.workoutList.length) {
+                    return Button(
+                        text: 'Add workout',
+                        handleTap: _handleAddWorkout,
+                        displayNextIcon: true);
+                  } else {
+                    return Divider(
+                        height: viewHeight / 2 - styles.Measurements.m);
+                  }
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    Divider(height: styles.Measurements.m),
+              ),
             ),
-          ),
-        if (_appState.workoutList == null)
-          _HomeScreen(
-              child: Column(
-            children: <Widget>[
-              Button(
-                  text: 'Add workout',
-                  handleTap: _handleAddWorkout,
-                  displayNextIcon: true),
-            ],
-          )),
-        BottomMenuDrawer()
-      ],
+          if (_appState.workoutList == null)
+            _HomeScreen(
+                child: Column(
+              children: <Widget>[
+                Button(
+                    text: 'Add workout',
+                    handleTap: _handleAddWorkout,
+                    displayNextIcon: true),
+              ],
+            )),
+          BottomMenuDrawer()
+        ],
+      ),
     );
   }
 }

@@ -100,33 +100,36 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     if (_page == _Pages.congratulations) _content = _congratulationsContent;
     if (_page == _Pages.rateWorkout) _content = _rateWorkoutContent;
 
-    return KeyboardAndToastProvider(
-      child: Container(
-        decoration: BoxDecoration(color: styles.Colors.bgBlack),
-        child: SafeArea(
-          child: KeyboardListView(
-            children: [
-              Column(
-                children: <Widget>[
-                  if (_orientation == Orientation.portrait)
-                    _Container(
-                      maxContainerHeight: _maxContainerHeight,
-                      content: _content,
-                    ),
-                  if (_orientation == Orientation.landscape &&
-                      _page == _Pages.congratulations)
-                    _CongratulationsLandscapeContainer(
-                      content: _content,
-                    ),
-                  if (_orientation == Orientation.landscape &&
-                      _page == _Pages.rateWorkout)
-                    _RateWorkoutLandscapeContainer(
-                      maxContainerHeight: _maxContainerHeight,
-                      content: _content,
-                    ),
-                ],
-              )
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: KeyboardAndToastProvider(
+        child: Container(
+          decoration: BoxDecoration(color: styles.Colors.bgBlack),
+          child: SafeArea(
+            child: KeyboardListView(
+              children: [
+                Column(
+                  children: <Widget>[
+                    if (_orientation == Orientation.portrait)
+                      _Container(
+                        maxContainerHeight: _maxContainerHeight,
+                        content: _content,
+                      ),
+                    if (_orientation == Orientation.landscape &&
+                        _page == _Pages.congratulations)
+                      _CongratulationsLandscapeContainer(
+                        content: _content,
+                      ),
+                    if (_orientation == Orientation.landscape &&
+                        _page == _Pages.rateWorkout)
+                      _RateWorkoutLandscapeContainer(
+                        maxContainerHeight: _maxContainerHeight,
+                        content: _content,
+                      ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
