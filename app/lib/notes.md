@@ -11,7 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- add icons
 - Rewrite app state
 - Countdown stop
 - Animate fist.
