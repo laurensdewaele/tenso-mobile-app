@@ -11,33 +11,28 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- menu not visible by default on non-first app launch ever. => create info with user device and first time launched.
+- Graphs
 
 ### Large prio
 
-- Graphs
-- Add categories and category colors?
-  - Repeaters
-  - Max hangs
-  It would be nice to distinguish between these.
-  Who can help? Matt?
-
-- Progress and overview completed workouts.
-  - Day overview?
-  - Graph overview with addedWeight
-  - Graph overview with hold edges
-  - Graph overview with Grips
-  - Overview on workout accordion => calcHandoffSet needs to be in a separate class and extend that one. => do it when incorporating it in the overview. 
-- Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
-  Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
-  Explain when drawing my diagram that it's quite intricate and it adds a lot of overhead
-  if you want every widget to have it's own viewModel and not depend on others.
-  It gets messy real fast with Provider lol.
-  Bloc would have been better.
 - Add custom board
 - Add board selection. Only beastmaker1000 atm.
 - Implement a feedback button.
+- Setup sentry.io, don't think about self hosting for now.
+- Think about: 
+  - Categories and different colors?
+  - Repeaters
+  - Max hangs
+  - Ask Vertical Thinking dude.
+  
+  
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
+- Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
+Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
+Explain when drawing my diagram that it's quite intricate and it adds a lot of overhead
+if you want every widget to have it's own viewModel and not depend on others.
+It gets messy real fast with Provider lol.
+Bloc would have been better.
 
 ### Medium prio
 

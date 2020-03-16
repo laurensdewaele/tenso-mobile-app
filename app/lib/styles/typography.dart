@@ -24,6 +24,8 @@ abstract class Staatliches {
       fontFamily: 'Staatliches', fontSize: 22, color: styles.Colors.black);
   static const TextStyle mWhite = TextStyle(
       fontFamily: 'Staatliches', fontSize: 20, color: styles.Colors.white);
+  static const TextStyle mGray = TextStyle(
+      fontFamily: 'Staatliches', fontSize: 20, color: styles.Colors.gray);
   static const TextStyle mBlack = TextStyle(
       fontFamily: 'Staatliches', fontSize: 20, color: styles.Colors.black);
   static const TextStyle sBlack = TextStyle(

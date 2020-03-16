@@ -103,7 +103,7 @@ class _TextInputState extends State<TextInput> {
           onTap: _onTap,
           onEditingComplete: _validateInput,
           onSubmitted: (String text) => {_validateInput},
-          style: styles.Lato.xsGray,
+          style: styles.Staatliches.lBlack,
           textAlign: TextAlign.start,
         ),
       ),
