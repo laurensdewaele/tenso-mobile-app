@@ -102,12 +102,12 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
           Navigator.of(context).pop();
           _close();
         },
-        handleDeleteTap: () {
+        handleDeleteTap: () async {
           Navigator.of(context).pop();
-          _sizeController
-              .forward()
-              .orCancel
-              .then((_) => widget.handleWorkoutDeleteTap(widget.workout));
+          try {
+            await _sizeController.forward().orCancel;
+          } catch (_) {}
+          widget.handleWorkoutDeleteTap(widget.workout);
         });
   }
 
@@ -120,10 +120,12 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
           Navigator.of(context).pop();
           _close();
         },
-        handleDeleteTap: () {
+        handleDeleteTap: () async {
           Navigator.of(context).pop();
-          _sizeController.forward().orCancel.then((_) =>
-              widget.handleCompletedWorkoutDeleteTap(widget.completedWorkout));
+          try {
+            await _sizeController.forward().orCancel;
+          } catch (_) {}
+          widget.handleCompletedWorkoutDeleteTap(widget.completedWorkout);
         });
   }
 

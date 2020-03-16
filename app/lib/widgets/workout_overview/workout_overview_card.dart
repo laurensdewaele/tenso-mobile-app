@@ -80,26 +80,30 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     super.dispose();
   }
 
-  void _handleTap() {
-    if (widget.isSliderOpen) {
+  void _handleTap() async {
+    if (widget.isSliderOpen == true) {
       widget.closeSlider();
       return;
     }
 
     setState(() {
       _isExpanded = !_isExpanded;
-      if (_isExpanded) {
-        _controller.forward().orCancel;
-      } else {
-        _controller.reverse().then<void>((void value) {
-          if (!mounted) return;
-          setState(() {
-            // Rebuild without widget.children.
-          });
-        });
-      }
-      PageStorage.of(context)?.writeState(context, _isExpanded);
     });
+
+    if (_isExpanded) {
+      try {
+        await _controller.forward().orCancel;
+      } catch (_) {}
+    } else {
+      try {
+        await _controller.reverse().orCancel;
+      } catch (_) {}
+      if (!mounted) return;
+      setState(() {
+        // Rebuild without widget.children.
+      });
+    }
+    PageStorage.of(context)?.writeState(context, _isExpanded);
   }
 
   void _handleStart() {

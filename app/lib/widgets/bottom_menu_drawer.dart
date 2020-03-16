@@ -8,7 +8,7 @@ const Map<String, String> menuItems = {
   'settings': Routes.settingsScreen,
   'progress': Routes.progressScreen,
   'calendar': Routes.calendarScreen,
-   'feedback': Routes.feedbackScreen,
+  'feedback': Routes.feedbackScreen,
 };
 
 const double _kRedDragIndicatorHeight = 3.0;
@@ -59,21 +59,23 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     super.dispose();
   }
 
-  void _open() {
-    _slideController.forward().orCancel.then((_) {
-      _dy = 0;
-      setState(() {
-        _position = SliderPositions.end;
-      });
+  void _open() async {
+    try {
+      await _slideController.forward().orCancel;
+    } catch (_) {}
+    _dy = 0;
+    setState(() {
+      _position = SliderPositions.end;
     });
   }
 
-  void _close() {
-    _slideController.reverse().orCancel.then((_) {
-      _dy = 0;
-      setState(() {
-        _position = SliderPositions.begin;
-      });
+  void _close() async {
+    try {
+      await _slideController.reverse().orCancel;
+    } catch (_) {}
+    _dy = 0;
+    setState(() {
+      _position = SliderPositions.begin;
     });
   }
 
