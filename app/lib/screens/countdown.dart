@@ -126,13 +126,13 @@ class _CountdownScreenState extends State<CountdownScreen>
   }
 
   void _handlePlayTap() {
-    _play();
     Navigator.of(context).pop();
+    _play();
   }
 
   void _handleStopTap() {
     _stop();
-    Navigator.of(context).pop();
+    Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }
 
   void _handleTap() {

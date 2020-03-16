@@ -11,8 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Rewrite app state
-- Countdown stop
 - Animate fist.
 - menu not visible by default on non-first app launch ever. => create info with user device and first time launched.
 
