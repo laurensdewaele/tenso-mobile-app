@@ -11,7 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Animate fist.
 - menu not visible by default on non-first app launch ever. => create info with user device and first time launched.
 
 ### Large prio
