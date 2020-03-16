@@ -11,8 +11,10 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Holy shit => pressing back on android to get back to rate or countdown? nooo
-
+- Calendar rename to history
+- Rewrite app state
+- Countdown stop
+- menu not visible by default on non-first app launch ever. => create info with user device and first time launched.
 
 ### Large prio
 
@@ -22,9 +24,6 @@ flutter packages pub run build_runner watch
   - Max hangs
   It would be nice to distinguish between these.
   Who can help? Matt?
-
-- Screen hang timer.
-  Track completed hangs.
 
 - Progress and overview completed workouts.
   - Day overview?
@@ -38,38 +37,29 @@ flutter packages pub run build_runner watch
   if you want every widget to have it's own viewModel and not depend on others.
   It gets messy real fast with Provider lol.
   Bloc would have been better.
+- Add custom board
 - Add board selection. Only beastmaker1000 atm.
 - Implement a feedback button.
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
 
 ### Medium prio
 
-- Animated logo!
-- Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
-- Add custom board
+- Nice logo (animated)!
 - Review app on smaller and larger screens.
-- Validation needs to be on input field itself, not triggered on every input
-- ShouldLooseFocus stream controller onto Provider.
 - Add open crimp
 
 ### Small prio
 
+- Validation needs to be on input field itself, not triggered on every input
+- Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
-- Think about a nice congratulations animation / screen.
+- Animate congratulations screen.
 - Set reminder for workout.
-- menu not visible by default on non-first app launch ever.
 - styles trough Provider instead of globals
-- Mutliple grades
-- Tests :D
+- Tests
 - Add info button on most elements
 - Stop all globals (singletons as well). Do I have any? => styles
 - Check out perf.
-- Refactor keyboard screen. Now code is duplicated across settings screen and new workout.
-- Unhandled exception when rapidly closing and opening an accordion on the overview page.
-  [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: This ticker was canceled: Ticker(created by _WorkoutOverviewCardState#45ee2(lifecycle view_models: created))
-  null
-  
-  
   
 ## Errors
 

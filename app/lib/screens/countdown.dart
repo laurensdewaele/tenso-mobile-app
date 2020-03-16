@@ -191,32 +191,28 @@ class _CountdownScreenState extends State<CountdownScreen>
                 _animationController.value)
         .ceil();
 
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: GestureDetector(
-        onTap: _handleTap,
-        child: Countdown(
-          unit: _sequence[_currentSequenceIndex].unit,
-          addedWeight: _sequence[_currentSequenceIndex].addedWeight,
-          animatedBackgroundHeightFactor: _animationController.value,
-          primaryColor: _sequence[_currentSequenceIndex].color,
-          title: _sequence[_currentSequenceIndex].title,
-          remainingSeconds: _remainingSeconds,
-          holdLabel: _sequence[_currentSequenceIndex].holdLabel,
-          board: _sequence[_currentSequenceIndex].board,
-          leftGrip: _sequence[_currentSequenceIndex].leftGrip,
-          rightGrip: _sequence[_currentSequenceIndex].rightGrip,
-          leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
-          rightGripBoardHold:
-              _sequence[_currentSequenceIndex].rightGripBoardHold,
-          totalSets: _sequence[_currentSequenceIndex].totalSets,
-          currentSet: _sequence[_currentSequenceIndex].currentSet,
-          totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
-          currentHang: _sequence[_currentSequenceIndex].currentHang,
-          endSound: _sequence[_currentSequenceIndex].endSound,
-          beepSound: _sequence[_currentSequenceIndex].beepSound,
-          beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
-        ),
+    return GestureDetector(
+      onTap: _handleTap,
+      child: Countdown(
+        unit: _sequence[_currentSequenceIndex].unit,
+        addedWeight: _sequence[_currentSequenceIndex].addedWeight,
+        animatedBackgroundHeightFactor: _animationController.value,
+        primaryColor: _sequence[_currentSequenceIndex].color,
+        title: _sequence[_currentSequenceIndex].title,
+        remainingSeconds: _remainingSeconds,
+        holdLabel: _sequence[_currentSequenceIndex].holdLabel,
+        board: _sequence[_currentSequenceIndex].board,
+        leftGrip: _sequence[_currentSequenceIndex].leftGrip,
+        rightGrip: _sequence[_currentSequenceIndex].rightGrip,
+        leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
+        rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
+        totalSets: _sequence[_currentSequenceIndex].totalSets,
+        currentSet: _sequence[_currentSequenceIndex].currentSet,
+        totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
+        currentHang: _sequence[_currentSequenceIndex].currentHang,
+        endSound: _sequence[_currentSequenceIndex].endSound,
+        beepSound: _sequence[_currentSequenceIndex].beepSound,
+        beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
       ),
     );
   }
