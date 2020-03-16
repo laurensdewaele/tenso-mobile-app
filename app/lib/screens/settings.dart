@@ -185,7 +185,7 @@ class _SoundSection extends StatelessWidget {
                 handleTap: () {},
                 icon: Icon(
                     iconData: CupertinoIcons.forward,
-                    size: styles.Measurements.l,
+                    size: styles.IconMeasurements.xl,
                     color: styles.Colors.black))
           ],
         ),

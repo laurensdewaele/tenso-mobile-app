@@ -18,7 +18,7 @@ final List<_MenuItem> _menuItems = [
       name: 'settings',
       route: Routes.settingsScreen,
       icon: Icon(
-          size: 24,
+          size: styles.IconMeasurements.l,
           iconData: IconData(0xf43d,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
           color: styles.Colors.black)),
@@ -26,7 +26,7 @@ final List<_MenuItem> _menuItems = [
       name: 'progress',
       route: Routes.progressScreen,
       icon: Icon(
-          size: 18,
+          size: styles.IconMeasurements.s,
           iconData: IconData(0xf484,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
           color: styles.Colors.black)),
@@ -34,7 +34,7 @@ final List<_MenuItem> _menuItems = [
       name: 'history',
       route: Routes.calendarScreen,
       icon: Icon(
-          size: 20,
+          size: styles.IconMeasurements.m,
           iconData: IconData(0xf2d1,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
           color: styles.Colors.black)),
@@ -42,7 +42,7 @@ final List<_MenuItem> _menuItems = [
       name: 'feedback',
       route: Routes.feedbackScreen,
       icon: Icon(
-          size: 18,
+          size: styles.IconMeasurements.s,
           iconData: IconData(0xf2bf,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
           color: styles.Colors.black))

@@ -67,7 +67,7 @@ class SwitchSetting extends StatelessWidget {
                     iconData: IconData(0xf445,
                         fontFamily: 'CupertinoIcons',
                         fontPackage: 'cupertino_icons'),
-                    size: styles.Measurements.l,
+                    size: styles.IconMeasurements.xl,
                     color: styles.Colors.primary),
               )
           ],

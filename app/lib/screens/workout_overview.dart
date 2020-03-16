@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:provider/provider.dart';
 
@@ -10,6 +10,7 @@ import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
 
@@ -57,10 +58,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                       handleWorkoutDeleteTap: _handleDeleteTap,
                     );
                   } else if (index == _appState.workoutList.length) {
-                    return Button(
-                        text: 'Add workout',
-                        handleTap: _handleAddWorkout,
-                        displayNextIcon: true);
+                    return _AddWorkoutButton(
+                      handleTap: _handleAddWorkout,
+                    );
                   } else {
                     return Divider(
                         height: viewHeight / 2 - styles.Measurements.m);
@@ -74,10 +74,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
             _HomeScreen(
                 child: Column(
               children: <Widget>[
-                Button(
-                    text: 'Add workout',
-                    handleTap: _handleAddWorkout,
-                    displayNextIcon: true),
+                _AddWorkoutButton(
+                  handleTap: _handleAddWorkout,
+                ),
               ],
             )),
           BottomMenuDrawer(
@@ -103,5 +102,23 @@ class _HomeScreen extends StatelessWidget {
         gradientStartColor: styles.Colors.bgGrayStart,
         gradientStopColor: styles.Colors.bgGrayStop,
         child: child);
+  }
+}
+
+class _AddWorkoutButton extends StatelessWidget {
+  _AddWorkoutButton({Key key, this.handleTap}) : super(key: key);
+
+  final VoidCallback handleTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Button(
+        text: 'Add workout',
+        handleTap: handleTap,
+        leadingIcon: Icon(
+            iconData: IconData(0xf489,
+                fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+            size: styles.IconMeasurements.xl,
+            color: styles.Colors.white));
   }
 }

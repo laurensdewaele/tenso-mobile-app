@@ -178,7 +178,7 @@ class _RightChevron extends StatelessWidget {
       icon: Icon(
           iconData: IconData(0xf3d1,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          size: styles.Measurements.l,
+          size: styles.IconMeasurements.xl,
           color: primaryColor),
     );
   }
@@ -199,7 +199,7 @@ class _LeftChevron extends StatelessWidget {
       icon: Icon(
           iconData: IconData(0xf3cf,
               fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          size: styles.Measurements.l,
+          size: styles.IconMeasurements.xl,
           color: primaryColor),
     );
   }

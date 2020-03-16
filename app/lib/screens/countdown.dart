@@ -162,7 +162,7 @@ class _CountdownScreenState extends State<CountdownScreen>
                           iconData: IconData(0xf488,
                               fontFamily: 'CupertinoIcons',
                               fontPackage: 'cupertino_icons'),
-                          size: styles.Measurements.l,
+                          size: styles.IconMeasurements.xl,
                           color: styles.Colors.black)),
                 ),
                 Expanded(
@@ -174,7 +174,7 @@ class _CountdownScreenState extends State<CountdownScreen>
                         iconData: IconData(0xf371,
                             fontFamily: 'CupertinoIcons',
                             fontPackage: 'cupertino_icons'),
-                        size: styles.Measurements.l,
+                        size: styles.IconMeasurements.xl,
                         color: styles.Colors.white),
                   ),
                 )

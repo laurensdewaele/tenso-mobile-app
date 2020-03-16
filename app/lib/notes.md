@@ -11,6 +11,7 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
+- Fix bottom menu layout with grid? to center it?
 - Graphs
 
 ### Large prio
