@@ -1,28 +1,65 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icon.dart';
 
-const Map<String, String> menuItems = {
-  'settings': Routes.settingsScreen,
-  'progress': Routes.progressScreen,
-  'history': Routes.calendarScreen,
-  'feedback': Routes.feedbackScreen,
-};
+class _MenuItem {
+  _MenuItem({@required this.name, @required this.route, @required this.icon});
+
+  final String name;
+  final String route;
+  final Icon icon;
+}
+
+final List<_MenuItem> _menuItems = [
+  _MenuItem(
+      name: 'settings',
+      route: Routes.settingsScreen,
+      icon: Icon(
+          size: 24,
+          iconData: IconData(0xf43d,
+              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+          color: styles.Colors.black)),
+  _MenuItem(
+      name: 'progress',
+      route: Routes.progressScreen,
+      icon: Icon(
+          size: 18,
+          iconData: IconData(0xf484,
+              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+          color: styles.Colors.black)),
+  _MenuItem(
+      name: 'history',
+      route: Routes.calendarScreen,
+      icon: Icon(
+          size: 20,
+          iconData: IconData(0xf2d1,
+              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+          color: styles.Colors.black)),
+  _MenuItem(
+      name: 'feedback',
+      route: Routes.feedbackScreen,
+      icon: Icon(
+          size: 18,
+          iconData: IconData(0xf2bf,
+              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+          color: styles.Colors.black))
+];
 
 const double _kRedDragIndicatorHeight = 3.0;
 const double _kRedDragIndicatorContainerHeight = styles.Measurements.xl;
 const double _kRedDragIndicatorWidth =
     styles.Measurements.m + styles.Measurements.l;
-const double _kMenuItemTextHeight = styles.Measurements.m * 2;
+const double _kMenuItemHeight = styles.Measurements.m * 2;
 const double _kDividerHeight = styles.Measurements.m;
 enum SliderPositions { begin, end }
-final double _totalHeight = menuItems.length * _kMenuItemTextHeight +
+final double _totalHeight = _menuItems.length * _kMenuItemHeight +
     _kDividerHeight +
     _kRedDragIndicatorContainerHeight;
 final double _heightToHide =
-    menuItems.length * _kMenuItemTextHeight + _kDividerHeight;
+    _menuItems.length * _kMenuItemHeight + _kDividerHeight;
 final double _offsetHeight = _heightToHide / _totalHeight;
 
 class BottomMenuDrawer extends StatefulWidget {
@@ -169,20 +206,15 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                           ),
                         ),
                       ),
-                      ...menuItems.entries
+                      ..._menuItems
                           .map(
                             (menuItem) => GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushNamed(menuItem.value);
+                                Navigator.of(context).pushNamed(menuItem.route);
                               },
-                              child: Container(
-                                height: _kMenuItemTextHeight,
-                                child: Center(
-                                  child: Text(
-                                    menuItem.key,
-                                    style: styles.Staatliches.xlBlack,
-                                  ),
-                                ),
+                              child: _MenuItemRow(
+                                name: menuItem.name,
+                                icon: menuItem.icon,
                               ),
                             ),
                           )
@@ -206,6 +238,52 @@ class _RedDragIndicatorRectangle extends StatelessWidget {
       height: _kRedDragIndicatorHeight,
       decoration: BoxDecoration(
           color: styles.Colors.primary, borderRadius: styles.kBorderRadiusAll),
+    );
+  }
+}
+
+class _MenuItemRow extends StatelessWidget {
+  _MenuItemRow({Key key, @required this.name, @required this.icon})
+      : super(key: key);
+
+  final String name;
+  final Icon icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: _kMenuItemHeight,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Expanded(
+            flex: 46,
+            child: Container(
+              decoration: BoxDecoration(color: styles.Colors.translucent),
+            ),
+          ),
+          Expanded(
+            flex: 100,
+            child: Row(
+              children: <Widget>[
+                Container(
+                    height: 25,
+                    width: 25,
+                    child: Center(child: FittedBox(child: icon))),
+                Divider(
+                  width: styles.Measurements.xs,
+                ),
+                Center(
+                  child: Text(
+                    name,
+                    style: styles.Staatliches.xlBlack,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
