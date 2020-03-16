@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/completed_workouts.dart';
+import 'package:app/models/device_info.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
@@ -29,6 +30,9 @@ class AppState extends ChangeNotifier {
 
   Settings _settings;
   Settings get settings => _settings;
+
+  DeviceInfo _deviceInfo;
+  DeviceInfo get deviceInfo => _deviceInfo;
 
   void saveNewWorkout(Workout newWorkout) {
     _newWorkout = newWorkout;
@@ -78,6 +82,11 @@ class AppState extends ChangeNotifier {
     _workouts = await _persistenceService.getWorkouts();
     _completedWorkouts = await _persistenceService.getCompletedWorkouts();
     _settings = await _persistenceService.getSettings();
+    _deviceInfo = await _persistenceService.getDeviceInfo();
+    if (_deviceInfo.firstLaunch == true) {
+      _persistenceService
+          .saveDeviceInfo(deviceInfo.rebuild((b) => b.firstLaunch = false));
+    }
     saveNewWorkout(_newWorkout);
     saveWorkouts(_workouts);
     saveCompletedWorkouts(_completedWorkouts);

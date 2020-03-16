@@ -63,9 +63,9 @@ final double _heightToHide =
 final double _offsetHeight = _heightToHide / _totalHeight;
 
 class BottomMenuDrawer extends StatefulWidget {
-  BottomMenuDrawer({Key key, this.handleMenuItemTap}) : super(key: key);
+  BottomMenuDrawer({Key key, this.startOpen = false}) : super(key: key);
 
-  final VoidCallback handleMenuItemTap;
+  final bool startOpen;
 
   @override
   _BottomMenuDrawerState createState() => _BottomMenuDrawerState();
@@ -85,9 +85,21 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
 
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    _slideController.value = 1;
+    _position = SliderPositions.end;
     _slideAnimation =
         Tween<Offset>(begin: Offset.zero, end: Offset(0.0, _offsetHeight))
             .chain(CurveTween(curve: Curves.easeIn));
+  }
+
+  @override
+  void didUpdateWidget(BottomMenuDrawer oldWidget) {
+    if (oldWidget.startOpen != widget.startOpen && widget.startOpen == true) {
+      if (_position == SliderPositions.end) {
+        _reverse();
+      }
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -96,7 +108,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     super.dispose();
   }
 
-  void _open() async {
+  void _forward() async {
     try {
       await _slideController.forward().orCancel;
     } catch (_) {}
@@ -106,7 +118,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     });
   }
 
-  void _close() async {
+  void _reverse() async {
     try {
       await _slideController.reverse().orCancel;
     } catch (_) {}
@@ -118,9 +130,9 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
 
   void _handleRedDragIndicatorTap() {
     if (_slideController.value > 0) {
-      _close();
+      _reverse();
     } else {
-      _open();
+      _forward();
     }
   }
 
@@ -147,19 +159,19 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     final double velocity = details.primaryVelocity;
 
     if (velocity > 0) {
-      _open();
+      _forward();
     }
 
     // Dragging upwards has a negative velocity
     if (velocity < 0) {
-      _close();
+      _reverse();
     }
 
     if (velocity == 0) {
       if (_slideController.value >= 0.5) {
-        _open();
+        _forward();
       } else {
-        _close();
+        _reverse();
       }
     }
   }

@@ -38,6 +38,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
     final _appState = Provider.of<AppState>(context, listen: true);
+    final bool _startOpen = _appState?.deviceInfo?.firstLaunch ?? false;
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -79,7 +80,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                     displayNextIcon: true),
               ],
             )),
-          BottomMenuDrawer()
+          BottomMenuDrawer(
+            startOpen: _startOpen,
+          )
         ],
       ),
     );

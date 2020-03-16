@@ -6,6 +6,7 @@ import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
+import 'package:app/models/device_info.dart';
 import 'package:app/models/fingers.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
@@ -25,6 +26,7 @@ part 'serializers.g.dart';
   BoardHold,
   CompletedWorkout,
   CompletedWorkouts,
+  DeviceInfo,
   Fingers,
   Grip,
   HandHold,

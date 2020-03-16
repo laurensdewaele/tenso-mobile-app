@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/completed_workouts.dart';
+import 'package:app/models/device_info.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
@@ -45,6 +46,36 @@ class PersistenceService {
   Future<File> get _localSettingsFile async {
     final path = await _localPath;
     return File('$path/settings.txt');
+  }
+
+  Future<File> get _localDeviceInfoFile async {
+    final path = await _localPath;
+    return File('$path/device_info.txt');
+  }
+
+  Future<DeviceInfo> getDeviceInfo() async {
+    DeviceInfo deviceInfo;
+    try {
+      final file = await _localDeviceInfoFile;
+      String contents = await file.readAsString();
+      deviceInfo = DeviceInfo.fromJson(contents);
+    } catch (e) {
+      print(e);
+      // TODO: Error handling.
+    }
+    return deviceInfo == null
+        ? DeviceInfo((b) => b..firstLaunch = true)
+        : deviceInfo;
+  }
+
+  void saveDeviceInfo(DeviceInfo info) async {
+    try {
+      final file = await _localDeviceInfoFile;
+      file.writeAsString(info.toJson().toString());
+    } catch (e) {
+      print(e);
+      // TODO: Error handling
+    }
   }
 
   void saveWorkout(Workout workout) async {
