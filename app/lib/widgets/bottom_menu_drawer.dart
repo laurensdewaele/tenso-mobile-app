@@ -265,17 +265,15 @@ class _MenuItemRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: _kMenuItemHeight,
+      decoration: BoxDecoration(color: styles.Colors.translucent),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
-            flex: 46,
-            child: Container(
-              decoration: BoxDecoration(color: styles.Colors.translucent),
-            ),
+            child: Container(),
           ),
-          Expanded(
-            flex: 100,
+          Container(
+            width: 140,
             child: Row(
               children: <Widget>[
                 Container(
@@ -294,6 +292,9 @@ class _MenuItemRow extends StatelessWidget {
               ],
             ),
           ),
+          Expanded(
+            child: Container(),
+          )
         ],
       ),
     );
