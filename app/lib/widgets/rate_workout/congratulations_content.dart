@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/rate_workout/animated_fist.dart';
 
 class CongratulationsContent extends StatelessWidget {
   CongratulationsContent(
@@ -16,21 +17,15 @@ class CongratulationsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget image = Center(
-      child: Image.asset(
-        'assets/images/fist.png',
-      ),
-    );
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (orientation == Orientation.portrait)
           Expanded(
-            child: image,
+            child: AnimatedFist(),
           ),
-        if (orientation == Orientation.landscape) image,
+        if (orientation == Orientation.landscape) AnimatedFist(),
         if (orientation == Orientation.portrait)
           Divider(
             height: styles.Measurements.m,
