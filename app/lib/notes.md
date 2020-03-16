@@ -11,9 +11,10 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Calendar rename to history
+- add icons
 - Rewrite app state
 - Countdown stop
+- Animate fist.
 - menu not visible by default on non-first app launch ever. => create info with user device and first time launched.
 
 ### Large prio
@@ -53,7 +54,6 @@ flutter packages pub run build_runner watch
 - Validation needs to be on input field itself, not triggered on every input
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
-- Animate congratulations screen.
 - Set reminder for workout.
 - styles trough Provider instead of globals
 - Tests

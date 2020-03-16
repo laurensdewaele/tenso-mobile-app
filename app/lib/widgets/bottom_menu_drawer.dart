@@ -7,7 +7,7 @@ import 'package:app/widgets/divider.dart';
 const Map<String, String> menuItems = {
   'settings': Routes.settingsScreen,
   'progress': Routes.progressScreen,
-  'calendar': Routes.calendarScreen,
+  'history': Routes.calendarScreen,
   'feedback': Routes.feedbackScreen,
 };
 
