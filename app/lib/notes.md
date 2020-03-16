@@ -11,9 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Catch the .orCancel throws with Try catch.
-  
-- When scrolling months => set selected day to nothing;
 - Remove up cared on extended card? Ugly
 - Holy shit => pressing back on android to get back to rate or countdown? nooo
 
