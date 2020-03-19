@@ -122,25 +122,24 @@ class _WorkoutDuration extends StatelessWidget {
         height: styles.Measurements.xl,
         child: Center(
             child: RichText(
-          text: TextSpan(
-              text: minutes.toString(),
-              style: styles.Staatliches.lBlack,
-              children: [
-                if (minutes != 0)
-                  TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-                if (minutes != 0)
-                  TextSpan(text: 'm', style: styles.Staatliches.xsBlack),
-                if (seconds != 0)
-                  TextSpan(text: '  ', style: styles.Staatliches.xsBlack),
-                if (seconds != 0)
-                  TextSpan(
-                      text: seconds.toString(),
-                      style: styles.Staatliches.lBlack),
-                if (seconds != 0)
-                  TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-                if (seconds != 0)
-                  TextSpan(text: 's', style: styles.Staatliches.xsBlack)
-              ]),
+          text: TextSpan(text: null, children: [
+            if (minutes != 0)
+              TextSpan(
+                  text: minutes.toString(), style: styles.Staatliches.lBlack),
+            if (minutes != 0)
+              TextSpan(text: ' ', style: styles.Staatliches.textDivider),
+            if (minutes != 0)
+              TextSpan(text: 'm', style: styles.Staatliches.xsBlack),
+            if (seconds != 0)
+              TextSpan(text: '  ', style: styles.Staatliches.xsBlack),
+            if (seconds != 0)
+              TextSpan(
+                  text: seconds.toString(), style: styles.Staatliches.lBlack),
+            if (seconds != 0)
+              TextSpan(text: ' ', style: styles.Staatliches.textDivider),
+            if (seconds != 0)
+              TextSpan(text: 's', style: styles.Staatliches.xsBlack)
+          ]),
         )));
   }
 }
