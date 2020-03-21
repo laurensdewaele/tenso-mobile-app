@@ -1,6 +1,18 @@
+import 'package:mock_data/mock_data.dart';
+
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
+
+List<CompletedWorkout> generateCompletedWorkouts(int amount) {
+  return List.generate(amount, (i) => i).map((n) {
+    return CompletedWorkout((b) => b
+      ..id = mockUUID()
+      ..completedDate = mockDate(DateTime(2020, 1, 1), DateTime(2020, 3, 16))
+      ..feltDifficulty = mockInteger(1, 10)
+      ..workout = basicWorkout.toBuilder());
+  }).toList();
+}
 
 final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
   ..id = '123'

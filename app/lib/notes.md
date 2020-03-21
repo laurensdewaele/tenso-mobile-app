@@ -11,44 +11,46 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Fix bottom menu layout with grid? to center it?
-- Graphs
+- Display workout. Most important average added weight, average hang seconds. No of holds.
+- Do i need to adjust the ID when editing a workout? => Yes
+- Add grip type on hold info (hold, type, depth)
+- Rename felt difficulty to effort level.
+- Negative weights!
+- Add open crimp
+- Bug? Keyboard on rotation (on countdown screen)?
 
 ### Large prio
 
-- Add custom board
+- Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
+- Stopwatch option for rest periods
+- Stop and log, when a workout is more than you can handle that day. E.g. The last set is too much.
+- Graphs
+- Redesign toast
 - Add board selection. Only beastmaker1000 atm.
+- Add custom board => Slopers, pinches, ... 
 - Implement a feedback button.
-- Setup sentry.io, don't think about self hosting for now.
-- Think about: 
-  - Categories and different colors?
-  - Repeaters
-  - Max hangs
-  - Ask Vertical Thinking dude.
-  
-  
+- Info/explanation screen
+- Skip buttons so you can quickly complete a workout.
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
-- Draw diagram when all is refactored. => DO THIS THOUGH MAYBE DO IT WHEN YOUR READY TO OPEN SOURCE.
-Maybe then you'll foreget how it's all structured. NewOrEditWorkout => buffer for the workout screens because it can alter between new or edit.
-Explain when drawing my diagram that it's quite intricate and it adds a lot of overhead
-if you want every widget to have it's own viewModel and not depend on others.
-It gets messy real fast with Provider lol.
-Bloc would have been better.
 
 ### Medium prio
 
+- Setup sentry.io, don't think about self hosting for now.
+- Login with device id, to save workouts already
+- Think about: 
+  - Categories and different colors?
+- Draw diagram when all is refactored.
 - Nice logo (animated)!
 - Review app on smaller and larger screens.
-- Add open crimp
 
 ### Small prio
 
+- Tests
 - Validation needs to be on input field itself, not triggered on every input
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
 - styles trough Provider instead of globals
-- Tests
 - Add info button on most elements
 - Stop all globals (singletons as well). Do I have any? => styles
 - Check out perf.

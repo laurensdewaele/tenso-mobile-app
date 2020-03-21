@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/screens/calendar.dart';
 import 'package:app/screens/countdown.dart';
+import 'package:app/screens/progress.dart';
 import 'package:app/screens/rate_workout.dart';
 import 'package:app/screens/settings.dart';
 import 'package:app/screens/sound_settings.dart';
@@ -31,5 +32,6 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.countdownScreen: (context) => CountdownScreen(),
     Routes.calendarScreen: (context) => CalendarScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
+    Routes.progressScreen: (context) => ProgressScreen(),
   };
 }
