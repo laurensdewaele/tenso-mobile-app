@@ -32,9 +32,10 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
         Divider(height: styles.Measurements.l),
         if (_isCompletedWorkout == false)
           _WorkoutRowOne(
-            difficulty: _workout.difficulty.toString(),
+            difficulty: _workout.difficulty,
             difficultyColor: _workout.difficultyColor,
-            holdCount: _workout.holdCount.toString(),
+            durationMinutes: _minutes,
+            durationSeconds: _seconds,
           ),
         if (_isCompletedWorkout == true)
           _CompletedWorkoutRowOne(
@@ -46,9 +47,8 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
         Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
           _WorkoutRowTwo(
+            holdCount: _workout.holdCount,
             sets: _workout.sets,
-            durationMinutes: _minutes,
-            durationSeconds: _seconds,
           ),
         if (_isCompletedWorkout == true)
           _CompletedWorkoutRowTwo(
@@ -149,41 +149,12 @@ class _WorkoutRowOne extends StatelessWidget {
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
-      @required this.holdCount})
+      @required this.durationSeconds,
+      @required this.durationMinutes})
       : super(key: key);
 
   final Color difficultyColor;
-  final String difficulty;
-  final String holdCount;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        _WorkoutInfo(
-          title: 'difficulty',
-          value: difficulty,
-          difficultyColor: difficultyColor,
-        ),
-        _WorkoutInfo(
-          title: 'holds',
-          value: holdCount,
-        ),
-      ],
-    );
-  }
-}
-
-class _WorkoutRowTwo extends StatelessWidget {
-  _WorkoutRowTwo(
-      {Key key,
-      @required this.sets,
-      @required this.durationMinutes,
-      @required this.durationSeconds})
-      : super(key: key);
-
-  final int sets;
+  final int difficulty;
   final int durationMinutes;
   final int durationSeconds;
 
@@ -193,8 +164,9 @@ class _WorkoutRowTwo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         _WorkoutInfo(
-          title: 'sets',
-          value: sets.toString(),
+          title: 'difficulty',
+          value: difficulty.toString(),
+          difficultyColor: difficultyColor,
         ),
         Expanded(
             child: Column(children: <Widget>[
@@ -206,7 +178,32 @@ class _WorkoutRowTwo extends StatelessWidget {
             minutes: durationMinutes,
             seconds: durationSeconds,
           )
-        ])),
+        ]))
+      ],
+    );
+  }
+}
+
+class _WorkoutRowTwo extends StatelessWidget {
+  _WorkoutRowTwo({Key key, @required this.sets, @required this.holdCount})
+      : super(key: key);
+
+  final int sets;
+  final int holdCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        _WorkoutInfo(
+          title: 'sets',
+          value: sets.toString(),
+        ),
+        _WorkoutInfo(
+          title: 'holds',
+          value: holdCount.toString(),
+        ),
       ],
     );
   }
