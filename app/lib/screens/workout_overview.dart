@@ -39,25 +39,26 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
     final _appState = Provider.of<AppState>(context, listen: true);
+    final _workoutList = _appState?.workouts?.workouts?.toList();
     final bool _startOpen = _appState?.deviceInfo?.firstLaunch ?? false;
 
     return WillPopScope(
       onWillPop: () async => false,
       child: Stack(
         children: <Widget>[
-          if (_appState.workoutList != null)
+          if (_workoutList != null)
             _HomeScreen(
               child: ListView.separated(
                 physics: ClampingScrollPhysics(),
-                itemCount: _appState.workoutList.length + 2,
+                itemCount: _workoutList.length + 2,
                 itemBuilder: (BuildContext context, int index) {
-                  if (index < _appState.workoutList.length) {
+                  if (index < _workoutList.length) {
                     return WorkoutOverviewStack(
-                      key: ObjectKey(_appState.workoutList[index]),
-                      workout: _appState.workoutList[index],
+                      key: ObjectKey(_workoutList[index]),
+                      workout: _workoutList[index],
                       handleWorkoutDeleteTap: _handleDeleteTap,
                     );
-                  } else if (index == _appState.workoutList.length) {
+                  } else if (index == _workoutList.length) {
                     return _AddWorkoutButton(
                       handleTap: _handleAddWorkout,
                     );
@@ -70,7 +71,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                     Divider(height: styles.Measurements.m),
               ),
             ),
-          if (_appState.workoutList == null)
+          if (_workoutList == null)
             _HomeScreen(
                 child: Column(
               children: <Widget>[

@@ -24,7 +24,6 @@ class AppState extends ChangeNotifier {
 
   Workouts _workouts;
   Workouts get workouts => _workouts;
-  List<Workout> get workoutList => _workouts?.workouts?.toList();
   CompletedWorkouts _completedWorkouts;
   CompletedWorkouts get completedWorkouts => _completedWorkouts;
 

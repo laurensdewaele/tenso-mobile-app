@@ -11,11 +11,7 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Abstract all logic away from appstate. Remove edit view and new workout.
-  Keep one. Leave all logic in vm. 
-
 - Add unit to expanded
-- Textfield needs to be closed in order to update.
 - Add grip type on hold info (hold, type, depth)
 - Rename felt difficulty to effort level.
 - Negative weights!

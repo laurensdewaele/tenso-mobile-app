@@ -16,8 +16,12 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
   String get id;
+
+  // This is used for easily comparing which completed workout
+  // is different from the other without having to do a deep comparison.
   @nullable
   String get editedId;
+
   int get difficulty;
   int get sets;
   int get holdCount;

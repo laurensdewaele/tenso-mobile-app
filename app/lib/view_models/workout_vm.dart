@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:app/models/workouts.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:uuid/uuid.dart';
 
 import 'package:app/models/workout.dart';
+import 'package:app/models/workouts.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -27,6 +27,7 @@ class WorkoutViewModel extends ChangeNotifier {
   String _title;
   String get title => _title;
   Workout get workout => _appState?.workout;
+  List<Workout> get _workoutList => _appState?.workouts?.workouts?.toList();
 
   WorkoutTypes _workoutType;
 
@@ -74,23 +75,25 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void _saveEditWorkout(Workout editWorkout) {
     final Workout _originalWorkout =
-        _appState?.workoutList?.firstWhere((w) => w.id == workout.id);
+        _workoutList.firstWhere((w) => w.id == workout.id);
 
     if (_originalWorkout != editWorkout) {
-      final list = _appState?.workoutList;
-      final int index = list.indexWhere((w) => w.id == editWorkout.id);
-      list[index] = editWorkout.rebuild((b) => b..editedId = _uuid.v4());
-      final Workouts _newWorkouts =
-          _appState?.workouts?.rebuild((b) => b..workouts.replace(list));
+      final int index = _workoutList.indexWhere((w) => w.id == editWorkout.id);
+      final Workout _editedWorkout =
+          editWorkout.rebuild((b) => b..editedId = _uuid.v4());
+      final List<Workout> _newWorkoutList = []..addAll(_workoutList);
+      _newWorkoutList[index] = _editedWorkout;
+      final Workouts _newWorkouts = _appState?.workouts
+          ?.rebuild((b) => b..workouts.replace(_newWorkoutList));
       _setAndSaveWorkouts(_newWorkouts);
     }
   }
 
   void deleteWorkout(Workout workout) {
-    final list = _appState?.workoutList;
-    list.removeWhere((w) => w.id == workout.id);
-    final Workouts _workouts =
-        _appState?.workouts?.rebuild((b) => b..workouts.replace(list));
+    final List<Workout> _newWorkoutList = []..addAll(_workoutList);
+    _newWorkoutList.removeWhere((w) => w.id == workout.id);
+    final Workouts _workouts = _appState?.workouts
+        ?.rebuild((b) => b..workouts.replace(_newWorkoutList));
     _setAndSaveWorkouts(_workouts);
   }
 
