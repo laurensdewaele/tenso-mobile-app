@@ -68,7 +68,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
           style: styles.Lato.sBlack));
       return;
     }
-    _rateWorkoutViewModel.saveWorkout(
+    _rateWorkoutViewModel.saveCompletedWorkout(
         workout: _workout, feltDifficulty: _feltDifficulty);
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }

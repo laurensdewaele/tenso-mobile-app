@@ -15,12 +15,12 @@ class AppState extends ChangeNotifier {
 
   PersistenceService _persistenceService;
 
-  Workout _newWorkout;
-  Workout get newWorkout => _newWorkout;
-  Workout _editWorkout;
-  Workout get editWorkout => _editWorkout;
-  Workout _viewWorkout;
-  Workout get viewWorkout => _viewWorkout;
+  // This can be used for either:
+  // 1) Creating a new workout
+  // 2) Editing a workout
+  // 3) Viewing a workout (once completed)
+  Workout _workout;
+  Workout get workout => _workout;
 
   Workouts _workouts;
   Workouts get workouts => _workouts;
@@ -34,51 +34,44 @@ class AppState extends ChangeNotifier {
   DeviceInfo _deviceInfo;
   DeviceInfo get deviceInfo => _deviceInfo;
 
+  void setWorkout(Workout workout) {
+    _workout = workout;
+    notifyListeners();
+  }
+
   void saveNewWorkout(Workout newWorkout) {
-    _newWorkout = newWorkout;
-    _persistenceService.saveWorkout(newWorkout);
-    notifyListeners();
+    _persistenceService.saveNewWorkout(newWorkout);
   }
 
-  void saveEditWorkout(Workout editWorkout) {
-    _editWorkout = editWorkout;
-    saveEditWorkoutToWorkouts();
-    notifyListeners();
-  }
-
-  void saveEditWorkoutToWorkouts() {
-    final list = workoutList;
-    final int index = list
-        .indexWhere((workout) => _editWorkout.originalId == workout.originalId);
-    list[index] = _editWorkout;
-    saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
-  }
-
-  void setViewWorkout(Workout viewWorkout) {
-    _viewWorkout = viewWorkout;
+  void setWorkouts(Workouts workouts) {
+    _workouts = workouts;
     notifyListeners();
   }
 
   void saveWorkouts(Workouts workouts) {
-    _workouts = workouts;
     _persistenceService.saveWorkouts(workouts);
+  }
+
+  void setCompletedWorkouts(CompletedWorkouts completedWorkouts) {
+    _completedWorkouts = completedWorkouts;
     notifyListeners();
   }
 
   void saveCompletedWorkouts(CompletedWorkouts completedWorkouts) {
-    _completedWorkouts = completedWorkouts;
     _persistenceService.saveCompletedWorkouts(completedWorkouts);
+  }
+
+  void setSettings(Settings settings) {
+    _settings = settings;
     notifyListeners();
   }
 
   void saveSettings(Settings settings) {
-    _settings = settings;
     _persistenceService.saveSettings(settings);
-    notifyListeners();
   }
 
   void _initializePersistence() async {
-    _newWorkout = await _persistenceService.getNewWorkout();
+    _workout = await _persistenceService.getNewWorkout();
     _workouts = await _persistenceService.getWorkouts();
     _completedWorkouts = await _persistenceService.getCompletedWorkouts();
     _settings = await _persistenceService.getSettings();
@@ -87,10 +80,10 @@ class AppState extends ChangeNotifier {
       _persistenceService
           .saveDeviceInfo(deviceInfo.rebuild((b) => b.firstLaunch = false));
     }
-    saveNewWorkout(_newWorkout);
-    saveWorkouts(_workouts);
-    saveCompletedWorkouts(_completedWorkouts);
-    saveSettings(_settings);
+    setWorkout(_workout);
+    setWorkouts(_workouts);
+    setCompletedWorkouts(_completedWorkouts);
+    setSettings(_settings);
     notifyListeners();
   }
 }

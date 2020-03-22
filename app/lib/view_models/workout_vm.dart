@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:app/models/workouts.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:uuid/uuid.dart';
@@ -25,24 +26,9 @@ class WorkoutViewModel extends ChangeNotifier {
   TextStyle get textPrimaryColor => _textPrimaryColor;
   String _title;
   String get title => _title;
-  Workout get workout {
-    switch (workoutType) {
-      case WorkoutTypes.editWorkout:
-        return _appState?.editWorkout;
-        break;
-      case WorkoutTypes.newWorkout:
-        return _appState?.newWorkout;
-        break;
-      case WorkoutTypes.viewWorkout:
-        return _appState?.viewWorkout;
-        break;
-      default:
-        return _appState?.newWorkout;
-    }
-  }
+  Workout get workout => _appState?.workout;
 
   WorkoutTypes _workoutType;
-  WorkoutTypes get workoutType => _workoutType;
 
   void update(AppState appState) {
     _appState = appState;
@@ -78,40 +64,51 @@ class WorkoutViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void saveWorkout(Workout workout) {
-    switch (workoutType) {
-      case WorkoutTypes.editWorkout:
-        _appState?.saveEditWorkout(workout.rebuild((b) => b
-          ..editedId = _uuid.v4()
-          ..modifiedDates.add(DateTime.now().toUtc())));
-        break;
-      case WorkoutTypes.newWorkout:
-        _appState?.saveNewWorkout(workout.rebuild((b) => b
-          ..originalId = _uuid.v4()
-          ..createdDate = DateTime.now().toUtc()));
-        break;
-      case WorkoutTypes.viewWorkout:
-        _appState?.setViewWorkout(workout);
-        break;
+  void setWorkout(Workout workout) {
+    _appState?.setWorkout(workout);
+
+    if (_workoutType == WorkoutTypes.editWorkout) {
+      _saveEditWorkout(workout);
+    }
+  }
+
+  void _saveEditWorkout(Workout editWorkout) {
+    final Workout _originalWorkout =
+        _appState?.workoutList?.firstWhere((w) => w.id == workout.id);
+
+    if (_originalWorkout != editWorkout) {
+      final list = _appState?.workoutList;
+      final int index = list.indexWhere((w) => w.id == editWorkout.id);
+      list[index] = editWorkout.rebuild((b) => b..editedId = _uuid.v4());
+      final Workouts _newWorkouts =
+          _appState?.workouts?.rebuild((b) => b..workouts.replace(list));
+      _setAndSaveWorkouts(_newWorkouts);
     }
   }
 
   void deleteWorkout(Workout workout) {
-    final list = _appState.workoutList;
-    list.removeWhere((w) => w.originalId == workout.originalId);
-    _appState.saveWorkouts(
-        _appState.workouts.rebuild((b) => b..workouts.replace(list)));
+    final list = _appState?.workoutList;
+    list.removeWhere((w) => w.id == workout.id);
+    final Workouts _workouts =
+        _appState?.workouts?.rebuild((b) => b..workouts.replace(list));
+    _setAndSaveWorkouts(_workouts);
   }
 
   void setActiveWorkout(Workout workout, WorkoutTypes workoutType) {
     setWorkoutType(workoutType);
-    saveWorkout(workout);
+    setWorkout(workout);
   }
 
-  void addNewWorkoutToWorkouts() {
-    if (workoutType == WorkoutTypes.newWorkout) {
-      _appState.saveWorkouts(_appState.workouts
-          .rebuild((b) => b..workouts.add(_appState.newWorkout)));
+  void addNewWorkout() {
+    if (_workoutType == WorkoutTypes.newWorkout) {
+      final Workouts _workouts = _appState?.workouts
+          ?.rebuild((b) => b..workouts.add(_appState?.workout));
+      _setAndSaveWorkouts(_workouts);
     }
+  }
+
+  void _setAndSaveWorkouts(Workouts workouts) {
+    _appState.setWorkouts(workouts);
+    _appState.saveWorkouts(workouts);
   }
 }

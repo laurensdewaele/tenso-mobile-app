@@ -1,3 +1,4 @@
+import 'package:app/models/completed_workouts.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:app/models/completed_workout.dart';
@@ -13,15 +14,20 @@ class RateWorkoutViewModel {
   AppState _appState;
   Uuid _uuid;
 
-  saveWorkout({Workout workout, int feltDifficulty}) {
-    final DateTime now = DateTime.now().toUtc();
+  saveCompletedWorkout({Workout workout, int feltDifficulty}) {
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
       ..workout = workout.toBuilder()
       ..feltDifficulty = feltDifficulty
-      ..completedDate = now
+      ..completedDate = DateTime.now().toUtc()
       ..id = _uuid.v4());
 
-    _appState.saveCompletedWorkouts(_appState.completedWorkouts
-        .rebuild((b) => b..completedWorkouts.add(completedWorkout)));
+    final _completedWorkouts = _appState.completedWorkouts
+        .rebuild((b) => b..completedWorkouts.add(completedWorkout));
+    _setAndSaveCompletedWorkouts(_completedWorkouts);
+  }
+
+  _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {
+    _appState.setCompletedWorkouts(completedWorkouts);
+    _appState.saveCompletedWorkouts(completedWorkouts);
   }
 }

@@ -32,26 +32,26 @@ class GeneralTabViewModel {
     final Workout w = _workout.rebuild((b) => b
       ..holdCount = count
       ..holds.replace(_holds));
-    _workoutViewModel.saveWorkout(w);
+    _workoutViewModel.setWorkout(w);
   }
 
   void setSets(int s) {
     _workoutViewModel
-        .saveWorkout((_workout.rebuild((b) => b..sets = s)));
+        .setWorkout((_workout.rebuild((b) => b..sets = s)));
   }
 
   void setRestBetweenHolds(int s) {
     _workoutViewModel
-        .saveWorkout((_workout.rebuild((b) => b..restBetweenHolds = s)));
+        .setWorkout((_workout.rebuild((b) => b..restBetweenHolds = s)));
   }
 
   void setRestBetweenSets(int s) {
     _workoutViewModel
-        .saveWorkout((_workout.rebuild((b) => b..restBetweenSets = s)));
+        .setWorkout((_workout.rebuild((b) => b..restBetweenSets = s)));
   }
 
   void setBoard(Board board) {
     _workoutViewModel
-        .saveWorkout((_workout.rebuild((b) => b..board = board.toBuilder())));
+        .setWorkout((_workout.rebuild((b) => b..board = board.toBuilder())));
   }
 }

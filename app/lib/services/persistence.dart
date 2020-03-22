@@ -28,9 +28,9 @@ class PersistenceService {
     return __localPath;
   }
 
-  Future<File> get _localWorkoutFile async {
+  Future<File> get _localNewWorkoutFile async {
     final path = await _localPath;
-    return File('$path/workout.txt');
+    return File('$path/new_workout.txt');
   }
 
   Future<File> get _localWorkoutsFile async {
@@ -78,9 +78,9 @@ class PersistenceService {
     }
   }
 
-  void saveWorkout(Workout workout) async {
+  void saveNewWorkout(Workout workout) async {
     try {
-      final file = await _localWorkoutFile;
+      final file = await _localNewWorkoutFile;
       file.writeAsString(workout.toJson().toString());
     } catch (e) {
       print(e);
@@ -91,7 +91,7 @@ class PersistenceService {
   Future<Workout> getNewWorkout() async {
     Workout workout;
     try {
-      final file = await _localWorkoutFile;
+      final file = await _localNewWorkoutFile;
       String contents = await file.readAsString();
       workout = Workout.fromJson(contents);
     } catch (e) {

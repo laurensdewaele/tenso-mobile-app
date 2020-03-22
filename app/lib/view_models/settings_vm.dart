@@ -1,3 +1,4 @@
+import 'package:app/models/settings.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
@@ -16,16 +17,25 @@ class SettingsViewModel extends ChangeNotifier {
   AppState get appState => _appState;
 
   void setDefaultBoard(Board defaultBoard) {
-    _appState.saveSettings(_appState.settings
-        .rebuild((b) => b..defaultBoard = defaultBoard.toBuilder()));
+    final Settings _settings = _appState.settings
+        .rebuild((b) => b..defaultBoard = defaultBoard.toBuilder());
+    _setAndSaveSettings(_settings);
   }
 
   void setPreparationTimer(int seconds) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..preparationTimer = seconds));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..preparationTimer = seconds);
+    _setAndSaveSettings(_settings);
   }
 
   void setUnit(Unit unit) {
-    _appState.saveSettings(_appState.settings.rebuild((b) => b..unit = unit));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..unit = unit);
+    _setAndSaveSettings(_settings);
+  }
+
+  void _setAndSaveSettings(Settings settings) {
+    _appState.setSettings(settings);
+    _appState.saveSettings(settings);
   }
 }

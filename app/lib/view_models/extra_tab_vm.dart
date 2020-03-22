@@ -11,15 +11,15 @@ class ExtraTabViewModel {
 
   void setDifficulty(int difficulty) {
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..difficulty = difficulty));
+        .setWorkout(_workout.rebuild((b) => b..difficulty = difficulty));
   }
 
   void setName(String name) {
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..name = name));
+        .setWorkout(_workout.rebuild((b) => b..name = name));
   }
 
-  void addNewWorkoutToWorkouts() {
-    _workoutViewModel.addNewWorkoutToWorkouts();
+  void addNewWorkout() {
+    _workoutViewModel.addNewWorkout();
   }
 }

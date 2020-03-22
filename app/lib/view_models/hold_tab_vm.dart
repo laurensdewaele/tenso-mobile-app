@@ -41,7 +41,7 @@ class HoldTabViewModel {
           _holds[holdNo].rebuild((b) => b..leftGrip = grip.toBuilder());
     }
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRightGrip(int holdNo, Grip grip) {
@@ -62,14 +62,14 @@ class HoldTabViewModel {
           _holds[holdNo].rebuild((b) => b..rightGrip = grip.toBuilder());
     }
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldHandHold(int holdNo, HandHold handHold) {
     final _holds = _holdList;
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
@@ -90,7 +90,7 @@ class HoldTabViewModel {
           .rebuild((b) => b..leftGripBoardHold = boardHold.toBuilder());
     }
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRightGripBoardHold(int holdNo, BoardHold boardHold) {
@@ -111,7 +111,7 @@ class HoldTabViewModel {
           .rebuild((b) => b..rightGripBoardHold = boardHold.toBuilder());
     }
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRepetitions(int holdNo, int repetitions) {
@@ -119,7 +119,7 @@ class HoldTabViewModel {
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..repetitions = repetitions);
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldRestBetweenRepetitions(int holdNo, int seconds) {
@@ -127,14 +127,14 @@ class HoldTabViewModel {
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..restBetweenRepetitions = seconds);
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldHangTime(int holdNo, int seconds) {
     final _holds = _holdList;
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..hangTime = seconds);
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
@@ -143,7 +143,7 @@ class HoldTabViewModel {
       ..addedWeight = addedWeight
       ..unit = unit);
     _workoutViewModel
-        .saveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
+        .setWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void handleLeftHandSelected(int holdNo, HandHold handHold) {

@@ -1,3 +1,4 @@
+import 'package:app/models/settings.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,27 +15,37 @@ class SoundSettingsViewModel extends ChangeNotifier {
   AppState get appState => _appState;
 
   void setHangSound(Sound sound) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..hangSound = sound.toBuilder()));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..hangSound = sound.toBuilder());
+    _setAndSaveSettings(_settings);
   }
 
   void setRestSound(Sound sound) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..restSound = sound.toBuilder()));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..restSound = sound.toBuilder());
+    _setAndSaveSettings(_settings);
   }
 
   void setBeepSound(Sound sound) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..beepSound = sound.toBuilder()));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..beepSound = sound.toBuilder());
+    _setAndSaveSettings(_settings);
   }
 
   void setBeepsBeforeHang(int amount) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..beepsBeforeHang = amount));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..beepsBeforeHang = amount);
+    _setAndSaveSettings(_settings);
   }
 
   void setBeepsBeforeRest(int amount) {
-    _appState.saveSettings(
-        _appState.settings.rebuild((b) => b..beepsBeforeRest = amount));
+    final Settings _settings =
+        _appState.settings.rebuild((b) => b..beepsBeforeRest = amount);
+    _setAndSaveSettings(_settings);
+  }
+
+  void _setAndSaveSettings(Settings settings) {
+    _appState.setSettings(settings);
+    _appState.saveSettings(settings);
   }
 }
