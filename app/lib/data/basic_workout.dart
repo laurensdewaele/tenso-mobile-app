@@ -1,3 +1,5 @@
+import 'package:built_collection/built_collection.dart';
+
 import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/data/grips.dart';
 import 'package:app/models/hand_hold.dart';
@@ -7,7 +9,9 @@ import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
 
 final Workout basicWorkout = Workout((b) => b
-  ..id = '1'
+  ..originalId = '1'
+  ..modifiedDates = ListBuilder()
+  ..createdDate = DateTime.now().toUtc()
   ..difficulty = 2
   ..sets = 3
   ..holdCount = 3

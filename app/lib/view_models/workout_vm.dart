@@ -81,10 +81,14 @@ class WorkoutViewModel extends ChangeNotifier {
   void saveWorkout(Workout workout) {
     switch (workoutType) {
       case WorkoutTypes.editWorkout:
-        _appState?.saveEditWorkout(workout);
+        _appState?.saveEditWorkout(workout.rebuild((b) => b
+          ..editedId = _uuid.v4()
+          ..modifiedDates.add(DateTime.now().toUtc())));
         break;
       case WorkoutTypes.newWorkout:
-        _appState?.saveNewWorkout(workout);
+        _appState?.saveNewWorkout(workout.rebuild((b) => b
+          ..originalId = _uuid.v4()
+          ..createdDate = DateTime.now().toUtc()));
         break;
       case WorkoutTypes.viewWorkout:
         _appState?.setViewWorkout(workout);
@@ -94,7 +98,7 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void deleteWorkout(Workout workout) {
     final list = _appState.workoutList;
-    list.removeWhere((w) => w.id == workout.id);
+    list.removeWhere((w) => w.originalId == workout.originalId);
     _appState.saveWorkouts(
         _appState.workouts.rebuild((b) => b..workouts.replace(list)));
   }
@@ -106,9 +110,8 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void addNewWorkoutToWorkouts() {
     if (workoutType == WorkoutTypes.newWorkout) {
-      _appState.saveWorkouts(_appState.workouts.rebuild((b) => b
-        ..workouts
-            .add(_appState.newWorkout.rebuild((b) => b..id = _uuid.v4()))));
+      _appState.saveWorkouts(_appState.workouts
+          .rebuild((b) => b..workouts.add(_appState.newWorkout)));
     }
   }
 }

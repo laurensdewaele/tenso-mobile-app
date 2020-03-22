@@ -18,8 +18,16 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
   Iterable<Object> serialize(Serializers serializers, Workout object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'originalId',
+      serializers.serialize(object.originalId,
+          specifiedType: const FullType(String)),
+      'createdDate',
+      serializers.serialize(object.createdDate,
+          specifiedType: const FullType(DateTime)),
+      'modifiedDates',
+      serializers.serialize(object.modifiedDates,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(DateTime)])),
       'difficulty',
       serializers.serialize(object.difficulty,
           specifiedType: const FullType(int)),
@@ -43,7 +51,12 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-
+    if (object.editedId != null) {
+      result
+        ..add('editedId')
+        ..add(serializers.serialize(object.editedId,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -58,9 +71,23 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
+        case 'originalId':
+          result.originalId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'editedId':
+          result.editedId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'createdDate':
+          result.createdDate = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+        case 'modifiedDates':
+          result.modifiedDates.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DateTime)]))
+              as BuiltList<Object>);
           break;
         case 'difficulty':
           result.difficulty = serializers.deserialize(value,
@@ -105,7 +132,13 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
 
 class _$Workout extends Workout {
   @override
-  final String id;
+  final String originalId;
+  @override
+  final String editedId;
+  @override
+  final DateTime createdDate;
+  @override
+  final BuiltList<DateTime> modifiedDates;
   @override
   final int difficulty;
   @override
@@ -127,7 +160,10 @@ class _$Workout extends Workout {
       (new WorkoutBuilder()..update(updates)).build();
 
   _$Workout._(
-      {this.id,
+      {this.originalId,
+      this.editedId,
+      this.createdDate,
+      this.modifiedDates,
       this.difficulty,
       this.sets,
       this.holdCount,
@@ -137,8 +173,14 @@ class _$Workout extends Workout {
       this.holds,
       this.name})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Workout', 'id');
+    if (originalId == null) {
+      throw new BuiltValueNullFieldError('Workout', 'originalId');
+    }
+    if (createdDate == null) {
+      throw new BuiltValueNullFieldError('Workout', 'createdDate');
+    }
+    if (modifiedDates == null) {
+      throw new BuiltValueNullFieldError('Workout', 'modifiedDates');
     }
     if (difficulty == null) {
       throw new BuiltValueNullFieldError('Workout', 'difficulty');
@@ -177,7 +219,10 @@ class _$Workout extends Workout {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Workout &&
-        id == other.id &&
+        originalId == other.originalId &&
+        editedId == other.editedId &&
+        createdDate == other.createdDate &&
+        modifiedDates == other.modifiedDates &&
         difficulty == other.difficulty &&
         sets == other.sets &&
         holdCount == other.holdCount &&
@@ -196,7 +241,15 @@ class _$Workout extends Workout {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), difficulty.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, originalId.hashCode),
+                                                editedId.hashCode),
+                                            createdDate.hashCode),
+                                        modifiedDates.hashCode),
+                                    difficulty.hashCode),
                                 sets.hashCode),
                             holdCount.hashCode),
                         restBetweenHolds.hashCode),
@@ -209,7 +262,10 @@ class _$Workout extends Workout {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Workout')
-          ..add('id', id)
+          ..add('originalId', originalId)
+          ..add('editedId', editedId)
+          ..add('createdDate', createdDate)
+          ..add('modifiedDates', modifiedDates)
           ..add('difficulty', difficulty)
           ..add('sets', sets)
           ..add('holdCount', holdCount)
@@ -225,9 +281,23 @@ class _$Workout extends Workout {
 class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   _$Workout _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String _originalId;
+  String get originalId => _$this._originalId;
+  set originalId(String originalId) => _$this._originalId = originalId;
+
+  String _editedId;
+  String get editedId => _$this._editedId;
+  set editedId(String editedId) => _$this._editedId = editedId;
+
+  DateTime _createdDate;
+  DateTime get createdDate => _$this._createdDate;
+  set createdDate(DateTime createdDate) => _$this._createdDate = createdDate;
+
+  ListBuilder<DateTime> _modifiedDates;
+  ListBuilder<DateTime> get modifiedDates =>
+      _$this._modifiedDates ??= new ListBuilder<DateTime>();
+  set modifiedDates(ListBuilder<DateTime> modifiedDates) =>
+      _$this._modifiedDates = modifiedDates;
 
   int _difficulty;
   int get difficulty => _$this._difficulty;
@@ -267,7 +337,10 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
 
   WorkoutBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
+      _originalId = _$v.originalId;
+      _editedId = _$v.editedId;
+      _createdDate = _$v.createdDate;
+      _modifiedDates = _$v.modifiedDates?.toBuilder();
       _difficulty = _$v.difficulty;
       _sets = _$v.sets;
       _holdCount = _$v.holdCount;
@@ -300,7 +373,10 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
     try {
       _$result = _$v ??
           new _$Workout._(
-              id: id,
+              originalId: originalId,
+              editedId: editedId,
+              createdDate: createdDate,
+              modifiedDates: modifiedDates.build(),
               difficulty: difficulty,
               sets: sets,
               holdCount: holdCount,
@@ -312,6 +388,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'modifiedDates';
+        modifiedDates.build();
+
         _$failedField = 'board';
         board.build();
         _$failedField = 'holds';

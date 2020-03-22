@@ -30,6 +30,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(CompletedWorkout)]),
           () => new ListBuilder<CompletedWorkout>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(DateTime)]),
+          () => new ListBuilder<DateTime>())
+      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Hold)]),
           () => new ListBuilder<Hold>())
       ..addBuilderFactory(

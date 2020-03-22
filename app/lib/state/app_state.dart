@@ -48,8 +48,8 @@ class AppState extends ChangeNotifier {
 
   void saveEditWorkoutToWorkouts() {
     final list = workoutList;
-    final int index =
-        list.indexWhere((workout) => _editWorkout.id == workout.id);
+    final int index = list
+        .indexWhere((workout) => _editWorkout.originalId == workout.originalId);
     list[index] = _editWorkout;
     saveWorkouts(workouts.rebuild((b) => b..workouts.replace(list)));
   }

@@ -15,7 +15,11 @@ part 'workout.g.dart';
 abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
-  String get id;
+  String get originalId;
+  @nullable
+  String get editedId;
+  DateTime get createdDate;
+  BuiltList<DateTime> get modifiedDates;
   int get difficulty;
   int get sets;
   int get holdCount;

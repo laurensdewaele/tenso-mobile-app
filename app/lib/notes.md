@@ -11,12 +11,12 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Do i need to adjust the ID when editing a workout? => Yes
 - Add grip type on hold info (hold, type, depth)
 - Rename felt difficulty to effort level.
 - Negative weights!
 - Bug? Keyboard on rotation (on countdown screen)?
 - Add open crimp, check if all grips available.
+- Remove difficulty and add label colour.
 
 ### Large prio
 
@@ -36,9 +36,6 @@ flutter packages pub run build_runner watch
 
 - Setup sentry.io, don't think about self hosting for now.
 - Login with device id, to save workouts already
-- Think about: 
-  - Categories and different colors?
-  - Is giving an initial difficulty level useful at all?
 - Draw diagram when all is refactored.
 - Nice logo (animated)!
 - Review app on smaller and larger screens.
