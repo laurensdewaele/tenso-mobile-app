@@ -24,19 +24,19 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool _isCompletedWorkout = completedWorkout != null;
     final Workout _workout = workout ?? completedWorkout.workout;
-    final int _minutes = _workout.duration ~/ 60;
-    final int _seconds = _workout.duration % 60;
 
     return Column(
       children: <Widget>[
         Divider(height: styles.Measurements.l),
+        _WorkoutRowThree(
+            averageAddedWeight: _calculateAverageAddedWeight(_workout),
+            averageHangTime: _calculateAverageHangTime(_workout)),
+        Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
           _WorkoutRowOne(
-            difficulty: _workout.difficulty,
-            difficultyColor: _workout.difficultyColor,
-            durationMinutes: _minutes,
-            durationSeconds: _seconds,
-          ),
+              difficulty: _workout.difficulty,
+              difficultyColor: _workout.difficultyColor,
+              duration: _workout.duration),
         if (_isCompletedWorkout == true)
           _CompletedWorkoutRowOne(
             difficulty: _workout.difficulty,
@@ -52,10 +52,8 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           ),
         if (_isCompletedWorkout == true)
           _CompletedWorkoutRowTwo(
-            completedLocalDate: completedWorkout.completedLocalDate,
-            durationSeconds: _seconds,
-            durationMinutes: _minutes,
-          ),
+              completedLocalDate: completedWorkout.completedLocalDate,
+              duration: _workout.duration),
         Divider(height: styles.Measurements.m),
         Container(
             width: 175.0,
@@ -111,33 +109,36 @@ class _WorkoutInfo extends StatelessWidget {
 }
 
 class _WorkoutDuration extends StatelessWidget {
-  _WorkoutDuration({Key key, this.seconds, this.minutes}) : super(key: key);
+  _WorkoutDuration({Key key, @required this.seconds}) : super(key: key);
 
-  final int minutes;
   final int seconds;
 
   @override
   Widget build(BuildContext context) {
+    final int _minutes = seconds ~/ 60;
+    final int _remainingSeconds = seconds % 60;
+
     return Container(
         height: styles.Measurements.xl,
         child: Center(
             child: RichText(
           text: TextSpan(text: null, children: [
-            if (minutes != 0)
+            if (_minutes != 0)
               TextSpan(
-                  text: minutes.toString(), style: styles.Staatliches.lBlack),
-            if (minutes != 0)
+                  text: _minutes.toString(), style: styles.Staatliches.lBlack),
+            if (_minutes != 0)
               TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-            if (minutes != 0)
+            if (_minutes != 0)
               TextSpan(text: 'm', style: styles.Staatliches.xsBlack),
-            if (seconds != 0)
+            if (_remainingSeconds != 0)
               TextSpan(text: '  ', style: styles.Staatliches.xsBlack),
-            if (seconds != 0)
+            if (_remainingSeconds != 0)
               TextSpan(
-                  text: seconds.toString(), style: styles.Staatliches.lBlack),
-            if (seconds != 0)
+                  text: _remainingSeconds.toString(),
+                  style: styles.Staatliches.lBlack),
+            if (_remainingSeconds != 0)
               TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-            if (seconds != 0)
+            if (_remainingSeconds != 0)
               TextSpan(text: 's', style: styles.Staatliches.xsBlack)
           ]),
         )));
@@ -149,14 +150,12 @@ class _WorkoutRowOne extends StatelessWidget {
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
-      @required this.durationSeconds,
-      @required this.durationMinutes})
+      @required this.duration})
       : super(key: key);
 
   final Color difficultyColor;
   final int difficulty;
-  final int durationMinutes;
-  final int durationSeconds;
+  final int duration;
 
   @override
   Widget build(BuildContext context) {
@@ -171,13 +170,10 @@ class _WorkoutRowOne extends StatelessWidget {
         Expanded(
             child: Column(children: <Widget>[
           Text(
-            'duration',
+            'total duration',
             style: styles.Staatliches.xsGray,
           ),
-          _WorkoutDuration(
-            minutes: durationMinutes,
-            seconds: durationSeconds,
-          )
+          _WorkoutDuration(seconds: duration)
         ]))
       ],
     );
@@ -197,12 +193,44 @@ class _WorkoutRowTwo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         _WorkoutInfo(
+          title: 'holds',
+          value: holdCount.toString(),
+        ),
+        _WorkoutInfo(
           title: 'sets',
           value: sets.toString(),
         ),
+      ],
+    );
+  }
+}
+
+class _WorkoutRowThree extends StatelessWidget {
+  _WorkoutRowThree(
+      {Key key,
+      @required this.averageAddedWeight,
+      @required this.averageHangTime})
+      : super(key: key);
+
+  final int averageHangTime;
+  final double averageAddedWeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'av. hang time',
+            style: styles.Staatliches.xsGray,
+          ),
+          _WorkoutDuration(seconds: averageHangTime)
+        ])),
         _WorkoutInfo(
-          title: 'holds',
-          value: holdCount.toString(),
+          title: 'av. added weight',
+          value: averageAddedWeight.toString(),
         ),
       ],
     );
@@ -245,15 +273,11 @@ class _CompletedWorkoutRowOne extends StatelessWidget {
 
 class _CompletedWorkoutRowTwo extends StatelessWidget {
   _CompletedWorkoutRowTwo(
-      {Key key,
-      @required this.completedLocalDate,
-      @required this.durationMinutes,
-      @required this.durationSeconds})
+      {Key key, @required this.completedLocalDate, @required this.duration})
       : super(key: key);
 
   final DateTime completedLocalDate;
-  final int durationMinutes;
-  final int durationSeconds;
+  final int duration;
 
   @override
   Widget build(BuildContext context) {
@@ -271,15 +295,27 @@ class _CompletedWorkoutRowTwo extends StatelessWidget {
         Expanded(
             child: Column(children: <Widget>[
           Text(
-            'duration',
+            'total duration',
             style: styles.Staatliches.xsGray,
           ),
           _WorkoutDuration(
-            minutes: durationMinutes,
-            seconds: durationSeconds,
+            seconds: duration,
           )
         ])),
       ],
     );
   }
+}
+
+double _calculateAverageAddedWeight(Workout workout) {
+  final List<double> weights = workout.holds.map((w) => w.addedWeight).toList();
+  final double total = weights.fold(0, (a, b) => a + b);
+  final double average = total / weights.length;
+  return double.parse(average.toStringAsFixed(1));
+}
+
+int _calculateAverageHangTime(Workout workout) {
+  final List<int> hangSeconds = workout.holds.map((w) => w.hangTime).toList();
+  final double total = hangSeconds.fold(0, (a, b) => a + b);
+  return total ~/ hangSeconds.length;
 }

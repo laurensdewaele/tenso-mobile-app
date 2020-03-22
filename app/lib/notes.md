@@ -11,7 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Display workout. Most important average added weight, average hang seconds. No of holds.
 - Do i need to adjust the ID when editing a workout? => Yes
 - Add grip type on hold info (hold, type, depth)
 - Rename felt difficulty to effort level.
@@ -39,6 +38,7 @@ flutter packages pub run build_runner watch
 - Login with device id, to save workouts already
 - Think about: 
   - Categories and different colors?
+  - Is giving an initial difficulty level useful at all?
 - Draw diagram when all is refactored.
 - Nice logo (animated)!
 - Review app on smaller and larger screens.
