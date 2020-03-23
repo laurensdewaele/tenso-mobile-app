@@ -109,10 +109,11 @@ class CalendarViewModel extends ChangeNotifier {
   }
 
   void deleteCompletedWorkout(CompletedWorkout completedWorkout) {
-    final list = _appState?.completedWorkouts?.completedWorkouts?.toList();
-    list.removeWhere((c) => c.id == completedWorkout.id);
+    final _workoutList = []
+      ..addAll(_appState?.completedWorkouts?.completedWorkouts?.toList());
+    _workoutList.removeWhere((c) => c.id == completedWorkout.id);
     _setAndSaveCompletedWorkouts(_appState?.completedWorkouts
-        ?.rebuild((b) => b..completedWorkouts.replace(list)));
+        ?.rebuild((b) => b..completedWorkouts.replace(_workoutList)));
   }
 
   void _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {

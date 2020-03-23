@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/unit.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -69,80 +70,81 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Card(
                     child: Consumer<SettingsViewModel>(
                       builder: (context, _settingsViewModel, child) {
-                        return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Divider(
-                                        height: styles.Measurements.l,
-                                      ),
-                                      Section(
-                                        title: 'default board',
-                                        children: <Widget>[],
-                                      ),
-                                      Section(
-                                        title: 'preparation timer',
-                                        children: <Widget>[
-                                          NumberInputAndDescription(
-                                            isDouble: false,
-                                            description: 'seconds',
-                                            initialIntValue: _settingsViewModel
-                                                .appState
-                                                .settings
-                                                .preparationTimer,
-                                            handleIntValueChanged:
-                                                _handlePreparationTimerChanged,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                              _SoundSection(
-                                  title: 'sound',
-                                  handleNavigation: _handleSoundNavigation),
-                              Divider(
-                                height: styles.Measurements.xxl,
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Section(
-                                        title: 'units',
-                                        children: <Widget>[
-                                          RadioButton(
-                                            description: 'Metric (kg)',
-                                            value: Unit.metric,
-                                            active: _settingsViewModel
-                                                    .appState.settings.unit ==
-                                                Unit.metric,
-                                            handleSelected: _handleUnitChanged,
-                                          ),
-                                          RadioButton(
-                                            description: 'Imperial (pounds)',
-                                            value: Unit.imperial,
-                                            active: _settingsViewModel
-                                                    .appState.settings.unit ==
-                                                Unit.imperial,
-                                            handleSelected: _handleUnitChanged,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                            ]);
+                        return Consumer<AppState>(
+                            builder: (context, _appState, child) {
+                          return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: styles.Measurements.m,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Divider(
+                                          height: styles.Measurements.l,
+                                        ),
+                                        Section(
+                                          title: 'default board',
+                                          children: <Widget>[],
+                                        ),
+                                        Section(
+                                          title: 'preparation timer',
+                                          children: <Widget>[
+                                            NumberInputAndDescription(
+                                              isDouble: false,
+                                              description: 'seconds',
+                                              initialIntValue: _appState
+                                                  .settings.preparationTimer,
+                                              handleIntValueChanged:
+                                                  _handlePreparationTimerChanged,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    )),
+                                _SoundSection(
+                                    title: 'sound',
+                                    handleNavigation: _handleSoundNavigation),
+                                Divider(
+                                  height: styles.Measurements.xxl,
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: styles.Measurements.m,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Section(
+                                          title: 'units',
+                                          children: <Widget>[
+                                            RadioButton(
+                                              description: 'Metric (kg)',
+                                              value: Unit.metric,
+                                              active: _appState.settings.unit ==
+                                                  Unit.metric,
+                                              handleSelected:
+                                                  _handleUnitChanged,
+                                            ),
+                                            RadioButton(
+                                              description: 'Imperial (pounds)',
+                                              value: Unit.imperial,
+                                              active: _appState.settings.unit ==
+                                                  Unit.imperial,
+                                              handleSelected:
+                                                  _handleUnitChanged,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )),
+                              ]);
+                        });
                       },
                     ),
                   ),

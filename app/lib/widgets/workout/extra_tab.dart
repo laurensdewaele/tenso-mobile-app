@@ -16,7 +16,7 @@ class ExtraTab extends StatelessWidget {
   void _handleButtonTap(BuildContext context) {
     final _extraTabViewModel =
         Provider.of<ExtraTabViewModel>(context, listen: false);
-    _extraTabViewModel.addNewWorkout();
+    _extraTabViewModel.handleButtonTap();
     Navigator.of(context).pop();
   }
 

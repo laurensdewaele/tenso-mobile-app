@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/data/sounds.dart';
 import 'package:app/models/sound.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/sound_settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -73,293 +74,263 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                       child: Consumer<SoundSettingsViewModel>(
                         builder:
                             (context, _soundSettingsScreenViewModel, child) {
-                          return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Divider(
-                                          height: styles.Measurements.l,
-                                        ),
-                                        Section(
-                                          title: 'indicator beeps',
-                                          children: <Widget>[
-                                            NumberInputAndDescription(
-                                              isDouble: false,
-                                              description: 'beeps before hang',
-                                              initialIntValue:
+                          return Consumer<AppState>(
+                              builder: (context, _appState, child) {
+                            return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: styles.Measurements.m,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Divider(
+                                            height: styles.Measurements.l,
+                                          ),
+                                          Section(
+                                            title: 'indicator beeps',
+                                            children: <Widget>[
+                                              NumberInputAndDescription(
+                                                isDouble: false,
+                                                description:
+                                                    'beeps before hang',
+                                                initialIntValue: _appState
+                                                    .settings.beepsBeforeHang,
+                                                handleIntValueChanged: (int
+                                                        v) =>
+                                                    _soundSettingsScreenViewModel
+                                                        .setBeepsBeforeHang(v),
+                                              ),
+                                              Divider(
+                                                height: styles.Measurements.m,
+                                              ),
+                                              NumberInputAndDescription(
+                                                isDouble: false,
+                                                description:
+                                                    'beeps before rest',
+                                                initialIntValue: _appState
+                                                    .settings.beepsBeforeRest,
+                                                handleIntValueChanged: (int
+                                                        v) =>
+                                                    _soundSettingsScreenViewModel
+                                                        .setBeepsBeforeRest(v),
+                                              ),
+                                              Divider(
+                                                height: styles.Measurements.m,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: styles.Measurements.m,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Section(
+                                            title: 'hang sound',
+                                            children: <Widget>[
+                                              RadioButton(
+                                                description:
+                                                    Sounds.thudDeep.name,
+                                                value: Sounds.thudDeep,
+                                                active: _appState
+                                                        .settings.hangSound ==
+                                                    Sounds.thudDeep,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                      .appState
-                                                      .settings
-                                                      .beepsBeforeHang,
-                                              handleIntValueChanged: (int v) =>
+                                                      .setHangSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description:
+                                                    Sounds.thudHollow.name,
+                                                value: Sounds.thudHollow,
+                                                active: _appState
+                                                        .settings.hangSound ==
+                                                    Sounds.thudHollow,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                      .setBeepsBeforeHang(v),
-                                            ),
-                                            Divider(
-                                              height: styles.Measurements.m,
-                                            ),
-                                            NumberInputAndDescription(
-                                              isDouble: false,
-                                              description: 'beeps before rest',
-                                              initialIntValue:
+                                                      .setHangSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description:
+                                                    Sounds.thudSoft.name,
+                                                value: Sounds.thudSoft,
+                                                active: _appState
+                                                        .settings.hangSound ==
+                                                    Sounds.thudSoft,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                      .appState
-                                                      .settings
-                                                      .beepsBeforeRest,
-                                              handleIntValueChanged: (int v) =>
+                                                      .setHangSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description: Sounds.off.name,
+                                                value: Sounds.off,
+                                                active: _appState
+                                                        .settings.hangSound ==
+                                                    Sounds.off,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                      .setBeepsBeforeRest(v),
-                                            ),
-                                            Divider(
-                                              height: styles.Measurements.m,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Section(
-                                          title: 'hang sound',
-                                          children: <Widget>[
-                                            RadioButton(
-                                              description: Sounds.thudDeep.name,
-                                              value: Sounds.thudDeep,
-                                              active:
+                                                      .setHangSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: styles.Measurements.m,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Section(
+                                            title: 'rest sound',
+                                            children: <Widget>[
+                                              RadioButton(
+                                                description:
+                                                    Sounds.metalHitSmall.name,
+                                                value: Sounds.metalHitSmall,
+                                                active: _appState
+                                                        .settings.restSound ==
+                                                    Sounds.metalHitSmall,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .hangSound ==
-                                                      Sounds.thudDeep,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setHangSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description:
-                                                  Sounds.thudHollow.name,
-                                              value: Sounds.thudHollow,
-                                              active:
+                                                      .setRestSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description:
+                                                    Sounds.metalHitLarge.name,
+                                                value: Sounds.metalHitLarge,
+                                                active: _appState
+                                                        .settings.restSound ==
+                                                    Sounds.metalHitLarge,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .hangSound ==
-                                                      Sounds.thudHollow,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setHangSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description: Sounds.thudSoft.name,
-                                              value: Sounds.thudSoft,
-                                              active:
+                                                      .setRestSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description: Sounds.gong.name,
+                                                value: Sounds.gong,
+                                                active: _appState
+                                                        .settings.restSound ==
+                                                    Sounds.gong,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .hangSound ==
-                                                      Sounds.thudSoft,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setHangSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description: Sounds.off.name,
-                                              value: Sounds.off,
-                                              active:
+                                                      .setRestSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description: Sounds.off.name,
+                                                value: Sounds.off,
+                                                active: _appState
+                                                        .settings.restSound ==
+                                                    Sounds.off,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .hangSound ==
-                                                      Sounds.off,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setHangSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Section(
-                                          title: 'rest sound',
-                                          children: <Widget>[
-                                            RadioButton(
-                                              description:
-                                                  Sounds.metalHitSmall.name,
-                                              value: Sounds.metalHitSmall,
-                                              active:
+                                                      .setRestSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: styles.Measurements.m,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Section(
+                                            title: 'beep sound',
+                                            children: <Widget>[
+                                              RadioButton(
+                                                description:
+                                                    Sounds.hitLightSoft.name,
+                                                value: Sounds.hitLightSoft,
+                                                active: _appState
+                                                        .settings.beepSound ==
+                                                    Sounds.hitLightSoft,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .restSound ==
-                                                      Sounds.metalHitSmall,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setRestSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description:
-                                                  Sounds.metalHitLarge.name,
-                                              value: Sounds.metalHitLarge,
-                                              active:
+                                                      .setBeepSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description:
+                                                    Sounds.hitLightHard.name,
+                                                value: Sounds.hitLightHard,
+                                                active: _appState
+                                                        .settings.beepSound ==
+                                                    Sounds.hitLightHard,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .restSound ==
-                                                      Sounds.metalHitLarge,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setRestSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description: Sounds.gong.name,
-                                              value: Sounds.gong,
-                                              active:
+                                                      .setBeepSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                              RadioButton(
+                                                description: Sounds.off.name,
+                                                value: Sounds.off,
+                                                active: _appState
+                                                        .settings.beepSound ==
+                                                    Sounds.off,
+                                                handleSelected: (dynamic s) {
                                                   _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .restSound ==
-                                                      Sounds.gong,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setRestSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description: Sounds.off.name,
-                                              value: Sounds.off,
-                                              active:
-                                                  _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .restSound ==
-                                                      Sounds.off,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setRestSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Section(
-                                          title: 'beep sound',
-                                          children: <Widget>[
-                                            RadioButton(
-                                              description:
-                                                  Sounds.hitLightSoft.name,
-                                              value: Sounds.hitLightSoft,
-                                              active:
-                                                  _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .beepSound ==
-                                                      Sounds.hitLightSoft,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setBeepSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description:
-                                                  Sounds.hitLightHard.name,
-                                              value: Sounds.hitLightHard,
-                                              active:
-                                                  _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .beepSound ==
-                                                      Sounds.hitLightHard,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setBeepSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                            RadioButton(
-                                              description: Sounds.off.name,
-                                              value: Sounds.off,
-                                              active:
-                                                  _soundSettingsScreenViewModel
-                                                          .appState
-                                                          .settings
-                                                          .beepSound ==
-                                                      Sounds.off,
-                                              handleSelected: (dynamic s) {
-                                                _soundSettingsScreenViewModel
-                                                    .setBeepSound(s);
-                                                _playSound(s);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Section(
-                                          title: 'accreditation',
-                                          children: <Widget>[
-                                            Text(
-                                              'Sounds obtained from zapsplat.com',
-                                              style: styles.Lato.xsGray,
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                              ]);
+                                                      .setBeepSound(s);
+                                                  _playSound(s);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: styles.Measurements.m,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Section(
+                                            title: 'accreditation',
+                                            children: <Widget>[
+                                              Text(
+                                                'Sounds obtained from zapsplat.com',
+                                                style: styles.Lato.xsGray,
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                ]);
+                          });
                         },
                       ),
                     ),

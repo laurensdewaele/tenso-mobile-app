@@ -10,31 +10,29 @@ class SettingsViewModel extends ChangeNotifier {
 
   void update(AppState appState) {
     _appState = appState;
-    notifyListeners();
   }
 
   AppState _appState;
-  AppState get appState => _appState;
 
   void setDefaultBoard(Board defaultBoard) {
-    final _settings = _appState.settings
-        .rebuild((b) => b..defaultBoard = defaultBoard.toBuilder());
+    final _settings = _appState?.settings
+        ?.rebuild((b) => b..defaultBoard = defaultBoard.toBuilder());
     _setAndSaveSettings(_settings);
   }
 
   void setPreparationTimer(int seconds) {
     final _settings =
-        _appState.settings.rebuild((b) => b..preparationTimer = seconds);
+        _appState?.settings?.rebuild((b) => b..preparationTimer = seconds);
     _setAndSaveSettings(_settings);
   }
 
   void setUnit(Unit unit) {
-    final _settings = _appState.settings.rebuild((b) => b..unit = unit);
+    final _settings = _appState?.settings?.rebuild((b) => b..unit = unit);
     _setAndSaveSettings(_settings);
   }
 
   void _setAndSaveSettings(Settings settings) {
-    _appState.setSettings(settings);
-    _appState.saveSettings(settings);
+    _appState?.setSettings(settings);
+    _appState?.saveSettings(settings);
   }
 }

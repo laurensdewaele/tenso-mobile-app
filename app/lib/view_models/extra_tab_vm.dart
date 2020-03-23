@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:uuid/uuid.dart';
-
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -16,7 +14,6 @@ class ExtraTabViewModel extends ChangeNotifier {
 
   AppState _appState;
   ToastService _toastService;
-  Uuid _uuid = Uuid();
   WorkoutViewModel _workoutViewModel;
 
   void update(AppState appState) {
@@ -33,16 +30,14 @@ class ExtraTabViewModel extends ChangeNotifier {
         .setAndSaveWorkout(_appState?.workout?.rebuild((b) => b..name = name));
   }
 
-  void addNewWorkout() {
+  void handleButtonTap() {
     final String _name = _appState?.workout?.name;
 
     if (_name == '' || _name == null) {
       _toastService
           .add(Text('Name must be filled in.', style: styles.Lato.sBlack));
     } else {
-      _workoutViewModel.addNewWorkout(_appState?.workout?.rebuild((b) => b
-        ..name = _name
-        ..id = _uuid.v4()));
+      _workoutViewModel.handleExtraTabButtonTap();
     }
   }
 }

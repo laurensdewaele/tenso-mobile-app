@@ -16,7 +16,6 @@ class WorkoutViewModel extends ChangeNotifier {
 
   Uuid _uuid = Uuid();
   AppState _appState;
-  List<Workout> get _workoutList => _appState?.workouts?.workouts?.toList();
 
   WorkoutTypes _workoutType;
 
@@ -72,25 +71,33 @@ class WorkoutViewModel extends ChangeNotifier {
     }
 
     if (_workoutType == WorkoutTypes.newWorkout) {
-      _appState.saveNewWorkout(workout);
+      _appState?.saveNewWorkout(workout);
     }
   }
 
   void _saveEditWorkout(Workout editWorkout) {
+    final _workoutList = []..addAll(_appState?.workouts?.workouts?.toList());
+
+    print('save edit workout');
     final _originalWorkout =
-        _workoutList.firstWhere((w) => w.id == _appState.workout.id);
+        _workoutList.firstWhere((w) => w.id == _appState?.workout?.id);
 
     if (_originalWorkout != editWorkout) {
+      print('differs from the original workout');
       final _editedWorkout =
           editWorkout.rebuild((b) => b..editedId = _uuid.v4());
       final index = _workoutList.indexWhere((w) => w.id == _editedWorkout.id);
       _workoutList[index] = _editedWorkout;
       _setAndSaveWorkouts(_appState?.workouts
           ?.rebuild((b) => b..workouts.replace(_workoutList)));
+    } else {
+      print('does not differ');
     }
   }
 
   void deleteWorkout(Workout workout) {
+    final _workoutList = []..addAll(_appState?.workouts?.workouts?.toList());
+
     _workoutList.removeWhere((w) => w.id == workout.id);
     _setAndSaveWorkouts(
         _appState?.workouts?.rebuild((b) => b..workouts.replace(_workoutList)));
@@ -101,16 +108,21 @@ class WorkoutViewModel extends ChangeNotifier {
     setAndSaveWorkout(workout);
   }
 
-  void addNewWorkout(Workout workout) {
+  void handleExtraTabButtonTap() {
     if (_workoutType == WorkoutTypes.newWorkout) {
-      setAndSaveWorkout(workout);
+      final _newWorkout =
+          _appState?.workout?.rebuild((b) => b..id = _uuid.v4());
+      setAndSaveWorkout(_newWorkout);
       _setAndSaveWorkouts(
-          _appState?.workouts?.rebuild((b) => b..workouts.add(workout)));
+          _appState?.workouts?.rebuild((b) => b..workouts.add(_newWorkout)));
+    }
+    if (_workoutType == WorkoutTypes.editWorkout) {
+      setAndSaveWorkout(_appState?.workout);
     }
   }
 
   void _setAndSaveWorkouts(Workouts workouts) {
-    _appState.setWorkouts(workouts);
-    _appState.saveWorkouts(workouts);
+    _appState?.setWorkouts(workouts);
+    _appState?.saveWorkouts(workouts);
   }
 }

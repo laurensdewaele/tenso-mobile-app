@@ -23,14 +23,13 @@ class HoldTabViewModel extends ChangeNotifier {
   ToastService _toastService;
   WorkoutViewModel _workoutViewModel;
   Workout get _workout => _appState?.workout;
-  List<Hold> get _holdList => _appState?.workout?.holds?.toList();
 
   void update(AppState appState) {
     _appState = appState;
   }
 
   void setHoldLeftGrip(int holdNo, Grip grip) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
         ..unit = _holds[holdNo].unit
@@ -51,7 +50,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void setHoldRightGrip(int holdNo, Grip grip) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     if (grip == null) {
       _holds[holdNo] = Hold((b) => b
         ..unit = _holds[holdNo].unit
@@ -72,14 +71,14 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void setHoldHandHold(int holdNo, HandHold handHold) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..handHold = handHold);
     _workoutViewModel
         .setAndSaveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldLeftGripBoardHold(int holdNo, BoardHold boardHold) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
         ..unit = _holds[holdNo].unit
@@ -100,7 +99,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void setHoldRightGripBoardHold(int holdNo, BoardHold boardHold) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     if (boardHold == null) {
       _holds[holdNo] = Hold((b) => b
         ..unit = _holds[holdNo].unit
@@ -121,7 +120,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void setHoldRepetitions(int holdNo, int repetitions) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..repetitions = repetitions);
     _workoutViewModel
@@ -129,7 +128,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void setHoldRestBetweenRepetitions(int holdNo, int seconds) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     _holds[holdNo] =
         _holds[holdNo].rebuild((b) => b..restBetweenRepetitions = seconds);
     _workoutViewModel
@@ -137,14 +136,14 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void setHoldHangTime(int holdNo, int seconds) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b..hangTime = seconds);
     _workoutViewModel
         .setAndSaveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
   void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     _holds[holdNo] = _holds[holdNo].rebuild((b) => b
       ..addedWeight = addedWeight
       ..unit = unit);
@@ -153,7 +152,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void handleLeftHandSelected(int holdNo, HandHold handHold) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     if (handHold == HandHold.oneHandedLeft && _holds[holdNo].leftGrip == null) {
       setHoldLeftGrip(holdNo, Grips.openHandL);
       setHoldLeftGripBoardHold(holdNo, _workout.board.defaultLeftGripHold);
@@ -167,7 +166,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void handleRightHandSelected(int holdNo, HandHold handHold) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     if (handHold == HandHold.oneHandedRight &&
         _holds[holdNo].rightGrip == null) {
       setHoldRightGrip(holdNo, Grips.openHandR);
@@ -194,7 +193,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void handleTwoHandedTap(int holdNo, HandHold handHold) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     final BoardHold defaultLeftGripBoardHold =
         _workout.board.defaultLeftGripHold;
     final BoardHold defaultRightGripBoardHold =
@@ -234,7 +233,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void handleRightGripSelected(int holdNo, Grip grip) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     Widget errorMessage = checkGripBoardHoldCompatibility(
         grip, _holds[holdNo].rightGripBoardHold);
     if (errorMessage == null) {
@@ -245,7 +244,7 @@ class HoldTabViewModel extends ChangeNotifier {
   }
 
   void handleLeftGripSelected(int holdNo, Grip grip) {
-    final _holds = _holdList;
+    final _holds = []..addAll(_appState?.workout?.holds?.toList());
     Widget errorMessage =
         checkGripBoardHoldCompatibility(grip, _holds[holdNo].leftGripBoardHold);
     if (errorMessage == null) {
