@@ -26,18 +26,16 @@ class ExtraTabViewModel extends ChangeNotifier {
   }
 
   void setName(String name) {
-    _workoutViewModel
-        .setAndSaveWorkout(_appState?.workout?.rebuild((b) => b..name = name));
-  }
-
-  void handleButtonTap() {
-    final String _name = _appState?.workout?.name;
-
-    if (_name == '' || _name == null) {
+    if (name.trim() == '' || name == null) {
       _toastService
           .add(Text('Name must be filled in.', style: styles.Lato.sBlack));
     } else {
-      _workoutViewModel.handleExtraTabButtonTap();
+      _workoutViewModel.setAndSaveWorkout(
+          _appState?.workout?.rebuild((b) => b..name = name.trim()));
     }
+  }
+
+  void handleButtonTap() {
+    _workoutViewModel.handleExtraTabButtonTap();
   }
 }

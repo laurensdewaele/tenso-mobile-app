@@ -116,9 +116,6 @@ class WorkoutViewModel extends ChangeNotifier {
       _setAndSaveWorkouts(
           _appState?.workouts?.rebuild((b) => b..workouts.add(_newWorkout)));
     }
-    if (_workoutType == WorkoutTypes.editWorkout) {
-      setAndSaveWorkout(_appState?.workout);
-    }
   }
 
   void _setAndSaveWorkouts(Workouts workouts) {
