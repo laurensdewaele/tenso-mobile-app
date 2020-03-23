@@ -10,7 +10,7 @@ import 'package:app/services/persistence.dart';
 class AppState extends ChangeNotifier {
   AppState(PersistenceService persistenceService) {
     _persistenceService = persistenceService;
-    _initializePersistence();
+    _initializeState();
   }
 
   PersistenceService _persistenceService;
@@ -69,7 +69,7 @@ class AppState extends ChangeNotifier {
     _persistenceService.saveSettings(settings);
   }
 
-  void _initializePersistence() async {
+  void _initializeState() async {
     _workout = await _persistenceService.getNewWorkout();
     _workouts = await _persistenceService.getWorkouts();
     _completedWorkouts = await _persistenceService.getCompletedWorkouts();
