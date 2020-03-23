@@ -6,7 +6,6 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
-import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
@@ -154,11 +153,10 @@ class HoldTabViewModel extends ChangeNotifier {
         .setAndSaveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }
 
-  void setHoldAddedWeight(int holdNo, double addedWeight, Unit unit) {
+  void setHoldAddedWeight(int holdNo, double addedWeight) {
     final _holds = []..addAll(_appState?.workout?.holds?.toList());
-    _holds[holdNo] = _holds[holdNo].rebuild((b) => b
-      ..addedWeight = addedWeight
-      ..unit = unit);
+    _holds[holdNo] =
+        _holds[holdNo].rebuild((b) => b..addedWeight = addedWeight);
     _workoutViewModel
         .setAndSaveWorkout(_workout.rebuild((b) => b..holds.replace(_holds)));
   }

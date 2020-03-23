@@ -80,27 +80,6 @@ class _NumberInputState extends State<NumberInput> {
     _textEditingController.text = _initialValue;
   }
 
-  void _onChanged(String s) {
-    if (s.trim() == '' || s == null) {
-      _emptyError();
-      _resetInitialValue();
-      return;
-    }
-
-    dynamic value;
-    try {
-      value = _isDouble ? double.parse(s.trim()) : int.parse(s.trim());
-    } on FormatException catch (_) {
-      _validationError();
-      _resetInitialValue();
-      return;
-    }
-
-    _isDouble
-        ? widget.handleDoubleValueChanged(value)
-        : widget.handleIntValueChanged(value);
-  }
-
   void _emptyError() {
     final Widget errorMessage = RichText(
       textAlign: TextAlign.center,
@@ -126,6 +105,31 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _onComplete() {
+    final String s = _textEditingController.text;
+
+    if (s.trim() == '' || s == null) {
+      _emptyError();
+      _resetInitialValue();
+      _focusNode.unfocus();
+      _keyboardService.resetKeyboardOffset();
+      return;
+    }
+
+    dynamic value;
+    try {
+      value = _isDouble ? double.parse(s.trim()) : int.parse(s.trim());
+    } on FormatException catch (_) {
+      _validationError();
+      _resetInitialValue();
+      _focusNode.unfocus();
+      _keyboardService.resetKeyboardOffset();
+      return;
+    }
+
+    _isDouble
+        ? widget.handleDoubleValueChanged(value)
+        : widget.handleIntValueChanged(value);
+
     _focusNode.unfocus();
     _keyboardService.resetKeyboardOffset();
   }
@@ -157,7 +161,6 @@ class _NumberInputState extends State<NumberInput> {
               ? TextInputType.numberWithOptions(decimal: true)
               : TextInputType.number,
           maxLength: _isDouble ? 4 : 3,
-          onChanged: _onChanged,
           onTap: _onTap,
           onEditingComplete: _onComplete,
           onSubmitted: (String text) => {_onComplete()},
