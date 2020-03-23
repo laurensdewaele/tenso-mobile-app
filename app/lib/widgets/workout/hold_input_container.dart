@@ -106,6 +106,8 @@ class HoldInputContainer extends StatelessWidget {
             BoardHoldInfo(
               leftGripBoardHold: leftGripBoardHold,
               rightGripBoardHold: rightGripBoardHold,
+              leftGrip: leftGrip,
+              rightGrip: rightGrip,
             )
           ],
         ),

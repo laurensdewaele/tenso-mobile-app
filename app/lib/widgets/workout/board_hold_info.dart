@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board_hold.dart';
+import 'package:app/models/grip.dart';
 import 'package:app/models/hold_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class BoardHoldInfo extends StatelessWidget {
-  BoardHoldInfo({this.leftGripBoardHold, this.rightGripBoardHold});
+  BoardHoldInfo(
+      {this.leftGripBoardHold,
+      this.rightGripBoardHold,
+      this.leftGrip,
+      this.rightGrip});
 
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
+  final Grip leftGrip;
+  final Grip rightGrip;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +24,11 @@ class BoardHoldInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (leftGripBoardHold != null)
+        if (leftGripBoardHold != null)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
               RichText(
                 text: TextSpan(
                     text: 'hold: ',
@@ -32,7 +39,6 @@ class BoardHoldInfo extends StatelessWidget {
                           style: styles.Lato.xsGray),
                     ]),
               ),
-            if (leftGripBoardHold != null)
               RichText(
                 text: TextSpan(
                     text: 'type: ',
@@ -43,33 +49,42 @@ class BoardHoldInfo extends StatelessWidget {
                           style: styles.Lato.xsGray),
                     ]),
               ),
-            if (leftGripBoardHold != null &&
-                leftGripBoardHold.holdType == HoldType.pocket)
-              RichText(
-                text: TextSpan(
-                    text: 'depth: ',
-                    style: styles.Staatliches.xsBlack,
-                    children: [
-                      TextSpan(
-                          text: leftGripBoardHold.pocketDepth.toString(),
-                          style: styles.Lato.xsGray),
-                      TextSpan(text: ' mm', style: styles.Lato.xsGray),
-                    ]),
-              ),
-            if (leftGripBoardHold != null &&
-                leftGripBoardHold.holdType == HoldType.sloper)
-              RichText(
-                text: TextSpan(
-                    text: 'degrees: ',
-                    style: styles.Staatliches.xsBlack,
-                    children: [
-                      TextSpan(
-                          text: leftGripBoardHold.sloperDegrees.toString(),
-                          style: styles.Lato.xsGray),
-                    ]),
-              )
-          ],
-        ),
+              if (leftGripBoardHold.holdType == HoldType.pocket)
+                RichText(
+                  text: TextSpan(
+                      text: 'depth: ',
+                      style: styles.Staatliches.xsBlack,
+                      children: [
+                        TextSpan(
+                            text: leftGripBoardHold.pocketDepth.toString(),
+                            style: styles.Lato.xsGray),
+                        TextSpan(text: ' mm', style: styles.Lato.xsGray),
+                      ]),
+                ),
+              if (leftGripBoardHold.holdType == HoldType.sloper)
+                RichText(
+                  text: TextSpan(
+                      text: 'degrees: ',
+                      style: styles.Staatliches.xsBlack,
+                      children: [
+                        TextSpan(
+                            text: leftGripBoardHold.sloperDegrees.toString(),
+                            style: styles.Lato.xsGray),
+                      ]),
+                ),
+              if (leftGrip != null)
+                RichText(
+                  text: TextSpan(
+                      text: 'grip: ',
+                      style: styles.Staatliches.xsBlack,
+                      children: [
+                        TextSpan(
+                            text: leftGrip.description,
+                            style: styles.Lato.xsGray),
+                      ]),
+                )
+            ],
+          ),
         if (rightGripBoardHold != null)
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -118,6 +133,17 @@ class BoardHoldInfo extends StatelessWidget {
                       children: [
                         TextSpan(
                             text: rightGripBoardHold.sloperDegrees.toString(),
+                            style: styles.Lato.xsGray),
+                      ]),
+                ),
+              if (rightGrip != null)
+                RichText(
+                  text: TextSpan(
+                      text: 'grip: ',
+                      style: styles.Staatliches.xsBlack,
+                      children: [
+                        TextSpan(
+                            text: rightGrip.description,
                             style: styles.Lato.xsGray),
                       ]),
                 )

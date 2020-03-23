@@ -61,6 +61,8 @@ class SelectedGripsAndHolds extends StatelessWidget {
             BoardHoldInfo(
               leftGripBoardHold: leftGripBoardHold,
               rightGripBoardHold: rightGripBoardHold,
+              leftGrip: leftGrip,
+              rightGrip: rightGrip,
             ),
             Divider(height: styles.Measurements.xxl),
           ],
