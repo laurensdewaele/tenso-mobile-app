@@ -12,6 +12,9 @@ flutter packages pub run build_runner watch
 ## TODO
 
 - Bug? Keyboard on rotation (on countdown screen)?
+  Not only on rotation.
+  Click on complete before entering value => then adding a value => shit is broken.
+  
 - Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
 - Remove +- weight if weight is negative on countdown screen.
 
