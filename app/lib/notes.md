@@ -12,6 +12,8 @@ flutter packages pub run build_runner watch
 ## TODO
 
 - Negative weights!
+  => validation on vm's
+  
 - Bug? Keyboard on rotation (on countdown screen)?
 - Add open crimp, check if all grips available.
 - Remove difficulty and add label colour.
@@ -37,6 +39,7 @@ flutter packages pub run build_runner watch
 - Refactor appState. Remove provider. Needs to be done with streams. A lot cleaner and more performance.
   You don't want a widget listening to 3 VMs here. It worked before the latest refactor but was 
   very gimmicky with provider. With streams this will be a lot clearer. You want AppState => Workout_VM => General/Hold/Extra.
+- Tests
 - Try catch blocks on sensitive code. E.g. deleting workout.
 - Setup sentry.io, don't think about self hosting for now.
 - Login with device id, to save workouts already
@@ -46,8 +49,6 @@ flutter packages pub run build_runner watch
 
 ### Small prio
 
-- Tests
-- Validation needs to be on input field itself, not triggered on every input
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
