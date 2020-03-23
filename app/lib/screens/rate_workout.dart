@@ -32,7 +32,7 @@ class RateWorkoutScreen extends StatefulWidget {
 class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   RateWorkoutViewModel _rateWorkoutViewModel;
   _Pages _page = _Pages.congratulations;
-  int _feltDifficulty = 0;
+  int _effortLevel = 0;
   Workout _workout;
 
   @override
@@ -62,20 +62,20 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteWorkoutButtonTap() {
-    if (_feltDifficulty < 1 || _feltDifficulty > 10) {
+    if (_effortLevel < 1 || _effortLevel > 10) {
       Provider.of<ToastService>(context, listen: false).add(Text(
-          'The felt difficulty value has to be provided.',
+          'The effort level value has to be provided.',
           style: styles.Lato.sBlack));
       return;
     }
     _rateWorkoutViewModel.saveCompletedWorkout(
-        workout: _workout, feltDifficulty: _feltDifficulty);
+        workout: _workout, effortLevel: _effortLevel);
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }
 
-  void _handleFeltDifficultyValueChanged(int n) {
+  void handleEffortLevelValueChanged(int n) {
     setState(() {
-      _feltDifficulty = n;
+      _effortLevel = n;
     });
   }
 
@@ -94,7 +94,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     );
     final Widget _rateWorkoutContent = RateWorkoutContent(
       handleCompleteWorkoutButtonTap: _handleCompleteWorkoutButtonTap,
-      handleFeltDifficultyValueChanged: _handleFeltDifficultyValueChanged,
+      handleEffortLevelValueChanged: handleEffortLevelValueChanged,
     );
 
     if (_page == _Pages.congratulations) _content = _congratulationsContent;

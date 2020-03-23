@@ -40,11 +40,11 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               difficultyColor: _workout.difficultyColor,
               duration: _workout.duration),
         if (_isCompletedWorkout == true)
-          _DifficultyAndFeltDifficulty(
+          _DifficultyAndEffortLevel(
             difficulty: _workout.difficulty,
             difficultyColor: _workout.difficultyColor,
-            feltDifficulty: completedWorkout.feltDifficulty,
-            feltDifficultyColor: completedWorkout.feltDifficultyColor,
+            effortLevel: completedWorkout.effortLevel,
+            effortLevelColor: completedWorkout.effortLevelColor,
           ),
         Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
@@ -255,19 +255,19 @@ class _AvHangTimeAndAddedWeight extends StatelessWidget {
   }
 }
 
-class _DifficultyAndFeltDifficulty extends StatelessWidget {
-  _DifficultyAndFeltDifficulty(
+class _DifficultyAndEffortLevel extends StatelessWidget {
+  _DifficultyAndEffortLevel(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
-      @required this.feltDifficulty,
-      @required this.feltDifficultyColor})
+      @required this.effortLevel,
+      @required this.effortLevelColor})
       : super(key: key);
 
   final Color difficultyColor;
   final int difficulty;
-  final int feltDifficulty;
-  final Color feltDifficultyColor;
+  final int effortLevel;
+  final Color effortLevelColor;
 
   @override
   Widget build(BuildContext context) {
@@ -292,14 +292,14 @@ class _DifficultyAndFeltDifficulty extends StatelessWidget {
         Expanded(
             child: Column(children: <Widget>[
           Text(
-            'felt difficulty',
+            'effort level',
             style: styles.Staatliches.xsBlack,
           ),
           Divider(
             height: styles.Measurements.xs,
           ),
           Text(
-            feltDifficulty.toString(),
+            effortLevel.toString(),
             textAlign: TextAlign.center,
             style: styles.Lato.xsGray,
           )

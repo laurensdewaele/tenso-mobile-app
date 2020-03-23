@@ -12,10 +12,10 @@ class RateWorkoutContent extends StatelessWidget {
   RateWorkoutContent(
       {Key key,
       @required this.handleCompleteWorkoutButtonTap,
-      @required this.handleFeltDifficultyValueChanged})
+      @required this.handleEffortLevelValueChanged})
       : super(key: key);
 
-  final void Function(int v) handleFeltDifficultyValueChanged;
+  final void Function(int v) handleEffortLevelValueChanged;
   final VoidCallback handleCompleteWorkoutButtonTap;
 
   @override
@@ -34,14 +34,13 @@ class RateWorkoutContent extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Felt difficulty level',
+                    'Effort level',
                     style: styles.Staatliches.xlBlack,
                   ),
                   IconButton(
                       handleTap: () {
                         showAppDialog(
-                            context: context,
-                            content: _FeltDifficultyLevelInfo());
+                            context: context, content: _EffortLevelInfo());
                       },
                       icon: Icon(
                         size: 28,
@@ -57,8 +56,8 @@ class RateWorkoutContent extends StatelessWidget {
                 enabled: true,
                 primaryColor: styles.Colors.turquoise,
                 isDouble: false,
-                description: 'felt difficulty',
-                handleIntValueChanged: handleFeltDifficultyValueChanged,
+                description: 'effort level',
+                handleIntValueChanged: handleEffortLevelValueChanged,
                 initialIntValue: 0,
                 maxIntValue: 10,
               ),
@@ -76,8 +75,8 @@ class RateWorkoutContent extends StatelessWidget {
   }
 }
 
-class _FeltDifficultyLevelInfo extends StatelessWidget {
-  _FeltDifficultyLevelInfo({Key key}) : super(key: key);
+class _EffortLevelInfo extends StatelessWidget {
+  _EffortLevelInfo({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +98,8 @@ class _FeltDifficultyLevelInfo extends StatelessWidget {
                   style: styles.Lato.xsBlack,
                   children: [
                     TextSpan(
-                        text: 'how difficult it felt to complete the workout',
+                        text:
+                            'how much effort it took for you to complete the workout',
                         style: styles.Lato.xsBlackBold),
                     TextSpan(
                         text: ', on a scale of 1 to 10.',

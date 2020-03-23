@@ -14,10 +14,10 @@ class RateWorkoutViewModel {
   AppState _appState;
   Uuid _uuid;
 
-  saveCompletedWorkout({Workout workout, int feltDifficulty}) {
+  saveCompletedWorkout({Workout workout, int effortLevel}) {
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
       ..workout = workout.toBuilder()
-      ..feltDifficulty = feltDifficulty
+      ..effortLevel = effortLevel
       ..completedDate = DateTime.now().toUtc()
       ..id = _uuid.v4());
 
