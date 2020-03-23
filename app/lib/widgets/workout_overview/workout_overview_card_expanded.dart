@@ -30,7 +30,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
       children: <Widget>[
         Divider(height: styles.Measurements.l),
         _WorkoutRowThree(
-            unit: _workout.holds[0].unit,
+            unit: _workout.unit,
             averageAddedWeight: _calculateAverageAddedWeight(_workout),
             averageHangTime: _calculateAverageHangTime(_workout)),
         Divider(height: styles.Measurements.m),

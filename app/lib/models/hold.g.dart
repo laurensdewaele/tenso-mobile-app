@@ -33,8 +33,6 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
       'addedWeight',
       serializers.serialize(object.addedWeight,
           specifiedType: const FullType(double)),
-      'unit',
-      serializers.serialize(object.unit, specifiedType: const FullType(Unit)),
     ];
     if (object.leftGrip != null) {
       result
@@ -110,10 +108,6 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
           result.addedWeight = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'unit':
-          result.unit = serializers.deserialize(value,
-              specifiedType: const FullType(Unit)) as Unit;
-          break;
       }
     }
 
@@ -140,8 +134,6 @@ class _$Hold extends Hold {
   final int hangTime;
   @override
   final double addedWeight;
-  @override
-  final Unit unit;
 
   factory _$Hold([void Function(HoldBuilder) updates]) =>
       (new HoldBuilder()..update(updates)).build();
@@ -155,8 +147,7 @@ class _$Hold extends Hold {
       this.repetitions,
       this.restBetweenRepetitions,
       this.hangTime,
-      this.addedWeight,
-      this.unit})
+      this.addedWeight})
       : super._() {
     if (handHold == null) {
       throw new BuiltValueNullFieldError('Hold', 'handHold');
@@ -172,9 +163,6 @@ class _$Hold extends Hold {
     }
     if (addedWeight == null) {
       throw new BuiltValueNullFieldError('Hold', 'addedWeight');
-    }
-    if (unit == null) {
-      throw new BuiltValueNullFieldError('Hold', 'unit');
     }
   }
 
@@ -197,8 +185,7 @@ class _$Hold extends Hold {
         repetitions == other.repetitions &&
         restBetweenRepetitions == other.restBetweenRepetitions &&
         hangTime == other.hangTime &&
-        addedWeight == other.addedWeight &&
-        unit == other.unit;
+        addedWeight == other.addedWeight;
   }
 
   @override
@@ -210,17 +197,15 @@ class _$Hold extends Hold {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc($jc(0, leftGrip.hashCode),
-                                        rightGrip.hashCode),
-                                    handHold.hashCode),
-                                leftGripBoardHold.hashCode),
-                            rightGripBoardHold.hashCode),
-                        repetitions.hashCode),
-                    restBetweenRepetitions.hashCode),
-                hangTime.hashCode),
-            addedWeight.hashCode),
-        unit.hashCode));
+                                $jc($jc(0, leftGrip.hashCode),
+                                    rightGrip.hashCode),
+                                handHold.hashCode),
+                            leftGripBoardHold.hashCode),
+                        rightGripBoardHold.hashCode),
+                    repetitions.hashCode),
+                restBetweenRepetitions.hashCode),
+            hangTime.hashCode),
+        addedWeight.hashCode));
   }
 
   @override
@@ -234,8 +219,7 @@ class _$Hold extends Hold {
           ..add('repetitions', repetitions)
           ..add('restBetweenRepetitions', restBetweenRepetitions)
           ..add('hangTime', hangTime)
-          ..add('addedWeight', addedWeight)
-          ..add('unit', unit))
+          ..add('addedWeight', addedWeight))
         .toString();
   }
 }
@@ -284,10 +268,6 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
   double get addedWeight => _$this._addedWeight;
   set addedWeight(double addedWeight) => _$this._addedWeight = addedWeight;
 
-  Unit _unit;
-  Unit get unit => _$this._unit;
-  set unit(Unit unit) => _$this._unit = unit;
-
   HoldBuilder();
 
   HoldBuilder get _$this {
@@ -301,7 +281,6 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
       _restBetweenRepetitions = _$v.restBetweenRepetitions;
       _hangTime = _$v.hangTime;
       _addedWeight = _$v.addedWeight;
-      _unit = _$v.unit;
       _$v = null;
     }
     return this;
@@ -334,8 +313,7 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
               repetitions: repetitions,
               restBetweenRepetitions: restBetweenRepetitions,
               hangTime: hangTime,
-              addedWeight: addedWeight,
-              unit: unit);
+              addedWeight: addedWeight);
     } catch (_) {
       String _$failedField;
       try {

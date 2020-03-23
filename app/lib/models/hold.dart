@@ -7,7 +7,6 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/serializers.dart';
-import 'package:app/models/unit.dart';
 
 part 'hold.g.dart';
 
@@ -32,7 +31,6 @@ abstract class Hold implements Built<Hold, HoldBuilder> {
   int get restBetweenRepetitions;
   int get hangTime;
   double get addedWeight;
-  Unit get unit;
 
   factory Hold([void Function(HoldBuilder) updates]) = _$Hold;
 

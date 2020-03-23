@@ -80,8 +80,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _close();
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModel.setActiveWorkout(
-        widget.workout, WorkoutTypes.editWorkout);
+    _workoutViewModel.checkUnit(widget.workout);
     Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 
@@ -89,7 +88,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _close();
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModel.setActiveWorkout(
+    _workoutViewModel.setTypeAndSaveWorkout(
         widget.completedWorkout.workout, WorkoutTypes.viewWorkout);
     Navigator.of(context).pushNamed(Routes.workoutScreen);
   }

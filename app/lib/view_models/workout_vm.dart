@@ -98,7 +98,7 @@ class WorkoutViewModel extends ChangeNotifier {
         _appState?.workouts?.rebuild((b) => b..workouts.replace(_workoutList)));
   }
 
-  void setActiveWorkout(Workout workout, WorkoutTypes workoutType) {
+  void setTypeAndSaveWorkout(Workout workout, WorkoutTypes workoutType) {
     setWorkoutType(workoutType);
     setAndSaveWorkout(workout);
   }
@@ -116,5 +116,13 @@ class WorkoutViewModel extends ChangeNotifier {
   void _setAndSaveWorkouts(Workouts workouts) {
     _appState?.setWorkouts(workouts);
     _appState?.saveWorkouts(workouts);
+  }
+
+  void checkUnit(Workout workout) {
+    Workout _workout = workout;
+    if (workout.unit != _appState?.settings?.unit) {
+      _workout = workout.rebuild((b) => b..unit = _appState?.settings?.unit);
+    }
+    setTypeAndSaveWorkout(_workout, WorkoutTypes.editWorkout);
   }
 }

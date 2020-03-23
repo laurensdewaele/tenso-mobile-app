@@ -42,6 +42,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
               const FullType(BuiltList, const [const FullType(Hold)])),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'unit',
+      serializers.serialize(object.unit, specifiedType: const FullType(Unit)),
     ];
     if (object.editedId != null) {
       result
@@ -105,6 +107,10 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'unit':
+          result.unit = serializers.deserialize(value,
+              specifiedType: const FullType(Unit)) as Unit;
+          break;
       }
     }
 
@@ -133,6 +139,8 @@ class _$Workout extends Workout {
   final BuiltList<Hold> holds;
   @override
   final String name;
+  @override
+  final Unit unit;
 
   factory _$Workout([void Function(WorkoutBuilder) updates]) =>
       (new WorkoutBuilder()..update(updates)).build();
@@ -147,7 +155,8 @@ class _$Workout extends Workout {
       this.restBetweenSets,
       this.board,
       this.holds,
-      this.name})
+      this.name,
+      this.unit})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Workout', 'id');
@@ -176,6 +185,9 @@ class _$Workout extends Workout {
     if (name == null) {
       throw new BuiltValueNullFieldError('Workout', 'name');
     }
+    if (unit == null) {
+      throw new BuiltValueNullFieldError('Workout', 'unit');
+    }
   }
 
   @override
@@ -198,7 +210,8 @@ class _$Workout extends Workout {
         restBetweenSets == other.restBetweenSets &&
         board == other.board &&
         holds == other.holds &&
-        name == other.name;
+        name == other.name &&
+        unit == other.unit;
   }
 
   @override
@@ -210,15 +223,19 @@ class _$Workout extends Workout {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc($jc(0, id.hashCode), editedId.hashCode),
-                                    difficulty.hashCode),
-                                sets.hashCode),
-                            holdCount.hashCode),
-                        restBetweenHolds.hashCode),
-                    restBetweenSets.hashCode),
-                board.hashCode),
-            holds.hashCode),
-        name.hashCode));
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, id.hashCode),
+                                            editedId.hashCode),
+                                        difficulty.hashCode),
+                                    sets.hashCode),
+                                holdCount.hashCode),
+                            restBetweenHolds.hashCode),
+                        restBetweenSets.hashCode),
+                    board.hashCode),
+                holds.hashCode),
+            name.hashCode),
+        unit.hashCode));
   }
 
   @override
@@ -233,7 +250,8 @@ class _$Workout extends Workout {
           ..add('restBetweenSets', restBetweenSets)
           ..add('board', board)
           ..add('holds', holds)
-          ..add('name', name))
+          ..add('name', name)
+          ..add('unit', unit))
         .toString();
   }
 }
@@ -283,6 +301,10 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
+  Unit _unit;
+  Unit get unit => _$this._unit;
+  set unit(Unit unit) => _$this._unit = unit;
+
   WorkoutBuilder();
 
   WorkoutBuilder get _$this {
@@ -297,6 +319,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
       _board = _$v.board?.toBuilder();
       _holds = _$v.holds?.toBuilder();
       _name = _$v.name;
+      _unit = _$v.unit;
       _$v = null;
     }
     return this;
@@ -330,7 +353,8 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
               restBetweenSets: restBetweenSets,
               board: board.build(),
               holds: holds.build(),
-              name: name);
+              name: name,
+              unit: unit);
     } catch (_) {
       String _$failedField;
       try {

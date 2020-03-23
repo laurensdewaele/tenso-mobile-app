@@ -9,6 +9,7 @@ import 'package:app/helpers/determine_difficulty_color.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/serializers.dart';
+import 'package:app/models/unit.dart';
 
 part 'workout.g.dart';
 
@@ -30,6 +31,8 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   Board get board;
   BuiltList<Hold> get holds;
   String get name;
+  Unit get unit;
+
   Color get difficultyColor => determineDifficultyColor(difficulty);
   int get duration => _calculateDuration();
 

@@ -14,6 +14,7 @@ final Workout basicWorkout = Workout((b) => b
   ..restBetweenHolds = 60 * 2
   ..restBetweenSets = 60 * 3
   ..board = beastmaker1000.toBuilder()
+  ..unit = Unit.metric
   ..holds.addAll([
     Hold((b) => b
       ..leftGrip = Grips.openHandL.toBuilder()
@@ -24,8 +25,7 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
-      ..addedWeight = 20
-      ..unit = Unit.metric),
+      ..addedWeight = 20),
     Hold((b) => b
       ..leftGrip = Grips.halfCrimpL.toBuilder()
       ..rightGrip = Grips.halfCrimpR.toBuilder()
@@ -35,8 +35,7 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
-      ..addedWeight = 20
-      ..unit = Unit.metric),
+      ..addedWeight = 20),
     Hold((b) => b
       ..leftGrip = Grips.openHandL.toBuilder()
       ..rightGrip = Grips.openHandR.toBuilder()
@@ -46,8 +45,7 @@ final Workout basicWorkout = Workout((b) => b
       ..repetitions = 8
       ..restBetweenRepetitions = 60
       ..hangTime = 7
-      ..addedWeight = 20
-      ..unit = Unit.metric)
+      ..addedWeight = 20)
   ])
   ..name = 'Basic workout');
 
