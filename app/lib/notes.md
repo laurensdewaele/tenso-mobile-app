@@ -11,9 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Negative weights!
-  => validation on vm's
-  
 - Bug? Keyboard on rotation (on countdown screen)?
 - Add open crimp, check if all grips available.
 - Remove difficulty and add label colour.
