@@ -77,21 +77,17 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void _saveEditWorkout(Workout editWorkout) {
-    try {
-      final Workout _originalWorkout =
-          _workoutList.firstWhere((w) => w.id == _appState.workout.id);
+    final Workout _originalWorkout =
+        _workoutList.firstWhere((w) => w.id == _appState.workout.id);
 
-      if (_originalWorkout != editWorkout) {
-        final Workout _editedWorkout =
-            editWorkout.rebuild((b) => b..editedId = _uuid.v4());
-        final int index =
-            _workoutList.indexWhere((w) => w.id == _editedWorkout.id);
-        _workoutList[index] = _editedWorkout;
-        _setAndSaveWorkouts(_appState?.workouts
-            ?.rebuild((b) => b..workouts.replace(_workoutList)));
-      }
-    } catch (_) {
-      // TODO
+    if (_originalWorkout != editWorkout) {
+      final Workout _editedWorkout =
+          editWorkout.rebuild((b) => b..editedId = _uuid.v4());
+      final int index =
+          _workoutList.indexWhere((w) => w.id == _editedWorkout.id);
+      _workoutList[index] = _editedWorkout;
+      _setAndSaveWorkouts(_appState?.workouts
+          ?.rebuild((b) => b..workouts.replace(_workoutList)));
     }
   }
 
@@ -108,13 +104,9 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void addNewWorkout(Workout workout) {
     if (_workoutType == WorkoutTypes.newWorkout) {
-      try {
-        setAndSaveWorkout(workout);
-        _setAndSaveWorkouts(
-            _appState?.workouts?.rebuild((b) => b..workouts.add(workout)));
-      } catch (_) {
-        // TODO
-      }
+      setAndSaveWorkout(workout);
+      _setAndSaveWorkouts(
+          _appState?.workouts?.rebuild((b) => b..workouts.add(workout)));
     }
   }
 

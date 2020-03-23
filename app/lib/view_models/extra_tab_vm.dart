@@ -24,21 +24,13 @@ class ExtraTabViewModel extends ChangeNotifier {
   }
 
   void setDifficulty(int difficulty) {
-    try {
-      _workoutViewModel.setAndSaveWorkout(
-          _appState?.workout?.rebuild((b) => b..difficulty = difficulty));
-    } catch (_) {
-      // TODO
-    }
+    _workoutViewModel.setAndSaveWorkout(
+        _appState?.workout?.rebuild((b) => b..difficulty = difficulty));
   }
 
   void setName(String name) {
-    try {
-      _workoutViewModel.setAndSaveWorkout(
-          _appState?.workout?.rebuild((b) => b..name = name));
-    } catch (_) {
-      // TODO
-    }
+    _workoutViewModel
+        .setAndSaveWorkout(_appState?.workout?.rebuild((b) => b..name = name));
   }
 
   void addNewWorkout() {
@@ -48,13 +40,9 @@ class ExtraTabViewModel extends ChangeNotifier {
       _toastService
           .add(Text('Name must be filled in.', style: styles.Lato.sBlack));
     } else {
-      try {
-        _workoutViewModel.addNewWorkout(_appState?.workout?.rebuild((b) => b
-          ..name = _name
-          ..id = _uuid.v4()));
-      } catch (_) {
-        // TODO
-      }
+      _workoutViewModel.addNewWorkout(_appState?.workout?.rebuild((b) => b
+        ..name = _name
+        ..id = _uuid.v4()));
     }
   }
 }
