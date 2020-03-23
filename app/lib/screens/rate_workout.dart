@@ -62,10 +62,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteWorkoutButtonTap() {
-    if (_effortLevel < 1 || _effortLevel > 10) {
-      Provider.of<ToastService>(context, listen: false).add(Text(
-          'The effort level value has to be provided.',
-          style: styles.Lato.sBlack));
+    if (_validateInput() == false) {
       return;
     }
     _rateWorkoutViewModel.saveCompletedWorkout(
@@ -73,10 +70,22 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }
 
+  bool _validateInput() {
+    if (_effortLevel < 1 || _effortLevel > 10) {
+      Provider.of<ToastService>(context, listen: false).add(Text(
+          'Please define an effort level ranging from 1 to 10',
+          style: styles.Lato.sBlack));
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   void handleEffortLevelValueChanged(int n) {
     setState(() {
       _effortLevel = n;
     });
+    _validateInput();
   }
 
   @override

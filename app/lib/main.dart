@@ -49,7 +49,8 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<AppState, GeneralTabViewModel>(
           create: (context) => GeneralTabViewModel(
-              Provider.of<WorkoutViewModel>(context, listen: false)),
+              Provider.of<WorkoutViewModel>(context, listen: false),
+              Provider.of<ToastService>(context, listen: false)),
           update: (context, appState, generalTabViewModel) =>
               generalTabViewModel..update(appState),
           lazy: false,

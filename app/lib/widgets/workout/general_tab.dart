@@ -45,7 +45,6 @@ class _GeneralTabState extends State<GeneralTab> {
             NumberInputAndDescription(
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
-              isDouble: false,
               description: 'holds',
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setHoldCount(n);
@@ -58,7 +57,6 @@ class _GeneralTabState extends State<GeneralTab> {
             NumberInputAndDescription(
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
-              isDouble: false,
               description: 'sets',
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setSets(n);
@@ -76,7 +74,6 @@ class _GeneralTabState extends State<GeneralTab> {
             NumberInputAndDescription(
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
-              isDouble: false,
               description: 'rest seconds between holds',
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenHolds(n);
@@ -89,7 +86,6 @@ class _GeneralTabState extends State<GeneralTab> {
             NumberInputAndDescription(
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
-              isDouble: false,
               description: 'rest seconds between sets',
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenSets(n);

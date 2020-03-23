@@ -95,7 +95,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           title: 'preparation timer',
                                           children: <Widget>[
                                             NumberInputAndDescription(
-                                              isDouble: false,
                                               description: 'seconds',
                                               initialIntValue: _appState
                                                   .settings.preparationTimer,

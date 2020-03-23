@@ -9,28 +9,23 @@ import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class NumberInput extends StatefulWidget {
-  NumberInput(
-      {@required this.isDouble,
-      this.initialIntValue,
-      this.initialDoubleValue,
-      this.shouldFocus = false,
-      this.maxIntValue,
-      this.enabled = true,
-      this.handleDoubleValueChanged,
-      this.handleIntValueChanged,
-      this.primaryColor = styles.Colors.primary,
-      this.zeroValueAllowed});
+  NumberInput({
+    this.initialIntValue,
+    this.initialDoubleValue,
+    this.shouldFocus = false,
+    this.enabled = true,
+    this.handleDoubleValueChanged,
+    this.handleIntValueChanged,
+    this.primaryColor = styles.Colors.primary,
+  });
 
   final bool enabled;
   final ValueChanged<int> handleIntValueChanged;
   final ValueChanged<double> handleDoubleValueChanged;
-  final bool isDouble;
   final int initialIntValue;
   final double initialDoubleValue;
   final Color primaryColor;
   final bool shouldFocus;
-  final bool zeroValueAllowed;
-  final int maxIntValue;
 
   @override
   _NumberInputState createState() => _NumberInputState();
@@ -41,7 +36,7 @@ class _NumberInputState extends State<NumberInput> {
   final _focusNode = FocusNode();
 
   String _initialValue;
-  bool _shouldValidate;
+  bool _isDouble;
 
   StreamSubscription _subscription;
   KeyboardService _keyboardService;
@@ -50,15 +45,13 @@ class _NumberInputState extends State<NumberInput> {
   @override
   void initState() {
     super.initState();
-    widget.shouldFocus == true
-        ? _shouldValidate = true
-        : _shouldValidate = false;
+    _isDouble = widget.initialDoubleValue != null;
     _initialValue = widget.initialDoubleValue?.toString() ??
         widget.initialIntValue?.toString();
     _textEditingController.text = _initialValue;
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
-        _validateInput();
+        _onComplete();
       } else {
         _textEditingController.clear();
       }
@@ -66,8 +59,9 @@ class _NumberInputState extends State<NumberInput> {
 
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
     _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
-      _validateInput();
+      _onComplete();
     });
+
     _toastService = Provider.of<ToastService>(context, listen: false);
   }
 
@@ -77,108 +71,55 @@ class _NumberInputState extends State<NumberInput> {
     super.dispose();
   }
 
-  void _validateInput() {
-    if (_textEditingController.text == '') {
-      _resetInitialValue();
-      _validationEnd();
-      return;
-    }
-
-    if (_shouldValidate == false) {
-      _validationEnd();
+  void _onChanged(String s) {
+    if (s.trim() == '' || s == null) {
+      _emptyError();
       return;
     }
 
     dynamic value;
     try {
-      value = widget.isDouble
-          ? double.parse(_textEditingController.text)
-          : int.parse(_textEditingController.text);
+      value = _isDouble ? double.parse(s.trim()) : int.parse(s.trim());
     } on FormatException catch (_) {
-      _resetInitialValue();
       _validationError();
-      _validationEnd();
       return;
     }
 
-    if (widget.zeroValueAllowed == true && value < 0) {
-      _resetInitialValue();
-      _validationError();
-      _validationEnd();
-      return;
-    }
-
-    if (widget.zeroValueAllowed != true && value < 1) {
-      _resetInitialValue();
-      _validationError();
-      _validationEnd();
-      return;
-    }
-
-    if (widget.maxIntValue != null && value > widget.maxIntValue) {
-      _resetInitialValue();
-      _exceedMaxIntValueError();
-      _validationEnd();
-      return;
-    }
-
-    widget.isDouble == true
+    _isDouble
         ? widget.handleDoubleValueChanged(value)
         : widget.handleIntValueChanged(value);
-    _validationEnd();
   }
 
-  void _validationEnd() {
-    _shouldValidate = false;
-    _focusNode.unfocus();
-    _keyboardService.resetKeyboardOffset();
-  }
-
-  void _resetInitialValue() {
-    _textEditingController.text = _initialValue;
-  }
-
-  void _exceedMaxIntValueError() {
-    final String value = widget.maxIntValue.toString();
-    final String text = 'smaller than $value';
+  void _emptyError() {
     final Widget errorMessage = RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-          text: 'Please input a value ',
+          text: 'The input can ',
           style: styles.Lato.sBlack,
           children: [
-            TextSpan(text: text, style: styles.Lato.sBlackBold),
+            TextSpan(text: 'not be empty.', style: styles.Lato.sBlackBold),
           ]),
     );
-
     _toastService.add(errorMessage);
   }
 
   void _validationError() {
-    final String biggerThanZero = 'bigger than 0.';
-    final String biggerEqualThanZero = 'bigger or equal than 0.';
-    String text;
-    if (widget.zeroValueAllowed == true) {
-      text = biggerEqualThanZero;
-    } else {
-      text = biggerThanZero;
-    }
-
     final Widget errorMessage = RichText(
       textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'Please input a value ',
-          style: styles.Lato.sBlack,
-          children: [
-            TextSpan(text: text, style: styles.Lato.sBlackBold),
-          ]),
+      text:
+          TextSpan(text: 'The input is ', style: styles.Lato.sBlack, children: [
+        TextSpan(text: 'not a number.', style: styles.Lato.sBlackBold),
+      ]),
     );
-
     _toastService.add(errorMessage);
   }
 
+  void _onComplete() {
+    _focusNode.unfocus();
+    _keyboardService.resetKeyboardOffset();
+  }
+
   void _onTap() {
-    _shouldValidate = true;
     _textEditingController.clear();
   }
 
@@ -189,7 +130,7 @@ class _NumberInputState extends State<NumberInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.isDouble ? styles.Measurements.xxl : styles.Measurements.xl,
+      width: _isDouble ? styles.Measurements.xxl : styles.Measurements.xl,
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
@@ -201,13 +142,14 @@ class _NumberInputState extends State<NumberInput> {
               color: widget.primaryColor,
               borderRadius: styles.kBorderRadiusAll),
           focusNode: _focusNode,
-          keyboardType: widget.isDouble
+          keyboardType: _isDouble
               ? TextInputType.numberWithOptions(decimal: true)
               : TextInputType.number,
-          maxLength: widget.isDouble ? 4 : 3,
+          maxLength: _isDouble ? 4 : 3,
+          onChanged: _onChanged,
           onTap: _onTap,
-          onEditingComplete: _validateInput,
-          onSubmitted: (String text) => {_validateInput},
+          onEditingComplete: _onComplete,
+          onSubmitted: (String text) => {_onComplete()},
           style: styles.Staatliches.sWhite,
           textAlign: TextAlign.center,
           enabled: widget.enabled,
