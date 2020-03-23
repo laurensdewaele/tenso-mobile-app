@@ -13,7 +13,6 @@ flutter packages pub run build_runner watch
 
 - Check when editing workout if the unit is the same as your settings.
   If not, update for every hold on workout.
-- Add unit to expanded
 - Add grip type on hold info (hold, type, depth)
 - Rename felt difficulty to effort level.
 - Negative weights!
