@@ -29,7 +29,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
     return Column(
       children: <Widget>[
         Divider(height: styles.Measurements.l),
-        _AvHangTimeAddedWeight(
+        _AvHangTimeAndAddedWeight(
             unit: _workout.unit,
             averageAddedWeight: _calculateAverageAddedWeight(_workout),
             averageHangTime: _calculateAverageHangTime(_workout)),
@@ -40,7 +40,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               difficultyColor: _workout.difficultyColor,
               duration: _workout.duration),
         if (_isCompletedWorkout == true)
-          _DifficultyFeltDifficulty(
+          _DifficultyAndFeltDifficulty(
             difficulty: _workout.difficulty,
             difficultyColor: _workout.difficultyColor,
             feltDifficulty: completedWorkout.feltDifficulty,
@@ -53,7 +53,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
             sets: _workout.sets,
           ),
         if (_isCompletedWorkout == true)
-          _CompletedAtTotalDuration(
+          _CompletedAtAndTotalDuration(
               completedLocalDate: completedWorkout.completedLocalDate,
               duration: _workout.duration),
         Divider(height: styles.Measurements.m),
@@ -204,8 +204,8 @@ class _HoldsAndSets extends StatelessWidget {
   }
 }
 
-class _AvHangTimeAddedWeight extends StatelessWidget {
-  _AvHangTimeAddedWeight(
+class _AvHangTimeAndAddedWeight extends StatelessWidget {
+  _AvHangTimeAndAddedWeight(
       {Key key,
       @required this.averageAddedWeight,
       @required this.averageHangTime,
@@ -255,8 +255,8 @@ class _AvHangTimeAddedWeight extends StatelessWidget {
   }
 }
 
-class _DifficultyFeltDifficulty extends StatelessWidget {
-  _DifficultyFeltDifficulty(
+class _DifficultyAndFeltDifficulty extends StatelessWidget {
+  _DifficultyAndFeltDifficulty(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
@@ -309,8 +309,8 @@ class _DifficultyFeltDifficulty extends StatelessWidget {
   }
 }
 
-class _CompletedAtTotalDuration extends StatelessWidget {
-  _CompletedAtTotalDuration(
+class _CompletedAtAndTotalDuration extends StatelessWidget {
+  _CompletedAtAndTotalDuration(
       {Key key, @required this.completedLocalDate, @required this.duration})
       : super(key: key);
 
