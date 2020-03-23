@@ -36,6 +36,7 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
+- Refactor appState. Remove provider. Needs to be done with streams. A lot cleaner and more performance.
 - Try catch blocks on sensitive code. E.g. deleting workout.
 - Setup sentry.io, don't think about self hosting for now.
 - Login with device id, to save workouts already
