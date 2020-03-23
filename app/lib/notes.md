@@ -12,6 +12,8 @@ flutter packages pub run build_runner watch
 ## TODO
 
 - Bug? Keyboard on rotation (on countdown screen)?
+- Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
+
 - Add open crimp, check if all grips available.
 - Remove difficulty and add label colour.
 - Overview on completed workouts need effective time hung.
@@ -21,7 +23,6 @@ flutter packages pub run build_runner watch
 - Stopwatch option for rest periods
 - Stop and log, when a workout is more than you can handle that day. E.g. The last set is too much.
 - Skip button
-- Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
 - Graphs
 - Redesign toast
 - Add board selection. Only beastmaker1000 atm.

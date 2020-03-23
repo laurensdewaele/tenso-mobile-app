@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/rate_workout.dart';
+import 'package:app/screens/congratulations.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/countdown_screen_vm.dart';
 import 'package:app/widgets/button.dart';
@@ -76,8 +76,8 @@ class _CountdownScreenState extends State<CountdownScreen>
       // On the end of the whole sequence, navigate back
       if (_currentSequenceIndex == _sequence.length - 1) {
         _stop();
-        Navigator.of(context).pushNamed(Routes.rateWorkoutScreen,
-            arguments: RateWorkoutScreenArguments(
+        Navigator.of(context).pushNamed(Routes.congratulationsScreen,
+            arguments: RateWorkoutArguments(
               workout: _countdownScreenViewModel.workout,
             ));
       } else {

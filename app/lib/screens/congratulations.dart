@@ -1,0 +1,117 @@
+import 'package:flutter/cupertino.dart';
+
+import 'package:app/models/workout.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/card.dart';
+import 'package:app/widgets/rate_workout/congratulations_content.dart';
+import 'package:app/widgets/rate_workout/containers.dart';
+
+class RateWorkoutArguments {
+  RateWorkoutArguments({this.workout});
+
+  final Workout workout;
+}
+
+class CongratulationsScreen extends StatefulWidget {
+  CongratulationsScreen({Key key}) : super(key: key);
+
+  @override
+  _CongratulationsScreenState createState() => _CongratulationsScreenState();
+}
+
+class _CongratulationsScreenState extends State<CongratulationsScreen> {
+  Workout _workout;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final RateWorkoutArguments routeArguments =
+        ModalRoute.of(context).settings.arguments;
+    _workout = routeArguments.workout;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _handleRateWorkoutTap(context) {
+    Navigator.of(context).pushNamed(Routes.rateWorkoutScreen,
+        arguments: RateWorkoutArguments(
+          workout: _workout,
+        ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final MediaQueryData _mediaQueryData = MediaQuery.of(context);
+    final double _maxContainerHeight = _mediaQueryData.size.height -
+        _mediaQueryData.padding.top -
+        _mediaQueryData.padding.bottom;
+    final Orientation _orientation = _mediaQueryData.orientation;
+
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Container(
+        decoration: BoxDecoration(color: styles.Colors.bgBlack),
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              if (_orientation == Orientation.portrait)
+                RateWorkoutPortraitContainer(
+                  maxContainerHeight: _maxContainerHeight,
+                  content: CongratulationsContent(
+                    handleRateWorkoutTap: () =>
+                        _handleRateWorkoutTap(context),
+                    orientation: _orientation,
+                  ),
+                ),
+              if (_orientation == Orientation.landscape)
+                _CongratulationsLandscapeContainer(
+                  content: CongratulationsContent(
+                    handleRateWorkoutTap: () =>
+                        _handleRateWorkoutTap(context),
+                    orientation: _orientation,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CongratulationsLandscapeContainer extends StatelessWidget {
+  _CongratulationsLandscapeContainer({Key key, @required this.content})
+      : super(key: key);
+
+  final Widget content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: styles.kLandscapeDialogWidth,
+        child: Padding(
+          padding: EdgeInsets.all(styles.Measurements.m),
+          child: Card(
+            padding: EdgeInsets.only(
+              left: styles.Measurements.m,
+              top: styles.Measurements.m,
+              right: styles.Measurements.m,
+              bottom: styles.Measurements.l,
+            ),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+}

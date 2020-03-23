@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/screens/calendar.dart';
+import 'package:app/screens/congratulations.dart';
 import 'package:app/screens/countdown.dart';
 import 'package:app/screens/rate_workout.dart';
 import 'package:app/screens/settings.dart';
@@ -18,6 +19,7 @@ abstract class Routes {
   static const String countdownScreen = '/countdownScreen';
   static const String calendarScreen = '/calendarScreen';
   static const String feedbackScreen = '/feedbackScreen';
+  static const String congratulationsScreen = '/congratulationsScreen';
   static const String rateWorkoutScreen = '/rateWorkoutScreen';
 }
 
@@ -30,6 +32,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
     Routes.countdownScreen: (context) => CountdownScreen(),
     Routes.calendarScreen: (context) => CalendarScreen(),
+    Routes.congratulationsScreen: (context) => CongratulationsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
   };
 }
