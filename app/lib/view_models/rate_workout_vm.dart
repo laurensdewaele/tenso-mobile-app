@@ -1,7 +1,7 @@
-import 'package:app/models/completed_workouts.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:app/models/completed_workout.dart';
+import 'package:app/models/completed_workouts.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/state/app_state.dart';
 

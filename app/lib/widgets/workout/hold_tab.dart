@@ -23,8 +23,6 @@ class HoldTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Man, what a mess. We need something better than Provider here.
-    // I'd like to see bloc implemented.
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
     final _holdTabViewModel =
