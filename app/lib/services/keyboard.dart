@@ -5,6 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class KeyboardService {
+  StreamController<bool> _resetInitialInputStreamController =
+      StreamController<bool>.broadcast();
+  Stream<bool> get resetInitialInputStream =>
+      _resetInitialInputStreamController.stream;
   StreamController<bool> _shouldLoseFocusStreamController =
       StreamController<bool>.broadcast();
   Stream<bool> get shouldLoseFocusStream =>
@@ -22,9 +26,14 @@ class KeyboardService {
   // but this time we have lost the tapPosition.
   Offset _latestTapPosition = Offset.zero;
 
+  void resetInitialInput() {
+    _resetInitialInputStreamController.sink.add(true);
+  }
+
   void dispose() {
     _shouldLoseFocusStreamController.close();
     _keyboardOffsetHeightStreamController.close();
+    _resetInitialInputStreamController.close();
   }
 
   void onScreenTap() {

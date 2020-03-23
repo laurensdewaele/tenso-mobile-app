@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/workout.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -81,6 +82,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
               TextSpan(text: '1 to 10.', style: styles.Lato.sBlackBold),
             ]),
       ));
+      Provider.of<KeyboardService>(context, listen: false).resetInitialInput();
       return false;
     } else {
       return true;

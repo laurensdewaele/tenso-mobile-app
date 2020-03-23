@@ -50,7 +50,8 @@ class App extends StatelessWidget {
         ChangeNotifierProxyProvider<AppState, GeneralTabViewModel>(
           create: (context) => GeneralTabViewModel(
               Provider.of<WorkoutViewModel>(context, listen: false),
-              Provider.of<ToastService>(context, listen: false)),
+              Provider.of<ToastService>(context, listen: false),
+              Provider.of<KeyboardService>(context, listen: false)),
           update: (context, appState, generalTabViewModel) =>
               generalTabViewModel..update(appState),
           lazy: false,
@@ -58,15 +59,17 @@ class App extends StatelessWidget {
         ChangeNotifierProxyProvider<AppState, HoldTabViewModel>(
           create: (context) => HoldTabViewModel(
               Provider.of<ToastService>(context, listen: false),
-              Provider.of<WorkoutViewModel>(context, listen: false)),
+              Provider.of<WorkoutViewModel>(context, listen: false),
+              Provider.of<KeyboardService>(context, listen: false)),
           update: (context, appState, holdTabViewModel) =>
               holdTabViewModel..update(appState),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, ExtraTabViewModel>(
           create: (context) => ExtraTabViewModel(
-              Provider.of<WorkoutViewModel>(context, listen: false),
-              Provider.of<ToastService>(context, listen: false)),
+            Provider.of<WorkoutViewModel>(context, listen: false),
+            Provider.of<ToastService>(context, listen: false),
+          ),
           update: (context, appState, extraTabViewModel) =>
               extraTabViewModel..update(appState),
           lazy: false,

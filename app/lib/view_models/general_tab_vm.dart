@@ -3,18 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/workout.dart';
+import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_vm.dart';
 
 class GeneralTabViewModel extends ChangeNotifier {
-  GeneralTabViewModel(
-      WorkoutViewModel workoutViewModel, ToastService toastService) {
+  GeneralTabViewModel(WorkoutViewModel workoutViewModel,
+      ToastService toastService, KeyboardService keyboardService) {
     _workoutViewModel = workoutViewModel;
     _toastService = toastService;
+    _keyboardService = keyboardService;
   }
 
+  KeyboardService _keyboardService;
   AppState _appState;
   ToastService _toastService;
   WorkoutViewModel _workoutViewModel;
@@ -91,6 +94,7 @@ class GeneralTabViewModel extends ChangeNotifier {
               TextSpan(text: 'bigger than 0.', style: styles.Lato.sBlackBold),
             ]),
       ));
+      _keyboardService.resetInitialInput();
       return false;
     } else {
       return true;

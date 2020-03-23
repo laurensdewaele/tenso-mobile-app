@@ -38,7 +38,8 @@ class _NumberInputState extends State<NumberInput> {
   String _initialValue;
   bool _isDouble;
 
-  StreamSubscription _subscription;
+  StreamSubscription _sub;
+  StreamSubscription _sub2;
   KeyboardService _keyboardService;
   ToastService _toastService;
 
@@ -58,7 +59,10 @@ class _NumberInputState extends State<NumberInput> {
     });
 
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
-    _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
+    _sub = _keyboardService.resetInitialInputStream.listen((_) {
+      _resetInitialValue();
+    });
+    _sub2 = _keyboardService.shouldLoseFocusStream.listen((_) {
       _onComplete();
     });
 
@@ -67,13 +71,19 @@ class _NumberInputState extends State<NumberInput> {
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _sub.cancel();
+    _sub2.cancel();
     super.dispose();
+  }
+
+  void _resetInitialValue() {
+    _textEditingController.text = _initialValue;
   }
 
   void _onChanged(String s) {
     if (s.trim() == '' || s == null) {
       _emptyError();
+      _resetInitialValue();
       return;
     }
 
@@ -82,6 +92,7 @@ class _NumberInputState extends State<NumberInput> {
       value = _isDouble ? double.parse(s.trim()) : int.parse(s.trim());
     } on FormatException catch (_) {
       _validationError();
+      _resetInitialValue();
       return;
     }
 
