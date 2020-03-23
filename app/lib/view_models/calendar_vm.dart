@@ -76,25 +76,25 @@ class CalendarViewModel extends ChangeNotifier {
             belongsToSelectedMonth: isSameMonth(day, _selectedMonth),
             selected: _isSameDay(day, _selectedDay),
             completedWorkoutColors:
-                _getCompletedWorkoutColors(day, _appState.completedWorkouts)))
+                _getCompletedWorkoutColors(day, _appState?.completedWorkouts)))
         .toList();
   }
 
   void _setCompletedWorkoutsForSelectedDay() {
     _completedWorkoutsForSelectedDay = _appState
-        .completedWorkouts.completedWorkouts
-        .where((completedWorkout) =>
+        ?.completedWorkouts?.completedWorkouts
+        ?.where((completedWorkout) =>
             _isSameDay(completedWorkout.completedDate, _selectedDay))
-        .toList();
+        ?.toList();
   }
 
   void _setDatePickerMonths() {
     List<DateTime> completedWorkoutMonths = _appState
-        .completedWorkouts.completedWorkouts
-        .map((completedWorkout) => DateTime.utc(
+        ?.completedWorkouts?.completedWorkouts
+        ?.map((completedWorkout) => DateTime.utc(
             completedWorkout.completedDate.year,
             completedWorkout.completedDate.month))
-        .toList();
+        ?.toList();
     completedWorkoutMonths.sort((DateTime a, DateTime b) => a.compareTo(b));
 
     DateTime first = completedWorkoutMonths.length > 0
@@ -111,13 +111,13 @@ class CalendarViewModel extends ChangeNotifier {
   void deleteCompletedWorkout(CompletedWorkout completedWorkout) {
     final list = _appState?.completedWorkouts?.completedWorkouts?.toList();
     list.removeWhere((c) => c.id == completedWorkout.id);
-    _setAndSaveCompletedWorkouts(_appState.completedWorkouts
-        .rebuild((b) => b..completedWorkouts.replace(list)));
+    _setAndSaveCompletedWorkouts(_appState?.completedWorkouts
+        ?.rebuild((b) => b..completedWorkouts.replace(list)));
   }
 
   void _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {
-    _appState.setCompletedWorkouts(completedWorkouts);
-    _appState.saveCompletedWorkouts(completedWorkouts);
+    _appState?.setCompletedWorkouts(completedWorkouts);
+    _appState?.saveCompletedWorkouts(completedWorkouts);
   }
 }
 
