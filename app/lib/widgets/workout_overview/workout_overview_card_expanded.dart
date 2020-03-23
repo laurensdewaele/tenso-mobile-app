@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/completed_workout.dart';
+import 'package:app/models/unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
@@ -29,6 +30,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
       children: <Widget>[
         Divider(height: styles.Measurements.l),
         _WorkoutRowThree(
+            unit: _workout.holds[0].unit,
             averageAddedWeight: _calculateAverageAddedWeight(_workout),
             averageHangTime: _calculateAverageHangTime(_workout)),
         Divider(height: styles.Measurements.m),
@@ -86,10 +88,9 @@ class _WorkoutInfo extends StatelessWidget {
         child: Column(children: <Widget>[
       Text(
         title,
-        style: styles.Staatliches.xsGray,
+        style: styles.Staatliches.sBlack,
       ),
       Container(
-          margin: EdgeInsets.only(top: styles.Measurements.xs),
           child: difficultyColor != null
               ? Difficulty(
                   difficulty: value,
@@ -99,11 +100,13 @@ class _WorkoutInfo extends StatelessWidget {
               : Container(
                   height: styles.Measurements.xl,
                   child: Center(
-                      child: Text(
-                    value,
-                    textAlign: TextAlign.center,
-                    style: styles.Staatliches.lBlack,
-                  ))))
+                    child: Text(
+                      value,
+                      textAlign: TextAlign.center,
+                      style: styles.Lato.sBlack,
+                    ),
+                  ),
+                ))
     ]));
   }
 }
@@ -124,22 +127,20 @@ class _WorkoutDuration extends StatelessWidget {
             child: RichText(
           text: TextSpan(text: null, children: [
             if (_minutes != 0)
-              TextSpan(
-                  text: _minutes.toString(), style: styles.Staatliches.lBlack),
+              TextSpan(text: _minutes.toString(), style: styles.Lato.sBlack),
             if (_minutes != 0)
               TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-            if (_minutes != 0)
-              TextSpan(text: 'm', style: styles.Staatliches.xsBlack),
+            if (_minutes != 0) TextSpan(text: 'm', style: styles.Lato.sBlack),
             if (_remainingSeconds != 0)
-              TextSpan(text: '  ', style: styles.Staatliches.xsBlack),
+              TextSpan(text: '  ', style: styles.Lato.sBlack),
             if (_remainingSeconds != 0)
               TextSpan(
                   text: _remainingSeconds.toString(),
-                  style: styles.Staatliches.lBlack),
+                  style: styles.Lato.sBlack),
             if (_remainingSeconds != 0)
               TextSpan(text: ' ', style: styles.Staatliches.textDivider),
             if (_remainingSeconds != 0)
-              TextSpan(text: 's', style: styles.Staatliches.xsBlack)
+              TextSpan(text: 's', style: styles.Lato.sBlack)
           ]),
         )));
   }
@@ -171,7 +172,7 @@ class _WorkoutRowOne extends StatelessWidget {
             child: Column(children: <Widget>[
           Text(
             'total duration',
-            style: styles.Staatliches.xsGray,
+            style: styles.Staatliches.sBlack,
           ),
           _WorkoutDuration(seconds: duration)
         ]))
@@ -209,14 +210,19 @@ class _WorkoutRowThree extends StatelessWidget {
   _WorkoutRowThree(
       {Key key,
       @required this.averageAddedWeight,
-      @required this.averageHangTime})
+      @required this.averageHangTime,
+      @required this.unit})
       : super(key: key);
 
   final int averageHangTime;
   final double averageAddedWeight;
+  final Unit unit;
 
   @override
   Widget build(BuildContext context) {
+    final String _unit = unit == Unit.metric ? 'kg' : 'lb';
+    final String _avAddedWeight = '$averageAddedWeight $_unit';
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -224,13 +230,13 @@ class _WorkoutRowThree extends StatelessWidget {
             child: Column(children: <Widget>[
           Text(
             'av. hang time',
-            style: styles.Staatliches.xsGray,
+            style: styles.Staatliches.sBlack,
           ),
           _WorkoutDuration(seconds: averageHangTime)
         ])),
         _WorkoutInfo(
           title: 'av. added weight',
-          value: averageAddedWeight.toString(),
+          value: _avAddedWeight,
         ),
       ],
     );
@@ -290,13 +296,13 @@ class _CompletedWorkoutRowTwo extends StatelessWidget {
       children: <Widget>[
         _WorkoutInfo(
           title: 'completed at',
-          value: timeStamp,
+          value: '${timeStamp}h',
         ),
         Expanded(
             child: Column(children: <Widget>[
           Text(
             'total duration',
-            style: styles.Staatliches.xsGray,
+            style: styles.Staatliches.sBlack,
           ),
           _WorkoutDuration(
             seconds: duration,
