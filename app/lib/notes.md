@@ -13,6 +13,7 @@ flutter packages pub run build_runner watch
 
 - Bug? Keyboard on rotation (on countdown screen)?
 - Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
+- Remove +- weight if weight is negative on countdown screen.
 
 - Add open crimp, check if all grips available.
 - Remove difficulty and add label colour.

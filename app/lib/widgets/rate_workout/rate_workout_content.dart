@@ -15,7 +15,7 @@ class RateWorkoutContent extends StatelessWidget {
       @required this.handleEffortLevelValueChanged})
       : super(key: key);
 
-  final void Function(int v) handleEffortLevelValueChanged;
+  final Function(int v) handleEffortLevelValueChanged;
   final VoidCallback handleCompleteWorkoutButtonTap;
 
   @override
@@ -57,7 +57,6 @@ class RateWorkoutContent extends StatelessWidget {
                 primaryColor: styles.Colors.turquoise,
                 description: 'effort level',
                 handleIntValueChanged: handleEffortLevelValueChanged,
-                initialIntValue: 0,
               ),
             ],
           ),

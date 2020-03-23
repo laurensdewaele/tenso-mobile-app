@@ -61,25 +61,30 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
       child: Container(
         decoration: BoxDecoration(color: styles.Colors.bgBlack),
         child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              if (_orientation == Orientation.portrait)
-                RateWorkoutPortraitContainer(
-                  maxContainerHeight: _maxContainerHeight,
-                  content: CongratulationsContent(
-                    handleRateWorkoutTap: () =>
-                        _handleRateWorkoutTap(context),
-                    orientation: _orientation,
-                  ),
-                ),
-              if (_orientation == Orientation.landscape)
-                _CongratulationsLandscapeContainer(
-                  content: CongratulationsContent(
-                    handleRateWorkoutTap: () =>
-                        _handleRateWorkoutTap(context),
-                    orientation: _orientation,
-                  ),
-                ),
+          child: ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Column(
+                children: <Widget>[
+                  if (_orientation == Orientation.portrait)
+                    RateWorkoutPortraitContainer(
+                      maxContainerHeight: _maxContainerHeight,
+                      content: CongratulationsContent(
+                        handleRateWorkoutTap: () =>
+                            _handleRateWorkoutTap(context),
+                        orientation: _orientation,
+                      ),
+                    ),
+                  if (_orientation == Orientation.landscape)
+                    _CongratulationsLandscapeContainer(
+                      content: CongratulationsContent(
+                        handleRateWorkoutTap: () =>
+                            _handleRateWorkoutTap(context),
+                        orientation: _orientation,
+                      ),
+                    ),
+                ],
+              )
             ],
           ),
         ),

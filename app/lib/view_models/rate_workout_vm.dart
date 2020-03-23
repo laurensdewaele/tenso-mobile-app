@@ -12,6 +12,7 @@ import 'package:app/styles/styles.dart' as styles;
 class RateWorkoutViewModel {
   RateWorkoutViewModel(AppState appState, ToastService toastService) {
     _appState = appState;
+    _toastService = toastService;
     _uuid = Uuid();
   }
 
@@ -21,21 +22,23 @@ class RateWorkoutViewModel {
   int _effortLevel = 0;
 
   void setEffortLevel(int n) {
-    if (_validateInput() == false) {
+    if (_validateInput(n) == false) {
       return;
     }
     _effortLevel = n;
   }
 
-  void completeWorkout(Workout workout) {
-    if (_validateInput() == false) {
-      return;
+  bool completeWorkout(Workout workout) {
+    if (_validateInput(_effortLevel) == false) {
+      return false;
+    } else {
+      _saveCompletedWorkout(workout: workout, effortLevel: _effortLevel);
+      return true;
     }
-    _saveCompletedWorkout(workout: workout, effortLevel: _effortLevel);
   }
 
-  bool _validateInput() {
-    if (_effortLevel < 1 || _effortLevel > 10) {
+  bool _validateInput(n) {
+    if (n < 1 || n > 10) {
       _toastService.add(RichText(
         textAlign: TextAlign.center,
         text: TextSpan(

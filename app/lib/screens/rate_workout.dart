@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:provider/provider.dart';
 
 import 'package:app/models/workout.dart';
+import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
@@ -47,7 +48,10 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteWorkoutButtonTap() {
-    _rateWorkoutViewModel.completeWorkout(_workout);
+    if (_rateWorkoutViewModel.completeWorkout(_workout) == false) {
+      return;
+    }
+    Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }
 
   void _handleEffortLevelValueChanged(int n) {
