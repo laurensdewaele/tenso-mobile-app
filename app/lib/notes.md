@@ -11,7 +11,6 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Rename felt difficulty to effort level.
 - Negative weights!
 - Bug? Keyboard on rotation (on countdown screen)?
 - Add open crimp, check if all grips available.
