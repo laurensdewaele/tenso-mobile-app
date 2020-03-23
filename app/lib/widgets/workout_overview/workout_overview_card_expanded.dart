@@ -298,11 +298,11 @@ class _DifficultyAndEffortLevel extends StatelessWidget {
           Divider(
             height: styles.Measurements.xs,
           ),
-          Text(
-            effortLevel.toString(),
-            textAlign: TextAlign.center,
-            style: styles.Lato.xsGray,
-          )
+          Difficulty(
+              difficulty: effortLevel.toString(),
+              difficultyColor: difficultyColor,
+              width: styles.Measurements.xl,
+              height: styles.Measurements.xl)
         ])),
       ],
     );
