@@ -29,18 +29,18 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
     return Column(
       children: <Widget>[
         Divider(height: styles.Measurements.l),
-        _WorkoutRowThree(
+        _AvHangTimeAddedWeight(
             unit: _workout.unit,
             averageAddedWeight: _calculateAverageAddedWeight(_workout),
             averageHangTime: _calculateAverageHangTime(_workout)),
         Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
-          _WorkoutRowOne(
+          _DifficultyAndDuration(
               difficulty: _workout.difficulty,
               difficultyColor: _workout.difficultyColor,
               duration: _workout.duration),
         if (_isCompletedWorkout == true)
-          _CompletedWorkoutRowOne(
+          _DifficultyFeltDifficulty(
             difficulty: _workout.difficulty,
             difficultyColor: _workout.difficultyColor,
             feltDifficulty: completedWorkout.feltDifficulty,
@@ -48,12 +48,12 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           ),
         Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
-          _WorkoutRowTwo(
+          _HoldsAndSets(
             holdCount: _workout.holdCount,
             sets: _workout.sets,
           ),
         if (_isCompletedWorkout == true)
-          _CompletedWorkoutRowTwo(
+          _CompletedAtTotalDuration(
               completedLocalDate: completedWorkout.completedLocalDate,
               duration: _workout.duration),
         Divider(height: styles.Measurements.m),
@@ -74,43 +74,6 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
   }
 }
 
-class _WorkoutInfo extends StatelessWidget {
-  const _WorkoutInfo(
-      {@required this.title, @required this.value, this.difficultyColor});
-
-  final String title;
-  final String value;
-  final Color difficultyColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: Column(children: <Widget>[
-      Text(
-        title,
-        style: styles.Staatliches.sBlack,
-      ),
-      Container(
-          child: difficultyColor != null
-              ? Difficulty(
-                  difficulty: value,
-                  difficultyColor: difficultyColor,
-                  width: styles.Measurements.xl,
-                  height: styles.Measurements.xl)
-              : Container(
-                  height: styles.Measurements.xl,
-                  child: Center(
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.center,
-                      style: styles.Lato.sBlack,
-                    ),
-                  ),
-                ))
-    ]));
-  }
-}
-
 class _WorkoutDuration extends StatelessWidget {
   _WorkoutDuration({Key key, @required this.seconds}) : super(key: key);
 
@@ -122,32 +85,30 @@ class _WorkoutDuration extends StatelessWidget {
     final int _remainingSeconds = seconds % 60;
 
     return Container(
-        height: styles.Measurements.xl,
         child: Center(
             child: RichText(
-          text: TextSpan(text: null, children: [
-            if (_minutes != 0)
-              TextSpan(text: _minutes.toString(), style: styles.Lato.sBlack),
-            if (_minutes != 0)
-              TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-            if (_minutes != 0) TextSpan(text: 'm', style: styles.Lato.sBlack),
-            if (_remainingSeconds != 0)
-              TextSpan(text: '  ', style: styles.Lato.sBlack),
-            if (_remainingSeconds != 0)
-              TextSpan(
-                  text: _remainingSeconds.toString(),
-                  style: styles.Lato.sBlack),
-            if (_remainingSeconds != 0)
-              TextSpan(text: ' ', style: styles.Staatliches.textDivider),
-            if (_remainingSeconds != 0)
-              TextSpan(text: 's', style: styles.Lato.sBlack)
-          ]),
-        )));
+      text: TextSpan(text: null, children: [
+        if (_minutes != 0)
+          TextSpan(text: _minutes.toString(), style: styles.Lato.xsGray),
+        if (_minutes != 0)
+          TextSpan(text: ' ', style: styles.Staatliches.textDivider),
+        if (_minutes != 0) TextSpan(text: 'm', style: styles.Lato.xsGray),
+        if (_remainingSeconds != 0)
+          TextSpan(text: '  ', style: styles.Lato.xsGray),
+        if (_remainingSeconds != 0)
+          TextSpan(
+              text: _remainingSeconds.toString(), style: styles.Lato.xsGray),
+        if (_remainingSeconds != 0)
+          TextSpan(text: ' ', style: styles.Staatliches.textDivider),
+        if (_remainingSeconds != 0)
+          TextSpan(text: 's', style: styles.Lato.xsGray)
+      ]),
+    )));
   }
 }
 
-class _WorkoutRowOne extends StatelessWidget {
-  _WorkoutRowOne(
+class _DifficultyAndDuration extends StatelessWidget {
+  _DifficultyAndDuration(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
@@ -163,26 +124,41 @@ class _WorkoutRowOne extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _WorkoutInfo(
-          title: 'difficulty',
-          value: difficulty.toString(),
-          difficultyColor: difficultyColor,
-        ),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'difficulty',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Difficulty(
+              difficulty: difficulty.toString(),
+              difficultyColor: difficultyColor,
+              width: styles.Measurements.xl,
+              height: styles.Measurements.xl)
+        ])),
         Expanded(
             child: Column(children: <Widget>[
           Text(
             'total duration',
-            style: styles.Staatliches.sBlack,
+            style: styles.Staatliches.xsBlack,
           ),
-          _WorkoutDuration(seconds: duration)
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Container(
+              height: styles.Measurements.xl,
+              child: _WorkoutDuration(seconds: duration))
         ]))
       ],
     );
   }
 }
 
-class _WorkoutRowTwo extends StatelessWidget {
-  _WorkoutRowTwo({Key key, @required this.sets, @required this.holdCount})
+class _HoldsAndSets extends StatelessWidget {
+  _HoldsAndSets({Key key, @required this.sets, @required this.holdCount})
       : super(key: key);
 
   final int sets;
@@ -193,21 +169,43 @@ class _WorkoutRowTwo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _WorkoutInfo(
-          title: 'holds',
-          value: holdCount.toString(),
-        ),
-        _WorkoutInfo(
-          title: 'sets',
-          value: sets.toString(),
-        ),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'holds',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Text(
+            holdCount.toString(),
+            textAlign: TextAlign.center,
+            style: styles.Lato.xsGray,
+          )
+        ])),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'sets',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Text(
+            sets.toString(),
+            textAlign: TextAlign.center,
+            style: styles.Lato.xsGray,
+          )
+        ])),
       ],
     );
   }
 }
 
-class _WorkoutRowThree extends StatelessWidget {
-  _WorkoutRowThree(
+class _AvHangTimeAddedWeight extends StatelessWidget {
+  _AvHangTimeAddedWeight(
       {Key key,
       @required this.averageAddedWeight,
       @required this.averageHangTime,
@@ -230,21 +228,35 @@ class _WorkoutRowThree extends StatelessWidget {
             child: Column(children: <Widget>[
           Text(
             'av. hang time',
-            style: styles.Staatliches.sBlack,
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
           ),
           _WorkoutDuration(seconds: averageHangTime)
         ])),
-        _WorkoutInfo(
-          title: 'av. added weight',
-          value: _avAddedWeight,
-        ),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'av. added weight',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Text(
+            _avAddedWeight,
+            textAlign: TextAlign.center,
+            style: styles.Lato.xsGray,
+          )
+        ])),
       ],
     );
   }
 }
 
-class _CompletedWorkoutRowOne extends StatelessWidget {
-  _CompletedWorkoutRowOne(
+class _DifficultyFeltDifficulty extends StatelessWidget {
+  _DifficultyFeltDifficulty(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
@@ -262,23 +274,43 @@ class _CompletedWorkoutRowOne extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _WorkoutInfo(
-          title: 'difficulty',
-          value: difficulty.toString(),
-          difficultyColor: difficultyColor,
-        ),
-        _WorkoutInfo(
-          title: 'felt difficulty',
-          value: feltDifficulty.toString(),
-          difficultyColor: feltDifficultyColor,
-        ),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'difficulty',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Difficulty(
+              difficulty: difficulty.toString(),
+              difficultyColor: difficultyColor,
+              width: styles.Measurements.xl,
+              height: styles.Measurements.xl)
+        ])),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'felt difficulty',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Text(
+            feltDifficulty.toString(),
+            textAlign: TextAlign.center,
+            style: styles.Lato.xsGray,
+          )
+        ])),
       ],
     );
   }
 }
 
-class _CompletedWorkoutRowTwo extends StatelessWidget {
-  _CompletedWorkoutRowTwo(
+class _CompletedAtTotalDuration extends StatelessWidget {
+  _CompletedAtTotalDuration(
       {Key key, @required this.completedLocalDate, @required this.duration})
       : super(key: key);
 
@@ -294,15 +326,29 @@ class _CompletedWorkoutRowTwo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _WorkoutInfo(
-          title: 'completed at',
-          value: '${timeStamp}h',
-        ),
+        Expanded(
+            child: Column(children: <Widget>[
+          Text(
+            'completed at',
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
+          Text(
+            '${timeStamp}h',
+            textAlign: TextAlign.center,
+            style: styles.Lato.xsGray,
+          )
+        ])),
         Expanded(
             child: Column(children: <Widget>[
           Text(
             'total duration',
-            style: styles.Staatliches.sBlack,
+            style: styles.Staatliches.xsBlack,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
           ),
           _WorkoutDuration(
             seconds: duration,
