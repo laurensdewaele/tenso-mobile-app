@@ -35,6 +35,7 @@ flutter packages pub run build_runner watch
 
 ### Medium prio
 
+- Try catch blocks on sensitive code. E.g. deleting workout.
 - Setup sentry.io, don't think about self hosting for now.
 - Login with device id, to save workouts already
 - Draw diagram when all is refactored.
