@@ -71,6 +71,10 @@ class WorkoutViewModel extends ChangeNotifier {
     if (_workoutType == WorkoutTypes.editWorkout) {
       _saveEditWorkout(workout);
     }
+
+    if (_workoutType == WorkoutTypes.newWorkout) {
+      _appState.saveNewWorkout(workout);
+    }
   }
 
   void _saveEditWorkout(Workout editWorkout) {
