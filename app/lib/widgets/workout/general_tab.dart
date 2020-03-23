@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/general_tab_vm.dart';
 import 'package:app/view_models/workout_vm.dart';
@@ -33,6 +34,7 @@ class _GeneralTabState extends State<GeneralTab> {
         Provider.of<WorkoutViewModel>(context, listen: true);
     final _generalTabViewModel =
         Provider.of<GeneralTabViewModel>(context, listen: false);
+    final _appState = Provider.of<AppState>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +50,7 @@ class _GeneralTabState extends State<GeneralTab> {
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setHoldCount(n);
               },
-              initialIntValue: _workoutViewModel.workout.holdCount,
+              initialIntValue: _appState.workout.holdCount,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -61,7 +63,7 @@ class _GeneralTabState extends State<GeneralTab> {
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setSets(n);
               },
-              initialIntValue: _workoutViewModel.workout.sets,
+              initialIntValue: _appState.workout.sets,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -79,7 +81,7 @@ class _GeneralTabState extends State<GeneralTab> {
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenHolds(n);
               },
-              initialIntValue: _workoutViewModel.workout.restBetweenHolds,
+              initialIntValue: _appState.workout.restBetweenHolds,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -92,7 +94,7 @@ class _GeneralTabState extends State<GeneralTab> {
               handleIntValueChanged: (int n) {
                 _generalTabViewModel.setRestBetweenSets(n);
               },
-              initialIntValue: _workoutViewModel.workout.restBetweenSets,
+              initialIntValue: _appState.workout.restBetweenSets,
             ),
             Divider(
               height: styles.Measurements.m,

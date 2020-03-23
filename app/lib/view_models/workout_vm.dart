@@ -16,6 +16,10 @@ class WorkoutViewModel extends ChangeNotifier {
 
   Uuid _uuid = Uuid();
   AppState _appState;
+  List<Workout> get _workoutList => _appState?.workouts?.workouts?.toList();
+
+  WorkoutTypes _workoutType;
+
   String _extraTabButtonText;
   String get extraTabButtonText => _extraTabButtonText;
   bool _inputsEnabled;
@@ -26,14 +30,9 @@ class WorkoutViewModel extends ChangeNotifier {
   TextStyle get textPrimaryColor => _textPrimaryColor;
   String _title;
   String get title => _title;
-  Workout get workout => _appState?.workout;
-  List<Workout> get _workoutList => _appState?.workouts?.workouts?.toList();
-
-  WorkoutTypes _workoutType;
 
   void update(AppState appState) {
     _appState = appState;
-    notifyListeners();
   }
 
   void setWorkoutType(WorkoutTypes workoutType) {
@@ -65,7 +64,7 @@ class WorkoutViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setWorkout(Workout workout) {
+  void setAndSaveWorkout(Workout workout) {
     _appState?.setWorkout(workout);
 
     if (_workoutType == WorkoutTypes.editWorkout) {
@@ -78,39 +77,44 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void _saveEditWorkout(Workout editWorkout) {
-    final Workout _originalWorkout =
-        _workoutList.firstWhere((w) => w.id == workout.id);
+    try {
+      final Workout _originalWorkout =
+          _workoutList.firstWhere((w) => w.id == _appState.workout.id);
 
-    if (_originalWorkout != editWorkout) {
-      final int index = _workoutList.indexWhere((w) => w.id == editWorkout.id);
-      final Workout _editedWorkout =
-          editWorkout.rebuild((b) => b..editedId = _uuid.v4());
-      final List<Workout> _newWorkoutList = []..addAll(_workoutList);
-      _newWorkoutList[index] = _editedWorkout;
-      final Workouts _newWorkouts = _appState?.workouts
-          ?.rebuild((b) => b..workouts.replace(_newWorkoutList));
-      _setAndSaveWorkouts(_newWorkouts);
+      if (_originalWorkout != editWorkout) {
+        final Workout _editedWorkout =
+            editWorkout.rebuild((b) => b..editedId = _uuid.v4());
+        final int index =
+            _workoutList.indexWhere((w) => w.id == _editedWorkout.id);
+        _workoutList[index] = _editedWorkout;
+        _setAndSaveWorkouts(_appState?.workouts
+            ?.rebuild((b) => b..workouts.replace(_workoutList)));
+      }
+    } catch (_) {
+      // TODO
     }
   }
 
   void deleteWorkout(Workout workout) {
-    final List<Workout> _newWorkoutList = []..addAll(_workoutList);
-    _newWorkoutList.removeWhere((w) => w.id == workout.id);
-    final Workouts _workouts = _appState?.workouts
-        ?.rebuild((b) => b..workouts.replace(_newWorkoutList));
-    _setAndSaveWorkouts(_workouts);
+    _workoutList.removeWhere((w) => w.id == workout.id);
+    _setAndSaveWorkouts(
+        _appState?.workouts?.rebuild((b) => b..workouts.replace(_workoutList)));
   }
 
   void setActiveWorkout(Workout workout, WorkoutTypes workoutType) {
     setWorkoutType(workoutType);
-    setWorkout(workout);
+    setAndSaveWorkout(workout);
   }
 
-  void addNewWorkout() {
+  void addNewWorkout(Workout workout) {
     if (_workoutType == WorkoutTypes.newWorkout) {
-      final Workouts _workouts = _appState?.workouts
-          ?.rebuild((b) => b..workouts.add(_appState?.workout));
-      _setAndSaveWorkouts(_workouts);
+      try {
+        setAndSaveWorkout(workout);
+        _setAndSaveWorkouts(
+            _appState?.workouts?.rebuild((b) => b..workouts.add(workout)));
+      } catch (_) {
+        // TODO
+      }
     }
   }
 

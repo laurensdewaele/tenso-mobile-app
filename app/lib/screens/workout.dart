@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:provider/provider.dart';
 
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -60,6 +61,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   Widget build(BuildContext context) {
     final WorkoutViewModel _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
+    final AppState _appState = Provider.of<AppState>(context, listen: true);
 
     return KeyboardAndToastProvider(
       child: Screen(
@@ -85,8 +87,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               TabsContainer(
                                   primaryColor: _workoutViewModel.primaryColor,
                                   onNavigation: _scrollToTop,
-                                  holdCount:
-                                      _workoutViewModel.workout.holdCount,
+                                  holdCount: _appState.workout.holdCount,
                                   navigateForwardTabStream:
                                       _navigateForwardTabStreamController
                                           .stream,

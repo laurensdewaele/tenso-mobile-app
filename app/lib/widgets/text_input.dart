@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/services/keyboard.dart';
-import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class TextInput extends StatefulWidget {
@@ -37,16 +36,16 @@ class _TextInputState extends State<TextInput> {
   @override
   void initState() {
     super.initState();
+    _textEditingController.text = widget.initialValue.toString();
     _focusNode.addListener(() {
       if (_focusNode.hasFocus != true) {
-        _validateInput();
+        _onComplete();
       }
     });
-    _textEditingController.text = widget.initialValue.toString();
 
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
     _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
-      _validateInput();
+      _onComplete();
     });
   }
 
@@ -56,20 +55,13 @@ class _TextInputState extends State<TextInput> {
     super.dispose();
   }
 
-  void _validateInput() {
-    if (_textEditingController.text == '' ||
-        _textEditingController.text == null) {
-      _validationError();
-    }
-    _focusNode.unfocus();
-    _keyboardService.resetKeyboardOffset();
+  void _onChanged() {
     widget.handleValueChanged(_textEditingController.text);
   }
 
-  void _validationError() {
-    _textEditingController.text = widget.initialValue.toString();
-    Provider.of<ToastService>(context, listen: false)
-        .add(Text('Name must be filled in.', style: styles.Lato.sBlack));
+  void _onComplete() {
+    _focusNode.unfocus();
+    _keyboardService.resetKeyboardOffset();
   }
 
   void _onTap() {
@@ -101,8 +93,9 @@ class _TextInputState extends State<TextInput> {
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
           onTap: _onTap,
-          onEditingComplete: _validateInput,
-          onSubmitted: (String text) => {_validateInput},
+          onChanged: (_) => {_onChanged()},
+          onEditingComplete: _onComplete,
+          onSubmitted: (_) => {_onComplete()},
           style: styles.Staatliches.lBlack,
           textAlign: TextAlign.start,
         ),

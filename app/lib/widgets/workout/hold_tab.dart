@@ -23,11 +23,13 @@ class HoldTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Man, what a mess. We need something better than Provider here.
+    // I'd like to see bloc implemented.
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
-    final _settings = Provider.of<AppState>(context, listen: true).settings;
     final _holdTabViewModel =
         Provider.of<HoldTabViewModel>(context, listen: false);
+    final _appState = Provider.of<AppState>(context, listen: true);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,17 +37,17 @@ class HoldTab extends StatelessWidget {
       children: <Widget>[
         if (_workoutViewModel.inputsEnabled == true)
           HoldInputContainer(
-            board: _workoutViewModel.workout.board,
+            board: _appState.workout.board,
             currentHold: currentHold,
-            handHold: _workoutViewModel.workout.holds[currentHold].handHold,
-            holdCount: _workoutViewModel.workout.holdCount,
-            leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
+            handHold: _appState.workout.holds[currentHold].handHold,
+            holdCount: _appState.workout.holdCount,
+            leftGrip: _appState.workout.holds[currentHold].leftGrip,
             leftGripBoardHold:
-                _workoutViewModel.workout.holds[currentHold].leftGripBoardHold,
+                _appState.workout.holds[currentHold].leftGripBoardHold,
             primaryColor: _workoutViewModel.primaryColor,
-            rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
+            rightGrip: _appState.workout.holds[currentHold].rightGrip,
             rightGripBoardHold:
-                _workoutViewModel.workout.holds[currentHold].rightGripBoardHold,
+                _appState.workout.holds[currentHold].rightGripBoardHold,
             textPrimaryColor: _workoutViewModel.textPrimaryColor,
             handleLeftGripSelected: _holdTabViewModel.handleLeftGripSelected,
             handleLeftHandSelected: _holdTabViewModel.handleLeftHandSelected,
@@ -60,14 +62,14 @@ class HoldTab extends StatelessWidget {
           ),
         if (_workoutViewModel.inputsEnabled != true)
           SelectedGripsAndHolds(
-            board: _workoutViewModel.workout.board,
-            leftGrip: _workoutViewModel.workout.holds[currentHold].leftGrip,
+            board: _appState.workout.board,
+            leftGrip: _appState.workout.holds[currentHold].leftGrip,
             leftGripBoardHold:
-                _workoutViewModel.workout.holds[currentHold].leftGripBoardHold,
-            rightGrip: _workoutViewModel.workout.holds[currentHold].rightGrip,
+                _appState.workout.holds[currentHold].leftGripBoardHold,
+            rightGrip: _appState.workout.holds[currentHold].rightGrip,
             rightGripBoardHold:
-                _workoutViewModel.workout.holds[currentHold].rightGripBoardHold,
-            holdCount: _workoutViewModel.workout.holdCount,
+                _appState.workout.holds[currentHold].rightGripBoardHold,
+            holdCount: _appState.workout.holdCount,
             currentHold: currentHold,
           ),
         Section(
@@ -81,8 +83,7 @@ class HoldTab extends StatelessWidget {
               handleIntValueChanged: (int n) {
                 _holdTabViewModel.setHoldRepetitions(currentHold, n);
               },
-              initialIntValue:
-                  _workoutViewModel.workout.holds[currentHold].repetitions,
+              initialIntValue: _appState.workout.holds[currentHold].repetitions,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -100,8 +101,7 @@ class HoldTab extends StatelessWidget {
               handleIntValueChanged: (int s) {
                 _holdTabViewModel.setHoldHangTime(currentHold, s);
               },
-              initialIntValue:
-                  _workoutViewModel.workout.holds[currentHold].hangTime,
+              initialIntValue: _appState.workout.holds[currentHold].hangTime,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -114,8 +114,8 @@ class HoldTab extends StatelessWidget {
               handleIntValueChanged: (int s) {
                 _holdTabViewModel.setHoldRestBetweenRepetitions(currentHold, s);
               },
-              initialIntValue: _workoutViewModel
-                  .workout.holds[currentHold].restBetweenRepetitions,
+              initialIntValue:
+                  _appState.workout.holds[currentHold].restBetweenRepetitions,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -129,13 +129,13 @@ class HoldTab extends StatelessWidget {
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
               zeroValueAllowed: true,
-              description: _settings.unit == Unit.metric ? 'kg' : 'lb',
+              description: _appState.settings.unit == Unit.metric ? 'kg' : 'lb',
               handleDoubleValueChanged: (double n) {
                 _holdTabViewModel.setHoldAddedWeight(
-                    currentHold, n, _settings.unit);
+                    currentHold, n, _appState.settings.unit);
               },
               initialDoubleValue:
-                  _workoutViewModel.workout.holds[currentHold].addedWeight,
+                  _appState.workout.holds[currentHold].addedWeight,
               isDouble: true,
             ),
             Divider(

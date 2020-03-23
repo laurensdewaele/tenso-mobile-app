@@ -11,6 +11,7 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
+- Doesn't save on each keystroke on text input
 - Add unit to expanded
 - Add grip type on hold info (hold, type, depth)
 - Rename felt difficulty to effort level.
