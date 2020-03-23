@@ -72,9 +72,15 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   bool _validateInput() {
     if (_effortLevel < 1 || _effortLevel > 10) {
-      Provider.of<ToastService>(context, listen: false).add(Text(
-          'Please define an effort level ranging from 1 to 10',
-          style: styles.Lato.sBlack));
+      Provider.of<ToastService>(context, listen: false).add(RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: 'Please define an effort level ranging from',
+            style: styles.Lato.sBlack,
+            children: [
+              TextSpan(text: '1 to 10.', style: styles.Lato.sBlackBold),
+            ]),
+      ));
       return false;
     } else {
       return true;
