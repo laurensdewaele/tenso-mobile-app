@@ -77,21 +77,16 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void _saveEditWorkout(Workout editWorkout) {
     final _workoutList = []..addAll(_appState?.workouts?.workouts?.toList());
-
-    print('save edit workout');
     final _originalWorkout =
         _workoutList.firstWhere((w) => w.id == _appState?.workout?.id);
 
     if (_originalWorkout != editWorkout) {
-      print('differs from the original workout');
       final _editedWorkout =
           editWorkout.rebuild((b) => b..editedId = _uuid.v4());
       final index = _workoutList.indexWhere((w) => w.id == _editedWorkout.id);
       _workoutList[index] = _editedWorkout;
       _setAndSaveWorkouts(_appState?.workouts
           ?.rebuild((b) => b..workouts.replace(_workoutList)));
-    } else {
-      print('does not differ');
     }
   }
 
