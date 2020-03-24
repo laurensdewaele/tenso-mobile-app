@@ -105,11 +105,10 @@ class _ExpandedSectionState extends State<ExpandedSection>
 
   @override
   Widget build(BuildContext context) {
-    final bool closed = !_isExpanded && _controller.isDismissed;
     return AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,
-      child: closed ? null : Column(children: widget.children),
+      child: Column(children: widget.children),
     );
   }
 }

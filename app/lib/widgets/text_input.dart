@@ -9,6 +9,7 @@ import 'package:app/styles/styles.dart' as styles;
 
 class TextInput extends StatefulWidget {
   TextInput({
+    Key key,
     @required this.multiLine,
     @required this.handleValueChanged,
     @required this.initialValue,
