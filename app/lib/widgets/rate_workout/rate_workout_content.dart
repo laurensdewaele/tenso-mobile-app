@@ -1,3 +1,4 @@
+import 'package:app/widgets/text_input.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -7,6 +8,7 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/number_input_and_description.dart';
+import 'package:app/widgets/section.dart';
 
 class RateWorkoutContent extends StatelessWidget {
   RateWorkoutContent(
@@ -21,47 +23,91 @@ class RateWorkoutContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Divider(
-                height: styles.Measurements.xs,
-              ),
-              Row(
-                children: [
-                  Text(
-                    'perceived exertion',
-                    style: styles.Staatliches.xlBlack,
-                  ),
-                  IconButton(
-                      handleTap: () {
-                        showAppDialog(
-                            context: context,
-                            content: _PerceivedExertionInfo());
-                      },
-                      icon: Icon(
-                        size: 28,
-                        iconData: IconData(0xf44c,
-                            fontFamily: 'CupertinoIcons',
-                            fontPackage: 'cupertino_icons'),
-                        color: styles.Colors.black,
-                      ))
-                ],
-              ),
-              NumberInputAndDescription(
-                shouldFocus: false,
-                enabled: true,
-                primaryColor: styles.Colors.turquoise,
-                description: 'perceived exertion',
-                handleIntValueChanged: handlePerceivedExertionChanged,
-                initialIntValue: 0,
-              ),
-            ],
-          ),
+        Divider(
+          height: styles.Measurements.xs,
+        ),
+        Row(
+          children: [
+            Text(
+              'perceived exertion',
+              style: styles.Staatliches.xlBlack,
+            ),
+            IconButton(
+                handleTap: () {
+                  showAppDialog(
+                      context: context, content: _PerceivedExertionInfo());
+                },
+                icon: Icon(
+                  size: 28,
+                  iconData: IconData(0xf44c,
+                      fontFamily: 'CupertinoIcons',
+                      fontPackage: 'cupertino_icons'),
+                  color: styles.Colors.black,
+                ))
+          ],
+        ),
+        Divider(
+          height: 12,
+        ),
+        NumberInputAndDescription(
+          shouldFocus: false,
+          enabled: true,
+          primaryColor: styles.Colors.turquoise,
+          description: 'perceived exertion',
+          handleIntValueChanged: handlePerceivedExertionChanged,
+          initialIntValue: 0,
+        ),
+        Divider(height: styles.Measurements.xxl),
+        Section(
+          title: 'advanced statistics',
+          children: <Widget>[
+            NumberInputAndDescription(
+              shouldFocus: false,
+              enabled: true,
+              primaryColor: styles.Colors.turquoise,
+              description: 'body weight',
+              handleIntValueChanged: handlePerceivedExertionChanged,
+              initialIntValue: 0,
+            ),
+            Divider(
+              height: styles.Measurements.m,
+            ),
+            NumberInputAndDescription(
+              shouldFocus: false,
+              enabled: true,
+              primaryColor: styles.Colors.turquoise,
+              description: 'temperature',
+              handleIntValueChanged: handlePerceivedExertionChanged,
+              initialIntValue: 0,
+            ),
+            Divider(
+              height: styles.Measurements.m,
+            ),
+            NumberInputAndDescription(
+              shouldFocus: false,
+              enabled: true,
+              primaryColor: styles.Colors.turquoise,
+              description: 'humidity',
+              handleIntValueChanged: handlePerceivedExertionChanged,
+              initialIntValue: 0,
+            ),
+          ],
+        ),
+        Section(
+          title: 'comments',
+          children: <Widget>[
+            Container(
+              height: 100,
+              child: TextInput(
+                  multiLine: true,
+                  enabled: true,
+                  primaryColor: styles.Colors.turquoise,
+                  initialValue: '',
+                  handleValueChanged: (n) {}),
+            )
+          ],
         ),
         Button(
           backgroundColor: styles.Colors.turquoise,

@@ -9,9 +9,9 @@ import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/rate_workout_vm.dart';
+import 'package:app/widgets/card.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
-import 'package:app/widgets/rate_workout/containers.dart';
 import 'package:app/widgets/rate_workout/rate_workout_content.dart';
 
 class RateWorkoutScreen extends StatefulWidget {
@@ -61,9 +61,6 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData _mediaQueryData = MediaQuery.of(context);
-    final double _maxContainerHeight = _mediaQueryData.size.height -
-        _mediaQueryData.padding.top -
-        _mediaQueryData.padding.bottom;
     final Orientation _orientation = _mediaQueryData.orientation;
 
     return WillPopScope(
@@ -77,8 +74,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                 Column(
                   children: <Widget>[
                     if (_orientation == Orientation.portrait)
-                      RateWorkoutPortraitContainer(
-                        maxContainerHeight: _maxContainerHeight,
+                      _PortraitContainer(
                         content: RateWorkoutContent(
                           handleCompleteWorkoutButtonTap:
                               _handleCompleteWorkoutButtonTap,
@@ -87,8 +83,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         ),
                       ),
                     if (_orientation == Orientation.landscape)
-                      RateWorkoutLandscapeContainer(
-                        maxContainerHeight: _maxContainerHeight,
+                      _LandscapeContainer(
                         content: RateWorkoutContent(
                           handleCompleteWorkoutButtonTap:
                               _handleCompleteWorkoutButtonTap,
@@ -101,6 +96,55 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PortraitContainer extends StatelessWidget {
+  _PortraitContainer({Key key, @required this.content}) : super(key: key);
+
+  final Widget content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.all(styles.Measurements.m),
+        child: Card(
+          padding: EdgeInsets.only(
+            left: styles.Measurements.m,
+            top: 0,
+            right: styles.Measurements.m,
+            bottom: styles.Measurements.l,
+          ),
+          child: content,
+        ),
+      ),
+    );
+  }
+}
+
+class _LandscapeContainer extends StatelessWidget {
+  _LandscapeContainer({Key key, @required this.content}) : super(key: key);
+
+  final Widget content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: styles.kLandscapeDialogWidth,
+      child: Padding(
+        padding: EdgeInsets.all(styles.Measurements.m),
+        child: Card(
+          padding: EdgeInsets.only(
+            left: styles.Measurements.m,
+            top: 0,
+            right: styles.Measurements.m,
+            bottom: styles.Measurements.l,
+          ),
+          child: content,
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:app/styles/styles.dart' as styles;
 
 class TextInput extends StatefulWidget {
   TextInput({
+    @required this.multiLine,
     @required this.handleValueChanged,
     @required this.initialValue,
     this.shouldFocus = false,
@@ -16,6 +17,7 @@ class TextInput extends StatefulWidget {
     this.primaryColor = styles.Colors.primary,
   });
 
+  final bool multiLine;
   final bool enabled;
   final ValueChanged<String> handleValueChanged;
   final String initialValue;
@@ -74,29 +76,40 @@ class _TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
+    final _decoration = widget.multiLine
+        ? BoxDecoration(
+            borderRadius: styles.kBorderRadiusAll,
+            border: Border.all(color: widget.primaryColor, width: 3))
+        : BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: widget.primaryColor, width: 3),
+            ),
+          );
+    final _style =
+        widget.multiLine ? styles.Lato.xsGray : styles.Staatliches.lBlack;
+
     return Container(
       width: double.infinity,
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
+          minLines: null,
+          maxLines: widget.multiLine ? null : 1,
+          expands: widget.multiLine ? true : false,
           enabled: widget.enabled,
           // TODO: Figure out if it needs a max-length
           autofocus: widget.shouldFocus,
           autocorrect: false,
           controller: _textEditingController,
           cursorColor: styles.Colors.black,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: widget.primaryColor, width: 3),
-            ),
-          ),
+          decoration: _decoration,
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
           onTap: _onTap,
           onChanged: (_) => {_onChanged()},
           onEditingComplete: _onComplete,
           onSubmitted: (_) => {_onComplete()},
-          style: styles.Staatliches.lBlack,
+          style: _style,
           textAlign: TextAlign.start,
         ),
       ),

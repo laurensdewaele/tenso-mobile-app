@@ -5,7 +5,6 @@ import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/rate_workout/congratulations_content.dart';
-import 'package:app/widgets/rate_workout/containers.dart';
 
 class RateWorkoutArguments {
   RateWorkoutArguments({this.workout});
@@ -67,7 +66,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
               Column(
                 children: <Widget>[
                   if (_orientation == Orientation.portrait)
-                    RateWorkoutPortraitContainer(
+                    _PortraitContainer(
                       maxContainerHeight: _maxContainerHeight,
                       content: CongratulationsContent(
                         handleRateWorkoutTap: () =>
@@ -76,7 +75,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
                       ),
                     ),
                   if (_orientation == Orientation.landscape)
-                    _CongratulationsLandscapeContainer(
+                    _LandscapeContainer(
                       content: CongratulationsContent(
                         handleRateWorkoutTap: () =>
                             _handleRateWorkoutTap(context),
@@ -93,9 +92,36 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
   }
 }
 
-class _CongratulationsLandscapeContainer extends StatelessWidget {
-  _CongratulationsLandscapeContainer({Key key, @required this.content})
+class _PortraitContainer extends StatelessWidget {
+  _PortraitContainer(
+      {Key key, @required this.content, @required this.maxContainerHeight})
       : super(key: key);
+
+  final Widget content;
+  final double maxContainerHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: maxContainerHeight,
+      child: Padding(
+        padding: EdgeInsets.all(styles.Measurements.m),
+        child: Card(
+          padding: EdgeInsets.only(
+            left: styles.Measurements.m,
+            top: 0,
+            right: styles.Measurements.m,
+            bottom: styles.Measurements.l,
+          ),
+          child: content,
+        ),
+      ),
+    );
+  }
+}
+
+class _LandscapeContainer extends StatelessWidget {
+  _LandscapeContainer({Key key, @required this.content}) : super(key: key);
 
   final Widget content;
 

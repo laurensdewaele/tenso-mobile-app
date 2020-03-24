@@ -29,11 +29,6 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
     return Column(
       children: <Widget>[
         Divider(height: styles.Measurements.l),
-        _AvHangTimeAndAddedWeight(
-            unit: _workout.unit,
-            averageAddedWeight: _calculateAverageAddedWeight(_workout),
-            averageHangTime: _calculateAverageHangTime(_workout)),
-        Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
           _DifficultyAndDuration(
               difficulty: _workout.difficulty,
@@ -46,6 +41,11 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
             perceivedExertion: completedWorkout.perceivedExertion,
             perceivedExertionColor: completedWorkout.perceivedExertionColor,
           ),
+        Divider(height: styles.Measurements.m),
+        _AvHangTimeAndAddedWeight(
+            unit: _workout.unit,
+            averageAddedWeight: _calculateAverageAddedWeight(_workout),
+            averageHangTime: _calculateAverageHangTime(_workout)),
         Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
           _HoldsAndSets(

@@ -50,6 +50,7 @@ class ExtraTab extends StatelessWidget {
           title: 'name',
           children: <Widget>[
             TextInput(
+                multiLine: false,
                 enabled: _workoutViewModel.inputsEnabled,
                 primaryColor: _workoutViewModel.primaryColor,
                 initialValue: _appState.workout.name,
