@@ -19,20 +19,20 @@ class RateWorkoutViewModel {
   ToastService _toastService;
   AppState _appState;
   Uuid _uuid;
-  int _effortLevel = 0;
+  int _perceivedExertion = 0;
 
-  void setEffortLevel(int n) {
+  void setPerceivedExertion(int n) {
     if (_validateInput(n) == false) {
       return;
     }
-    _effortLevel = n;
+    _perceivedExertion = n;
   }
 
   bool completeWorkout(Workout workout) {
-    if (_validateInput(_effortLevel) == false) {
+    if (_validateInput(_perceivedExertion) == false) {
       return false;
     } else {
-      _saveCompletedWorkout(workout: workout, effortLevel: _effortLevel);
+      _saveCompletedWorkout(workout: workout, perceivedExertion: _perceivedExertion);
       return true;
     }
   }
@@ -42,7 +42,7 @@ class RateWorkoutViewModel {
       _toastService.add(RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            text: 'Please define an effort level ranging from',
+            text: 'Please define an exertion level ranging from',
             style: styles.Lato.sBlack,
             children: [
               TextSpan(text: '1 to 10.', style: styles.Lato.sBlackBold),
@@ -54,10 +54,10 @@ class RateWorkoutViewModel {
     }
   }
 
-  void _saveCompletedWorkout({Workout workout, int effortLevel}) {
+  void _saveCompletedWorkout({Workout workout, int perceivedExertion}) {
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
       ..workout = workout.toBuilder()
-      ..effortLevel = effortLevel
+      ..perceivedExertion = perceivedExertion
       ..completedDate = DateTime.now().toUtc()
       ..id = _uuid.v4());
 

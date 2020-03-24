@@ -12,10 +12,10 @@ class RateWorkoutContent extends StatelessWidget {
   RateWorkoutContent(
       {Key key,
       @required this.handleCompleteWorkoutButtonTap,
-      @required this.handleEffortLevelValueChanged})
+      @required this.handlePerceivedExertionChanged})
       : super(key: key);
 
-  final Function(int v) handleEffortLevelValueChanged;
+  final Function(int v) handlePerceivedExertionChanged;
   final VoidCallback handleCompleteWorkoutButtonTap;
 
   @override
@@ -34,13 +34,14 @@ class RateWorkoutContent extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Effort level',
+                    'Perceived exertion',
                     style: styles.Staatliches.xlBlack,
                   ),
                   IconButton(
                       handleTap: () {
                         showAppDialog(
-                            context: context, content: _EffortLevelInfo());
+                            context: context,
+                            content: _PerceivedExertionInfo());
                       },
                       icon: Icon(
                         size: 28,
@@ -55,8 +56,8 @@ class RateWorkoutContent extends StatelessWidget {
                 shouldFocus: true,
                 enabled: true,
                 primaryColor: styles.Colors.turquoise,
-                description: 'effort level',
-                handleIntValueChanged: handleEffortLevelValueChanged,
+                description: 'Perceived exertion',
+                handleIntValueChanged: handlePerceivedExertionChanged,
                 initialIntValue: 0,
               ),
             ],
@@ -73,8 +74,8 @@ class RateWorkoutContent extends StatelessWidget {
   }
 }
 
-class _EffortLevelInfo extends StatelessWidget {
-  _EffortLevelInfo({Key key}) : super(key: key);
+class _PerceivedExertionInfo extends StatelessWidget {
+  _PerceivedExertionInfo({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

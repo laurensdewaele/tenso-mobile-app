@@ -54,8 +54,8 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
   }
 
-  void _handleEffortLevelValueChanged(int n) {
-    _rateWorkoutViewModel.setEffortLevel(n);
+  void _handlePerceivedExertionChanged(int n) {
+    _rateWorkoutViewModel.setPerceivedExertion(n);
   }
 
   @override
@@ -82,8 +82,8 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         content: RateWorkoutContent(
                           handleCompleteWorkoutButtonTap:
                               _handleCompleteWorkoutButtonTap,
-                          handleEffortLevelValueChanged:
-                              _handleEffortLevelValueChanged,
+                          handlePerceivedExertionChanged:
+                              _handlePerceivedExertionChanged,
                         ),
                       ),
                     if (_orientation == Orientation.landscape)
@@ -92,8 +92,8 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         content: RateWorkoutContent(
                           handleCompleteWorkoutButtonTap:
                               _handleCompleteWorkoutButtonTap,
-                          handleEffortLevelValueChanged:
-                              _handleEffortLevelValueChanged,
+                          handlePerceivedExertionChanged:
+                              _handlePerceivedExertionChanged,
                         ),
                       ),
                   ],

@@ -40,11 +40,11 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
               difficultyColor: _workout.difficultyColor,
               duration: _workout.duration),
         if (_isCompletedWorkout == true)
-          _DifficultyAndEffortLevel(
+          _DifficultyAndPerceivedExertion(
             difficulty: _workout.difficulty,
             difficultyColor: _workout.difficultyColor,
-            effortLevel: completedWorkout.effortLevel,
-            effortLevelColor: completedWorkout.effortLevelColor,
+            perceivedExertion: completedWorkout.perceivedExertion,
+            perceivedExertionColor: completedWorkout.perceivedExertionColor,
           ),
         Divider(height: styles.Measurements.m),
         if (_isCompletedWorkout == false)
@@ -255,19 +255,19 @@ class _AvHangTimeAndAddedWeight extends StatelessWidget {
   }
 }
 
-class _DifficultyAndEffortLevel extends StatelessWidget {
-  _DifficultyAndEffortLevel(
+class _DifficultyAndPerceivedExertion extends StatelessWidget {
+  _DifficultyAndPerceivedExertion(
       {Key key,
       @required this.difficulty,
       @required this.difficultyColor,
-      @required this.effortLevel,
-      @required this.effortLevelColor})
+      @required this.perceivedExertion,
+      @required this.perceivedExertionColor})
       : super(key: key);
 
   final Color difficultyColor;
   final int difficulty;
-  final int effortLevel;
-  final Color effortLevelColor;
+  final int perceivedExertion;
+  final Color perceivedExertionColor;
 
   @override
   Widget build(BuildContext context) {
@@ -292,14 +292,14 @@ class _DifficultyAndEffortLevel extends StatelessWidget {
         Expanded(
             child: Column(children: <Widget>[
           Text(
-            'effort level',
+            'Perceived exertion',
             style: styles.Staatliches.xsBlack,
           ),
           Divider(
             height: styles.Measurements.xs,
           ),
           Difficulty(
-              difficulty: effortLevel.toString(),
+              difficulty: perceivedExertion.toString(),
               difficultyColor: difficultyColor,
               width: styles.Measurements.xl,
               height: styles.Measurements.xl)

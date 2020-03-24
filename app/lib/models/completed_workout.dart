@@ -21,8 +21,8 @@ abstract class CompletedWorkout
   String get id;
   DateTime get completedDate;
   DateTime get completedLocalDate => completedDate.toLocal();
-  int get effortLevel;
-  Color get effortLevelColor => determineDifficultyColor(effortLevel);
+  int get perceivedExertion;
+  Color get perceivedExertionColor => determineDifficultyColor(perceivedExertion);
 
   factory CompletedWorkout([void Function(CompletedWorkoutBuilder) updates]) =
       _$CompletedWorkout;
