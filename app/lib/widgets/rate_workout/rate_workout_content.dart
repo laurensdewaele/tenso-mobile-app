@@ -57,6 +57,7 @@ class RateWorkoutContent extends StatelessWidget {
                 primaryColor: styles.Colors.turquoise,
                 description: 'effort level',
                 handleIntValueChanged: handleEffortLevelValueChanged,
+                initialIntValue: 0,
               ),
             ],
           ),
