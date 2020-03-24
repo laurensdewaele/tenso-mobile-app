@@ -292,7 +292,7 @@ class _DifficultyAndPerceivedExertion extends StatelessWidget {
         Expanded(
             child: Column(children: <Widget>[
           Text(
-            'Perceived exertion',
+            'perceived exertion',
             style: styles.Staatliches.xsBlack,
           ),
           Divider(

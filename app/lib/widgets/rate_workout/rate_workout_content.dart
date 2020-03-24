@@ -34,7 +34,7 @@ class RateWorkoutContent extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Perceived exertion',
+                    'perceived exertion',
                     style: styles.Staatliches.xlBlack,
                   ),
                   IconButton(
@@ -53,10 +53,10 @@ class RateWorkoutContent extends StatelessWidget {
                 ],
               ),
               NumberInputAndDescription(
-                shouldFocus: true,
+                shouldFocus: false,
                 enabled: true,
                 primaryColor: styles.Colors.turquoise,
-                description: 'Perceived exertion',
+                description: 'perceived exertion',
                 handleIntValueChanged: handlePerceivedExertionChanged,
                 initialIntValue: 0,
               ),
