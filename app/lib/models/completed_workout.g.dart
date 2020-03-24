@@ -98,7 +98,8 @@ class _$CompletedWorkout extends CompletedWorkout {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'completedDate');
     }
     if (perceivedExertion == null) {
-      throw new BuiltValueNullFieldError('CompletedWorkout', 'perceivedExertion');
+      throw new BuiltValueNullFieldError(
+          'CompletedWorkout', 'perceivedExertion');
     }
   }
 
@@ -157,7 +158,8 @@ class CompletedWorkoutBuilder
 
   int _perceivedExertion;
   int get perceivedExertion => _$this._perceivedExertion;
-  set perceivedExertion(int perceivedExertion) => _$this._perceivedExertion = perceivedExertion;
+  set perceivedExertion(int perceivedExertion) =>
+      _$this._perceivedExertion = perceivedExertion;
 
   CompletedWorkoutBuilder();
 
