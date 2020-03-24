@@ -1,24 +1,26 @@
-import 'package:app/widgets/text_input.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/empty_input_and_description.dart';
+import 'package:app/widgets/expanded_section.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
-import 'package:app/widgets/number_input_and_description.dart';
-import 'package:app/widgets/section.dart';
+import 'package:app/widgets/text_input.dart';
 
 class RateWorkoutContent extends StatelessWidget {
-  RateWorkoutContent(
-      {Key key,
-      @required this.handleCompleteWorkoutButtonTap,
-      @required this.handlePerceivedExertionChanged})
-      : super(key: key);
+  RateWorkoutContent({
+    Key key,
+    @required this.handleCompleteTap,
+    @required this.handlePerceivedExertionChanged,
+    @required this.handleOpen,
+  }) : super(key: key);
 
   final Function(int v) handlePerceivedExertionChanged;
-  final VoidCallback handleCompleteWorkoutButtonTap;
+  final VoidCallback handleCompleteTap;
+  final VoidCallback handleOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class RateWorkoutContent extends StatelessWidget {
         Row(
           children: [
             Text(
-              'perceived exertion',
+              'perceived exertion *',
               style: styles.Staatliches.xlBlack,
             ),
             IconButton(
@@ -48,56 +50,50 @@ class RateWorkoutContent extends StatelessWidget {
                 ))
           ],
         ),
-        Divider(
-          height: 12,
+        _CupertinoPicker(
+          setPerceivedExertion: (int n) {},
         ),
-        NumberInputAndDescription(
-          shouldFocus: false,
-          enabled: true,
-          primaryColor: styles.Colors.turquoise,
-          description: 'perceived exertion',
-          handleIntValueChanged: handlePerceivedExertionChanged,
-          initialIntValue: 0,
-        ),
-        Divider(height: styles.Measurements.xxl),
-        Section(
+        ExpandedSection(
+          handleOpen: handleOpen,
           title: 'advanced statistics',
           children: <Widget>[
-            NumberInputAndDescription(
-              shouldFocus: false,
-              enabled: true,
+            Divider(
+              height: styles.Measurements.l,
+            ),
+            EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'body weight',
-              handleIntValueChanged: handlePerceivedExertionChanged,
-              initialIntValue: 0,
+              handleValueChanged: (String s) {},
             ),
             Divider(
               height: styles.Measurements.m,
             ),
-            NumberInputAndDescription(
-              shouldFocus: false,
-              enabled: true,
+            // TODO: Unit
+            EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'temperature',
-              handleIntValueChanged: handlePerceivedExertionChanged,
-              initialIntValue: 0,
+              handleValueChanged: (String s) {},
             ),
             Divider(
               height: styles.Measurements.m,
             ),
-            NumberInputAndDescription(
-              shouldFocus: false,
-              enabled: true,
+            EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'humidity',
-              handleIntValueChanged: handlePerceivedExertionChanged,
-              initialIntValue: 0,
+              handleValueChanged: (String s) {},
+            ),
+            Divider(
+              height: styles.Measurements.xl,
             ),
           ],
         ),
-        Section(
+        ExpandedSection(
+          handleOpen: handleOpen,
           title: 'comments',
           children: <Widget>[
+            Divider(
+              height: styles.Measurements.l,
+            ),
             Container(
               height: 100,
               child: TextInput(
@@ -108,12 +104,6 @@ class RateWorkoutContent extends StatelessWidget {
                   handleValueChanged: (n) {}),
             )
           ],
-        ),
-        Button(
-          backgroundColor: styles.Colors.turquoise,
-          width: double.infinity,
-          text: 'done',
-          handleTap: handleCompleteWorkoutButtonTap,
         ),
       ],
     );
@@ -198,6 +188,38 @@ class _PerceivedExertionInfo extends StatelessWidget {
           ],
         )
       ],
+    );
+  }
+}
+
+class _CupertinoPicker extends StatelessWidget {
+  _CupertinoPicker({Key key, @required this.setPerceivedExertion})
+      : super(key: key);
+
+  final void Function(int d) setPerceivedExertion;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      child: CupertinoPicker(
+        scrollController: FixedExtentScrollController(initialItem: 10),
+        useMagnifier: true,
+        magnification: 1,
+        backgroundColor: styles.Colors.bgWhite,
+        onSelectedItemChanged: (int index) {
+          setPerceivedExertion(index + 1);
+        },
+        itemExtent: 40,
+        children: <Widget>[
+          ...List.generate(10, (i) => i + 1).map((n) => Center(
+                child: Text(
+                  n.toString(),
+                  style: styles.Lato.xsGray,
+                ),
+              ))
+        ],
+      ),
     );
   }
 }

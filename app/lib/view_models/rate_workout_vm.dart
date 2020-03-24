@@ -23,6 +23,7 @@ class RateWorkoutViewModel {
 
   void setPerceivedExertion(int n) {
     if (_validateInput(n) == false) {
+      _perceivedExertion = 0;
       return;
     }
     _perceivedExertion = n;
@@ -32,7 +33,8 @@ class RateWorkoutViewModel {
     if (_validateInput(_perceivedExertion) == false) {
       return false;
     } else {
-      _saveCompletedWorkout(workout: workout, perceivedExertion: _perceivedExertion);
+      _saveCompletedWorkout(
+          workout: workout, perceivedExertion: _perceivedExertion);
       return true;
     }
   }

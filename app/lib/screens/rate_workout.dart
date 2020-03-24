@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
@@ -9,7 +12,9 @@ import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/rate_workout_vm.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/rate_workout/rate_workout_content.dart';
@@ -22,6 +27,10 @@ class RateWorkoutScreen extends StatefulWidget {
 }
 
 class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
+  final StreamController<bool> _scrollToBottomStreamController =
+      StreamController<bool>.broadcast();
+  Stream get _scrollToBottomStream => _scrollToBottomStreamController.stream;
+
   RateWorkoutViewModel _rateWorkoutViewModel;
   Workout _workout;
 
@@ -44,10 +53,11 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   @override
   void dispose() {
+    _scrollToBottomStreamController.close();
     super.dispose();
   }
 
-  void _handleCompleteWorkoutButtonTap() {
+  void _handleCompleteTap() {
     if (_rateWorkoutViewModel.completeWorkout(_workout) == false) {
       return;
     }
@@ -58,9 +68,16 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     _rateWorkoutViewModel.setPerceivedExertion(n);
   }
 
+  void _handleOpen() {
+    _scrollToBottomStreamController.sink.add(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryData _mediaQueryData = MediaQuery.of(context);
+    final double _maxContainerHeight = _mediaQueryData.size.height -
+        _mediaQueryData.padding.top -
+        _mediaQueryData.padding.bottom;
     final Orientation _orientation = _mediaQueryData.orientation;
 
     return WillPopScope(
@@ -75,20 +92,38 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                   children: <Widget>[
                     if (_orientation == Orientation.portrait)
                       _PortraitContainer(
+                        scrollToBottomStream: _scrollToBottomStream,
+                        handleCompleteTap: _handleCompleteTap,
+                        maxContainerHeight: _maxContainerHeight,
                         content: RateWorkoutContent(
-                          handleCompleteWorkoutButtonTap:
-                              _handleCompleteWorkoutButtonTap,
+                          handleOpen: _handleOpen,
+                          handleCompleteTap: _handleCompleteTap,
                           handlePerceivedExertionChanged:
                               _handlePerceivedExertionChanged,
                         ),
                       ),
                     if (_orientation == Orientation.landscape)
                       _LandscapeContainer(
-                        content: RateWorkoutContent(
-                          handleCompleteWorkoutButtonTap:
-                              _handleCompleteWorkoutButtonTap,
-                          handlePerceivedExertionChanged:
-                              _handlePerceivedExertionChanged,
+                        content: Container(
+                          child: Column(
+                            children: <Widget>[
+                              RateWorkoutContent(
+                                handleOpen: _handleOpen,
+                                handleCompleteTap: _handleCompleteTap,
+                                handlePerceivedExertionChanged:
+                                    _handlePerceivedExertionChanged,
+                              ),
+                              Divider(
+                                height: styles.Measurements.m,
+                              ),
+                              Button(
+                                backgroundColor: styles.Colors.turquoise,
+                                width: double.infinity,
+                                text: 'done',
+                                handleTap: _handleCompleteTap,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                   ],
@@ -102,14 +137,50 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 }
 
-class _PortraitContainer extends StatelessWidget {
-  _PortraitContainer({Key key, @required this.content}) : super(key: key);
+class _PortraitContainer extends StatefulWidget {
+  _PortraitContainer(
+      {Key key,
+      @required this.content,
+      @required this.maxContainerHeight,
+      @required this.handleCompleteTap,
+      @required this.scrollToBottomStream})
+      : super(key: key);
 
   final Widget content;
+  final double maxContainerHeight;
+  final VoidCallback handleCompleteTap;
+  final Stream scrollToBottomStream;
+
+  @override
+  __PortraitContainerState createState() => __PortraitContainerState();
+}
+
+class __PortraitContainerState extends State<_PortraitContainer> {
+  StreamSubscription _sub;
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _sub = widget.scrollToBottomStream.listen((_) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 100), curve: Curves.easeIn);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: widget.maxContainerHeight,
       child: Padding(
         padding: EdgeInsets.all(styles.Measurements.m),
         child: Card(
@@ -119,7 +190,31 @@ class _PortraitContainer extends StatelessWidget {
             right: styles.Measurements.m,
             bottom: styles.Measurements.l,
           ),
-          child: content,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: ListView(
+                          controller: _scrollController,
+                          physics: ClampingScrollPhysics(),
+                          children: [widget.content]),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                height: styles.Measurements.xxl,
+              ),
+              Button(
+                backgroundColor: styles.Colors.turquoise,
+                width: double.infinity,
+                text: 'done',
+                handleTap: widget.handleCompleteTap,
+              ),
+            ],
+          ),
         ),
       ),
     );

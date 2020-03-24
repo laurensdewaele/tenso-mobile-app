@@ -71,6 +71,7 @@ class _KeyboardListViewState extends State<KeyboardListView> {
     if (_scrollToTopSubscription != null) {
       _scrollToTopSubscription.cancel();
     }
+    _scrollController.dispose();
     super.dispose();
   }
 

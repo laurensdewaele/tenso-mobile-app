@@ -160,7 +160,7 @@ class _NumberInputState extends State<NumberInput> {
           keyboardType: _isDouble
               ? TextInputType.numberWithOptions(decimal: true)
               : TextInputType.number,
-          maxLength: _isDouble ? 4 : 3,
+          maxLength: _isDouble ? 6 : 3,
           onTap: _onTap,
           onEditingComplete: _onComplete,
           onSubmitted: (String text) => {_onComplete()},
