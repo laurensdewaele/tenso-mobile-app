@@ -22,7 +22,7 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
         ExpandedContentTile(
             title: 'humidity',
             content: Text(
-              '${completedWorkout.humidity}%',
+              '${completedWorkout.humidity} %',
               textAlign: TextAlign.center,
               style: styles.Lato.xsGray,
             )),
@@ -85,7 +85,7 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
             ExpandedContentTile(
                 title: 'completion',
                 content: Text(
-                  '90%',
+                  '90 %',
                   textAlign: TextAlign.center,
                   style: styles.Lato.xsGray,
                 )),
