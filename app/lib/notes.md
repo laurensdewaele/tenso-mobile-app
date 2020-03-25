@@ -14,24 +14,25 @@ flutter packages pub run build_runner watch
 - Remove +- weight if weight is negative on countdown screen.
 - Add open crimp, check if all grips available.
 - Remove difficulty and add label colour.
-- Overview on completed workouts need effective time hung.
 
 ### Large prio
 
+- Overview on completed workouts need effective time hung.
 - Stopwatch option for rest periods
 - Stop and log, when a workout is more than you can handle that day. E.g. The last set is too much.
-- Skip button
-- Graphs
+- Keep screen alive when on countdown screen
+- Skip buttons so you can quickly complete a workout.
 - Redesign toast
+- Graphs
 - Add board selection. Only beastmaker1000 atm.
 - Add custom board => Slopers, pinches, ... 
 - Info/explanation screen
 - Implement a feedback button.
-- Skip buttons so you can quickly complete a workout.
-- When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
+- Check if sounds come trough if app on bg 
 
 ### Medium prio
 
+- When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
 - Refactor appState. Remove provider. Needs to be done with streams. A lot cleaner and more performance.
   You don't want a widget listening to 3 VMs here. It worked before the latest refactor but was 
   very gimmicky with provider. With streams this will be a lot clearer. You want AppState => Workout_VM => General/Hold/Extra.
