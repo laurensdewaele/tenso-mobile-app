@@ -47,6 +47,7 @@ class _EmptyInputState extends State<EmptyInput> {
   @override
   void dispose() {
     _sub.cancel();
+    _textEditingController.dispose();
     super.dispose();
   }
 

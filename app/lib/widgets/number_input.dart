@@ -73,6 +73,7 @@ class _NumberInputState extends State<NumberInput> {
   void dispose() {
     _sub.cancel();
     _sub2.cancel();
+    _textEditingController.dispose();
     super.dispose();
   }
 
