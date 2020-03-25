@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
+import 'package:app/models/temp_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
@@ -154,11 +155,14 @@ class RateWorkoutViewModel {
   }
 
   void _saveCompletedWorkout(Workout workout) {
+    final TempUnit _tempUnit = _appState?.settings?.tempUnit;
+
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
       ..workout = workout.toBuilder()
       ..perceivedExertion = _perceivedExertion
       ..bodyWeight = _bodyWeight
       ..temperature = _temperature
+      ..tempUnit = _tempUnit
       ..humidity = _humidity
       ..comments = _comments
       ..completedDate = DateTime.now().toUtc()

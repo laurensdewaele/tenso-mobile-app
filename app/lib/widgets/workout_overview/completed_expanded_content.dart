@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/completed_workout.dart';
+import 'package:app/models/temp_unit.dart';
 import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/difficulty.dart';
@@ -44,7 +45,7 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
         ExpandedContentTile(
             title: 'temperature',
             content: Text(
-              '${completedWorkout.temperature}°',
+              '${completedWorkout.temperature}° ${completedWorkout.tempUnit == TempUnit.celsius ? 'C' : 'F'}',
               textAlign: TextAlign.center,
               style: styles.Lato.xsGray,
             )),

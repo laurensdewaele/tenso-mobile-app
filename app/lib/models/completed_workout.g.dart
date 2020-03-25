@@ -31,6 +31,9 @@ class _$CompletedWorkoutSerializer
       'perceivedExertion',
       serializers.serialize(object.perceivedExertion,
           specifiedType: const FullType(int)),
+      'tempUnit',
+      serializers.serialize(object.tempUnit,
+          specifiedType: const FullType(TempUnit)),
     ];
     if (object.bodyWeight != null) {
       result
@@ -95,6 +98,10 @@ class _$CompletedWorkoutSerializer
           result.temperature = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
+        case 'tempUnit':
+          result.tempUnit = serializers.deserialize(value,
+              specifiedType: const FullType(TempUnit)) as TempUnit;
+          break;
         case 'humidity':
           result.humidity = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
@@ -124,6 +131,8 @@ class _$CompletedWorkout extends CompletedWorkout {
   @override
   final double temperature;
   @override
+  final TempUnit tempUnit;
+  @override
   final double humidity;
   @override
   final String comments;
@@ -139,6 +148,7 @@ class _$CompletedWorkout extends CompletedWorkout {
       this.perceivedExertion,
       this.bodyWeight,
       this.temperature,
+      this.tempUnit,
       this.humidity,
       this.comments})
       : super._() {
@@ -154,6 +164,9 @@ class _$CompletedWorkout extends CompletedWorkout {
     if (perceivedExertion == null) {
       throw new BuiltValueNullFieldError(
           'CompletedWorkout', 'perceivedExertion');
+    }
+    if (tempUnit == null) {
+      throw new BuiltValueNullFieldError('CompletedWorkout', 'tempUnit');
     }
   }
 
@@ -175,6 +188,7 @@ class _$CompletedWorkout extends CompletedWorkout {
         perceivedExertion == other.perceivedExertion &&
         bodyWeight == other.bodyWeight &&
         temperature == other.temperature &&
+        tempUnit == other.tempUnit &&
         humidity == other.humidity &&
         comments == other.comments;
   }
@@ -186,11 +200,13 @@ class _$CompletedWorkout extends CompletedWorkout {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, workout.hashCode), id.hashCode),
-                            completedDate.hashCode),
-                        perceivedExertion.hashCode),
-                    bodyWeight.hashCode),
-                temperature.hashCode),
+                        $jc(
+                            $jc($jc($jc(0, workout.hashCode), id.hashCode),
+                                completedDate.hashCode),
+                            perceivedExertion.hashCode),
+                        bodyWeight.hashCode),
+                    temperature.hashCode),
+                tempUnit.hashCode),
             humidity.hashCode),
         comments.hashCode));
   }
@@ -204,6 +220,7 @@ class _$CompletedWorkout extends CompletedWorkout {
           ..add('perceivedExertion', perceivedExertion)
           ..add('bodyWeight', bodyWeight)
           ..add('temperature', temperature)
+          ..add('tempUnit', tempUnit)
           ..add('humidity', humidity)
           ..add('comments', comments))
         .toString();
@@ -240,6 +257,10 @@ class CompletedWorkoutBuilder
   double get temperature => _$this._temperature;
   set temperature(double temperature) => _$this._temperature = temperature;
 
+  TempUnit _tempUnit;
+  TempUnit get tempUnit => _$this._tempUnit;
+  set tempUnit(TempUnit tempUnit) => _$this._tempUnit = tempUnit;
+
   double _humidity;
   double get humidity => _$this._humidity;
   set humidity(double humidity) => _$this._humidity = humidity;
@@ -258,6 +279,7 @@ class CompletedWorkoutBuilder
       _perceivedExertion = _$v.perceivedExertion;
       _bodyWeight = _$v.bodyWeight;
       _temperature = _$v.temperature;
+      _tempUnit = _$v.tempUnit;
       _humidity = _$v.humidity;
       _comments = _$v.comments;
       _$v = null;
@@ -290,6 +312,7 @@ class CompletedWorkoutBuilder
               perceivedExertion: perceivedExertion,
               bodyWeight: bodyWeight,
               temperature: temperature,
+              tempUnit: tempUnit,
               humidity: humidity,
               comments: comments);
     } catch (_) {

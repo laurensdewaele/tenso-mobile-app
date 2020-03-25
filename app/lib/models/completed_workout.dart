@@ -5,8 +5,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 import 'package:app/helpers/determine_difficulty_color.dart';
-import 'package:app/models/workout.dart';
 import 'package:app/models/serializers.dart';
+import 'package:app/models/temp_unit.dart';
+import 'package:app/models/workout.dart';
 
 part 'completed_workout.g.dart';
 
@@ -26,6 +27,7 @@ abstract class CompletedWorkout
   double get bodyWeight;
   @nullable
   double get temperature;
+  TempUnit get tempUnit;
   @nullable
   double get humidity;
   @nullable
