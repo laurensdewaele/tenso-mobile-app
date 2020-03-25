@@ -24,11 +24,11 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
   final StreamController<bool> _scrollToTopStreamController =
-      StreamController<bool>();
+      StreamController<bool>.broadcast();
   final StreamController<bool> _navigateForwardTabStreamController =
-      StreamController<bool>();
+      StreamController<bool>.broadcast();
   final StreamController<bool> _navigateBackTabStreamController =
-      StreamController<bool>();
+      StreamController<bool>.broadcast();
 
   @override
   void initState() {
