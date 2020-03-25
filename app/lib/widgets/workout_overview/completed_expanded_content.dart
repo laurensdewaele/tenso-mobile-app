@@ -17,12 +17,6 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We have 3 variables that could be null
-    // Humidity
-    // Body weight
-    // Temp
-    // I don't want empty spots in rows, how?
-    // Make an array of the 3
     final List<Widget> _possibleNullContent = [
       if (completedWorkout.humidity != null)
         ExpandedContentTile(
@@ -131,6 +125,7 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
               ),
               Text(
                 completedWorkout.comments,
+                textAlign: TextAlign.center,
                 style: styles.Lato.xsGray,
               )
             ],

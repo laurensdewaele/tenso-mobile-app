@@ -67,10 +67,6 @@ class _TextInputState extends State<TextInput> {
     _keyboardService.resetKeyboardOffset();
   }
 
-  void _onTap() {
-    _textEditingController.clear();
-  }
-
   void _onPointerDown(PointerEvent event) {
     _keyboardService.handlePointerDown(event.position);
   }
@@ -98,7 +94,6 @@ class _TextInputState extends State<TextInput> {
           maxLines: widget.multiLine ? null : 1,
           expands: widget.multiLine ? true : false,
           enabled: widget.enabled,
-          // TODO: Figure out if it needs a max-length
           autofocus: widget.shouldFocus,
           autocorrect: false,
           controller: _textEditingController,
@@ -106,7 +101,6 @@ class _TextInputState extends State<TextInput> {
           decoration: _decoration,
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
-          onTap: _onTap,
           onChanged: (_) => {_onChanged()},
           onEditingComplete: _onComplete,
           onSubmitted: (_) => {_onComplete()},
