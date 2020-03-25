@@ -123,7 +123,7 @@ class HoldTab extends StatelessWidget {
             NumberInputAndDescription(
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
-              description: _appState.settings.weightUnit == WeightUnit.metric ? 'kg' : 'lb',
+              description: _appState.settings.weightUnit == WeightUnit.metric ? 'kg' : 'lbs',
               handleDoubleValueChanged: (double n) {
                 _holdTabViewModel.setHoldAddedWeight(currentHold, n);
               },

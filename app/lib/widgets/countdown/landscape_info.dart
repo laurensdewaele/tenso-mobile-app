@@ -50,7 +50,7 @@ class LandscapeInfo extends StatelessWidget {
       }
     }
 
-    final String _unitText = weightUnit == WeightUnit.metric ? 'kg' : 'lb';
+    final String _unitText = weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
 
     return Container(
         decoration: BoxDecoration(

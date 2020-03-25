@@ -77,7 +77,7 @@ class __PortraitContentState extends State<Portrait> {
     final String _currentSet = widget.currentSet.toString();
     final String _totalSets = widget.totalSets.toString();
     final String _titleText = widget.title;
-    final String _unitText = widget.weightUnit == WeightUnit.metric ? 'kg' : 'lb';
+    final String _unitText = widget.weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
     final String _addedWeight = widget.addedWeight.toString();
 
     return Column(
