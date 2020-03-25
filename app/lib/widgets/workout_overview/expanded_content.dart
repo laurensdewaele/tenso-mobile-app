@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
-import 'package:app/helpers/average_added_weight.dart';
 
+import 'package:app/helpers/average_added_weight.dart';
 import 'package:app/helpers/average_hang_time.dart';
 import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
