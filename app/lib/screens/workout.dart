@@ -24,11 +24,17 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
   final StreamController<bool> _scrollToTopStreamController =
-      StreamController<bool>.broadcast();
+      StreamController<bool>();
+  Stream get _scrollToTopStream => _scrollToTopStreamController.stream;
+
   final StreamController<bool> _navigateForwardTabStreamController =
-      StreamController<bool>.broadcast();
+      StreamController<bool>();
+  Stream get _navigateForwardTabStream =>
+      _navigateForwardTabStreamController.stream;
+
   final StreamController<bool> _navigateBackTabStreamController =
-      StreamController<bool>.broadcast();
+      StreamController<bool>();
+  Stream get _navigateBackTabStream => _navigateBackTabStreamController.stream;
 
   @override
   void initState() {
@@ -62,13 +68,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     final WorkoutViewModel _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
     final AppState _appState = Provider.of<AppState>(context, listen: true);
+    print('rebuild');
 
     return KeyboardAndToastProvider(
       child: Screen(
           gradientStartColor: _workoutViewModel.primaryColor,
           gradientStopColor: _workoutViewModel.primaryColor,
           child: KeyboardListView(
-              scrollToTopStream: _scrollToTopStreamController.stream,
+              scrollToTopStream: _scrollToTopStream,
               children: [
                 Column(
                   children: <Widget>[
@@ -85,14 +92,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TabsContainer(
+                                  key: UniqueKey(),
                                   primaryColor: _workoutViewModel.primaryColor,
                                   onNavigation: _scrollToTop,
                                   holdCount: _appState.workout.holdCount,
                                   navigateForwardTabStream:
-                                      _navigateForwardTabStreamController
-                                          .stream,
+                                      _navigateForwardTabStream,
                                   navigateBackTabStream:
-                                      _navigateBackTabStreamController.stream),
+                                      _navigateBackTabStream),
                             ],
                           ),
                         ),
