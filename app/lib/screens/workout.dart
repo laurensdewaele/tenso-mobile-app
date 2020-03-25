@@ -92,7 +92,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               Consumer<AppState>(
                                   builder: (context, _appState, child) {
                                 return TabsContainer(
-                                    key: UniqueKey(),
                                     primaryColor:
                                         _workoutViewModel.primaryColor,
                                     onNavigation: _scrollToTop,
