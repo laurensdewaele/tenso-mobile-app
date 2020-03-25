@@ -181,8 +181,9 @@ class RateWorkoutViewModel {
           text: '$variable ',
           style: styles.Lato.sBlackBold,
           children: [
-            TextSpan(text: 'input is ', style: styles.Lato.sBlack),
-            TextSpan(text: 'not a number', style: styles.Lato.sBlackBold),
+            TextSpan(text: 'input is ', style: styles.Lato.sBlack, children: [
+              TextSpan(text: 'not a number.', style: styles.Lato.sBlackBold),
+            ]),
           ]),
     ));
   }
@@ -194,8 +195,13 @@ class RateWorkoutViewModel {
           text: '$variable ',
           style: styles.Lato.sBlackBold,
           children: [
-            TextSpan(text: 'input can not be ', style: styles.Lato.sBlack),
-            TextSpan(text: 'smaller than 0', style: styles.Lato.sBlackBold),
+            TextSpan(
+                text: 'input can not be ',
+                style: styles.Lato.sBlack,
+                children: [
+                  TextSpan(
+                      text: 'smaller than 0', style: styles.Lato.sBlackBold),
+                ]),
           ]),
     ));
   }
@@ -207,8 +213,14 @@ class RateWorkoutViewModel {
           text: '$variable ',
           style: styles.Lato.sBlackBold,
           children: [
-            TextSpan(text: 'input can not be ', style: styles.Lato.sBlack),
-            TextSpan(text: 'lager than $number', style: styles.Lato.sBlackBold),
+            TextSpan(
+                text: 'input can not be ',
+                style: styles.Lato.sBlack,
+                children: [
+                  TextSpan(
+                      text: 'lager than $number',
+                      style: styles.Lato.sBlackBold),
+                ]),
           ]),
     ));
   }

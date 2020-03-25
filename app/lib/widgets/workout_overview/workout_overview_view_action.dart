@@ -21,7 +21,7 @@ class WorkoutOverviewViewAction extends StatelessWidget {
                     bottomLeft: styles.kBorderRadius)),
             child: Center(
                 child: Text(
-              'VIEW',
+              'view',
               style: styles.Staatliches.lWhite,
             ))),
         InnerBoxShadow(position: InnerBoxShadowRadiusPosition.left)

@@ -58,6 +58,7 @@ class _EmptyInputState extends State<EmptyInput> {
 
   void _onTap() {
     _textEditingController.clear();
+    widget.handleValueChanged('');
   }
 
   void _onPointerDown(PointerEvent event) {
