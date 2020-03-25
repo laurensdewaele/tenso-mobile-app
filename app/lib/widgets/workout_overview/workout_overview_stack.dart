@@ -80,7 +80,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     _close();
     final _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModel.checkUnit(widget.workout);
+    _workoutViewModel.handleEditWorkoutTap(widget.workout);
     Navigator.of(context).pushNamed(Routes.workoutScreen);
   }
 

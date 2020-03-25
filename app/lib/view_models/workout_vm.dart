@@ -118,11 +118,20 @@ class WorkoutViewModel extends ChangeNotifier {
     _appState?.saveWorkouts(workouts);
   }
 
-  void checkUnit(Workout workout) {
-    Workout _workout = workout;
-    if (workout.weightUnit != _appState?.settings?.weightUnit) {
-      _workout = workout.rebuild((b) => b..weightUnit = _appState?.settings?.weightUnit);
+  void checkUnit() {
+    if (_appState?.workout?.weightUnit != _appState?.settings?.weightUnit) {
+      setAndSaveWorkout(_appState?.workout
+          ?.rebuild((b) => b..weightUnit = _appState?.settings?.weightUnit));
     }
-    setTypeAndSaveWorkout(_workout, WorkoutTypes.editWorkout);
+  }
+
+  void handleAddNewWorkoutTap() {
+    setWorkoutType(WorkoutTypes.newWorkout);
+    checkUnit();
+  }
+
+  void handleEditWorkoutTap(Workout workout) {
+    setTypeAndSaveWorkout(workout, WorkoutTypes.editWorkout);
+    checkUnit();
   }
 }

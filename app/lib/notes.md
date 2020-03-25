@@ -12,8 +12,13 @@ flutter packages pub run build_runner watch
 ## TODO
 
 - Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
-- Remove +- weight if weight is negative on countdown screen.
 
+- Get rid of navigationStreams on workout. Workout screen should be the one managing the pages.
+  And just pass the index and pages down as props, that way you wont need the whole thing.
+   
+- Text input needs continual validation. Doesn't work just when you lose focus.
+
+- Remove +- weight if weight is negative on countdown screen.
 - Add open crimp, check if all grips available.
 - Remove difficulty and add label colour.
 - Overview on completed workouts need effective time hung.
