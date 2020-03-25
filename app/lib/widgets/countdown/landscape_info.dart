@@ -5,20 +5,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
 import 'package:app/models/hold_type.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class LandscapeInfo extends StatelessWidget {
   LandscapeInfo(
       {this.addedWeight,
-      this.unit,
+      this.weightUnit,
       this.leftGrip,
       this.leftGripBoardHold,
       this.rightGrip,
       this.rightGripBoardHold});
 
   final double addedWeight;
-  final Unit unit;
+  final WeightUnit weightUnit;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Grip rightGrip;
@@ -50,7 +50,7 @@ class LandscapeInfo extends StatelessWidget {
       }
     }
 
-    final String _unitText = unit == Unit.metric ? 'kg' : 'lb';
+    final String _unitText = weightUnit == WeightUnit.metric ? 'kg' : 'lb';
 
     return Container(
         decoration: BoxDecoration(

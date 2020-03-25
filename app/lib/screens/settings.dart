@@ -4,7 +4,8 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/unit.dart';
+import 'package:app/models/temp_unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -44,8 +45,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
   }
 
-  void _handleUnitChanged(dynamic unit) {
-    Provider.of<SettingsViewModel>(context, listen: false).setUnit(unit);
+  void _handleWeightUnitChanged(dynamic weightUnit) {
+    Provider.of<SettingsViewModel>(context, listen: false)
+        .setWeightUnit(weightUnit);
+  }
+
+  void _handleTempUnitChanged(dynamic tempUnit) {
+    Provider.of<SettingsViewModel>(context, listen: false)
+        .setTempUnit(tempUnit);
   }
 
   @override
@@ -120,23 +127,58 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Section(
-                                          title: 'units',
+                                          title: 'weight unit',
                                           children: <Widget>[
                                             RadioButton(
                                               description: 'Metric (kg)',
-                                              value: Unit.metric,
-                                              active: _appState.settings.unit ==
-                                                  Unit.metric,
+                                              value: WeightUnit.metric,
+                                              active: _appState
+                                                      .settings.weightUnit ==
+                                                  WeightUnit.metric,
                                               handleSelected:
-                                                  _handleUnitChanged,
+                                                  _handleWeightUnitChanged,
                                             ),
                                             RadioButton(
                                               description: 'Imperial (pounds)',
-                                              value: Unit.imperial,
-                                              active: _appState.settings.unit ==
-                                                  Unit.imperial,
+                                              value: WeightUnit.imperial,
+                                              active: _appState
+                                                      .settings.weightUnit ==
+                                                  WeightUnit.imperial,
                                               handleSelected:
-                                                  _handleUnitChanged,
+                                                  _handleWeightUnitChanged,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: styles.Measurements.m,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Section(
+                                          title: 'temperature unit',
+                                          children: <Widget>[
+                                            RadioButton(
+                                              description: 'Celsius',
+                                              value: TempUnit.celsius,
+                                              active:
+                                                  _appState.settings.tempUnit ==
+                                                      TempUnit.celsius,
+                                              handleSelected:
+                                                  _handleTempUnitChanged,
+                                            ),
+                                            RadioButton(
+                                              description: 'Fahrenheit',
+                                              value: TempUnit.fahrenheit,
+                                              active:
+                                                  _appState.settings.tempUnit ==
+                                                      TempUnit.fahrenheit,
+                                              handleSelected:
+                                                  _handleTempUnitChanged,
                                             ),
                                           ],
                                         ),

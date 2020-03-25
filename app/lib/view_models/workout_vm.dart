@@ -120,8 +120,8 @@ class WorkoutViewModel extends ChangeNotifier {
 
   void checkUnit(Workout workout) {
     Workout _workout = workout;
-    if (workout.unit != _appState?.settings?.unit) {
-      _workout = workout.rebuild((b) => b..unit = _appState?.settings?.unit);
+    if (workout.weightUnit != _appState?.settings?.weightUnit) {
+      _workout = workout.rebuild((b) => b..weightUnit = _appState?.settings?.weightUnit);
     }
     setTypeAndSaveWorkout(_workout, WorkoutTypes.editWorkout);
   }

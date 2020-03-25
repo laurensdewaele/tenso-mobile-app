@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/completed_workout.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
@@ -43,7 +43,7 @@ class WorkoutOverviewCardExpanded extends StatelessWidget {
           ),
         Divider(height: styles.Measurements.m),
         _AvHangTimeAndAddedWeight(
-            unit: _workout.unit,
+            weightUnit: _workout.weightUnit,
             averageAddedWeight: _calculateAverageAddedWeight(_workout),
             averageHangTime: _calculateAverageHangTime(_workout)),
         Divider(height: styles.Measurements.m),
@@ -209,16 +209,16 @@ class _AvHangTimeAndAddedWeight extends StatelessWidget {
       {Key key,
       @required this.averageAddedWeight,
       @required this.averageHangTime,
-      @required this.unit})
+      @required this.weightUnit})
       : super(key: key);
 
   final int averageHangTime;
   final double averageAddedWeight;
-  final Unit unit;
+  final WeightUnit weightUnit;
 
   @override
   Widget build(BuildContext context) {
-    final String _unit = unit == Unit.metric ? 'kg' : 'lb';
+    final String _unit = weightUnit == WeightUnit.metric ? 'kg' : 'lb';
     final String _avAddedWeight = '$averageAddedWeight $_unit';
 
     return Row(

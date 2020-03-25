@@ -32,7 +32,30 @@ class _$CompletedWorkoutSerializer
       serializers.serialize(object.perceivedExertion,
           specifiedType: const FullType(int)),
     ];
-
+    if (object.bodyWeight != null) {
+      result
+        ..add('bodyWeight')
+        ..add(serializers.serialize(object.bodyWeight,
+            specifiedType: const FullType(double)));
+    }
+    if (object.temperature != null) {
+      result
+        ..add('temperature')
+        ..add(serializers.serialize(object.temperature,
+            specifiedType: const FullType(double)));
+    }
+    if (object.humidity != null) {
+      result
+        ..add('humidity')
+        ..add(serializers.serialize(object.humidity,
+            specifiedType: const FullType(double)));
+    }
+    if (object.comments != null) {
+      result
+        ..add('comments')
+        ..add(serializers.serialize(object.comments,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -64,6 +87,22 @@ class _$CompletedWorkoutSerializer
           result.perceivedExertion = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'bodyWeight':
+          result.bodyWeight = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'temperature':
+          result.temperature = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'humidity':
+          result.humidity = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'comments':
+          result.comments = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -80,13 +119,28 @@ class _$CompletedWorkout extends CompletedWorkout {
   final DateTime completedDate;
   @override
   final int perceivedExertion;
+  @override
+  final double bodyWeight;
+  @override
+  final double temperature;
+  @override
+  final double humidity;
+  @override
+  final String comments;
 
   factory _$CompletedWorkout(
           [void Function(CompletedWorkoutBuilder) updates]) =>
       (new CompletedWorkoutBuilder()..update(updates)).build();
 
   _$CompletedWorkout._(
-      {this.workout, this.id, this.completedDate, this.perceivedExertion})
+      {this.workout,
+      this.id,
+      this.completedDate,
+      this.perceivedExertion,
+      this.bodyWeight,
+      this.temperature,
+      this.humidity,
+      this.comments})
       : super._() {
     if (workout == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'workout');
@@ -118,14 +172,27 @@ class _$CompletedWorkout extends CompletedWorkout {
         workout == other.workout &&
         id == other.id &&
         completedDate == other.completedDate &&
-        perceivedExertion == other.perceivedExertion;
+        perceivedExertion == other.perceivedExertion &&
+        bodyWeight == other.bodyWeight &&
+        temperature == other.temperature &&
+        humidity == other.humidity &&
+        comments == other.comments;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, workout.hashCode), id.hashCode), completedDate.hashCode),
-        perceivedExertion.hashCode));
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, workout.hashCode), id.hashCode),
+                            completedDate.hashCode),
+                        perceivedExertion.hashCode),
+                    bodyWeight.hashCode),
+                temperature.hashCode),
+            humidity.hashCode),
+        comments.hashCode));
   }
 
   @override
@@ -134,7 +201,11 @@ class _$CompletedWorkout extends CompletedWorkout {
           ..add('workout', workout)
           ..add('id', id)
           ..add('completedDate', completedDate)
-          ..add('perceivedExertion', perceivedExertion))
+          ..add('perceivedExertion', perceivedExertion)
+          ..add('bodyWeight', bodyWeight)
+          ..add('temperature', temperature)
+          ..add('humidity', humidity)
+          ..add('comments', comments))
         .toString();
   }
 }
@@ -161,6 +232,22 @@ class CompletedWorkoutBuilder
   set perceivedExertion(int perceivedExertion) =>
       _$this._perceivedExertion = perceivedExertion;
 
+  double _bodyWeight;
+  double get bodyWeight => _$this._bodyWeight;
+  set bodyWeight(double bodyWeight) => _$this._bodyWeight = bodyWeight;
+
+  double _temperature;
+  double get temperature => _$this._temperature;
+  set temperature(double temperature) => _$this._temperature = temperature;
+
+  double _humidity;
+  double get humidity => _$this._humidity;
+  set humidity(double humidity) => _$this._humidity = humidity;
+
+  String _comments;
+  String get comments => _$this._comments;
+  set comments(String comments) => _$this._comments = comments;
+
   CompletedWorkoutBuilder();
 
   CompletedWorkoutBuilder get _$this {
@@ -169,6 +256,10 @@ class CompletedWorkoutBuilder
       _id = _$v.id;
       _completedDate = _$v.completedDate;
       _perceivedExertion = _$v.perceivedExertion;
+      _bodyWeight = _$v.bodyWeight;
+      _temperature = _$v.temperature;
+      _humidity = _$v.humidity;
+      _comments = _$v.comments;
       _$v = null;
     }
     return this;
@@ -196,7 +287,11 @@ class CompletedWorkoutBuilder
               workout: workout.build(),
               id: id,
               completedDate: completedDate,
-              perceivedExertion: perceivedExertion);
+              perceivedExertion: perceivedExertion,
+              bodyWeight: bodyWeight,
+              temperature: temperature,
+              humidity: humidity,
+              comments: comments);
     } catch (_) {
       String _$failedField;
       try {

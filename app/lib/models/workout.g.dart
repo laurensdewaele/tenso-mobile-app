@@ -42,8 +42,9 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
               const FullType(BuiltList, const [const FullType(Hold)])),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'unit',
-      serializers.serialize(object.unit, specifiedType: const FullType(Unit)),
+      'weightUnit',
+      serializers.serialize(object.weightUnit,
+          specifiedType: const FullType(WeightUnit)),
     ];
     if (object.editedId != null) {
       result
@@ -107,9 +108,9 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'unit':
-          result.unit = serializers.deserialize(value,
-              specifiedType: const FullType(Unit)) as Unit;
+        case 'weightUnit':
+          result.weightUnit = serializers.deserialize(value,
+              specifiedType: const FullType(WeightUnit)) as WeightUnit;
           break;
       }
     }
@@ -140,7 +141,7 @@ class _$Workout extends Workout {
   @override
   final String name;
   @override
-  final Unit unit;
+  final WeightUnit weightUnit;
 
   factory _$Workout([void Function(WorkoutBuilder) updates]) =>
       (new WorkoutBuilder()..update(updates)).build();
@@ -156,7 +157,7 @@ class _$Workout extends Workout {
       this.board,
       this.holds,
       this.name,
-      this.unit})
+      this.weightUnit})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Workout', 'id');
@@ -185,8 +186,8 @@ class _$Workout extends Workout {
     if (name == null) {
       throw new BuiltValueNullFieldError('Workout', 'name');
     }
-    if (unit == null) {
-      throw new BuiltValueNullFieldError('Workout', 'unit');
+    if (weightUnit == null) {
+      throw new BuiltValueNullFieldError('Workout', 'weightUnit');
     }
   }
 
@@ -211,7 +212,7 @@ class _$Workout extends Workout {
         board == other.board &&
         holds == other.holds &&
         name == other.name &&
-        unit == other.unit;
+        weightUnit == other.weightUnit;
   }
 
   @override
@@ -235,7 +236,7 @@ class _$Workout extends Workout {
                     board.hashCode),
                 holds.hashCode),
             name.hashCode),
-        unit.hashCode));
+        weightUnit.hashCode));
   }
 
   @override
@@ -251,7 +252,7 @@ class _$Workout extends Workout {
           ..add('board', board)
           ..add('holds', holds)
           ..add('name', name)
-          ..add('unit', unit))
+          ..add('weightUnit', weightUnit))
         .toString();
   }
 }
@@ -301,9 +302,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
-  Unit _unit;
-  Unit get unit => _$this._unit;
-  set unit(Unit unit) => _$this._unit = unit;
+  WeightUnit _weightUnit;
+  WeightUnit get weightUnit => _$this._weightUnit;
+  set weightUnit(WeightUnit weightUnit) => _$this._weightUnit = weightUnit;
 
   WorkoutBuilder();
 
@@ -319,7 +320,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
       _board = _$v.board?.toBuilder();
       _holds = _$v.holds?.toBuilder();
       _name = _$v.name;
-      _unit = _$v.unit;
+      _weightUnit = _$v.weightUnit;
       _$v = null;
     }
     return this;
@@ -354,7 +355,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
               board: board.build(),
               holds: holds.build(),
               name: name,
-              unit: unit);
+              weightUnit: weightUnit);
     } catch (_) {
       String _$failedField;
       try {

@@ -68,7 +68,6 @@ class RateWorkoutContent extends StatelessWidget {
             Divider(
               height: styles.Measurements.m,
             ),
-            // TODO: Unit
             EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'temperature',

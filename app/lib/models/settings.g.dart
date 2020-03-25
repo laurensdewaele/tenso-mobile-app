@@ -39,8 +39,12 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
       'beepsBeforeRest',
       serializers.serialize(object.beepsBeforeRest,
           specifiedType: const FullType(int)),
-      'unit',
-      serializers.serialize(object.unit, specifiedType: const FullType(Unit)),
+      'weightUnit',
+      serializers.serialize(object.weightUnit,
+          specifiedType: const FullType(WeightUnit)),
+      'tempUnit',
+      serializers.serialize(object.tempUnit,
+          specifiedType: const FullType(TempUnit)),
     ];
 
     return result;
@@ -85,9 +89,13 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
           result.beepsBeforeRest = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'unit':
-          result.unit = serializers.deserialize(value,
-              specifiedType: const FullType(Unit)) as Unit;
+        case 'weightUnit':
+          result.weightUnit = serializers.deserialize(value,
+              specifiedType: const FullType(WeightUnit)) as WeightUnit;
+          break;
+        case 'tempUnit':
+          result.tempUnit = serializers.deserialize(value,
+              specifiedType: const FullType(TempUnit)) as TempUnit;
           break;
       }
     }
@@ -112,7 +120,9 @@ class _$Settings extends Settings {
   @override
   final int beepsBeforeRest;
   @override
-  final Unit unit;
+  final WeightUnit weightUnit;
+  @override
+  final TempUnit tempUnit;
 
   factory _$Settings([void Function(SettingsBuilder) updates]) =>
       (new SettingsBuilder()..update(updates)).build();
@@ -125,7 +135,8 @@ class _$Settings extends Settings {
       this.restSound,
       this.beepsBeforeHang,
       this.beepsBeforeRest,
-      this.unit})
+      this.weightUnit,
+      this.tempUnit})
       : super._() {
     if (defaultBoard == null) {
       throw new BuiltValueNullFieldError('Settings', 'defaultBoard');
@@ -148,8 +159,11 @@ class _$Settings extends Settings {
     if (beepsBeforeRest == null) {
       throw new BuiltValueNullFieldError('Settings', 'beepsBeforeRest');
     }
-    if (unit == null) {
-      throw new BuiltValueNullFieldError('Settings', 'unit');
+    if (weightUnit == null) {
+      throw new BuiltValueNullFieldError('Settings', 'weightUnit');
+    }
+    if (tempUnit == null) {
+      throw new BuiltValueNullFieldError('Settings', 'tempUnit');
     }
   }
 
@@ -171,7 +185,8 @@ class _$Settings extends Settings {
         restSound == other.restSound &&
         beepsBeforeHang == other.beepsBeforeHang &&
         beepsBeforeRest == other.beepsBeforeRest &&
-        unit == other.unit;
+        weightUnit == other.weightUnit &&
+        tempUnit == other.tempUnit;
   }
 
   @override
@@ -182,14 +197,16 @@ class _$Settings extends Settings {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc(0, defaultBoard.hashCode),
-                                preparationTimer.hashCode),
-                            hangSound.hashCode),
-                        beepSound.hashCode),
-                    restSound.hashCode),
-                beepsBeforeHang.hashCode),
-            beepsBeforeRest.hashCode),
-        unit.hashCode));
+                            $jc(
+                                $jc($jc(0, defaultBoard.hashCode),
+                                    preparationTimer.hashCode),
+                                hangSound.hashCode),
+                            beepSound.hashCode),
+                        restSound.hashCode),
+                    beepsBeforeHang.hashCode),
+                beepsBeforeRest.hashCode),
+            weightUnit.hashCode),
+        tempUnit.hashCode));
   }
 
   @override
@@ -202,7 +219,8 @@ class _$Settings extends Settings {
           ..add('restSound', restSound)
           ..add('beepsBeforeHang', beepsBeforeHang)
           ..add('beepsBeforeRest', beepsBeforeRest)
-          ..add('unit', unit))
+          ..add('weightUnit', weightUnit)
+          ..add('tempUnit', tempUnit))
         .toString();
   }
 }
@@ -242,9 +260,13 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
   set beepsBeforeRest(int beepsBeforeRest) =>
       _$this._beepsBeforeRest = beepsBeforeRest;
 
-  Unit _unit;
-  Unit get unit => _$this._unit;
-  set unit(Unit unit) => _$this._unit = unit;
+  WeightUnit _weightUnit;
+  WeightUnit get weightUnit => _$this._weightUnit;
+  set weightUnit(WeightUnit weightUnit) => _$this._weightUnit = weightUnit;
+
+  TempUnit _tempUnit;
+  TempUnit get tempUnit => _$this._tempUnit;
+  set tempUnit(TempUnit tempUnit) => _$this._tempUnit = tempUnit;
 
   SettingsBuilder();
 
@@ -257,7 +279,8 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
       _restSound = _$v.restSound?.toBuilder();
       _beepsBeforeHang = _$v.beepsBeforeHang;
       _beepsBeforeRest = _$v.beepsBeforeRest;
-      _unit = _$v.unit;
+      _weightUnit = _$v.weightUnit;
+      _tempUnit = _$v.tempUnit;
       _$v = null;
     }
     return this;
@@ -289,7 +312,8 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
               restSound: restSound.build(),
               beepsBeforeHang: beepsBeforeHang,
               beepsBeforeRest: beepsBeforeRest,
-              unit: unit);
+              weightUnit: weightUnit,
+              tempUnit: tempUnit);
     } catch (_) {
       String _$failedField;
       try {

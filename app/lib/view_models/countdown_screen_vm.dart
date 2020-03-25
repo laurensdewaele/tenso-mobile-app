@@ -6,7 +6,7 @@ import 'package:app/models/grip.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/sound.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -40,7 +40,7 @@ class CountdownViewModel {
     @required this.totalHangsPerSet,
     @required this.currentHang,
     this.addedWeight,
-    @required this.unit,
+    @required this.weightUnit,
     @required this.beepsBeforeEnd,
     @required this.beepSound,
     @required this.endSound,
@@ -62,7 +62,7 @@ class CountdownViewModel {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final Unit unit;
+  final WeightUnit weightUnit;
   final double addedWeight;
 }
 
@@ -130,7 +130,7 @@ class CountdownScreenViewModel {
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
-          unit: _workout.unit,
+          weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.preparation,
@@ -154,7 +154,7 @@ class CountdownScreenViewModel {
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
-          unit: _workout.unit,
+          weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.primary,
           title: _Titles.hang,
@@ -179,7 +179,7 @@ class CountdownScreenViewModel {
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
-          unit: _workout.unit,
+          weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[_currentHold].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenRepetitions,
@@ -204,7 +204,7 @@ class CountdownScreenViewModel {
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
-          unit: _workout.unit,
+          weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[_currentHold + 1].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenHolds,
@@ -229,7 +229,7 @@ class CountdownScreenViewModel {
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
-          unit: _workout.unit,
+          weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[0].addedWeight,
           color: styles.Colors.blue,
           title: _Titles.restBetweenSets,

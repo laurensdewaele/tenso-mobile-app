@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/settings.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/temp_unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/state/app_state.dart';
 
 class SettingsViewModel extends ChangeNotifier {
@@ -26,8 +27,15 @@ class SettingsViewModel extends ChangeNotifier {
     _setAndSaveSettings(_settings);
   }
 
-  void setUnit(Unit unit) {
-    final _settings = _appState?.settings?.rebuild((b) => b..unit = unit);
+  void setWeightUnit(WeightUnit weightUnit) {
+    final _settings =
+        _appState?.settings?.rebuild((b) => b..weightUnit = weightUnit);
+    _setAndSaveSettings(_settings);
+  }
+
+  void setTempUnit(TempUnit tempUnit) {
+    final _settings =
+        _appState?.settings?.rebuild((b) => b..tempUnit = tempUnit);
     _setAndSaveSettings(_settings);
   }
 

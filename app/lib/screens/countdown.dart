@@ -194,7 +194,7 @@ class _CountdownScreenState extends State<CountdownScreen>
     return GestureDetector(
       onTap: _handleTap,
       child: Countdown(
-        unit: _sequence[_currentSequenceIndex].unit,
+        weightUnit: _sequence[_currentSequenceIndex].weightUnit,
         addedWeight: _sequence[_currentSequenceIndex].addedWeight,
         animatedBackgroundHeightFactor: _animationController.value,
         primaryColor: _sequence[_currentSequenceIndex].color,

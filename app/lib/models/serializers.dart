@@ -15,7 +15,8 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/hold_type.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/sound.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/temp_unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
 
@@ -35,7 +36,8 @@ part 'serializers.g.dart';
   HoldType,
   Settings,
   Sound,
-  Unit,
+  TempUnit,
+  WeightUnit,
   Workout,
   Workouts,
 ])

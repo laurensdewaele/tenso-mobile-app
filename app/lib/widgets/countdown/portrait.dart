@@ -5,7 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/board_with_grips.dart';
@@ -26,7 +26,7 @@ class Portrait extends StatefulWidget {
     @required this.currentSet,
     @required this.totalHangsPerSet,
     @required this.currentHang,
-    @required this.unit,
+    @required this.weightUnit,
     @required this.orientation,
     @required this.title,
     this.addedWeight,
@@ -44,7 +44,7 @@ class Portrait extends StatefulWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final Unit unit;
+  final WeightUnit weightUnit;
   final double addedWeight;
   final Orientation orientation;
   final String title;
@@ -77,7 +77,7 @@ class __PortraitContentState extends State<Portrait> {
     final String _currentSet = widget.currentSet.toString();
     final String _totalSets = widget.totalSets.toString();
     final String _titleText = widget.title;
-    final String _unitText = widget.unit == Unit.metric ? 'kg' : 'lb';
+    final String _unitText = widget.weightUnit == WeightUnit.metric ? 'kg' : 'lb';
     final String _addedWeight = widget.addedWeight.toString();
 
     return Column(

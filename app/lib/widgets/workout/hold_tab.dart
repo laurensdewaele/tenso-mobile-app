@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/hold_tab_vm.dart';
@@ -123,7 +123,7 @@ class HoldTab extends StatelessWidget {
             NumberInputAndDescription(
               enabled: _workoutViewModel.inputsEnabled,
               primaryColor: _workoutViewModel.primaryColor,
-              description: _appState.settings.unit == Unit.metric ? 'kg' : 'lb',
+              description: _appState.settings.weightUnit == WeightUnit.metric ? 'kg' : 'lb',
               handleDoubleValueChanged: (double n) {
                 _holdTabViewModel.setHoldAddedWeight(currentHold, n);
               },

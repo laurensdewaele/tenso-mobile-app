@@ -5,8 +5,8 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
-import 'package:app/models/unit.dart';
 import 'package:app/models/sound.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/countdown/portrait.dart';
 import 'package:app/widgets/countdown/landscape.dart';
@@ -28,7 +28,7 @@ class Countdown extends StatefulWidget {
     @required this.currentSet,
     @required this.totalHangsPerSet,
     @required this.currentHang,
-    @required this.unit,
+    @required this.weightUnit,
     @required this.endSound,
     @required this.beepSound,
     @required this.beepsBeforeEnd,
@@ -52,7 +52,7 @@ class Countdown extends StatefulWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final Unit unit;
+  final WeightUnit weightUnit;
   final double addedWeight;
 
   @override
@@ -114,7 +114,7 @@ class _CountdownState extends State<Countdown> {
                 if (_orientation == Orientation.portrait) {
                   return Portrait(
                     title: widget.title,
-                    unit: widget.unit,
+                    weightUnit: widget.weightUnit,
                     remainingSeconds: widget.remainingSeconds,
                     orientation: _orientation,
                     rightGripBoardHold: widget.rightGripBoardHold,
@@ -133,7 +133,7 @@ class _CountdownState extends State<Countdown> {
                 } else {
                   return Landscape(
                     title: widget.title,
-                    unit: widget.unit,
+                    weightUnit: widget.weightUnit,
                     orientation: _orientation,
                     rightGripBoardHold: widget.rightGripBoardHold,
                     rightGrip: widget.rightGrip,

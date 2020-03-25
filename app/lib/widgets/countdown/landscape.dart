@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/grip.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board_with_grips.dart';
 import 'package:app/widgets/countdown/indicator_tabs.dart';
@@ -24,7 +24,7 @@ class Landscape extends StatelessWidget {
     @required this.currentSet,
     @required this.totalHangsPerSet,
     @required this.currentHang,
-    @required this.unit,
+    @required this.weightUnit,
     @required this.orientation,
     @required this.title,
     this.addedWeight,
@@ -41,7 +41,7 @@ class Landscape extends StatelessWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final Unit unit;
+  final WeightUnit weightUnit;
   final double addedWeight;
   final Orientation orientation;
   final String title;
@@ -77,7 +77,7 @@ class Landscape extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: LandscapeInfo(
                 addedWeight: addedWeight,
-                unit: unit,
+                weightUnit: weightUnit,
                 leftGrip: leftGrip,
                 leftGripBoardHold: leftGripBoardHold,
                 rightGrip: rightGrip,

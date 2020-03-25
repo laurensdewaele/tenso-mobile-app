@@ -2,7 +2,7 @@ import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/data/grips.dart';
 import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hold.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
 
@@ -14,7 +14,7 @@ final Workout basicWorkout = Workout((b) => b
   ..restBetweenHolds = 60 * 2
   ..restBetweenSets = 60 * 3
   ..board = beastmaker1000.toBuilder()
-  ..unit = Unit.metric
+  ..weightUnit = WeightUnit.metric
   ..holds.addAll([
     Hold((b) => b
       ..leftGrip = Grips.openHandL.toBuilder()

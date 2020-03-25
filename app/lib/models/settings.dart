@@ -6,7 +6,8 @@ import 'package:built_value/serializer.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/serializers.dart';
 import 'package:app/models/sound.dart';
-import 'package:app/models/unit.dart';
+import 'package:app/models/temp_unit.dart';
+import 'package:app/models/weight_unit.dart';
 
 part 'settings.g.dart';
 
@@ -20,7 +21,8 @@ abstract class Settings implements Built<Settings, SettingsBuilder> {
   Sound get restSound;
   int get beepsBeforeHang;
   int get beepsBeforeRest;
-  Unit get unit;
+  WeightUnit get weightUnit;
+  TempUnit get tempUnit;
 
   factory Settings([void Function(SettingsBuilder) updates]) = _$Settings;
   Settings._();
