@@ -11,14 +11,22 @@ import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/text_input.dart';
 
 class RateWorkoutContent extends StatelessWidget {
-  RateWorkoutContent({
-    Key key,
-    @required this.handleCompleteTap,
-    @required this.handlePerceivedExertionChanged,
-    @required this.handleOpen,
-  }) : super(key: key);
+  RateWorkoutContent(
+      {Key key,
+      @required this.handleCompleteTap,
+      @required this.handlePerceivedExertionChanged,
+      @required this.handleOpen,
+      @required this.handleBodyWeightChanged,
+      @required this.handleCommentsChanged,
+      @required this.handleHumidityChanged,
+      @required this.handleTemperatureChanged})
+      : super(key: key);
 
-  final Function(int v) handlePerceivedExertionChanged;
+  final void Function(int v) handlePerceivedExertionChanged;
+  final void Function(String s) handleBodyWeightChanged;
+  final void Function(String s) handleTemperatureChanged;
+  final void Function(String s) handleHumidityChanged;
+  final void Function(String s) handleCommentsChanged;
   final VoidCallback handleCompleteTap;
   final VoidCallback handleOpen;
 
@@ -51,7 +59,7 @@ class RateWorkoutContent extends StatelessWidget {
           ],
         ),
         _CupertinoPicker(
-          setPerceivedExertion: (int n) {},
+          setPerceivedExertion: handlePerceivedExertionChanged,
         ),
         ExpandedSection(
           handleOpen: handleOpen,
@@ -63,7 +71,7 @@ class RateWorkoutContent extends StatelessWidget {
             EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'body weight',
-              handleValueChanged: (String s) {},
+              handleValueChanged: handleBodyWeightChanged,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -71,7 +79,7 @@ class RateWorkoutContent extends StatelessWidget {
             EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'temperature',
-              handleValueChanged: (String s) {},
+              handleValueChanged: handleTemperatureChanged,
             ),
             Divider(
               height: styles.Measurements.m,
@@ -79,7 +87,7 @@ class RateWorkoutContent extends StatelessWidget {
             EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
               description: 'humidity',
-              handleValueChanged: (String s) {},
+              handleValueChanged: handleHumidityChanged,
             ),
             Divider(
               height: styles.Measurements.xl,
@@ -100,7 +108,7 @@ class RateWorkoutContent extends StatelessWidget {
                   enabled: true,
                   primaryColor: styles.Colors.turquoise,
                   initialValue: '',
-                  handleValueChanged: (n) {}),
+                  handleValueChanged: handleCommentsChanged),
             )
           ],
         ),

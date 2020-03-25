@@ -11,12 +11,9 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Advanced section on rate workout => Body weight / Temperatue / Humidity / Comments
-
-- Get rid of navigationStreams on workout. Workout screen should be the one managing the pages.
-  And just pass the index and pages down as props, that way you wont need the whole thing.
-   
 - Text input needs continual validation. Doesn't work just when you lose focus.
+  Because you can swipe or click the next button assuming it'll be saved.
+  But it wont be saved.
 
 - Remove +- weight if weight is negative on countdown screen.
 - Add open crimp, check if all grips available.
@@ -52,6 +49,8 @@ flutter packages pub run build_runner watch
 
 ### Small prio
 
+- Get rid of navigationStreams on workout. Workout screen should be the one managing the pages.
+  And just pass the index and pages down as props, that way you wont need the whole thing.
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.

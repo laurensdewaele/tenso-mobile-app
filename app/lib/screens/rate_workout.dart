@@ -68,6 +68,22 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     _rateWorkoutViewModel.setPerceivedExertion(n);
   }
 
+  void _handleBodyWeightChanged(String s) {
+    _rateWorkoutViewModel.setBodyWeight(s);
+  }
+
+  void _handleTemperatureChanged(String s) {
+    _rateWorkoutViewModel.setTemperature(s);
+  }
+
+  void _handleHumidityChanged(String s) {
+    _rateWorkoutViewModel.setHumidity(s);
+  }
+
+  void _handleCommentsChanged(String s) {
+    _rateWorkoutViewModel.setComments(s);
+  }
+
   void _handleOpen() {
     _scrollToBottomStreamController.sink.add(true);
   }
@@ -100,6 +116,10 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                           handleCompleteTap: _handleCompleteTap,
                           handlePerceivedExertionChanged:
                               _handlePerceivedExertionChanged,
+                          handleBodyWeightChanged: _handleBodyWeightChanged,
+                          handleTemperatureChanged: _handleTemperatureChanged,
+                          handleHumidityChanged: _handleHumidityChanged,
+                          handleCommentsChanged: _handleCommentsChanged,
                         ),
                       ),
                     if (_orientation == Orientation.landscape)
@@ -112,6 +132,12 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                                 handleCompleteTap: _handleCompleteTap,
                                 handlePerceivedExertionChanged:
                                     _handlePerceivedExertionChanged,
+                                handleBodyWeightChanged:
+                                    _handleBodyWeightChanged,
+                                handleTemperatureChanged:
+                                    _handleTemperatureChanged,
+                                handleHumidityChanged: _handleHumidityChanged,
+                                handleCommentsChanged: _handleCommentsChanged,
                               ),
                               Divider(
                                 height: styles.Measurements.m,
