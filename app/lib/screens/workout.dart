@@ -16,7 +16,7 @@ import 'package:app/widgets/top_navigation.dart';
 import 'package:app/widgets/workout/tabs_container.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  WorkoutScreen();
+  WorkoutScreen({Key key}) : super(key: key);
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
@@ -67,8 +67,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   Widget build(BuildContext context) {
     final WorkoutViewModel _workoutViewModel =
         Provider.of<WorkoutViewModel>(context, listen: true);
-    final AppState _appState = Provider.of<AppState>(context, listen: true);
-    print('rebuild');
 
     return KeyboardAndToastProvider(
       child: Screen(
@@ -91,15 +89,19 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              TabsContainer(
-                                  key: UniqueKey(),
-                                  primaryColor: _workoutViewModel.primaryColor,
-                                  onNavigation: _scrollToTop,
-                                  holdCount: _appState.workout.holdCount,
-                                  navigateForwardTabStream:
-                                      _navigateForwardTabStream,
-                                  navigateBackTabStream:
-                                      _navigateBackTabStream),
+                              Consumer<AppState>(
+                                  builder: (context, _appState, child) {
+                                return TabsContainer(
+                                    key: UniqueKey(),
+                                    primaryColor:
+                                        _workoutViewModel.primaryColor,
+                                    onNavigation: _scrollToTop,
+                                    holdCount: _appState.workout.holdCount,
+                                    navigateForwardTabStream:
+                                        _navigateForwardTabStream,
+                                    navigateBackTabStream:
+                                        _navigateBackTabStream);
+                              })
                             ],
                           ),
                         ),
