@@ -50,29 +50,27 @@ class _LabelPickerState extends State<LabelPicker> {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final double maxWidth = constraints.maxWidth;
-      final double containerSize = maxWidth / _labels.length;
-      final double activeSize = maxWidth / _labels.length * 1.2;
-      final double smallSquareSize =
-          (maxWidth - (activeSize - containerSize)) / 7;
+      final double bigSquareSize = maxWidth / _labels.length;
+      final double smallSquareSize = bigSquareSize * 0.85;
+      final double smallSquaresOffset = (maxWidth - (smallSquareSize * 7)) / 2;
+
       return Container(
-        height: containerSize + (activeSize - containerSize),
+        height: bigSquareSize,
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: (activeSize - containerSize) / 2,
+              top: (bigSquareSize - smallSquareSize) / 2,
+              left: smallSquaresOffset,
               child: Container(
-                height: containerSize,
-                padding: EdgeInsets.symmetric(
-                    vertical: 0, horizontal: (activeSize - containerSize) / 2),
+                height: smallSquareSize,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     ..._labels
                         .map((int i, Label l) => MapEntry(
                             i,
-                            _ColorSquare(
-                              size:
-                                  (maxWidth - (activeSize - containerSize)) / 7,
+                            _SmallSquares(
+                              size: smallSquareSize,
                               isFirst: i == 0,
                               isLast: i == 6,
                               label: l,
@@ -89,10 +87,12 @@ class _LabelPickerState extends State<LabelPicker> {
                     i,
                     l == _activeLabel
                         ? Positioned(
-                            left: i * smallSquareSize,
+                            left: smallSquaresOffset +
+                                (i * smallSquareSize) -
+                                ((bigSquareSize - smallSquareSize) / 2),
                             top: 0,
-                            child: _ActiveSquare(
-                              size: activeSize,
+                            child: _BigSquare(
+                              size: bigSquareSize,
                               label: l,
                             ),
                           )
@@ -106,8 +106,8 @@ class _LabelPickerState extends State<LabelPicker> {
   }
 }
 
-class _ActiveSquare extends StatelessWidget {
-  _ActiveSquare({Key key, @required this.label, @required this.size})
+class _BigSquare extends StatelessWidget {
+  _BigSquare({Key key, @required this.label, @required this.size})
       : super(key: key);
 
   final Label label;
@@ -125,8 +125,8 @@ class _ActiveSquare extends StatelessWidget {
   }
 }
 
-class _ColorSquare extends StatelessWidget {
-  _ColorSquare({
+class _SmallSquares extends StatelessWidget {
+  _SmallSquares({
     Key key,
     @required this.size,
     @required this.isFirst,
