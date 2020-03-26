@@ -44,18 +44,15 @@ class ExtraTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Divider(
-            height: 12,
-          ),
+          Divider(height: 14),
           SectionWithInfoIcon(
             title: 'color label',
             appDialogContent: _ColorLabelInfo(),
             children: <Widget>[
               LabelPicker(
-                handleLabelChanged: _extraTabViewModel.setLabel,
-                initialLabel: _appState.workout.label,
-                enabled: _workoutViewModel.inputsEnabled
-              )
+                  handleLabelChanged: _extraTabViewModel.setLabel,
+                  initialLabel: _appState.workout.label,
+                  enabled: _workoutViewModel.inputsEnabled)
             ],
           ),
           Section(

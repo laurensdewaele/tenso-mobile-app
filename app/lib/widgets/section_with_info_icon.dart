@@ -45,7 +45,7 @@ class SectionWithInfoIcon extends StatelessWidget {
           ],
         ),
         Divider(
-          height: 12,
+          height: 14,
         ),
         ...children,
         Divider(

@@ -34,7 +34,7 @@ class RateWorkoutContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Divider(
-          height: 12,
+          height: 14,
         ),
         SectionWithInfoIcon(
           title: 'perceived exertion *',
