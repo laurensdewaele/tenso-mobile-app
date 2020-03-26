@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/styles/styles.dart' as styles;
 
+// It was necessary to not keep this above the general/hold/extra tab.
+// Extra tab has an info icon title.
 class CardContainer extends StatelessWidget {
   CardContainer({Key key, @required this.child}) : super(key: key);
 
