@@ -36,7 +36,7 @@ class SectionWithInfoIcon extends StatelessWidget {
                   showAppDialog(context: context, content: appDialogContent);
                 },
                 icon: Icon(
-                  size: 28,
+                  size: styles.IconMeasurements.l,
                   iconData: IconData(0xf44c,
                       fontFamily: 'CupertinoIcons',
                       fontPackage: 'cupertino_icons'),

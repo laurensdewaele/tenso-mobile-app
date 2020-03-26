@@ -136,7 +136,6 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                 Positioned(
                     right: _horizontalLabelAlignment.value,
                     child: ColorSquare(
-                      text: '',
                       color: _workout.labelColor,
                       width: styles.Measurements.xxl,
                       height: styles.Measurements.xxl,

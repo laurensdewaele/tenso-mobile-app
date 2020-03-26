@@ -82,7 +82,7 @@ class _ExpandedSectionState extends State<ExpandedSection>
                   child: IconButton(
                       handleTap: _handleTap,
                       icon: Icon(
-                        size: 28,
+                        size: styles.IconMeasurements.l,
                         iconData: IconData(0xf3d0,
                             fontFamily: 'CupertinoIcons',
                             fontPackage: 'cupertino_icons'),

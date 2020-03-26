@@ -15,11 +15,15 @@ final Map<int, Label> _labels = {
 
 class LabelPicker extends StatefulWidget {
   LabelPicker(
-      {Key key, @required this.handleLabelChanged, @required this.initialLabel})
+      {Key key,
+      @required this.handleLabelChanged,
+      @required this.initialLabel,
+      @required this.enabled})
       : super(key: key);
 
   final void Function(Label label) handleLabelChanged;
   final Label initialLabel;
+  final bool enabled;
 
   @override
   _LabelPickerState createState() => _LabelPickerState();
@@ -40,10 +44,12 @@ class _LabelPickerState extends State<LabelPicker> {
   }
 
   void _handleLabelTap(Label label) {
-    widget.handleLabelChanged(label);
-    setState(() {
-      _activeLabel = label;
-    });
+    if (widget.enabled) {
+      widget.handleLabelChanged(label);
+      setState(() {
+        _activeLabel = label;
+      });
+    }
   }
 
   @override

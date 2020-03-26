@@ -53,7 +53,8 @@ class ExtraTab extends StatelessWidget {
             children: <Widget>[
               LabelPicker(
                 handleLabelChanged: _extraTabViewModel.setLabel,
-                initialLabel: Label.red,
+                initialLabel: _appState.workout.label,
+                enabled: _workoutViewModel.inputsEnabled
               )
             ],
           ),
