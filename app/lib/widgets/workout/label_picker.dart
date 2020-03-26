@@ -3,6 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/label.dart';
 import 'package:app/styles/styles.dart' as styles;
 
+final Map<int, Label> _labels = {
+  0: Label.black,
+  1: Label.red,
+  2: Label.orange,
+  3: Label.yellow,
+  4: Label.blue,
+  5: Label.turquoise,
+  6: Label.purple
+};
+
 class LabelPicker extends StatefulWidget {
   LabelPicker(
       {Key key, @required this.handleLabelChanged, @required this.initialLabel})
@@ -37,101 +47,58 @@ class _LabelPickerState extends State<LabelPicker> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Determine max length
-    // Then you can make them squares
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final double maxWidth = constraints.maxWidth;
-      final double containerSize = maxWidth / 7;
+      final double containerSize = maxWidth / _labels.length;
+      final double activeSize = maxWidth / _labels.length * 1.2;
+      final double smallSquareSize =
+          (maxWidth - (activeSize - containerSize)) / 7;
       return Container(
-        height: containerSize + 20,
-        width: double.infinity,
+        height: containerSize + (activeSize - containerSize),
         child: Stack(
           children: <Widget>[
             Positioned(
-              left: 0,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.black == _activeLabel,
-                isFirst: true,
-                isLast: false,
-                label: Label.black,
-                handleLabelTap: _handleLabelTap,
+              top: (activeSize - containerSize) / 2,
+              child: Container(
+                height: containerSize,
+                padding: EdgeInsets.symmetric(
+                    vertical: 0, horizontal: (activeSize - containerSize) / 2),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    ..._labels
+                        .map((int i, Label l) => MapEntry(
+                            i,
+                            _ColorSquare(
+                              size:
+                                  (maxWidth - (activeSize - containerSize)) / 7,
+                              isFirst: i == 0,
+                              isLast: i == 6,
+                              label: l,
+                              handleLabelTap: _handleLabelTap,
+                            )))
+                        .values
+                        .toList(),
+                  ],
+                ),
               ),
             ),
-            Positioned(
-              left: containerSize,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.red == _activeLabel,
-                isFirst: false,
-                isLast: false,
-                label: Label.red,
-                handleLabelTap: _handleLabelTap,
-              ),
-            ),
-            Positioned(
-              left: 2 * containerSize,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.orange == _activeLabel,
-                isFirst: false,
-                isLast: false,
-                label: Label.orange,
-                handleLabelTap: _handleLabelTap,
-              ),
-            ),
-            Positioned(
-              left: 3 * containerSize,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.yellow == _activeLabel,
-                isFirst: false,
-                isLast: false,
-                label: Label.yellow,
-                handleLabelTap: _handleLabelTap,
-              ),
-            ),
-            Positioned(
-              left: 4 * containerSize,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.blue == _activeLabel,
-                isFirst: false,
-                isLast: false,
-                label: Label.blue,
-                handleLabelTap: _handleLabelTap,
-              ),
-            ),
-            Positioned(
-              left: 5 * containerSize,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.turquoise == _activeLabel,
-                isFirst: false,
-                isLast: false,
-                label: Label.turquoise,
-                handleLabelTap: _handleLabelTap,
-              ),
-            ),
-            Positioned(
-              left: 6 * containerSize,
-              top: 10,
-              child: _ColorSquare(
-                size: containerSize,
-                isActive: Label.purple == _activeLabel,
-                isFirst: false,
-                isLast: true,
-                label: Label.purple,
-                handleLabelTap: _handleLabelTap,
-              ),
-            )
+            _labels
+                .map((int i, Label l) => MapEntry(
+                    i,
+                    l == _activeLabel
+                        ? Positioned(
+                            left: i * smallSquareSize,
+                            top: 0,
+                            child: _ActiveSquare(
+                              size: activeSize,
+                              label: l,
+                            ),
+                          )
+                        : null))
+                .values
+                .firstWhere((e) => e != null),
           ],
         ),
       );
@@ -139,46 +106,40 @@ class _LabelPickerState extends State<LabelPicker> {
   }
 }
 
-class _ColorSquare extends StatefulWidget {
-  _ColorSquare(
-      {Key key,
-      @required this.isActive,
-      @required this.isFirst,
-      @required this.isLast,
-      @required this.label,
-      @required this.handleLabelTap,
-      @required this.size})
+class _ActiveSquare extends StatelessWidget {
+  _ActiveSquare({Key key, @required this.label, @required this.size})
       : super(key: key);
+
+  final Label label;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: size,
+        width: size,
+        decoration: BoxDecoration(
+          borderRadius: styles.kBorderRadiusAll,
+          color: styles.labelColors[label],
+        ));
+  }
+}
+
+class _ColorSquare extends StatelessWidget {
+  _ColorSquare({
+    Key key,
+    @required this.size,
+    @required this.isFirst,
+    @required this.isLast,
+    @required this.label,
+    @required this.handleLabelTap,
+  }) : super(key: key);
 
   final double size;
   final bool isFirst;
   final bool isLast;
-  final bool isActive;
   final Label label;
   final void Function(Label label) handleLabelTap;
-
-  @override
-  __ColorSquareState createState() => __ColorSquareState();
-}
-
-class __ColorSquareState extends State<_ColorSquare> {
-  @override
-  void didUpdateWidget(_ColorSquare oldWidget) {
-    if (oldWidget.isActive != widget.isActive) {}
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,34 +149,24 @@ class __ColorSquareState extends State<_ColorSquare> {
         topRight: styles.kBorderRadius, bottomRight: styles.kBorderRadius);
 
     var _borderRadius;
-    if (widget.isFirst == true) {
-      _borderRadius = _firstBorderRadius;
-    } else if (widget.isLast == true) {
+    if (isLast == true) {
       _borderRadius = _lastBorderRadius;
-    } else if (widget.isActive == true) {
-      _borderRadius = styles.kBorderRadiusAll;
+    } else if (isFirst == true) {
+      _borderRadius = _firstBorderRadius;
     } else {
       _borderRadius = BorderRadius.zero;
     }
 
     return GestureDetector(
         onTap: () {
-          widget.handleLabelTap(widget.label);
+          handleLabelTap(label);
         },
-        child: widget.isActive == true
-            ? Container(
-                height: widget.size + 10,
-                width: widget.size + 10,
-                decoration: BoxDecoration(
-                  borderRadius: _borderRadius,
-                  color: styles.labelColors[widget.label],
-                ))
-            : Container(
-                height: widget.size,
-                width: widget.size,
-                decoration: BoxDecoration(
-                  borderRadius: _borderRadius,
-                  color: styles.labelColors[widget.label],
-                )));
+        child: Container(
+            height: size,
+            width: size,
+            decoration: BoxDecoration(
+              borderRadius: _borderRadius,
+              color: styles.labelColors[label],
+            )));
   }
 }
