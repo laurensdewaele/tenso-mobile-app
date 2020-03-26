@@ -51,16 +51,15 @@ class _LabelPickerState extends State<LabelPicker> {
         builder: (BuildContext context, BoxConstraints constraints) {
       final double maxWidth = constraints.maxWidth;
       final double bigSquareSize = maxWidth / _labels.length;
-      final double smallSquareSize = bigSquareSize * 0.85;
-      final double smallSquaresOffset = (maxWidth - (smallSquareSize * 7)) / 2;
+      final double smallSquareSize = bigSquareSize;
+      final double smallSquaresOffset = 0;
 
       return Container(
         height: bigSquareSize,
         child: Stack(
           children: <Widget>[
-            Positioned(
-              top: (bigSquareSize - smallSquareSize) / 2,
-              left: smallSquaresOffset,
+            Transform.scale(
+              scale: 0.9,
               child: Container(
                 height: smallSquareSize,
                 child: Row(
@@ -87,9 +86,7 @@ class _LabelPickerState extends State<LabelPicker> {
                     i,
                     l == _activeLabel
                         ? Positioned(
-                            left: smallSquaresOffset +
-                                (i * smallSquareSize) -
-                                ((bigSquareSize - smallSquareSize) / 2),
+                            left: i * bigSquareSize,
                             top: 0,
                             child: _BigSquare(
                               size: bigSquareSize,
