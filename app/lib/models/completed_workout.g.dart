@@ -20,11 +20,11 @@ class _$CompletedWorkoutSerializer
   Iterable<Object> serialize(Serializers serializers, CompletedWorkout object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'workout',
       serializers.serialize(object.workout,
           specifiedType: const FullType(Workout)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'completedDate',
       serializers.serialize(object.completedDate,
           specifiedType: const FullType(DateTime)),
@@ -74,13 +74,13 @@ class _$CompletedWorkoutSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'workout':
-          result.workout.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Workout)) as Workout);
-          break;
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'workout':
+          result.workout.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Workout)) as Workout);
           break;
         case 'completedDate':
           result.completedDate = serializers.deserialize(value,
@@ -119,9 +119,9 @@ class _$CompletedWorkoutSerializer
 
 class _$CompletedWorkout extends CompletedWorkout {
   @override
-  final Workout workout;
-  @override
   final String id;
+  @override
+  final Workout workout;
   @override
   final DateTime completedDate;
   @override
@@ -142,8 +142,8 @@ class _$CompletedWorkout extends CompletedWorkout {
       (new CompletedWorkoutBuilder()..update(updates)).build();
 
   _$CompletedWorkout._(
-      {this.workout,
-      this.id,
+      {this.id,
+      this.workout,
       this.completedDate,
       this.perceivedExertion,
       this.bodyWeight,
@@ -152,11 +152,11 @@ class _$CompletedWorkout extends CompletedWorkout {
       this.humidity,
       this.comments})
       : super._() {
-    if (workout == null) {
-      throw new BuiltValueNullFieldError('CompletedWorkout', 'workout');
-    }
     if (id == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'id');
+    }
+    if (workout == null) {
+      throw new BuiltValueNullFieldError('CompletedWorkout', 'workout');
     }
     if (completedDate == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'completedDate');
@@ -182,8 +182,8 @@ class _$CompletedWorkout extends CompletedWorkout {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CompletedWorkout &&
-        workout == other.workout &&
         id == other.id &&
+        workout == other.workout &&
         completedDate == other.completedDate &&
         perceivedExertion == other.perceivedExertion &&
         bodyWeight == other.bodyWeight &&
@@ -201,7 +201,7 @@ class _$CompletedWorkout extends CompletedWorkout {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, workout.hashCode), id.hashCode),
+                            $jc($jc($jc(0, id.hashCode), workout.hashCode),
                                 completedDate.hashCode),
                             perceivedExertion.hashCode),
                         bodyWeight.hashCode),
@@ -214,8 +214,8 @@ class _$CompletedWorkout extends CompletedWorkout {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CompletedWorkout')
-          ..add('workout', workout)
           ..add('id', id)
+          ..add('workout', workout)
           ..add('completedDate', completedDate)
           ..add('perceivedExertion', perceivedExertion)
           ..add('bodyWeight', bodyWeight)
@@ -231,13 +231,13 @@ class CompletedWorkoutBuilder
     implements Builder<CompletedWorkout, CompletedWorkoutBuilder> {
   _$CompletedWorkout _$v;
 
-  WorkoutBuilder _workout;
-  WorkoutBuilder get workout => _$this._workout ??= new WorkoutBuilder();
-  set workout(WorkoutBuilder workout) => _$this._workout = workout;
-
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  WorkoutBuilder _workout;
+  WorkoutBuilder get workout => _$this._workout ??= new WorkoutBuilder();
+  set workout(WorkoutBuilder workout) => _$this._workout = workout;
 
   DateTime _completedDate;
   DateTime get completedDate => _$this._completedDate;
@@ -273,8 +273,8 @@ class CompletedWorkoutBuilder
 
   CompletedWorkoutBuilder get _$this {
     if (_$v != null) {
-      _workout = _$v.workout?.toBuilder();
       _id = _$v.id;
+      _workout = _$v.workout?.toBuilder();
       _completedDate = _$v.completedDate;
       _perceivedExertion = _$v.perceivedExertion;
       _bodyWeight = _$v.bodyWeight;
@@ -306,8 +306,8 @@ class CompletedWorkoutBuilder
     try {
       _$result = _$v ??
           new _$CompletedWorkout._(
-              workout: workout.build(),
               id: id,
+              workout: workout.build(),
               completedDate: completedDate,
               perceivedExertion: perceivedExertion,
               bodyWeight: bodyWeight,

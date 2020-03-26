@@ -5,7 +5,7 @@ import 'package:app/styles/styles.dart' as styles;
 abstract class Staatliches {
   static const TextStyle countdownTimer = TextStyle(
       fontFamily: 'Staatliches', fontSize: 400, color: styles.Colors.white);
-  static const TextStyle difficulty = TextStyle(
+  static const TextStyle colorSquare = TextStyle(
       fontFamily: 'Staatliches', fontSize: 26, color: styles.Colors.white);
   static const TextStyle textDivider = TextStyle(
       fontFamily: 'Staatliches', fontSize: 4, color: styles.Colors.black);

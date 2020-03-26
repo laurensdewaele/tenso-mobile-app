@@ -13,6 +13,7 @@ import 'package:app/models/hand_hold.dart';
 import 'package:app/models/hand_type.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/hold_type.dart';
+import 'package:app/models/label.dart';
 import 'package:app/models/settings.dart';
 import 'package:app/models/sound.dart';
 import 'package:app/models/temp_unit.dart';
@@ -34,6 +35,7 @@ part 'serializers.g.dart';
   HandType,
   Hold,
   HoldType,
+  Label,
   Settings,
   Sound,
   TempUnit,

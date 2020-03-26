@@ -2,16 +2,16 @@ import 'package:flutter/widgets.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 
-class Difficulty extends StatelessWidget {
-  const Difficulty({
-    @required this.difficulty,
-    @required this.difficultyColor,
+class ColorSquare extends StatelessWidget {
+  const ColorSquare({
+    @required this.text,
+    @required this.color,
     @required this.width,
     @required this.height,
   });
 
-  final String difficulty;
-  final Color difficultyColor;
+  final String text;
+  final Color color;
   final double width;
   final double height;
 
@@ -21,11 +21,10 @@ class Difficulty extends StatelessWidget {
       decoration: BoxDecoration(
           boxShadow: [styles.kBoxShadow],
           borderRadius: styles.kBorderRadiusAll,
-          color: difficultyColor),
+          color: color),
       height: height,
       width: width,
-      child:
-          Center(child: Text(difficulty, style: styles.Staatliches.difficulty)),
+      child: Center(child: Text(text, style: styles.Staatliches.colorSquare)),
     );
   }
 }

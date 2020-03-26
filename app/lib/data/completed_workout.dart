@@ -1,8 +1,8 @@
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
+import 'package:app/models/label.dart';
 import 'package:app/models/temp_unit.dart';
-import 'package:app/styles/styles.dart' as styles;
 
 final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
   ..id = '123'
@@ -34,26 +34,23 @@ final CompletedWorkout sameDayCompletedWorkout = completedWorkout.rebuild((b) =>
       ..id = '1234567'
       ..completedDate = DateTime.utc(2020, 2, 6, 15, 43)
       ..perceivedExertion = 1
-      ..workout = basicWorkout
-          .rebuild((b) => b..label = styles.Colors.blue)
-          .toBuilder());
+      ..workout =
+          basicWorkout.rebuild((b) => b..label = Label.orange).toBuilder());
 
 final CompletedWorkout sameDayCompletedWorkout2 = completedWorkout.rebuild(
     (b) => b
       ..id = '1234568'
       ..completedDate = DateTime.utc(2020, 2, 6, 13, 21)
       ..perceivedExertion = 1
-      ..workout = basicWorkout
-          .rebuild((b) => b..label = styles.Colors.primary)
-          .toBuilder());
+      ..workout =
+          basicWorkout.rebuild((b) => b..label = Label.blue).toBuilder());
 final CompletedWorkout sameDayCompletedWorkout3 = completedWorkout.rebuild(
     (b) => b
       ..id = '1234568'
       ..completedDate = DateTime.utc(2020, 2, 6, 11, 21)
       ..perceivedExertion = 1
-      ..workout = basicWorkout
-          .rebuild((b) => b..label = styles.Colors.purple)
-          .toBuilder());
+      ..workout =
+          basicWorkout.rebuild((b) => b..label = Label.purple).toBuilder());
 
 final CompletedWorkouts completedWorkouts = CompletedWorkouts((b) => b
   ..completedWorkouts.addAll([

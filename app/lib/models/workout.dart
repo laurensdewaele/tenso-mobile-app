@@ -7,8 +7,10 @@ import 'package:built_value/serializer.dart';
 
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
+import 'package:app/models/label.dart';
 import 'package:app/models/serializers.dart';
 import 'package:app/models/weight_unit.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 part 'workout.g.dart';
 
@@ -22,7 +24,9 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   @nullable
   String get editedId;
 
-  Color get label;
+  Label get label;
+  // Color class cannot be serialized by built value
+  Color get labelColor => styles.labelColors[label];
   int get sets;
   int get holdCount;
   int get restBetweenHolds;
@@ -32,18 +36,6 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   String get name;
   WeightUnit get weightUnit;
   int get duration => _calculateDuration();
-
-  factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;
-  Workout._();
-
-  String toJson() {
-    return json.encode(serializers.serializeWith(Workout.serializer, this));
-  }
-
-  static Workout fromJson(String jsonString) {
-    return serializers.deserializeWith(
-        Workout.serializer, json.decode(jsonString));
-  }
 
   int _calculateDuration() {
     int total = 0;
@@ -74,4 +66,18 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
     total += totalRestBetweenSets;
     return total.toInt();
   }
+
+  factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;
+  Workout._();
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Workout.serializer, this));
+  }
+
+  static Workout fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Workout.serializer, json.decode(jsonString));
+  }
+
+
 }

@@ -22,6 +22,16 @@ abstract class Colors {
   static const Color purple = Color.fromRGBO(155, 89, 182, 1.0);
 }
 
+const Map<String, Color> labelColors = {
+  'black': Colors.black,
+  'red': Colors.primary,
+  'orange': Colors.orange,
+  'yellow': Colors.yellow,
+  'turquoise': Colors.turquoise,
+  'blue': Colors.blue,
+  'purple': Colors.purple,
+};
+
 const Map<int, Color> difficultyColors = {
   0: Colors.yellow,
   1: Colors.orange,

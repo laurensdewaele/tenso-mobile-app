@@ -4,7 +4,7 @@ import 'package:app/models/completed_workout.dart';
 import 'package:app/models/temp_unit.dart';
 import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/difficulty.dart';
+import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_overview/display_duration_seconds.dart';
 import 'package:app/widgets/workout_overview/expanded_content_tile.dart';
@@ -52,19 +52,19 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ExpandedContentTile(
-              title: 'label color',
-              content: Difficulty(
-                  difficulty: '',
-                  difficultyColor: completedWorkout.workout.label,
+              title: 'label',
+              content: ColorSquare(
+                  text: '',
+                  color: completedWorkout.workout.labelColor,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl),
               contentContainerHeight: styles.Measurements.xl,
             ),
             ExpandedContentTile(
               title: 'perceived exertion',
-              content: Difficulty(
-                  difficulty: completedWorkout.perceivedExertion.toString(),
-                  difficultyColor: completedWorkout.perceivedExertionColor,
+              content: ColorSquare(
+                  text: completedWorkout.perceivedExertion.toString(),
+                  color: completedWorkout.perceivedExertionColor,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl),
               contentContainerHeight: styles.Measurements.xl,

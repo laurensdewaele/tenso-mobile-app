@@ -6,7 +6,7 @@ import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
-import 'package:app/widgets/difficulty.dart';
+import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_overview/display_duration_seconds.dart';
@@ -29,10 +29,10 @@ class WorkoutExpandedContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ExpandedContentTile(
-              title: 'difficulty',
-              content: Difficulty(
-                  difficulty: '',
-                  difficultyColor: workout.label,
+              title: 'label',
+              content: ColorSquare(
+                  text: '',
+                  color: workout.labelColor,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl),
               contentContainerHeight: styles.Measurements.xl,

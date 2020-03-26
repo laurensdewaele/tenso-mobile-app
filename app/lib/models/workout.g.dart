@@ -21,7 +21,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'label',
-      serializers.serialize(object.label, specifiedType: const FullType(Color)),
+      serializers.serialize(object.label, specifiedType: const FullType(Label)),
       'sets',
       serializers.serialize(object.sets, specifiedType: const FullType(int)),
       'holdCount',
@@ -75,7 +75,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           break;
         case 'label':
           result.label = serializers.deserialize(value,
-              specifiedType: const FullType(Color)) as Color;
+              specifiedType: const FullType(Label)) as Label;
           break;
         case 'sets':
           result.sets = serializers.deserialize(value,
@@ -124,7 +124,7 @@ class _$Workout extends Workout {
   @override
   final String editedId;
   @override
-  final Color label;
+  final Label label;
   @override
   final int sets;
   @override
@@ -267,9 +267,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   String get editedId => _$this._editedId;
   set editedId(String editedId) => _$this._editedId = editedId;
 
-  Color _label;
-  Color get label => _$this._label;
-  set label(Color label) => _$this._label = label;
+  Label _label;
+  Label get label => _$this._label;
+  set label(Label label) => _$this._label = label;
 
   int _sets;
   int get sets => _$this._sets;

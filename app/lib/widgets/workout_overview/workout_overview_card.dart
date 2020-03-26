@@ -9,7 +9,7 @@ import 'package:app/screens/countdown.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/difficulty.dart';
+import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/workout_overview/workout_overview_card_expanded.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
@@ -36,9 +36,9 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
       CurveTween(curve: Curves.easeInOut);
   static final Animatable<double> _horizontalTitleAlignmentTween =
       Tween(begin: -1, end: 0);
-  // Moves the difficultyWidget off screen to the right.
+  // Moves the label off screen to the right.
   // It is being clipped, therefore invisible.
-  static final Animatable<double> _horizontalDifficultyAlignmentTween =
+  static final Animatable<double> _horizontalLabelAlignmentTween =
       Tween(begin: 0, end: -styles.Measurements.xxl);
   static final Animatable<double> _sizedBoxWidthTween =
       Tween(begin: styles.Measurements.xxl + styles.Measurements.m, end: 0);
@@ -46,7 +46,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   AnimationController _controller;
   Animation<double> _heightFactor;
   Animation<double> _horizontalTitleAlignment;
-  Animation<double> _horizontalDifficultyAlignment;
+  Animation<double> _horizontalLabelAlignment;
   Animation<double> _sizedBoxWidth;
 
   Workout _workout;
@@ -65,8 +65,8 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
     _heightFactor = _controller.drive(_easeInOutTween);
     _horizontalTitleAlignment = _controller
         .drive(_horizontalTitleAlignmentTween.chain(_easeInOutTween));
-    _horizontalDifficultyAlignment = _controller
-        .drive(_horizontalDifficultyAlignmentTween.chain(_easeInOutTween));
+    _horizontalLabelAlignment = _controller
+        .drive(_horizontalLabelAlignmentTween.chain(_easeInOutTween));
     _sizedBoxWidth =
         _controller.drive(_sizedBoxWidthTween.chain(_easeInOutTween));
 
@@ -134,10 +134,10 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
                   )
                 ]),
                 Positioned(
-                    right: _horizontalDifficultyAlignment.value,
-                    child: Difficulty(
-                      difficulty: '',
-                      difficultyColor: _workout.label,
+                    right: _horizontalLabelAlignment.value,
+                    child: ColorSquare(
+                      text: '',
+                      color: _workout.labelColor,
                       width: styles.Measurements.xxl,
                       height: styles.Measurements.xxl,
                     )),
