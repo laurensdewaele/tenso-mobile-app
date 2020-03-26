@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/models/label.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/extra_tab_vm.dart';
@@ -12,6 +13,7 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
+import 'package:app/widgets/workout/label_picker.dart';
 
 class ExtraTab extends StatelessWidget {
   ExtraTab({Key key}) : super(key: key);
@@ -49,9 +51,9 @@ class ExtraTab extends StatelessWidget {
             title: 'color label',
             appDialogContent: _ColorLabelInfo(),
             children: <Widget>[
-              Text(
-                'hello',
-                style: styles.Staatliches.xsBlack,
+              LabelPicker(
+                handleLabelChanged: (Label l) {},
+                initialLabel: Label.red,
               )
             ],
           ),
