@@ -1,4 +1,3 @@
-import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -6,6 +5,7 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/empty_input_and_description.dart';
 import 'package:app/widgets/expanded_section.dart';
+import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 
 class RateWorkoutContent extends StatelessWidget {
