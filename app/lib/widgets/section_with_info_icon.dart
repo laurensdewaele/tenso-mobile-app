@@ -6,7 +6,6 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 
-// TODO: Differentiate between first element or another in CardList?
 class SectionWithInfoIcon extends StatelessWidget {
   SectionWithInfoIcon(
       {Key key,
@@ -45,7 +44,6 @@ class SectionWithInfoIcon extends StatelessWidget {
                 ))
           ],
         ),
-        // TODO: Determine distance
         Divider(
           height: 12,
         ),
