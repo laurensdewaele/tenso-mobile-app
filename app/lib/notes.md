@@ -11,23 +11,32 @@ flutter packages pub run build_runner watch
 
 ## TODO
 
-- Remove difficulty and add label colour.
+- The bottom navigation.
+- Get rid of navigationStreams on workout. Workout screen should be the one managing the pages.
+  And just pass the index and pages down as props, that way you wont need the whole thing.
+- Fix stream has already been listened to of tabs container, fck
 
+
+
+
+
+
+
+
+
+
+- Text input needs continual validation. Doesn't work just when you lose focus.
+    Because you can swipe or click the next button assuming it'll be saved.
+    But it wont be saved.
+    => Intercept swipes and validate on swipes and next buttons.
+  
 - What's the use of an edited id? 
   // This is used for easily comparing which completed workout
   // is different from the other without having to do a deep comparison.
   Why not just adjust the id itself?
   => Because the values, when you edit them might be the same.
   => Fix that with decent validation, that doesn't alter the id when they're the same.
-  
-  - Text input needs continual validation. Doesn't work just when you lose focus.
-    Because you can swipe or click the next button assuming it'll be saved.
-    But it wont be saved.
-    => Intercept swipes and validate on swipes and next buttons.
 
-- Fix stream has already been listened to of tabs container, fck
-- Get rid of navigationStreams on workout. Workout screen should be the one managing the pages.
-  And just pass the index and pages down as props, that way you wont need the whole thing.
 
 ### Large prio
 
@@ -37,14 +46,20 @@ flutter packages pub run build_runner watch
 - Stop and log, when a workout is more than you can handle that day. E.g. The last set is too much.
 - Keep screen alive when on countdown screen
 - Skip buttons so you can quickly complete a workout.
+- Check if sounds come trough if app on bg 
+
 - Add open crimp, check if all grips available.
+
 - Redesign toast
+
 - Graphs
+
 - Add board selection. Only beastmaker1000 atm.
-- Add custom board => Slopers, pinches, ... 
+- Add custom board => Slopers, pinches, ...
+ 
 - Info/explanation screen
 - Implement a feedback button.
-- Check if sounds come trough if app on bg 
+
 
 ### Medium prio
 
@@ -70,6 +85,15 @@ flutter packages pub run build_runner watch
 - Add info button on most elements
 - Stop all globals (singletons as well). Do I have any? => styles
 - Check out perf.
+  
+  
+## Data strategy
+
+Local is the source of truth.
+Always save and persist locally.
+Only when saving workouts or completed workouts => also send to server.
+Only when something goes wrong when requesting the local db => try to fetch via backend.
+  
   
 ## Errors
 

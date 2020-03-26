@@ -52,7 +52,7 @@ class ExtraTab extends StatelessWidget {
             appDialogContent: _ColorLabelInfo(),
             children: <Widget>[
               LabelPicker(
-                handleLabelChanged: (Label l) {},
+                handleLabelChanged: _extraTabViewModel.setLabel,
                 initialLabel: Label.red,
               )
             ],
@@ -89,6 +89,26 @@ class _ColorLabelInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(
+          'By giving your workout a color label, it will become easier to distuingish between workouts on the calendar overview.',
+          style: styles.Lato.xsBlack,
+        ),
+        Divider(height: styles.Measurements.l),
+        Center(
+          child: Transform.scale(
+            scale: .8,
+            child: Button(
+                displayBackground: false,
+                text: 'Ok',
+                handleTap: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
+        )
+      ],
+    );
   }
 }

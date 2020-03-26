@@ -31,12 +31,12 @@ class GripPickerContainer extends StatefulWidget {
   final Grip leftGrip;
   final Grip rightGrip;
   final HandHold handHold;
-  final Function(Grip grip) handleLeftGripSelected;
-  final Function(Grip grip) handleRightGripSelected;
-  final Function(HandHold handHold) handleOneHandedTap;
-  final Function(HandHold handHold) handleTwoHandedTap;
-  final Function(HandHold handHold) handleLeftHandSelected;
-  final Function(HandHold handHold) handleRightHandSelected;
+  final void Function(Grip grip) handleLeftGripSelected;
+  final void Function(Grip grip) handleRightGripSelected;
+  final void Function(HandHold handHold) handleOneHandedTap;
+  final void Function(HandHold handHold) handleTwoHandedTap;
+  final void Function(HandHold handHold) handleLeftHandSelected;
+  final void Function(HandHold handHold) handleRightHandSelected;
 
   @override
   _GripPickerContainerState createState() => _GripPickerContainerState();

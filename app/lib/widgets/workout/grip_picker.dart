@@ -21,7 +21,7 @@ class GripPicker extends StatefulWidget {
   final Color primaryColor;
   final List<Grip> grips;
   final Grip selectedGrip;
-  final Function(Grip grip) handleGripChanged;
+  final void Function(Grip grip) handleGripChanged;
 
   @override
   _GripPickerState createState() => _GripPickerState();
@@ -124,7 +124,7 @@ class _Grip extends StatelessWidget {
 
   final Color primaryColor;
   final Grip grip;
-  final Function(Grip grip) handleGripChanged;
+  final void Function(Grip grip) handleGripChanged;
   final bool selected;
 
   void _handleTap() {

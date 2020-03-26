@@ -22,10 +22,10 @@ class BoardDragTargets extends StatefulWidget {
   final double boardAspectRatio;
   final String boardAssetSrc;
   final List<BoardHold> boardHolds;
-  final Function(Size boardSize) handleBoardDimensions;
-  final Function(Grip grip, BoardHold boardHold) setHandOffset;
+  final void Function(Size boardSize) handleBoardDimensions;
+  final void Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
-  final Function(Widget errorMessage) setErrorMessage;
+  final void Function(Widget errorMessage) setErrorMessage;
 
   @override
   _BoardDragTargetsState createState() => _BoardDragTargetsState();

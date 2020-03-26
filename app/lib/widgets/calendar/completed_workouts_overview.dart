@@ -16,7 +16,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
 
   final DateTime selectedDay;
   final List<CompletedWorkout> completedWorkoutsForSelectedDay;
-  final Function(CompletedWorkout completedWorkout) handleDeleteTap;
+  final void Function(CompletedWorkout completedWorkout) handleDeleteTap;
 
   @override
   Widget build(BuildContext context) {

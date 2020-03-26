@@ -15,8 +15,8 @@ class HangBoard extends StatefulWidget {
 
   final double boardAspectRatio;
   final String boardAssetSrc;
-  final Function(Size boardSize) handleBoardDimensions;
-  final Function(Grip grip, BoardHold boardHold) setHandOffset;
+  final void Function(Size boardSize) handleBoardDimensions;
+  final void Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
 
   @override

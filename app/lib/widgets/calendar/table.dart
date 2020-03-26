@@ -24,7 +24,7 @@ class CalendarTable extends StatelessWidget {
       @required this.handlePreviousMonthSwipe})
       : super(key: key);
 
-  final Function(DateTime day) handleSelectedDay;
+  final void Function(DateTime day) handleSelectedDay;
   final List<CalendarTableDay> calendarTableDays;
   final VoidCallback handlePreviousMonthSwipe;
   final VoidCallback handleNextMonthSwipe;
@@ -100,7 +100,7 @@ class _TableElement extends StatelessWidget {
       : super(key: key);
 
   final CalendarTableDay calendarTableDay;
-  final Function(DateTime date) handleSelectedDay;
+  final void Function(DateTime date) handleSelectedDay;
 
   @override
   Widget build(BuildContext context) {

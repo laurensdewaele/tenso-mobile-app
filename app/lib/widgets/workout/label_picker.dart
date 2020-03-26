@@ -40,6 +40,7 @@ class _LabelPickerState extends State<LabelPicker> {
   }
 
   void _handleLabelTap(Label label) {
+    widget.handleLabelChanged(label);
     setState(() {
       _activeLabel = label;
     });
@@ -50,26 +51,25 @@ class _LabelPickerState extends State<LabelPicker> {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final double maxWidth = constraints.maxWidth;
-      final double bigSquareSize = maxWidth / _labels.length;
-      final double smallSquareSize = bigSquareSize * 0.85;
-      final double smallSquaresOffset = (maxWidth - (smallSquareSize * 7)) / 2;
+      final double padding = styles.Measurements.xs / 2;
+      final double smallSquareSize = (maxWidth - padding * 2) / 7;
+      final double bigSquareSize = (padding + (smallSquareSize / 2)) * 2;
 
       return Container(
         height: bigSquareSize,
         child: Stack(
           children: <Widget>[
             Positioned(
+              left: padding,
               top: (bigSquareSize - smallSquareSize) / 2,
-              left: smallSquaresOffset,
               child: Container(
-                height: smallSquareSize,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     ..._labels
                         .map((int i, Label l) => MapEntry(
                             i,
-                            _SmallSquares(
+                            _SmallSquare(
                               size: smallSquareSize,
                               isFirst: i == 0,
                               isLast: i == 6,
@@ -87,9 +87,7 @@ class _LabelPickerState extends State<LabelPicker> {
                     i,
                     l == _activeLabel
                         ? Positioned(
-                            left: smallSquaresOffset +
-                                (i * smallSquareSize) -
-                                ((bigSquareSize - smallSquareSize) / 2),
+                            left: i * smallSquareSize,
                             top: 0,
                             child: _BigSquare(
                               size: bigSquareSize,
@@ -125,8 +123,8 @@ class _BigSquare extends StatelessWidget {
   }
 }
 
-class _SmallSquares extends StatelessWidget {
-  _SmallSquares({
+class _SmallSquare extends StatelessWidget {
+  _SmallSquare({
     Key key,
     @required this.size,
     @required this.isFirst,

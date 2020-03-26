@@ -19,7 +19,7 @@ class SwitchSetting extends StatelessWidget {
   final String description;
   final String infoText;
   final bool active;
-  final Function(bool) handleChanged;
+  final void Function(bool) handleChanged;
 
   void _handleInfoTap(BuildContext context) {
     showAppDialog(

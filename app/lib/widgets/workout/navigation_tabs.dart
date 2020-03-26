@@ -21,7 +21,7 @@ class NavigationTabs extends StatelessWidget {
   final GestureTapCallback handleForwardNavigation;
   final int count;
   final int activeIndex;
-  final Function(int page) handleNavigation;
+  final void Function(int page) handleNavigation;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _CircleContainer extends StatelessWidget {
   final Color primaryColor;
   final int count;
   final int activeIndex;
-  final Function(int page) handleNavigation;
+  final void Function(int page) handleNavigation;
 
   @override
   Widget build(BuildContext context) {

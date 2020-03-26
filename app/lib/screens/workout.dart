@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_vm.dart';
-import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
@@ -87,14 +86,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         child: Consumer<AppState>(
                             builder: (context, _appState, child) {
                           return TabsContainer(
-                              primaryColor:
-                                  _workoutViewModel.primaryColor,
+                              primaryColor: _workoutViewModel.primaryColor,
                               onNavigation: _scrollToTop,
                               holdCount: _appState.workout.holdCount,
                               navigateForwardTabStream:
                                   _navigateForwardTabStream,
-                              navigateBackTabStream:
-                                  _navigateBackTabStream);
+                              navigateBackTabStream: _navigateBackTabStream);
                         }),
                       ),
                     ),

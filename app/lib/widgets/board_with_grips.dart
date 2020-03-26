@@ -26,7 +26,7 @@ class BoardWithGrips extends StatefulWidget {
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
-  final Function(double h) reportTotalHeight;
+  final void Function(double h) reportTotalHeight;
 
   @override
   _BoardWithGripsState createState() => _BoardWithGripsState();

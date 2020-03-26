@@ -29,8 +29,8 @@ class BoardHoldPicker extends StatefulWidget {
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
-  final Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
-  final Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
+  final void Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
+  final void Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
 
   @override
   _BoardHoldPickerState createState() => _BoardHoldPickerState();
