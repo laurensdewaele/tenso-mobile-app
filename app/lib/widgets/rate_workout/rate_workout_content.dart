@@ -1,3 +1,4 @@
+import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
@@ -36,30 +37,16 @@ class RateWorkoutContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Divider(
-          height: styles.Measurements.xs,
+          height: 12,
         ),
-        Row(
-          children: [
-            Text(
-              'perceived exertion *',
-              style: styles.Staatliches.xlBlack,
+        SectionWithInfoIcon(
+          title: 'perceived exertion *',
+          appDialogContent: _PerceivedExertionInfo(),
+          children: <Widget>[
+            _CupertinoPicker(
+              setPerceivedExertion: handlePerceivedExertionChanged,
             ),
-            IconButton(
-                handleTap: () {
-                  showAppDialog(
-                      context: context, content: _PerceivedExertionInfo());
-                },
-                icon: Icon(
-                  size: 28,
-                  iconData: IconData(0xf44c,
-                      fontFamily: 'CupertinoIcons',
-                      fontPackage: 'cupertino_icons'),
-                  color: styles.Colors.black,
-                ))
           ],
-        ),
-        _CupertinoPicker(
-          setPerceivedExertion: handlePerceivedExertionChanged,
         ),
         ExpandedSection(
           handleOpen: handleOpen,

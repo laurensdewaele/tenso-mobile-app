@@ -78,6 +78,4 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
     return serializers.deserializeWith(
         Workout.serializer, json.decode(jsonString));
   }
-
-
 }

@@ -84,26 +84,18 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                           horizontal: styles.Measurements.xs),
                       child: GestureDetector(
                         onHorizontalDragEnd: _onHorizontalDragEnd,
-                        child: Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Consumer<AppState>(
-                                  builder: (context, _appState, child) {
-                                return TabsContainer(
-                                    primaryColor:
-                                        _workoutViewModel.primaryColor,
-                                    onNavigation: _scrollToTop,
-                                    holdCount: _appState.workout.holdCount,
-                                    navigateForwardTabStream:
-                                        _navigateForwardTabStream,
-                                    navigateBackTabStream:
-                                        _navigateBackTabStream);
-                              })
-                            ],
-                          ),
-                        ),
+                        child: Consumer<AppState>(
+                            builder: (context, _appState, child) {
+                          return TabsContainer(
+                              primaryColor:
+                                  _workoutViewModel.primaryColor,
+                              onNavigation: _scrollToTop,
+                              holdCount: _appState.workout.holdCount,
+                              navigateForwardTabStream:
+                                  _navigateForwardTabStream,
+                              navigateBackTabStream:
+                                  _navigateBackTabStream);
+                        }),
                       ),
                     ),
                     Divider(height: styles.Measurements.xxl)

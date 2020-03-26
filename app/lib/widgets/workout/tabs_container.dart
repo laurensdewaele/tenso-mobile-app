@@ -116,12 +116,7 @@ class _TabsContainerState extends State<TabsContainer> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: styles.Measurements.m,
-              vertical: styles.Measurements.l),
-          child: _pages[_activePageIndex],
-        ),
+        _pages[_activePageIndex],
         NavigationTabs(
             primaryColor: widget.primaryColor,
             handleNavigation: _handleNavigation,
