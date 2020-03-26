@@ -89,7 +89,7 @@ class _LabelPickerState extends State<LabelPicker> {
                     i,
                     l == _activeLabel
                         ? Positioned(
-                            left: i * smallSquareSize,
+                            left: (i * smallSquareSize) - (i * .4),
                             top: 0,
                             child: _ActiveSquare(
                               size: activeSize,
