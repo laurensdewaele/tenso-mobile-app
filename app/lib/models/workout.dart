@@ -5,7 +5,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-import 'package:app/helpers/determine_difficulty_color.dart';
 import 'package:app/models/board.dart';
 import 'package:app/models/hold.dart';
 import 'package:app/models/serializers.dart';
@@ -23,7 +22,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   @nullable
   String get editedId;
 
-  int get difficulty;
+  Color get label;
   int get sets;
   int get holdCount;
   int get restBetweenHolds;
@@ -32,8 +31,6 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   BuiltList<Hold> get holds;
   String get name;
   WeightUnit get weightUnit;
-
-  Color get difficultyColor => determineDifficultyColor(difficulty);
   int get duration => _calculateDuration();
 
   factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;

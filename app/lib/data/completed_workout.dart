@@ -2,6 +2,7 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/models/completed_workout.dart';
 import 'package:app/models/completed_workouts.dart';
 import 'package:app/models/temp_unit.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
   ..id = '123'
@@ -28,25 +29,31 @@ final CompletedWorkout completedWorkout4 = completedWorkout.rebuild((b) => b
   ..completedDate = DateTime.utc(2020, 2, 8, 21, 32)
   ..perceivedExertion = 10);
 
-final CompletedWorkout sameDayCompletedWorkout =
-    completedWorkout.rebuild((b) => b
+final CompletedWorkout sameDayCompletedWorkout = completedWorkout.rebuild((b) =>
+    b
       ..id = '1234567'
       ..completedDate = DateTime.utc(2020, 2, 6, 15, 43)
       ..perceivedExertion = 1
-      ..workout = basicWorkout.rebuild((b) => b..difficulty = 4).toBuilder());
+      ..workout = basicWorkout
+          .rebuild((b) => b..label = styles.Colors.blue)
+          .toBuilder());
 
-final CompletedWorkout sameDayCompletedWorkout2 =
-    completedWorkout.rebuild((b) => b
+final CompletedWorkout sameDayCompletedWorkout2 = completedWorkout.rebuild(
+    (b) => b
       ..id = '1234568'
       ..completedDate = DateTime.utc(2020, 2, 6, 13, 21)
       ..perceivedExertion = 1
-      ..workout = basicWorkout.rebuild((b) => b..difficulty = 7).toBuilder());
-final CompletedWorkout sameDayCompletedWorkout3 =
-    completedWorkout.rebuild((b) => b
+      ..workout = basicWorkout
+          .rebuild((b) => b..label = styles.Colors.primary)
+          .toBuilder());
+final CompletedWorkout sameDayCompletedWorkout3 = completedWorkout.rebuild(
+    (b) => b
       ..id = '1234568'
       ..completedDate = DateTime.utc(2020, 2, 6, 11, 21)
       ..perceivedExertion = 1
-      ..workout = basicWorkout.rebuild((b) => b..difficulty = 1).toBuilder());
+      ..workout = basicWorkout
+          .rebuild((b) => b..label = styles.Colors.purple)
+          .toBuilder());
 
 final CompletedWorkouts completedWorkouts = CompletedWorkouts((b) => b
   ..completedWorkouts.addAll([

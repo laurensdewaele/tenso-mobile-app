@@ -52,10 +52,10 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ExpandedContentTile(
-              title: 'difficulty',
+              title: 'label color',
               content: Difficulty(
-                  difficulty: completedWorkout.workout.difficulty.toString(),
-                  difficultyColor: completedWorkout.workout.difficultyColor,
+                  difficulty: '',
+                  difficultyColor: completedWorkout.workout.label,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl),
               contentContainerHeight: styles.Measurements.xl,

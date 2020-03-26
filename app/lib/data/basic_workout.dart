@@ -5,10 +5,11 @@ import 'package:app/models/hold.dart';
 import 'package:app/models/weight_unit.dart';
 import 'package:app/models/workout.dart';
 import 'package:app/models/workouts.dart';
+import 'package:app/styles/styles.dart' as styles;
 
 final Workout basicWorkout = Workout((b) => b
   ..id = '1'
-  ..difficulty = 2
+  ..label = styles.Colors.blue
   ..sets = 3
   ..holdCount = 3
   ..restBetweenHolds = 60 * 2

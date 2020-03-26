@@ -20,9 +20,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'difficulty',
-      serializers.serialize(object.difficulty,
-          specifiedType: const FullType(int)),
+      'label',
+      serializers.serialize(object.label, specifiedType: const FullType(Color)),
       'sets',
       serializers.serialize(object.sets, specifiedType: const FullType(int)),
       'holdCount',
@@ -74,9 +73,9 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           result.editedId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'difficulty':
-          result.difficulty = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+        case 'label':
+          result.label = serializers.deserialize(value,
+              specifiedType: const FullType(Color)) as Color;
           break;
         case 'sets':
           result.sets = serializers.deserialize(value,
@@ -125,7 +124,7 @@ class _$Workout extends Workout {
   @override
   final String editedId;
   @override
-  final int difficulty;
+  final Color label;
   @override
   final int sets;
   @override
@@ -149,7 +148,7 @@ class _$Workout extends Workout {
   _$Workout._(
       {this.id,
       this.editedId,
-      this.difficulty,
+      this.label,
       this.sets,
       this.holdCount,
       this.restBetweenHolds,
@@ -162,8 +161,8 @@ class _$Workout extends Workout {
     if (id == null) {
       throw new BuiltValueNullFieldError('Workout', 'id');
     }
-    if (difficulty == null) {
-      throw new BuiltValueNullFieldError('Workout', 'difficulty');
+    if (label == null) {
+      throw new BuiltValueNullFieldError('Workout', 'label');
     }
     if (sets == null) {
       throw new BuiltValueNullFieldError('Workout', 'sets');
@@ -204,7 +203,7 @@ class _$Workout extends Workout {
     return other is Workout &&
         id == other.id &&
         editedId == other.editedId &&
-        difficulty == other.difficulty &&
+        label == other.label &&
         sets == other.sets &&
         holdCount == other.holdCount &&
         restBetweenHolds == other.restBetweenHolds &&
@@ -228,7 +227,7 @@ class _$Workout extends Workout {
                                     $jc(
                                         $jc($jc(0, id.hashCode),
                                             editedId.hashCode),
-                                        difficulty.hashCode),
+                                        label.hashCode),
                                     sets.hashCode),
                                 holdCount.hashCode),
                             restBetweenHolds.hashCode),
@@ -244,7 +243,7 @@ class _$Workout extends Workout {
     return (newBuiltValueToStringHelper('Workout')
           ..add('id', id)
           ..add('editedId', editedId)
-          ..add('difficulty', difficulty)
+          ..add('label', label)
           ..add('sets', sets)
           ..add('holdCount', holdCount)
           ..add('restBetweenHolds', restBetweenHolds)
@@ -268,9 +267,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   String get editedId => _$this._editedId;
   set editedId(String editedId) => _$this._editedId = editedId;
 
-  int _difficulty;
-  int get difficulty => _$this._difficulty;
-  set difficulty(int difficulty) => _$this._difficulty = difficulty;
+  Color _label;
+  Color get label => _$this._label;
+  set label(Color label) => _$this._label = label;
 
   int _sets;
   int get sets => _$this._sets;
@@ -312,7 +311,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
     if (_$v != null) {
       _id = _$v.id;
       _editedId = _$v.editedId;
-      _difficulty = _$v.difficulty;
+      _label = _$v.label;
       _sets = _$v.sets;
       _holdCount = _$v.holdCount;
       _restBetweenHolds = _$v.restBetweenHolds;
@@ -347,7 +346,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
           new _$Workout._(
               id: id,
               editedId: editedId,
-              difficulty: difficulty,
+              label: label,
               sets: sets,
               holdCount: holdCount,
               restBetweenHolds: restBetweenHolds,

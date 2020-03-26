@@ -20,9 +20,9 @@ class ExtraTabViewModel extends ChangeNotifier {
     _appState = appState;
   }
 
-  void setDifficulty(int difficulty) {
+  void setLabel(Color color) {
     _workoutViewModel.setAndSaveWorkout(
-        _appState?.workout?.rebuild((b) => b..difficulty = difficulty));
+        _appState?.workout?.rebuild((b) => b..label = color));
   }
 
   void setName(String name) {

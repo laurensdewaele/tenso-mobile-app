@@ -76,7 +76,7 @@ class CalendarViewModel extends ChangeNotifier {
             belongsToSelectedMonth: isSameMonth(day, _selectedMonth),
             selected: _isSameDay(day, _selectedDay),
             completedWorkoutColors:
-                _getCompletedWorkoutColors(day, _appState?.completedWorkouts)))
+                _getExertionColors(day, _appState?.completedWorkouts)))
         .toList();
   }
 
@@ -122,12 +122,12 @@ class CalendarViewModel extends ChangeNotifier {
   }
 }
 
-List<Color> _getCompletedWorkoutColors(
+List<Color> _getExertionColors(
     DateTime day, CompletedWorkouts completedWorkouts) {
   return completedWorkouts.completedWorkouts
       .where(
           (completedWorkout) => _isSameDay(completedWorkout.completedDate, day))
-      .map((completedWorkout) => completedWorkout.workout.difficultyColor)
+      .map((completedWorkout) => completedWorkout.perceivedExertionColor)
       .toList();
 }
 

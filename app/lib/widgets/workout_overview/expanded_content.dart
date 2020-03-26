@@ -31,8 +31,8 @@ class WorkoutExpandedContent extends StatelessWidget {
             ExpandedContentTile(
               title: 'difficulty',
               content: Difficulty(
-                  difficulty: workout.difficulty.toString(),
-                  difficultyColor: workout.difficultyColor,
+                  difficulty: '',
+                  difficultyColor: workout.label,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl),
               contentContainerHeight: styles.Measurements.xl,
