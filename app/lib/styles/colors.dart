@@ -19,6 +19,7 @@ abstract class Colors {
   static const Color blue = const Color.fromRGBO(52, 152, 219, 1);
   static const Color green = const Color.fromRGBO(46, 204, 113, 1.0);
   static const Color turquoise = Color.fromRGBO(26, 188, 156, 1.0);
+  static const Color purple = Color.fromRGBO(155, 89, 182, 1.0);
 }
 
 const Map<int, Color> difficultyColors = {

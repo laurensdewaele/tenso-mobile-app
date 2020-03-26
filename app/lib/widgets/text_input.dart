@@ -83,7 +83,7 @@ class _TextInputState extends State<TextInput> {
             ),
           );
     final _style =
-        widget.multiLine ? styles.Lato.xsGray : styles.Staatliches.lBlack;
+        widget.multiLine ? styles.Lato.xsGray : styles.Staatliches.lGray;
 
     return Container(
       width: double.infinity,
