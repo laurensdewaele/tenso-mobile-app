@@ -29,7 +29,7 @@ Future<void> showWorkoutDeleteDialog({
           ),
           Text(
             name,
-            style: styles.Lato.sBlackBold,
+            style: styles.Staatliches.lBlack,
           ),
           Divider(height: styles.Measurements.l),
           Row(
