@@ -1,20 +1,6 @@
-## Commands
-Built value command.
-Build
-```
-flutter packages pub run build_runner build
-```
-Watch
-```
-flutter packages pub run build_runner watch
-```
+# TODO
 
-## TODO
-
-- The bottom navigation.
-- Get rid of navigationStreams on workout. Workout screen should be the one managing the pages.
-  And just pass the index and pages down as props, that way you wont need the whole thing.
-- Fix stream has already been listened to of tabs container, fck
+- Workout screen refactor
 
 
 
@@ -25,10 +11,15 @@ flutter packages pub run build_runner watch
 
 
 
-- Text input needs continual validation. Doesn't work just when you lose focus.
-    Because you can swipe or click the next button assuming it'll be saved.
-    But it wont be saved.
-    => Intercept swipes and validate on swipes and next buttons.
+
+
+
+
+
+
+
+
+
   
 - What's the use of an edited id? 
   // This is used for easily comparing which completed workout
