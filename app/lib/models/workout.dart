@@ -5,11 +5,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/hold.dart';
-import 'package:app/models/label.dart';
+import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
-import 'package:app/models/weight_unit.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 part 'workout.g.dart';

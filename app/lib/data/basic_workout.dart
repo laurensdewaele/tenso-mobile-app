@@ -1,11 +1,6 @@
 import 'package:app/data/boards/beastmaker_1000.dart';
 import 'package:app/data/grips.dart';
-import 'package:app/models/hand_hold.dart';
-import 'package:app/models/hold.dart';
-import 'package:app/models/label.dart';
-import 'package:app/models/weight_unit.dart';
-import 'package:app/models/workout.dart';
-import 'package:app/models/workouts.dart';
+import 'package:app/models/models.dart';
 
 final Workout basicWorkout = Workout((b) => b
   ..id = '1'

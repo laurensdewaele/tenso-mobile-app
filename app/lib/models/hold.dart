@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_hold.dart';
+import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
 
 part 'hold.g.dart';

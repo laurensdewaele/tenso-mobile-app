@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/completed_workouts.dart';
-import 'package:app/models/device_info.dart';
-import 'package:app/models/settings.dart';
-import 'package:app/models/workout.dart';
-import 'package:app/models/workouts.dart';
+import 'package:app/models/models.dart';
 import 'package:app/services/persistence.dart';
 
 class AppState extends ChangeNotifier {

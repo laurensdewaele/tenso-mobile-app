@@ -1,6 +1,4 @@
-import 'package:app/models/fingers.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_type.dart';
+import 'package:app/models/models.dart';
 
 abstract class Grips {
   static Grip monoPinkyL = Grip((b) => b

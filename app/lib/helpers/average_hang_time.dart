@@ -1,4 +1,4 @@
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 
 int calculateAverageHangTime(Workout workout) {
   final List<int> hangSeconds = workout.holds.map((w) => w.hangTime).toList();

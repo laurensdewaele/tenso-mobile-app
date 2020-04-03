@@ -5,7 +5,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/data/sounds.dart';
-import 'package:app/models/sound.dart';
+import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/sound_settings_vm.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
-import 'package:app/models/settings.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.dart';
 import 'package:app/styles/styles.dart' as styles;

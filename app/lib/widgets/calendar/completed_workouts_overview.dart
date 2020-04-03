@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/completed_workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/constants.dart';
 import 'package:app/widgets/divider.dart';

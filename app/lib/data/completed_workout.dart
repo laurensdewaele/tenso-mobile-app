@@ -1,8 +1,5 @@
 import 'package:app/data/basic_workout.dart';
-import 'package:app/models/completed_workout.dart';
-import 'package:app/models/completed_workouts.dart';
-import 'package:app/models/label.dart';
-import 'package:app/models/temp_unit.dart';
+import 'package:app/models/models.dart';
 
 final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
   ..id = '123'

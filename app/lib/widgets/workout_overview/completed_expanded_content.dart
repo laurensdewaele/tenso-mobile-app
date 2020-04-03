@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:app/models/completed_workout.dart';
-import 'package:app/models/temp_unit.dart';
-import 'package:app/models/weight_unit.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/divider.dart';

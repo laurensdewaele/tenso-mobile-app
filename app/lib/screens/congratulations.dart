@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';

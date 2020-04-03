@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:app/models/completed_workout.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/widgets/workout_overview/completed_expanded_content.dart';
 import 'package:app/widgets/workout_overview/expanded_content.dart';
 

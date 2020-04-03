@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/helpers/average_added_weight.dart';
 import 'package:app/helpers/average_hang_time.dart';
-import 'package:app/models/weight_unit.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/color_square.dart';

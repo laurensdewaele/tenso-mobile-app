@@ -1,13 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hold.dart';
-import 'package:app/models/settings.dart';
-import 'package:app/models/sound.dart';
-import 'package:app/models/weight_unit.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 abstract class _Titles {

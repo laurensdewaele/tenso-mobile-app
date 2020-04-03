@@ -3,11 +3,8 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-import 'package:app/models/board.dart';
+import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
-import 'package:app/models/sound.dart';
-import 'package:app/models/temp_unit.dart';
-import 'package:app/models/weight_unit.dart';
 
 part 'settings.g.dart';
 

@@ -2,11 +2,7 @@ import 'dart:io';
 
 import 'package:app/data/basic_settings.dart';
 import 'package:app/data/basic_workout.dart';
-import 'package:app/models/completed_workouts.dart';
-import 'package:app/models/device_info.dart';
-import 'package:app/models/settings.dart';
-import 'package:app/models/workout.dart';
-import 'package:app/models/workouts.dart';
+import 'package:app/models/models.dart';
 import 'package:path_provider/path_provider.dart';
 
 // TODO: PersistenceService should not be the one that sets defaultSettings and d defaultWorkout etc...

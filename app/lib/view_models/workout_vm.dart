@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:uuid/uuid.dart';
 
-import 'package:app/models/workout.dart';
-import 'package:app/models/workouts.dart';
+import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 

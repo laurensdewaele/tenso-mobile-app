@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hold_type.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class BoardHoldInfo extends StatelessWidget {

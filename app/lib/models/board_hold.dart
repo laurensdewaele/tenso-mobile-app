@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-import 'package:app/models/hold_type.dart';
+import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
 
 part 'board_hold.g.dart';

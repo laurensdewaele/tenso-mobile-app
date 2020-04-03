@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;

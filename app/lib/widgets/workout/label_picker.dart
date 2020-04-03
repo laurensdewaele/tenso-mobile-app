@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/label.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 final Map<int, Label> _labels = {

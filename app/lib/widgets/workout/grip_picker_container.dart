@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/grips.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_hold.dart';
-import 'package:app/models/hand_type.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/radio_button.dart';

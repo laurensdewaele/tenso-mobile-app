@@ -1,4 +1,4 @@
-import 'package:app/models/sound.dart';
+import 'package:app/models/models.dart';
 
 abstract class Sounds {
   static Sound off = Sound((b) => b

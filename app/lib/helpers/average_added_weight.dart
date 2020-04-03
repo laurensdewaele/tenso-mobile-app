@@ -1,4 +1,4 @@
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 
 double calculateAverageAddedWeight(Workout workout) {
   final List<double> weights = workout.holds.map((w) => w.addedWeight).toList();

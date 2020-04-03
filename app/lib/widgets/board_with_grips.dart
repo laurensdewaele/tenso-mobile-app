@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_type.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/countdown/board.dart';
 import 'package:app/widgets/grip_image.dart';

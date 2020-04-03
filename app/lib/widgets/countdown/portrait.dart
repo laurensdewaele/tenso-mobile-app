@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/weight_unit.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/board_with_grips.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app/models/completed_workout.dart';
-import 'package:app/models/completed_workouts.dart';
+import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/calendar/table.dart';
 

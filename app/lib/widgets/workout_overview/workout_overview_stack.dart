@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:app/models/completed_workout.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_vm.dart';

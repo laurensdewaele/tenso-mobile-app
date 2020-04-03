@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/completed_workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
 import 'package:app/widgets/calendar/date_picker.dart';

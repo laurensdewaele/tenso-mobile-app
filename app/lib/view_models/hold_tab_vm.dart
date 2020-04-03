@@ -2,11 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/grips.dart';
 import 'package:app/helpers/grip_board_hold_compatibility.dart';
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/grip.dart';
-import 'package:app/models/hand_hold.dart';
-import 'package:app/models/hold.dart';
-import 'package:app/models/workout.dart';
+import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';

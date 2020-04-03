@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/settings.dart';
-import 'package:app/models/temp_unit.dart';
-import 'package:app/models/weight_unit.dart';
+import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 
 class SettingsViewModel extends ChangeNotifier {

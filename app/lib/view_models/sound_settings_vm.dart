@@ -1,5 +1,4 @@
-import 'package:app/models/settings.dart';
-import 'package:app/models/sound.dart';
+import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 

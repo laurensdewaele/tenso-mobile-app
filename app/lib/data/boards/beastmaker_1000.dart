@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'package:app/models/board.dart';
-import 'package:app/models/board_hold.dart';
-import 'package:app/models/hold_type.dart';
+import 'package:app/models/models.dart';
 
 const Size _kBoardSize = const Size(395.88, 100);
 
