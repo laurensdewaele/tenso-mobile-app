@@ -25,6 +25,10 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   double get relativeWidth;
   double get relativeHeight;
 
+  bool checkGripCompatibility(Grip grip) {
+    return grip.fingers.count > maxAllowedFingers ? false : true;
+  }
+
   factory BoardHold([void Function(BoardHoldBuilder) updates]) = _$BoardHold;
   BoardHold._();
 

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:app/services/error.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -82,27 +83,11 @@ class _NumberInputState extends State<NumberInput> {
   }
 
   void _emptyError() {
-    final Widget errorMessage = RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'The input can ',
-          style: styles.Lato.sBlack,
-          children: [
-            TextSpan(text: 'not be empty.', style: styles.Lato.sBlackBold),
-          ]),
-    );
-    _toastService.add(errorMessage);
+    _toastService.add(ErrorMessages.inputNotEmpty());
   }
 
   void _validationError() {
-    final Widget errorMessage = RichText(
-      textAlign: TextAlign.center,
-      text:
-          TextSpan(text: 'The input is ', style: styles.Lato.sBlack, children: [
-        TextSpan(text: 'not a number.', style: styles.Lato.sBlackBold),
-      ]),
-    );
-    _toastService.add(errorMessage);
+    _toastService.add(ErrorMessages.inputNotANumber());
   }
 
   void _onComplete() {

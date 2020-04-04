@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/services/error.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
-import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_vm.dart';
 
 class GeneralTabViewModel extends ChangeNotifier {
@@ -83,15 +83,7 @@ class GeneralTabViewModel extends ChangeNotifier {
 
   bool _validateInput(int n) {
     if (n < 1) {
-      _toastService.add(RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: 'Please input a value ',
-            style: styles.Lato.sBlack,
-            children: [
-              TextSpan(text: 'bigger than 0.', style: styles.Lato.sBlackBold),
-            ]),
-      ));
+      _toastService.add(ErrorMessages.biggerThanZero());
       _keyboardService.resetInitialInput();
       return false;
     } else {

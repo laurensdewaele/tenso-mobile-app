@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/helpers/grip_board_hold_compatibility.dart';
 import 'package:app/models/models.dart';
+import 'package:app/services/error.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 class BoardDragTargets extends StatefulWidget {
@@ -109,19 +109,15 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                   },
                   onWillAccept: (Grip grip) {
                     if (widget.activeBoardHolds.contains(boardHold)) {
-                      widget.setErrorMessage(Text(
-                        'Hold is already taken',
-                        textAlign: TextAlign.center,
-                      ));
+                      widget.setErrorMessage(ErrorMessages.holdAlreadyTaken());
                       return false;
                     }
 
-                    final Widget errorMessage =
-                        checkGripBoardHoldCompatibility(grip, boardHold);
-                    if (errorMessage == null) {
+                    if (boardHold.checkGripCompatibility(grip) == true) {
                       return true;
                     } else {
-                      widget.setErrorMessage(errorMessage);
+                      widget.setErrorMessage(ErrorMessages.maxAllowedFingers(
+                          boardHold.maxAllowedFingers));
                       return false;
                     }
                   },

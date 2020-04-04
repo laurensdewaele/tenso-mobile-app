@@ -33,6 +33,21 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   String get name;
   WeightUnit get weightUnit;
   int get duration => _calculateDuration();
+  double get averageAddedWeight => _calculateAverageAddedWeight();
+  int get averageHangTime => _calculateAverageHangTime();
+
+  double _calculateAverageAddedWeight() {
+    final List<double> weights = holds.map((w) => w.addedWeight).toList();
+    final double total = weights.fold(0, (a, b) => a + b);
+    final double average = total / weights.length;
+    return double.parse(average.toStringAsFixed(1));
+  }
+
+  int _calculateAverageHangTime() {
+    final List<int> hangSeconds = holds.map((w) => w.hangTime).toList();
+    final double total = hangSeconds.fold(0, (a, b) => a + b);
+    return total ~/ hangSeconds.length;
+  }
 
   int _calculateDuration() {
     int total = 0;

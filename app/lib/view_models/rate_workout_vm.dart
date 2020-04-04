@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:uuid/uuid.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/services/error.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
-import 'package:app/styles/styles.dart' as styles;
 
 class RateWorkoutViewModel {
   RateWorkoutViewModel(AppState appState, ToastService toastService) {
@@ -176,53 +174,14 @@ class RateWorkoutViewModel {
   }
 
   void _formatException(String variable) {
-    _toastService.add(RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: '$variable ',
-          style: styles.Lato.sBlackBold,
-          children: [
-            TextSpan(text: 'input is ', style: styles.Lato.sBlack, children: [
-              TextSpan(text: 'not a number.', style: styles.Lato.sBlackBold),
-            ]),
-          ]),
-    ));
+    _toastService.add(ErrorMessages.inputNotANumber());
   }
 
-  void _smallerThanZeroException(String variable) {
-    _toastService.add(RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: '$variable ',
-          style: styles.Lato.sBlackBold,
-          children: [
-            TextSpan(
-                text: 'input can not be ',
-                style: styles.Lato.sBlack,
-                children: [
-                  TextSpan(
-                      text: 'smaller than 0', style: styles.Lato.sBlackBold),
-                ]),
-          ]),
-    ));
+  void _smallerThanZeroException(String inputField) {
+    _toastService.add(ErrorMessages.inputSmallerThanZero(inputField));
   }
 
-  void _largerThanException(int number, String variable) {
-    _toastService.add(RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: '$variable ',
-          style: styles.Lato.sBlackBold,
-          children: [
-            TextSpan(
-                text: 'input can not be ',
-                style: styles.Lato.sBlack,
-                children: [
-                  TextSpan(
-                      text: 'lager than $number',
-                      style: styles.Lato.sBlackBold),
-                ]),
-          ]),
-    ));
+  void _largerThanException(int max, String inputField) {
+    _toastService.add(ErrorMessages.inputLargerThan(max, inputField));
   }
 }

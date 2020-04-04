@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:app/helpers/average_added_weight.dart';
-import 'package:app/helpers/average_hang_time.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
@@ -48,13 +46,12 @@ class WorkoutExpandedContent extends StatelessWidget {
           children: <Widget>[
             ExpandedContentTile(
               title: 'av. hang time',
-              content: DisplayDurationSeconds(
-                  seconds: calculateAverageHangTime(workout)),
+              content: DisplayDurationSeconds(seconds: workout.averageHangTime),
             ),
             ExpandedContentTile(
                 title: 'av. added weight',
                 content: Text(
-                  '${calculateAverageAddedWeight(workout)} ${workout.weightUnit == WeightUnit.metric ? 'kg' : 'lbs'}',
+                  '${workout.averageAddedWeight} ${workout.weightUnit == WeightUnit.metric ? 'kg' : 'lbs'}',
                   textAlign: TextAlign.center,
                   style: styles.Lato.xsGray,
                 )),

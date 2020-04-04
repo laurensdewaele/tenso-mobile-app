@@ -31,23 +31,24 @@ class WorkoutNavigator {
   Stream<NavigatorPage> get activePage$ =>
       _pages$.map((pages) => pages.firstWhere((page) => page.active == true));
 
-  _ValidationState _validationState;
+  ValidationState _validationState = ValidationUnknown();
+  BehaviorSubject<ValidationState> _validationState$ =
+      BehaviorSubject.seeded(ValidationUnknown());
+  Stream<ValidationState> get shouldValidate$ =>
+      _validationState$.stream.where((state) => state is ValidationPending);
 
-  StreamController<bool> _shouldValidateController =
-      StreamController<bool>.broadcast();
-  Stream<bool> get shouldValidate$ => _shouldValidateController.stream;
-
-  StreamSubscription _subscription;
+  StreamSubscription _workoutVMSub;
 
   WorkoutNavigator({WorkoutViewModel workoutViewModel}) {
     _workoutViewModel = workoutViewModel;
     // We will always be on the General page when the holdCount changes.
-    _subscription = _workoutViewModel.holdCount$.listen(
+    _workoutVMSub = _workoutViewModel.holdCount$.listen(
         (int holdCount) => _buildPages(count: holdCount + 2, activeIndex: 0));
   }
 
   void _buildPages({int count, int activeIndex}) {
-    _validationState = _ValidationUnknown();
+    _validationState = ValidationUnknown();
+    _validationState$.add(_validationState);
     _pages = [
       NavigatorPage(
           page: Pages.generalPage, active: activeIndex == 0, index: 0),
@@ -66,25 +67,26 @@ class WorkoutNavigator {
 
   void handleForwardRequest() {
     _validationState =
-        _ValidationPending(navigationType: NavigationType.forward);
-    _shouldValidateController.add(true);
+        ValidationPending(navigationType: NavigationType.forward);
+    _validationState$.add(_validationState);
   }
 
   void handleBackRequest() {
-    _validationState = _ValidationPending(navigationType: NavigationType.back);
-    _shouldValidateController.add(true);
+    _validationState = ValidationPending(navigationType: NavigationType.back);
+    _validationState$.add(_validationState);
   }
 
   void handleValidationSuccess() {
-    if (_validationState is _ValidationPending) {
-      if ((_validationState as _ValidationPending).navigationType ==
+    if (_validationState is ValidationPending) {
+      if ((_validationState as ValidationPending).navigationType ==
           NavigationType.forward) {
         _forward();
       } else {
         _back();
       }
     }
-    _validationState = _ValidationSuccess();
+    _validationState = ValidationSuccess();
+    _validationState$.add(_validationState);
   }
 
   void _forward() {
@@ -100,24 +102,24 @@ class WorkoutNavigator {
   }
 
   void dispose() {
-    _subscription.cancel();
+    _workoutVMSub.cancel();
     _pages$.close();
-    _shouldValidateController.close();
+    _validationState$.close();
   }
 }
 
 enum NavigationType { forward, back }
 
-class _ValidationState {}
+class ValidationState {}
 
-class _ValidationPending extends _ValidationState {
+class ValidationPending extends ValidationState {
   NavigationType navigationType;
 
-  _ValidationPending({
+  ValidationPending({
     @required this.navigationType,
   });
 }
 
-class _ValidationSuccess extends _ValidationState {}
+class ValidationSuccess extends ValidationState {}
 
-class _ValidationUnknown extends _ValidationState {}
+class ValidationUnknown extends ValidationState {}

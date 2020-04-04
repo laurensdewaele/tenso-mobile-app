@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/grips.dart';
-import 'package:app/helpers/grip_board_hold_compatibility.dart';
 import 'package:app/models/models.dart';
+import 'package:app/services/error.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/view_models/workout_vm.dart';
-import 'package:app/styles/styles.dart' as styles;
 
 class HoldTabViewModel extends ChangeNotifier {
   HoldTabViewModel(ToastService toastService, WorkoutViewModel workoutViewModel,
@@ -240,37 +239,31 @@ class HoldTabViewModel extends ChangeNotifier {
 
   void handleRightGripSelected(int holdNo, Grip grip) {
     final _holds = []..addAll(_appState?.workout?.holds?.toList());
-    Widget errorMessage = checkGripBoardHoldCompatibility(
-        grip, _holds[holdNo].rightGripBoardHold);
-    if (errorMessage == null) {
+
+    final BoardHold _rightGripBoardHold = _holds[holdNo].rightGripBoardHold;
+    if (_rightGripBoardHold.checkGripCompatibility(grip) == true) {
       setHoldRightGrip(holdNo, grip);
     } else {
-      _toastService.add(errorMessage);
+      _toastService.add(ErrorMessages.maxAllowedFingers(
+          _rightGripBoardHold.maxAllowedFingers));
     }
   }
 
   void handleLeftGripSelected(int holdNo, Grip grip) {
     final _holds = []..addAll(_appState?.workout?.holds?.toList());
-    Widget errorMessage =
-        checkGripBoardHoldCompatibility(grip, _holds[holdNo].leftGripBoardHold);
-    if (errorMessage == null) {
+
+    final BoardHold _leftGripBoardHold = _holds[holdNo].leftGripBoardHold;
+    if (_leftGripBoardHold.checkGripCompatibility(grip) == true) {
       setHoldLeftGrip(holdNo, grip);
     } else {
-      _toastService.add(errorMessage);
+      _toastService.add(ErrorMessages.maxAllowedFingers(
+          _leftGripBoardHold.maxAllowedFingers));
     }
   }
 
   bool _validateInput(int n) {
     if (n < 1) {
-      _toastService.add(RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: 'Please input a value ',
-            style: styles.Lato.sBlack,
-            children: [
-              TextSpan(text: 'bigger than 0.', style: styles.Lato.sBlackBold),
-            ]),
-      ));
+      _toastService.add(ErrorMessages.biggerThanZero());
       _keyboardService.resetInitialInput();
       return false;
     } else {
