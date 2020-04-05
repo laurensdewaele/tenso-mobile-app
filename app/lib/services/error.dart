@@ -71,6 +71,26 @@ abstract class ErrorMessages {
                   ]),
             ]),
       );
+  static Widget betweenRange(int min, int max) => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: 'input can not be smaller than ',
+            style: styles.Lato.sBlack,
+            children: [
+              TextSpan(
+                  text: '$min, ',
+                  style: styles.Lato.sBlackBold,
+                  children: [
+                    TextSpan(
+                        text: 'or larger than ',
+                        style: styles.Lato.sBlack,
+                        children: [
+                          TextSpan(
+                            text: '$max',
+                            style: styles.Lato.sBlackBold,
+                          )
+                        ]),
+                  ]),
+            ]),
+      );
 }
-
-class ErrorService {}

@@ -22,8 +22,8 @@ class WorkoutViewModel {
   String _title;
   String get title => _title;
 
-  WorkoutViewModelState _state;
   BehaviorSubject<WorkoutViewModelState> _state$;
+  WorkoutViewModelState get _state => _state$.value;
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   Stream<int> holdCount$;
 
@@ -34,8 +34,8 @@ class WorkoutViewModel {
     // TODO: App state => workoutState
   }) {
     _setWorkoutTypeVars(workoutType);
-    _state = WorkoutViewModelState.fromWorkout(workout, currentWeightUnit);
-    _state$ = BehaviorSubject.seeded(_state);
+    _state$ = BehaviorSubject.seeded(
+        WorkoutViewModelState.fromWorkout(workout, currentWeightUnit));
     holdCount$ = _state$.map((s) => s.holdCount).distinct();
   }
 
@@ -86,38 +86,31 @@ class WorkoutViewModel {
         ...List.generate(difference, (i) => defaultHold)
       ];
     }
-    _state = _state.copyWith(holdCount: count, holds: _holds);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(holdCount: count, holds: _holds));
   }
 
   void setSets(int sets) {
-    _state = _state.copyWith(sets: sets);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(sets: sets));
   }
 
   void setRestBetweenHolds(int s) {
-    _state = _state.copyWith(restBetweenHolds: s);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(restBetweenHolds: s));
   }
 
   void setRestBetweenSets(int s) {
-    _state = _state.copyWith(restBetweenSets: s);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(restBetweenSets: s));
   }
 
   void setBoard(Board board) {
-    _state = _state.copyWith(board: board);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(board: board));
   }
 
   void setHolds(List<Hold> holds) {
-    _state = _state.copyWith(holds: holds);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(holds: holds));
   }
 
   void setLabel(Label label) {
-    _state = _state.copyWith(label: label);
-    _state$.add(_state);
+    _state$.add(_state.copyWith(label: label));
   }
 }
 

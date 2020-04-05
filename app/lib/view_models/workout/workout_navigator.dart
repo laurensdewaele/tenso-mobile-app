@@ -31,9 +31,9 @@ class WorkoutNavigator {
   Stream<NavigatorPage> get activePage$ =>
       _pages$.map((pages) => pages.firstWhere((page) => page.active == true));
 
-  ValidationState _validationState = ValidationUnknown();
   BehaviorSubject<ValidationState> _validationState$ =
       BehaviorSubject.seeded(ValidationUnknown());
+  ValidationState get _validationState => _validationState$.value;
   Stream<ValidationState> get shouldValidate$ =>
       _validationState$.stream.where((state) => state is ValidationPending);
 
@@ -47,8 +47,7 @@ class WorkoutNavigator {
   }
 
   void _buildPages({int count, int activeIndex}) {
-    _validationState = ValidationUnknown();
-    _validationState$.add(_validationState);
+    _validationState$.add(ValidationUnknown());
     _pages = [
       NavigatorPage(
           page: Pages.generalPage, active: activeIndex == 0, index: 0),
@@ -66,14 +65,13 @@ class WorkoutNavigator {
   }
 
   void handleForwardRequest() {
-    _validationState =
-        ValidationPending(navigationType: NavigationType.forward);
-    _validationState$.add(_validationState);
+    _validationState$
+        .add(ValidationPending(navigationType: NavigationType.forward));
   }
 
   void handleBackRequest() {
-    _validationState = ValidationPending(navigationType: NavigationType.back);
-    _validationState$.add(_validationState);
+    _validationState$
+        .add(ValidationPending(navigationType: NavigationType.back));
   }
 
   void handleValidationSuccess() {
@@ -85,8 +83,6 @@ class WorkoutNavigator {
         _back();
       }
     }
-    _validationState = ValidationSuccess();
-    _validationState$.add(_validationState);
   }
 
   void _forward() {
@@ -119,7 +115,5 @@ class ValidationPending extends ValidationState {
     @required this.navigationType,
   });
 }
-
-class ValidationSuccess extends ValidationState {}
 
 class ValidationUnknown extends ValidationState {}

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/services/parser.dart';
+import 'package:app/services/validation.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 
@@ -40,11 +42,30 @@ class GeneralWorkoutViewModel {
   String _restBetweenSetsInput;
 
   void _validateAndReport() {
-    _validate();
-    // Report to navigator on success;
+    if (_validate() == true) {
+      _workoutViewModel.setHoldCount(_holdCount);
+      _workoutViewModel.setSets(_sets);
+      _workoutViewModel.setRestBetweenHolds(_restBetweenHolds);
+      _workoutViewModel.setRestBetweenSets(_restBetweenSets);
+      _workoutViewModel.setBoard(_board);
+      _workoutNavigator.handleValidationSuccess();
+    }
   }
 
-  void _validate() {}
+  bool _validate() {
+    _holdCount = InputParsers.parseToInt(_holdCountInput);
+    _sets = InputParsers.parseToInt(_setsInput);
+    _restBetweenHolds = InputParsers.parseToInt(_restBetweenHoldsInput);
+    _restBetweenSets = InputParsers.parseToInt(_restBetweenSetsInput);
+
+    final List<bool> _validations = [];
+    _validations.add(Validations.biggerThanZero<int>(_holdCount));
+    _validations.add(Validations.biggerThanZero<int>(_sets));
+    _validations.add(Validations.biggerThanZero<int>(_restBetweenHolds));
+    _validations.add(Validations.biggerThanZero<int>(_restBetweenSets));
+
+    return _validations.fold(true, (a, b) => a && b);
+  }
 
   void setHoldCount(String s) {
     _holdCountInput = s;

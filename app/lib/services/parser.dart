@@ -3,12 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:app/services/error.dart';
 
 class ParseException<T> extends AppException {
+  final String input;
   final String parseType;
   final FormatException exception;
   final Widget errorMessage;
   final StackTrace stackTrace;
 
   ParseException({
+    @required this.input,
     @required this.parseType,
     @required this.exception,
     @required this.errorMessage,
@@ -16,29 +18,34 @@ class ParseException<T> extends AppException {
   });
 }
 
-class ParseResult<T> {
-  final T value;
-  final bool success;
-
-  const ParseResult({
-    @required this.value,
-    @required this.success,
-  });
-}
-
-class InputParsers {
-  ParseResult<double> parseToDouble(String s) {
+abstract class InputParsers {
+  static double parseToDouble(String s) {
     double value;
     try {
       value = double.parse(s.trim());
     } on FormatException catch (exception, stackTrace) {
       throw ParseException(
+          input: s,
           exception: exception,
           parseType: 'parseToDouble',
           stackTrace: stackTrace,
-          errorMessage: Text('df'));
+          errorMessage: ErrorMessages.inputNotANumber());
     }
+    return value;
   }
 
-  ParseResult<int> parseToInt(String s) {}
+  static int parseToInt(String s) {
+    int value;
+    try {
+      value = int.parse(s.trim());
+    } on FormatException catch (exception, stackTrace) {
+      throw ParseException(
+          input: s,
+          exception: exception,
+          parseType: 'parseToInt',
+          stackTrace: stackTrace,
+          errorMessage: ErrorMessages.inputNotANumber());
+    }
+    return value;
+  }
 }
