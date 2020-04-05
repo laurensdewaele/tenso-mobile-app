@@ -8,13 +8,13 @@ import 'package:app/services/validation.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 
-class GeneralWorkoutViewModel {
+class WorkoutGeneralViewModel {
   WorkoutViewModel _workoutViewModel;
   WorkoutNavigator _workoutNavigator;
   StreamSubscription _workoutVMSub;
   StreamSubscription _navigatorSub;
 
-  GeneralWorkoutViewModel({
+  WorkoutGeneralViewModel({
     @required WorkoutViewModel workoutViewModel,
     @required WorkoutNavigator workoutNavigator,
   }) {
