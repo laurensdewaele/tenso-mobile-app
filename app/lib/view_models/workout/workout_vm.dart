@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
@@ -76,7 +77,7 @@ class WorkoutViewModel {
 
     List<Hold> _holds;
     if (count < _state.holdCount) {
-      _holds = _state.holds.take(count);
+      _holds = _state.holds.take(count).toList();
     }
     if (count > _state.holdCount) {
       final Hold defaultHold = _state.holds[0];
@@ -125,6 +126,8 @@ class WorkoutViewModelState {
   final List<Hold> holds;
   final String name;
   final WeightUnit weightUnit;
+
+  final listEquality = const ListEquality<Hold>();
 
   const WorkoutViewModelState({
     @required this.label,
@@ -185,7 +188,7 @@ class WorkoutViewModelState {
           restBetweenHolds == other.restBetweenHolds &&
           restBetweenSets == other.restBetweenSets &&
           board == other.board &&
-          holds == other.holds &&
+          listEquality.equals(holds, other.holds) &&
           name == other.name &&
           weightUnit == other.weightUnit;
 
