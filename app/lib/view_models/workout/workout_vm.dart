@@ -200,4 +200,9 @@ class WorkoutViewModelState {
       holds.hashCode ^
       name.hashCode ^
       weightUnit.hashCode;
+
+  @override
+  String toString() {
+    return 'WorkoutViewModelState{label: $label, sets: $sets, holdCount: $holdCount, restBetweenHolds: $restBetweenHolds, restBetweenSets: $restBetweenSets, board: $board, holds: $holds, name: $name, weightUnit: $weightUnit}';
+  }
 }
