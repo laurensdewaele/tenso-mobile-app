@@ -70,9 +70,24 @@ class WorkoutViewModel {
     _state$.close();
   }
 
-  void setHoldCount(int count) {
+  void setGeneralVariables(
+      {@required int holdCount,
+      @required int sets,
+      @required int restBetweenHolds,
+      @required int restBetweenSets,
+      @required Board board}) {
+    _state$.add(_state.copyWith(
+        holdCount: holdCount,
+        sets: sets,
+        restBetweenHolds: restBetweenHolds,
+        restBetweenSets: restBetweenSets,
+        board: board,
+        holds: _generateHoldsFromHoldCount(holdCount)));
+  }
+
+  List<Hold> _generateHoldsFromHoldCount(int count) {
     if (count == _state.holdCount) {
-      return;
+      return _state.holds;
     }
 
     List<Hold> _holds;
@@ -87,31 +102,7 @@ class WorkoutViewModel {
         ...List.generate(difference, (i) => defaultHold)
       ];
     }
-    _state$.add(_state.copyWith(holdCount: count, holds: _holds));
-  }
-
-  void setSets(int sets) {
-    _state$.add(_state.copyWith(sets: sets));
-  }
-
-  void setRestBetweenHolds(int s) {
-    _state$.add(_state.copyWith(restBetweenHolds: s));
-  }
-
-  void setRestBetweenSets(int s) {
-    _state$.add(_state.copyWith(restBetweenSets: s));
-  }
-
-  void setBoard(Board board) {
-    _state$.add(_state.copyWith(board: board));
-  }
-
-  void setHolds(List<Hold> holds) {
-    _state$.add(_state.copyWith(holds: holds));
-  }
-
-  void setLabel(Label label) {
-    _state$.add(_state.copyWith(label: label));
+    return _holds;
   }
 }
 

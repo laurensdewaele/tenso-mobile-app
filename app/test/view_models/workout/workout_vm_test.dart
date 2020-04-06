@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:test/test.dart';
 
 import '../../data/test_data.dart';
@@ -25,101 +23,16 @@ void main() {
     test('init', () {
       expect(_workoutViewModel.title, 'New workout');
       _workoutViewModel.state$.listen((WorkoutViewModelState state) {
-        expect(state.holdCount, 3);
-        expect(state.holds.length, 3);
-      });
-      _workoutViewModel.holdCount$.listen((int holdCount) {
-        expect(holdCount, 3);
+        expect(state, _initialState);
       });
     });
 
-    group('setHoldCount', () {
-      test('add holdCount', () {
-        scheduleMicrotask(() {
-          _workoutViewModel.setHoldCount(4);
-        });
-        expect(_workoutViewModel.holdCount$, emitsInOrder([3, 4]));
-      });
-      test('amount of holds', () {
-        double _emitted = 0;
-        _workoutViewModel.state$.listen(expectAsync1((a) {
-          if (_emitted == 0) {
-            expect(a.holds.length, 3);
-          }
-          if (_emitted == 1) {
-            expect(a.holds.length, 4);
-          }
-          if (_emitted == 3) {
-            expect(a.holds.length, 1);
-          }
-          _emitted++;
-        }, count: 3));
-
-        _workoutViewModel.setHoldCount(4);
-        _workoutViewModel.setHoldCount(1);
-      });
-      test('holdCount stream should only emit when value is different', () {});
-    });
-
-    test('setSets', () {
-      double _emitted = 0;
-      _workoutViewModel.state$.listen(expectAsync1((a) {
-        if (_emitted == 0) {
-          expect(a, _initialState);
-        }
-        if (_emitted == 1) {
-          expect(a.sets, 5);
-        }
-        _emitted++;
-      }, count: 2));
-      _workoutViewModel.setSets(5);
-    });
-    test('setRestBetweenSets', () {
-      double _emitted = 0;
-      _workoutViewModel.state$.listen(expectAsync1((a) {
-        if (_emitted == 0) {
-          expect(a, _initialState);
-        }
-        if (_emitted == 1) {
-          expect(a.restBetweenSets, 333);
-        }
-        _emitted++;
-      }, count: 2));
-      _workoutViewModel.setRestBetweenSets(333);
-    });
-    test('setRestBetweenHolds', () {
-      double _emitted = 0;
-      _workoutViewModel.state$.listen(expectAsync1((a) {
-        if (_emitted == 0) {
-          expect(a, _initialState);
-        }
-        if (_emitted == 1) {
-          expect(a.restBetweenHolds, 444);
-        }
-        _emitted++;
-      }, count: 2));
-      _workoutViewModel.setRestBetweenHolds(444);
-    });
-    test('setBoard', () {
-      final _newBoard = _initialState.board.rebuild((b) => b..width = 400);
-
-      double _emitted = 0;
-      _workoutViewModel.state$.listen(expectAsync1((a) {
-        if (_emitted == 0) {
-          expect(a, _initialState);
-        }
-        if (_emitted == 1) {
-          expect(a.board.width, 400);
-        }
-        _emitted++;
-      }, count: 2));
-      _workoutViewModel.setBoard(_newBoard);
-    });
-    test('setHolds', () {
-      final Hold _hold = _initialState.holds[0];
+    test('setGeneralVariables', () {
+      final Board _newBoard =
+          _initialState.board.rebuild((b) => b..width = 500);
       final List<Hold> _newHolds = []
         ..addAll(_initialState.holds)
-        ..add(_hold);
+        ..add(_initialState.holds[0]);
 
       double _emitted = 0;
       _workoutViewModel.state$.listen(expectAsync1((a) {
@@ -127,24 +40,39 @@ void main() {
           expect(a, _initialState);
         }
         if (_emitted == 1) {
+          expect(a.holdCount, _initialState.holdCount + 1);
+          expect(a.sets, 5);
+          expect(a.restBetweenHolds, 400);
+          expect(a.restBetweenSets, 300);
+          expect(a.board, _newBoard);
           expect(a.holds.length, _initialState.holds.length + 1);
+          expect(a.holds, _newHolds);
+        }
+        if (_emitted == 3) {
+          expect(a.holdCount, 1);
+          expect(a.sets, 2);
+          expect(a.restBetweenHolds, 3);
+          expect(a.restBetweenSets, 4);
+          expect(a.board, _initialState.board);
+          expect(a.holds.length, 1);
+          expect(a.holds, []..add(_initialState.holds[0]));
         }
         _emitted++;
-      }, count: 2));
-      _workoutViewModel.setHolds(_newHolds);
+      }, count: 3));
+
+      _workoutViewModel.setGeneralVariables(
+          holdCount: _initialState.holdCount + 1,
+          sets: 5,
+          restBetweenHolds: 400,
+          restBetweenSets: 300,
+          board: _newBoard);
+      _workoutViewModel.setGeneralVariables(
+          holdCount: 1,
+          sets: 2,
+          restBetweenHolds: 3,
+          restBetweenSets: 4,
+          board: _initialState.board);
     });
-    test('setLabel', () {
-      double _emitted = 0;
-      _workoutViewModel.state$.listen(expectAsync1((a) {
-        if (_emitted == 0) {
-          expect(a, _initialState);
-        }
-        if (_emitted == 1) {
-          expect(a.label, Label.yellow);
-        }
-        _emitted++;
-      }, count: 2));
-      _workoutViewModel.setLabel(Label.yellow);
-    });
+    test('should save workout when the navigator emits the save event', () {});
   });
 }

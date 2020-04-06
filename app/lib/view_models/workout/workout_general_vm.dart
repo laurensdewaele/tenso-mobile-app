@@ -43,11 +43,12 @@ class WorkoutGeneralViewModel {
 
   void _validateAndReport() {
     if (_validate() == true) {
-      _workoutViewModel.setHoldCount(_holdCount);
-      _workoutViewModel.setSets(_sets);
-      _workoutViewModel.setRestBetweenHolds(_restBetweenHolds);
-      _workoutViewModel.setRestBetweenSets(_restBetweenSets);
-      _workoutViewModel.setBoard(_board);
+      _workoutViewModel.setGeneralVariables(
+          holdCount: _holdCount,
+          sets: _sets,
+          restBetweenHolds: restBetweenHolds,
+          restBetweenSets: _restBetweenSets,
+          board: _board);
       _workoutNavigator.handleValidationSuccess();
     }
   }
