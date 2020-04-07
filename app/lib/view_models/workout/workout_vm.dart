@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
-
 import 'package:rxdart/subjects.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout/workout_navigator.dart';
 
 enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
 
@@ -28,7 +28,11 @@ class WorkoutViewModel {
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   Stream<int> holdCount$;
 
+  StreamSubscription _workoutNavigatorSub;
+  int _currentHoldIndex;
+
   WorkoutViewModel({
+    @required WorkoutNavigator workoutNavigator,
     @required WorkoutTypes workoutType,
     @required Workout workout,
     @required WeightUnit currentWeightUnit,
@@ -38,6 +42,12 @@ class WorkoutViewModel {
     _state$ = BehaviorSubject.seeded(
         WorkoutViewModelState.fromWorkout(workout, currentWeightUnit));
     holdCount$ = _state$.map((s) => s.holdCount).distinct();
+    _workoutNavigatorSub =
+        workoutNavigator.activePage$.listen((NavigatorPage page) {
+      if (page.holdIndex != null) {
+        _currentHoldIndex = page.holdIndex;
+      }
+    });
   }
 
   void _setWorkoutTypeVars(WorkoutTypes workoutType) {
@@ -68,6 +78,7 @@ class WorkoutViewModel {
 
   void dispose() {
     _state$.close();
+    _workoutNavigatorSub.cancel();
   }
 
   void setGeneralVariables(
@@ -83,6 +94,39 @@ class WorkoutViewModel {
         restBetweenSets: restBetweenSets,
         board: board,
         holds: _generateHoldsFromHoldCount(holdCount)));
+  }
+
+  void setHoldVariables({
+    @required Grip leftGrip,
+    @required Grip rightGrip,
+    @required BoardHold leftGripBoardHold,
+    @required BoardHold rightGripBoardHold,
+    @required int repetitions,
+    @required int hangTime,
+    @required int restBetweenRepetitions,
+    @required double addedWeight,
+    @required HandHold handHold,
+  }) {
+    if (_currentHoldIndex != null) {
+      final Hold _newHold = Hold((b) => b
+        ..leftGrip = leftGrip?.toBuilder() ?? null
+        ..rightGrip = rightGrip?.toBuilder() ?? null
+        ..leftGripBoardHold = leftGripBoardHold?.toBuilder() ?? null
+        ..rightGripBoardHold = rightGripBoardHold?.toBuilder() ?? null
+        ..repetitions = repetitions
+        ..hangTime = hangTime
+        ..restBetweenRepetitions = restBetweenRepetitions
+        ..addedWeight = addedWeight
+        ..handHold = handHold);
+
+      final List<Hold> _newHolds = []..addAll(_state.holds);
+      _newHolds[_currentHoldIndex] = _newHold;
+      _state$.add(_state.copyWith(holds: _newHolds));
+    }
+  }
+
+  void setExtraVariables({@required Label label, @required String name}) {
+    _state$.add(_state.copyWith(label: label, name: name));
   }
 
   List<Hold> _generateHoldsFromHoldCount(int count) {

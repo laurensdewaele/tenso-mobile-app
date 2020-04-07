@@ -3,20 +3,36 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:rxdart/rxdart.dart';
 
 class KeyboardService {
-  StreamController<bool> _resetInitialInputStreamController =
-      StreamController<bool>.broadcast();
-  Stream<bool> get resetInitialInputStream =>
+  // Creates a singleton.
+  KeyboardService._() {
+    shouldValidate$ =
+        MergeStream([shouldLoseFocus$, inputComplete$]).asBroadcastStream();
+  }
+
+  static final KeyboardService _keyboardService = KeyboardService._();
+  factory KeyboardService() {
+    return _keyboardService;
+  }
+
+  final StreamController<bool> _resetInitialInputStreamController =
+      StreamController.broadcast();
+  final StreamController<bool> _shouldLoseFocusStreamController =
+      StreamController.broadcast();
+  final StreamController<double> _keyboardOffsetHeightStreamController =
+      StreamController.broadcast();
+  final StreamController<bool> _inputCompleteController =
+      StreamController.broadcast();
+  Stream<bool> shouldValidate$;
+
+  Stream<bool> get resetInitialInput$ =>
       _resetInitialInputStreamController.stream;
-  StreamController<bool> _shouldLoseFocusStreamController =
-      StreamController<bool>.broadcast();
-  Stream<bool> get shouldLoseFocusStream =>
-      _shouldLoseFocusStreamController.stream;
-  StreamController<double> _keyboardOffsetHeightStreamController =
-      StreamController<double>.broadcast();
-  Stream<double> get keyboardOffsetHeightStream =>
+  Stream<bool> get shouldLoseFocus$ => _shouldLoseFocusStreamController.stream;
+  Stream<double> get keyboardOffsetHeight$ =>
       _keyboardOffsetHeightStreamController.stream;
+  Stream<bool> get inputComplete$ => _inputCompleteController.stream;
 
   double _keyboardHeight = 0;
   double _deviceHeight = 0;
@@ -34,11 +50,16 @@ class KeyboardService {
     _shouldLoseFocusStreamController.close();
     _keyboardOffsetHeightStreamController.close();
     _resetInitialInputStreamController.close();
+    _inputCompleteController.close();
   }
 
-  void onScreenTap() {
+  void handleScreenTap() {
     _shouldLoseFocusStreamController.sink.add(true);
     _keyboardOffsetHeightStreamController.sink.add(0);
+  }
+
+  void handleInputComplete() {
+    _inputCompleteController.add(true);
   }
 
   void _handleKeyboardOffset(Offset offset) {

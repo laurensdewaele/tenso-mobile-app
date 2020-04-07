@@ -13,15 +13,15 @@ class TabsContainer extends StatefulWidget {
       @required this.primaryColor,
       @required this.holdCount,
       @required this.onNavigation,
-      this.navigateForwardTabStream,
-      this.navigateBackTabStream})
+      this.navigateForwardTab$,
+      this.navigateBackTab$})
       : super(key: key);
 
   final Color primaryColor;
   final int holdCount;
   final VoidCallback onNavigation;
-  final Stream<bool> navigateForwardTabStream;
-  final Stream<bool> navigateBackTabStream;
+  final Stream<bool> navigateForwardTab$;
+  final Stream<bool> navigateBackTab$;
 
   @override
   _TabsContainerState createState() => _TabsContainerState();
@@ -39,11 +39,11 @@ class _TabsContainerState extends State<TabsContainer> {
     _activePageIndex = 0;
     _buildPages(widget.holdCount);
     _navigateForwardTabSub =
-        widget.navigateForwardTabStream.listen((bool shouldNavigate) {
+        widget.navigateForwardTab$.listen((bool shouldNavigate) {
       _handleForwardNavigation();
     });
     _navigateBackTabSub =
-        widget.navigateBackTabStream.listen((bool shouldNavigate) {
+        widget.navigateBackTab$.listen((bool shouldNavigate) {
       _handleBackNavigation();
     });
   }

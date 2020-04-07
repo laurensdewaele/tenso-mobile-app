@@ -47,7 +47,7 @@ class _TextInputState extends State<TextInput> {
     });
 
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
-    _subscription = _keyboardService.shouldLoseFocusStream.listen((_) {
+    _subscription = _keyboardService.shouldLoseFocus$.listen((_) {
       _onComplete();
     });
   }

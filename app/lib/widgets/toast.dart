@@ -23,7 +23,7 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _subscription = Provider.of<ToastService>(context, listen: false)
-        .errorMessageStream
+        .errorMessage$
         .listen((Widget message) {
       setState(() {
         messages.add(message);

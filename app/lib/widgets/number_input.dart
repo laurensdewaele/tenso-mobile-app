@@ -60,10 +60,10 @@ class _NumberInputState extends State<NumberInput> {
     });
 
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
-    _sub = _keyboardService.resetInitialInputStream.listen((_) {
+    _sub = _keyboardService.resetInitialInput$.listen((_) {
       _resetInitialValue();
     });
-    _sub2 = _keyboardService.shouldLoseFocusStream.listen((_) {
+    _sub2 = _keyboardService.shouldLoseFocus$.listen((_) {
       _onComplete();
     });
 

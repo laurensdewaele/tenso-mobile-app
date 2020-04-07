@@ -20,7 +20,7 @@ class KeyboardAndToastProvider extends StatelessWidget {
 
     return Stack(
       children: <Widget>[
-        GestureDetector(onTap: _keyboardService.onScreenTap, child: child),
+        GestureDetector(onTap: _keyboardService.handleScreenTap, child: child),
         Toast(),
       ],
     );

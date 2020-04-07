@@ -39,7 +39,7 @@ class _EmptyInputState extends State<EmptyInput> {
     });
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
 
-    _sub = _keyboardService.shouldLoseFocusStream.listen((_) {
+    _sub = _keyboardService.shouldLoseFocus$.listen((_) {
       _onComplete();
     });
   }

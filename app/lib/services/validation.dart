@@ -20,7 +20,7 @@ abstract class Validations {
       return false;
     }
 
-    if ((value as double) > 0) {
+    if ((value as dynamic) > 0) {
       return true;
     } else {
       throw ValidationException<T>(

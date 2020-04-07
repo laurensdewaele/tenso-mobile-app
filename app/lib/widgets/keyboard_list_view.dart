@@ -33,7 +33,7 @@ class _KeyboardListViewState extends State<KeyboardListView> {
   void initState() {
     super.initState();
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
-    _subscription = _keyboardService.keyboardOffsetHeightStream
+    _subscription = _keyboardService.keyboardOffsetHeight$
         .listen(_handleKeyboardOffset);
     if (widget.scrollToTopStream != null) {
       _scrollToTopSubscription =

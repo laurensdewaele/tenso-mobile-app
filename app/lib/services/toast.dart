@@ -9,15 +9,15 @@ class ToastService {
     return _toastService;
   }
 
-  final StreamController<Widget> _errorMessageStreamController =
+  final StreamController<Widget> _errorMessageController =
       StreamController<Widget>.broadcast();
-  Stream<Widget> get errorMessageStream => _errorMessageStreamController.stream;
+  Stream<Widget> get errorMessage$ => _errorMessageController.stream;
 
   void dispose() {
-    _errorMessageStreamController.close();
+    _errorMessageController.close();
   }
 
   void add(Widget message) {
-    _errorMessageStreamController.sink.add(message);
+    _errorMessageController.sink.add(message);
   }
 }

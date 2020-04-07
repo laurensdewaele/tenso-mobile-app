@@ -3,23 +3,29 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/services/keyboard.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 
 class WorkoutGeneralViewModel {
-  WorkoutViewModel _workoutViewModel;
+  KeyboardService _keyboardService;
   WorkoutNavigator _workoutNavigator;
-  StreamSubscription _workoutVMSub;
+  WorkoutViewModel _workoutViewModel;
+  StreamSubscription _keyboardSub;
   StreamSubscription _navigatorSub;
+  StreamSubscription _workoutVMSub;
 
   WorkoutGeneralViewModel({
     @required WorkoutViewModel workoutViewModel,
     @required WorkoutNavigator workoutNavigator,
+    @required KeyboardService keyboardService,
   }) {
+    _keyboardService = keyboardService;
     _workoutViewModel = workoutViewModel;
     _workoutNavigator = workoutNavigator;
+    _keyboardSub = _keyboardService.shouldValidate$.listen((_) => _validate());
     _workoutVMSub = _workoutViewModel.state$.listen(_setVariables);
     _navigatorSub =
         _workoutNavigator.shouldValidate$.listen((_) => _validateAndReport());
@@ -28,11 +34,11 @@ class WorkoutGeneralViewModel {
   int _holdCount;
   int get holdCount => _holdCount;
   int _sets;
-  int get sets => sets;
+  int get sets => _sets;
   int _restBetweenHolds;
   int get restBetweenHolds => _restBetweenHolds;
   int _restBetweenSets;
-  int get restBetweenSets => restBetweenSets;
+  int get restBetweenSets => _restBetweenSets;
   Board _board;
   Board get board => _board;
 
@@ -84,6 +90,10 @@ class WorkoutGeneralViewModel {
     _restBetweenSetsInput = s;
   }
 
+  void setBoard(Board board) {
+    _board = board;
+  }
+
   void _setVariables(WorkoutViewModelState state) {
     _holdCount = state.holdCount;
     _sets = state.sets;
@@ -95,5 +105,6 @@ class WorkoutGeneralViewModel {
   void dispose() {
     _workoutVMSub.cancel();
     _navigatorSub.cancel();
+    _keyboardSub.cancel();
   }
 }

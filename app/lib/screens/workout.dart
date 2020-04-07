@@ -28,8 +28,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
   final StreamController<bool> _navigateForwardTabStreamController =
       StreamController<bool>();
-  Stream get _navigateForwardTabStream =>
-      _navigateForwardTabStreamController.stream;
+  Stream get _navigateForwardTab$ => _navigateForwardTabStreamController.stream;
 
   final StreamController<bool> _navigateBackTabStreamController =
       StreamController<bool>();
@@ -89,9 +88,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               primaryColor: _workoutViewModel.primaryColor,
                               onNavigation: _scrollToTop,
                               holdCount: _appState.workout.holdCount,
-                              navigateForwardTabStream:
-                                  _navigateForwardTabStream,
-                              navigateBackTabStream: _navigateBackTabStream);
+                              navigateForwardTab$: _navigateForwardTab$,
+                              navigateBackTab$: _navigateBackTabStream);
                         }),
                       ),
                     ),

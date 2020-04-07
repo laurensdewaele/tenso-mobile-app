@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:app/services/error.dart';
 
-class ParseException<T> extends AppException {
+class ParseException extends AppException {
   final String input;
   final String parseType;
   final FormatException exception;
@@ -20,6 +20,10 @@ class ParseException<T> extends AppException {
 
 abstract class InputParsers {
   static double parseToDouble(String s) {
+    if (s == null) {
+      return null;
+    }
+
     double value;
     try {
       value = double.parse(s.trim());
@@ -35,6 +39,10 @@ abstract class InputParsers {
   }
 
   static int parseToInt(String s) {
+    if (s == null) {
+      return null;
+    }
+
     int value;
     try {
       value = int.parse(s.trim());
