@@ -11,7 +11,6 @@ class KeyboardService {
     shouldValidate$ =
         MergeStream([shouldLoseFocus$, inputComplete$]).asBroadcastStream();
   }
-
   static final KeyboardService _keyboardService = KeyboardService._();
   factory KeyboardService() {
     return _keyboardService;
