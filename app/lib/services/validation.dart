@@ -43,4 +43,19 @@ abstract class Validations {
           input: value);
     }
   }
+
+  static bool stringNotEmpty(String s) {
+    if (s == null) {
+      return false;
+    }
+
+    if (s.length == 0) {
+      throw ValidationException<String>(
+          validationType: 'stringNotEmpty',
+          errorMessage: ErrorMessages.inputNotEmpty(),
+          input: s);
+    } else {
+      return true;
+    }
+  }
 }

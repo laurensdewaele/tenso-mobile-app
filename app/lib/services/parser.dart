@@ -56,4 +56,12 @@ abstract class InputParsers {
     }
     return value;
   }
+
+  static String parseString(String s) {
+    if (s == null) {
+      return null;
+    }
+
+    return s.trim();
+  }
 }

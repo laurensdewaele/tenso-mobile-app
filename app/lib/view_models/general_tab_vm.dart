@@ -84,7 +84,7 @@ class GeneralTabViewModel extends ChangeNotifier {
   bool _validateInput(int n) {
     if (n < 1) {
       _toastService.add(ErrorMessages.biggerThanZero());
-      _keyboardService.resetInitialInput();
+      _keyboardService.resetInitialValue();
       return false;
     } else {
       return true;

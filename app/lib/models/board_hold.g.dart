@@ -58,6 +58,12 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
         ..add(serializers.serialize(object.pocketDepth,
             specifiedType: const FullType(double)));
     }
+    if (object.edgeDepth != null) {
+      result
+        ..add('edgeDepth')
+        ..add(serializers.serialize(object.edgeDepth,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -90,6 +96,10 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           break;
         case 'pocketDepth':
           result.pocketDepth = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'edgeDepth':
+          result.edgeDepth = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'dxRelativeHangAnchor':
@@ -135,6 +145,8 @@ class _$BoardHold extends BoardHold {
   @override
   final double pocketDepth;
   @override
+  final double edgeDepth;
+  @override
   final double dxRelativeHangAnchor;
   @override
   final double dyRelativeHangAnchor;
@@ -156,6 +168,7 @@ class _$BoardHold extends BoardHold {
       this.maxAllowedFingers,
       this.sloperDegrees,
       this.pocketDepth,
+      this.edgeDepth,
       this.dxRelativeHangAnchor,
       this.dyRelativeHangAnchor,
       this.relativeLeft,
@@ -208,6 +221,7 @@ class _$BoardHold extends BoardHold {
         maxAllowedFingers == other.maxAllowedFingers &&
         sloperDegrees == other.sloperDegrees &&
         pocketDepth == other.pocketDepth &&
+        edgeDepth == other.edgeDepth &&
         dxRelativeHangAnchor == other.dxRelativeHangAnchor &&
         dyRelativeHangAnchor == other.dyRelativeHangAnchor &&
         relativeLeft == other.relativeLeft &&
@@ -227,11 +241,13 @@ class _$BoardHold extends BoardHold {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, position.hashCode),
-                                            holdType.hashCode),
-                                        maxAllowedFingers.hashCode),
-                                    sloperDegrees.hashCode),
-                                pocketDepth.hashCode),
+                                        $jc(
+                                            $jc($jc(0, position.hashCode),
+                                                holdType.hashCode),
+                                            maxAllowedFingers.hashCode),
+                                        sloperDegrees.hashCode),
+                                    pocketDepth.hashCode),
+                                edgeDepth.hashCode),
                             dxRelativeHangAnchor.hashCode),
                         dyRelativeHangAnchor.hashCode),
                     relativeLeft.hashCode),
@@ -248,6 +264,7 @@ class _$BoardHold extends BoardHold {
           ..add('maxAllowedFingers', maxAllowedFingers)
           ..add('sloperDegrees', sloperDegrees)
           ..add('pocketDepth', pocketDepth)
+          ..add('edgeDepth', edgeDepth)
           ..add('dxRelativeHangAnchor', dxRelativeHangAnchor)
           ..add('dyRelativeHangAnchor', dyRelativeHangAnchor)
           ..add('relativeLeft', relativeLeft)
@@ -282,6 +299,10 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   double _pocketDepth;
   double get pocketDepth => _$this._pocketDepth;
   set pocketDepth(double pocketDepth) => _$this._pocketDepth = pocketDepth;
+
+  double _edgeDepth;
+  double get edgeDepth => _$this._edgeDepth;
+  set edgeDepth(double edgeDepth) => _$this._edgeDepth = edgeDepth;
 
   double _dxRelativeHangAnchor;
   double get dxRelativeHangAnchor => _$this._dxRelativeHangAnchor;
@@ -320,6 +341,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
       _maxAllowedFingers = _$v.maxAllowedFingers;
       _sloperDegrees = _$v.sloperDegrees;
       _pocketDepth = _$v.pocketDepth;
+      _edgeDepth = _$v.edgeDepth;
       _dxRelativeHangAnchor = _$v.dxRelativeHangAnchor;
       _dyRelativeHangAnchor = _$v.dyRelativeHangAnchor;
       _relativeLeft = _$v.relativeLeft;
@@ -353,6 +375,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
             maxAllowedFingers: maxAllowedFingers,
             sloperDegrees: sloperDegrees,
             pocketDepth: pocketDepth,
+            edgeDepth: edgeDepth,
             dxRelativeHangAnchor: dxRelativeHangAnchor,
             dyRelativeHangAnchor: dyRelativeHangAnchor,
             relativeLeft: relativeLeft,

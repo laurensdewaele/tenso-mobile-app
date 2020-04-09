@@ -11,12 +11,13 @@ class KeyboardService {
     shouldValidate$ =
         MergeStream([shouldLoseFocus$, inputComplete$]).asBroadcastStream();
   }
+
   static final KeyboardService _keyboardService = KeyboardService._();
   factory KeyboardService() {
     return _keyboardService;
   }
 
-  final StreamController<bool> _resetInitialInputStreamController =
+  final StreamController<bool> _resetInitialValueStreamController =
       StreamController.broadcast();
   final StreamController<bool> _shouldLoseFocusStreamController =
       StreamController.broadcast();
@@ -26,8 +27,8 @@ class KeyboardService {
       StreamController.broadcast();
   Stream<bool> shouldValidate$;
 
-  Stream<bool> get resetInitialInput$ =>
-      _resetInitialInputStreamController.stream;
+  Stream<bool> get resetInitialValue$ =>
+      _resetInitialValueStreamController.stream;
   Stream<bool> get shouldLoseFocus$ => _shouldLoseFocusStreamController.stream;
   Stream<double> get keyboardOffsetHeight$ =>
       _keyboardOffsetHeightStreamController.stream;
@@ -41,14 +42,14 @@ class KeyboardService {
   // but this time we have lost the tapPosition.
   Offset _latestTapPosition = Offset.zero;
 
-  void resetInitialInput() {
-    _resetInitialInputStreamController.sink.add(true);
+  void resetInitialValue() {
+    _resetInitialValueStreamController.sink.add(true);
   }
 
   void dispose() {
     _shouldLoseFocusStreamController.close();
     _keyboardOffsetHeightStreamController.close();
-    _resetInitialInputStreamController.close();
+    _resetInitialValueStreamController.close();
     _inputCompleteController.close();
   }
 
@@ -58,6 +59,7 @@ class KeyboardService {
   }
 
   void handleInputComplete() {
+    resetKeyboardOffset();
     _inputCompleteController.add(true);
   }
 
