@@ -17,37 +17,42 @@ class ValidationException<T> extends AppException {
 // Do not forget null checks here, InputParsers can return null
 abstract class Validators {
   static bool biggerThanZero<T>(T value) {
+    bool _bool = false;
     if (value == null) {
-      return false;
+      return _bool;
     }
 
     if ((value as dynamic) > 0) {
-      return true;
+      _bool = true;
     } else {
       throw ValidationException<T>(
           validationType: 'biggerThanZero',
           errorMessage: ErrorMessages.biggerThanZero(),
           input: value);
     }
+    return _bool;
   }
 
   static bool betweenRange<T>(int min, int max, dynamic value) {
+    bool _bool = false;
     if (value == null) {
-      return false;
+      return _bool;
     }
     if (value > min && value < max) {
-      return true;
+      _bool = true;
     } else {
       throw ValidationException<T>(
           validationType: 'betweenRange',
           errorMessage: ErrorMessages.betweenRange(min, max),
           input: value);
     }
+    return _bool;
   }
 
   static bool stringNotEmpty(String s) {
+    bool _bool = false;
     if (s == null) {
-      return false;
+      return _bool;
     }
 
     if (s.length == 0) {
@@ -56,13 +61,20 @@ abstract class Validators {
           errorMessage: ErrorMessages.inputNotEmpty(),
           input: s);
     } else {
-      return true;
+      _bool = true;
     }
+    return _bool;
   }
 
   static bool checkGripCompatibility(BoardHold boardHold, Grip grip) {
+    bool _bool = false;
+
+    if (boardHold == null || grip == null) {
+      return _bool;
+    }
+
     if (boardHold.checkGripCompatibility(grip) == true) {
-      return true;
+      _bool = true;
     } else {
       throw ValidationException<BoardHold>(
           input: boardHold,
@@ -70,5 +82,6 @@ abstract class Validators {
               ErrorMessages.maxAllowedFingers(boardHold.maxAllowedFingers),
           validationType: 'gripCompatibility');
     }
+    return _bool;
   }
 }
