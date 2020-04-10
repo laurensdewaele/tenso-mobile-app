@@ -25,6 +25,7 @@ class GeneralPageInitialState {
   });
 }
 
+@immutable
 class GeneralPageInternalState {
   final int holdCount;
   final int sets;

@@ -11,7 +11,7 @@ class SelectedGripsAndHolds extends StatelessWidget {
     Key key,
     @required this.board,
     @required this.currentHold,
-    @required this.holdCount,
+    @required this.totalHolds,
     @required this.leftGrip,
     @required this.leftGripBoardHold,
     @required this.rightGrip,
@@ -20,7 +20,7 @@ class SelectedGripsAndHolds extends StatelessWidget {
 
   final Board board;
   final int currentHold;
-  final int holdCount;
+  final int totalHolds;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Grip rightGrip;
@@ -28,9 +28,6 @@ class SelectedGripsAndHolds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String _currentHoldString = (currentHold + 1).toString();
-    final String _totalHoldsString = holdCount.toString();
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final double _boardHeight = constraints.maxWidth / board.aspectRatio;
@@ -40,7 +37,7 @@ class SelectedGripsAndHolds extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Hold $_currentHoldString / $_totalHoldsString',
+              'Hold $currentHold / $totalHolds',
               style: styles.Staatliches.xlBlack,
             ),
             Divider(height: styles.Measurements.l),

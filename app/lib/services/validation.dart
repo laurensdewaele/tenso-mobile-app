@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
 
 class ValidationException<T> extends AppException {
@@ -14,7 +15,7 @@ class ValidationException<T> extends AppException {
 }
 
 // Do not forget null checks here, InputParsers can return null
-abstract class Validations {
+abstract class Validators {
   static bool biggerThanZero<T>(T value) {
     if (value == null) {
       return false;
@@ -56,6 +57,18 @@ abstract class Validations {
           input: s);
     } else {
       return true;
+    }
+  }
+
+  static bool checkGripCompatibility(BoardHold boardHold, Grip grip) {
+    if (boardHold.checkGripCompatibility(grip) == true) {
+      return true;
+    } else {
+      throw ValidationException<BoardHold>(
+          input: boardHold,
+          errorMessage:
+              ErrorMessages.maxAllowedFingers(boardHold.maxAllowedFingers),
+          validationType: 'gripCompatibility');
     }
   }
 }

@@ -9,14 +9,14 @@ import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
 
-class WorkoutExtraViewModel {
+class ExtraPageViewModel {
   WorkoutNavigator _workoutNavigator;
   WorkoutViewModel _workoutViewModel;
   StreamSubscription _sub1;
   StreamSubscription _sub2;
   StreamSubscription _sub3;
 
-  WorkoutExtraViewModel({
+  ExtraPageViewModel({
     @required WorkoutViewModel workoutViewModel,
     @required WorkoutNavigator workoutNavigator,
   }) {
@@ -48,7 +48,7 @@ class WorkoutExtraViewModel {
     _name = InputParsers.parseString(_nameInput);
 
     final List<bool> _validations = [];
-    _validations.add(Validations.stringNotEmpty(_name));
+    _validations.add(Validators.stringNotEmpty(_name));
 
     return _validations.fold(true, (a, b) => a && b);
   }

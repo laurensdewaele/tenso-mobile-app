@@ -14,7 +14,7 @@ class HoldInputContainer extends StatelessWidget {
     @required this.board,
     @required this.currentHold,
     @required this.handHold,
-    @required this.holdCount,
+    @required this.totalHolds,
     @required this.leftGrip,
     @required this.leftGripBoardHold,
     @required this.primaryColor,
@@ -27,57 +27,47 @@ class HoldInputContainer extends StatelessWidget {
     @required this.handleRightGripSelected,
     @required this.handleRightHandSelected,
     @required this.handleTwoHandedTap,
-    @required this.setHoldLeftGripBoardHold,
-    @required this.setHoldRightGripBoardHold,
+    @required this.setLeftGripBoardHold,
+    @required this.setRightGripBoardHold,
   }) : super(key: key);
 
-  final Board board;
   final int currentHold;
+  final int totalHolds;
+  final Board board;
   final HandHold handHold;
-  final int holdCount;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Color primaryColor;
   final Grip rightGrip;
   final BoardHold rightGripBoardHold;
   final TextStyle textPrimaryColor;
-  final void Function(int holdNo, HandHold handHold) handleLeftHandSelected;
-  final void Function(int holdNo, HandHold handHold) handleRightHandSelected;
-  final void Function(int holdNo, HandHold handHold) handleOneHandedTap;
-  final void Function(int holdNo, HandHold handHold) handleTwoHandedTap;
-  final void Function(int holdNo, Grip grip) handleRightGripSelected;
-  final void Function(int holdNo, Grip grip) handleLeftGripSelected;
-  final void Function(int holdNo, BoardHold boardHold) setHoldLeftGripBoardHold;
-  final void Function(int holdNo, BoardHold boardHold)
-      setHoldRightGripBoardHold;
+  final void Function(HandHold handHold) handleLeftHandSelected;
+  final void Function(HandHold handHold) handleRightHandSelected;
+  final void Function(HandHold handHold) handleOneHandedTap;
+  final void Function(HandHold handHold) handleTwoHandedTap;
+  final void Function(Grip grip) handleRightGripSelected;
+  final void Function(Grip grip) handleLeftGripSelected;
+  final void Function(BoardHold boardHold) setLeftGripBoardHold;
+  final void Function(BoardHold boardHold) setRightGripBoardHold;
 
   @override
   Widget build(BuildContext context) {
-    final String _currentHoldString = (currentHold + 1).toString();
-    final String _totalHoldsString = holdCount.toString();
-
     return Column(
       children: <Widget>[
         Section(
-          title: 'hold $_currentHoldString / $_totalHoldsString',
+          title: 'hold $currentHold / $totalHolds',
           children: <Widget>[
             GripPickerContainer(
               textPrimaryColor: textPrimaryColor,
               primaryColor: primaryColor,
-              handleLeftHandSelected: (HandHold handHold) =>
-                  handleLeftHandSelected(currentHold, handHold),
-              handleRightHandSelected: (HandHold handHold) =>
-                  handleRightHandSelected(currentHold, handHold),
-              handleOneHandedTap: (HandHold handHold) =>
-                  handleOneHandedTap(currentHold, handHold),
-              handleTwoHandedTap: (HandHold handHold) =>
-                  handleTwoHandedTap(currentHold, handHold),
+              handleLeftHandSelected: handleLeftHandSelected,
+              handleRightHandSelected: handleRightHandSelected,
+              handleOneHandedTap: handleOneHandedTap,
+              handleTwoHandedTap: handleTwoHandedTap,
               rightGrip: rightGrip,
               leftGrip: leftGrip,
-              handleRightGripSelected: (Grip grip) =>
-                  handleRightGripSelected(currentHold, grip),
-              handleLeftGripSelected: (Grip grip) =>
-                  handleLeftGripSelected(currentHold, grip),
+              handleRightGripSelected: handleRightGripSelected,
+              handleLeftGripSelected: handleLeftGripSelected,
               handHold: handHold,
             )
           ],
@@ -91,10 +81,8 @@ class HoldInputContainer extends StatelessWidget {
               rightGrip: rightGrip,
               leftGripBoardHold: leftGripBoardHold,
               rightGripBoardHold: rightGripBoardHold,
-              handleLeftGripBoardHoldChanged: (BoardHold boardHold) =>
-                  setHoldLeftGripBoardHold(currentHold, boardHold),
-              handleRightGripBoardHoldChanged: (BoardHold boardHold) =>
-                  setHoldRightGripBoardHold(currentHold, boardHold),
+              handleLeftGripBoardHoldChanged: setLeftGripBoardHold,
+              handleRightGripBoardHoldChanged: setRightGripBoardHold,
             ),
             Divider(
               key: UniqueKey(),

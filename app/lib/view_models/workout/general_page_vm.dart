@@ -68,10 +68,10 @@ class GeneralPageViewModel {
         restBetweenSets: _restBetweenSets);
 
     final List<bool> _validations = [];
-    _validations.add(Validations.biggerThanZero<int>(_holdCount));
-    _validations.add(Validations.biggerThanZero<int>(_sets));
-    _validations.add(Validations.biggerThanZero<int>(_restBetweenHolds));
-    _validations.add(Validations.biggerThanZero<int>(_restBetweenSets));
+    _validations.add(Validators.biggerThanZero<int>(_holdCount));
+    _validations.add(Validators.biggerThanZero<int>(_sets));
+    _validations.add(Validators.biggerThanZero<int>(_restBetweenHolds));
+    _validations.add(Validators.biggerThanZero<int>(_restBetweenSets));
 
     return _validations.fold(true, (a, b) => a && b);
   }
