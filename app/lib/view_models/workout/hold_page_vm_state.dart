@@ -3,48 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/models.dart';
 
 @immutable
-class HoldPageInitialState {
+class HoldPageState {
+  final int currentHoldIndex;
+  final Board board;
   final bool inputsEnabled;
   final Color primaryColor;
-
-  final HandHold handHold;
-  final Grip leftGrip;
-  final Grip rightGrip;
-  final BoardHold leftGripBoardHold;
-  final BoardHold rightGripBoardHold;
-  final int repetitions;
-  final int restBetweenRepetitions;
-  final int hangTime;
-  final double addedWeight;
-  final Board board;
-  final int currentHold;
-  final int totalHolds;
   final TextStyle textPrimaryColor;
   final String weightUnitDescription;
-
-  const HoldPageInitialState({
-    @required this.inputsEnabled,
-    @required this.primaryColor,
-    @required this.handHold,
-    @required this.leftGrip,
-    @required this.rightGrip,
-    @required this.leftGripBoardHold,
-    @required this.rightGripBoardHold,
-    @required this.repetitions,
-    @required this.restBetweenRepetitions,
-    @required this.hangTime,
-    @required this.addedWeight,
-    @required this.board,
-    @required this.textPrimaryColor,
-    @required this.totalHolds,
-    @required this.currentHold,
-    @required this.weightUnitDescription
-  });
-}
-
-@immutable
-class HoldPageInternalState {
-  final int currentHoldIndex;
+  final int currentHold;
+  final int totalHolds;
 
   final HandHold handHold;
   final Grip leftGrip;
@@ -61,27 +28,39 @@ class HoldPageInternalState {
   final String hangTimeInput;
   final String addedWeightInput;
 
-  final Board board;
+  const HoldPageState({
+    @required this.currentHoldIndex,
+    @required this.board,
+    @required this.inputsEnabled,
+    @required this.primaryColor,
+    @required this.textPrimaryColor,
+    @required this.weightUnitDescription,
+    @required this.currentHold,
+    @required this.totalHolds,
+    @required this.handHold,
+    @required this.leftGrip,
+    @required this.rightGrip,
+    @required this.leftGripBoardHold,
+    @required this.rightGripBoardHold,
+    @required this.repetitions,
+    @required this.restBetweenRepetitions,
+    @required this.hangTime,
+    @required this.addedWeight,
+    @required this.repetitionsInput,
+    @required this.restBetweenRepetitionsInput,
+    @required this.hangTimeInput,
+    @required this.addedWeightInput,
+  });
 
-  const HoldPageInternalState(
-      {@required this.currentHoldIndex,
-      @required this.handHold,
-      @required this.leftGrip,
-      @required this.rightGrip,
-      @required this.leftGripBoardHold,
-      @required this.rightGripBoardHold,
-      @required this.repetitions,
-      @required this.restBetweenRepetitions,
-      @required this.hangTime,
-      @required this.addedWeight,
-      @required this.repetitionsInput,
-      @required this.restBetweenRepetitionsInput,
-      @required this.hangTimeInput,
-      @required this.addedWeightInput,
-      @required this.board});
-
-  HoldPageInternalState copyWith({
+  HoldPageState copyWith({
     int currentHoldIndex,
+    Board board,
+    bool inputsEnabled,
+    Color primaryColor,
+    TextStyle textPrimaryColor,
+    String weightUnitDescription,
+    int currentHold,
+    int totalHolds,
     HandHold handHold,
     Grip leftGrip,
     Grip rightGrip,
@@ -95,10 +74,17 @@ class HoldPageInternalState {
     String restBetweenRepetitionsInput,
     String hangTimeInput,
     String addedWeightInput,
-    Board board,
   }) {
-    return new HoldPageInternalState(
+    return new HoldPageState(
       currentHoldIndex: currentHoldIndex ?? this.currentHoldIndex,
+      board: board ?? this.board,
+      inputsEnabled: inputsEnabled ?? this.inputsEnabled,
+      primaryColor: primaryColor ?? this.primaryColor,
+      textPrimaryColor: textPrimaryColor ?? this.textPrimaryColor,
+      weightUnitDescription:
+          weightUnitDescription ?? this.weightUnitDescription,
+      currentHold: currentHold ?? this.currentHold,
+      totalHolds: totalHolds ?? this.totalHolds,
       handHold: handHold ?? this.handHold,
       leftGrip: leftGrip ?? this.leftGrip,
       rightGrip: rightGrip ?? this.rightGrip,
@@ -114,7 +100,6 @@ class HoldPageInternalState {
           restBetweenRepetitionsInput ?? this.restBetweenRepetitionsInput,
       hangTimeInput: hangTimeInput ?? this.hangTimeInput,
       addedWeightInput: addedWeightInput ?? this.addedWeightInput,
-      board: board ?? this.board,
     );
   }
 }

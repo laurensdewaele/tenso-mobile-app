@@ -95,19 +95,21 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               builder: (BuildContext context,
                                   AsyncSnapshot<WorkoutNavigatorPage>
                                       snapshot) {
+                                final WorkoutNavigatorPage activePage =
+                                    snapshot.data;
                                 return Column(
                                   children: <Widget>[
-                                    if (snapshot.data.page ==
+                                    if (activePage.page ==
                                         WorkoutPages.generalPage)
                                       GeneralPage(
                                           workoutNavigator: _workoutNavigator,
                                           workoutViewModel: _workoutViewModel),
-                                    if (snapshot.data.page ==
+                                    if (activePage.page ==
                                         WorkoutPages.holdPage)
                                       HoldPage(
                                           workoutNavigator: _workoutNavigator,
                                           workoutViewModel: _workoutViewModel),
-                                    if (snapshot.data.page ==
+                                    if (activePage.page ==
                                         WorkoutPages.extraPage)
                                       Container(
                                         child: Text('extra'),

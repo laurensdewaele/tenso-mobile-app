@@ -42,11 +42,11 @@ class _HoldPageState extends State<HoldPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<HoldPageInitialState>(
-        stream: _viewModel.initialState$,
+    return StreamBuilder<HoldPageState>(
+        stream: _viewModel.state$,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          HoldPageInitialState _initialState = snapshot?.data;
-          if (_initialState == null) {
+          HoldPageState _state = snapshot?.data;
+          if (_state == null) {
             return Container();
           } else {
             return CardContainer(
@@ -54,18 +54,18 @@ class _HoldPageState extends State<HoldPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  if (_initialState.inputsEnabled == true)
+                  if (_state.inputsEnabled == true)
                     HoldInputContainer(
-                      board: _initialState.board,
-                      currentHold: _initialState.currentHold,
-                      handHold: _initialState.handHold,
-                      totalHolds: _initialState.totalHolds,
-                      leftGrip: _initialState.leftGrip,
-                      leftGripBoardHold: _initialState.leftGripBoardHold,
-                      primaryColor: _initialState.primaryColor,
-                      rightGrip: _initialState.rightGrip,
-                      rightGripBoardHold: _initialState.rightGripBoardHold,
-                      textPrimaryColor: _initialState.textPrimaryColor,
+                      board: _state.board,
+                      currentHold: _state.currentHold,
+                      handHold: _state.handHold,
+                      totalHolds: _state.totalHolds,
+                      leftGrip: _state.leftGrip,
+                      leftGripBoardHold: _state.leftGripBoardHold,
+                      primaryColor: _state.primaryColor,
+                      rightGrip: _state.rightGrip,
+                      rightGripBoardHold: _state.rightGripBoardHold,
+                      textPrimaryColor: _state.textPrimaryColor,
                       handleLeftGripSelected: _viewModel.handleLeftGripSelected,
                       handleLeftHandSelected: _viewModel.handleLeftHandSelected,
                       handleOneHandedTap: _viewModel.handleOneHandedTap,
@@ -77,25 +77,25 @@ class _HoldPageState extends State<HoldPage> {
                       setLeftGripBoardHold: _viewModel.setLeftGripBoardHold,
                       setRightGripBoardHold: _viewModel.setRightGripBoardHold,
                     ),
-                  if (_initialState.inputsEnabled != true)
+                  if (_state.inputsEnabled != true)
                     SelectedGripsAndHolds(
-                      board: _initialState.board,
-                      leftGrip: _initialState.leftGrip,
-                      leftGripBoardHold: _initialState.leftGripBoardHold,
-                      rightGrip: _initialState.rightGrip,
-                      rightGripBoardHold: _initialState.rightGripBoardHold,
-                      totalHolds: _initialState.totalHolds,
-                      currentHold: _initialState.currentHold,
+                      board: _state.board,
+                      leftGrip: _state.leftGrip,
+                      leftGripBoardHold: _state.leftGripBoardHold,
+                      rightGrip: _state.rightGrip,
+                      rightGripBoardHold: _state.rightGripBoardHold,
+                      totalHolds: _state.totalHolds,
+                      currentHold: _state.currentHold,
                     ),
                   Section(
                     title: 'basics',
                     children: <Widget>[
                       NumberInputAndDescription2(
-                        enabled: _initialState.inputsEnabled,
-                        primaryColor: _initialState.primaryColor,
+                        enabled: _state.inputsEnabled,
+                        primaryColor: _state.primaryColor,
                         description: 'repetitions',
                         handleValueChanged: _viewModel.setRepetitions,
-                        initialValue: _initialState.repetitions,
+                        initialValue: _state.repetitions,
                       ),
                       Divider(
                         height: styles.Measurements.m,
@@ -106,22 +106,22 @@ class _HoldPageState extends State<HoldPage> {
                     title: 'timers',
                     children: <Widget>[
                       NumberInputAndDescription2(
-                        enabled: _initialState.inputsEnabled,
-                        primaryColor: _initialState.primaryColor,
+                        enabled: _state.inputsEnabled,
+                        primaryColor: _state.primaryColor,
                         description: 'hang time seconds',
                         handleValueChanged: _viewModel.setHangTime,
-                        initialValue: _initialState.hangTime,
+                        initialValue: _state.hangTime,
                       ),
                       Divider(
                         height: styles.Measurements.m,
                       ),
                       NumberInputAndDescription2(
-                        enabled: _initialState.inputsEnabled,
-                        primaryColor: _initialState.primaryColor,
+                        enabled: _state.inputsEnabled,
+                        primaryColor: _state.primaryColor,
                         description: 'rest seconds between repetitions',
                         handleValueChanged:
                             _viewModel.setRestBetweenRepetitions,
-                        initialValue: _initialState.restBetweenRepetitions,
+                        initialValue: _state.restBetweenRepetitions,
                       ),
                       Divider(
                         height: styles.Measurements.m,
@@ -132,11 +132,11 @@ class _HoldPageState extends State<HoldPage> {
                     title: 'added weight',
                     children: <Widget>[
                       NumberInputAndDescription2(
-                        enabled: _initialState.inputsEnabled,
-                        primaryColor: _initialState.primaryColor,
-                        description: _initialState.weightUnitDescription,
+                        enabled: _state.inputsEnabled,
+                        primaryColor: _state.primaryColor,
+                        description: _state.weightUnitDescription,
                         handleValueChanged: _viewModel.setAddedWeight,
-                        initialValue: _initialState.addedWeight,
+                        initialValue: _state.addedWeight,
                       ),
                       Divider(
                         height: styles.Measurements.m,
