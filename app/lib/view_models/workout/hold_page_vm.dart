@@ -22,8 +22,9 @@ class HoldPageViewModel {
   StreamSubscription _sub3;
   StreamSubscription _sub4;
 
-  BehaviorSubject<HoldPageState> _state$ = BehaviorSubject.seeded(null);
+  BehaviorSubject<HoldPageState> _state$;
   Stream<HoldPageState> get state$ => _state$.stream;
+  HoldPageState get initialState => _state$.value;
 
   HoldPageViewModel({
     @required WorkoutViewModel workoutViewModel,
@@ -31,6 +32,8 @@ class HoldPageViewModel {
   }) {
     _workoutViewModel = workoutViewModel;
     _workoutNavigator = workoutNavigator;
+    _state$ = BehaviorSubject.seeded(_buildState(
+        _workoutViewModel.state, _workoutNavigator.activePage.holdIndex));
 
     _currentHoldIndex$ = _workoutNavigator.activePage$
         .map((page) => page.holdIndex)
@@ -45,44 +48,40 @@ class HoldPageViewModel {
     _sub3 = _currentHoldIndex$.listen((int holdIndex) {
       _sub4 =
           _workoutViewModel.state$.listen((WorkoutViewModelState workoutState) {
-        _setState(workoutState, holdIndex);
+        if (!_state$.isClosed) {
+          _state$.add(_buildState(workoutState, holdIndex));
+        }
       });
     });
   }
 
-  void _setState(WorkoutViewModelState workoutState, holdIndex) {
-    if (!_state$.isClosed) {
-      _state$.add(
-        HoldPageState(
-          primaryColor: workoutState.primaryColor,
-          inputsEnabled: workoutState.inputsEnabled,
-          handHold: workoutState.holds[holdIndex].handHold,
-          leftGrip: workoutState.holds[holdIndex].leftGrip,
-          rightGrip: workoutState.holds[holdIndex].rightGrip,
-          leftGripBoardHold: workoutState.holds[holdIndex].leftGripBoardHold,
-          rightGripBoardHold: workoutState.holds[holdIndex].rightGripBoardHold,
-          repetitions: workoutState.holds[holdIndex].repetitions,
-          restBetweenRepetitions:
-              workoutState.holds[holdIndex].restBetweenRepetitions,
-          hangTime: workoutState.holds[holdIndex].hangTime,
-          addedWeight: workoutState.holds[holdIndex].addedWeight,
-          board: workoutState.board,
-          currentHold: holdIndex + 1,
-          totalHolds: workoutState.holds.length,
-          weightUnitDescription:
-              workoutState.weightUnit == WeightUnit.metric ? 'kg' : 'lbs',
-          textPrimaryColor: workoutState.textPrimaryColor,
-          currentHoldIndex: holdIndex,
-          repetitionsInput:
-              workoutState.holds[holdIndex].repetitions.toString(),
-          restBetweenRepetitionsInput:
-              workoutState.holds[holdIndex].restBetweenRepetitions.toString(),
-          hangTimeInput: workoutState.holds[holdIndex].hangTime.toString(),
-          addedWeightInput:
-              workoutState.holds[holdIndex].addedWeight.toString(),
-        ),
-      );
-    }
+  HoldPageState _buildState(WorkoutViewModelState workoutState, holdIndex) {
+    return HoldPageState(
+      primaryColor: workoutState.primaryColor,
+      inputsEnabled: workoutState.inputsEnabled,
+      handHold: workoutState.holds[holdIndex].handHold,
+      leftGrip: workoutState.holds[holdIndex].leftGrip,
+      rightGrip: workoutState.holds[holdIndex].rightGrip,
+      leftGripBoardHold: workoutState.holds[holdIndex].leftGripBoardHold,
+      rightGripBoardHold: workoutState.holds[holdIndex].rightGripBoardHold,
+      repetitions: workoutState.holds[holdIndex].repetitions,
+      restBetweenRepetitions:
+          workoutState.holds[holdIndex].restBetweenRepetitions,
+      hangTime: workoutState.holds[holdIndex].hangTime,
+      addedWeight: workoutState.holds[holdIndex].addedWeight,
+      board: workoutState.board,
+      currentHold: holdIndex + 1,
+      totalHolds: workoutState.holds.length,
+      weightUnitDescription:
+          workoutState.weightUnit == WeightUnit.metric ? 'kg' : 'lbs',
+      textPrimaryColor: workoutState.textPrimaryColor,
+      currentHoldIndex: holdIndex,
+      repetitionsInput: workoutState.holds[holdIndex].repetitions.toString(),
+      restBetweenRepetitionsInput:
+          workoutState.holds[holdIndex].restBetweenRepetitions.toString(),
+      hangTimeInput: workoutState.holds[holdIndex].hangTime.toString(),
+      addedWeightInput: workoutState.holds[holdIndex].addedWeight.toString(),
+    );
   }
 
   void _validateAndReport() {

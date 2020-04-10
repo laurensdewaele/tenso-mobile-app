@@ -21,6 +21,8 @@ class WorkoutNavigator {
   Stream<WorkoutNavigatorPage> get activePage$ => _pages$
       .map((pages) => pages.firstWhere((page) => page.active == true))
       .distinct();
+  WorkoutNavigatorPage get activePage =>
+      _pages$.value.firstWhere((page) => page.active == true);
 
   BehaviorSubject<NavigationValidationState> _validationState$ =
       BehaviorSubject.seeded(ValidationUnknown());
