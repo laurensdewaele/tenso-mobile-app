@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:rxdart/rxdart.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
 import 'package:app/view_models/workout/general_page_vm_state.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
-import 'package:app/view_models/workout/workout_vm_state.dart';
 
 class GeneralPageViewModel {
   WorkoutNavigator _workoutNavigator;
   WorkoutViewModel _workoutViewModel;
   StreamSubscription _sub1;
   StreamSubscription _sub2;
-  StreamSubscription _sub3;
+
+  GeneralPageInitialState _initialState;
+  GeneralPageInitialState get initialState => _initialState;
+  GeneralPageInternalState _internalState;
 
   GeneralPageViewModel({
     @required WorkoutViewModel workoutViewModel,
@@ -25,20 +25,37 @@ class GeneralPageViewModel {
   }) {
     _workoutViewModel = workoutViewModel;
     _workoutNavigator = workoutNavigator;
+    _setInitialState();
     _sub1 = _workoutViewModel.shouldValidate$.listen((_) {
       _validate();
     });
-    _sub2 = _workoutViewModel.state$.listen(_setVariables);
-    _sub3 = _workoutNavigator.shouldValidate$.listen((_) {
+    _sub2 = _workoutNavigator.shouldValidate$.listen((_) {
       _validateAndReport();
     });
   }
 
-  BehaviorSubject<GeneralPageInitialState> _initialState$ =
-      BehaviorSubject.seeded(null);
-  Stream<GeneralPageInitialState> get initialState$ => _initialState$.stream;
-
-  GeneralPageInternalState _internalState;
+  void _setInitialState() {
+    final _state = _workoutViewModel.state;
+    _initialState = GeneralPageInitialState(
+        inputsEnabled: _state.inputsEnabled,
+        primaryColor: _state.primaryColor,
+        holdCount: _state.holdCount,
+        sets: _state.sets,
+        restBetweenHolds: _state.restBetweenHolds,
+        restBetweenSets: _state.restBetweenSets,
+        board: _state.board);
+    _internalState = GeneralPageInternalState(
+      holdCount: null,
+      sets: null,
+      restBetweenHolds: null,
+      restBetweenSets: null,
+      board: _state.board,
+      holdCountInput: _state.holdCount.toString(),
+      setsInput: _state.sets.toString(),
+      restBetweenHoldsInput: _state.restBetweenHolds.toString(),
+      restBetweenSetsInput: _state.restBetweenSets.toString(),
+    );
+  }
 
   void _validateAndReport() {
     if (_validate() == true) {
@@ -96,32 +113,8 @@ class GeneralPageViewModel {
     _internalState = _internalState.copyWith(board: board);
   }
 
-  void _setVariables(WorkoutViewModelState workoutVMState) {
-    _internalState = GeneralPageInternalState(
-      holdCount: null,
-      sets: null,
-      restBetweenHolds: null,
-      restBetweenSets: null,
-      board: workoutVMState.board,
-      holdCountInput: workoutVMState.holdCount.toString(),
-      setsInput: workoutVMState.sets.toString(),
-      restBetweenHoldsInput: workoutVMState.restBetweenHolds.toString(),
-      restBetweenSetsInput: workoutVMState.restBetweenSets.toString(),
-    );
-    _initialState$.add(GeneralPageInitialState(
-        inputsEnabled: workoutVMState.inputsEnabled,
-        primaryColor: workoutVMState.primaryColor,
-        holdCount: workoutVMState.holdCount,
-        sets: workoutVMState.sets,
-        restBetweenHolds: workoutVMState.restBetweenHolds,
-        restBetweenSets: workoutVMState.restBetweenSets,
-        board: workoutVMState.board));
-  }
-
   void dispose() {
-    _initialState$.close();
     _sub1.cancel();
     _sub2.cancel();
-    _sub3.cancel();
   }
 }

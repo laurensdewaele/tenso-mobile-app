@@ -12,7 +12,7 @@ enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
 
 class WorkoutViewModel {
   BehaviorSubject<WorkoutViewModelState> _state$;
-  WorkoutViewModelState get _state => _state$.value;
+  WorkoutViewModelState get state => _state$.value;
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   WorkoutViewModelState get initialState => _state$.value;
   Stream<bool> shouldValidate$;
@@ -56,7 +56,7 @@ class WorkoutViewModel {
       @required int restBetweenHolds,
       @required int restBetweenSets,
       @required Board board}) {
-    _state$.add(_state.copyWith(
+    _state$.add(state.copyWith(
         holdCount: holdCount,
         sets: sets,
         restBetweenHolds: restBetweenHolds,
@@ -88,30 +88,30 @@ class WorkoutViewModel {
         ..addedWeight = addedWeight
         ..handHold = handHold);
 
-      final List<Hold> _newHolds = []..addAll(_state.holds);
+      final List<Hold> _newHolds = []..addAll(state.holds);
       _newHolds[holdIndex] = _newHold;
-      _state$.add(_state.copyWith(holds: _newHolds));
+      _state$.add(state.copyWith(holds: _newHolds));
     }
   }
 
   void setExtraVariables({@required Label label, @required String name}) {
-    _state$.add(_state.copyWith(label: label, name: name));
+    _state$.add(state.copyWith(label: label, name: name));
   }
 
   List<Hold> _generateHoldsFromHoldCount(int count) {
-    if (count == _state.holdCount) {
-      return _state.holds;
+    if (count == state.holdCount) {
+      return state.holds;
     }
 
     List<Hold> _holds;
-    if (count < _state.holdCount) {
-      _holds = _state.holds.take(count).toList();
+    if (count < state.holdCount) {
+      _holds = state.holds.take(count).toList();
     }
-    if (count > _state.holdCount) {
-      final Hold defaultHold = _state.holds[0];
-      final int difference = count - _state.holdCount;
+    if (count > state.holdCount) {
+      final Hold defaultHold = state.holds[0];
+      final int difference = count - state.holdCount;
       _holds = [
-        ..._state.holds,
+        ...state.holds,
         ...List.generate(difference, (i) => defaultHold)
       ];
     }
