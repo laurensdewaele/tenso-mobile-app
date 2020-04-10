@@ -3,14 +3,10 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:rxdart/rxdart.dart';
 
 class KeyboardService {
   // Creates a singleton.
-  KeyboardService._() {
-    shouldValidate$ =
-        MergeStream([shouldLoseFocus$, inputComplete$]).asBroadcastStream();
-  }
+  KeyboardService._();
 
   static final KeyboardService _keyboardService = KeyboardService._();
   factory KeyboardService() {
@@ -25,7 +21,6 @@ class KeyboardService {
       StreamController.broadcast();
   final StreamController<bool> _inputCompleteController =
       StreamController.broadcast();
-  Stream<bool> shouldValidate$;
 
   Stream<bool> get resetInitialValue$ =>
       _resetInitialValueStreamController.stream;

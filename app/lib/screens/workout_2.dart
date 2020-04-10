@@ -6,9 +6,10 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/workout_general_vm.dart';
+import 'package:app/view_models/workout/general_page_vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
+import 'package:app/view_models/workout/workout_vm_state.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
@@ -27,6 +28,8 @@ class _WorkoutScreenState extends State<Workout2Screen> {
   WorkoutViewModel _workoutViewModel;
   WorkoutNavigator _workoutNavigator;
   KeyboardService _keyboardService;
+  // This way it won't initialize multiple times during a rebuild.
+  GeneralPageViewModel _generalViewModel;
 
   @override
   void initState() {
@@ -37,10 +40,14 @@ class _WorkoutScreenState extends State<Workout2Screen> {
 
     _keyboardService = Provider.of<KeyboardService>(context, listen: false);
     _workoutViewModel = WorkoutViewModel(
+        keyboardService: _keyboardService,
         workout: _workout,
         workoutType: _workoutType,
         currentWeightUnit: _weightUnit);
     _workoutNavigator = WorkoutNavigator(initialHoldCount: _workout.holdCount);
+    _generalViewModel = GeneralPageViewModel(
+        workoutNavigator: _workoutNavigator,
+        workoutViewModel: _workoutViewModel);
     super.initState();
   }
 
@@ -66,53 +73,54 @@ class _WorkoutScreenState extends State<Workout2Screen> {
     return GestureDetector(
       onHorizontalDragEnd: _onHorizontalDragEnd,
       child: KeyboardAndToastProvider(
-        child: Screen(
-            gradientStartColor:
-                _workoutViewModel.workoutTypesVariables.primaryColor,
-            gradientStopColor:
-                _workoutViewModel.workoutTypesVariables.primaryColor,
-            child: KeyboardListView(
-                scrollToTopStream:
-                    _workoutNavigator.activePage$.map((page) => true),
-                children: [
-                  Column(
-                    children: <Widget>[
-                      TopNavigation(
-                          title: _workoutViewModel.workoutTypesVariables.title),
-                      Divider(height: styles.Measurements.xxl),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: styles.Measurements.xs),
-                        child: StreamBuilder(
-                          initialData: initialPages[0],
-                          stream: _workoutNavigator.activePage$,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<NavigatorPage> snapshot) {
-                            return Column(
-                              children: <Widget>[
-                                if (snapshot.data.page == Pages.generalPage)
-                                  GeneralPage(
-                                      viewModel: WorkoutGeneralViewModel(
-                                          workoutNavigator: _workoutNavigator,
-                                          workoutViewModel: _workoutViewModel,
-                                          keyboardService: _keyboardService)),
-                                if (snapshot.data.page == Pages.holdPage)
-                                  Container(
-                                    child: Text('hold'),
-                                  ),
-                                if (snapshot.data.page == Pages.extraPage)
-                                  Container(
-                                    child: Text('extra'),
-                                  )
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                      Divider(height: styles.Measurements.xxl)
-                    ],
-                  )
-                ])),
+        child: StreamBuilder<WorkoutViewModelState>(
+          initialData: _workoutViewModel.initialState,
+          stream: _workoutViewModel.state$,
+          builder: (BuildContext context,
+              AsyncSnapshot<WorkoutViewModelState> snapshot) {
+            final _workoutState = snapshot.data;
+            return Screen(
+                gradientStartColor: _workoutState.primaryColor,
+                gradientStopColor: _workoutState.primaryColor,
+                child: KeyboardListView(
+                    scrollToTopStream:
+                        _workoutNavigator.activePage$.map((page) => true),
+                    children: [
+                      Column(
+                        children: <Widget>[
+                          TopNavigation(title: _workoutState.title),
+                          Divider(height: styles.Measurements.xxl),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: styles.Measurements.xs),
+                            child: StreamBuilder(
+                              initialData: initialPages[0],
+                              stream: _workoutNavigator.activePage$,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<NavigatorPage> snapshot) {
+                                return Column(
+                                  children: <Widget>[
+                                    if (snapshot.data.page == Pages.generalPage)
+                                      GeneralPage(viewModel: _generalViewModel),
+                                    if (snapshot.data.page == Pages.holdPage)
+                                      Container(
+                                        child: Text('hold'),
+                                      ),
+                                    if (snapshot.data.page == Pages.extraPage)
+                                      Container(
+                                        child: Text('extra'),
+                                      )
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          Divider(height: styles.Measurements.xxl)
+                        ],
+                      )
+                    ]));
+          },
+        ),
       ),
     );
   }

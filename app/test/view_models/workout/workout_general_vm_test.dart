@@ -7,13 +7,13 @@ import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
-import 'package:app/view_models/workout/workout_general_vm.dart';
+import 'package:app/view_models/workout/general_page_vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 
 void main() {
   group('general page', () {
-    WorkoutGeneralViewModel _workoutGeneralViewModel;
+    GeneralPageViewModel _workoutGeneralViewModel;
     WorkoutViewModel _workoutViewModel;
     WorkoutNavigator _workoutNavigator;
     KeyboardService _keyboardService;
@@ -26,7 +26,7 @@ void main() {
           workoutType: WorkoutTypes.newWorkout);
       _workoutNavigator =
           WorkoutNavigator(initialHoldCount: basicTestWorkout.holdCount);
-      _workoutGeneralViewModel = WorkoutGeneralViewModel(
+      _workoutGeneralViewModel = GeneralPageViewModel(
           workoutViewModel: _workoutViewModel,
           workoutNavigator: _workoutNavigator,
           keyboardService: _keyboardService);

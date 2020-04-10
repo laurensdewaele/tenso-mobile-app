@@ -38,9 +38,7 @@ class _NumberInputState extends State<Number2Input> {
     super.initState();
     _textEditingController.text = widget.initialValue.toString();
     _focusNode.addListener(() {
-      if (_focusNode.hasFocus != true) {
-        _onComplete();
-      } else {
+      if (_focusNode.hasFocus == true) {
         _textEditingController.clear();
       }
     });
