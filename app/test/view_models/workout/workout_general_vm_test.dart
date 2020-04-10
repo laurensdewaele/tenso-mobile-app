@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import '../../data/test_data.dart';
@@ -12,36 +11,32 @@ import 'package:app/view_models/workout/workout_general_vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 
-class MockWorkoutViewModel extends Mock implements WorkoutViewModel {}
-
 void main() {
-  group('Workout general page', () {
+  group('general page', () {
     WorkoutGeneralViewModel _workoutGeneralViewModel;
-    MockWorkoutViewModel _mockWorkoutViewModel;
+    WorkoutViewModel _workoutViewModel;
     WorkoutNavigator _workoutNavigator;
     KeyboardService _keyboardService;
 
     setUp(() {
       _keyboardService = KeyboardService();
-      _mockWorkoutViewModel = MockWorkoutViewModel();
-      when(_mockWorkoutViewModel.holdCount$).thenAnswer((_) => Stream.value(3));
-      when(_mockWorkoutViewModel.state$).thenAnswer((_) => Stream.value(
-          WorkoutViewModelState(
-              name: basicTestWorkout.name,
-              label: basicTestWorkout.label,
-              holds: basicTestWorkout.holds.toList(),
-              board: basicTestWorkout.board,
-              restBetweenHolds: basicTestWorkout.restBetweenHolds,
-              restBetweenSets: basicTestWorkout.restBetweenSets,
-              sets: basicTestWorkout.sets,
-              holdCount: basicTestWorkout.holdCount,
-              weightUnit: basicTestWorkout.weightUnit)));
+      _workoutViewModel = WorkoutViewModel(
+          workout: basicTestWorkout,
+          currentWeightUnit: WeightUnit.metric,
+          workoutType: WorkoutTypes.newWorkout);
       _workoutNavigator =
-          WorkoutNavigator(workoutViewModel: _mockWorkoutViewModel);
+          WorkoutNavigator(initialHoldCount: basicTestWorkout.holdCount);
       _workoutGeneralViewModel = WorkoutGeneralViewModel(
-          workoutViewModel: _mockWorkoutViewModel,
+          workoutViewModel: _workoutViewModel,
           workoutNavigator: _workoutNavigator,
           keyboardService: _keyboardService);
+    });
+
+    tearDownAll(() {
+      _workoutGeneralViewModel.dispose();
+      _workoutViewModel.dispose();
+      _workoutNavigator.dispose();
+      _keyboardService.dispose();
     });
 
     test('initialize', () {
@@ -168,16 +163,17 @@ void main() {
       Board _newBoard;
 
       setUp(() {
-        _initialPage = NavigatorPage(
-            page: Pages.generalPage, holdIndex: null, active: true, index: 0);
-        _newBoard = basicTestWorkout.board.rebuild((b) => b..width = 400);
-        _workoutGeneralViewModel.setHoldCount('10');
-        _workoutGeneralViewModel.setSets('4');
-        _workoutGeneralViewModel.setRestBetweenHolds('100');
-        _workoutGeneralViewModel.setRestBetweenSets('110');
-        _workoutGeneralViewModel.setBoard(_newBoard);
-
-        _workoutNavigator.handleForwardRequest();
+        scheduleMicrotask(() {
+          _initialPage = NavigatorPage(
+              page: Pages.generalPage, holdIndex: null, active: true, index: 0);
+          _newBoard = basicTestWorkout.board.rebuild((b) => b..width = 400);
+          _workoutGeneralViewModel.setHoldCount('10');
+          _workoutGeneralViewModel.setSets('4');
+          _workoutGeneralViewModel.setRestBetweenHolds('100');
+          _workoutGeneralViewModel.setRestBetweenSets('110');
+          _workoutGeneralViewModel.setBoard(_newBoard);
+          _workoutNavigator.handleForwardRequest();
+        });
       });
 
       test('if validation is successful => report back to navigator', () {
@@ -193,15 +189,20 @@ void main() {
           _emitted++;
         }, count: 2));
       });
+
       test('if validation is successful => save variables on workout_vm', () {
-        scheduleMicrotask(() {
-          verify(_mockWorkoutViewModel.setGeneralVariables(
-              holdCount: argThat(equals(10), named: 'holdCount'),
-              sets: argThat(equals(4), named: 'sets'),
-              restBetweenHolds: argThat(equals(100), named: 'restBetweenHolds'),
-              restBetweenSets: argThat(equals(110), named: 'restBetweenSets'),
-              board: argThat(equals(_newBoard), named: 'board')));
-        });
+        int _emitted = 0;
+        _workoutViewModel.state$
+            .listen(expectAsync1((WorkoutViewModelState state) {
+          if (_emitted == 0) {
+            expect(state.holdCount, basicTestWorkout.holdCount);
+          }
+
+          if (_emitted == 1) {
+            expect(state.holdCount, 10);
+          }
+          _emitted++;
+        }, count: 2));
       });
     });
   });

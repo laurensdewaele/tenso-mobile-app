@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/widgets/general_tab.dart';
 import 'package:app/widgets/workout/extra_tab.dart';
-import 'package:app/widgets/workout/general_tab.dart';
 import 'package:app/widgets/workout/hold_tab.dart';
 import 'package:app/widgets/workout/navigation_tabs.dart';
 
@@ -42,8 +42,7 @@ class _TabsContainerState extends State<TabsContainer> {
         widget.navigateForwardTab$.listen((bool shouldNavigate) {
       _handleForwardNavigation();
     });
-    _navigateBackTabSub =
-        widget.navigateBackTab$.listen((bool shouldNavigate) {
+    _navigateBackTabSub = widget.navigateBackTab$.listen((bool shouldNavigate) {
       _handleBackNavigation();
     });
   }

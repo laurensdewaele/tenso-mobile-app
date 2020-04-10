@@ -29,7 +29,11 @@ class WorkoutExtraViewModel {
     _workoutVMSub = _workoutViewModel.state$.listen(_setVariables);
     _navigatorSub =
         _workoutNavigator.shouldValidate$.listen((_) => _validateAndReport());
+    _workoutTypesVariables = _workoutViewModel.workoutTypesVariables;
   }
+
+  WorkoutTypesVariables _workoutTypesVariables;
+  WorkoutTypesVariables get workoutTypesVariables => _workoutTypesVariables;
 
   Label _label;
   Label get label => _label;

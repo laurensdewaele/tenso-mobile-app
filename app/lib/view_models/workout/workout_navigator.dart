@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:rxdart/rxdart.dart';
 
-import 'package:app/view_models/workout/workout_vm.dart';
-
 enum Pages { generalPage, holdPage, extraPage }
 
 @immutable
@@ -41,39 +39,65 @@ class NavigatorPage {
   }
 }
 
-class WorkoutNavigator {
-  WorkoutViewModel _workoutViewModel;
+List<NavigatorPage> initialPages = [
+  NavigatorPage(
+    page: Pages.generalPage,
+    index: 0,
+    holdIndex: null,
+    active: true,
+  ),
+  NavigatorPage(
+    page: Pages.holdPage,
+    index: 1,
+    holdIndex: 0,
+    active: false,
+  ),
+  NavigatorPage(
+    page: Pages.extraPage,
+    index: 2,
+    holdIndex: null,
+    active: false,
+  )
+];
 
+class WorkoutNavigator {
   BehaviorSubject<List<NavigatorPage>> _pages$ =
-      BehaviorSubject<List<NavigatorPage>>();
+      BehaviorSubject.seeded(initialPages);
   Stream<List<NavigatorPage>> get pages$ => _pages$.stream;
 
   NavigatorPage get _activePage =>
       _pages$.value.firstWhere((page) => page.active == true);
-  Stream<NavigatorPage> get activePage$ =>
-      _pages$.map((pages) => pages.firstWhere((page) => page.active == true));
+  Stream<NavigatorPage> get activePage$ => _pages$
+      .map((pages) => pages.firstWhere((page) => page.active == true))
+      .distinct();
 
   BehaviorSubject<ValidationState> _validationState$ =
       BehaviorSubject.seeded(ValidationUnknown());
   ValidationState get _validationState => _validationState$.value;
 
-  Stream<ValidationState> get shouldValidate$ =>
-      _validationState$.stream.where((state) => state is ValidationPending);
+  Stream<bool> get shouldValidate$ => _validationState$.stream
+      .where((state) => state is ValidationPending)
+      .mapTo(true);
 
   StreamController<bool> _shouldPopRoute = StreamController.broadcast();
   Stream<bool> get shouldPopRoute$ => _shouldPopRoute.stream;
 
-  StreamSubscription _workoutVMSub;
+  int _holdCount;
 
-  WorkoutNavigator({WorkoutViewModel workoutViewModel}) {
-    _workoutViewModel = workoutViewModel;
-    // We will always be on the General page when the holdCount changes.
-    _workoutVMSub = _workoutViewModel.holdCount$.listen(
-        (int holdCount) => _buildPages(count: holdCount + 2, activeIndex: 0));
+  WorkoutNavigator({int initialHoldCount}) {
+    _holdCount = initialHoldCount;
+  }
+
+  void buildPagesDueToHoldCount(int holdCount) {
+    if (_holdCount == holdCount) {
+      return;
+    } else {
+      _holdCount = holdCount;
+      _buildPages(count: holdCount, activeIndex: 0);
+    }
   }
 
   void _buildPages({int count, int activeIndex}) {
-    _validationState$.add(ValidationUnknown());
     _pages$.add([
       NavigatorPage(
           page: Pages.generalPage,
@@ -120,6 +144,7 @@ class WorkoutNavigator {
     if (_activePage.index <= _pages$.value.length - 2) {
       _buildPages(
           count: _pages$.value.length, activeIndex: _activePage.index + 1);
+      _validationState$.add(ValidationUnknown());
     } else {
       _shouldPopRoute.add(true);
     }
@@ -129,6 +154,7 @@ class WorkoutNavigator {
     if (_activePage.index >= 1) {
       _buildPages(
           count: _pages$.value.length, activeIndex: _activePage.index - 1);
+      _validationState$.add(ValidationUnknown());
     }
     if (_activePage.index == 0) {
       _shouldPopRoute.add(true);
@@ -136,7 +162,6 @@ class WorkoutNavigator {
   }
 
   void dispose() {
-    _workoutVMSub.cancel();
     _pages$.close();
     _validationState$.close();
     _shouldPopRoute.close();
@@ -153,6 +178,21 @@ class ValidationPending extends ValidationState {
   ValidationPending({
     @required this.navigationType,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ValidationPending &&
+          runtimeType == other.runtimeType &&
+          navigationType == other.navigationType;
+
+  @override
+  int get hashCode => navigationType.hashCode;
+
+  @override
+  String toString() {
+    return 'ValidationPending{navigationType: $navigationType}';
+  }
 }
 
 class ValidationUnknown extends ValidationState {}

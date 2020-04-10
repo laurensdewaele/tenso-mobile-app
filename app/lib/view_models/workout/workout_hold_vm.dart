@@ -20,6 +20,8 @@ class WorkoutHoldViewModel {
   WorkoutViewModelState _workoutVMState;
   Stream<int> _currentHoldIndex$;
 
+  int _currentHoldIndex;
+
   WorkoutHoldViewModel({
     @required WorkoutViewModel workoutViewModel,
     @required WorkoutNavigator workoutNavigator,
@@ -42,9 +44,14 @@ class WorkoutHoldViewModel {
     _shouldValidateSub =
         _workoutNavigator.shouldValidate$.listen((_) => _validateAndReport());
     _holdIndexSub = _currentHoldIndex$.listen((int holdIndex) {
+      _currentHoldIndex = holdIndex;
       _setVariables(holdIndex: holdIndex, workoutVMState: _workoutVMState);
     });
+    _workoutTypesVariables = _workoutViewModel.workoutTypesVariables;
   }
+
+  WorkoutTypesVariables _workoutTypesVariables;
+  WorkoutTypesVariables get workoutTypesVariables => _workoutTypesVariables;
 
   Grip _leftGrip;
   Grip get leftGrip => _leftGrip;
@@ -82,7 +89,8 @@ class WorkoutHoldViewModel {
           hangTime: hangTime,
           restBetweenRepetitions: restBetweenRepetitions,
           addedWeight: addedWeight,
-          handHold: handHold);
+          handHold: handHold,
+          holdIndex: _currentHoldIndex);
       _workoutNavigator.handleValidationSuccess();
     }
   }

@@ -9,8 +9,8 @@ import 'package:app/styles/styles.dart' as styles;
 
 // Do not forget to specify <T>
 // The Widget builder depends on it
-class NumberInput<T> extends StatefulWidget {
-  NumberInput(
+class Number2Input<T> extends StatefulWidget {
+  Number2Input(
       {@required this.handleValueChanged,
       this.primaryColor = styles.Colors.primary,
       this.initialValue,
@@ -25,7 +25,7 @@ class NumberInput<T> extends StatefulWidget {
   _NumberInputState createState() => _NumberInputState();
 }
 
-class _NumberInputState extends State<NumberInput> {
+class _NumberInputState extends State<Number2Input> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
 

@@ -3,36 +3,61 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
+
 import 'package:rxdart/subjects.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/workout_navigator.dart';
 
 enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
 
+@immutable
+class WorkoutTypesVariables {
+  final String extraTabButtonText;
+  final bool inputsEnabled;
+  final Color primaryColor;
+  final TextStyle textPrimaryColor;
+  final String title;
+
+  const WorkoutTypesVariables({
+    @required this.extraTabButtonText,
+    @required this.inputsEnabled,
+    @required this.primaryColor,
+    @required this.textPrimaryColor,
+    @required this.title,
+  });
+}
+
+WorkoutTypesVariables _newWorkoutVariables = WorkoutTypesVariables(
+    extraTabButtonText: 'add',
+    inputsEnabled: true,
+    primaryColor: styles.Colors.primary,
+    textPrimaryColor: styles.Lato.xsPrimary,
+    title: 'New workout');
+
+WorkoutTypesVariables _editWorkoutVariables = WorkoutTypesVariables(
+    extraTabButtonText: 'done',
+    inputsEnabled: true,
+    primaryColor: styles.Colors.blue,
+    textPrimaryColor: styles.Lato.xsBlue,
+    title: 'Edit workout');
+
+WorkoutTypesVariables _viewWorkoutVariables = WorkoutTypesVariables(
+    extraTabButtonText: 'back',
+    inputsEnabled: false,
+    primaryColor: styles.Colors.gray,
+    textPrimaryColor: styles.Lato.xsGray,
+    title: 'View workout');
+
 class WorkoutViewModel {
-  String _extraTabButtonText;
-  String get extraTabButtonText => _extraTabButtonText;
-  bool _inputsEnabled;
-  bool get inputsEnabled => _inputsEnabled;
-  Color _primaryColor;
-  Color get primaryColor => _primaryColor;
-  TextStyle _textPrimaryColor;
-  TextStyle get textPrimaryColor => _textPrimaryColor;
-  String _title;
-  String get title => _title;
+  WorkoutTypesVariables _workoutTypesVariables;
+  WorkoutTypesVariables get workoutTypesVariables => _workoutTypesVariables;
 
   BehaviorSubject<WorkoutViewModelState> _state$;
   WorkoutViewModelState get _state => _state$.value;
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
-  Stream<int> holdCount$;
-
-  StreamSubscription _workoutNavigatorSub;
-  int _currentHoldIndex;
 
   WorkoutViewModel({
-    @required WorkoutNavigator workoutNavigator,
     @required WorkoutTypes workoutType,
     @required Workout workout,
     @required WeightUnit currentWeightUnit,
@@ -41,44 +66,24 @@ class WorkoutViewModel {
     _setWorkoutTypeVars(workoutType);
     _state$ = BehaviorSubject.seeded(
         WorkoutViewModelState.fromWorkout(workout, currentWeightUnit));
-    holdCount$ = _state$.map((s) => s.holdCount).distinct();
-    _workoutNavigatorSub =
-        workoutNavigator.activePage$.listen((NavigatorPage page) {
-      if (page.holdIndex != null) {
-        _currentHoldIndex = page.holdIndex;
-      }
-    });
   }
 
   void _setWorkoutTypeVars(WorkoutTypes workoutType) {
     switch (workoutType) {
       case WorkoutTypes.editWorkout:
-        _extraTabButtonText = 'done';
-        _inputsEnabled = true;
-        _primaryColor = styles.Colors.blue;
-        _textPrimaryColor = styles.Lato.xsBlue;
-        _title = 'Edit workout';
+        _workoutTypesVariables = _editWorkoutVariables;
         break;
       case WorkoutTypes.newWorkout:
-        _extraTabButtonText = 'add';
-        _inputsEnabled = true;
-        _primaryColor = styles.Colors.primary;
-        _textPrimaryColor = styles.Lato.xsPrimary;
-        _title = 'New workout';
+        _workoutTypesVariables = _newWorkoutVariables;
         break;
       case WorkoutTypes.viewWorkout:
-        _extraTabButtonText = 'back';
-        _inputsEnabled = false;
-        _primaryColor = styles.Colors.gray;
-        _textPrimaryColor = styles.Lato.xsGray;
-        _title = 'View workout';
+        _workoutTypesVariables = _viewWorkoutVariables;
         break;
     }
   }
 
   void dispose() {
     _state$.close();
-    _workoutNavigatorSub.cancel();
   }
 
   void setGeneralVariables(
@@ -96,18 +101,18 @@ class WorkoutViewModel {
         holds: _generateHoldsFromHoldCount(holdCount)));
   }
 
-  void setHoldVariables({
-    @required Grip leftGrip,
-    @required Grip rightGrip,
-    @required BoardHold leftGripBoardHold,
-    @required BoardHold rightGripBoardHold,
-    @required int repetitions,
-    @required int hangTime,
-    @required int restBetweenRepetitions,
-    @required double addedWeight,
-    @required HandHold handHold,
-  }) {
-    if (_currentHoldIndex != null) {
+  void setHoldVariables(
+      {@required Grip leftGrip,
+      @required Grip rightGrip,
+      @required BoardHold leftGripBoardHold,
+      @required BoardHold rightGripBoardHold,
+      @required int repetitions,
+      @required int hangTime,
+      @required int restBetweenRepetitions,
+      @required double addedWeight,
+      @required HandHold handHold,
+      @required int holdIndex}) {
+    if (holdIndex != null) {
       final Hold _newHold = Hold((b) => b
         ..leftGrip = leftGrip?.toBuilder() ?? null
         ..rightGrip = rightGrip?.toBuilder() ?? null
@@ -120,7 +125,7 @@ class WorkoutViewModel {
         ..handHold = handHold);
 
       final List<Hold> _newHolds = []..addAll(_state.holds);
-      _newHolds[_currentHoldIndex] = _newHold;
+      _newHolds[holdIndex] = _newHold;
       _state$.add(_state.copyWith(holds: _newHolds));
     }
   }

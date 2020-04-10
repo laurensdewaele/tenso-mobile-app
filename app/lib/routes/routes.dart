@@ -7,11 +7,13 @@ import 'package:app/screens/rate_workout.dart';
 import 'package:app/screens/settings.dart';
 import 'package:app/screens/sound_settings.dart';
 import 'package:app/screens/workout.dart';
+import 'package:app/screens/workout_2.dart';
 import 'package:app/screens/workout_overview.dart';
 
 abstract class Routes {
   static const String home = '/';
   static const String workoutScreen = '/workoutScreen';
+  static const String workout2Screen = '/workout2Screen';
   static const String workoutOverviewScreen = '/workoutOverviewScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String progressScreen = '/progressScreen';
@@ -27,6 +29,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
     Routes.home: (context) => WorkoutOverviewScreen(),
     Routes.workoutScreen: (context) => WorkoutScreen(),
+    Routes.workoutScreen: (context) => Workout2Screen(),
     Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
@@ -34,5 +37,6 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.calendarScreen: (context) => CalendarScreen(),
     Routes.congratulationsScreen: (context) => CongratulationsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
+    Routes.workout2Screen: (context) => Workout2Screen(),
   };
 }

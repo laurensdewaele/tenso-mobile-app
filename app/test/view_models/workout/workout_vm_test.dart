@@ -1,38 +1,19 @@
 import 'dart:async';
 
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import '../../data/test_data.dart';
 import 'package:app/data/grips.dart';
 import 'package:app/models/models.dart';
-import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
-
-class MockWorkoutNavigator extends Mock implements WorkoutNavigator {}
 
 void main() {
   group('Workout view model', () {
     WorkoutViewModel _workoutViewModel;
     WorkoutViewModelState _initialState;
-    MockWorkoutNavigator _mockWorkoutNavigator;
-    NavigatorPage _mockPage;
-    int _mockHoldIndex;
 
     setUp(() {
-      _mockHoldIndex = basicTestWorkout.holds.length - 1;
-      _mockPage = NavigatorPage(
-          page: Pages.holdPage,
-          index: basicTestWorkout.holds.length + 1,
-          active: true,
-          holdIndex: _mockHoldIndex);
-      _mockWorkoutNavigator = MockWorkoutNavigator();
-      // Sets the correct _holdIndex, used for setHoldVariables
-      when(_mockWorkoutNavigator.activePage$)
-          .thenAnswer((_) => Stream.value(_mockPage));
-
       _workoutViewModel = WorkoutViewModel(
-          workoutNavigator: _mockWorkoutNavigator,
           workoutType: WorkoutTypes.newWorkout,
           workout: basicTestWorkout,
           currentWeightUnit: WeightUnit.metric);
@@ -41,8 +22,12 @@ void main() {
           basicTestWorkout, WeightUnit.metric);
     });
 
+    tearDownAll(() {
+      _workoutViewModel.dispose();
+    });
+
     test('should initialize', () {
-      expect(_workoutViewModel.title, 'New workout');
+      expect(_workoutViewModel.workoutTypesVariables.title, 'New workout');
       _workoutViewModel.state$.listen((WorkoutViewModelState state) {
         expect(state, _initialState);
       });
@@ -94,6 +79,8 @@ void main() {
           board: _initialState.board);
     });
     test('should set hold page values', () {
+      int _holdIndex = basicTestWorkout.holds.length - 1;
+
       scheduleMicrotask(() {
         _workoutViewModel.setHoldVariables(
             leftGrip: null,
@@ -104,7 +91,8 @@ void main() {
             hangTime: 24,
             restBetweenRepetitions: 125,
             addedWeight: 41.23,
-            handHold: HandHold.oneHandedRight);
+            handHold: HandHold.oneHandedRight,
+            holdIndex: _holdIndex);
         _workoutViewModel.setHoldVariables(
             leftGrip: Grips.backTwoL,
             rightGrip: Grips.backThreeL,
@@ -114,7 +102,8 @@ void main() {
             hangTime: 2,
             restBetweenRepetitions: 3,
             addedWeight: 4,
-            handHold: HandHold.twoHanded);
+            handHold: HandHold.twoHanded,
+            holdIndex: _holdIndex);
       });
 
       double _emitted = 0;
@@ -123,27 +112,27 @@ void main() {
           expect(a, _initialState);
         }
         if (_emitted == 1) {
-          expect(a.holds[_mockHoldIndex].leftGrip, null);
-          expect(a.holds[_mockHoldIndex].rightGrip, Grips.backThreeL);
-          expect(a.holds[_mockHoldIndex].leftGripBoardHold, null);
-          expect(a.holds[_mockHoldIndex].rightGripBoardHold,
+          expect(a.holds[_holdIndex].leftGrip, null);
+          expect(a.holds[_holdIndex].rightGrip, Grips.backThreeL);
+          expect(a.holds[_holdIndex].leftGripBoardHold, null);
+          expect(a.holds[_holdIndex].rightGripBoardHold,
               basicTestWorkout.board.boardHolds[0]);
-          expect(a.holds[_mockHoldIndex].repetitions, 12);
-          expect(a.holds[_mockHoldIndex].hangTime, 24);
-          expect(a.holds[_mockHoldIndex].restBetweenRepetitions, 125);
-          expect(a.holds[_mockHoldIndex].addedWeight, 41.23);
+          expect(a.holds[_holdIndex].repetitions, 12);
+          expect(a.holds[_holdIndex].hangTime, 24);
+          expect(a.holds[_holdIndex].restBetweenRepetitions, 125);
+          expect(a.holds[_holdIndex].addedWeight, 41.23);
         }
         if (_emitted == 2) {
-          expect(a.holds[_mockHoldIndex].leftGrip, Grips.backTwoL);
-          expect(a.holds[_mockHoldIndex].rightGrip, Grips.backThreeL);
-          expect(a.holds[_mockHoldIndex].leftGripBoardHold,
+          expect(a.holds[_holdIndex].leftGrip, Grips.backTwoL);
+          expect(a.holds[_holdIndex].rightGrip, Grips.backThreeL);
+          expect(a.holds[_holdIndex].leftGripBoardHold,
               basicTestWorkout.board.boardHolds[4]);
-          expect(a.holds[_mockHoldIndex].rightGripBoardHold,
+          expect(a.holds[_holdIndex].rightGripBoardHold,
               basicTestWorkout.board.boardHolds[0]);
-          expect(a.holds[_mockHoldIndex].repetitions, 1);
-          expect(a.holds[_mockHoldIndex].hangTime, 2);
-          expect(a.holds[_mockHoldIndex].restBetweenRepetitions, 3);
-          expect(a.holds[_mockHoldIndex].addedWeight, 4);
+          expect(a.holds[_holdIndex].repetitions, 1);
+          expect(a.holds[_holdIndex].hangTime, 2);
+          expect(a.holds[_holdIndex].restBetweenRepetitions, 3);
+          expect(a.holds[_holdIndex].addedWeight, 4);
         }
         _emitted++;
       }, count: 3));

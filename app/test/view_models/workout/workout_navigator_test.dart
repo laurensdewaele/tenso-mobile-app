@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import '../../data/test_data.dart';
@@ -8,27 +7,26 @@ import 'package:app/models/models.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 
-class MockWorkoutNavigator extends Mock implements WorkoutNavigator {}
-
 main() {
   group('Workout navigator', () {
     WorkoutNavigator _workoutNavigator;
     WorkoutViewModel _workoutViewModel;
-    MockWorkoutNavigator _mockWorkoutNavigator;
     NavigatorPage _initialPage = NavigatorPage(
         page: Pages.generalPage, holdIndex: null, active: true, index: 0);
 
     setUp(() {
-      _mockWorkoutNavigator = MockWorkoutNavigator();
-      when(_mockWorkoutNavigator.activePage$)
-          .thenAnswer((_) => Stream.value(_initialPage));
-
       _workoutViewModel = WorkoutViewModel(
-          workoutType: WorkoutTypes.newWorkout,
-          currentWeightUnit: WeightUnit.metric,
-          workout: basicTestWorkout,
-          workoutNavigator: _mockWorkoutNavigator);
-      _workoutNavigator = WorkoutNavigator(workoutViewModel: _workoutViewModel);
+        workoutType: WorkoutTypes.newWorkout,
+        currentWeightUnit: WeightUnit.metric,
+        workout: basicTestWorkout,
+      );
+      _workoutNavigator =
+          WorkoutNavigator(initialHoldCount: basicTestWorkout.holdCount);
+    });
+
+    tearDownAll(() {
+      _workoutViewModel.dispose();
+      _workoutNavigator.dispose();
     });
 
     test('should initialize', () {
@@ -39,36 +37,6 @@ main() {
         expect(page, _initialPage);
       }, count: 1));
     });
-    test('should build it\'s pages based on the holdCount of workout_vm', () {
-      scheduleMicrotask(() {
-        _workoutViewModel.setGeneralVariables(
-            holdCount: 7,
-            sets: 3,
-            restBetweenHolds: 180,
-            restBetweenSets: 180,
-            board: basicTestWorkout.board);
-        _workoutViewModel.setGeneralVariables(
-            holdCount: 1,
-            sets: 3,
-            restBetweenHolds: 180,
-            restBetweenSets: 180,
-            board: basicTestWorkout.board);
-      });
-
-      int _emitted = 0;
-      _workoutNavigator.pages$.listen(expectAsync1((List<NavigatorPage> pages) {
-        if (_emitted == 0) {
-          expect(pages.length, basicTestWorkout.holdCount + 2);
-        }
-        if (_emitted == 1) {
-          expect(pages.length, 7 + 2);
-        }
-        if (_emitted == 2) {
-          expect(pages.length, 1 + 2);
-        }
-        _emitted++;
-      }, count: 3));
-    });
 
     group('on navigation', () {
       test('should mark the workout page to validate', () {
@@ -77,8 +45,8 @@ main() {
         });
 
         _workoutNavigator.shouldValidate$
-            .listen(expectAsync1((ValidationState state) {
-          expect((state is ValidationPending), true);
+            .listen(expectAsync1((bool shouldValidate) {
+          expect(shouldValidate, true);
         }, count: 1));
       });
       test('should navigate when validation is successful', () {

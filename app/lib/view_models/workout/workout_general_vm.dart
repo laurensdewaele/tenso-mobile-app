@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 
@@ -27,9 +28,17 @@ class WorkoutGeneralViewModel {
     _workoutNavigator = workoutNavigator;
     _keyboardSub = _keyboardService.shouldValidate$.listen((_) => _validate());
     _workoutVMSub = _workoutViewModel.state$.listen(_setVariables);
-    _navigatorSub =
-        _workoutNavigator.shouldValidate$.listen((_) => _validateAndReport());
+    _navigatorSub = _workoutNavigator.shouldValidate$.listen((_) {
+      _validateAndReport();
+    });
+    _inputsEnabled = _workoutViewModel.workoutTypesVariables.inputsEnabled;
+    _primaryColor = workoutViewModel.workoutTypesVariables.primaryColor;
   }
+
+  bool _inputsEnabled;
+  bool get inputsEnabled => _inputsEnabled;
+  Color _primaryColor;
+  Color get primaryColor => _primaryColor;
 
   int _holdCount;
   int get holdCount => _holdCount;
@@ -55,6 +64,7 @@ class WorkoutGeneralViewModel {
           restBetweenHolds: restBetweenHolds,
           restBetweenSets: _restBetweenSets,
           board: _board);
+      _workoutNavigator.buildPagesDueToHoldCount(_holdCount);
       _workoutNavigator.handleValidationSuccess();
     }
   }

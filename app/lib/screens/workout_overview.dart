@@ -26,7 +26,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final _workoutViewModal =
         Provider.of<WorkoutViewModel>(context, listen: false);
     _workoutViewModal.handleAddNewWorkoutTap();
-    Navigator.of(context).pushNamed(Routes.workoutScreen);
+    Navigator.of(context).pushNamed(Routes.workout2Screen);
   }
 
   void _handleDeleteTap(Workout workout) {
