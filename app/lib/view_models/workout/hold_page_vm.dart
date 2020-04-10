@@ -110,6 +110,12 @@ class HoldPageViewModel {
     final _addedWeight =
         InputParsers.parseToDouble(_state$.value.addedWeightInput);
 
+    _state$.add(_state$.value.copyWith(
+        repetitions: _repetitions,
+        restBetweenRepetitions: _restBetweenRepetitions,
+        hangTime: _hangTime,
+        addedWeight: _addedWeight));
+
     final List<bool> _validations = [];
     _validations.add(Validators.biggerThanZero<int>(_repetitions));
     _validations.add(Validators.biggerThanZero<int>(_restBetweenRepetitions));

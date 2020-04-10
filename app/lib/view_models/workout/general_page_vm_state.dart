@@ -5,28 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:app/models/models.dart';
 
 @immutable
-class GeneralPageInitialState {
-  final bool inputsEnabled;
-  final Color primaryColor;
-  final int holdCount;
-  final int sets;
-  final int restBetweenHolds;
-  final int restBetweenSets;
-  final Board board;
-
-  const GeneralPageInitialState({
-    @required this.inputsEnabled,
-    @required this.primaryColor,
-    @required this.holdCount,
-    @required this.sets,
-    @required this.restBetweenHolds,
-    @required this.restBetweenSets,
-    @required this.board,
-  });
-}
-
-@immutable
-class GeneralPageInternalState {
+class GeneralPageState {
   final int holdCount;
   final int sets;
   final int restBetweenHolds;
@@ -37,7 +16,10 @@ class GeneralPageInternalState {
   final String restBetweenHoldsInput;
   final String restBetweenSetsInput;
 
-  const GeneralPageInternalState({
+  final bool inputsEnabled;
+  final Color primaryColor;
+
+  const GeneralPageState({
     @required this.holdCount,
     @required this.sets,
     @required this.restBetweenHolds,
@@ -47,9 +29,11 @@ class GeneralPageInternalState {
     @required this.setsInput,
     @required this.restBetweenHoldsInput,
     @required this.restBetweenSetsInput,
+    @required this.inputsEnabled,
+    @required this.primaryColor,
   });
 
-  GeneralPageInternalState copyWith({
+  GeneralPageState copyWith({
     int holdCount,
     int sets,
     int restBetweenHolds,
@@ -59,8 +43,10 @@ class GeneralPageInternalState {
     String setsInput,
     String restBetweenHoldsInput,
     String restBetweenSetsInput,
+    bool inputsEnabled,
+    Color primaryColor,
   }) {
-    return new GeneralPageInternalState(
+    return new GeneralPageState(
       holdCount: holdCount ?? this.holdCount,
       sets: sets ?? this.sets,
       restBetweenHolds: restBetweenHolds ?? this.restBetweenHolds,
@@ -71,6 +57,8 @@ class GeneralPageInternalState {
       restBetweenHoldsInput:
           restBetweenHoldsInput ?? this.restBetweenHoldsInput,
       restBetweenSetsInput: restBetweenSetsInput ?? this.restBetweenSetsInput,
+      inputsEnabled: inputsEnabled ?? this.inputsEnabled,
+      primaryColor: primaryColor ?? this.primaryColor,
     );
   }
 }

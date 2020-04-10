@@ -40,7 +40,6 @@ class _GeneralPageState extends State<GeneralPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _initialState = _viewModel.initialState;
     return CardContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,21 +48,21 @@ class _GeneralPageState extends State<GeneralPage> {
             title: 'basics',
             children: <Widget>[
               NumberInputAndDescription2<int>(
-                enabled: _initialState.inputsEnabled,
-                primaryColor: _initialState.primaryColor,
+                enabled: _viewModel.state.inputsEnabled,
+                primaryColor: _viewModel.state.primaryColor,
                 description: 'holds',
                 handleValueChanged: _viewModel.setHoldCount,
-                initialValue: _initialState.holdCount,
+                initialValue: _viewModel.state.holdCount,
               ),
               Divider(
                 height: styles.Measurements.m,
               ),
               NumberInputAndDescription2<int>(
-                enabled: _initialState.inputsEnabled,
-                primaryColor: _initialState.primaryColor,
+                enabled: _viewModel.state.inputsEnabled,
+                primaryColor: _viewModel.state.primaryColor,
                 description: 'sets',
                 handleValueChanged: _viewModel.setSets,
-                initialValue: _initialState.sets,
+                initialValue: _viewModel.state.sets,
               ),
               Divider(
                 height: styles.Measurements.m,
@@ -74,28 +73,28 @@ class _GeneralPageState extends State<GeneralPage> {
             title: 'timers',
             children: <Widget>[
               NumberInputAndDescription2<int>(
-                enabled: _initialState.inputsEnabled,
-                primaryColor: _initialState.primaryColor,
+                enabled: _viewModel.state.inputsEnabled,
+                primaryColor: _viewModel.state.primaryColor,
                 description: 'rest seconds between holds',
                 handleValueChanged: _viewModel.setRestBetweenHolds,
-                initialValue: _initialState.restBetweenHolds,
+                initialValue: _viewModel.state.restBetweenHolds,
               ),
               Divider(
                 height: styles.Measurements.m,
               ),
               NumberInputAndDescription2(
-                enabled: _initialState.inputsEnabled,
-                primaryColor: _initialState.primaryColor,
+                enabled: _viewModel.state.inputsEnabled,
+                primaryColor: _viewModel.state.primaryColor,
                 description: 'rest seconds between sets',
                 handleValueChanged: _viewModel.setRestBetweenSets,
-                initialValue: _initialState.restBetweenSets,
+                initialValue: _viewModel.state.restBetweenSets,
               ),
               Divider(
                 height: styles.Measurements.m,
               ),
             ],
           ),
-          if (_initialState.inputsEnabled == true)
+          if (_viewModel.state.inputsEnabled == true)
             Section(
               title: 'board',
               children: <Widget>[
