@@ -11,8 +11,8 @@ main() {
   group('Workout navigator', () {
     WorkoutNavigator _workoutNavigator;
     WorkoutViewModel _workoutViewModel;
-    NavigatorPage _initialPage = NavigatorPage(
-        page: Pages.generalPage, holdIndex: null, active: true, index: 0);
+    WorkoutNavigatorPage _initialPage = WorkoutNavigatorPage(
+        page: WorkoutPages.generalPage, holdIndex: null, active: true, index: 0);
 
     setUp(() {
       _workoutViewModel = WorkoutViewModel(
@@ -33,7 +33,7 @@ main() {
       expect(_workoutNavigator.runtimeType, WorkoutNavigator);
     });
     test('should display the correct page', () {
-      _workoutNavigator.activePage$.listen(expectAsync1((NavigatorPage page) {
+      _workoutNavigator.activePage$.listen(expectAsync1((WorkoutNavigatorPage page) {
         expect(page, _initialPage);
       }, count: 1));
     });
@@ -56,18 +56,18 @@ main() {
         });
 
         int _emitted = 0;
-        _workoutNavigator.activePage$.listen(expectAsync1((NavigatorPage page) {
+        _workoutNavigator.activePage$.listen(expectAsync1((WorkoutNavigatorPage page) {
           if (_emitted == 0) {
             expect(page, _initialPage);
           }
           if (_emitted == 1) {
             expect(
                 page,
-                NavigatorPage(
+                WorkoutNavigatorPage(
                     active: true,
                     index: 1,
                     holdIndex: 0,
-                    page: Pages.holdPage));
+                    page: WorkoutPages.holdPage));
           }
           _emitted++;
         }, count: 2));
@@ -77,7 +77,7 @@ main() {
           _workoutNavigator.handleForwardRequest();
         });
 
-        _workoutNavigator.activePage$.listen(expectAsync1((NavigatorPage page) {
+        _workoutNavigator.activePage$.listen(expectAsync1((WorkoutNavigatorPage page) {
           expect(page, _initialPage);
         }, count: 1));
       });

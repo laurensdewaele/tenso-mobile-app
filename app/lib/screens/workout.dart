@@ -6,9 +6,8 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/hold_page_vm.dart';
-import 'package:app/view_models/workout/general_page_vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
+import 'package:app/view_models/workout/workout_navigator_state.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
 import 'package:app/widgets/divider.dart';
@@ -30,9 +29,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   WorkoutViewModel _workoutViewModel;
   WorkoutNavigator _workoutNavigator;
   KeyboardService _keyboardService;
-  // This way it won't initialize multiple times during a rebuild.
-  GeneralPageViewModel _generalPageViewModel;
-  HoldPageViewModel _holdPageViewModel;
 
   @override
   void initState() {
@@ -48,19 +44,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         workoutType: _workoutType,
         currentWeightUnit: _weightUnit);
     _workoutNavigator = WorkoutNavigator(initialHoldCount: _workout.holdCount);
-    _generalPageViewModel = GeneralPageViewModel(
-        workoutNavigator: _workoutNavigator,
-        workoutViewModel: _workoutViewModel);
-    _holdPageViewModel = HoldPageViewModel(
-        workoutNavigator: _workoutNavigator,
-        workoutViewModel: _workoutViewModel);
     super.initState();
   }
 
   @override
   void dispose() {
-    _generalPageViewModel.dispose();
-    _workoutViewModel.dispose();
     _workoutViewModel.dispose();
     _workoutNavigator.dispose();
     super.dispose();
@@ -102,18 +90,25 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: styles.Measurements.xs),
                             child: StreamBuilder(
-                              initialData: initialPages[0],
+                              initialData: _workoutNavigator.initialPage,
                               stream: _workoutNavigator.activePage$,
                               builder: (BuildContext context,
-                                  AsyncSnapshot<NavigatorPage> snapshot) {
+                                  AsyncSnapshot<WorkoutNavigatorPage>
+                                      snapshot) {
                                 return Column(
                                   children: <Widget>[
-                                    if (snapshot.data.page == Pages.generalPage)
+                                    if (snapshot.data.page ==
+                                        WorkoutPages.generalPage)
                                       GeneralPage(
-                                          viewModel: _generalPageViewModel),
-                                    if (snapshot.data.page == Pages.holdPage)
-                                      HoldPage(viewModel: _holdPageViewModel),
-                                    if (snapshot.data.page == Pages.extraPage)
+                                          workoutNavigator: _workoutNavigator,
+                                          workoutViewModel: _workoutViewModel),
+                                    if (snapshot.data.page ==
+                                        WorkoutPages.holdPage)
+                                      HoldPage(
+                                          workoutNavigator: _workoutNavigator,
+                                          workoutViewModel: _workoutViewModel),
+                                    if (snapshot.data.page ==
+                                        WorkoutPages.extraPage)
                                       Container(
                                         child: Text('extra'),
                                       )

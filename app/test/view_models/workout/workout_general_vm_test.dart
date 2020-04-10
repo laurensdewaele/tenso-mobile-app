@@ -159,13 +159,13 @@ void main() {
     });
 
     group('on navigation', () {
-      NavigatorPage _initialPage;
+      WorkoutNavigatorPage _initialPage;
       Board _newBoard;
 
       setUp(() {
         scheduleMicrotask(() {
-          _initialPage = NavigatorPage(
-              page: Pages.generalPage, holdIndex: null, active: true, index: 0);
+          _initialPage = WorkoutNavigatorPage(
+              page: WorkoutPages.generalPage, holdIndex: null, active: true, index: 0);
           _newBoard = basicTestWorkout.board.rebuild((b) => b..width = 400);
           _workoutGeneralViewModel.setHoldCount('10');
           _workoutGeneralViewModel.setSets('4');
@@ -178,13 +178,13 @@ void main() {
 
       test('if validation is successful => report back to navigator', () {
         int _emitted = 0;
-        _workoutNavigator.activePage$.listen(expectAsync1((NavigatorPage page) {
+        _workoutNavigator.activePage$.listen(expectAsync1((WorkoutNavigatorPage page) {
           if (_emitted == 0) {
             page = _initialPage;
           }
           if (_emitted == 1) {
-            page = NavigatorPage(
-                page: Pages.holdPage, holdIndex: 0, active: true, index: 1);
+            page = WorkoutNavigatorPage(
+                page: WorkoutPages.holdPage, holdIndex: 0, active: true, index: 1);
           }
           _emitted++;
         }, count: 2));

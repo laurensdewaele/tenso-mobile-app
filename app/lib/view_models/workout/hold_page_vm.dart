@@ -10,6 +10,7 @@ import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
 import 'package:app/view_models/workout/hold_page_vm_state.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
+import 'package:app/view_models/workout/workout_navigator_state.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
 
@@ -36,7 +37,7 @@ class HoldPageViewModel {
     _workoutNavigator = workoutNavigator;
 
     _currentHoldIndex$ = _workoutNavigator.activePage$
-        .map((NavigatorPage page) => page.holdIndex)
+        .map((page) => page.holdIndex)
         .where((int holdIndex) => holdIndex != null)
         .distinct();
 

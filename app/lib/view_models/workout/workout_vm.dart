@@ -15,7 +15,7 @@ class WorkoutViewModel {
   WorkoutViewModelState get _state => _state$.value;
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   WorkoutViewModelState get initialState => _state$.value;
-  MergeStream<bool> shouldValidate$;
+  Stream<bool> shouldValidate$;
 
   WorkoutViewModel({
     @required WorkoutTypes workoutType,
@@ -25,7 +25,8 @@ class WorkoutViewModel {
     // TODO: App state => workoutState
   }) {
     shouldValidate$ = MergeStream<bool>(
-        [keyboardService.shouldLoseFocus$, keyboardService.inputComplete$]);
+            [keyboardService.shouldLoseFocus$, keyboardService.inputComplete$])
+        .asBroadcastStream();
 
     WorkoutViewModelState _initialState;
     switch (workoutType) {

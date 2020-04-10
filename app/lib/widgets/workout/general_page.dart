@@ -3,15 +3,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/general_page_vm.dart';
 import 'package:app/view_models/workout/general_page_vm_state.dart';
+import 'package:app/view_models/workout/workout_navigator.dart';
+import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description2.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/card_container.dart';
 
-class GeneralPage extends StatelessWidget {
-  GeneralPage({Key key, this.viewModel}) : super(key: key);
+class GeneralPage extends StatefulWidget {
+  GeneralPage({Key key, this.workoutNavigator, this.workoutViewModel})
+      : super(key: key);
 
-  final GeneralPageViewModel viewModel;
+  final WorkoutNavigator workoutNavigator;
+  final WorkoutViewModel workoutViewModel;
+
+  @override
+  _GeneralPageState createState() => _GeneralPageState();
+}
+
+class _GeneralPageState extends State<GeneralPage> {
+  GeneralPageViewModel _viewModel;
+
+  @override
+  void initState() {
+    _viewModel = GeneralPageViewModel(
+        workoutNavigator: widget.workoutNavigator,
+        workoutViewModel: widget.workoutViewModel);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +45,7 @@ class GeneralPage extends StatelessWidget {
     // on workout view model's state stream.
     // That all happens in a blink of an eye, but unfortunately, async.
     return StreamBuilder<GeneralPageInitialState>(
-        stream: viewModel.initialState$,
+        stream: _viewModel.initialState$,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Container();
@@ -37,7 +62,7 @@ class GeneralPage extends StatelessWidget {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'holds',
-                        handleValueChanged: viewModel.setHoldCount,
+                        handleValueChanged: _viewModel.setHoldCount,
                         initialValue: _initialState.holdCount,
                       ),
                       Divider(
@@ -47,7 +72,7 @@ class GeneralPage extends StatelessWidget {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'sets',
-                        handleValueChanged: viewModel.setSets,
+                        handleValueChanged: _viewModel.setSets,
                         initialValue: _initialState.sets,
                       ),
                       Divider(
@@ -62,7 +87,7 @@ class GeneralPage extends StatelessWidget {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'rest seconds between holds',
-                        handleValueChanged: viewModel.setRestBetweenHolds,
+                        handleValueChanged: _viewModel.setRestBetweenHolds,
                         initialValue: _initialState.restBetweenHolds,
                       ),
                       Divider(
@@ -72,7 +97,7 @@ class GeneralPage extends StatelessWidget {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'rest seconds between sets',
-                        handleValueChanged: viewModel.setRestBetweenSets,
+                        handleValueChanged: _viewModel.setRestBetweenSets,
                         initialValue: _initialState.restBetweenSets,
                       ),
                       Divider(
