@@ -59,6 +59,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
   @override
   void dispose() {
+    _generalPageViewModel.dispose();
+    _workoutViewModel.dispose();
     _workoutViewModel.dispose();
     _workoutNavigator.dispose();
     super.dispose();

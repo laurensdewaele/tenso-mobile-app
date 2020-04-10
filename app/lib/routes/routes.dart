@@ -12,7 +12,6 @@ import 'package:app/screens/workout_overview.dart';
 abstract class Routes {
   static const String home = '/';
   static const String workoutScreen = '/workoutScreen';
-  static const String workout2Screen = '/workout2Screen';
   static const String workoutOverviewScreen = '/workoutOverviewScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String progressScreen = '/progressScreen';

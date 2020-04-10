@@ -8,26 +8,10 @@ import 'package:app/widgets/number_input_and_description2.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/card_container.dart';
 
-class GeneralPage extends StatefulWidget {
-  GeneralPage({Key key, @required this.viewModel}) : super(key: key);
+class GeneralPage extends StatelessWidget {
+  GeneralPage({Key key, this.viewModel}) : super(key: key);
 
   final GeneralPageViewModel viewModel;
-
-  @override
-  _GeneralPageState createState() => _GeneralPageState();
-}
-
-class _GeneralPageState extends State<GeneralPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    widget.viewModel.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +20,7 @@ class _GeneralPageState extends State<GeneralPage> {
     // on workout view model's state stream.
     // That all happens in a blink of an eye, but unfortunately, async.
     return StreamBuilder<GeneralPageInitialState>(
-        stream: widget.viewModel.initialState$,
+        stream: viewModel.initialState$,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Container();
@@ -53,7 +37,7 @@ class _GeneralPageState extends State<GeneralPage> {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'holds',
-                        handleValueChanged: widget.viewModel.setHoldCount,
+                        handleValueChanged: viewModel.setHoldCount,
                         initialValue: _initialState.holdCount,
                       ),
                       Divider(
@@ -63,7 +47,7 @@ class _GeneralPageState extends State<GeneralPage> {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'sets',
-                        handleValueChanged: widget.viewModel.setSets,
+                        handleValueChanged: viewModel.setSets,
                         initialValue: _initialState.sets,
                       ),
                       Divider(
@@ -78,8 +62,7 @@ class _GeneralPageState extends State<GeneralPage> {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'rest seconds between holds',
-                        handleValueChanged:
-                            widget.viewModel.setRestBetweenHolds,
+                        handleValueChanged: viewModel.setRestBetweenHolds,
                         initialValue: _initialState.restBetweenHolds,
                       ),
                       Divider(
@@ -89,7 +72,7 @@ class _GeneralPageState extends State<GeneralPage> {
                         enabled: _initialState.inputsEnabled,
                         primaryColor: _initialState.primaryColor,
                         description: 'rest seconds between sets',
-                        handleValueChanged: widget.viewModel.setRestBetweenSets,
+                        handleValueChanged: viewModel.setRestBetweenSets,
                         initialValue: _initialState.restBetweenSets,
                       ),
                       Divider(
