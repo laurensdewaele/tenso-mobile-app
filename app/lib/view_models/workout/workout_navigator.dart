@@ -99,8 +99,7 @@ class WorkoutNavigator {
       _buildPages(
           count: _pages$.value.length, activeIndex: _activePage.index - 1);
       _validationState$.add(ValidationUnknown());
-    }
-    if (_activePage.index == 0) {
+    } else {
       _shouldPopRoute.add(true);
     }
   }
