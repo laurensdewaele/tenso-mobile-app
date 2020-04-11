@@ -1,100 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
+import 'package:app/app.dart';
+import 'package:app/services/error.dart';
 
-import 'package:app/routes/routes.dart';
-import 'package:app/services/keyboard.dart';
-import 'package:app/services/toast.dart';
-import 'package:app/services/persistence.dart';
-import 'package:app/state/app_state.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/calendar_vm.dart';
-import 'package:app/view_models/extra_tab_vm.dart';
-import 'package:app/view_models/general_tab_vm.dart';
-import 'package:app/view_models/hold_tab_vm.dart';
-import 'package:app/view_models/workout_vm.dart';
-import 'package:app/view_models/settings_vm.dart';
-import 'package:app/view_models/sound_settings_vm.dart';
+Future<Null> main() async {
+  ErrorService _errorService = ErrorService();
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    await _errorService.handleFlutterError(details);
+  };
 
-void main() => runApp(App());
-
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<PersistenceService>(
-          create: (context) => PersistenceService(),
-          lazy: false,
-        ),
-        Provider<ToastService>(
-          create: (context) => ToastService(),
-          dispose: (context, toastService) => toastService.dispose(),
-          lazy: false,
-        ),
-        Provider<KeyboardService>(
-          create: (context) => KeyboardService(),
-          dispose: (context, toastService) => toastService.dispose(),
-          lazy: false,
-        ),
-        ChangeNotifierProvider(
-          create: (context) =>
-              AppState(Provider.of<PersistenceService>(context, listen: false)),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, WorkoutViewModel>(
-          create: (context) => WorkoutViewModel(),
-          update: (context, appState, workoutViewModel) =>
-              workoutViewModel..update(appState),
-        ),
-        ChangeNotifierProxyProvider<AppState, GeneralTabViewModel>(
-          create: (context) => GeneralTabViewModel(
-              Provider.of<WorkoutViewModel>(context, listen: false),
-              Provider.of<ToastService>(context, listen: false),
-              Provider.of<KeyboardService>(context, listen: false)),
-          update: (context, appState, generalTabViewModel) =>
-              generalTabViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, HoldTabViewModel>(
-          create: (context) => HoldTabViewModel(
-              Provider.of<ToastService>(context, listen: false),
-              Provider.of<WorkoutViewModel>(context, listen: false),
-              Provider.of<KeyboardService>(context, listen: false)),
-          update: (context, appState, holdTabViewModel) =>
-              holdTabViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, ExtraTabViewModel>(
-          create: (context) => ExtraTabViewModel(
-            Provider.of<WorkoutViewModel>(context, listen: false),
-            Provider.of<ToastService>(context, listen: false),
-          ),
-          update: (context, appState, extraTabViewModel) =>
-              extraTabViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
-          create: (context) => SettingsViewModel(),
-          update: (context, appState, settingsViewModel) =>
-              settingsViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, SoundSettingsViewModel>(
-          create: (context) => SoundSettingsViewModel(),
-          update: (context, appState, soundSettingsViewModel) =>
-              soundSettingsViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, CalendarViewModel>(
-          create: (context) => CalendarViewModel(),
-          update: (context, appState, calendarViewModel) =>
-              calendarViewModel..update(appState),
-          lazy: false,
-        ),
-      ],
-      child: CupertinoApp(
-          routes: getRoutes(context), color: styles.Colors.primary),
-    );
-  }
+  runZoned<Future<Null>>(() async {
+    runApp(new App());
+  }, onError: (error, stackTrace) async {
+    await _errorService.handleZonedError(error, stackTrace);
+  });
 }

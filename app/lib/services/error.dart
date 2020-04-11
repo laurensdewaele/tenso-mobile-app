@@ -1,6 +1,61 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
+import 'package:app/services/parser.dart';
+import 'package:app/services/toast.dart';
+import 'package:app/services/validation.dart';
 import 'package:app/styles/styles.dart' as styles;
+
+bool get isInDebugMode {
+  bool inDebugMode = false;
+  assert(inDebugMode = true);
+  return inDebugMode;
+}
+
+class ErrorService {
+  ToastService _toastService;
+
+  // Creates a singleton.
+  ErrorService._(ToastService toastService) : _toastService = toastService;
+  static final ErrorService _errorService = ErrorService._(ToastService());
+  factory ErrorService() {
+    return _errorService;
+  }
+
+  Future<Null> handleFlutterError(FlutterErrorDetails details) {
+    if (details.exception is AppException) {
+      if (details.exception is ValidationException) {
+        _toastService
+            .add((details.exception as ValidationException).errorMessage);
+      } else if (details.exception is ParseException) {
+        _toastService.add((details.exception as ParseException).errorMessage);
+      } else {
+        print('You forgot to handle an AppExpection!');
+      }
+    } else {
+      if (isInDebugMode) {
+        FlutterError.dumpErrorToConsole(details);
+      } else {
+        // This will be caught by runZoned's onError.
+        // In our case, being handled by ErrorService.handleZonedError.
+        Zone.current.handleUncaughtError(details.exception, details.stack);
+      }
+    }
+    return Future.value(null);
+  }
+
+  Future<Null> handleZonedError(dynamic error, dynamic stackTrace) {
+    print('Caught error: $error');
+
+    if (isInDebugMode) {
+      print(stackTrace);
+    } else {
+      // TODO: Handle by sentry
+    }
+    return Future.value(null);
+  }
+}
 
 class AppException {}
 

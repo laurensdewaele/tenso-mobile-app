@@ -7,7 +7,6 @@ import 'package:app/styles/styles.dart' as styles;
 class KeyboardService {
   // Creates a singleton.
   KeyboardService._();
-
   static final KeyboardService _keyboardService = KeyboardService._();
   factory KeyboardService() {
     return _keyboardService;
