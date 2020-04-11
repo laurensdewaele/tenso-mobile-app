@@ -24,34 +24,33 @@ class ErrorService {
   }
 
   Future<Null> handleFlutterError(FlutterErrorDetails details) {
-    if (details.exception is AppException) {
-      if (details.exception is ValidationException) {
-        _toastService
-            .add((details.exception as ValidationException).errorMessage);
-      } else if (details.exception is ParseException) {
-        _toastService.add((details.exception as ParseException).errorMessage);
-      } else {
-        print('You forgot to handle an AppExpection!');
-      }
+    if (isInDebugMode) {
+      FlutterError.dumpErrorToConsole(details);
     } else {
-      if (isInDebugMode) {
-        FlutterError.dumpErrorToConsole(details);
-      } else {
-        // This will be caught by runZoned's onError.
-        // In our case, being handled by ErrorService.handleZonedError.
-        Zone.current.handleUncaughtError(details.exception, details.stack);
-      }
+      // This will be caught by runZoned's onError.
+      // In our case, being handled by ErrorService.handleZonedError.
+      Zone.current.handleUncaughtError(details.exception, details.stack);
     }
     return Future.value(null);
   }
 
   Future<Null> handleZonedError(dynamic error, dynamic stackTrace) {
-    print('Caught error: $error');
-
-    if (isInDebugMode) {
-      print(stackTrace);
+    if (error is AppException) {
+      if (error is ValidationException) {
+        _toastService.add(error.errorMessage);
+      } else if (error is ParseException) {
+        _toastService.add(error.errorMessage);
+      } else {
+        print('You forgot to handle an AppExpection!');
+      }
     } else {
-      // TODO: Handle by sentry
+      print('Caught error: $error');
+
+      if (isInDebugMode) {
+        print(stackTrace);
+      } else {
+        // TODO: Handle by sentry
+      }
     }
     return Future.value(null);
   }
