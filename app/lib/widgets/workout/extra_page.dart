@@ -11,6 +11,7 @@ import 'package:app/widgets/section.dart';
 import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/workout/label_picker.dart';
+import 'package:app/widgets/workout/navigation_indicator.dart';
 
 class ExtraPage extends StatefulWidget {
   ExtraPage({Key key, this.workoutViewModel, this.workoutNavigator})
@@ -81,6 +82,18 @@ class _ExtraPageState extends State<ExtraPage> {
               text: _viewModel.state.extraTabButtonText,
               handleTap: _viewModel.handleForwardRequest,
             ),
+          ),
+          Divider(
+            height: styles.Measurements.xxl,
+          ),
+          NavigationIndicator(
+            primaryColor: _viewModel.state.primaryColor,
+            activeIndex: _viewModel.state.totalPages - 1,
+            count: _viewModel.state.totalPages,
+            handleBackNavigation:
+            widget.workoutNavigator.handleBackRequest,
+            handleForwardNavigation:
+            widget.workoutNavigator.handleForwardRequest,
           )
         ],
       ),

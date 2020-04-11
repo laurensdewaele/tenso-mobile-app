@@ -10,6 +10,7 @@ import 'package:app/widgets/number_input_and_description2.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/card_container.dart';
 import 'package:app/widgets/workout/hold_input_container.dart';
+import 'package:app/widgets/workout/navigation_indicator.dart';
 import 'package:app/widgets/workout/selected_grips_and_holds.dart';
 
 class HoldPage extends StatefulWidget {
@@ -138,6 +139,18 @@ class _HoldPageState extends State<HoldPage> {
                     ),
                   ],
                 ),
+                Divider(
+                  height: styles.Measurements.xxl,
+                ),
+                NavigationIndicator(
+                  primaryColor: _state.primaryColor,
+                  activeIndex: _state.currentHoldIndex + 1,
+                  count: _state.totalHolds + 2,
+                  handleBackNavigation:
+                      widget.workoutNavigator.handleBackRequest,
+                  handleForwardNavigation:
+                      widget.workoutNavigator.handleForwardRequest,
+                )
               ],
             ),
           );

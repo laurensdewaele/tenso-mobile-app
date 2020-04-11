@@ -8,6 +8,7 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description2.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/card_container.dart';
+import 'package:app/widgets/workout/navigation_indicator.dart';
 
 class GeneralPage extends StatefulWidget {
   GeneralPage({Key key, this.workoutNavigator, this.workoutViewModel})
@@ -100,7 +101,18 @@ class _GeneralPageState extends State<GeneralPage> {
               children: <Widget>[
                 // TODO: Board selector
               ],
-            )
+            ),
+          Divider(
+            height: styles.Measurements.xxl,
+          ),
+          NavigationIndicator(
+            primaryColor: _viewModel.state.primaryColor,
+            activeIndex: 0,
+            count: _viewModel.state.holdCount + 2,
+            handleBackNavigation: widget.workoutNavigator.handleBackRequest,
+            handleForwardNavigation:
+                widget.workoutNavigator.handleForwardRequest,
+          )
         ],
       ),
     );

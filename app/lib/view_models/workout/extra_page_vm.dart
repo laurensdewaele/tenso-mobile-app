@@ -43,7 +43,8 @@ class ExtraPageViewModel {
         nameInput: _workoutViewModel.state.name,
         inputsEnabled: _workoutViewModel.state.inputsEnabled,
         primaryColor: _workoutViewModel.state.primaryColor,
-        extraTabButtonText: _workoutViewModel.state.extraTabButtonText);
+        extraTabButtonText: _workoutViewModel.state.extraTabButtonText,
+        totalPages: _workoutViewModel.state.holdCount + 2);
   }
 
   void _validateAndReport() {

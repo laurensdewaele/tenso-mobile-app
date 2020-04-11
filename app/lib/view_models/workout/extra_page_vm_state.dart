@@ -14,14 +14,16 @@ class ExtraPageState {
   final Color primaryColor;
   final String extraTabButtonText;
 
-  const ExtraPageState({
-    @required this.label,
-    @required this.name,
-    @required this.nameInput,
-    @required this.inputsEnabled,
-    @required this.primaryColor,
-    @required this.extraTabButtonText,
-  });
+  final int totalPages;
+
+  const ExtraPageState(
+      {@required this.label,
+      @required this.name,
+      @required this.nameInput,
+      @required this.inputsEnabled,
+      @required this.primaryColor,
+      @required this.extraTabButtonText,
+      @required this.totalPages});
 
   ExtraPageState copyWith({
     Label label,
@@ -30,6 +32,7 @@ class ExtraPageState {
     bool inputsEnabled,
     Color primaryColor,
     String extraTabButtonText,
+    int totalPages,
   }) {
     return new ExtraPageState(
       label: label ?? this.label,
@@ -38,6 +41,7 @@ class ExtraPageState {
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,
       primaryColor: primaryColor ?? this.primaryColor,
       extraTabButtonText: extraTabButtonText ?? this.extraTabButtonText,
+      totalPages: totalPages ?? this.totalPages,
     );
   }
 }

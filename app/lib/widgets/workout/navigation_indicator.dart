@@ -5,23 +5,21 @@ import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/divider.dart';
 
-class NavigationTabs extends StatelessWidget {
-  NavigationTabs(
-      {Key key,
-      @required this.primaryColor,
-      @required this.handleBackNavigation,
-      @required this.handleForwardNavigation,
-      @required this.count,
-      @required this.activeIndex,
-      @required this.handleNavigation})
-      : super(key: key);
+class NavigationIndicator extends StatelessWidget {
+  NavigationIndicator({
+    Key key,
+    @required this.primaryColor,
+    @required this.handleBackNavigation,
+    @required this.handleForwardNavigation,
+    @required this.count,
+    @required this.activeIndex,
+  }) : super(key: key);
 
   final Color primaryColor;
   final GestureTapCallback handleBackNavigation;
   final GestureTapCallback handleForwardNavigation;
   final int count;
   final int activeIndex;
-  final void Function(int page) handleNavigation;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,6 @@ class NavigationTabs extends StatelessWidget {
               primaryColor: primaryColor,
               count: count,
               activeIndex: activeIndex,
-              handleNavigation: handleNavigation,
             ),
           ),
         ),
@@ -65,13 +62,11 @@ class _CircleContainer extends StatelessWidget {
   _CircleContainer(
       {@required this.count,
       @required this.activeIndex,
-      @required this.handleNavigation,
       @required this.primaryColor});
 
   final Color primaryColor;
   final int count;
   final int activeIndex;
-  final void Function(int page) handleNavigation;
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +74,10 @@ class _CircleContainer extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        ...list.map((n) => GestureDetector(
-            onTap: () {
-              handleNavigation(n - 1);
-            },
-            child: _Circle(
+        ...list.map((n) => _Circle(
               activeIndex: n == activeIndex + 1,
               primaryColor: primaryColor,
-            )))
+            ))
       ],
     );
   }
