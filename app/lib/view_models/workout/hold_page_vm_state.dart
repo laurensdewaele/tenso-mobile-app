@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 
 @immutable
@@ -62,10 +63,10 @@ class HoldPageState {
     int currentHold,
     int totalHolds,
     HandHold handHold,
-    Grip leftGrip,
-    Grip rightGrip,
-    BoardHold leftGripBoardHold,
-    BoardHold rightGripBoardHold,
+    Nullable<Grip> leftGrip,
+    Nullable<Grip> rightGrip,
+    Nullable<BoardHold> leftGripBoardHold,
+    Nullable<BoardHold> rightGripBoardHold,
     int repetitions,
     int restBetweenRepetitions,
     int hangTime,
@@ -86,10 +87,14 @@ class HoldPageState {
       currentHold: currentHold ?? this.currentHold,
       totalHolds: totalHolds ?? this.totalHolds,
       handHold: handHold ?? this.handHold,
-      leftGrip: leftGrip ?? this.leftGrip,
-      rightGrip: rightGrip ?? this.rightGrip,
-      leftGripBoardHold: leftGripBoardHold ?? this.leftGripBoardHold,
-      rightGripBoardHold: rightGripBoardHold ?? this.rightGripBoardHold,
+      leftGrip: leftGrip == null ? this.leftGrip : leftGrip.value,
+      rightGrip: rightGrip == null ? this.rightGrip : rightGrip.value,
+      leftGripBoardHold: leftGripBoardHold == null
+          ? this.leftGripBoardHold
+          : leftGripBoardHold.value,
+      rightGripBoardHold: rightGripBoardHold == null
+          ? this.rightGripBoardHold
+          : rightGripBoardHold.value,
       repetitions: repetitions ?? this.repetitions,
       restBetweenRepetitions:
           restBetweenRepetitions ?? this.restBetweenRepetitions,

@@ -19,49 +19,49 @@ class ParseException extends AppException {
 }
 
 abstract class InputParsers {
-  static double parseToDouble(String s) {
-    if (s == null) {
+  static double parseToDouble({String string, String inputField}) {
+    if (string == null) {
       return null;
     }
 
     double value;
     try {
-      value = double.parse(s.trim());
+      value = double.parse(string.trim());
     } on FormatException catch (exception, stackTrace) {
       throw ParseException(
-          input: s,
+          input: string,
           exception: exception,
           parseType: 'parseToDouble',
           stackTrace: stackTrace,
-          errorMessage: ErrorMessages.inputNotANumber());
+          errorMessage: ErrorMessages.inputNotANumber(inputField: inputField));
     }
     return value;
   }
 
-  static int parseToInt(String s) {
-    if (s == null) {
+  static int parseToInt({String string, String inputField}) {
+    if (string == null) {
       return null;
     }
 
     int value;
     try {
-      value = int.parse(s.trim());
+      value = int.parse(string.trim());
     } on FormatException catch (exception, stackTrace) {
       throw ParseException(
-          input: s,
+          input: string,
           exception: exception,
           parseType: 'parseToInt',
           stackTrace: stackTrace,
-          errorMessage: ErrorMessages.inputNotANumber());
+          errorMessage: ErrorMessages.inputNotANumber(inputField: inputField));
     }
     return value;
   }
 
-  static String parseString(String s) {
-    if (s == null) {
+  static String parseString({String string}) {
+    if (string == null) {
       return null;
     }
 
-    return s.trim();
+    return string.trim();
   }
 }

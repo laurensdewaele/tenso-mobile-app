@@ -10,8 +10,6 @@ import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/extra_tab_vm.dart';
-import 'package:app/view_models/general_tab_vm.dart';
-import 'package:app/view_models/hold_tab_vm.dart';
 import 'package:app/view_models/workout_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/view_models/sound_settings_vm.dart';
@@ -43,25 +41,7 @@ class App extends StatelessWidget {
         ChangeNotifierProxyProvider<AppState, WorkoutViewModel>(
           create: (context) => WorkoutViewModel(),
           update: (context, appState, workoutViewModel) =>
-          workoutViewModel..update(appState),
-        ),
-        ChangeNotifierProxyProvider<AppState, GeneralTabViewModel>(
-          create: (context) => GeneralTabViewModel(
-              Provider.of<WorkoutViewModel>(context, listen: false),
-              Provider.of<ToastService>(context, listen: false),
-              Provider.of<KeyboardService>(context, listen: false)),
-          update: (context, appState, generalTabViewModel) =>
-          generalTabViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, HoldTabViewModel>(
-          create: (context) => HoldTabViewModel(
-              Provider.of<ToastService>(context, listen: false),
-              Provider.of<WorkoutViewModel>(context, listen: false),
-              Provider.of<KeyboardService>(context, listen: false)),
-          update: (context, appState, holdTabViewModel) =>
-          holdTabViewModel..update(appState),
-          lazy: false,
+              workoutViewModel..update(appState),
         ),
         ChangeNotifierProxyProvider<AppState, ExtraTabViewModel>(
           create: (context) => ExtraTabViewModel(
@@ -69,25 +49,25 @@ class App extends StatelessWidget {
             Provider.of<ToastService>(context, listen: false),
           ),
           update: (context, appState, extraTabViewModel) =>
-          extraTabViewModel..update(appState),
+              extraTabViewModel..update(appState),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
           create: (context) => SettingsViewModel(),
           update: (context, appState, settingsViewModel) =>
-          settingsViewModel..update(appState),
+              settingsViewModel..update(appState),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, SoundSettingsViewModel>(
           create: (context) => SoundSettingsViewModel(),
           update: (context, appState, soundSettingsViewModel) =>
-          soundSettingsViewModel..update(appState),
+              soundSettingsViewModel..update(appState),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, CalendarViewModel>(
           create: (context) => CalendarViewModel(),
           update: (context, appState, calendarViewModel) =>
-          calendarViewModel..update(appState),
+              calendarViewModel..update(appState),
           lazy: false,
         ),
       ],

@@ -117,7 +117,7 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                       return true;
                     } else {
                       widget.setErrorMessage(ErrorMessages.maxAllowedFingers(
-                          boardHold.maxAllowedFingers));
+                          maxAllowedFingers: boardHold.maxAllowedFingers));
                       return false;
                     }
                   },

@@ -45,10 +45,11 @@ class ExtraPageViewModel {
   }
 
   bool _validate() {
-    _name = InputParsers.parseString(_nameInput);
+    _name = InputParsers.parseString(string: _nameInput);
 
     final List<bool> _validations = [];
-    _validations.add(Validators.stringNotEmpty(_name));
+    _validations
+        .add(Validators.stringNotEmpty(string: _name, inputField: 'Name'));
 
     return _validations.fold(true, (a, b) => a && b);
   }

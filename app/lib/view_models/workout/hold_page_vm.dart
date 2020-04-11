@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:app/data/grips.dart';
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
@@ -102,13 +103,15 @@ class HoldPageViewModel {
   }
 
   bool _validate() {
-    final _repetitions =
-        InputParsers.parseToInt(_state$.value.repetitionsInput);
-    final _restBetweenRepetitions =
-        InputParsers.parseToInt(_state$.value.restBetweenRepetitionsInput);
-    final _hangTime = InputParsers.parseToInt(_state$.value.hangTimeInput);
-    final _addedWeight =
-        InputParsers.parseToDouble(_state$.value.addedWeightInput);
+    final _repetitions = InputParsers.parseToInt(
+        string: _state$.value.repetitionsInput, inputField: 'Repetitions');
+    final _restBetweenRepetitions = InputParsers.parseToInt(
+        string: _state$.value.restBetweenRepetitionsInput,
+        inputField: 'Rest between repetitions');
+    final _hangTime = InputParsers.parseToInt(
+        string: _state$.value.hangTimeInput, inputField: 'Hang time');
+    final _addedWeight = InputParsers.parseToDouble(
+        string: _state$.value.addedWeightInput, inputField: 'Added weight');
 
     _state$.add(_state$.value.copyWith(
         repetitions: _repetitions,
@@ -117,20 +120,25 @@ class HoldPageViewModel {
         addedWeight: _addedWeight));
 
     final List<bool> _validations = [];
-    _validations.add(Validators.biggerThanZero<int>(_repetitions));
-    _validations.add(Validators.biggerThanZero<int>(_restBetweenRepetitions));
-    _validations.add(Validators.biggerThanZero<int>(_hangTime));
-    _validations.add(Validators.biggerThanZero<double>(_addedWeight));
+    _validations.add(Validators.biggerThanZero<int>(
+        value: _repetitions, inputField: 'Repetitions'));
+    _validations.add(Validators.biggerThanZero<int>(
+        value: _restBetweenRepetitions,
+        inputField: 'Rest between repetitions'));
+    _validations.add(Validators.biggerThanZero<int>(
+        value: _hangTime, inputField: 'Hang time'));
+    _validations.add(Validators.biggerThanZero<double>(
+        value: _addedWeight, inputField: 'Added weight'));
 
     return _validations.fold(true, (a, b) => a && b);
   }
 
   void setLeftGrip(Grip grip) {
-    _state$.add(_state$.value.copyWith(leftGrip: grip));
+    _state$.add(_state$.value.copyWith(leftGrip: Nullable<Grip>(grip)));
   }
 
   void setRightGrip(Grip grip) {
-    _state$.add(_state$.value.copyWith(rightGrip: grip));
+    _state$.add(_state$.value.copyWith(rightGrip: Nullable<Grip>(grip)));
   }
 
   void setHandHold(HandHold handHold) {
@@ -138,11 +146,13 @@ class HoldPageViewModel {
   }
 
   void setLeftGripBoardHold(BoardHold boardHold) {
-    _state$.add(_state$.value.copyWith(leftGripBoardHold: boardHold));
+    _state$.add(_state$.value
+        .copyWith(leftGripBoardHold: Nullable<BoardHold>(boardHold)));
   }
 
   void setRightGripBoardHold(BoardHold boardHold) {
-    _state$.add(_state$.value.copyWith(rightGripBoardHold: boardHold));
+    _state$.add(_state$.value
+        .copyWith(rightGripBoardHold: Nullable<BoardHold>(boardHold)));
   }
 
   void setRepetitions(String s) {
@@ -246,14 +256,18 @@ class HoldPageViewModel {
 
   void handleRightGripSelected(Grip grip) {
     final BoardHold _rightGripBoardHold = _state$.value.rightGripBoardHold;
-    if (Validators.checkGripCompatibility(_rightGripBoardHold, grip) == true) {
+    if (Validators.checkGripCompatibility(
+            boardHold: _rightGripBoardHold, grip: grip) ==
+        true) {
       setRightGrip(grip);
     }
   }
 
   void handleLeftGripSelected(Grip grip) {
     final BoardHold _leftGripBoardHold = _state$.value.leftGripBoardHold;
-    if (Validators.checkGripCompatibility(_leftGripBoardHold, grip) == true) {
+    if (Validators.checkGripCompatibility(
+            boardHold: _leftGripBoardHold, grip: grip) ==
+        true) {
       setLeftGrip(grip);
     }
   }

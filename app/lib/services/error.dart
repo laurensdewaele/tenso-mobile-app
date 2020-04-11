@@ -59,92 +59,102 @@ class ErrorService {
 class AppException {}
 
 abstract class ErrorMessages {
-  static Widget maxAllowedFingers(int maxAllowedFingers) => Text(
-        'This hold only has room for $maxAllowedFingers fingers',
+  static Widget maxAllowedFingers({int maxAllowedFingers}) => Text(
+        'This hold only has room for $maxAllowedFingers fingers.',
         textAlign: TextAlign.center,
         style: styles.Lato.sBlack,
       );
   static Widget holdAlreadyTaken() => Text(
-        'Hold is already taken',
+        'Hold is already taken.',
         textAlign: TextAlign.center,
       );
-  static Widget biggerThanZero() => RichText(
+  static Widget biggerThanZero({String inputField}) => RichText(
         textAlign: TextAlign.center,
-        text: TextSpan(
-            text: 'Please input a value ',
-            style: styles.Lato.sBlack,
-            children: [
-              TextSpan(text: 'bigger than 0.', style: styles.Lato.sBlackBold),
-            ]),
-      );
-  static Widget inputNotEmpty() => RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: 'The input can ',
-            style: styles.Lato.sBlack,
-            children: [
-              TextSpan(text: 'not be empty.', style: styles.Lato.sBlackBold),
-            ]),
-      );
-  static Widget inputNotANumber() => RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: 'The input is ',
-            style: styles.Lato.sBlack,
-            children: [
-              TextSpan(text: 'not a number.', style: styles.Lato.sBlackBold),
-            ]),
-      );
-  static Widget inputSmallerThanZero(String inputField) => RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
             text: '$inputField ',
             style: styles.Lato.sBlackBold,
-            children: [
-              TextSpan(
-                  text: 'input can not be ',
-                  style: styles.Lato.sBlack,
-                  children: [
-                    TextSpan(
-                        text: 'smaller than 0', style: styles.Lato.sBlackBold),
-                  ]),
-            ]),
+          ),
+          TextSpan(
+            text: 'input needs to be ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'bigger than 0.', style: styles.Lato.sBlackBold)
+        ]),
       );
-  static Widget inputLargerThan(int max, String inputField) => RichText(
+  static Widget inputNotEmpty({String inputField}) => RichText(
         textAlign: TextAlign.center,
-        text: TextSpan(
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
             text: '$inputField ',
             style: styles.Lato.sBlackBold,
-            children: [
-              TextSpan(
-                  text: 'input can not be ',
-                  style: styles.Lato.sBlack,
-                  children: [
-                    TextSpan(
-                        text: 'lager than $max', style: styles.Lato.sBlackBold),
-                  ]),
-            ]),
-      );
-  static Widget betweenRange(int min, int max) => RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: 'input can not be smaller than ',
+          ),
+          TextSpan(
+            text: 'input can ',
             style: styles.Lato.sBlack,
-            children: [
-              TextSpan(
-                  text: '$min, ',
-                  style: styles.Lato.sBlackBold,
-                  children: [
-                    TextSpan(
-                        text: 'or larger than ',
-                        style: styles.Lato.sBlack,
-                        children: [
-                          TextSpan(
-                            text: '$max',
-                            style: styles.Lato.sBlackBold,
-                          )
-                        ]),
-                  ]),
-            ]),
+          ),
+          TextSpan(text: 'not be empty.', style: styles.Lato.sBlackBold)
+        ]),
+      );
+  static Widget inputNotANumber({String inputField}) => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: '$inputField ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'input is ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'not a number.', style: styles.Lato.sBlackBold)
+        ]),
+      );
+  static Widget inputSmallerThanZero({String inputField}) => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: '$inputField ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'input can not be ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'smaller than 0.', style: styles.Lato.sBlackBold)
+        ]),
+      );
+  static Widget inputLargerThan({int max, String inputField}) => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: '$inputField ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'input can not be ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'larger than $max.', style: styles.Lato.sBlackBold)
+        ]),
+      );
+  static Widget betweenRange({int min, int max, String inputField}) => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: '$inputField ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'input can not be ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'smaller than $min ', style: styles.Lato.sBlackBold),
+          TextSpan(
+            text: 'or ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'larger than $max.', style: styles.Lato.sBlackBold),
+        ]),
       );
 }

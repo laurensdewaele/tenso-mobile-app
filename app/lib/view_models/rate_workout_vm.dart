@@ -173,15 +173,18 @@ class RateWorkoutViewModel {
     _appState.saveCompletedWorkouts(completedWorkouts);
   }
 
+  // TODO: Redo
   void _formatException(String variable) {
     _toastService.add(ErrorMessages.inputNotANumber());
   }
 
   void _smallerThanZeroException(String inputField) {
-    _toastService.add(ErrorMessages.inputSmallerThanZero(inputField));
+    _toastService
+        .add(ErrorMessages.inputSmallerThanZero(inputField: inputField));
   }
 
   void _largerThanException(int max, String inputField) {
-    _toastService.add(ErrorMessages.inputLargerThan(max, inputField));
+    _toastService
+        .add(ErrorMessages.inputLargerThan(max: max, inputField: inputField));
   }
 }

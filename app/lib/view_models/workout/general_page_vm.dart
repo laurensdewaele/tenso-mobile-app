@@ -64,12 +64,14 @@ class GeneralPageViewModel {
   }
 
   bool _validate() {
-    final _holdCount = InputParsers.parseToInt(_state.holdCountInput);
-    final _sets = InputParsers.parseToInt(_state.setsInput);
-    final _restBetweenHolds =
-        InputParsers.parseToInt(_state.restBetweenHoldsInput);
-    final _restBetweenSets =
-        InputParsers.parseToInt(_state.restBetweenSetsInput);
+    final _holdCount = InputParsers.parseToInt(
+        string: _state.holdCountInput, inputField: 'Holds');
+    final _sets =
+        InputParsers.parseToInt(string: _state.setsInput, inputField: 'Sets');
+    final _restBetweenHolds = InputParsers.parseToInt(
+        string: _state.restBetweenHoldsInput, inputField: 'Rest between holds');
+    final _restBetweenSets = InputParsers.parseToInt(
+        string: _state.restBetweenSetsInput, inputField: 'Rest between sets');
 
     _state = _state.copyWith(
         holdCount: _holdCount,
@@ -78,10 +80,14 @@ class GeneralPageViewModel {
         restBetweenSets: _restBetweenSets);
 
     final List<bool> _validations = [];
-    _validations.add(Validators.biggerThanZero<int>(_holdCount));
-    _validations.add(Validators.biggerThanZero<int>(_sets));
-    _validations.add(Validators.biggerThanZero<int>(_restBetweenHolds));
-    _validations.add(Validators.biggerThanZero<int>(_restBetweenSets));
+    _validations.add(
+        Validators.biggerThanZero<int>(value: _holdCount, inputField: 'Holds'));
+    _validations
+        .add(Validators.biggerThanZero<int>(value: _sets, inputField: 'Sets'));
+    _validations.add(Validators.biggerThanZero<int>(
+        value: _restBetweenHolds, inputField: 'Rest between holds'));
+    _validations.add(Validators.biggerThanZero<int>(
+        value: _restBetweenSets, inputField: 'Rest between sets'));
 
     return _validations.fold(true, (a, b) => a && b);
   }
