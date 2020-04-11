@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:rxdart/rxdart.dart';
+
 import 'package:app/models/models.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
@@ -18,6 +20,10 @@ class GeneralPageViewModel {
   GeneralPageState _state;
   GeneralPageState get state => _state;
 
+  BehaviorSubject<int> _holdCount$;
+  Stream<int> get holdCount$ => _holdCount$.stream;
+  int get holdCount => _holdCount$.value;
+
   GeneralPageViewModel({
     @required WorkoutViewModel workoutViewModel,
     @required WorkoutNavigator workoutNavigator,
@@ -25,6 +31,7 @@ class GeneralPageViewModel {
     _workoutViewModel = workoutViewModel;
     _workoutNavigator = workoutNavigator;
     _setInitialState();
+    _holdCount$ = BehaviorSubject.seeded(_workoutViewModel.state.holdCount);
     _sub1 = _workoutViewModel.shouldValidate$.listen((_) {
       _validate();
     });
@@ -79,17 +86,25 @@ class GeneralPageViewModel {
         restBetweenHolds: _restBetweenHolds,
         restBetweenSets: _restBetweenSets);
 
-    final List<bool> _validations = [];
-    _validations.add(
-        Validators.biggerThanZero<int>(value: _holdCount, inputField: 'Holds'));
-    _validations
-        .add(Validators.biggerThanZero<int>(value: _sets, inputField: 'Sets'));
-    _validations.add(Validators.biggerThanZero<int>(
-        value: _restBetweenHolds, inputField: 'Rest between holds'));
-    _validations.add(Validators.biggerThanZero<int>(
-        value: _restBetweenSets, inputField: 'Rest between sets'));
+    final bool _isHoldInputValid =
+        Validators.biggerThanZero<int>(value: _holdCount, inputField: 'Holds');
+    final bool _isSetsInputValid =
+        Validators.biggerThanZero<int>(value: _sets, inputField: 'Sets');
+    final bool _isRestBetweenHoldsInputValid = Validators.biggerThanZero<int>(
+        value: _restBetweenHolds, inputField: 'Rest between holds');
+    final bool _isRestBetweenSetsValid = Validators.biggerThanZero<int>(
+        value: _restBetweenSets, inputField: 'Rest between sets');
 
-    return _validations.fold(true, (a, b) => a && b);
+    if (_isHoldInputValid == true) {
+      _holdCount$.add(_holdCount);
+    }
+
+    return [
+      _isHoldInputValid,
+      _isSetsInputValid,
+      _isRestBetweenHoldsInputValid,
+      _isRestBetweenSetsValid
+    ].fold(true, (a, b) => a && b);
   }
 
   void setHoldCount(String s) {
@@ -113,6 +128,7 @@ class GeneralPageViewModel {
   }
 
   void dispose() {
+    _holdCount$.close();
     _sub1.cancel();
     _sub2.cancel();
   }

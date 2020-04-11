@@ -105,14 +105,21 @@ class _GeneralPageState extends State<GeneralPage> {
           Divider(
             height: styles.Measurements.xxl,
           ),
-          NavigationIndicator(
-            primaryColor: _viewModel.state.primaryColor,
-            activeIndex: 0,
-            count: _viewModel.state.holdCount + 2,
-            handleBackNavigation: widget.workoutNavigator.handleBackRequest,
-            handleForwardNavigation:
-                widget.workoutNavigator.handleForwardRequest,
-          )
+          StreamBuilder(
+            initialData: _viewModel.holdCount,
+            stream: _viewModel.holdCount$,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              final _totalPages = snapshot.data + 2;
+              return NavigationIndicator(
+                primaryColor: _viewModel.state.primaryColor,
+                activeIndex: 0,
+                count: _totalPages,
+                handleBackNavigation: widget.workoutNavigator.handleBackRequest,
+                handleForwardNavigation:
+                    widget.workoutNavigator.handleForwardRequest,
+              );
+            },
+          ),
         ],
       ),
     );
