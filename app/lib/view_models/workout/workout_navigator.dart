@@ -85,7 +85,7 @@ class WorkoutNavigator {
   }
 
   void _forward() {
-    if (_activePage.index <= _pages$.value.length - 1) {
+    if (_activePage.index <= _pages$.value.length - 2) {
       _buildPages(
           count: _pages$.value.length, activeIndex: _activePage.index + 1);
       _validationState$.add(ValidationUnknown());

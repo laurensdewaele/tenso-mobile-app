@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/extra_page_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
@@ -13,18 +12,18 @@ import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/workout/label_picker.dart';
 
-class ExtraTab extends StatefulWidget {
-  ExtraTab({Key key, this.workoutViewModel, this.workoutNavigator})
+class ExtraPage extends StatefulWidget {
+  ExtraPage({Key key, this.workoutViewModel, this.workoutNavigator})
       : super(key: key);
 
   final WorkoutNavigator workoutNavigator;
   final WorkoutViewModel workoutViewModel;
 
   @override
-  _ExtraTabState createState() => _ExtraTabState();
+  _ExtraPageState createState() => _ExtraPageState();
 }
 
-class _ExtraTabState extends State<ExtraTab> {
+class _ExtraPageState extends State<ExtraPage> {
   ExtraPageViewModel _viewModel;
 
   void initState() {
