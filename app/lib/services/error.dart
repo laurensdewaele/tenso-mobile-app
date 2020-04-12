@@ -31,7 +31,7 @@ class ErrorService {
       // In our case, being handled by ErrorService.handleZonedError.
       Zone.current.handleUncaughtError(details.exception, details.stack);
     }
-    return Future.value(null);
+    return Future.value();
   }
 
   Future<Null> handleZonedError(dynamic error, dynamic stackTrace) {
@@ -52,7 +52,7 @@ class ErrorService {
         // TODO: Handle by sentry
       }
     }
-    return Future.value(null);
+    return Future.value();
   }
 }
 

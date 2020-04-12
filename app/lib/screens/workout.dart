@@ -65,8 +65,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     }
   }
 
-  void _popRoute(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+  void _setWorkoutAndPopRoute(BuildContext context) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // This needs to be async and inside the postFrameCallback.
+      // We don't want our viewModel to be disposed before we could
+      // set the workout.
+      await _workoutViewModel.setWorkout();
       Navigator.of(context).pop();
     });
   }
@@ -83,13 +87,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           stream: _workoutNavigator.shouldPopRoute$,
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.data == true) {
-              _popRoute(context);
+              _setWorkoutAndPopRoute(context);
             }
             return GestureDetector(
               onHorizontalDragEnd: _onHorizontalDragEnd,
               child: KeyboardAndToastProvider(
                 child: StreamBuilder<WorkoutViewModelState>(
-                  initialData: _workoutViewModel.initialState,
+                  initialData: _workoutViewModel.state,
                   stream: _workoutViewModel.state$,
                   builder: (BuildContext context,
                       AsyncSnapshot<WorkoutViewModelState> snapshot) {

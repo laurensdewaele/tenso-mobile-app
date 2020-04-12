@@ -14,7 +14,6 @@ class WorkoutViewModel {
   BehaviorSubject<WorkoutViewModelState> _state$;
   WorkoutViewModelState get state => _state$.value;
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
-  WorkoutViewModelState get initialState => _state$.value;
   Stream<bool> shouldValidate$;
 
   WorkoutViewModel({
@@ -44,6 +43,15 @@ class WorkoutViewModel {
         break;
     }
     _state$ = BehaviorSubject.seeded(_initialState);
+  }
+
+  Future<void> setWorkout() async {
+    // What needs to happen:
+    // If it's an edit workout => update the existing workout
+    // If it's a new one, add it.
+    // If it's a viewing, nothing.
+    await new Future.delayed(const Duration(seconds: 4));
+    return Future.value();
   }
 
   void dispose() {

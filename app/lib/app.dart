@@ -9,7 +9,6 @@ import 'package:app/services/persistence.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/calendar_vm.dart';
-import 'package:app/view_models/extra_tab_vm.dart';
 import 'package:app/view_models/workout_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/view_models/sound_settings_vm.dart';
@@ -42,15 +41,6 @@ class App extends StatelessWidget {
           create: (context) => WorkoutViewModel(),
           update: (context, appState, workoutViewModel) =>
               workoutViewModel..update(appState),
-        ),
-        ChangeNotifierProxyProvider<AppState, ExtraTabViewModel>(
-          create: (context) => ExtraTabViewModel(
-            Provider.of<WorkoutViewModel>(context, listen: false),
-            Provider.of<ToastService>(context, listen: false),
-          ),
-          update: (context, appState, extraTabViewModel) =>
-              extraTabViewModel..update(appState),
-          lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
           create: (context) => SettingsViewModel(),
