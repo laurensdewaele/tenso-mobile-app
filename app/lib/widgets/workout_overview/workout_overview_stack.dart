@@ -2,12 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
@@ -25,6 +21,8 @@ class WorkoutOverviewStack extends StatefulWidget {
       {Key key,
       this.workout,
       this.handleWorkoutDeleteTap,
+      this.handleWorkoutEditTap,
+      this.handleCompletedWorkoutViewTap,
       this.handleCompletedWorkoutDeleteTap,
       this.completedWorkout})
       : super(key: key);
@@ -32,6 +30,8 @@ class WorkoutOverviewStack extends StatefulWidget {
   final Workout workout;
   final CompletedWorkout completedWorkout;
   final void Function(Workout workout) handleWorkoutDeleteTap;
+  final void Function(Workout workout) handleWorkoutEditTap;
+  final void Function(Workout workout) handleCompletedWorkoutViewTap;
   final void Function(CompletedWorkout completedWorkout)
       handleCompletedWorkoutDeleteTap;
 
@@ -76,20 +76,12 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _handleEditTap() {
-    _close();
-    final _workoutViewModel =
-        Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModel.handleEditWorkoutTap(widget.workout);
-    Navigator.of(context).pushNamed(Routes.workoutScreen);
+    widget.handleWorkoutEditTap(widget.workout);
   }
 
   void _handleViewTap() {
     _close();
-    final _workoutViewModel =
-        Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModel.setTypeAndSaveWorkout(
-        widget.completedWorkout.workout, WorkoutTypes.viewWorkout);
-    Navigator.of(context).pushNamed(Routes.workoutScreen);
+    widget.handleCompletedWorkoutViewTap(widget.completedWorkout.workout);
   }
 
   void _handleWorkoutDeleteTap() async {

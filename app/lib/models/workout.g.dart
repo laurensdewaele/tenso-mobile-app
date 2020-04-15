@@ -45,12 +45,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       serializers.serialize(object.weightUnit,
           specifiedType: const FullType(WeightUnit)),
     ];
-    if (object.editedId != null) {
-      result
-        ..add('editedId')
-        ..add(serializers.serialize(object.editedId,
-            specifiedType: const FullType(String)));
-    }
+
     return result;
   }
 
@@ -67,10 +62,6 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'editedId':
-          result.editedId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'label':
@@ -122,8 +113,6 @@ class _$Workout extends Workout {
   @override
   final String id;
   @override
-  final String editedId;
-  @override
   final Label label;
   @override
   final int sets;
@@ -147,7 +136,6 @@ class _$Workout extends Workout {
 
   _$Workout._(
       {this.id,
-      this.editedId,
       this.label,
       this.sets,
       this.holdCount,
@@ -202,7 +190,6 @@ class _$Workout extends Workout {
     if (identical(other, this)) return true;
     return other is Workout &&
         id == other.id &&
-        editedId == other.editedId &&
         label == other.label &&
         sets == other.sets &&
         holdCount == other.holdCount &&
@@ -223,11 +210,7 @@ class _$Workout extends Workout {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc(
-                                        $jc($jc(0, id.hashCode),
-                                            editedId.hashCode),
-                                        label.hashCode),
+                                $jc($jc($jc(0, id.hashCode), label.hashCode),
                                     sets.hashCode),
                                 holdCount.hashCode),
                             restBetweenHolds.hashCode),
@@ -242,7 +225,6 @@ class _$Workout extends Workout {
   String toString() {
     return (newBuiltValueToStringHelper('Workout')
           ..add('id', id)
-          ..add('editedId', editedId)
           ..add('label', label)
           ..add('sets', sets)
           ..add('holdCount', holdCount)
@@ -262,10 +244,6 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
-
-  String _editedId;
-  String get editedId => _$this._editedId;
-  set editedId(String editedId) => _$this._editedId = editedId;
 
   Label _label;
   Label get label => _$this._label;
@@ -310,7 +288,6 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   WorkoutBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _editedId = _$v.editedId;
       _label = _$v.label;
       _sets = _$v.sets;
       _holdCount = _$v.holdCount;
@@ -345,7 +322,6 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
       _$result = _$v ??
           new _$Workout._(
               id: id,
-              editedId: editedId,
               label: label,
               sets: sets,
               holdCount: holdCount,

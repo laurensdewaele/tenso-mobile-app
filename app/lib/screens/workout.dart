@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:provider/provider.dart';
 
-import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_navigator_state.dart';
@@ -19,6 +19,19 @@ import 'package:app/widgets/workout/extra_page.dart';
 import 'package:app/widgets/workout/hold_page.dart';
 import 'package:app/widgets/workout/general_page.dart';
 
+@immutable
+class WorkoutScreenArguments {
+  final WorkoutTypes workoutType;
+  final Workout workout;
+  final WeightUnit weightUnit;
+
+  WorkoutScreenArguments({
+    @required this.workoutType,
+    @required this.workout,
+    @required this.weightUnit,
+  });
+}
+
 class WorkoutScreen extends StatefulWidget {
   WorkoutScreen({Key key}) : super(key: key);
 
@@ -32,26 +45,32 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   KeyboardService _keyboardService;
 
   @override
-  void initState() {
-    // TODO: Replace ofc
-    Workout _workout = basicWorkout;
-    WorkoutTypes _workoutType = WorkoutTypes.newWorkout;
-    WeightUnit _weightUnit = WeightUnit.metric;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_workoutViewModel == null) {
+      _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+      final WorkoutScreenArguments _arguments =
+          ModalRoute.of(context).settings.arguments;
+      _workoutViewModel = WorkoutViewModel(
+          keyboardService: _keyboardService,
+          workout: _arguments.workout,
+          workoutType: _arguments.workoutType,
+          currentWeightUnit: _arguments.weightUnit,
+          appState: Provider.of<AppState>(context, listen: false));
+      _workoutNavigator =
+          WorkoutNavigator(initialHoldCount: _arguments.workout.holdCount);
+    }
+  }
 
-    _keyboardService = Provider.of<KeyboardService>(context, listen: false);
-    _workoutViewModel = WorkoutViewModel(
-        keyboardService: _keyboardService,
-        workout: _workout,
-        workoutType: _workoutType,
-        currentWeightUnit: _weightUnit);
-    _workoutNavigator = WorkoutNavigator(initialHoldCount: _workout.holdCount);
+  @override
+  void initState() {
     super.initState();
   }
 
   @override
   void dispose() {
-    _workoutViewModel.dispose();
-    _workoutNavigator.dispose();
+    _workoutViewModel?.dispose();
+    _workoutNavigator?.dispose();
     super.dispose();
   }
 

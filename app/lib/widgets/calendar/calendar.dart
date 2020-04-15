@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/screens/workout.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/view_models/calendar_vm.dart';
+import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
 import 'package:app/widgets/calendar/date_picker.dart';
 import 'package:app/widgets/calendar/header.dart';
 import 'package:app/widgets/calendar/table.dart';
 import 'package:app/widgets/modal_popup.dart';
-import 'package:provider/provider.dart';
 
 class Calendar extends StatefulWidget {
   Calendar({Key key}) : super(key: key);
@@ -46,6 +51,16 @@ class _CalendarState extends State<Calendar> {
     _calendarViewModel.deleteCompletedWorkout(completedWorkout);
   }
 
+  void _handleViewTap(Workout workout) {
+    Navigator.of(context).pushNamed(Routes.workoutScreen,
+        arguments: WorkoutScreenArguments(
+            workout: workout,
+            workoutType: WorkoutTypes.editWorkout,
+            weightUnit: Provider.of<AppState>(context, listen: false)
+                .settings
+                .weightUnit));
+  }
+
   @override
   Widget build(BuildContext context) {
     final CalendarViewModel _calendarViewModel =
@@ -63,6 +78,7 @@ class _CalendarState extends State<Calendar> {
             handlePreviousMonthSwipe: _calendarViewModel.setPreviousMonth,
             handleNextMonthSwipe: _calendarViewModel.setNextMonth),
         CompletedWorkoutsOverview(
+            handleViewTap: _handleViewTap,
             handleDeleteTap: _handleDeleteTap,
             selectedDay: _calendarViewModel.selectedDay,
             completedWorkoutsForSelectedDay:

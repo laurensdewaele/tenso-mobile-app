@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:provider/provider.dart';
 
+import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/screens/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout_vm.dart';
+import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
@@ -22,16 +24,33 @@ class WorkoutOverviewScreen extends StatefulWidget {
 }
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
-  void _handleAddWorkout() {
-    final _workoutViewModal =
-        Provider.of<WorkoutViewModel>(context, listen: false);
-    _workoutViewModal.handleAddNewWorkoutTap();
-    Navigator.of(context).pushNamed(Routes.workoutScreen);
+  void _handleWorkoutAddTap() {
+    Navigator.of(context).pushNamed(Routes.workoutScreen,
+        arguments: WorkoutScreenArguments(
+            workoutType: WorkoutTypes.newWorkout,
+            workout: basicWorkout,
+            weightUnit: Provider.of<AppState>(context, listen: false)
+                .settings
+                .weightUnit));
   }
 
-  void _handleDeleteTap(Workout workout) {
-    Provider.of<WorkoutViewModel>(context, listen: false)
-        .deleteWorkout(workout);
+  void _handleWorkoutEditTap(Workout workout) {
+    Navigator.of(context).pushNamed(Routes.workoutScreen,
+        arguments: WorkoutScreenArguments(
+            workoutType: WorkoutTypes.editWorkout,
+            workout: workout,
+            weightUnit: Provider.of<AppState>(context, listen: false)
+                .settings
+                .weightUnit));
+  }
+
+  void _handleWorkoutDeleteTap(Workout workout) {
+    // TODO: workout_overview_vm
+    //    final _workoutList = []..addAll(_appState?.workouts?.workouts?.toList());
+    //
+    //    _workoutList.removeWhere((w) => w.id == workout.id);
+    //    _setAndSaveWorkouts(
+    //        _appState?.workouts?.rebuild((b) => b..workouts.replace(_workoutList)));
   }
 
   @override
@@ -55,13 +74,15 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   if (index < _workoutList.length) {
                     return WorkoutOverviewStack(
-                      key: ObjectKey(_workoutList[index]),
+                      key: ValueKey(
+                          'workout_overview_stack-${_workoutList[index]}'),
                       workout: _workoutList[index],
-                      handleWorkoutDeleteTap: _handleDeleteTap,
+                      handleWorkoutDeleteTap: _handleWorkoutDeleteTap,
+                      handleWorkoutEditTap: _handleWorkoutEditTap,
                     );
                   } else if (index == _workoutList.length) {
                     return _AddWorkoutButton(
-                      handleTap: _handleAddWorkout,
+                      handleTap: _handleWorkoutAddTap,
                     );
                   } else {
                     return Divider(
@@ -77,7 +98,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 child: Column(
               children: <Widget>[
                 _AddWorkoutButton(
-                  handleTap: _handleAddWorkout,
+                  handleTap: _handleWorkoutAddTap,
                 ),
               ],
             )),

@@ -9,6 +9,7 @@ import 'package:app/styles/styles.dart' as styles;
 
 @immutable
 class WorkoutViewModelState {
+  final String id;
   final Label label;
   final int sets;
   final int holdCount;
@@ -28,6 +29,7 @@ class WorkoutViewModelState {
   final listEquality = const ListEquality<Hold>();
 
   const WorkoutViewModelState({
+    @required this.id,
     @required this.label,
     @required this.sets,
     @required this.holdCount,
@@ -46,7 +48,8 @@ class WorkoutViewModelState {
 
   WorkoutViewModelState.addWorkout(
       Workout workout, WeightUnit currentWeightUnit)
-      : label = workout.label,
+      : id = workout.id,
+        label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
         restBetweenHolds = workout.restBetweenHolds,
@@ -63,7 +66,8 @@ class WorkoutViewModelState {
 
   WorkoutViewModelState.editWorkout(
       Workout workout, WeightUnit currentWeightUnit)
-      : label = workout.label,
+      : id = workout.id,
+        label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
         restBetweenHolds = workout.restBetweenHolds,
@@ -80,7 +84,8 @@ class WorkoutViewModelState {
 
   WorkoutViewModelState.viewWorkout(
       Workout workout, WeightUnit currentWeightUnit)
-      : label = workout.label,
+      : id = workout.id,
+        label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
         restBetweenHolds = workout.restBetweenHolds,
@@ -100,6 +105,7 @@ class WorkoutViewModelState {
       identical(this, other) ||
       other is WorkoutViewModelState &&
           runtimeType == other.runtimeType &&
+          id == other.id &&
           label == other.label &&
           sets == other.sets &&
           holdCount == other.holdCount &&
@@ -118,6 +124,7 @@ class WorkoutViewModelState {
 
   @override
   int get hashCode =>
+      id.hashCode ^
       label.hashCode ^
       sets.hashCode ^
       holdCount.hashCode ^
@@ -135,6 +142,7 @@ class WorkoutViewModelState {
       listEquality.hashCode;
 
   WorkoutViewModelState copyWith({
+    String id,
     Label label,
     int sets,
     int holdCount,
@@ -151,6 +159,7 @@ class WorkoutViewModelState {
     String title,
   }) {
     return new WorkoutViewModelState(
+      id: id ?? this.id,
       label: label ?? this.label,
       sets: sets ?? this.sets,
       holdCount: holdCount ?? this.holdCount,

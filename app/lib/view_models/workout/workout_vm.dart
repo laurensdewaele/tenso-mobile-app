@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
 
 enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
@@ -16,19 +19,23 @@ class WorkoutViewModel {
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   Stream<bool> shouldValidate$;
 
-  WorkoutViewModel({
-    @required WorkoutTypes workoutType,
-    @required Workout workout,
-    @required WeightUnit currentWeightUnit,
-    @required KeyboardService keyboardService,
-    // TODO: App state => workoutState
-  }) {
+  AppState _appState;
+  WorkoutTypes _workoutType;
+
+  WorkoutViewModel(
+      {@required WorkoutTypes workoutType,
+      @required Workout workout,
+      @required WeightUnit currentWeightUnit,
+      @required KeyboardService keyboardService,
+      @required AppState appState}) {
+    _workoutType = workoutType;
+    _appState = appState;
     shouldValidate$ = MergeStream<bool>(
             [keyboardService.shouldLoseFocus$, keyboardService.inputComplete$])
         .asBroadcastStream();
 
     WorkoutViewModelState _initialState;
-    switch (workoutType) {
+    switch (_workoutType) {
       case WorkoutTypes.newWorkout:
         _initialState =
             WorkoutViewModelState.addWorkout(workout, currentWeightUnit);
@@ -46,11 +53,39 @@ class WorkoutViewModel {
   }
 
   Future<void> setWorkout() async {
-    // What needs to happen:
-    // If it's an edit workout => update the existing workout
-    // If it's a new one, add it.
-    // If it's a viewing, nothing.
-    await new Future.delayed(const Duration(seconds: 4));
+    Workout _workout = Workout((b) => b
+      ..id = state.id
+      ..label = state.label
+      ..sets = state.sets
+      ..holdCount = state.holdCount
+      ..restBetweenHolds = state.restBetweenHolds
+      ..restBetweenSets = state.restBetweenSets
+      ..board = state.board.toBuilder()
+      ..holds = state.holds.toBuiltList().toBuilder()
+      ..name = state.name
+      ..weightUnit = state.weightUnit);
+
+    switch (_workoutType) {
+      case WorkoutTypes.newWorkout:
+        _appState.setWorkouts(_appState.workouts?.rebuild((b) =>
+            b..workouts.add(_workout.rebuild((b) => b.id = Uuid().v4()))));
+        break;
+      case WorkoutTypes.editWorkout:
+        final _workoutList = []
+          ..addAll(_appState.workouts?.workouts?.toList());
+        final _originalWorkout =
+            _workoutList.firstWhere((w) => w.id == state.id);
+
+        if (_originalWorkout != _workout) {
+          final index = _workoutList.indexWhere((w) => w.id == state.id);
+          _workoutList[index] = _workout;
+          _appState.setWorkouts(_appState.workouts
+              ?.rebuild((b) => b..workouts.replace(_workoutList)));
+        }
+        break;
+      case WorkoutTypes.viewWorkout:
+        break;
+    }
     return Future.value();
   }
 
