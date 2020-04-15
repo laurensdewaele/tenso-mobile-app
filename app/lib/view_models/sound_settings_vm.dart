@@ -1,15 +1,59 @@
+import 'package:flutter/cupertino.dart';
+
+import 'package:app/data/sounds.dart';
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
-import 'package:flutter/cupertino.dart';
 
 class SoundSettingsViewModel extends ChangeNotifier {
   SoundSettingsViewModel();
 
+  int beepsBeforeHangInitial;
+  int beepsBeforeRestInitial;
+
+  // Hang sound
+  bool isThudDeepActive;
+  bool isThudHollowActive;
+  bool isThudSoftActive;
+  bool isHangSoundOffActive;
+
+  // Rest sound
+  bool isMetalHitSmallActive;
+  bool isMetalHitLargeActive;
+  bool isGongActive;
+  bool isRestSoundOffActive;
+
+  // Beep sound
+  bool isHitLightSoftActive;
+  bool isHitLightHardActive;
+  bool isBeepSoundOffActive;
+
   void update(AppState appState) {
+    if (beepsBeforeHangInitial == null) {
+      beepsBeforeHangInitial = appState.settings.beepsBeforeHang;
+      beepsBeforeRestInitial = appState.settings.beepsBeforeRest;
+    }
     _appState = appState;
+    _setRadioButtons();
   }
 
   AppState _appState;
+
+  void _setRadioButtons() {
+    isThudDeepActive = _appState.settings.hangSound == Sounds.thudDeep;
+    isThudHollowActive = _appState.settings.hangSound == Sounds.thudHollow;
+    isThudSoftActive = _appState.settings.hangSound == Sounds.thudSoft;
+    isHangSoundOffActive = _appState.settings.hangSound == Sounds.off;
+    isMetalHitSmallActive =
+        _appState.settings.restSound == Sounds.metalHitSmall;
+    isMetalHitLargeActive =
+        _appState.settings.restSound == Sounds.metalHitLarge;
+    isGongActive = _appState.settings.restSound == Sounds.gong;
+    isRestSoundOffActive = _appState.settings.restSound == Sounds.off;
+    isHitLightSoftActive = _appState.settings.beepSound == Sounds.hitLightSoft;
+    isHitLightHardActive = _appState.settings.beepSound == Sounds.hitLightHard;
+    isBeepSoundOffActive = _appState.settings.beepSound == Sounds.off;
+    notifyListeners();
+  }
 
   void setHangSound(Sound sound) {
     final _settings =

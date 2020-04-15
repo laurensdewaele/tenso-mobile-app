@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -35,23 +34,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  void _handlePreparationTimerChanged(int value) {
-    Provider.of<SettingsViewModel>(context, listen: false)
-        .setPreparationTimer(value);
-  }
-
   void _handleSoundNavigation() {
     Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
-  }
-
-  void _handleWeightUnitChanged(dynamic weightUnit) {
-    Provider.of<SettingsViewModel>(context, listen: false)
-        .setWeightUnit(weightUnit);
-  }
-
-  void _handleTempUnitChanged(dynamic tempUnit) {
-    Provider.of<SettingsViewModel>(context, listen: false)
-        .setTempUnit(tempUnit);
   }
 
   @override
@@ -75,116 +59,106 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
                   child: Card(
                     child: Consumer<SettingsViewModel>(
-                      builder: (context, _settingsViewModel, child) {
-                        return Consumer<AppState>(
-                            builder: (context, _appState, child) {
-                          return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Divider(
-                                          height: styles.Measurements.l,
-                                        ),
-                                        Section(
-                                          title: 'default board',
-                                          children: <Widget>[],
-                                        ),
-                                        Section(
-                                          title: 'preparation timer',
-                                          children: <Widget>[
-                                            NumberInputAndDescription(
-                                              description: 'seconds',
-                                              initialIntValue: _appState
-                                                  .settings.preparationTimer,
-                                              handleIntValueChanged:
-                                                  _handlePreparationTimerChanged,
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                _SoundSection(
-                                    title: 'sound',
-                                    handleNavigation: _handleSoundNavigation),
-                                Divider(
-                                  height: styles.Measurements.xxl,
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Section(
-                                          title: 'weight unit',
-                                          children: <Widget>[
-                                            RadioButton(
-                                              description: 'Metric (kg)',
-                                              value: WeightUnit.metric,
-                                              active: _appState
-                                                      .settings.weightUnit ==
-                                                  WeightUnit.metric,
-                                              handleSelected:
-                                                  _handleWeightUnitChanged,
-                                            ),
-                                            RadioButton(
-                                              description: 'Imperial (pounds)',
-                                              value: WeightUnit.imperial,
-                                              active: _appState
-                                                      .settings.weightUnit ==
-                                                  WeightUnit.imperial,
-                                              handleSelected:
-                                                  _handleWeightUnitChanged,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.m,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Section(
-                                          title: 'temperature unit',
-                                          children: <Widget>[
-                                            RadioButton(
-                                              description: 'Celsius',
-                                              value: TempUnit.celsius,
-                                              active:
-                                                  _appState.settings.tempUnit ==
-                                                      TempUnit.celsius,
-                                              handleSelected:
-                                                  _handleTempUnitChanged,
-                                            ),
-                                            RadioButton(
-                                              description: 'Fahrenheit',
-                                              value: TempUnit.fahrenheit,
-                                              active:
-                                                  _appState.settings.tempUnit ==
-                                                      TempUnit.fahrenheit,
-                                              handleSelected:
-                                                  _handleTempUnitChanged,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                              ]);
-                        });
+                      builder: (context, _viewModel, child) {
+                        return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.m,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Divider(
+                                        height: styles.Measurements.l,
+                                      ),
+                                      Section(
+                                        title: 'default board',
+                                        children: <Widget>[],
+                                      ),
+                                      Section(
+                                        title: 'preparation timer',
+                                        children: <Widget>[
+                                          NumberInputAndDescription(
+                                            description: 'seconds',
+                                            initialIntValue: _viewModel
+                                                .preparationTimerInitial,
+                                            handleIntValueChanged:
+                                                _viewModel.setPreparationTimer,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                              _SoundSection(
+                                  title: 'sound',
+                                  handleNavigation: _handleSoundNavigation),
+                              Divider(
+                                height: styles.Measurements.xxl,
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.m,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Section(
+                                        title: 'weight unit',
+                                        children: <Widget>[
+                                          RadioButton(
+                                            description: 'Metric (kg)',
+                                            value: WeightUnit.metric,
+                                            active: _viewModel.isMetricActive,
+                                            handleSelected:
+                                                _viewModel.setWeightUnit,
+                                          ),
+                                          RadioButton(
+                                            description: 'Imperial (pounds)',
+                                            value: WeightUnit.imperial,
+                                            active: _viewModel.isImperialActive,
+                                            handleSelected:
+                                                _viewModel.setWeightUnit,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.m,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Section(
+                                        title: 'temperature unit',
+                                        children: <Widget>[
+                                          RadioButton(
+                                            description: 'Celsius',
+                                            value: TempUnit.celsius,
+                                            active: _viewModel.isCelsiusActive,
+                                            handleSelected:
+                                                _viewModel.setTempUnit,
+                                          ),
+                                          RadioButton(
+                                            description: 'Fahrenheit',
+                                            value: TempUnit.fahrenheit,
+                                            active:
+                                                _viewModel.isFahrenheitActive,
+                                            handleSelected:
+                                                _viewModel.setTempUnit,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                            ]);
                       },
                     ),
                   ),

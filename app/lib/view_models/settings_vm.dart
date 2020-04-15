@@ -5,12 +5,31 @@ import 'package:app/state/app_state.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel();
+  AppState _appState;
+
+  int preparationTimerInitial;
+
+  bool isMetricActive;
+  bool isImperialActive;
+
+  bool isCelsiusActive;
+  bool isFahrenheitActive;
 
   void update(AppState appState) {
+    if (preparationTimerInitial == null) {
+      preparationTimerInitial = appState.settings.preparationTimer;
+    }
     _appState = appState;
+    _setRadioButtons();
   }
 
-  AppState _appState;
+  void _setRadioButtons() {
+    isMetricActive = _appState.settings.weightUnit == WeightUnit.metric;
+    isImperialActive = _appState.settings.weightUnit == WeightUnit.imperial;
+    isCelsiusActive = _appState.settings.tempUnit == TempUnit.celsius;
+    isFahrenheitActive = _appState.settings.tempUnit == TempUnit.fahrenheit;
+    notifyListeners();
+  }
 
   void setDefaultBoard(Board defaultBoard) {
     final _settings = _appState?.settings
