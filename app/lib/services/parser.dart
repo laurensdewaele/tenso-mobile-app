@@ -19,7 +19,9 @@ class ParseException extends AppException {
 }
 
 abstract class InputParsers {
-  static double parseToDouble({String string, String inputField}) {
+  static double parseToDouble(
+      {@required @required String string,
+      @required @required String inputField}) {
     if (string == null) {
       return null;
     }
@@ -38,7 +40,9 @@ abstract class InputParsers {
     return value;
   }
 
-  static int parseToInt({String string, String inputField}) {
+  static int parseToInt(
+      {@required @required String string,
+      @required @required String inputField}) {
     if (string == null) {
       return null;
     }
@@ -57,7 +61,7 @@ abstract class InputParsers {
     return value;
   }
 
-  static String parseString({String string}) {
+  static String parseString({@required String string}) {
     if (string == null) {
       return null;
     }
