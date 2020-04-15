@@ -8,6 +8,7 @@ import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout_overview_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
@@ -44,43 +45,33 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 .weightUnit));
   }
 
-  void _handleWorkoutDeleteTap(Workout workout) {
-    // TODO: workout_overview_vm
-    //    final _workoutList = []..addAll(_appState?.workouts?.workouts?.toList());
-    //
-    //    _workoutList.removeWhere((w) => w.id == workout.id);
-    //    _setAndSaveWorkouts(
-    //        _appState?.workouts?.rebuild((b) => b..workouts.replace(_workoutList)));
-  }
-
   @override
   Widget build(BuildContext context) {
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
-    final _appState = Provider.of<AppState>(context, listen: true);
-    final _workoutList = _appState?.workouts?.workouts?.toList();
-    final bool _startOpen = _appState?.deviceInfo?.firstLaunch ?? false;
+    WorkoutOverviewViewModel _viewModel =
+        Provider.of<WorkoutOverviewViewModel>(context, listen: true);
 
     return WillPopScope(
       onWillPop: () async => false,
       child: Stack(
         children: <Widget>[
-          if (_workoutList != null)
+          if (_viewModel.workoutList != null)
             _HomeScreen(
               child: ListView.separated(
                 physics: ClampingScrollPhysics(),
-                itemCount: _workoutList.length + 2,
+                itemCount: _viewModel.workoutList.length + 2,
                 itemBuilder: (BuildContext context, int index) {
-                  if (index < _workoutList.length) {
+                  if (index < _viewModel.workoutList.length) {
                     return WorkoutOverviewStack(
                       key: ValueKey(
-                          'workout_overview_stack-${_workoutList[index]}'),
-                      workout: _workoutList[index],
-                      handleWorkoutDeleteTap: _handleWorkoutDeleteTap,
+                          'workout_overview_stack-${_viewModel.workoutList[index]}'),
+                      workout: _viewModel.workoutList[index],
+                      handleWorkoutDeleteTap: _viewModel.deleteWorkout,
                       handleWorkoutEditTap: _handleWorkoutEditTap,
                     );
-                  } else if (index == _workoutList.length) {
+                  } else if (index == _viewModel.workoutList.length) {
                     return _AddWorkoutButton(
                       handleTap: _handleWorkoutAddTap,
                     );
@@ -93,7 +84,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                     Divider(height: styles.Measurements.m),
               ),
             ),
-          if (_workoutList == null)
+          if (_viewModel.workoutList == null)
             _HomeScreen(
                 child: Column(
               children: <Widget>[
@@ -103,7 +94,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
               ],
             )),
           BottomMenuDrawer(
-            startOpen: _startOpen,
+            startOpen: _viewModel.startOpen,
           )
         ],
       ),

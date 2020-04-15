@@ -1,7 +1,6 @@
 # TODO
 
-- Workout screen refactor:
-  Need to fix the back button on add new workout.
+- Test everything on workout.
 
 
 ### Large prio
@@ -44,6 +43,7 @@
 
 ### Small prio
 
+- When deleting a workout => let the divider fade out as well (no janky feel).
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
