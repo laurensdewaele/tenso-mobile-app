@@ -52,7 +52,7 @@ class WorkoutViewModel {
     _state$ = BehaviorSubject.seeded(_initialState);
   }
 
-  Future<void> setWorkout() async {
+  void setWorkout() async {
     Workout _workout = Workout((b) => b
       ..id = state.id
       ..label = state.label
@@ -71,8 +71,7 @@ class WorkoutViewModel {
             b..workouts.add(_workout.rebuild((b) => b.id = Uuid().v4()))));
         break;
       case WorkoutTypes.editWorkout:
-        final _workoutList = []
-          ..addAll(_appState.workouts?.workouts?.toList());
+        final _workoutList = []..addAll(_appState.workouts?.workouts?.toList());
         final _originalWorkout =
             _workoutList.firstWhere((w) => w.id == state.id);
 
@@ -86,7 +85,6 @@ class WorkoutViewModel {
       case WorkoutTypes.viewWorkout:
         break;
     }
-    return Future.value();
   }
 
   void dispose() {

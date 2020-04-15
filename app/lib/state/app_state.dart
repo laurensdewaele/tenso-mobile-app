@@ -11,13 +11,6 @@ class AppState extends ChangeNotifier {
 
   PersistenceService _persistenceService;
 
-  // This can be used for either:
-  // 1) Creating a new workout
-  // 2) Editing a workout
-  // 3) Viewing a workout (once completed)
-  Workout _workout;
-  Workout get workout => _workout;
-
   Workouts _workouts;
   Workouts get workouts => _workouts;
   CompletedWorkouts _completedWorkouts;
@@ -28,15 +21,6 @@ class AppState extends ChangeNotifier {
 
   DeviceInfo _deviceInfo;
   DeviceInfo get deviceInfo => _deviceInfo;
-
-  void setWorkout(Workout workout) {
-    _workout = workout;
-    notifyListeners();
-  }
-
-  void saveNewWorkout(Workout newWorkout) {
-    _persistenceService.saveNewWorkout(newWorkout);
-  }
 
   void setWorkouts(Workouts workouts) {
     _workouts = workouts;
@@ -66,7 +50,6 @@ class AppState extends ChangeNotifier {
   }
 
   void _initializeState() async {
-    _workout = await _persistenceService.getNewWorkout();
     _workouts = await _persistenceService.getWorkouts();
     _completedWorkouts = await _persistenceService.getCompletedWorkouts();
     _settings = await _persistenceService.getSettings();
@@ -75,7 +58,6 @@ class AppState extends ChangeNotifier {
       _persistenceService
           .saveDeviceInfo(deviceInfo.rebuild((b) => b.firstLaunch = false));
     }
-    setWorkout(_workout);
     setWorkouts(_workouts);
     setCompletedWorkouts(_completedWorkouts);
     setSettings(_settings);

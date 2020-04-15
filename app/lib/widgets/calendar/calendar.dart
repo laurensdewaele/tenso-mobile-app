@@ -55,7 +55,7 @@ class _CalendarState extends State<Calendar> {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
             workout: workout,
-            workoutType: WorkoutTypes.editWorkout,
+            workoutType: WorkoutTypes.viewWorkout,
             weightUnit: Provider.of<AppState>(context, listen: false)
                 .settings
                 .weightUnit));
