@@ -1,6 +1,8 @@
 # TODO
 
-- Test everything on workout.
+- Do not reference appState directly without viewModel.
+- Remove numberInput2 etc.
+- Test everything
 
 
 ### Large prio
