@@ -5,18 +5,13 @@ import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 
 class TopNavigation extends StatelessWidget {
-  TopNavigation({this.title, this.dark = false, this.handleBackNavigation});
+  TopNavigation({this.title, this.dark = false});
 
   final String title;
   final bool dark;
-  final VoidCallback handleBackNavigation;
 
   void _handleTap(BuildContext context) {
-    if (handleBackNavigation != null) {
-      handleBackNavigation();
-    } else {
-      Navigator.of(context).pop();
-    }
+    Navigator.of(context).pop();
   }
 
   @override

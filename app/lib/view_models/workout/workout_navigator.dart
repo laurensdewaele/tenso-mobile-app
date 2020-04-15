@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:app/view_models/workout/workout_navigator_state.dart';
+import 'package:app/view_models/workout/workout_vm.dart';
 
 WorkoutNavigatorPage _initialNavigatorPage = WorkoutNavigatorPage(
   page: WorkoutPages.generalPage,
@@ -12,6 +13,8 @@ WorkoutNavigatorPage _initialNavigatorPage = WorkoutNavigatorPage(
 );
 
 class WorkoutNavigator {
+  WorkoutViewModel _workoutViewModel;
+
   BehaviorSubject<List<WorkoutNavigatorPage>> _pages$ =
       BehaviorSubject.seeded([_initialNavigatorPage]);
   WorkoutNavigatorPage get initialPage => _pages$.value[0];
@@ -33,8 +36,9 @@ class WorkoutNavigator {
   StreamController<bool> _shouldPopRoute = StreamController.broadcast();
   Stream<bool> get shouldPopRoute$ => _shouldPopRoute.stream;
 
-  WorkoutNavigator({int initialHoldCount}) {
-    buildPagesDueToHoldCount(initialHoldCount);
+  WorkoutNavigator({WorkoutViewModel workoutViewModel}) {
+    _workoutViewModel = workoutViewModel;
+    buildPagesDueToHoldCount(_workoutViewModel.state.holdCount);
   }
 
   void buildPagesDueToHoldCount(int holdCount) {
@@ -69,8 +73,12 @@ class WorkoutNavigator {
   }
 
   void handleBackRequest() {
-    _validationState$
-        .add(ValidationPending(navigationType: WorkoutNavigatorType.back));
+    if (_activePage.index == 0) {
+      _shouldPopRoute.add(true);
+    } else {
+      _validationState$
+          .add(ValidationPending(navigationType: WorkoutNavigatorType.back));
+    }
   }
 
   void handleValidationSuccess() {
@@ -90,6 +98,7 @@ class WorkoutNavigator {
           count: _pages$.value.length, activeIndex: _activePage.index + 1);
       _validationState$.add(ValidationUnknown());
     } else {
+      _workoutViewModel.setWorkout();
       _shouldPopRoute.add(true);
     }
   }

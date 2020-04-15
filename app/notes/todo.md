@@ -1,32 +1,7 @@
 # TODO
 
-- Workout screen refactor
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-- What's the use of an edited id? 
-  // This is used for easily comparing which completed workout
-  // is different from the other without having to do a deep comparison.
-  Why not just adjust the id itself?
-  => Because the values, when you edit them might be the same.
-  => Fix that with decent validation, that doesn't alter the id when they're the same.
+- Workout screen refactor:
+  Need to fix the back button on add new workout.
 
 
 ### Large prio

@@ -76,6 +76,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   }
 
   void _handleEditTap() {
+    _close();
     widget.handleWorkoutEditTap(widget.workout);
   }
 

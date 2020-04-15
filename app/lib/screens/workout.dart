@@ -59,8 +59,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           workoutType: _arguments.workoutType,
           currentWeightUnit: _arguments.weightUnit,
           appState: Provider.of<AppState>(context, listen: false));
-      _workoutNavigator =
-          WorkoutNavigator(initialHoldCount: _arguments.workout.holdCount);
+      _workoutNavigator = WorkoutNavigator(workoutViewModel: _workoutViewModel);
     }
   }
 
@@ -116,8 +115,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               children: <Widget>[
                                 TopNavigation(
                                   title: _workoutState.title,
-                                  handleBackNavigation:
-                                      _workoutNavigator.handleBackRequest,
                                 ),
                                 Divider(height: styles.Measurements.xxl),
                                 Padding(
@@ -194,7 +191,6 @@ class _ShouldPopRouteListenerState extends State<_ShouldPopRouteListener> {
   @override
   void initState() {
     _sub = widget.shouldPopRoute$.listen((_) {
-      widget.workoutViewModel.setWorkout();
       Navigator.of(context).pop();
     });
     super.initState();
