@@ -1,7 +1,7 @@
 # TODO
 
-- Remove numberInput2 etc.
 - Test everything
+- Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 
 
 ### Large prio
@@ -10,19 +10,14 @@
 - Overview on completed workouts need effective time hung.
 - Stopwatch option for rest periods
 - Stop and log, when a workout is more than you can handle that day. E.g. The last set is too much.
-- Keep screen alive when on countdown screen
 - Skip buttons so you can quickly complete a workout.
+- Keep screen alive when on countdown screen
 - Check if sounds come trough if app on bg 
-
 - Add open crimp, check if all grips available.
-
 - Redesign toast
-
 - Graphs
-
 - Add board selection. Only beastmaker1000 atm.
 - Add custom board => Slopers, pinches, ...
- 
 - Info/explanation screen
 - Implement a feedback button.
 
@@ -45,7 +40,6 @@
 ### Small prio
 
 - When deleting a workout => let the divider fade out as well (no janky feel).
-- Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
 - styles trough Provider instead of globals
