@@ -14,7 +14,7 @@ import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
-import 'package:app/widgets/number_input_and_description2.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/screen.dart';
@@ -43,8 +43,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  void _handleSoundNavigation() {
-    Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
+  void _handleSoundNavigation() async {
+    final bool _canNavigate =
+        await Provider.of<SettingsViewModel>(context, listen: false)
+            .canNavigate();
+    if (_canNavigate == true) {
+      Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
+    }
   }
 
   @override
@@ -96,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     Section(
                                       title: 'preparation timer',
                                       children: <Widget>[
-                                        NumberInputAndDescription2(
+                                        NumberInputAndDescription(
                                           description: 'seconds',
                                           initialValue: _viewModel
                                               .preparationTimerInitial,

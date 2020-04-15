@@ -5,7 +5,7 @@ import 'package:app/view_models/workout/general_page_vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/number_input_and_description2.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/card_container.dart';
 import 'package:app/widgets/workout/navigation_indicator.dart';
@@ -48,7 +48,7 @@ class _GeneralPageState extends State<GeneralPage> {
           Section(
             title: 'basics',
             children: <Widget>[
-              NumberInputAndDescription2<int>(
+              NumberInputAndDescription<int>(
                 enabled: _viewModel.state.inputsEnabled,
                 primaryColor: _viewModel.state.primaryColor,
                 description: 'holds',
@@ -58,7 +58,7 @@ class _GeneralPageState extends State<GeneralPage> {
               Divider(
                 height: styles.Measurements.m,
               ),
-              NumberInputAndDescription2<int>(
+              NumberInputAndDescription<int>(
                 enabled: _viewModel.state.inputsEnabled,
                 primaryColor: _viewModel.state.primaryColor,
                 description: 'sets',
@@ -73,7 +73,7 @@ class _GeneralPageState extends State<GeneralPage> {
           Section(
             title: 'timers',
             children: <Widget>[
-              NumberInputAndDescription2<int>(
+              NumberInputAndDescription<int>(
                 enabled: _viewModel.state.inputsEnabled,
                 primaryColor: _viewModel.state.primaryColor,
                 description: 'rest seconds between holds',
@@ -83,7 +83,7 @@ class _GeneralPageState extends State<GeneralPage> {
               Divider(
                 height: styles.Measurements.m,
               ),
-              NumberInputAndDescription2(
+              NumberInputAndDescription(
                 enabled: _viewModel.state.inputsEnabled,
                 primaryColor: _viewModel.state.primaryColor,
                 description: 'rest seconds between sets',

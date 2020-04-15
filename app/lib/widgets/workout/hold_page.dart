@@ -6,7 +6,7 @@ import 'package:app/view_models/workout/hold_page_vm_state.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/number_input_and_description2.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/workout/card_container.dart';
 import 'package:app/widgets/workout/hold_input_container.dart';
@@ -87,7 +87,7 @@ class _HoldPageState extends State<HoldPage> {
                 Section(
                   title: 'basics',
                   children: <Widget>[
-                    NumberInputAndDescription2(
+                    NumberInputAndDescription(
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: 'repetitions',
@@ -102,7 +102,7 @@ class _HoldPageState extends State<HoldPage> {
                 Section(
                   title: 'timers',
                   children: <Widget>[
-                    NumberInputAndDescription2(
+                    NumberInputAndDescription(
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: 'hang time seconds',
@@ -112,7 +112,7 @@ class _HoldPageState extends State<HoldPage> {
                     Divider(
                       height: styles.Measurements.m,
                     ),
-                    NumberInputAndDescription2(
+                    NumberInputAndDescription(
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: 'rest seconds between repetitions',
@@ -127,7 +127,7 @@ class _HoldPageState extends State<HoldPage> {
                 Section(
                   title: 'added weight',
                   children: <Widget>[
-                    NumberInputAndDescription2(
+                    NumberInputAndDescription(
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: _state.weightUnitDescription,

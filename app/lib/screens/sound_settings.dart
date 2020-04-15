@@ -12,7 +12,7 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
-import 'package:app/widgets/number_input_and_description2.dart';
+import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/section.dart';
@@ -107,7 +107,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                       Section(
                                         title: 'indicator beeps',
                                         children: <Widget>[
-                                          NumberInputAndDescription2(
+                                          NumberInputAndDescription(
                                             description: 'beeps before hang',
                                             initialValue: _viewModel
                                                 .beepsBeforeHangInitial,
@@ -117,7 +117,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                           Divider(
                                             height: styles.Measurements.m,
                                           ),
-                                          NumberInputAndDescription2(
+                                          NumberInputAndDescription(
                                             description: 'beeps before rest',
                                             initialValue: _viewModel
                                                 .beepsBeforeRestInitial,
