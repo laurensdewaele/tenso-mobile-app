@@ -1,6 +1,5 @@
 # TODO
 
-- Do not reference appState directly without viewModel.
 - Remove numberInput2 etc.
 - Test everything
 
