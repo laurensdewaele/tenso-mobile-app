@@ -99,8 +99,8 @@ class SoundSettingsViewModel extends ChangeNotifier {
     _beepsBeforeHangInput = s;
   }
 
-  bool canNavigate() {
-    return _validateAndSet();
+  Future<bool> canNavigate() {
+    return Future.value(_validateAndSet());
   }
 
   bool _validateAndSet() {
@@ -108,10 +108,10 @@ class SoundSettingsViewModel extends ChangeNotifier {
         string: _beepsBeforeHangInput, inputField: 'Beeps before hang');
     _beepsBeforeRest = InputParsers.parseToInt(
         string: _beepsBeforeRestInput, inputField: 'Beeps before rest');
-    final bool _isBeepsBeforeHangValid =
-        Validators.biggerThanZero(value: _beepsBeforeHang, inputField: 'Beeps before hang');
-    final bool _isBeepsBeforeRestValid =
-        Validators.biggerThanZero(value: _beepsBeforeRest, inputField: 'Beeps before rest');
+    final bool _isBeepsBeforeHangValid = Validators.biggerThanZero(
+        value: _beepsBeforeHang, inputField: 'Beeps before hang');
+    final bool _isBeepsBeforeRestValid = Validators.biggerThanZero(
+        value: _beepsBeforeRest, inputField: 'Beeps before rest');
 
     final _isValid = [
       _isBeepsBeforeHangValid,

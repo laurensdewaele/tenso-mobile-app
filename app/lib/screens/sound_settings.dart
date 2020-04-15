@@ -68,7 +68,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        return _viewModel.canNavigate();
+        return await _viewModel.canNavigate();
       },
       child: KeyboardAndToastProvider(
         child: GestureDetector(
