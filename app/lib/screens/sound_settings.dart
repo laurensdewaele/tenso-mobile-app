@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/data/sounds.dart';
 import 'package:app/models/models.dart';
+import 'package:app/services/audio_player.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/sound_settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -26,10 +26,12 @@ class SoundSettingsScreen extends StatefulWidget {
 }
 
 class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
-  AudioCache _audioPlayer = AudioCache(prefix: 'audio/');
+  AudioPlayerService _audioPlayerService;
 
   @override
   void initState() {
+    _audioPlayerService =
+        Provider.of<AudioPlayerService>(context, listen: false);
     super.initState();
   }
 
@@ -46,7 +48,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
 
   void _playSound(Sound sound) {
     if (sound.muted != true) {
-      _audioPlayer.play(sound.filename);
+      _audioPlayerService.play(sound.filename);
     }
   }
 
@@ -125,43 +127,43 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                         Section(
                                           title: 'hang sound',
                                           children: <Widget>[
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description: Sounds.thudDeep.name,
                                               value: Sounds.thudDeep,
                                               active:
                                                   _viewModel.isThudDeepActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setHangSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description:
                                                   Sounds.thudHollow.name,
                                               value: Sounds.thudHollow,
                                               active:
                                                   _viewModel.isThudHollowActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setHangSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description: Sounds.thudSoft.name,
                                               value: Sounds.thudSoft,
                                               active:
                                                   _viewModel.isThudSoftActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setHangSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description: Sounds.off.name,
                                               value: Sounds.off,
                                               active: _viewModel
                                                   .isHangSoundOffActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setHangSound(s);
                                                 _playSound(s);
                                               },
@@ -181,43 +183,43 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                         Section(
                                           title: 'rest sound',
                                           children: <Widget>[
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description:
                                                   Sounds.metalHitSmall.name,
                                               value: Sounds.metalHitSmall,
                                               active: _viewModel
                                                   .isMetalHitSmallActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setRestSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description:
                                                   Sounds.metalHitLarge.name,
                                               value: Sounds.metalHitLarge,
                                               active: _viewModel
                                                   .isMetalHitLargeActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setRestSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description: Sounds.gong.name,
                                               value: Sounds.gong,
                                               active: _viewModel.isGongActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setRestSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description: Sounds.off.name,
                                               value: Sounds.off,
                                               active: _viewModel
                                                   .isRestSoundOffActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setRestSound(s);
                                                 _playSound(s);
                                               },
@@ -237,34 +239,34 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                         Section(
                                           title: 'beep sound',
                                           children: <Widget>[
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description:
                                                   Sounds.hitLightSoft.name,
                                               value: Sounds.hitLightSoft,
                                               active: _viewModel
                                                   .isHitLightSoftActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setBeepSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description:
                                                   Sounds.hitLightHard.name,
                                               value: Sounds.hitLightHard,
                                               active: _viewModel
                                                   .isHitLightHardActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setBeepSound(s);
                                                 _playSound(s);
                                               },
                                             ),
-                                            RadioButton(
+                                            RadioButton<Sound>(
                                               description: Sounds.off.name,
                                               value: Sounds.off,
                                               active: _viewModel
                                                   .isBeepSoundOffActive,
-                                              handleSelected: (dynamic s) {
+                                              handleSelected: (Sound s) {
                                                 _viewModel.setBeepSound(s);
                                                 _playSound(s);
                                               },

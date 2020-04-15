@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/routes/routes.dart';
+import 'package:app/services/audio_player.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/services/persistence.dart';
@@ -20,6 +21,12 @@ class App extends StatelessWidget {
       providers: [
         Provider<PersistenceService>(
           create: (context) => PersistenceService(),
+          lazy: false,
+        ),
+        Provider<AudioPlayerService>(
+          create: (context) => AudioPlayerService(),
+          dispose: (context, audioPlayerService) =>
+              audioPlayerService.dispose(),
           lazy: false,
         ),
         Provider<ToastService>(
@@ -40,7 +47,7 @@ class App extends StatelessWidget {
         ChangeNotifierProxyProvider<AppState, WorkoutOverviewViewModel>(
           create: (context) => WorkoutOverviewViewModel(),
           update: (context, appState, workoutOverviewViewModel) =>
-          workoutOverviewViewModel..update(appState),
+              workoutOverviewViewModel..update(appState),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, SettingsViewModel>(

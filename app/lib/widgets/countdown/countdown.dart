@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:audioplayers/audio_cache.dart';
+import 'package:provider/provider.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/services/audio_player.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/countdown/portrait.dart';
 import 'package:app/widgets/countdown/landscape.dart';
@@ -56,32 +57,34 @@ class Countdown extends StatefulWidget {
 }
 
 class _CountdownState extends State<Countdown> {
-  AudioCache _audioPlayer = AudioCache(prefix: 'audio/');
+  AudioPlayerService _audioPlayerService;
+
+  @override
+  void initState() {
+    _audioPlayerService =
+        Provider.of<AudioPlayerService>(context, listen: false);
+    if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
+      if (widget.beepSound.muted != true) {
+        _audioPlayerService.play(widget.beepSound.filename);
+      }
+    }
+    super.initState();
+  }
 
   @override
   void didUpdateWidget(Countdown oldWidget) {
     if (oldWidget.remainingSeconds != widget.remainingSeconds) {
       if (widget.remainingSeconds == 0) {
         if (widget.endSound.muted != true) {
-          _audioPlayer.play(widget.endSound.filename);
+          _audioPlayerService.play(widget.endSound.filename);
         }
       } else if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
         if (widget.beepSound.muted != true) {
-          _audioPlayer.play(widget.beepSound.filename);
+          _audioPlayerService.play(widget.beepSound.filename);
         }
       }
     }
     super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void initState() {
-    if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
-      if (widget.beepSound.muted != true) {
-        _audioPlayer.play(widget.beepSound.filename);
-      }
-    }
-    super.initState();
   }
 
   @override

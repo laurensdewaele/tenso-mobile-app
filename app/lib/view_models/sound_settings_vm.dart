@@ -28,30 +28,28 @@ class SoundSettingsViewModel extends ChangeNotifier {
   bool isBeepSoundOffActive;
 
   void update(AppState appState) {
-    if (beepsBeforeHangInitial == null) {
-      beepsBeforeHangInitial = appState.settings.beepsBeforeHang;
-      beepsBeforeRestInitial = appState.settings.beepsBeforeRest;
-    }
     _appState = appState;
+    beepsBeforeHangInitial = _appState.settings?.beepsBeforeHang;
+    beepsBeforeRestInitial = _appState.settings?.beepsBeforeRest;
     _setRadioButtons();
   }
 
   AppState _appState;
 
   void _setRadioButtons() {
-    isThudDeepActive = _appState.settings.hangSound == Sounds.thudDeep;
-    isThudHollowActive = _appState.settings.hangSound == Sounds.thudHollow;
-    isThudSoftActive = _appState.settings.hangSound == Sounds.thudSoft;
-    isHangSoundOffActive = _appState.settings.hangSound == Sounds.off;
+    isThudDeepActive = _appState.settings?.hangSound == Sounds.thudDeep;
+    isThudHollowActive = _appState.settings?.hangSound == Sounds.thudHollow;
+    isThudSoftActive = _appState.settings?.hangSound == Sounds.thudSoft;
+    isHangSoundOffActive = _appState.settings?.hangSound == Sounds.off;
     isMetalHitSmallActive =
-        _appState.settings.restSound == Sounds.metalHitSmall;
+        _appState.settings?.restSound == Sounds.metalHitSmall;
     isMetalHitLargeActive =
-        _appState.settings.restSound == Sounds.metalHitLarge;
-    isGongActive = _appState.settings.restSound == Sounds.gong;
-    isRestSoundOffActive = _appState.settings.restSound == Sounds.off;
-    isHitLightSoftActive = _appState.settings.beepSound == Sounds.hitLightSoft;
-    isHitLightHardActive = _appState.settings.beepSound == Sounds.hitLightHard;
-    isBeepSoundOffActive = _appState.settings.beepSound == Sounds.off;
+        _appState.settings?.restSound == Sounds.metalHitLarge;
+    isGongActive = _appState.settings?.restSound == Sounds.gong;
+    isRestSoundOffActive = _appState.settings?.restSound == Sounds.off;
+    isHitLightSoftActive = _appState.settings?.beepSound == Sounds.hitLightSoft;
+    isHitLightHardActive = _appState.settings?.beepSound == Sounds.hitLightHard;
+    isBeepSoundOffActive = _appState.settings?.beepSound == Sounds.off;
     notifyListeners();
   }
 

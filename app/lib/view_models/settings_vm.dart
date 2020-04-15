@@ -16,18 +16,16 @@ class SettingsViewModel extends ChangeNotifier {
   bool isFahrenheitActive;
 
   void update(AppState appState) {
-    if (preparationTimerInitial == null) {
-      preparationTimerInitial = appState.settings.preparationTimer;
-    }
     _appState = appState;
+    preparationTimerInitial = _appState?.settings?.preparationTimer;
     _setRadioButtons();
   }
 
   void _setRadioButtons() {
-    isMetricActive = _appState.settings.weightUnit == WeightUnit.metric;
-    isImperialActive = _appState.settings.weightUnit == WeightUnit.imperial;
-    isCelsiusActive = _appState.settings.tempUnit == TempUnit.celsius;
-    isFahrenheitActive = _appState.settings.tempUnit == TempUnit.fahrenheit;
+    isMetricActive = _appState.settings?.weightUnit == WeightUnit.metric;
+    isImperialActive = _appState.settings?.weightUnit == WeightUnit.imperial;
+    isCelsiusActive = _appState.settings?.tempUnit == TempUnit.celsius;
+    isFahrenheitActive = _appState.settings?.tempUnit == TempUnit.fahrenheit;
     notifyListeners();
   }
 

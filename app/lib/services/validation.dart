@@ -33,13 +33,12 @@ abstract class Validators {
     return _bool;
   }
 
-  static bool betweenRange<T>(
-      {int min, int max, dynamic value, String inputField}) {
+  static bool betweenRange<T>({int min, int max, T value, String inputField}) {
     bool _bool = false;
     if (value == null) {
       return _bool;
     }
-    if (value > min && value < max) {
+    if ((value as dynamic) > min && (value as dynamic) < max) {
       _bool = true;
     } else {
       throw ValidationException<T>(

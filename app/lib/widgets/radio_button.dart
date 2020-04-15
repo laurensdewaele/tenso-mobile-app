@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-class RadioButton extends StatelessWidget {
+class RadioButton<T> extends StatelessWidget {
   RadioButton(
       {@required this.active,
       @required this.description,
@@ -14,8 +14,8 @@ class RadioButton extends StatelessWidget {
   final Color primaryColor;
   final bool active;
   final String description;
-  final dynamic value;
-  final void Function(dynamic value) handleSelected;
+  final T value;
+  final void Function(T value) handleSelected;
 
   Widget build(BuildContext context) {
     return GestureDetector(

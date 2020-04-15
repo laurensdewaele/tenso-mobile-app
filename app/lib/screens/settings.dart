@@ -110,14 +110,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       Section(
                                         title: 'weight unit',
                                         children: <Widget>[
-                                          RadioButton(
+                                          RadioButton<WeightUnit>(
                                             description: 'Metric (kg)',
                                             value: WeightUnit.metric,
                                             active: _viewModel.isMetricActive,
                                             handleSelected:
                                                 _viewModel.setWeightUnit,
                                           ),
-                                          RadioButton(
+                                          RadioButton<WeightUnit>(
                                             description: 'Imperial (pounds)',
                                             value: WeightUnit.imperial,
                                             active: _viewModel.isImperialActive,
@@ -139,14 +139,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       Section(
                                         title: 'temperature unit',
                                         children: <Widget>[
-                                          RadioButton(
+                                          RadioButton<TempUnit>(
                                             description: 'Celsius',
                                             value: TempUnit.celsius,
                                             active: _viewModel.isCelsiusActive,
                                             handleSelected:
                                                 _viewModel.setTempUnit,
                                           ),
-                                          RadioButton(
+                                          RadioButton<TempUnit>(
                                             description: 'Fahrenheit',
                                             value: TempUnit.fahrenheit,
                                             active:
