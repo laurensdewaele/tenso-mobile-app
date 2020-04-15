@@ -100,7 +100,8 @@ class SoundSettingsViewModel extends ChangeNotifier {
   }
 
   Future<bool> canNavigate() {
-    return Future.value(_validateAndSet());
+    // See https://dart.dev/guides/libraries/futures-error-handling#potential-problem-accidentally-mixing-synchronous-and-asynchronous-errors
+    return Future.sync(_validateAndSet);
   }
 
   bool _validateAndSet() {
