@@ -31,7 +31,7 @@ class KeyboardService {
   double _keyboardHeight = 0;
   double _deviceHeight = 0;
   // We're storing the latest tapPosition, because when it's the first time
-  // that the users clicks an input field, handlePointerDow is ran first,
+  // that the users clicks an input field, handlePointerDown is ran first,
   // and only after, the device keyboard height is known and we need to run handlePointerDown again,
   // but this time we have lost the tapPosition.
   Offset _latestTapPosition = Offset.zero;
