@@ -94,6 +94,27 @@ const infoIconBlackL = Icon(
   color: styles.Colors.black,
 );
 
+const searchIconWhiteXl = Icon(
+  size: styles.IconMeasurements.xl,
+  iconData: IconData(0xf4a4,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.white,
+);
+
+const copyIconWhiteXl = Icon(
+  size: styles.IconMeasurements.xl,
+  iconData: IconData(0xf220,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.white,
+);
+
+const deleteIconWhiteXl = Icon(
+  size: styles.IconMeasurements.xl,
+  iconData: IconData(0xf4c4,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.white,
+);
+
 Icon getRightChevronIconXl(Color color) => Icon(
     iconData: IconData(0xf3d1,
         fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),

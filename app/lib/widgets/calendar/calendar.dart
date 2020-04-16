@@ -51,6 +51,12 @@ class _CalendarState extends State<Calendar> {
     _calendarViewModel.deleteCompletedWorkout(completedWorkout);
   }
 
+  void _handleCopyTap(CompletedWorkout completedWorkout) {
+    final CalendarViewModel _calendarViewModel =
+    Provider.of<CalendarViewModel>(context, listen: false);
+    _calendarViewModel.copyCompletedWorkout(completedWorkout);
+  }
+
   void _handleViewTap(Workout workout) {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
@@ -80,6 +86,7 @@ class _CalendarState extends State<Calendar> {
         CompletedWorkoutsOverview(
             handleViewTap: _handleViewTap,
             handleDeleteTap: _handleDeleteTap,
+            handleCopyTap: _handleCopyTap,
             selectedDay: _calendarViewModel.selectedDay,
             completedWorkoutsForSelectedDay:
                 _calendarViewModel.completedWorkoutsForSelectedDay)

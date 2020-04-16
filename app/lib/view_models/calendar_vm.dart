@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:uuid/uuid.dart';
+
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/calendar/table.dart';
@@ -113,6 +115,18 @@ class CalendarViewModel extends ChangeNotifier {
     _workoutList.removeWhere((c) => c.id == completedWorkout.id);
     _setAndSaveCompletedWorkouts(_appState?.completedWorkouts
         ?.rebuild((b) => b..completedWorkouts.replace(_workoutList)));
+  }
+
+  void copyCompletedWorkout(CompletedWorkout completedWorkout) {
+    _setAndSaveWorkouts(_appState.workouts?.rebuild((b) => b
+      ..workouts.add(completedWorkout.workout.rebuild((b) => b
+        ..id = Uuid().v4()
+        ..name = '${completedWorkout.workout.name} copy'))));
+  }
+
+  void _setAndSaveWorkouts(Workouts workouts) {
+    _appState?.setWorkouts(workouts);
+    _appState?.saveWorkouts(workouts);
   }
 
   void _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {

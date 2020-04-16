@@ -23,6 +23,8 @@ class WorkoutOverviewStack extends StatefulWidget {
       this.workout,
       this.handleWorkoutDeleteTap,
       this.handleWorkoutEditTap,
+      this.handleWorkoutCopyTap,
+      this.handleCompletedWorkoutCopyTap,
       this.handleCompletedWorkoutViewTap,
       this.handleCompletedWorkoutDeleteTap,
       this.completedWorkout})
@@ -32,9 +34,12 @@ class WorkoutOverviewStack extends StatefulWidget {
   final CompletedWorkout completedWorkout;
   final void Function(Workout workout) handleWorkoutDeleteTap;
   final void Function(Workout workout) handleWorkoutEditTap;
+  final void Function(Workout workout) handleWorkoutCopyTap;
   final void Function(Workout workout) handleCompletedWorkoutViewTap;
   final void Function(CompletedWorkout completedWorkout)
       handleCompletedWorkoutDeleteTap;
+  final void Function(CompletedWorkout completedWorkout)
+      handleCompletedWorkoutCopyTap;
 
   @override
   _WorkoutOverviewStackState createState() => _WorkoutOverviewStackState();
@@ -84,6 +89,28 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   void _handleViewTap() {
     _close();
     widget.handleCompletedWorkoutViewTap(widget.completedWorkout.workout);
+  }
+
+  void _handleDeleteTap() {
+    final _isCompletedWorkout = widget.completedWorkout != null;
+    if (_isCompletedWorkout == true) {
+      widget.handleCompletedWorkoutDeleteTap(widget.completedWorkout);
+    } else {
+      widget.handleWorkoutDeleteTap(widget.workout);
+    }
+  }
+
+  void _handleCopyTap() {
+    final _isCompletedWorkout = widget.completedWorkout != null;
+    if (_isCompletedWorkout == true) {
+      widget.handleCompletedWorkoutCopyTap(widget.completedWorkout);
+    } else {
+      widget.handleWorkoutCopyTap(widget.workout);
+    }
+  }
+
+  void _handleBackTap() {
+    Navigator.of(context).pop();
   }
 
   void _handleWorkoutDeleteTap() async {
@@ -178,6 +205,11 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         width: styles.Measurements.xxl * 6,
         context: context,
         content: _LongPressDialog(
+            handleDeleteTap: _handleDeleteTap,
+            handleViewTap: _handleViewTap,
+            handleBackTap: _handleBackTap,
+            handleCopyTap: _handleCopyTap,
+            handleEditTap: _handleEditTap,
             isCompletedWorkout:
                 widget.handleCompletedWorkoutDeleteTap != null));
   }
@@ -314,21 +346,41 @@ class _LongPressDialog extends StatelessWidget {
       children: <Widget>[
         if (isCompletedWorkout == true)
           Button(
-            text: 'View',
-            backgroundColor: styles.Colors.gray,
+              text: 'View',
+              backgroundColor: styles.Colors.gray,
+              displayBackground: true,
+              leadingIcon: icons.searchIconWhiteXl,
+              handleTap: handleViewTap,
+              leadingIconTextCentered: true),
+        if (isCompletedWorkout == false)
+          Button(
+              text: 'Edit',
+              backgroundColor: styles.Colors.blue,
+              displayBackground: true,
+              leadingIcon: icons.editIconWhiteXl,
+              handleTap: handleViewTap,
+              leadingIconTextCentered: true),
+        Divider(height: styles.Measurements.m),
+        Button(
+            text: 'Copy',
+            backgroundColor: styles.Colors.turquoise,
             displayBackground: true,
-            leadingIcon: icons.editIconWhiteXl,
+            leadingIcon: icons.copyIconWhiteXl,
             handleTap: handleViewTap,
-          ),
+            leadingIconTextCentered: true),
+        Divider(height: styles.Measurements.m),
+        Button(
+            text: 'Delete',
+            backgroundColor: styles.Colors.primary,
+            displayBackground: true,
+            leadingIcon: icons.deleteIconWhiteXl,
+            handleTap: handleViewTap,
+            leadingIconTextCentered: true),
         Divider(height: styles.Measurements.l),
         Transform.scale(
           scale: .8,
           child: Button(
-              displayBackground: false,
-              text: 'Ok',
-              handleTap: () {
-                Navigator.of(context).pop();
-              }),
+              displayBackground: false, text: 'Back', handleTap: handleBackTap),
         )
       ],
     );

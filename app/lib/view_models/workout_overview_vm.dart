@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:uuid/uuid.dart';
+
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 
@@ -21,5 +23,17 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
     _newWorkoutList.removeWhere((w) => w.id == workout.id);
     _appState.setWorkouts(_appState?.workouts
         ?.rebuild((b) => b..workouts.replace(_newWorkoutList)));
+  }
+
+  void copyWorkout(Workout workout) {
+    _setAndSaveWorkouts(_appState.workouts?.rebuild((b) => b
+      ..workouts.add(workout.rebuild((b) => b
+        ..id = Uuid().v4()
+        ..name = '${workout.name} copy'))));
+  }
+
+  void _setAndSaveWorkouts(Workouts workouts) {
+    _appState?.setWorkouts(workouts);
+    _appState?.saveWorkouts(workouts);
   }
 }

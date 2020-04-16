@@ -68,7 +68,7 @@ class WorkoutViewModel {
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
         _setAndSaveWorkouts(_appState.workouts?.rebuild((b) =>
-            b..workouts.add(_workout.rebuild((b) => b.id = Uuid().v4()))));
+            b..workouts.add(_workout.rebuild((b) => b..id = Uuid().v4()))));
         break;
       case WorkoutTypes.editWorkout:
         final _workoutList = []..addAll(_appState.workouts?.workouts?.toList());

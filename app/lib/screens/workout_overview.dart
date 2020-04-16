@@ -45,6 +45,12 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 .weightUnit));
   }
 
+  void _handleWorkoutCopyTap(Workout workout) {
+    final WorkoutOverviewViewModel _viewModel =
+    Provider.of<WorkoutOverviewViewModel>(context, listen: false);
+    _viewModel.copyWorkout(workout);
+  }
+
   @override
   Widget build(BuildContext context) {
     final EdgeInsets padding = MediaQuery.of(context).padding;
@@ -70,6 +76,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                       workout: _viewModel.workoutList[index],
                       handleWorkoutDeleteTap: _viewModel.deleteWorkout,
                       handleWorkoutEditTap: _handleWorkoutEditTap,
+                      handleWorkoutCopyTap: _handleWorkoutCopyTap,
                     );
                   } else if (index == _viewModel.workoutList.length) {
                     return _AddWorkoutButton(

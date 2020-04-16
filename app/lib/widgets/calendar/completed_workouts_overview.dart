@@ -12,13 +12,14 @@ class CompletedWorkoutsOverview extends StatelessWidget {
       @required this.selectedDay,
       @required this.completedWorkoutsForSelectedDay,
       @required this.handleDeleteTap,
-      @required this.handleViewTap
-      })
+      @required this.handleCopyTap,
+      @required this.handleViewTap})
       : super(key: key);
 
   final DateTime selectedDay;
   final List<CompletedWorkout> completedWorkoutsForSelectedDay;
   final void Function(CompletedWorkout completedWorkout) handleDeleteTap;
+  final void Function(CompletedWorkout completedWorkout) handleCopyTap;
   final void Function(Workout workout) handleViewTap;
 
   @override
@@ -52,6 +53,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                         completedWorkout: completedWorkout,
                         handleCompletedWorkoutDeleteTap: handleDeleteTap,
                         handleCompletedWorkoutViewTap: handleViewTap,
+                        handleCompletedWorkoutCopyTap: handleCopyTap,
                       ),
                       if (i < completedWorkoutsForSelectedDay.length - 1)
                         Divider(
