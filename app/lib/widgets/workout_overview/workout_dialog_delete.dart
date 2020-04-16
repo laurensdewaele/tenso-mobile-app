@@ -38,14 +38,15 @@ Future<void> showWorkoutDeleteDialog({
                   flex: 1,
                   child: Transform.scale(
                       scale: 0.8,
-                      child:
-                          Button(text: 'Cancel', handleTap: handleCancelTap))),
+                      child: Button(
+                          displayBackground: false,
+                          text: 'Cancel',
+                          handleTap: handleCancelTap))),
               Expanded(
                   flex: 1,
                   child: Transform.scale(
                     scale: 0.8,
                     child: Button(
-                      displayBackground: false,
                       text: 'Delete',
                       handleTap: handleDeleteTap,
                     ),
@@ -105,14 +106,15 @@ Future<void> showCompletedWorkoutDeleteDialog({
                   flex: 1,
                   child: Transform.scale(
                       scale: 0.8,
-                      child:
-                          Button(text: 'Cancel', handleTap: handleCancelTap))),
+                      child: Button(
+                          displayBackground: false,
+                          text: 'Cancel',
+                          handleTap: handleCancelTap))),
               Expanded(
                   flex: 1,
                   child: Transform.scale(
                     scale: 0.8,
                     child: Button(
-                      displayBackground: false,
                       text: 'Delete',
                       handleTap: handleDeleteTap,
                     ),
