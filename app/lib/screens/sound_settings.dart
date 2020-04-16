@@ -107,7 +107,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                       Section(
                                         title: 'indicator beeps',
                                         children: <Widget>[
-                                          NumberInputAndDescription(
+                                          NumberInputAndDescription<int>(
                                             description: 'beeps before hang',
                                             initialValue: _viewModel
                                                 .beepsBeforeHangInitial,
@@ -117,7 +117,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                           Divider(
                                             height: styles.Measurements.m,
                                           ),
-                                          NumberInputAndDescription(
+                                          NumberInputAndDescription<int>(
                                             description: 'beeps before rest',
                                             initialValue: _viewModel
                                                 .beepsBeforeRestInitial,

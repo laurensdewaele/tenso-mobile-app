@@ -87,7 +87,7 @@ class _HoldPageState extends State<HoldPage> {
                 Section(
                   title: 'basics',
                   children: <Widget>[
-                    NumberInputAndDescription(
+                    NumberInputAndDescription<int>(
                       key: ValueKey(
                           'hold-page-repetitions-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
@@ -104,7 +104,7 @@ class _HoldPageState extends State<HoldPage> {
                 Section(
                   title: 'timers',
                   children: <Widget>[
-                    NumberInputAndDescription(
+                    NumberInputAndDescription<int>(
                       key: ValueKey(
                           'hold-page-hang_time_seconds-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
@@ -116,7 +116,7 @@ class _HoldPageState extends State<HoldPage> {
                     Divider(
                       height: styles.Measurements.m,
                     ),
-                    NumberInputAndDescription(
+                    NumberInputAndDescription<int>(
                       key: ValueKey(
                           'hold-page-rest_between_reps-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
@@ -133,7 +133,7 @@ class _HoldPageState extends State<HoldPage> {
                 Section(
                   title: 'added weight',
                   children: <Widget>[
-                    NumberInputAndDescription(
+                    NumberInputAndDescription<double>(
                       key: ValueKey(
                           'hold-page-added_weight-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,

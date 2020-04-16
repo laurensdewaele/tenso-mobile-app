@@ -83,7 +83,7 @@ class _GeneralPageState extends State<GeneralPage> {
               Divider(
                 height: styles.Measurements.m,
               ),
-              NumberInputAndDescription(
+              NumberInputAndDescription<int>(
                 enabled: _viewModel.state.inputsEnabled,
                 primaryColor: _viewModel.state.primaryColor,
                 description: 'rest seconds between sets',

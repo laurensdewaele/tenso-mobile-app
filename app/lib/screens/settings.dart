@@ -101,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     Section(
                                       title: 'preparation timer',
                                       children: <Widget>[
-                                        NumberInputAndDescription(
+                                        NumberInputAndDescription<int>(
                                           description: 'seconds',
                                           initialValue: _viewModel
                                               .preparationTimerInitial,
