@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/styles/styles.dart' as styles;
 
+// For inputs without an initial value
 class EmptyInput extends StatefulWidget {
   EmptyInput({
     @required this.handleValueChanged,
