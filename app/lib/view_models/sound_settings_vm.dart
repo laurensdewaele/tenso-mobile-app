@@ -40,6 +40,8 @@ class SoundSettingsViewModel extends ChangeNotifier {
   void _setInitial() {
     _beepsBeforeHang = _appState.settings?.beepsBeforeHang;
     _beepsBeforeRest = _appState.settings?.beepsBeforeRest;
+    _beepsBeforeHangInput = _appState.settings?.beepsBeforeHang.toString();
+    _beepsBeforeRestInput = _appState.settings?.beepsBeforeRest.toString();
   }
 
   AppState _appState;

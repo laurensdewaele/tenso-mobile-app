@@ -22,6 +22,7 @@ class SettingsViewModel extends ChangeNotifier {
   void update(AppState appState) {
     _appState = appState;
     _preparationTimer = _appState?.settings?.preparationTimer;
+    _preparationTimerInput = _appState?.settings?.preparationTimer.toString();
     _setRadioButtons();
   }
 

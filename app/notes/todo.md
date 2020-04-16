@@ -1,7 +1,8 @@
 # TODO
 
-
 - Test everything
+- keyboard slide up doesn't work
+
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 
 
