@@ -1,8 +1,6 @@
 # TODO
 
 - Test everything
-- keyboard slide up doesn't work
-
 - Copy workout, on compeleted as in the overview on long press and copy the workout and add - copy to the name
 
 
@@ -41,6 +39,7 @@
 
 ### Small prio
 
+- keyboard slide up doesn't work => don't know.
 - Refactor appstate? => streams?
 - When deleting a workout => let the divider fade out as well (no janky feel).
 - Adjust sounds of countdown / female/male voice that counts down.
