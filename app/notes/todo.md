@@ -39,6 +39,7 @@
 
 ### Small prio
 
+- Refactor appstate? => streams?
 - When deleting a workout => let the divider fade out as well (no janky feel).
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
