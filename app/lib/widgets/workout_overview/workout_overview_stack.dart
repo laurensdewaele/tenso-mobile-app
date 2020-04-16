@@ -53,13 +53,14 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   AnimationController _sizeController;
   AnimationController _slideController;
 
+  bool _isCompletedWorkout;
   bool _isSliderOpen = false;
   double dx = 0.0;
 
   @override
   void initState() {
     super.initState();
-
+    _isCompletedWorkout = widget.completedWorkout != null;
     _sizeController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     _sizeAnimation = Tween<double>(begin: 1, end: 0)
@@ -90,29 +91,6 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   void _handleViewTap() {
     _close();
     widget.handleCompletedWorkoutViewTap(widget.completedWorkout.workout);
-  }
-
-  // TODO: Fix naming
-  void _handleDeleteTap() async {
-    try {
-      await _sizeController.forward().orCancel;
-    } catch (_) {}
-
-    final _isCompletedWorkout = widget.completedWorkout != null;
-    if (_isCompletedWorkout == true) {
-      widget.handleCompletedWorkoutDeleteTap(widget.completedWorkout);
-    } else {
-      widget.handleWorkoutDeleteTap(widget.workout);
-    }
-  }
-
-  void _handleCopyTap() {
-    final _isCompletedWorkout = widget.completedWorkout != null;
-    if (_isCompletedWorkout == true) {
-      widget.handleCompletedWorkoutCopyTap(widget.completedWorkout);
-    } else {
-      widget.handleWorkoutCopyTap(widget.workout);
-    }
   }
 
   void _handleWorkoutDeleteTap() async {
@@ -208,8 +186,12 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         context: context,
         content: _LongPressDialog(
             handleDeleteTap: () {
-              _handleDeleteTap();
               Navigator.of(context).pop();
+              if (_isCompletedWorkout == true) {
+                _handleCompletedWorkoutDeleteTap();
+              } else {
+                _handleWorkoutDeleteTap();
+              }
             },
             handleViewTap: () {
               Navigator.of(context).pop();
@@ -219,15 +201,19 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
               Navigator.of(context).pop();
             },
             handleCopyTap: () {
-              _handleCopyTap();
-              Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
+              Navigator.of(context).pop();
+              if (_isCompletedWorkout == true) {
+                widget.handleCompletedWorkoutCopyTap(widget.completedWorkout);
+                Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
+              } else {
+                widget.handleWorkoutCopyTap(widget.workout);
+              }
             },
             handleEditTap: () {
               Navigator.of(context).pop();
               _handleEditTap();
             },
-            isCompletedWorkout:
-                widget.handleCompletedWorkoutDeleteTap != null));
+            isCompletedWorkout: _isCompletedWorkout));
   }
 
   TickerFuture _animateTo(double value) {
