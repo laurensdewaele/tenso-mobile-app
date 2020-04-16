@@ -27,7 +27,6 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
     Routes.home: (context) => WorkoutOverviewScreen(),
     Routes.workoutScreen: (context) => WorkoutScreen(),
-    Routes.workoutScreen: (context) => WorkoutScreen(),
     Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),

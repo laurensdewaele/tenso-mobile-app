@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:uuid/uuid.dart';
 
+import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/state/app_state.dart';
@@ -68,7 +68,7 @@ class WorkoutViewModel {
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
         _setAndSaveWorkouts(_appState.workouts?.rebuild((b) =>
-            b..workouts.add(_workout.rebuild((b) => b..id = Uuid().v4()))));
+            b..workouts.add(_workout.rebuild((b) => b..id = generateUniqueId()))));
         break;
       case WorkoutTypes.editWorkout:
         final _workoutList = []..addAll(_appState.workouts?.workouts?.toList());

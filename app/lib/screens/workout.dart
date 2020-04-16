@@ -94,7 +94,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       },
       child: _ShouldPopRouteListener(
           shouldPopRoute$: _workoutNavigator.shouldPopRoute$,
-          workoutViewModel: _workoutViewModel,
           child: GestureDetector(
             onHorizontalDragEnd: _onHorizontalDragEnd,
             child: KeyboardAndToastProvider(
@@ -170,15 +169,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 }
 
 class _ShouldPopRouteListener extends StatefulWidget {
-  _ShouldPopRouteListener(
-      {Key key,
-      @required this.shouldPopRoute$,
-      @required this.child,
-      @required this.workoutViewModel})
-      : super(key: key);
+  _ShouldPopRouteListener({
+    Key key,
+    @required this.shouldPopRoute$,
+    @required this.child,
+  }) : super(key: key);
 
   final Stream<bool> shouldPopRoute$;
-  final WorkoutViewModel workoutViewModel;
   final Widget child;
 
   @override

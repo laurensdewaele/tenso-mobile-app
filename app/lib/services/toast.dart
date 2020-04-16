@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 class ToastService {
-  // Creates a singleton.
   ToastService._();
   static final ToastService _toastService = ToastService._();
   factory ToastService() {

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:uuid/uuid.dart';
-
+import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/calendar/table.dart';
@@ -120,7 +119,7 @@ class CalendarViewModel extends ChangeNotifier {
   void copyCompletedWorkout(CompletedWorkout completedWorkout) {
     _setAndSaveWorkouts(_appState.workouts?.rebuild((b) => b
       ..workouts.add(completedWorkout.workout.rebuild((b) => b
-        ..id = Uuid().v4()
+        ..id = generateUniqueId()
         ..name = '${completedWorkout.workout.name} copy'))));
   }
 

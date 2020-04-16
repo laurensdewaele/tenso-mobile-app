@@ -1,5 +1,4 @@
-import 'package:uuid/uuid.dart';
-
+import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
 import 'package:app/services/toast.dart';
@@ -9,12 +8,10 @@ class RateWorkoutViewModel {
   RateWorkoutViewModel(AppState appState, ToastService toastService) {
     _appState = appState;
     _toastService = toastService;
-    _uuid = Uuid();
   }
 
   ToastService _toastService;
   AppState _appState;
-  Uuid _uuid;
 
   int _perceivedExertion;
   double _bodyWeight;
@@ -161,7 +158,7 @@ class RateWorkoutViewModel {
       ..humidity = _humidity
       ..comments = _comments
       ..completedDate = DateTime.now().toUtc()
-      ..id = _uuid.v4());
+      ..id = generateUniqueId());
 
     final _completedWorkouts = _appState.completedWorkouts
         .rebuild((b) => b..completedWorkouts.add(completedWorkout));

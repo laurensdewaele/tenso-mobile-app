@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 
 // TODO: PersistenceService should not be the one that sets defaultSettings and d defaultWorkout etc...
 class PersistenceService {
-  // Creates a singleton.
   PersistenceService._();
   static final PersistenceService _persistenceService = PersistenceService._();
   factory PersistenceService() {

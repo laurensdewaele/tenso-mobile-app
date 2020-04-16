@@ -19,6 +19,7 @@ abstract class Validators {
   static bool biggerThanZero<T>(
       {@required T value, @required String inputField}) {
     bool _bool = false;
+
     if (value == null) {
       return _bool;
     }
@@ -40,6 +41,7 @@ abstract class Validators {
       @required T value,
       @required String inputField}) {
     bool _bool = false;
+
     if (value == null) {
       return _bool;
     }
@@ -58,6 +60,7 @@ abstract class Validators {
   static bool stringNotEmpty(
       {@required String string, @required String inputField}) {
     bool _bool = false;
+
     if (string == null) {
       return _bool;
     }

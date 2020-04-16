@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:uuid/uuid.dart';
-
+import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
 
@@ -28,7 +27,7 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
   void copyWorkout(Workout workout) {
     _setAndSaveWorkouts(_appState.workouts?.rebuild((b) => b
       ..workouts.add(workout.rebuild((b) => b
-        ..id = Uuid().v4()
+        ..id = generateUniqueId()
         ..name = '${workout.name} copy'))));
   }
 

@@ -16,7 +16,6 @@ bool get isInDebugMode {
 class ErrorService {
   ToastService _toastService;
 
-  // Creates a singleton.
   ErrorService._(ToastService toastService) : _toastService = toastService;
   static final ErrorService _errorService = ErrorService._(ToastService());
   factory ErrorService() {
