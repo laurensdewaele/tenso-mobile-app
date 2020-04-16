@@ -67,7 +67,7 @@ class WorkoutViewModel {
 
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
-        _appState.setWorkouts(_appState.workouts?.rebuild((b) =>
+        _setAndSaveWorkouts(_appState.workouts?.rebuild((b) =>
             b..workouts.add(_workout.rebuild((b) => b.id = Uuid().v4()))));
         break;
       case WorkoutTypes.editWorkout:
@@ -78,13 +78,18 @@ class WorkoutViewModel {
         if (_originalWorkout != _workout) {
           final index = _workoutList.indexWhere((w) => w.id == state.id);
           _workoutList[index] = _workout;
-          _appState.setWorkouts(_appState.workouts
+          _setAndSaveWorkouts(_appState.workouts
               ?.rebuild((b) => b..workouts.replace(_workoutList)));
         }
         break;
       case WorkoutTypes.viewWorkout:
         break;
     }
+  }
+
+  void _setAndSaveWorkouts(Workouts workouts) {
+    _appState?.setWorkouts(workouts);
+    _appState?.saveWorkouts(workouts);
   }
 
   void dispose() {

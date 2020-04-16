@@ -88,6 +88,8 @@ class _HoldPageState extends State<HoldPage> {
                   title: 'basics',
                   children: <Widget>[
                     NumberInputAndDescription(
+                      key: ValueKey(
+                          'hold-page-repetitions-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: 'repetitions',
@@ -103,6 +105,8 @@ class _HoldPageState extends State<HoldPage> {
                   title: 'timers',
                   children: <Widget>[
                     NumberInputAndDescription(
+                      key: ValueKey(
+                          'hold-page-hang_time_seconds-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: 'hang time seconds',
@@ -113,6 +117,8 @@ class _HoldPageState extends State<HoldPage> {
                       height: styles.Measurements.m,
                     ),
                     NumberInputAndDescription(
+                      key: ValueKey(
+                          'hold-page-rest_between_reps-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: 'rest seconds between repetitions',
@@ -128,6 +134,8 @@ class _HoldPageState extends State<HoldPage> {
                   title: 'added weight',
                   children: <Widget>[
                     NumberInputAndDescription(
+                      key: ValueKey(
+                          'hold-page-added_weight-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
                       description: _state.weightUnitDescription,

@@ -254,22 +254,24 @@ class HoldPageViewModel {
     setHandHold(handHold);
   }
 
-  void handleRightGripSelected(Grip grip) {
+  void handleRightGripSelected(Grip grip) async {
     final BoardHold _rightGripBoardHold = _state$.value.rightGripBoardHold;
     if (Validators.checkGripCompatibility(
             boardHold: _rightGripBoardHold, grip: grip) ==
         true) {
       setRightGrip(grip);
     }
+    return Future.value();
   }
 
-  void handleLeftGripSelected(Grip grip) {
+  void handleLeftGripSelected(Grip grip) async {
     final BoardHold _leftGripBoardHold = _state$.value.leftGripBoardHold;
     if (Validators.checkGripCompatibility(
             boardHold: _leftGripBoardHold, grip: grip) ==
         true) {
       setLeftGrip(grip);
     }
+    return Future.value();
   }
 
   void dispose() {
