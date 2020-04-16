@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/widgets/calendar/constants.dart';
-import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -32,13 +32,7 @@ class CalendarHeader extends StatelessWidget {
               style: styles.Staatliches.xlBlack,
             ),
             IconButton(
-                handleTap: handleSelectMonthTap,
-                icon: Icon(
-                  iconData: IconData(0xf3d0,
-                      fontFamily: 'CupertinoIcons',
-                      fontPackage: 'cupertino_icons'),
-                  color: styles.Colors.black,
-                ))
+                handleTap: handleSelectMonthTap, icon: icons.downCaretBlack)
           ],
         ),
       ),

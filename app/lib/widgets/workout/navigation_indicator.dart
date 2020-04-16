@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/divider.dart';
 
@@ -165,13 +165,7 @@ class _RightChevron extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      handleTap: handleTap,
-      icon: Icon(
-          iconData: IconData(0xf3d1,
-              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          size: styles.IconMeasurements.xl,
-          color: primaryColor),
-    );
+        handleTap: handleTap, icon: icons.getRightChevronIconXl(primaryColor));
   }
 }
 
@@ -187,11 +181,7 @@ class _LeftChevron extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       handleTap: handleTap,
-      icon: Icon(
-          iconData: IconData(0xf3cf,
-              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          size: styles.IconMeasurements.xl,
-          color: primaryColor),
+      icon: icons.getLeftChevronIconXl(primaryColor),
     );
   }
 }

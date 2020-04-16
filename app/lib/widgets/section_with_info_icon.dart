@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/icons.dart' as icons;
 
 class SectionWithInfoIcon extends StatelessWidget {
   SectionWithInfoIcon(
@@ -35,13 +35,7 @@ class SectionWithInfoIcon extends StatelessWidget {
                 handleTap: () {
                   showAppDialog(context: context, content: appDialogContent);
                 },
-                icon: Icon(
-                  size: styles.IconMeasurements.l,
-                  iconData: IconData(0xf44c,
-                      fontFamily: 'CupertinoIcons',
-                      fontPackage: 'cupertino_icons'),
-                  color: styles.Colors.black,
-                ))
+                icon: icons.infoIconBlackL)
           ],
         ),
         Divider(

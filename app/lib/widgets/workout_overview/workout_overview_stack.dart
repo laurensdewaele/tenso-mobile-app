@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -8,6 +8,7 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/workout_overview/workout_dialog_delete.dart';
 import 'package:app/widgets/workout_overview/workout_overview_card.dart';
 import 'package:app/widgets/workout_overview/workout_overview_delete_action.dart';
@@ -174,27 +175,11 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
 
   void _handleLongPress() async {
     await showAppDialog(
+        width: styles.Measurements.xxl * 6,
         context: context,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              'Swipe right to edit, left to delete.',
-              style: styles.Lato.sBlack,
-              textAlign: TextAlign.center,
-            ),
-            Divider(height: styles.Measurements.l),
-            Transform.scale(
-              scale: .8,
-              child: Button(
-                  displayBackground: false,
-                  text: 'Ok',
-                  handleTap: () {
-                    Navigator.of(context).pop();
-                  }),
-            )
-          ],
-        ));
+        content: _LongPressDialog(
+            isCompletedWorkout:
+                widget.handleCompletedWorkoutDeleteTap != null));
   }
 
   TickerFuture _animateTo(double value) {
@@ -301,5 +286,51 @@ class _CompletedWorkoutActions extends StatelessWidget {
               handleTap: handleCompletedWorkoutDeleteTap),
           flex: 1)
     ]);
+  }
+}
+
+class _LongPressDialog extends StatelessWidget {
+  _LongPressDialog(
+      {Key key,
+      @required this.isCompletedWorkout,
+      @required this.handleCopyTap,
+      @required this.handleDeleteTap,
+      this.handleViewTap,
+      this.handleEditTap,
+      @required this.handleBackTap})
+      : super(key: key);
+
+  final bool isCompletedWorkout;
+  final VoidCallback handleViewTap;
+  final VoidCallback handleEditTap;
+  final VoidCallback handleDeleteTap;
+  final VoidCallback handleCopyTap;
+  final VoidCallback handleBackTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (isCompletedWorkout == true)
+          Button(
+            text: 'View',
+            backgroundColor: styles.Colors.gray,
+            displayBackground: true,
+            leadingIcon: icons.editIconWhiteXl,
+            handleTap: handleViewTap,
+          ),
+        Divider(height: styles.Measurements.l),
+        Transform.scale(
+          scale: .8,
+          child: Button(
+              displayBackground: false,
+              text: 'Ok',
+              handleTap: () {
+                Navigator.of(context).pop();
+              }),
+        )
+      ],
+    );
   }
 }

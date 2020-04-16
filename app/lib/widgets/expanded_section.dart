@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/icon.dart';
 import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/icons.dart' as icons;
 
 class ExpandedSection extends StatefulWidget {
   ExpandedSection(
@@ -80,14 +80,7 @@ class _ExpandedSectionState extends State<ExpandedSection>
                 RotationTransition(
                   turns: _iconTurns,
                   child: IconButton(
-                      handleTap: _handleTap,
-                      icon: Icon(
-                        size: styles.IconMeasurements.l,
-                        iconData: IconData(0xf3d0,
-                            fontFamily: 'CupertinoIcons',
-                            fontPackage: 'cupertino_icons'),
-                        color: styles.Colors.black,
-                      )),
+                      handleTap: _handleTap, icon: icons.downCaretBlackL),
                 )
               ],
             ),

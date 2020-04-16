@@ -10,7 +10,7 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/countdown/countdown.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icons.dart' as icons;
 
 class CountdownScreenArguments {
   CountdownScreenArguments({this.workout, this.settings});
@@ -157,24 +157,14 @@ class _CountdownScreenState extends State<CountdownScreen>
                       text: 'play',
                       handleTap: _handlePlayTap,
                       displayBackground: false,
-                      leadingIcon: Icon(
-                          iconData: IconData(0xf488,
-                              fontFamily: 'CupertinoIcons',
-                              fontPackage: 'cupertino_icons'),
-                          size: styles.IconMeasurements.xl,
-                          color: styles.Colors.black)),
+                      leadingIcon: icons.playIconBlackXl),
                 ),
                 Expanded(
                   flex: 1,
                   child: Button(
                     text: 'stop',
                     handleTap: _handleStopTap,
-                    leadingIcon: Icon(
-                        iconData: IconData(0xf371,
-                            fontFamily: 'CupertinoIcons',
-                            fontPackage: 'cupertino_icons'),
-                        size: styles.IconMeasurements.xl,
-                        color: styles.Colors.white),
+                    leadingIcon: icons.stopIconWhiteXl,
                   ),
                 )
               ],

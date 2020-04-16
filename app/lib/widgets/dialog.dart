@@ -6,12 +6,12 @@ import 'package:app/styles/styles.dart' as styles;
 Future<void> showAppDialog({
   @required BuildContext context,
   @required Widget content,
+  double width,
 }) {
   return showCupertinoDialog(
       context: context,
-      builder: (BuildContext context) => AppDialog(
-            content: content,
-          ));
+      builder: (BuildContext context) =>
+          AppDialog(content: content, width: width));
 }
 
 /// Creates an iOS-style alert dialog.
@@ -19,9 +19,11 @@ class AppDialog extends StatelessWidget {
   const AppDialog({
     Key key,
     @required this.content,
+    this.width,
   }) : super(key: key);
 
   final Widget content;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class AppDialog extends StatelessWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (_orientation == Orientation.portrait) {
               return Container(
-                  width: double.infinity,
+                  width: width ?? double.infinity,
                   margin: const EdgeInsets.symmetric(
                       vertical: styles.Measurements.m),
                   padding:

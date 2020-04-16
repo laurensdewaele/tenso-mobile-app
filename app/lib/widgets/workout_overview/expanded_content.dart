@@ -4,7 +4,7 @@ import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/color_square.dart';
-import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_overview/display_duration_seconds.dart';
 import 'package:app/widgets/workout_overview/expanded_content_tile.dart';
@@ -84,12 +84,7 @@ class WorkoutExpandedContent extends StatelessWidget {
             child: Button(
                 text: 'start',
                 handleTap: handleStart,
-                leadingIcon: Icon(
-                    iconData: IconData(0xf488,
-                        fontFamily: 'CupertinoIcons',
-                        fontPackage: 'cupertino_icons'),
-                    size: styles.IconMeasurements.l,
-                    color: styles.Colors.white))),
+                leadingIcon: icons.playIconWhiteL)),
         Divider(height: styles.Measurements.m),
       ],
     );

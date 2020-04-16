@@ -4,6 +4,7 @@ import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icons.dart' as icons;
 
 class _MenuItem {
   _MenuItem({@required this.name, @required this.route, @required this.icon});
@@ -17,35 +18,19 @@ final List<_MenuItem> _menuItems = [
   _MenuItem(
       name: 'settings',
       route: Routes.settingsScreen,
-      icon: Icon(
-          size: styles.IconMeasurements.l,
-          iconData: IconData(0xf43d,
-              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          color: styles.Colors.black)),
+      icon: icons.settingsIconBlackL),
   _MenuItem(
       name: 'progress',
       route: Routes.progressScreen,
-      icon: Icon(
-          size: styles.IconMeasurements.s,
-          iconData: IconData(0xf484,
-              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          color: styles.Colors.black)),
+      icon: icons.chartIconBlackS),
   _MenuItem(
       name: 'history',
       route: Routes.calendarScreen,
-      icon: Icon(
-          size: styles.IconMeasurements.m,
-          iconData: IconData(0xf2d1,
-              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          color: styles.Colors.black)),
+      icon: icons.calendarIconBlackM),
   _MenuItem(
       name: 'feedback',
       route: Routes.feedbackScreen,
-      icon: Icon(
-          size: styles.IconMeasurements.s,
-          iconData: IconData(0xf2bf,
-              fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-          color: styles.Colors.black))
+      icon: icons.editIconBlackS)
 ];
 
 const double _kRedDragIndicatorHeight = 3.0;

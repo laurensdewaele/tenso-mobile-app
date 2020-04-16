@@ -13,7 +13,7 @@ import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
 
@@ -129,10 +129,6 @@ class _AddWorkoutButton extends StatelessWidget {
     return Button(
         text: 'Add workout',
         handleTap: handleTap,
-        leadingIcon: Icon(
-            iconData: IconData(0xf489,
-                fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
-            size: styles.IconMeasurements.xl,
-            color: styles.Colors.white));
+        leadingIcon: icons.plusIconWhiteXl);
   }
 }
