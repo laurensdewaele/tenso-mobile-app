@@ -127,8 +127,7 @@ class HoldPageViewModel {
         inputField: 'Rest between repetitions'));
     _validations.add(Validators.biggerThanZero<int>(
         value: _hangTime, inputField: 'Hang time'));
-    _validations.add(Validators.biggerThanZero<double>(
-        value: _addedWeight, inputField: 'Added weight'));
+    _validations.add(_addedWeight != null);
 
     return _validations.fold(true, (a, b) => a && b);
   }
