@@ -21,7 +21,7 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
   void deleteWorkout(Workout workout) {
     final _newWorkoutList = []..addAll(workoutList);
     _newWorkoutList.removeWhere((w) => w.id == workout.id);
-    _appState.setWorkouts(_appState?.workouts
+    _setAndSaveWorkouts(_appState?.workouts
         ?.rebuild((b) => b..workouts.replace(_newWorkoutList)));
   }
 

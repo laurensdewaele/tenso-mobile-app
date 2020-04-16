@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
@@ -91,7 +92,12 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     widget.handleCompletedWorkoutViewTap(widget.completedWorkout.workout);
   }
 
-  void _handleDeleteTap() {
+  // TODO: Fix naming
+  void _handleDeleteTap() async {
+    try {
+      await _sizeController.forward().orCancel;
+    } catch (_) {}
+
     final _isCompletedWorkout = widget.completedWorkout != null;
     if (_isCompletedWorkout == true) {
       widget.handleCompletedWorkoutDeleteTap(widget.completedWorkout);
@@ -107,10 +113,6 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
     } else {
       widget.handleWorkoutCopyTap(widget.workout);
     }
-  }
-
-  void _handleBackTap() {
-    Navigator.of(context).pop();
   }
 
   void _handleWorkoutDeleteTap() async {
@@ -205,11 +207,25 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         width: styles.Measurements.xxl * 6,
         context: context,
         content: _LongPressDialog(
-            handleDeleteTap: _handleDeleteTap,
-            handleViewTap: _handleViewTap,
-            handleBackTap: _handleBackTap,
-            handleCopyTap: _handleCopyTap,
-            handleEditTap: _handleEditTap,
+            handleDeleteTap: () {
+              _handleDeleteTap();
+              Navigator.of(context).pop();
+            },
+            handleViewTap: () {
+              Navigator.of(context).pop();
+              _handleViewTap();
+            },
+            handleBackTap: () {
+              Navigator.of(context).pop();
+            },
+            handleCopyTap: () {
+              _handleCopyTap();
+              Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
+            },
+            handleEditTap: () {
+              Navigator.of(context).pop();
+              _handleEditTap();
+            },
             isCompletedWorkout:
                 widget.handleCompletedWorkoutDeleteTap != null));
   }
@@ -358,7 +374,7 @@ class _LongPressDialog extends StatelessWidget {
               backgroundColor: styles.Colors.blue,
               displayBackground: true,
               leadingIcon: icons.editIconWhiteXl,
-              handleTap: handleViewTap,
+              handleTap: handleEditTap,
               leadingIconTextCentered: true),
         Divider(height: styles.Measurements.m),
         Button(
@@ -366,7 +382,7 @@ class _LongPressDialog extends StatelessWidget {
             backgroundColor: styles.Colors.turquoise,
             displayBackground: true,
             leadingIcon: icons.copyIconWhiteXl,
-            handleTap: handleViewTap,
+            handleTap: handleCopyTap,
             leadingIconTextCentered: true),
         Divider(height: styles.Measurements.m),
         Button(
@@ -374,7 +390,7 @@ class _LongPressDialog extends StatelessWidget {
             backgroundColor: styles.Colors.primary,
             displayBackground: true,
             leadingIcon: icons.deleteIconWhiteXl,
-            handleTap: handleViewTap,
+            handleTap: handleDeleteTap,
             leadingIconTextCentered: true),
         Divider(height: styles.Measurements.l),
         Transform.scale(
