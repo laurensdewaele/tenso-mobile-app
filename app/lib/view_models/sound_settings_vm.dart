@@ -81,15 +81,10 @@ class SoundSettingsViewModel extends ChangeNotifier {
     _setAndSaveSettings(_settings);
   }
 
-  void _setBeepsBeforeHang(int amount) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..beepsBeforeHang = amount);
-    _setAndSaveSettings(_settings);
-  }
-
-  void _setBeepsBeforeRest(int amount) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..beepsBeforeRest = amount);
+  void _setBeeps({int beepsBeforeRest, int beepsBeforeHang}) {
+    final _settings = _appState?.settings?.rebuild((b) => b
+      ..beepsBeforeHang = beepsBeforeHang
+      ..beepsBeforeRest = beepsBeforeRest);
     _setAndSaveSettings(_settings);
   }
 
@@ -122,8 +117,8 @@ class SoundSettingsViewModel extends ChangeNotifier {
     ].fold(true, (a, b) => a && b);
 
     if (_isValid == true) {
-      _setBeepsBeforeHang(_beepsBeforeHang);
-      _setBeepsBeforeRest(_beepsBeforeRest);
+      _setBeeps(
+          beepsBeforeHang: _beepsBeforeHang, beepsBeforeRest: _beepsBeforeRest);
     }
 
     return _isValid;

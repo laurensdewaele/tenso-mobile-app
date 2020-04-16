@@ -170,7 +170,6 @@ class RateWorkoutViewModel {
     _appState.saveCompletedWorkouts(completedWorkouts);
   }
 
-  // TODO: Redo
   void _formatException(String variable) {
     _toastService.add(ErrorMessages.inputNotANumber());
   }

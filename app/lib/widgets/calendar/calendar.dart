@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
@@ -53,7 +52,7 @@ class _CalendarState extends State<Calendar> {
 
   void _handleCopyTap(CompletedWorkout completedWorkout) {
     final CalendarViewModel _calendarViewModel =
-    Provider.of<CalendarViewModel>(context, listen: false);
+        Provider.of<CalendarViewModel>(context, listen: false);
     _calendarViewModel.copyCompletedWorkout(completedWorkout);
   }
 
@@ -62,9 +61,7 @@ class _CalendarState extends State<Calendar> {
         arguments: WorkoutScreenArguments(
             workout: workout,
             workoutType: WorkoutTypes.viewWorkout,
-            weightUnit: Provider.of<AppState>(context, listen: false)
-                .settings
-                .weightUnit));
+            weightUnit: workout.weightUnit));
   }
 
   @override
