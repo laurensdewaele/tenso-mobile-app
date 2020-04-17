@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/state/workouts_state.dart';
 
 class WorkoutOverviewViewModel extends ChangeNotifier {
@@ -13,15 +12,8 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
   WorkoutsState _workoutsState;
   StreamSubscription _sub;
 
-  AppState _appState;
-
-  void update(AppState appState) {
-    _appState = appState;
-    startOpen = _appState?.deviceInfo?.firstLaunch ?? false;
-    notifyListeners();
-  }
-
-  WorkoutOverviewViewModel({WorkoutsState workoutsState}) {
+  WorkoutOverviewViewModel({WorkoutsState workoutsState, bool isFirstLaunch}) {
+    startOpen = isFirstLaunch;
     _workoutsState = workoutsState;
     _workoutList = _workoutsState.workoutList;
     _sub = _workoutsState.workoutList$.listen((List<Workout> workoutList) {

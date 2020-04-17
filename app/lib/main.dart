@@ -6,6 +6,7 @@ import 'package:app/app.dart';
 import 'package:app/services/error.dart';
 import 'package:app/state/completed_workouts_state.dart';
 import 'package:app/state/settings_state.dart';
+import 'package:app/state/user_state.dart';
 import 'package:app/state/workouts_state.dart';
 
 Future<Null> main() async {
@@ -20,7 +21,8 @@ Future<Null> main() async {
     final futures = <Future>[
       WorkoutsState().init(),
       CompletedWorkoutsState().init(),
-      SettingsState().init()
+      SettingsState().init(),
+      UserState().init()
     ];
 
     await Future.wait(futures);

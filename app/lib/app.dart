@@ -7,7 +7,6 @@ import 'package:app/services/audio_player.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/services/toast.dart';
-import 'package:app/state/app_state.dart';
 import 'package:app/state/workouts_state.dart';
 import 'package:app/state/completed_workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -35,11 +34,6 @@ class App extends StatelessWidget {
         Provider<KeyboardService>(
           create: (context) => KeyboardService(),
           dispose: (context, toastService) => toastService.dispose(),
-          lazy: false,
-        ),
-        ChangeNotifierProvider(
-          create: (context) =>
-              AppState(Provider.of<PersistenceService>(context, listen: false)),
           lazy: false,
         ),
         Provider<WorkoutsState>(

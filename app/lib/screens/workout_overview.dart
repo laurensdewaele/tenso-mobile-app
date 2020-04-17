@@ -6,6 +6,7 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
+import 'package:app/state/user_state.dart';
 import 'package:app/state/workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_overview_vm.dart';
@@ -30,7 +31,8 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   @override
   void initState() {
     _viewModel = WorkoutOverviewViewModel(
-        workoutsState: Provider.of<WorkoutsState>(context, listen: false));
+        workoutsState: Provider.of<WorkoutsState>(context, listen: false),
+        isFirstLaunch: UserState().deviceInfo.firstLaunch);
     super.initState();
   }
 
@@ -45,8 +47,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _handleWorkoutEditTap(Workout workout) {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
-            workoutType: WorkoutTypes.editWorkout,
-            workout: workout));
+            workoutType: WorkoutTypes.editWorkout, workout: workout));
   }
 
   @override
