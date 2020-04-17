@@ -7,9 +7,7 @@ class AudioPlayerService {
     _audioCache = AudioCache(prefix: 'audio/');
   }
   static final AudioPlayerService _audioPlayerService = AudioPlayerService._();
-  factory AudioPlayerService() {
-    return _audioPlayerService;
-  }
+  factory AudioPlayerService() => _audioPlayerService;
 
   void play(String filename) async {
     await _audioCache.play(filename);

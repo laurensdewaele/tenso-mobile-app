@@ -5,10 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
-import 'package:app/state/app_state.dart';
+import 'package:app/state/workouts_state.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
 
 enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
@@ -18,8 +17,8 @@ class WorkoutViewModel {
   WorkoutViewModelState get state => _state$.value;
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   Stream<bool> shouldValidate$;
+  WorkoutsState _workoutsState;
 
-  AppState _appState;
   WorkoutTypes _workoutType;
 
   WorkoutViewModel(
@@ -27,9 +26,9 @@ class WorkoutViewModel {
       @required Workout workout,
       @required WeightUnit currentWeightUnit,
       @required KeyboardService keyboardService,
-      @required AppState appState}) {
+      @required WorkoutsState workoutsState}) {
+    _workoutsState = workoutsState;
     _workoutType = workoutType;
-    _appState = appState;
     shouldValidate$ = MergeStream<bool>(
             [keyboardService.shouldLoseFocus$, keyboardService.inputComplete$])
         .asBroadcastStream();
@@ -67,29 +66,14 @@ class WorkoutViewModel {
 
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
-        _setAndSaveWorkouts(_appState.workouts?.rebuild((b) =>
-            b..workouts.add(_workout.rebuild((b) => b..id = generateUniqueId()))));
+        _workoutsState.addWorkout(_workout);
         break;
       case WorkoutTypes.editWorkout:
-        final _workoutList = []..addAll(_appState.workouts?.workouts?.toList());
-        final _originalWorkout =
-            _workoutList.firstWhere((w) => w.id == state.id);
-
-        if (_originalWorkout != _workout) {
-          final index = _workoutList.indexWhere((w) => w.id == state.id);
-          _workoutList[index] = _workout;
-          _setAndSaveWorkouts(_appState.workouts
-              ?.rebuild((b) => b..workouts.replace(_workoutList)));
-        }
+        _workoutsState.editWorkout(_workout);
         break;
       case WorkoutTypes.viewWorkout:
         break;
     }
-  }
-
-  void _setAndSaveWorkouts(Workouts workouts) {
-    _appState?.setWorkouts(workouts);
-    _appState?.saveWorkouts(workouts);
   }
 
   void dispose() {

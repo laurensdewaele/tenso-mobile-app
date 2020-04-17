@@ -7,9 +7,7 @@ import 'package:app/styles/styles.dart' as styles;
 class KeyboardService {
   KeyboardService._();
   static final KeyboardService _keyboardService = KeyboardService._();
-  factory KeyboardService() {
-    return _keyboardService;
-  }
+  factory KeyboardService() => _keyboardService;
 
   final StreamController<bool> _resetInitialValueStreamController =
       StreamController.broadcast();

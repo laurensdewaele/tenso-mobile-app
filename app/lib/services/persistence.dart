@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:app/data/basic_settings.dart';
-import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:path_provider/path_provider.dart';
 
-// TODO: PersistenceService should not be the one that sets defaultSettings and d defaultWorkout etc...
 class PersistenceService {
   PersistenceService._();
   static final PersistenceService _persistenceService = PersistenceService._();
@@ -53,6 +51,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
+    // TODO: Doesn't belong
     return deviceInfo == null
         ? DeviceInfo((b) => b..firstLaunch = true)
         : deviceInfo;
@@ -88,7 +87,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
-    return workouts == null ? basicWorkouts : workouts;
+    return workouts;
   }
 
   void saveCompletedWorkouts(CompletedWorkouts completedWorkouts) async {
@@ -111,6 +110,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
+    // TODO: Doesn't belong
     return completedWorkouts == null ? CompletedWorkouts() : completedWorkouts;
   }
 
@@ -134,6 +134,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
+    // TODO: Doesn't belong
     return settings == null ? basicSettings : settings;
   }
 }

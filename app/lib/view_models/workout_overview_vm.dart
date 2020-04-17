@@ -1,38 +1,45 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
+import 'package:app/state/workouts_state.dart';
 
 class WorkoutOverviewViewModel extends ChangeNotifier {
-  WorkoutOverviewViewModel();
-  AppState _appState;
-  List<Workout> workoutList;
+  List<Workout> _workoutList;
+  List<Workout> get workoutList => _workoutList;
   bool startOpen;
+  WorkoutsState _workoutsState;
+  StreamSubscription _sub;
+
+  AppState _appState;
 
   void update(AppState appState) {
     _appState = appState;
-    workoutList = _appState?.workouts?.workouts?.toList();
     startOpen = _appState?.deviceInfo?.firstLaunch ?? false;
     notifyListeners();
   }
 
+  WorkoutOverviewViewModel({WorkoutsState workoutsState}) {
+    _workoutsState = workoutsState;
+    _workoutList = _workoutsState.workoutList;
+    _sub = _workoutsState.workoutList$.listen((List<Workout> workoutList) {
+      _workoutList = workoutList;
+      notifyListeners();
+    });
+  }
+
   void deleteWorkout(Workout workout) {
-    final _newWorkoutList = []..addAll(workoutList);
-    _newWorkoutList.removeWhere((w) => w.id == workout.id);
-    _setAndSaveWorkouts(_appState?.workouts
-        ?.rebuild((b) => b..workouts.replace(_newWorkoutList)));
+    _workoutsState.deleteWorkout(workout);
   }
 
   void copyWorkout(Workout workout) {
-    _setAndSaveWorkouts(_appState.workouts?.rebuild((b) => b
-      ..workouts.add(workout.rebuild((b) => b
-        ..id = generateUniqueId()
-        ..name = '${workout.name} copy'))));
+    _workoutsState.copyWorkout(workout);
   }
 
-  void _setAndSaveWorkouts(Workouts workouts) {
-    _appState?.setWorkouts(workouts);
-    _appState?.saveWorkouts(workouts);
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 }

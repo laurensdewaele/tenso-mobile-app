@@ -18,9 +18,7 @@ class ErrorService {
 
   ErrorService._(ToastService toastService) : _toastService = toastService;
   static final ErrorService _errorService = ErrorService._(ToastService());
-  factory ErrorService() {
-    return _errorService;
-  }
+  factory ErrorService() => _errorService;
 
   Future<Null> handleFlutterError(FlutterErrorDetails details) {
     if (isInDebugMode) {

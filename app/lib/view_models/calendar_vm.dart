@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/state/app_state.dart';
+import 'package:app/state/workouts_state.dart';
 import 'package:app/widgets/calendar/table.dart';
 
 class CalendarViewModel extends ChangeNotifier {
-  CalendarViewModel() {
+  CalendarViewModel({WorkoutsState workoutsState}) {
+    _workoutsState = workoutsState;
     _selectedDay = DateTime.now();
     _selectedMonth = _selectedDay;
   }
+  WorkoutsState _workoutsState;
 
   AppState _appState;
   DateTime _selectedDay;
@@ -117,15 +119,7 @@ class CalendarViewModel extends ChangeNotifier {
   }
 
   void copyCompletedWorkout(CompletedWorkout completedWorkout) {
-    _setAndSaveWorkouts(_appState.workouts?.rebuild((b) => b
-      ..workouts.add(completedWorkout.workout.rebuild((b) => b
-        ..id = generateUniqueId()
-        ..name = '${completedWorkout.workout.name} copy'))));
-  }
-
-  void _setAndSaveWorkouts(Workouts workouts) {
-    _appState?.setWorkouts(workouts);
-    _appState?.saveWorkouts(workouts);
+    _workoutsState.copyWorkout(completedWorkout.workout);
   }
 
   void _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {

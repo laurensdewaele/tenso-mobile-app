@@ -8,6 +8,7 @@ import 'package:app/services/keyboard.dart';
 import 'package:app/services/persistence.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
+import 'package:app/state/workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
@@ -39,13 +40,20 @@ class App extends StatelessWidget {
           dispose: (context, toastService) => toastService.dispose(),
           lazy: false,
         ),
+        Provider<WorkoutsState>(
+          create: (context) => WorkoutsState(),
+          dispose: (context, workoutsState) => workoutsState.dispose(),
+          lazy: false,
+        ),
         ChangeNotifierProvider(
           create: (context) =>
               AppState(Provider.of<PersistenceService>(context, listen: false)),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, WorkoutOverviewViewModel>(
-          create: (context) => WorkoutOverviewViewModel(),
+          create: (context) => WorkoutOverviewViewModel(
+              workoutsState:
+                  Provider.of<WorkoutsState>(context, listen: false)),
           update: (context, appState, workoutOverviewViewModel) =>
               workoutOverviewViewModel..update(appState),
           lazy: false,
@@ -63,7 +71,9 @@ class App extends StatelessWidget {
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, CalendarViewModel>(
-          create: (context) => CalendarViewModel(),
+          create: (context) => CalendarViewModel(
+              workoutsState:
+                  Provider.of<WorkoutsState>(context, listen: false)),
           update: (context, appState, calendarViewModel) =>
               calendarViewModel..update(appState),
           lazy: false,
