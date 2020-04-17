@@ -6,18 +6,18 @@ import 'package:app/models/models.dart';
 import 'package:app/services/persistence.dart';
 
 class WorkoutsState {
-  PersistenceService _persistenceService;
+  WorkoutsState._();
+  static final WorkoutsState _workoutState = WorkoutsState._();
+  factory WorkoutsState() => _workoutState;
+
+  PersistenceService _persistenceService = PersistenceService();
+
   BehaviorSubject<Workouts> _workouts$;
   List<Workout> get workoutList => _workouts$.value.workouts.toList();
   Stream<List<Workout>> get workoutList$ =>
       _workouts$.stream.map((Workouts w) => w.workouts.toList());
 
-  WorkoutsState._();
-  static final WorkoutsState _workoutState = WorkoutsState._();
-  factory WorkoutsState() => _workoutState;
-
   Future<void> init() async {
-    _persistenceService = PersistenceService();
     final Workouts _workouts = await _getWorkouts();
     _workouts$ = BehaviorSubject.seeded(_workouts ?? basicWorkouts);
     return Future.value();

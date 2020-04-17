@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.dart';
+import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/countdown_screen_vm.dart';
 import 'package:app/widgets/button.dart';
@@ -13,10 +14,9 @@ import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/icons.dart' as icons;
 
 class CountdownScreenArguments {
-  CountdownScreenArguments({this.workout, this.settings});
+  CountdownScreenArguments({this.workout});
 
   final Workout workout;
-  final Settings settings;
 }
 
 class CountdownScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _CountdownScreenState extends State<CountdownScreen>
       final CountdownScreenArguments routeArguments =
           ModalRoute.of(context).settings.arguments;
       _countdownScreenViewModel = CountdownScreenViewModel(
-          workout: routeArguments.workout, settings: routeArguments.settings);
+          workout: routeArguments.workout, settings: SettingsState().settings);
       _startSequenceForIndex();
       _play();
     }

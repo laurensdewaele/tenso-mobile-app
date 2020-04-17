@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:app/data/basic_settings.dart';
 import 'package:app/models/models.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -133,7 +132,6 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
-    // TODO: Doesn't belong
-    return settings == null ? basicSettings : settings;
+    return settings;
   }
 }

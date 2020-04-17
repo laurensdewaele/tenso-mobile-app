@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -28,6 +27,25 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  SettingsViewModel _viewModel;
+
+  @override
+  void initState() {
+    _viewModel = SettingsViewModel(settingsState: SettingsState());
+    _viewModel.addListener(_viewModelListener);
+    super.initState();
+  }
+
+  void _viewModelListener() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _viewModel.removeListener(_viewModelListener);
+    super.dispose();
+  }
+
   void _onHorizontalDragEnd(DragEndDetails details) {
     if (details.primaryVelocity > 0) {
       _handleBackNavigation();
@@ -35,18 +53,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _handleBackNavigation() async {
-    final bool _canNavigate =
-        await Provider.of<SettingsViewModel>(context, listen: false)
-            .canNavigate();
+    final bool _canNavigate = await _viewModel.canNavigate();
     if (_canNavigate == true) {
       Navigator.of(context).pop();
     }
   }
 
   void _handleSoundNavigation() async {
-    final bool _canNavigate =
-        await Provider.of<SettingsViewModel>(context, listen: false)
-            .canNavigate();
+    final bool _canNavigate = await _viewModel.canNavigate();
     if (_canNavigate == true) {
       Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
     }
@@ -54,9 +68,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsViewModel _viewModel =
-        Provider.of<SettingsViewModel>(context, listen: true);
-
     return WillPopScope(
       onWillPop: () async {
         return await _viewModel.canNavigate();

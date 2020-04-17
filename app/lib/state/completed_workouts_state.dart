@@ -4,7 +4,12 @@ import 'package:app/models/models.dart';
 import 'package:app/services/persistence.dart';
 
 class CompletedWorkoutsState {
-  PersistenceService _persistenceService;
+  CompletedWorkoutsState._();
+  static final CompletedWorkoutsState _completedWorkoutsState =
+      CompletedWorkoutsState._();
+  factory CompletedWorkoutsState() => _completedWorkoutsState;
+
+  PersistenceService _persistenceService = PersistenceService();
 
   BehaviorSubject<CompletedWorkouts> _completedWorkouts$;
   List<CompletedWorkout> get completedWorkoutList =>
@@ -12,13 +17,7 @@ class CompletedWorkoutsState {
   Stream<List<CompletedWorkout>> get completedWorkoutList$ =>
       _completedWorkouts$.stream.map((c) => c.completedWorkouts.toList());
 
-  CompletedWorkoutsState._();
-  static final CompletedWorkoutsState _completedWorkoutsState =
-      CompletedWorkoutsState._();
-  factory CompletedWorkoutsState() => _completedWorkoutsState;
-
   Future<void> init() async {
-    _persistenceService = PersistenceService();
     final CompletedWorkouts _completedWorkouts = await _getCompletedWorkouts();
     _completedWorkouts$ =
         BehaviorSubject.seeded(_completedWorkouts ?? CompletedWorkouts());

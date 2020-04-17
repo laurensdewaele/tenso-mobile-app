@@ -1,13 +1,31 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
-import 'package:app/state/app_state.dart';
+import 'package:app/state/settings_state.dart';
 
 class SettingsViewModel extends ChangeNotifier {
-  SettingsViewModel();
-  AppState _appState;
+  SettingsState _settingsState;
+  Settings _settings;
+  StreamSubscription _sub;
+
+  SettingsViewModel({SettingsState settingsState}) {
+    _settingsState = settingsState;
+    _settings = _settingsState.settings;
+    _update(_settings);
+    _sub = _settingsState.settings$.listen(_update);
+  }
+
+  void _update(Settings s) {
+    _settings = s;
+    _preparationTimer = _settings.preparationTimer;
+    _preparationTimerInput = _settings.preparationTimer.toString();
+    _setRadioButtons();
+    notifyListeners();
+  }
 
   int _preparationTimer;
   int get preparationTimerInitial => _preparationTimer;
@@ -19,11 +37,9 @@ class SettingsViewModel extends ChangeNotifier {
   bool isCelsiusActive;
   bool isFahrenheitActive;
 
-  void update(AppState appState) {
-    _appState = appState;
-    _preparationTimer = _appState?.settings?.preparationTimer;
-    _preparationTimerInput = _appState?.settings?.preparationTimer.toString();
-    _setRadioButtons();
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 
   void handlePreparationTimerInput(String s) {
@@ -50,39 +66,25 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void _setRadioButtons() {
-    isMetricActive = _appState.settings?.weightUnit == WeightUnit.metric;
-    isImperialActive = _appState.settings?.weightUnit == WeightUnit.imperial;
-    isCelsiusActive = _appState.settings?.tempUnit == TempUnit.celsius;
-    isFahrenheitActive = _appState.settings?.tempUnit == TempUnit.fahrenheit;
-    notifyListeners();
+    isMetricActive = _settings.weightUnit == WeightUnit.metric;
+    isImperialActive = _settings.weightUnit == WeightUnit.imperial;
+    isCelsiusActive = _settings.tempUnit == TempUnit.celsius;
+    isFahrenheitActive = _settings.tempUnit == TempUnit.fahrenheit;
   }
 
   void setDefaultBoard(Board defaultBoard) {
-    final _settings = _appState?.settings
-        ?.rebuild((b) => b..defaultBoard = defaultBoard.toBuilder());
-    _setAndSaveSettings(_settings);
+    _settingsState.setDefaultBoard(defaultBoard);
   }
 
   void _setPreparationTimer(int seconds) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..preparationTimer = seconds);
-    _setAndSaveSettings(_settings);
+    _settingsState.setPreparationTimer(seconds);
   }
 
   void setWeightUnit(WeightUnit weightUnit) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..weightUnit = weightUnit);
-    _setAndSaveSettings(_settings);
+    _settingsState.setWeightUnit(weightUnit);
   }
 
   void setTempUnit(TempUnit tempUnit) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..tempUnit = tempUnit);
-    _setAndSaveSettings(_settings);
-  }
-
-  void _setAndSaveSettings(Settings settings) {
-    _appState?.setSettings(settings);
-    _appState?.saveSettings(settings);
+    _settingsState.setTempUnit(tempUnit);
   }
 }

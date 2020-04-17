@@ -1,8 +1,5 @@
 # TODO
 
-- Split up appState and put the logic methods on the state itself. Not on the other viewmodels.
-  With streams?
-- Tempunit rate_workout_vm
 - Get rid of provider
 
 

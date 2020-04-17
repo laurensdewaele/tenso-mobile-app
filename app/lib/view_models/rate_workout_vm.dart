@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
@@ -6,13 +8,16 @@ import 'package:app/state/completed_workouts_state.dart';
 
 class RateWorkoutViewModel {
   RateWorkoutViewModel(
-      {ToastService toastService,
-      CompletedWorkoutsState completedWorkoutsState}) {
+      {@required ToastService toastService,
+      @required CompletedWorkoutsState completedWorkoutsState,
+      @required TempUnit tempUnit}) {
     _completedWorkoutsState = completedWorkoutsState;
+    _tempUnit = tempUnit;
     _toastService = toastService;
   }
 
   CompletedWorkoutsState _completedWorkoutsState;
+  TempUnit _tempUnit;
   ToastService _toastService;
 
   int _perceivedExertion;
@@ -149,9 +154,6 @@ class RateWorkoutViewModel {
   }
 
   void _saveCompletedWorkout(Workout workout) {
-    // TODO: Set tempUnit from state;
-    final TempUnit _tempUnit = TempUnit.celsius;
-
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
       ..workout = workout.toBuilder()
       ..perceivedExertion = _perceivedExertion

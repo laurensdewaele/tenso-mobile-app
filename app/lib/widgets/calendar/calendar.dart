@@ -60,8 +60,7 @@ class _CalendarState extends State<Calendar> {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
             workout: workout,
-            workoutType: WorkoutTypes.viewWorkout,
-            weightUnit: workout.weightUnit));
+            workoutType: WorkoutTypes.viewWorkout));
   }
 
   @override

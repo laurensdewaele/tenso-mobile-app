@@ -11,8 +11,6 @@ import 'package:app/state/app_state.dart';
 import 'package:app/state/workouts_state.dart';
 import 'package:app/state/completed_workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/settings_vm.dart';
-import 'package:app/view_models/sound_settings_vm.dart';
 
 class App extends StatelessWidget {
   @override
@@ -53,18 +51,6 @@ class App extends StatelessWidget {
           create: (context) => CompletedWorkoutsState(),
           dispose: (context, completedWorkoutsState) =>
               completedWorkoutsState.dispose(),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
-          create: (context) => SettingsViewModel(),
-          update: (context, appState, settingsViewModel) =>
-              settingsViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, SoundSettingsViewModel>(
-          create: (context) => SoundSettingsViewModel(),
-          update: (context, appState, soundSettingsViewModel) =>
-              soundSettingsViewModel..update(appState),
           lazy: false,
         ),
       ],

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
+import 'package:app/state/settings_state.dart';
 import 'package:app/state/workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/workout_navigator.dart';
@@ -25,12 +26,10 @@ import 'package:app/widgets/workout/general_page.dart';
 class WorkoutScreenArguments {
   final WorkoutTypes workoutType;
   final Workout workout;
-  final WeightUnit weightUnit;
 
   WorkoutScreenArguments({
     @required this.workoutType,
     @required this.workout,
-    @required this.weightUnit,
   });
 }
 
@@ -57,8 +56,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           keyboardService: _keyboardService,
           workout: _arguments.workout,
           workoutType: _arguments.workoutType,
-          currentWeightUnit: _arguments.weightUnit,
-          workoutsState: Provider.of<WorkoutsState>(context, listen: false));
+          weightUnit: SettingsState().settings.weightUnit,
+          workoutsState: WorkoutsState());
       _workoutNavigator = WorkoutNavigator(workoutViewModel: _workoutViewModel);
     }
   }

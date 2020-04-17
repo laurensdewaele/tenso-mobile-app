@@ -24,7 +24,7 @@ class WorkoutViewModel {
   WorkoutViewModel(
       {@required WorkoutTypes workoutType,
       @required Workout workout,
-      @required WeightUnit currentWeightUnit,
+      @required WeightUnit weightUnit,
       @required KeyboardService keyboardService,
       @required WorkoutsState workoutsState}) {
     _workoutsState = workoutsState;
@@ -36,16 +36,16 @@ class WorkoutViewModel {
     WorkoutViewModelState _initialState;
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
-        _initialState =
-            WorkoutViewModelState.addWorkout(workout, currentWeightUnit);
+        _initialState = WorkoutViewModelState.addWorkout(
+            workout, weightUnit);
         break;
       case WorkoutTypes.editWorkout:
-        _initialState =
-            WorkoutViewModelState.editWorkout(workout, currentWeightUnit);
+        _initialState = WorkoutViewModelState.editWorkout(
+            workout, weightUnit);
         break;
       case WorkoutTypes.viewWorkout:
         _initialState =
-            WorkoutViewModelState.viewWorkout(workout, currentWeightUnit);
+            WorkoutViewModelState.viewWorkout(workout, workout.weightUnit);
         break;
     }
     _state$ = BehaviorSubject.seeded(_initialState);

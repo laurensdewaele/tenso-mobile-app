@@ -4,10 +4,21 @@ import 'package:app/data/sounds.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
-import 'package:app/state/app_state.dart';
+import 'package:app/state/settings_state.dart';
 
 class SoundSettingsViewModel extends ChangeNotifier {
-  SoundSettingsViewModel();
+  SettingsState _settingsState;
+  Settings _settings;
+
+  SoundSettingsViewModel({SettingsState settingsState}) {
+    _settingsState = settingsState;
+    _settings = _settingsState.settings;
+    _settingsState.settings$.listen((s) {
+      _settings = s;
+      _setRadioButtons();
+    });
+    _setInitial();
+  }
 
   int _beepsBeforeRest;
   int get beepsBeforeRestInitial => _beepsBeforeRest;
@@ -31,61 +42,38 @@ class SoundSettingsViewModel extends ChangeNotifier {
   bool isHitLightHardActive;
   bool isBeepSoundOffActive;
 
-  void update(AppState appState) {
-    _appState = appState;
-    _setInitial();
-    _setRadioButtons();
-  }
-
   void _setInitial() {
-    _beepsBeforeHang = _appState.settings?.beepsBeforeHang;
-    _beepsBeforeRest = _appState.settings?.beepsBeforeRest;
-    _beepsBeforeHangInput = _appState.settings?.beepsBeforeHang.toString();
-    _beepsBeforeRestInput = _appState.settings?.beepsBeforeRest.toString();
+    _beepsBeforeHang = _settings.beepsBeforeHang;
+    _beepsBeforeRest = _settings.beepsBeforeRest;
+    _beepsBeforeHangInput = _settings.beepsBeforeHang.toString();
+    _beepsBeforeRestInput = _settings.beepsBeforeRest.toString();
   }
-
-  AppState _appState;
 
   void _setRadioButtons() {
-    isThudDeepActive = _appState.settings?.hangSound == Sounds.thudDeep;
-    isThudHollowActive = _appState.settings?.hangSound == Sounds.thudHollow;
-    isThudSoftActive = _appState.settings?.hangSound == Sounds.thudSoft;
-    isHangSoundOffActive = _appState.settings?.hangSound == Sounds.off;
-    isMetalHitSmallActive =
-        _appState.settings?.restSound == Sounds.metalHitSmall;
-    isMetalHitLargeActive =
-        _appState.settings?.restSound == Sounds.metalHitLarge;
-    isGongActive = _appState.settings?.restSound == Sounds.gong;
-    isRestSoundOffActive = _appState.settings?.restSound == Sounds.off;
-    isHitLightSoftActive = _appState.settings?.beepSound == Sounds.hitLightSoft;
-    isHitLightHardActive = _appState.settings?.beepSound == Sounds.hitLightHard;
-    isBeepSoundOffActive = _appState.settings?.beepSound == Sounds.off;
+    isThudDeepActive = _settings.hangSound == Sounds.thudDeep;
+    isThudHollowActive = _settings.hangSound == Sounds.thudHollow;
+    isThudSoftActive = _settings.hangSound == Sounds.thudSoft;
+    isHangSoundOffActive = _settings.hangSound == Sounds.off;
+    isMetalHitSmallActive = _settings.restSound == Sounds.metalHitSmall;
+    isMetalHitLargeActive = _settings.restSound == Sounds.metalHitLarge;
+    isGongActive = _settings.restSound == Sounds.gong;
+    isRestSoundOffActive = _settings.restSound == Sounds.off;
+    isHitLightSoftActive = _settings.beepSound == Sounds.hitLightSoft;
+    isHitLightHardActive = _settings.beepSound == Sounds.hitLightHard;
+    isBeepSoundOffActive = _settings.beepSound == Sounds.off;
     notifyListeners();
   }
 
-  void setHangSound(Sound sound) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..hangSound = sound.toBuilder());
-    _setAndSaveSettings(_settings);
+  void setHangSound(Sound hangSound) {
+    _settingsState.setHangSound(hangSound);
   }
 
-  void setRestSound(Sound sound) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..restSound = sound.toBuilder());
-    _setAndSaveSettings(_settings);
+  void setRestSound(Sound restSound) {
+    _settingsState.setRestSound(restSound);
   }
 
-  void setBeepSound(Sound sound) {
-    final _settings =
-        _appState?.settings?.rebuild((b) => b..beepSound = sound.toBuilder());
-    _setAndSaveSettings(_settings);
-  }
-
-  void _setBeeps({int beepsBeforeRest, int beepsBeforeHang}) {
-    final _settings = _appState?.settings?.rebuild((b) => b
-      ..beepsBeforeHang = beepsBeforeHang
-      ..beepsBeforeRest = beepsBeforeRest);
-    _setAndSaveSettings(_settings);
+  void setBeepSound(Sound beepSound) {
+    _settingsState.setBeepSound(beepSound);
   }
 
   void handleBeepsBeforeRestInput(String s) {
@@ -117,15 +105,10 @@ class SoundSettingsViewModel extends ChangeNotifier {
     ].fold(true, (a, b) => a && b);
 
     if (_isValid == true) {
-      _setBeeps(
-          beepsBeforeHang: _beepsBeforeHang, beepsBeforeRest: _beepsBeforeRest);
+      _settingsState.setBeepsBeforeRest(_beepsBeforeRest);
+      _settingsState.setBeepsBeforeHang(_beepsBeforeHang);
     }
 
     return _isValid;
-  }
-
-  void _setAndSaveSettings(Settings settings) {
-    _appState?.setSettings(settings);
-    _appState?.saveSettings(settings);
   }
 }
