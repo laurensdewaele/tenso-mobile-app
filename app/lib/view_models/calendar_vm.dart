@@ -26,16 +26,14 @@ class CalendarViewModel extends ChangeNotifier {
   List<DateTime> _calendarDatePickerMonths;
   List<DateTime> get calendarDatePickerMonths => _calendarDatePickerMonths;
 
-  CalendarViewModel(
-      {@required WorkoutsState workoutsState,
-      @required CompletedWorkoutsState completedWorkoutsState}) {
-    _completedWorkoutsState = completedWorkoutsState;
+  CalendarViewModel() {
+    _completedWorkoutsState = CompletedWorkoutsState();
     _completedWorkoutList = _completedWorkoutsState.completedWorkoutList;
-    _sub = completedWorkoutsState.completedWorkoutList$.listen((c) {
+    _sub = _completedWorkoutsState.completedWorkoutList$.listen((c) {
       _completedWorkoutList = c;
       _setVariables();
     });
-    _workoutsState = workoutsState;
+    _workoutsState = WorkoutsState();
     _selectedDay = DateTime.now();
     _selectedMonth = _selectedDay;
     _setVariables();

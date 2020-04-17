@@ -12,8 +12,8 @@ class SettingsViewModel extends ChangeNotifier {
   Settings _settings;
   StreamSubscription _sub;
 
-  SettingsViewModel({SettingsState settingsState}) {
-    _settingsState = settingsState;
+  SettingsViewModel() {
+    _settingsState = SettingsState();
     _settings = _settingsState.settings;
     _update(_settings);
     _sub = _settingsState.settings$.listen(_update);

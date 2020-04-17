@@ -6,9 +6,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.dart';
-import 'package:app/services/toast.dart';
-import 'package:app/state/completed_workouts_state.dart';
-import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/rate_workout_vm.dart';
 import 'package:app/widgets/button.dart';
@@ -43,10 +40,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   @override
   void initState() {
-    _rateWorkoutViewModel = RateWorkoutViewModel(
-        toastService: ToastService(),
-        completedWorkoutsState: CompletedWorkoutsState(),
-        tempUnit: SettingsState().settings.tempUnit);
+    _rateWorkoutViewModel = RateWorkoutViewModel();
     super.initState();
   }
 

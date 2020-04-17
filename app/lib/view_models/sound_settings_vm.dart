@@ -12,10 +12,9 @@ class SoundSettingsViewModel extends ChangeNotifier {
   SettingsState _settingsState;
   Settings _settings;
 
-  SoundSettingsViewModel(
-      {SettingsState settingsState, AudioPlayerService audioPlayerService}) {
-    _audioPlayerService = audioPlayerService;
-    _settingsState = settingsState;
+  SoundSettingsViewModel() {
+    _audioPlayerService = AudioPlayerService();
+    _settingsState = SettingsState();
     _settings = _settingsState.settings;
     _settingsState.settings$.listen((s) {
       _settings = s;

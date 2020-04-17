@@ -4,8 +4,6 @@ import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
-import 'package:app/state/user_state.dart';
-import 'package:app/state/workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_overview_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
@@ -28,9 +26,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
 
   @override
   void initState() {
-    _viewModel = WorkoutOverviewViewModel(
-        workoutsState: WorkoutsState(),
-        isFirstLaunch: UserState().deviceInfo.firstLaunch);
+    _viewModel = WorkoutOverviewViewModel();
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }

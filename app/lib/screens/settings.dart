@@ -4,7 +4,6 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -31,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void initState() {
-    _viewModel = SettingsViewModel(settingsState: SettingsState());
+    _viewModel = SettingsViewModel();
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }

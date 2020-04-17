@@ -3,8 +3,6 @@ import 'package:flutter/rendering.dart';
 
 import 'package:app/data/sounds.dart';
 import 'package:app/models/models.dart';
-import 'package:app/services/audio_player.dart';
-import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/sound_settings_vm.dart';
 import 'package:app/widgets/card.dart';
@@ -29,9 +27,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
 
   @override
   void initState() {
-    _viewModel = SoundSettingsViewModel(
-        settingsState: SettingsState(),
-        audioPlayerService: AudioPlayerService());
+    _viewModel = SoundSettingsViewModel();
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }

@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
-import 'package:app/state/completed_workouts_state.dart';
-import 'package:app/state/workouts_state.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
@@ -25,9 +23,7 @@ class _CalendarState extends State<Calendar> {
 
   @override
   void initState() {
-    _viewModel = CalendarViewModel(
-        workoutsState: WorkoutsState(),
-        completedWorkoutsState: CompletedWorkoutsState());
+    _viewModel = CalendarViewModel();
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }

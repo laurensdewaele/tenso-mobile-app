@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
+import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 
 abstract class _Titles {
@@ -60,9 +61,9 @@ class CountdownViewModel {
 }
 
 class CountdownScreenViewModel {
-  CountdownScreenViewModel({Workout workout, Settings settings}) {
+  CountdownScreenViewModel({@required Workout workout}) {
     _workout = workout;
-    _settings = settings;
+    _settings = SettingsState().settings;
     _initialize();
   }
 

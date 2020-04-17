@@ -1,19 +1,15 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/completed_workouts_state.dart';
+import 'package:app/state/settings_state.dart';
 
 class RateWorkoutViewModel {
-  RateWorkoutViewModel(
-      {@required ToastService toastService,
-      @required CompletedWorkoutsState completedWorkoutsState,
-      @required TempUnit tempUnit}) {
-    _completedWorkoutsState = completedWorkoutsState;
-    _tempUnit = tempUnit;
-    _toastService = toastService;
+  RateWorkoutViewModel() {
+    _completedWorkoutsState = CompletedWorkoutsState();
+    _tempUnit = SettingsState().settings.tempUnit;
+    _toastService = ToastService();
   }
 
   CompletedWorkoutsState _completedWorkoutsState;
