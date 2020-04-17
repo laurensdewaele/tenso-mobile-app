@@ -2,16 +2,18 @@ import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
 import 'package:app/services/toast.dart';
-import 'package:app/state/app_state.dart';
+import 'package:app/state/completed_workouts_state.dart';
 
 class RateWorkoutViewModel {
-  RateWorkoutViewModel(AppState appState, ToastService toastService) {
-    _appState = appState;
+  RateWorkoutViewModel(
+      {ToastService toastService,
+      CompletedWorkoutsState completedWorkoutsState}) {
+    _completedWorkoutsState = completedWorkoutsState;
     _toastService = toastService;
   }
 
+  CompletedWorkoutsState _completedWorkoutsState;
   ToastService _toastService;
-  AppState _appState;
 
   int _perceivedExertion;
   double _bodyWeight;
@@ -147,7 +149,8 @@ class RateWorkoutViewModel {
   }
 
   void _saveCompletedWorkout(Workout workout) {
-    final TempUnit _tempUnit = _appState?.settings?.tempUnit;
+    // TODO: Set tempUnit from state;
+    final TempUnit _tempUnit = TempUnit.celsius;
 
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
       ..workout = workout.toBuilder()
@@ -160,14 +163,7 @@ class RateWorkoutViewModel {
       ..completedDate = DateTime.now().toUtc()
       ..id = generateUniqueId());
 
-    final _completedWorkouts = _appState.completedWorkouts
-        .rebuild((b) => b..completedWorkouts.add(completedWorkout));
-    _setAndSaveCompletedWorkouts(_completedWorkouts);
-  }
-
-  void _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {
-    _appState.setCompletedWorkouts(completedWorkouts);
-    _appState.saveCompletedWorkouts(completedWorkouts);
+    _completedWorkoutsState.addCompletedWorkout(completedWorkout);
   }
 
   void _formatException(String variable) {

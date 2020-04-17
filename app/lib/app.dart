@@ -9,11 +9,10 @@ import 'package:app/services/persistence.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/state/workouts_state.dart';
+import 'package:app/state/completed_workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/settings_vm.dart';
 import 'package:app/view_models/sound_settings_vm.dart';
-import 'package:app/view_models/workout_overview_vm.dart';
 
 class App extends StatelessWidget {
   @override
@@ -40,22 +39,20 @@ class App extends StatelessWidget {
           dispose: (context, toastService) => toastService.dispose(),
           lazy: false,
         ),
-        Provider<WorkoutsState>(
-          create: (context) => WorkoutsState(),
-          dispose: (context, workoutsState) => workoutsState.dispose(),
-          lazy: false,
-        ),
         ChangeNotifierProvider(
           create: (context) =>
               AppState(Provider.of<PersistenceService>(context, listen: false)),
           lazy: false,
         ),
-        ChangeNotifierProxyProvider<AppState, WorkoutOverviewViewModel>(
-          create: (context) => WorkoutOverviewViewModel(
-              workoutsState:
-                  Provider.of<WorkoutsState>(context, listen: false)),
-          update: (context, appState, workoutOverviewViewModel) =>
-              workoutOverviewViewModel..update(appState),
+        Provider<WorkoutsState>(
+          create: (context) => WorkoutsState(),
+          dispose: (context, workoutsState) => workoutsState.dispose(),
+          lazy: false,
+        ),
+        Provider<CompletedWorkoutsState>(
+          create: (context) => CompletedWorkoutsState(),
+          dispose: (context, completedWorkoutsState) =>
+              completedWorkoutsState.dispose(),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<AppState, SettingsViewModel>(
@@ -68,14 +65,6 @@ class App extends StatelessWidget {
           create: (context) => SoundSettingsViewModel(),
           update: (context, appState, soundSettingsViewModel) =>
               soundSettingsViewModel..update(appState),
-          lazy: false,
-        ),
-        ChangeNotifierProxyProvider<AppState, CalendarViewModel>(
-          create: (context) => CalendarViewModel(
-              workoutsState:
-                  Provider.of<WorkoutsState>(context, listen: false)),
-          update: (context, appState, calendarViewModel) =>
-              calendarViewModel..update(appState),
           lazy: false,
         ),
       ],

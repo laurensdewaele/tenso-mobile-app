@@ -18,12 +18,8 @@ class WorkoutsState {
 
   Future<void> init() async {
     _persistenceService = PersistenceService();
-    Workouts _workouts;
-    _workouts = await _getWorkouts();
-    if (_workouts == null) {
-      _workouts = basicWorkouts;
-    }
-    _workouts$ = BehaviorSubject.seeded(_workouts);
+    final Workouts _workouts = await _getWorkouts();
+    _workouts$ = BehaviorSubject.seeded(_workouts ?? basicWorkouts);
     return Future.value();
   }
 

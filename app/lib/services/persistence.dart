@@ -110,8 +110,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
-    // TODO: Doesn't belong
-    return completedWorkouts == null ? CompletedWorkouts() : completedWorkouts;
+    return completedWorkouts;
   }
 
   void saveSettings(Settings settings) async {

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
+import 'package:app/state/completed_workouts_state.dart';
+import 'package:app/state/workouts_state.dart';
 import 'package:app/view_models/calendar_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
@@ -21,39 +23,37 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  CalendarViewModel _viewModel;
+
   @override
   void initState() {
+    _viewModel = CalendarViewModel(
+        workoutsState: Provider.of<WorkoutsState>(context, listen: false),
+        completedWorkoutsState:
+            Provider.of<CompletedWorkoutsState>(context, listen: false));
+    _viewModel.addListener(_viewModelListener);
     super.initState();
+  }
+
+  void _viewModelListener() {
+    setState(() {});
   }
 
   @override
   void dispose() {
+    _viewModel.removeListener(_viewModelListener);
     super.dispose();
   }
 
   void _handleSelectedMonthTap() async {
-    final CalendarViewModel _calendarViewModel =
-        Provider.of<CalendarViewModel>(context, listen: false);
     await showAppModalPopup(
         context: context,
         content: CalendarDatePicker(
-          months: _calendarViewModel.calendarDatePickerMonths,
-          currentMonth: _calendarViewModel.selectedMonth,
+          months: _viewModel.calendarDatePickerMonths,
+          currentMonth: _viewModel.selectedMonth,
           handleSelectedMonth: (DateTime month) =>
-              _calendarViewModel.setSelectedMonth(month),
+              _viewModel.setSelectedMonth(month),
         ));
-  }
-
-  void _handleDeleteTap(CompletedWorkout completedWorkout) {
-    final CalendarViewModel _calendarViewModel =
-        Provider.of<CalendarViewModel>(context, listen: false);
-    _calendarViewModel.deleteCompletedWorkout(completedWorkout);
-  }
-
-  void _handleCopyTap(CompletedWorkout completedWorkout) {
-    final CalendarViewModel _calendarViewModel =
-        Provider.of<CalendarViewModel>(context, listen: false);
-    _calendarViewModel.copyCompletedWorkout(completedWorkout);
   }
 
   void _handleViewTap(Workout workout) {
@@ -66,27 +66,24 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    final CalendarViewModel _calendarViewModel =
-        Provider.of<CalendarViewModel>(context, listen: true);
-
     return Column(
       children: <Widget>[
         CalendarHeader(
-          selectedMonth: _calendarViewModel.selectedMonth,
+          selectedMonth: _viewModel.selectedMonth,
           handleSelectMonthTap: _handleSelectedMonthTap,
         ),
         CalendarTable(
-            handleSelectedDay: _calendarViewModel.setSelectedDay,
-            calendarTableDays: _calendarViewModel.calendarTableDays,
-            handlePreviousMonthSwipe: _calendarViewModel.setPreviousMonth,
-            handleNextMonthSwipe: _calendarViewModel.setNextMonth),
+            handleSelectedDay: _viewModel.setSelectedDay,
+            calendarTableDays: _viewModel.calendarTableDays,
+            handlePreviousMonthSwipe: _viewModel.setPreviousMonth,
+            handleNextMonthSwipe: _viewModel.setNextMonth),
         CompletedWorkoutsOverview(
             handleViewTap: _handleViewTap,
-            handleDeleteTap: _handleDeleteTap,
-            handleCopyTap: _handleCopyTap,
-            selectedDay: _calendarViewModel.selectedDay,
+            handleDeleteTap: _viewModel.deleteCompletedWorkout,
+            handleCopyTap: _viewModel.copyCompletedWorkout,
+            selectedDay: _viewModel.selectedDay,
             completedWorkoutsForSelectedDay:
-                _calendarViewModel.completedWorkoutsForSelectedDay)
+                _viewModel.completedWorkoutsForSelectedDay)
       ],
     );
   }

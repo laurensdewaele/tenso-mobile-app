@@ -1,20 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/models/models.dart';
-import 'package:app/state/app_state.dart';
+import 'package:app/state/completed_workouts_state.dart';
 import 'package:app/state/workouts_state.dart';
 import 'package:app/widgets/calendar/table.dart';
 
 class CalendarViewModel extends ChangeNotifier {
-  CalendarViewModel({WorkoutsState workoutsState}) {
-    _workoutsState = workoutsState;
-    _selectedDay = DateTime.now();
-    _selectedMonth = _selectedDay;
-  }
+  CompletedWorkoutsState _completedWorkoutsState;
+  List<CompletedWorkout> _completedWorkoutList;
   WorkoutsState _workoutsState;
+  StreamSubscription _sub;
 
-  AppState _appState;
   DateTime _selectedDay;
   DateTime get selectedDay => _selectedDay;
   DateTime _selectedMonth;
@@ -27,14 +26,26 @@ class CalendarViewModel extends ChangeNotifier {
   List<DateTime> _calendarDatePickerMonths;
   List<DateTime> get calendarDatePickerMonths => _calendarDatePickerMonths;
 
-  void update(AppState appState) {
-    if (appState?.completedWorkouts?.completedWorkouts != null) {
-      _appState = appState;
-      _setCompletedWorkoutsForSelectedDay();
-      _setCalendarTableDays();
-      _setDatePickerMonths();
-      notifyListeners();
-    }
+  CalendarViewModel(
+      {@required WorkoutsState workoutsState,
+      @required CompletedWorkoutsState completedWorkoutsState}) {
+    _completedWorkoutsState = completedWorkoutsState;
+    _completedWorkoutList = _completedWorkoutsState.completedWorkoutList;
+    _sub = completedWorkoutsState.completedWorkoutList$.listen((c) {
+      _completedWorkoutList = c;
+      _setVariables();
+    });
+    _workoutsState = workoutsState;
+    _selectedDay = DateTime.now();
+    _selectedMonth = _selectedDay;
+    _setVariables();
+  }
+
+  void _setVariables() {
+    _setCompletedWorkoutsForSelectedDay();
+    _setCalendarTableDays();
+    _setDatePickerMonths();
+    notifyListeners();
   }
 
   void setSelectedDay(DateTime day) {
@@ -78,22 +89,20 @@ class CalendarViewModel extends ChangeNotifier {
             belongsToSelectedMonth: isSameMonth(day, _selectedMonth),
             selected: _isSameDay(day, _selectedDay),
             completedWorkoutColors:
-                _getExertionColors(day, _appState?.completedWorkouts)))
+                _getExertionColors(day, _completedWorkoutList)))
         .toList();
   }
 
   void _setCompletedWorkoutsForSelectedDay() {
-    _completedWorkoutsForSelectedDay = _appState
-        ?.completedWorkouts?.completedWorkouts
-        ?.where((completedWorkout) =>
+    _completedWorkoutsForSelectedDay = _completedWorkoutList
+        .where((completedWorkout) =>
             _isSameDay(completedWorkout.completedDate, _selectedDay))
         ?.toList();
   }
 
   void _setDatePickerMonths() {
-    List<DateTime> completedWorkoutMonths = _appState
-        ?.completedWorkouts?.completedWorkouts
-        ?.map((completedWorkout) => DateTime.utc(
+    List<DateTime> completedWorkoutMonths = _completedWorkoutList
+        .map((completedWorkout) => DateTime.utc(
             completedWorkout.completedDate.year,
             completedWorkout.completedDate.month))
         ?.toList();
@@ -111,26 +120,22 @@ class CalendarViewModel extends ChangeNotifier {
   }
 
   void deleteCompletedWorkout(CompletedWorkout completedWorkout) {
-    final _workoutList = []
-      ..addAll(_appState?.completedWorkouts?.completedWorkouts?.toList());
-    _workoutList.removeWhere((c) => c.id == completedWorkout.id);
-    _setAndSaveCompletedWorkouts(_appState?.completedWorkouts
-        ?.rebuild((b) => b..completedWorkouts.replace(_workoutList)));
+    _completedWorkoutsState.deleteCompletedWorkout(completedWorkout);
   }
 
   void copyCompletedWorkout(CompletedWorkout completedWorkout) {
     _workoutsState.copyWorkout(completedWorkout.workout);
   }
 
-  void _setAndSaveCompletedWorkouts(CompletedWorkouts completedWorkouts) {
-    _appState?.setCompletedWorkouts(completedWorkouts);
-    _appState?.saveCompletedWorkouts(completedWorkouts);
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 }
 
 List<Color> _getExertionColors(
-    DateTime day, CompletedWorkouts completedWorkouts) {
-  return completedWorkouts.completedWorkouts
+    DateTime day, List<CompletedWorkout> completedWorkoutList) {
+  return completedWorkoutList
       .where(
           (completedWorkout) => _isSameDay(completedWorkout.completedDate, day))
       .map((completedWorkout) => completedWorkout.perceivedExertionColor)

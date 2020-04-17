@@ -7,6 +7,7 @@ import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
 import 'package:app/state/app_state.dart';
+import 'package:app/state/workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_overview_vm.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
@@ -25,6 +26,15 @@ class WorkoutOverviewScreen extends StatefulWidget {
 }
 
 class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
+  WorkoutOverviewViewModel _viewModel;
+
+  @override
+  void initState() {
+    _viewModel = WorkoutOverviewViewModel(
+        workoutsState: Provider.of<WorkoutsState>(context, listen: false));
+    super.initState();
+  }
+
   void _handleWorkoutAddTap() {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
@@ -45,19 +55,11 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 .weightUnit));
   }
 
-  void _handleWorkoutCopyTap(Workout workout) {
-    final WorkoutOverviewViewModel _viewModel =
-    Provider.of<WorkoutOverviewViewModel>(context, listen: false);
-    _viewModel.copyWorkout(workout);
-  }
-
   @override
   Widget build(BuildContext context) {
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
-    WorkoutOverviewViewModel _viewModel =
-        Provider.of<WorkoutOverviewViewModel>(context, listen: true);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -76,7 +78,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                       workout: _viewModel.workoutList[index],
                       handleWorkoutDeleteTap: _viewModel.deleteWorkout,
                       handleWorkoutEditTap: _handleWorkoutEditTap,
-                      handleWorkoutCopyTap: _handleWorkoutCopyTap,
+                      handleWorkoutCopyTap: _viewModel.copyWorkout,
                     );
                   } else if (index == _viewModel.workoutList.length) {
                     return _AddWorkoutButton(
