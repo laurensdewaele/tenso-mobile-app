@@ -34,6 +34,7 @@
 
 ### Small prio
 
+- Refactor countdown -> everything including ticker in viewModel;
 - Audioplayer service play sound takes a while when not already initted;
 - keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 - When deleting a workout => let the divider fade out as well (no janky feel).
