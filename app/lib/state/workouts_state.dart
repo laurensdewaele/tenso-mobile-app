@@ -7,30 +7,28 @@ import 'package:app/services/persistence.dart';
 
 class WorkoutsState {
   PersistenceService _persistenceService;
-
   BehaviorSubject<Workouts> _workouts$;
   List<Workout> get workoutList => _workouts$.value.workouts.toList();
   Stream<List<Workout>> get workoutList$ =>
       _workouts$.stream.map((Workouts w) => w.workouts.toList());
 
-  WorkoutsState._() {
-    _persistenceService = PersistenceService();
-    init();
-  }
+  WorkoutsState._();
   static final WorkoutsState _workoutState = WorkoutsState._();
   factory WorkoutsState() => _workoutState;
 
-  void init() async {
+  Future<void> init() async {
+    _persistenceService = PersistenceService();
     Workouts _workouts;
     _workouts = await _getWorkouts();
     if (_workouts == null) {
       _workouts = basicWorkouts;
     }
     _workouts$ = BehaviorSubject.seeded(_workouts);
+    return Future.value();
   }
 
   Future<Workouts> _getWorkouts() async {
-    Workouts _workouts = await _persistenceService.getWorkouts();
+    final Workouts _workouts = await _persistenceService.getWorkouts();
     return _workouts;
   }
 
@@ -39,14 +37,14 @@ class WorkoutsState {
   }
 
   void _setAndSaveWorkoutList(List<Workout> newWorkoutList) {
-    Workouts _newWorkouts =
+    final Workouts _newWorkouts =
         _workouts$.value.rebuild((b) => b..workouts.replace(newWorkoutList));
     _workouts$.add(_newWorkouts);
     _saveWorkouts(_newWorkouts);
   }
 
   void addWorkout(Workout workout) {
-    List<Workout> _newWorkoutList = []
+    final List<Workout> _newWorkoutList = []
       ..addAll(workoutList)
       ..add(workout.rebuild((b) => b..id = generateUniqueId()));
 
@@ -54,7 +52,7 @@ class WorkoutsState {
   }
 
   void deleteWorkout(Workout workout) {
-    final _newWorkoutList = []..addAll(workoutList);
+    final List<Workout> _newWorkoutList = []..addAll(workoutList);
     _newWorkoutList.removeWhere((w) => w.id == workout.id);
     _setAndSaveWorkoutList(_newWorkoutList);
   }
@@ -69,7 +67,7 @@ class WorkoutsState {
   }
 
   void copyWorkout(Workout workout) {
-    List<Workout> _newWorkoutList = []
+    final List<Workout> _newWorkoutList = []
       ..addAll(workoutList)
       ..add(workout.rebuild((b) => b
         ..id = generateUniqueId()
