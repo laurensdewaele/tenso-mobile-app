@@ -2,21 +2,26 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/data/sounds.dart';
 import 'package:app/models/models.dart';
+import 'package:app/services/audio_player.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
 import 'package:app/state/settings_state.dart';
 
 class SoundSettingsViewModel extends ChangeNotifier {
+  AudioPlayerService _audioPlayerService;
   SettingsState _settingsState;
   Settings _settings;
 
-  SoundSettingsViewModel({SettingsState settingsState}) {
+  SoundSettingsViewModel(
+      {SettingsState settingsState, AudioPlayerService audioPlayerService}) {
+    _audioPlayerService = audioPlayerService;
     _settingsState = settingsState;
     _settings = _settingsState.settings;
     _settingsState.settings$.listen((s) {
       _settings = s;
       _setRadioButtons();
     });
+    _setRadioButtons();
     _setInitial();
   }
 
@@ -42,6 +47,12 @@ class SoundSettingsViewModel extends ChangeNotifier {
   bool isHitLightHardActive;
   bool isBeepSoundOffActive;
 
+  void _playSound(Sound sound) {
+    if (sound.muted != true) {
+      _audioPlayerService.play(sound.filename);
+    }
+  }
+
   void _setInitial() {
     _beepsBeforeHang = _settings.beepsBeforeHang;
     _beepsBeforeRest = _settings.beepsBeforeRest;
@@ -64,16 +75,19 @@ class SoundSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setHangSound(Sound hangSound) {
+  void setAndPlayHangSound(Sound hangSound) {
     _settingsState.setHangSound(hangSound);
+    _playSound(hangSound);
   }
 
-  void setRestSound(Sound restSound) {
+  void setAndPlayRestSound(Sound restSound) {
     _settingsState.setRestSound(restSound);
+    _playSound(restSound);
   }
 
-  void setBeepSound(Sound beepSound) {
+  void setAndPlayBeepSound(Sound beepSound) {
     _settingsState.setBeepSound(beepSound);
+    _playSound(beepSound);
   }
 
   void handleBeepsBeforeRestInput(String s) {
@@ -89,10 +103,10 @@ class SoundSettingsViewModel extends ChangeNotifier {
     return Future.sync(_validateAndSet);
   }
 
-  bool _validateAndSet() {
-    _beepsBeforeHang = InputParsers.parseToInt(
+  Future<bool> _validateAndSet() async {
+    _beepsBeforeHang = await InputParsers.parseToInt(
         string: _beepsBeforeHangInput, inputField: 'Beeps before hang');
-    _beepsBeforeRest = InputParsers.parseToInt(
+    _beepsBeforeRest = await InputParsers.parseToInt(
         string: _beepsBeforeRestInput, inputField: 'Beeps before rest');
     final bool _isBeepsBeforeHangValid = Validators.biggerThanZero(
         value: _beepsBeforeHang, inputField: 'Beeps before hang');
