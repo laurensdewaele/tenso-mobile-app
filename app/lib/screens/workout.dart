@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/models/models.dart';
-import 'package:app/services/keyboard.dart';
-import 'package:app/state/settings_state.dart';
-import 'package:app/state/workouts_state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_navigator_state.dart';
@@ -41,21 +38,15 @@ class WorkoutScreen extends StatefulWidget {
 class _WorkoutScreenState extends State<WorkoutScreen> {
   WorkoutViewModel _workoutViewModel;
   WorkoutNavigator _workoutNavigator;
-  KeyboardService _keyboardService;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_workoutViewModel == null) {
-      _keyboardService = KeyboardService();
       final WorkoutScreenArguments _arguments =
           ModalRoute.of(context).settings.arguments;
       _workoutViewModel = WorkoutViewModel(
-          keyboardService: _keyboardService,
-          workout: _arguments.workout,
-          workoutType: _arguments.workoutType,
-          weightUnit: SettingsState().settings.weightUnit,
-          workoutsState: WorkoutsState());
+          workout: _arguments.workout, workoutType: _arguments.workoutType);
       _workoutNavigator = WorkoutNavigator(workoutViewModel: _workoutViewModel);
     }
   }

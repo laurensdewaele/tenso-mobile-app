@@ -7,6 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
+import 'package:app/state/settings_state.dart';
 import 'package:app/state/workouts_state.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
 
@@ -18,30 +19,29 @@ class WorkoutViewModel {
   Stream<WorkoutViewModelState> get state$ => _state$.stream;
   Stream<bool> shouldValidate$;
   WorkoutsState _workoutsState;
+  KeyboardService _keyboardService;
 
   WorkoutTypes _workoutType;
 
   WorkoutViewModel(
-      {@required WorkoutTypes workoutType,
-      @required Workout workout,
-      @required WeightUnit weightUnit,
-      @required KeyboardService keyboardService,
-      @required WorkoutsState workoutsState}) {
-    _workoutsState = workoutsState;
+      {@required WorkoutTypes workoutType, @required Workout workout}) {
+    _workoutsState = WorkoutsState();
+    _keyboardService = KeyboardService();
     _workoutType = workoutType;
-    shouldValidate$ = MergeStream<bool>(
-            [keyboardService.shouldLoseFocus$, keyboardService.inputComplete$])
-        .asBroadcastStream();
+    shouldValidate$ = MergeStream<bool>([
+      _keyboardService.shouldLoseFocus$,
+      _keyboardService.inputComplete$
+    ]).asBroadcastStream();
+
+    final _weightUnit = SettingsState().settings.weightUnit;
 
     WorkoutViewModelState _initialState;
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
-        _initialState = WorkoutViewModelState.addWorkout(
-            workout, weightUnit);
+        _initialState = WorkoutViewModelState.addWorkout(workout, _weightUnit);
         break;
       case WorkoutTypes.editWorkout:
-        _initialState = WorkoutViewModelState.editWorkout(
-            workout, weightUnit);
+        _initialState = WorkoutViewModelState.editWorkout(workout, _weightUnit);
         break;
       case WorkoutTypes.viewWorkout:
         _initialState =
