@@ -1,10 +1,9 @@
 # TODO
 
-- Test everything
-- Split up appState?
+- Split up appState and put the logic methods on the state itself. Not on the other viewmodels.
+  With streams?
 
-### Large prio
-
+## Countdown
 - Remove +- weight if weight is negative on countdown screen.
 - Overview on completed workouts need effective time hung.
 - Stopwatch option for rest periods
@@ -12,6 +11,10 @@
 - Skip buttons so you can quickly complete a workout.
 - Keep screen alive when on countdown screen
 - Check if sounds come trough if app on bg 
+
+
+### Large prio
+
 - Add open crimp, check if all grips available.
 - Redesign toast
 - Graphs
@@ -25,26 +28,20 @@
 
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
-- Refactor appState. Remove provider. Needs to be done with streams. A lot cleaner and more performance.
-  You don't want a widget listening to 3 VMs here. It worked before the latest refactor but was 
-  very gimmicky with provider. With streams this will be a lot clearer. You want AppState => Workout_VM => General/Hold/Extra.
 - Tests
 - Try catch blocks on sensitive code. E.g. deleting workout.
 - Setup sentry.io, don't think about self hosting for now.
 - Login with device id, to save workouts already
-- Draw diagram when all is refactored.
 - Nice logo (animated)!
 - Review app on smaller and larger screens.
 
 ### Small prio
 
-- keyboard slide up doesn't work => don't know.
+- keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 - When deleting a workout => let the divider fade out as well (no janky feel).
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
-- styles trough Provider instead of globals
 - Add info button on most elements
-- Stop all globals (singletons as well). Do I have any? => styles
 - Check out perf.
   
   
