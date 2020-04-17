@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/services/audio_player.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -61,8 +59,7 @@ class _CountdownState extends State<Countdown> {
 
   @override
   void initState() {
-    _audioPlayerService =
-        Provider.of<AudioPlayerService>(context, listen: false);
+    _audioPlayerService = AudioPlayerService();
     if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
       if (widget.beepSound.muted != true) {
         _audioPlayerService.play(widget.beepSound.filename);

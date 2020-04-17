@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/workout.dart';
@@ -28,9 +26,8 @@ class _CalendarState extends State<Calendar> {
   @override
   void initState() {
     _viewModel = CalendarViewModel(
-        workoutsState: Provider.of<WorkoutsState>(context, listen: false),
-        completedWorkoutsState:
-            Provider.of<CompletedWorkoutsState>(context, listen: false));
+        workoutsState: WorkoutsState(),
+        completedWorkoutsState: CompletedWorkoutsState());
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }
@@ -59,8 +56,7 @@ class _CalendarState extends State<Calendar> {
   void _handleViewTap(Workout workout) {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
-            workout: workout,
-            workoutType: WorkoutTypes.viewWorkout));
+            workout: workout, workoutType: WorkoutTypes.viewWorkout));
   }
 
   @override

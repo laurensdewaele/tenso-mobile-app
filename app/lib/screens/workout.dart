@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:provider/provider.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/state/settings_state.dart';
@@ -49,7 +47,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_workoutViewModel == null) {
-      _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+      _keyboardService = KeyboardService();
       final WorkoutScreenArguments _arguments =
           ModalRoute.of(context).settings.arguments;
       _workoutViewModel = WorkoutViewModel(

@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -22,9 +20,7 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _subscription = Provider.of<ToastService>(context, listen: false)
-        .errorMessage$
-        .listen((Widget message) {
+    _subscription = ToastService().errorMessage$.listen((Widget message) {
       setState(() {
         messages.add(message);
       });

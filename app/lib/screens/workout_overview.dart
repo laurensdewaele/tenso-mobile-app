@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:provider/provider.dart';
-
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
@@ -31,7 +29,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   @override
   void initState() {
     _viewModel = WorkoutOverviewViewModel(
-        workoutsState: Provider.of<WorkoutsState>(context, listen: false),
+        workoutsState: WorkoutsState(),
         isFirstLaunch: UserState().deviceInfo.firstLaunch);
     super.initState();
   }

@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/services/keyboard.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -42,7 +40,7 @@ class _NumberInputState extends State<NumberInput> {
         _textEditingController.clear();
       }
     });
-    _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+    _keyboardService = KeyboardService();
     _shouldLoseFocusSub = _keyboardService.shouldLoseFocus$.listen((_) {
       _focusNode.unfocus();
     });

@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/services/keyboard.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -38,7 +36,7 @@ class _EmptyInputState extends State<EmptyInput> {
         _textEditingController.clear();
       }
     });
-    _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+    _keyboardService = KeyboardService();
 
     _sub = _keyboardService.shouldLoseFocus$.listen((_) {
       _onComplete();

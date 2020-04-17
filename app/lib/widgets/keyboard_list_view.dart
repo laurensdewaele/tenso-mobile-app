@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
 
 import 'package:app/services/keyboard.dart';
 
@@ -32,7 +31,7 @@ class _KeyboardListViewState extends State<KeyboardListView> {
   @override
   void initState() {
     super.initState();
-    _keyboardService = Provider.of<KeyboardService>(context, listen: false);
+    _keyboardService = KeyboardService();
     _subscription =
         _keyboardService.keyboardOffsetHeight$.listen(_handleKeyboardOffset);
     if (widget.scrollToTopStream != null) {

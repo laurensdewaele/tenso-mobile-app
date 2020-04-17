@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -139,7 +137,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
 
   void _onDragEnd(DraggableDetails details) {
     if (_errorMessage != null) {
-      Provider.of<ToastService>(context, listen: false).add(_errorMessage);
+      ToastService().add(_errorMessage);
     }
   }
 
