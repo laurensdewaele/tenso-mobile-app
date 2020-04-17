@@ -1,6 +1,8 @@
 import 'package:app/models/device_info.dart';
 import 'package:app/services/persistence.dart';
 
+final DeviceInfo _initialDeviceInfo = DeviceInfo((b) => b..firstLaunch = true);
+
 class UserState {
   UserState._();
   static final UserState _userState = UserState._();
@@ -11,7 +13,8 @@ class UserState {
   DeviceInfo get deviceInfo => _deviceInfo;
 
   Future<void> init() async {
-    _deviceInfo = await _persistenceService.getDeviceInfo();
+    _deviceInfo =
+        await _persistenceService.getDeviceInfo() ?? _initialDeviceInfo;
     if (_deviceInfo.firstLaunch == true) {
       _setFirstLaunch(false);
     }

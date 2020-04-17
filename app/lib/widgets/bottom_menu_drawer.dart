@@ -67,7 +67,6 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   @override
   void initState() {
     super.initState();
-
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     _slideController.value = 1;
@@ -75,16 +74,9 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     _slideAnimation =
         Tween<Offset>(begin: Offset.zero, end: Offset(0.0, _offsetHeight))
             .chain(CurveTween(curve: Curves.easeIn));
-  }
-
-  @override
-  void didUpdateWidget(BottomMenuDrawer oldWidget) {
-    if (oldWidget.startOpen != widget.startOpen && widget.startOpen == true) {
-      if (_position == SliderPositions.end) {
-        _reverse();
-      }
+    if (widget.startOpen == true) {
+      _reverse();
     }
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
