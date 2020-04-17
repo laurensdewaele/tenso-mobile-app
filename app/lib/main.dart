@@ -9,22 +9,22 @@ import 'package:app/state/settings_state.dart';
 import 'package:app/state/workouts_state.dart';
 
 Future<Null> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final futures = <Future>[
-    WorkoutsState().init(),
-    CompletedWorkoutsState().init(),
-    SettingsState().init()
-  ];
-
-  await Future.wait(futures);
-
   ErrorService _errorService = ErrorService();
   FlutterError.onError = (FlutterErrorDetails details) async {
     await _errorService.handleFlutterError(details);
   };
 
   runZoned<Future<Null>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    final futures = <Future>[
+      WorkoutsState().init(),
+      CompletedWorkoutsState().init(),
+      SettingsState().init()
+    ];
+
+    await Future.wait(futures);
+
     runApp(new App());
   }, onError: (error, stackTrace) async {
     await _errorService.handleZonedError(error, stackTrace);
