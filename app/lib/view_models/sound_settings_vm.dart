@@ -103,10 +103,10 @@ class SoundSettingsViewModel extends ChangeNotifier {
     return Future.sync(_validateAndSet);
   }
 
-  Future<bool> _validateAndSet() async {
-    _beepsBeforeHang = await InputParsers.parseToInt(
+  bool _validateAndSet() {
+    _beepsBeforeHang = InputParsers.parseToInt(
         string: _beepsBeforeHangInput, inputField: 'Beeps before hang');
-    _beepsBeforeRest = await InputParsers.parseToInt(
+    _beepsBeforeRest = InputParsers.parseToInt(
         string: _beepsBeforeRestInput, inputField: 'Beeps before rest');
     final bool _isBeepsBeforeHangValid = Validators.biggerThanZero(
         value: _beepsBeforeHang, inputField: 'Beeps before hang');
