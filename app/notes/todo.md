@@ -1,7 +1,5 @@
 # TODO
 
-- Get rid of provider
-
 ## Countdown
 - Remove +- weight if weight is negative on countdown screen.
 - Overview on completed workouts need effective time hung.

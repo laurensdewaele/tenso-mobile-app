@@ -50,10 +50,7 @@ class PersistenceService {
       print(e);
       // TODO: Error handling.
     }
-    // TODO: Doesn't belong
-    return deviceInfo == null
-        ? DeviceInfo((b) => b..firstLaunch = true)
-        : deviceInfo;
+    return deviceInfo;
   }
 
   void saveDeviceInfo(DeviceInfo info) async {
