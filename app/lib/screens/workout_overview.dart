@@ -31,7 +31,18 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     _viewModel = WorkoutOverviewViewModel(
         workoutsState: WorkoutsState(),
         isFirstLaunch: UserState().deviceInfo.firstLaunch);
+    _viewModel.addListener(_viewModelListener);
     super.initState();
+  }
+
+  void _viewModelListener() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _viewModel.removeListener(_viewModelListener);
+    super.dispose();
   }
 
   void _handleWorkoutAddTap() {
