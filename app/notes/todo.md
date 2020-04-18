@@ -1,19 +1,22 @@
 # TODO
 
 ## Countdown
-- Remove +- weight if weight is negative on countdown screen.
-- Overview on completed workouts need effective time hung.
 - Stopwatch option for rest periods
-- Stop and log, when a workout is more than you can handle that day. E.g. The last set is too much.
-- Skip buttons so you can quickly complete a workout.
+- Skip button
+- Stop and log
+- Stop and discard
+
+- Track time when skipped or stopped => effective time hung
+
+- Remove +- weight if weight is negative on countdown screen.
 - Keep screen alive when on countdown screen
 - Check if sounds come trough if app on bg 
 
+- Refactor countdown -> everything including ticker in viewModel;?
 
 ### Large prio
 
 - Add open crimp, check if all grips available.
-- Redesign toast
 - Graphs
 - Add board selection. Only beastmaker1000 atm.
 - Add custom board => Slopers, pinches, ...
@@ -22,6 +25,7 @@
 
 
 ### Medium prio
+
 
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
@@ -34,7 +38,8 @@
 
 ### Small prio
 
-- Refactor countdown -> everything including ticker in viewModel;
+- Redesign toast
+- Edit completed workout.
 - Audioplayer service play sound takes a while when not already initted;
 - keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 - When deleting a workout => let the divider fade out as well (no janky feel).
@@ -42,8 +47,7 @@
 - Set reminder for workout.
 - Add info button on most elements
 - Check out perf.
-  
-  
+    
 ## Data strategy
 
 Local is the source of truth.
