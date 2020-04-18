@@ -13,6 +13,8 @@
 - Check if sounds come trough if app on bg 
 
 - Refactor countdown -> everything including ticker in viewModel;?
+- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
+
 
 ### Large prio
 
