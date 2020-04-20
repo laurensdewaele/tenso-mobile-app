@@ -175,7 +175,7 @@ class _RestTimersInfo extends StatelessWidget {
                 TextSpan(text: 'Countdown ', style: styles.Lato.xsBlackBold),
                 TextSpan(
                     text:
-                        'will display a countdown timer during your rest periods in between hangs. This way, you are sure that you are getting adequate rest.',
+                        'will display a countdown timer during your rest periods in between hangs. This way, you\'re enforcing sufficient and consistent recovery time.',
                     style: styles.Lato.xsBlack),
               ]),
             ),
@@ -187,7 +187,7 @@ class _RestTimersInfo extends StatelessWidget {
                 TextSpan(text: 'Stopwatch ', style: styles.Lato.xsBlackBold),
                 TextSpan(
                     text:
-                        'will display a stopwatch for your rest periods. This is suited for experienced hangboarders, who can better gauge the minumum recovery time after each specific hang.',
+                        'will display a stopwatch for your rest periods. You decide when you\'re ready for the next hang on the fly.',
                     style: styles.Lato.xsBlack),
               ]),
             ),

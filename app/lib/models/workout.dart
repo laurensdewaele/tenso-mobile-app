@@ -17,16 +17,14 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   String get id;
   int get sets;
   int get holdCount;
-  bool get stopwatchRestTimers;
-  @nullable
-  int get restBetweenHolds;
-  @nullable
-  int get restBetweenSets;
+  bool get countdownRestTimer;
   Board get board;
   BuiltList<Hold> get holds;
   WeightUnit get weightUnit;
   String get name;
   Label get label;
+
+  bool get stopwatchRestTimer => !countdownRestTimer;
   // Color class cannot be serialized by built value
   Color get labelColor => styles.labelColors[label];
   int get timeUnderTension => _calculateTimeUnderTension();

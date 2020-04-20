@@ -40,6 +40,7 @@
 
 ### Small prio
 
+- Track everything - paused time + preparation time
 - Redesign toast
 - Edit completed workout.
 - Audioplayer service play sound takes a while when not already initted;
