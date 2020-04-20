@@ -33,6 +33,7 @@ class Tabs extends StatelessWidget {
           border: Border.all(color: primaryColor),
           borderRadius: styles.kBorderRadiusAll),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: GestureDetector(
@@ -43,10 +44,14 @@ class Tabs extends StatelessWidget {
                         ? primaryColor
                         : styles.Colors.translucent),
                 child: Center(
-                    child: Text(leftText,
-                        style: isLeftSelected
-                            ? styles.Lato.xsWhite
-                            : textPrimaryColor)),
+                    child: Baseline(
+                  baseline: 14,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text(leftText,
+                      style: isLeftSelected
+                          ? styles.Lato.xsWhite
+                          : textPrimaryColor),
+                )),
               ),
             ),
           ),
@@ -59,10 +64,14 @@ class Tabs extends StatelessWidget {
                         ? primaryColor
                         : styles.Colors.translucent),
                 child: Center(
-                    child: Text(rightText,
-                        style: isRightSelected
-                            ? styles.Lato.xsWhite
-                            : textPrimaryColor)),
+                    child: Baseline(
+                  baseline: 14,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text(rightText,
+                      style: isRightSelected
+                          ? styles.Lato.xsWhite
+                          : textPrimaryColor),
+                )),
               ),
             ),
           ),
