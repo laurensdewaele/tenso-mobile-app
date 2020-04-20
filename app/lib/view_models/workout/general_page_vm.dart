@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:rxdart/rxdart.dart';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
@@ -46,6 +47,7 @@ class GeneralPageViewModel {
       primaryColor: _workoutViewModel.state.primaryColor,
       holdCount: _workoutViewModel.state.holdCount,
       sets: _workoutViewModel.state.sets,
+      stopwatchRestTimers: _workoutViewModel.state.stopwatchRestTimers,
       restBetweenHolds: _workoutViewModel.state.restBetweenHolds,
       restBetweenSets: _workoutViewModel.state.restBetweenSets,
       board: _workoutViewModel.state.board,
@@ -62,6 +64,7 @@ class GeneralPageViewModel {
       _workoutViewModel.setGeneralVariables(
           holdCount: _state.holdCount,
           sets: _state.sets,
+          stopwatchRestTimers: _state.stopwatchRestTimers,
           restBetweenHolds: _state.restBetweenHolds,
           restBetweenSets: _state.restBetweenSets,
           board: _state.board);
@@ -83,8 +86,8 @@ class GeneralPageViewModel {
     _state = _state.copyWith(
         holdCount: _holdCount,
         sets: _sets,
-        restBetweenHolds: _restBetweenHolds,
-        restBetweenSets: _restBetweenSets);
+        restBetweenHolds: Nullable<int>(_restBetweenHolds),
+        restBetweenSets: Nullable(_restBetweenSets));
 
     final bool _isHoldInputValid =
         Validators.biggerThanZero<int>(value: _holdCount, inputField: 'Holds');
@@ -105,6 +108,10 @@ class GeneralPageViewModel {
       _isRestBetweenHoldsInputValid,
       _isRestBetweenSetsValid
     ].fold(true, (a, b) => a && b);
+  }
+
+  void setStopwatchRestTimers(bool s) {
+    _state = _state.copyWith(stopwatchRestTimers: s);
   }
 
   void setHoldCount(String s) {

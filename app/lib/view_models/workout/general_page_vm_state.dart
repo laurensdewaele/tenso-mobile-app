@@ -2,12 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 
 @immutable
 class GeneralPageState {
   final int holdCount;
   final int sets;
+  final bool stopwatchRestTimers;
   final int restBetweenHolds;
   final int restBetweenSets;
   final Board board;
@@ -19,9 +21,10 @@ class GeneralPageState {
   final bool inputsEnabled;
   final Color primaryColor;
 
-  const GeneralPageState({
+  GeneralPageState({
     @required this.holdCount,
     @required this.sets,
+    @required this.stopwatchRestTimers,
     @required this.restBetweenHolds,
     @required this.restBetweenSets,
     @required this.board,
@@ -36,8 +39,9 @@ class GeneralPageState {
   GeneralPageState copyWith({
     int holdCount,
     int sets,
-    int restBetweenHolds,
-    int restBetweenSets,
+    bool stopwatchRestTimers,
+    Nullable<int> restBetweenHolds,
+    Nullable<int> restBetweenSets,
     Board board,
     String holdCountInput,
     String setsInput,
@@ -49,8 +53,13 @@ class GeneralPageState {
     return new GeneralPageState(
       holdCount: holdCount ?? this.holdCount,
       sets: sets ?? this.sets,
-      restBetweenHolds: restBetweenHolds ?? this.restBetweenHolds,
-      restBetweenSets: restBetweenSets ?? this.restBetweenSets,
+      stopwatchRestTimers: stopwatchRestTimers ?? this.stopwatchRestTimers,
+      restBetweenHolds: restBetweenHolds == null
+          ? this.restBetweenHolds
+          : restBetweenHolds.value,
+      restBetweenSets: restBetweenSets == null
+          ? this.restBetweenSets
+          : restBetweenSets.value,
       board: board ?? this.board,
       holdCountInput: holdCountInput ?? this.holdCountInput,
       setsInput: setsInput ?? this.setsInput,

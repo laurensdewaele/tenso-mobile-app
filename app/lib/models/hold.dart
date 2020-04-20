@@ -26,6 +26,7 @@ abstract class Hold implements Built<Hold, HoldBuilder> {
   BoardHold get rightGripBoardHold;
 
   int get repetitions;
+  @nullable
   int get restBetweenRepetitions;
   int get hangTime;
   double get addedWeight;

@@ -7,6 +7,7 @@ final Workout basicWorkout = Workout((b) => b
   ..label = Label.blue
   ..sets = 1
   ..holdCount = 3
+  ..stopwatchRestTimers = false
   ..restBetweenHolds = 60 * 3
   ..restBetweenSets = 60 * 3
   ..board = beastmaker1000.toBuilder()

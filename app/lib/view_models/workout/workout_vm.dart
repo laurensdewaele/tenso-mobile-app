@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/state/settings_state.dart';
@@ -83,14 +84,16 @@ class WorkoutViewModel {
   void setGeneralVariables(
       {@required int holdCount,
       @required int sets,
+        @required bool stopwatchRestTimers,
       @required int restBetweenHolds,
       @required int restBetweenSets,
       @required Board board}) {
     _state$.add(state.copyWith(
         holdCount: holdCount,
         sets: sets,
-        restBetweenHolds: restBetweenHolds,
-        restBetweenSets: restBetweenSets,
+        stopwatchRestTimers: stopwatchRestTimers,
+        restBetweenHolds: Nullable(restBetweenHolds),
+        restBetweenSets: Nullable(restBetweenSets),
         board: board,
         holds: _generateHoldsFromHoldCount(holdCount)));
   }

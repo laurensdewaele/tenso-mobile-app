@@ -15,17 +15,20 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
   String get id;
-  Label get label;
-  // Color class cannot be serialized by built value
-  Color get labelColor => styles.labelColors[label];
   int get sets;
   int get holdCount;
+  bool get stopwatchRestTimers;
+  @nullable
   int get restBetweenHolds;
+  @nullable
   int get restBetweenSets;
   Board get board;
   BuiltList<Hold> get holds;
-  String get name;
   WeightUnit get weightUnit;
+  String get name;
+  Label get label;
+  // Color class cannot be serialized by built value
+  Color get labelColor => styles.labelColors[label];
   int get duration => _calculateDuration();
   double get averageAddedWeight => _calculateAverageAddedWeight();
   int get averageHangTime => _calculateAverageHangTime();

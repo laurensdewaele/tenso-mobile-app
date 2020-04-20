@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -13,6 +14,7 @@ class WorkoutViewModelState {
   final Label label;
   final int sets;
   final int holdCount;
+  final bool stopwatchRestTimers;
   final int restBetweenHolds;
   final int restBetweenSets;
   final Board board;
@@ -33,6 +35,7 @@ class WorkoutViewModelState {
     @required this.label,
     @required this.sets,
     @required this.holdCount,
+    @required this.stopwatchRestTimers,
     @required this.restBetweenHolds,
     @required this.restBetweenSets,
     @required this.board,
@@ -52,6 +55,7 @@ class WorkoutViewModelState {
         label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
+        stopwatchRestTimers = workout.stopwatchRestTimers,
         restBetweenHolds = workout.restBetweenHolds,
         restBetweenSets = workout.restBetweenSets,
         board = workout.board,
@@ -70,6 +74,7 @@ class WorkoutViewModelState {
         label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
+        stopwatchRestTimers = workout.stopwatchRestTimers,
         restBetweenHolds = workout.restBetweenHolds,
         restBetweenSets = workout.restBetweenSets,
         board = workout.board,
@@ -88,6 +93,7 @@ class WorkoutViewModelState {
         label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
+        stopwatchRestTimers = workout.stopwatchRestTimers,
         restBetweenHolds = workout.restBetweenHolds,
         restBetweenSets = workout.restBetweenSets,
         board = workout.board,
@@ -109,6 +115,7 @@ class WorkoutViewModelState {
           label == other.label &&
           sets == other.sets &&
           holdCount == other.holdCount &&
+          stopwatchRestTimers == other.stopwatchRestTimers &&
           restBetweenHolds == other.restBetweenHolds &&
           restBetweenSets == other.restBetweenSets &&
           board == other.board &&
@@ -128,6 +135,7 @@ class WorkoutViewModelState {
       label.hashCode ^
       sets.hashCode ^
       holdCount.hashCode ^
+      stopwatchRestTimers.hashCode ^
       restBetweenHolds.hashCode ^
       restBetweenSets.hashCode ^
       board.hashCode ^
@@ -146,8 +154,9 @@ class WorkoutViewModelState {
     Label label,
     int sets,
     int holdCount,
-    int restBetweenHolds,
-    int restBetweenSets,
+    bool stopwatchRestTimers,
+    Nullable<int> restBetweenHolds,
+    Nullable<int> restBetweenSets,
     Board board,
     List<Hold> holds,
     String name,
@@ -163,8 +172,13 @@ class WorkoutViewModelState {
       label: label ?? this.label,
       sets: sets ?? this.sets,
       holdCount: holdCount ?? this.holdCount,
-      restBetweenHolds: restBetweenHolds ?? this.restBetweenHolds,
-      restBetweenSets: restBetweenSets ?? this.restBetweenSets,
+      stopwatchRestTimers: stopwatchRestTimers ?? this.stopwatchRestTimers,
+      restBetweenHolds: restBetweenHolds == null
+          ? this.restBetweenHolds
+          : restBetweenHolds.value,
+      restBetweenSets: restBetweenSets == null
+          ? this.restBetweenSets
+          : restBetweenSets.value,
       board: board ?? this.board,
       holds: holds ?? this.holds,
       name: name ?? this.name,

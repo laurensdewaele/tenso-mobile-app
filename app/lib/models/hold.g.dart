@@ -24,9 +24,6 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
       'repetitions',
       serializers.serialize(object.repetitions,
           specifiedType: const FullType(int)),
-      'restBetweenRepetitions',
-      serializers.serialize(object.restBetweenRepetitions,
-          specifiedType: const FullType(int)),
       'hangTime',
       serializers.serialize(object.hangTime,
           specifiedType: const FullType(int)),
@@ -57,6 +54,12 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
         ..add('rightGripBoardHold')
         ..add(serializers.serialize(object.rightGripBoardHold,
             specifiedType: const FullType(BoardHold)));
+    }
+    if (object.restBetweenRepetitions != null) {
+      result
+        ..add('restBetweenRepetitions')
+        ..add(serializers.serialize(object.restBetweenRepetitions,
+            specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -154,9 +157,6 @@ class _$Hold extends Hold {
     }
     if (repetitions == null) {
       throw new BuiltValueNullFieldError('Hold', 'repetitions');
-    }
-    if (restBetweenRepetitions == null) {
-      throw new BuiltValueNullFieldError('Hold', 'restBetweenRepetitions');
     }
     if (hangTime == null) {
       throw new BuiltValueNullFieldError('Hold', 'hangTime');
