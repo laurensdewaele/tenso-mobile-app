@@ -10,7 +10,6 @@ import 'package:app/models/models.dart';
 class GeneralPageState {
   final int holdCount;
   final int sets;
-  final bool stopwatchRestTimers;
   final int restBetweenHolds;
   final int restBetweenSets;
   final Board board;
@@ -26,7 +25,6 @@ class GeneralPageState {
   GeneralPageState(
       {@required this.holdCount,
       @required this.sets,
-      @required this.stopwatchRestTimers,
       @required this.restBetweenHolds,
       @required this.restBetweenSets,
       @required this.board,
@@ -41,7 +39,6 @@ class GeneralPageState {
   GeneralPageState copyWith(
       {int holdCount,
       int sets,
-      bool stopwatchRestTimers,
       Nullable<int> restBetweenHolds,
       Nullable<int> restBetweenSets,
       Board board,
@@ -55,7 +52,6 @@ class GeneralPageState {
     return new GeneralPageState(
         holdCount: holdCount ?? this.holdCount,
         sets: sets ?? this.sets,
-        stopwatchRestTimers: stopwatchRestTimers ?? this.stopwatchRestTimers,
         restBetweenHolds: restBetweenHolds == null
             ? this.restBetweenHolds
             : restBetweenHolds.value,

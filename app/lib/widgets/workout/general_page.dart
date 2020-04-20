@@ -71,47 +71,57 @@ class _GeneralPageState extends State<GeneralPage> {
               ),
             ],
           ),
-          Section(
-            title: 'rest timers',
-            children: <Widget>[
-              Tabs(
-                leftText: 'Countdown',
-                rightText: 'Stopwatch',
-                handleLeftTap: () =>
-                    _viewModel.setStopwatchRestTimers(isStopWatch: false),
-                handleRightTap: () =>
-                    _viewModel.setStopwatchRestTimers(isStopWatch: true),
-                isLeftSelected: _viewModel.state.stopwatchRestTimers == false,
-                isRightSelected: _viewModel.state.stopwatchRestTimers == true,
-                primaryColor: _viewModel.state.primaryColor,
-                textPrimaryColor: _viewModel.state.textPrimaryColor,
-              ),
-              if (_viewModel.state.stopwatchRestTimers == false)
-                Column(
-                  children: <Widget>[
-                    NumberInputAndDescription<int>(
-                      enabled: _viewModel.state.inputsEnabled,
-                      primaryColor: _viewModel.state.primaryColor,
-                      description: 'rest seconds between holds',
-                      handleValueChanged: _viewModel.setRestBetweenHolds,
-                      initialValue: _viewModel.state.restBetweenHolds,
+          StreamBuilder<bool>(
+            initialData: _viewModel.stopwatchRestTimers,
+            stream: _viewModel.stopwatchRestTimers$,
+            builder: (context, snapshot) {
+              final bool _stopwatchRestTimers = snapshot.data;
+              return Section(
+                title: 'rest timers',
+                children: <Widget>[
+                  Tabs(
+                    leftText: 'Countdown',
+                    rightText: 'Stopwatch',
+                    handleLeftTap: () =>
+                        _viewModel.setStopwatchRestTimers(isStopWatch: false),
+                    handleRightTap: () =>
+                        _viewModel.setStopwatchRestTimers(isStopWatch: true),
+                    isLeftSelected: _stopwatchRestTimers == false,
+                    isRightSelected: _stopwatchRestTimers == true,
+                    primaryColor: _viewModel.state.primaryColor,
+                    textPrimaryColor: _viewModel.state.textPrimaryColor,
+                  ),
+                  if (_stopwatchRestTimers == false)
+                    Column(
+                      children: <Widget>[
+                        Divider(
+                          height: styles.Measurements.m,
+                        ),
+                        NumberInputAndDescription<int>(
+                          enabled: _viewModel.state.inputsEnabled,
+                          primaryColor: _viewModel.state.primaryColor,
+                          description: 'rest seconds between holds',
+                          handleValueChanged: _viewModel.setRestBetweenHolds,
+                          initialValue: _viewModel.state.restBetweenHolds,
+                        ),
+                        Divider(
+                          height: styles.Measurements.m,
+                        ),
+                        NumberInputAndDescription<int>(
+                          enabled: _viewModel.state.inputsEnabled,
+                          primaryColor: _viewModel.state.primaryColor,
+                          description: 'rest seconds between sets',
+                          handleValueChanged: _viewModel.setRestBetweenSets,
+                          initialValue: _viewModel.state.restBetweenSets,
+                        ),
+                      ],
                     ),
-                    Divider(
-                      height: styles.Measurements.m,
-                    ),
-                    NumberInputAndDescription<int>(
-                      enabled: _viewModel.state.inputsEnabled,
-                      primaryColor: _viewModel.state.primaryColor,
-                      description: 'rest seconds between sets',
-                      handleValueChanged: _viewModel.setRestBetweenSets,
-                      initialValue: _viewModel.state.restBetweenSets,
-                    ),
-                  ],
-                ),
-              Divider(
-                height: styles.Measurements.m,
-              ),
-            ],
+                  Divider(
+                    height: styles.Measurements.m,
+                  ),
+                ],
+              );
+            },
           ),
           if (_viewModel.state.inputsEnabled == true)
             Section(

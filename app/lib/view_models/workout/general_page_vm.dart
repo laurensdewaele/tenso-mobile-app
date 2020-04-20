@@ -25,6 +25,10 @@ class GeneralPageViewModel {
   Stream<int> get holdCount$ => _holdCount$.stream;
   int get holdCount => _holdCount$.value;
 
+  BehaviorSubject<bool> _stopwatchRestTimers$;
+  Stream<bool> get stopwatchRestTimers$ => _stopwatchRestTimers$.stream;
+  bool get stopwatchRestTimers => _stopwatchRestTimers$.value;
+
   GeneralPageViewModel({
     @required WorkoutViewModel workoutViewModel,
     @required WorkoutNavigator workoutNavigator,
@@ -33,6 +37,8 @@ class GeneralPageViewModel {
     _workoutNavigator = workoutNavigator;
     _setInitialState();
     _holdCount$ = BehaviorSubject.seeded(_workoutViewModel.state.holdCount);
+    _stopwatchRestTimers$ =
+        BehaviorSubject.seeded(_workoutViewModel.state.stopwatchRestTimers);
     _sub1 = _workoutViewModel.shouldValidate$.listen((_) {
       _validate();
     });
@@ -47,7 +53,6 @@ class GeneralPageViewModel {
         primaryColor: _workoutViewModel.state.primaryColor,
         holdCount: _workoutViewModel.state.holdCount,
         sets: _workoutViewModel.state.sets,
-        stopwatchRestTimers: _workoutViewModel.state.stopwatchRestTimers,
         restBetweenHolds: _workoutViewModel.state.restBetweenHolds,
         restBetweenSets: _workoutViewModel.state.restBetweenSets,
         board: _workoutViewModel.state.board,
@@ -65,7 +70,7 @@ class GeneralPageViewModel {
       _workoutViewModel.setGeneralVariables(
           holdCount: _state.holdCount,
           sets: _state.sets,
-          stopwatchRestTimers: _state.stopwatchRestTimers,
+          stopwatchRestTimers: stopwatchRestTimers,
           restBetweenHolds: _state.restBetweenHolds,
           restBetweenSets: _state.restBetweenSets,
           board: _state.board);
@@ -112,7 +117,7 @@ class GeneralPageViewModel {
   }
 
   void setStopwatchRestTimers({bool isStopWatch}) {
-    _state = _state.copyWith(stopwatchRestTimers: isStopWatch);
+    _stopwatchRestTimers$.add(isStopWatch);
   }
 
   void setHoldCount(String s) {
@@ -137,6 +142,7 @@ class GeneralPageViewModel {
 
   void dispose() {
     _holdCount$.close();
+    _stopwatchRestTimers$.close();
     _sub1.cancel();
     _sub2.cancel();
   }
