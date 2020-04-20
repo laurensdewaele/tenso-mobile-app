@@ -113,18 +113,24 @@ class _HoldPageState extends State<HoldPage> {
                       handleValueChanged: _viewModel.setHangTime,
                       initialValue: _state.hangTime,
                     ),
-                    Divider(
-                      height: styles.Measurements.m,
-                    ),
-                    NumberInputAndDescription<int>(
-                      key: ValueKey(
-                          'hold-page-rest_between_reps-${_state.currentHoldIndex}'),
-                      enabled: _state.inputsEnabled,
-                      primaryColor: _state.primaryColor,
-                      description: 'rest seconds between repetitions',
-                      handleValueChanged: _viewModel.setRestBetweenRepetitions,
-                      initialValue: _state.restBetweenRepetitions,
-                    ),
+                    if (_state.stopwatchRestTimers == false)
+                      Column(
+                        children: <Widget>[
+                          Divider(
+                            height: styles.Measurements.m,
+                          ),
+                          NumberInputAndDescription<int>(
+                            key: ValueKey(
+                                'hold-page-rest_between_reps-${_state.currentHoldIndex}'),
+                            enabled: _state.inputsEnabled,
+                            primaryColor: _state.primaryColor,
+                            description: 'rest seconds between repetitions',
+                            handleValueChanged:
+                                _viewModel.setRestBetweenRepetitions,
+                            initialValue: _state.restBetweenRepetitions,
+                          ),
+                        ],
+                      ),
                     Divider(
                       height: styles.Measurements.m,
                     ),

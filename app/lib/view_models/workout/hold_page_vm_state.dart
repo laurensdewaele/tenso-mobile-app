@@ -5,14 +5,16 @@ import 'package:app/models/models.dart';
 
 @immutable
 class HoldPageState {
-  final int currentHoldIndex;
-  final Board board;
   final bool inputsEnabled;
   final Color primaryColor;
   final TextStyle textPrimaryColor;
   final String weightUnitDescription;
-  final int currentHold;
+
   final int totalHolds;
+  final int currentHold;
+  final int currentHoldIndex;
+  final Board board;
+  final bool stopwatchRestTimers;
 
   final HandHold handHold;
   final Grip leftGrip;
@@ -30,6 +32,7 @@ class HoldPageState {
   final String addedWeightInput;
 
   const HoldPageState({
+    @required this.stopwatchRestTimers,
     @required this.currentHoldIndex,
     @required this.board,
     @required this.inputsEnabled,
@@ -54,6 +57,7 @@ class HoldPageState {
   });
 
   HoldPageState copyWith({
+    bool stopwatchRestTimers,
     int currentHoldIndex,
     Board board,
     bool inputsEnabled,
@@ -77,6 +81,7 @@ class HoldPageState {
     String addedWeightInput,
   }) {
     return new HoldPageState(
+      stopwatchRestTimers: stopwatchRestTimers ?? this.stopwatchRestTimers,
       currentHoldIndex: currentHoldIndex ?? this.currentHoldIndex,
       board: board ?? this.board,
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,

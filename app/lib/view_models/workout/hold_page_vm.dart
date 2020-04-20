@@ -58,6 +58,7 @@ class HoldPageViewModel {
 
   HoldPageState _buildState(WorkoutViewModelState workoutState, holdIndex) {
     return HoldPageState(
+      stopwatchRestTimers: workoutState.stopwatchRestTimers,
       primaryColor: workoutState.primaryColor,
       inputsEnabled: workoutState.inputsEnabled,
       handHold: workoutState.holds[holdIndex].handHold,
