@@ -7,6 +7,7 @@ import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
+import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/workout/card_container.dart';
 import 'package:app/widgets/workout/navigation_indicator.dart';
 
@@ -71,25 +72,42 @@ class _GeneralPageState extends State<GeneralPage> {
             ],
           ),
           Section(
-            title: 'timers',
+            title: 'rest timers',
             children: <Widget>[
-              NumberInputAndDescription<int>(
-                enabled: _viewModel.state.inputsEnabled,
+              Tabs(
+                leftText: 'Countdown',
+                rightText: 'Stopwatch',
+                handleLeftTap: () =>
+                    _viewModel.setStopwatchRestTimers(isStopWatch: false),
+                handleRightTap: () =>
+                    _viewModel.setStopwatchRestTimers(isStopWatch: true),
+                isLeftSelected: _viewModel.state.stopwatchRestTimers == false,
+                isRightSelected: _viewModel.state.stopwatchRestTimers == true,
                 primaryColor: _viewModel.state.primaryColor,
-                description: 'rest seconds between holds',
-                handleValueChanged: _viewModel.setRestBetweenHolds,
-                initialValue: _viewModel.state.restBetweenHolds,
+                textPrimaryColor: _viewModel.state.textPrimaryColor,
               ),
-              Divider(
-                height: styles.Measurements.m,
-              ),
-              NumberInputAndDescription<int>(
-                enabled: _viewModel.state.inputsEnabled,
-                primaryColor: _viewModel.state.primaryColor,
-                description: 'rest seconds between sets',
-                handleValueChanged: _viewModel.setRestBetweenSets,
-                initialValue: _viewModel.state.restBetweenSets,
-              ),
+              if (_viewModel.state.stopwatchRestTimers == false)
+                Column(
+                  children: <Widget>[
+                    NumberInputAndDescription<int>(
+                      enabled: _viewModel.state.inputsEnabled,
+                      primaryColor: _viewModel.state.primaryColor,
+                      description: 'rest seconds between holds',
+                      handleValueChanged: _viewModel.setRestBetweenHolds,
+                      initialValue: _viewModel.state.restBetweenHolds,
+                    ),
+                    Divider(
+                      height: styles.Measurements.m,
+                    ),
+                    NumberInputAndDescription<int>(
+                      enabled: _viewModel.state.inputsEnabled,
+                      primaryColor: _viewModel.state.primaryColor,
+                      description: 'rest seconds between sets',
+                      handleValueChanged: _viewModel.setRestBetweenSets,
+                      initialValue: _viewModel.state.restBetweenSets,
+                    ),
+                  ],
+                ),
               Divider(
                 height: styles.Measurements.m,
               ),

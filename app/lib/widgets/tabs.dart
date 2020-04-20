@@ -2,23 +2,27 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 
-class HandTabs extends StatelessWidget {
-  HandTabs(
+class Tabs extends StatelessWidget {
+  Tabs(
       {Key key,
       this.primaryColor = styles.Colors.primary,
       this.textPrimaryColor = styles.Lato.xsPrimary,
-      this.handleLeftHandTap,
-      this.handleRightHandTap,
-      this.isLeftHandSelected,
-      this.isRightHandSelected})
+      @required this.leftText,
+      @required this.rightText,
+      @required this.handleLeftTap,
+      @required this.handleRightTap,
+      @required this.isLeftSelected,
+      @required this.isRightSelected})
       : super(key: key);
 
   final TextStyle textPrimaryColor;
   final Color primaryColor;
-  final bool isLeftHandSelected;
-  final bool isRightHandSelected;
-  final VoidCallback handleLeftHandTap;
-  final VoidCallback handleRightHandTap;
+  final String leftText;
+  final String rightText;
+  final bool isLeftSelected;
+  final bool isRightSelected;
+  final VoidCallback handleLeftTap;
+  final VoidCallback handleRightTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +36,15 @@ class HandTabs extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: GestureDetector(
-              onTap: handleLeftHandTap,
+              onTap: handleLeftTap,
               child: Container(
                 decoration: BoxDecoration(
-                    color: isLeftHandSelected
+                    color: isLeftSelected
                         ? primaryColor
                         : styles.Colors.translucent),
                 child: Center(
-                    child: Text('Left',
-                        style: isLeftHandSelected
+                    child: Text(leftText,
+                        style: isLeftSelected
                             ? styles.Lato.xsWhite
                             : textPrimaryColor)),
               ),
@@ -48,15 +52,15 @@ class HandTabs extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              onTap: handleRightHandTap,
+              onTap: handleRightTap,
               child: Container(
                 decoration: BoxDecoration(
-                    color: isRightHandSelected
+                    color: isRightSelected
                         ? primaryColor
                         : styles.Colors.translucent),
                 child: Center(
-                    child: Text('Right',
-                        style: isRightHandSelected
+                    child: Text(rightText,
+                        style: isRightSelected
                             ? styles.Lato.xsWhite
                             : textPrimaryColor)),
               ),

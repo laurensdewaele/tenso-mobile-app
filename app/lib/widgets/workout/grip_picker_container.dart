@@ -5,8 +5,8 @@ import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/radio_button.dart';
+import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/workout/grip_picker.dart';
-import 'package:app/widgets/workout/hand_tabs.dart';
 
 class GripPickerContainer extends StatefulWidget {
   GripPickerContainer({
@@ -101,13 +101,15 @@ class _GripPickerContainerState extends State<GripPickerContainer> {
           handleOneHandedTap: _handleOneHandedTap,
         ),
         Divider(height: styles.Measurements.m),
-        HandTabs(
+        Tabs(
           textPrimaryColor: widget.textPrimaryColor,
           primaryColor: widget.primaryColor,
-          handleLeftHandTap: _handleLeftHandSelected,
-          handleRightHandTap: _handleRightHandSelected,
-          isLeftHandSelected: _handType == HandType.leftHand,
-          isRightHandSelected: _handType == HandType.rightHand,
+          leftText: 'Left',
+          rightText: 'Right',
+          handleLeftTap: _handleLeftHandSelected,
+          handleRightTap: _handleRightHandSelected,
+          isLeftSelected: _handType == HandType.leftHand,
+          isRightSelected: _handType == HandType.rightHand,
         ),
         Divider(height: styles.Measurements.m),
         if (_handType == HandType.leftHand && widget.leftGrip != null)

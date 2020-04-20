@@ -43,20 +43,21 @@ class GeneralPageViewModel {
 
   void _setInitialState() {
     _state = GeneralPageState(
-      inputsEnabled: _workoutViewModel.state.inputsEnabled,
-      primaryColor: _workoutViewModel.state.primaryColor,
-      holdCount: _workoutViewModel.state.holdCount,
-      sets: _workoutViewModel.state.sets,
-      stopwatchRestTimers: _workoutViewModel.state.stopwatchRestTimers,
-      restBetweenHolds: _workoutViewModel.state.restBetweenHolds,
-      restBetweenSets: _workoutViewModel.state.restBetweenSets,
-      board: _workoutViewModel.state.board,
-      holdCountInput: _workoutViewModel.state.holdCount.toString(),
-      setsInput: _workoutViewModel.state.sets.toString(),
-      restBetweenHoldsInput:
-          _workoutViewModel.state.restBetweenHolds.toString(),
-      restBetweenSetsInput: _workoutViewModel.state.restBetweenSets.toString(),
-    );
+        inputsEnabled: _workoutViewModel.state.inputsEnabled,
+        primaryColor: _workoutViewModel.state.primaryColor,
+        holdCount: _workoutViewModel.state.holdCount,
+        sets: _workoutViewModel.state.sets,
+        stopwatchRestTimers: _workoutViewModel.state.stopwatchRestTimers,
+        restBetweenHolds: _workoutViewModel.state.restBetweenHolds,
+        restBetweenSets: _workoutViewModel.state.restBetweenSets,
+        board: _workoutViewModel.state.board,
+        holdCountInput: _workoutViewModel.state.holdCount.toString(),
+        setsInput: _workoutViewModel.state.sets.toString(),
+        restBetweenHoldsInput:
+            _workoutViewModel.state.restBetweenHolds.toString(),
+        restBetweenSetsInput:
+            _workoutViewModel.state.restBetweenSets.toString(),
+        textPrimaryColor: _workoutViewModel.state.textPrimaryColor);
   }
 
   void _validateAndReport() {
@@ -110,8 +111,8 @@ class GeneralPageViewModel {
     ].fold(true, (a, b) => a && b);
   }
 
-  void setStopwatchRestTimers(bool s) {
-    _state = _state.copyWith(stopwatchRestTimers: s);
+  void setStopwatchRestTimers({bool isStopWatch}) {
+    _state = _state.copyWith(stopwatchRestTimers: isStopWatch);
   }
 
   void setHoldCount(String s) {
