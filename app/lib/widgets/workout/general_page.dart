@@ -80,7 +80,7 @@ class _GeneralPageState extends State<GeneralPage> {
               final bool _countdownRestTimer = snapshot.data;
               return SectionWithInfoIcon(
                 appDialogContent: _RestTimersInfo(),
-                title: 'rest timers',
+                title: 'rest timer',
                 children: <Widget>[
                   Tabs(
                     leftText: 'Countdown',
