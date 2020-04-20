@@ -62,7 +62,7 @@ class CountdownScreenViewModel {
   CountdownScreenViewModel({@required Workout workout}) {
     _workout = workout;
     _settings = SettingsState().settings;
-    _initialize();
+    _generateSequence();
   }
 
   Workout _workout;
@@ -70,11 +70,9 @@ class CountdownScreenViewModel {
   Settings _settings;
   List<CountdownViewModel> sequence = [];
 
-  void _initialize() {
+  void _generateSequence() {
     _addPreparationSequence();
-    // Secondly, we need to generate all holds that need to be done.
-    // This means looping over sets, than all the holds and we also need to
-    // include the repetitions per hold.
+
     int _currentHang = 1;
     int _currentHangPerSet = 1;
     int _currentSet = 1;
