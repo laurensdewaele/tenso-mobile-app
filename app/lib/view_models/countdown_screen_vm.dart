@@ -7,9 +7,7 @@ import 'package:app/styles/styles.dart' as styles;
 abstract class _Titles {
   static const String preparation = 'preparation';
   static const String hang = 'hang';
-  static const String restBetweenHolds = 'rest between holds';
-  static const String restBetweenSets = 'rest between sets';
-  static const String restBetweenRepetitions = 'rest between repetitions';
+  static const String recoveryRest = 'recovery rest';
 }
 
 abstract class _HoldLabels {
@@ -78,43 +76,32 @@ class CountdownScreenViewModel {
     // This means looping over sets, than all the holds and we also need to
     // include the repetitions per hold.
     int _currentHang = 1;
+    int _currentHangPerSet = 1;
     int _currentSet = 1;
 
     void _incrementSet() {
       _currentSet++;
-      _currentHang = 1;
+      _currentHangPerSet = 1;
     }
 
     while (_currentSet <= _workout.sets) {
-      for (var _currentHold = 0;
-          _currentHold < _workout.holds.length;
+      for (var _currentHold = 1;
+          _currentHold <= _workout.holdCount;
           _currentHold++) {
         for (var _currentRepetitionPerHold = 1;
             _currentRepetitionPerHold <=
-                _workout.holds[_currentHold].repetitions;
+                _workout.holds[_currentHold - 1].repetitions;
             _currentRepetitionPerHold++) {
-          _addHoldSequence(_currentSet, _currentHold, _currentHang);
-
-          _currentHang++;
-
-          if (_workout.holds[_currentHold].repetitions > 1 &&
-              _currentRepetitionPerHold <
-                  _workout.holds[_currentHold].repetitions) {
-            _addHoldRepetitionRestSequence(
-                _currentSet, _currentHold, _currentHang);
+          _addHoldSequence(_currentSet, _currentHold, _currentHangPerSet);
+          if (_currentHang < workout.totalHangsPerSet * workout.sets) {
+            _addRestAfterHangSequence(
+                _currentSet, _currentHold, _currentHangPerSet);
           }
-        }
-
-        if (_workout.holds.length > 1 &&
-            _currentHold < _workout.holds.length - 1) {
-          _addHoldRestSequence(_currentSet, _currentHold, _currentHang);
+          _currentHang++;
+          _currentHangPerSet++;
         }
       }
-
       _incrementSet();
-      if (_workout.sets > 1 && _currentSet <= _workout.sets) {
-        _addSetRestSequence(_currentSet, _currentHang);
-      }
     }
   }
 
@@ -138,112 +125,59 @@ class CountdownScreenViewModel {
           totalSets: _workout.sets,
           currentSet: 1,
           currentHang: 1,
-          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
+          totalHangsPerSet: workout.totalHangsPerSet),
     );
   }
 
-  void _addHoldSequence(int _currentSet, int _currentHold, int _currentHang) {
+  void _addHoldSequence(
+      int _currentSet, int _currentHold, int _currentHangPerSet) {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
           weightUnit: _workout.weightUnit,
-          addedWeight: _workout.holds[_currentHold].addedWeight,
+          addedWeight: _workout.holds[_currentHold - 1].addedWeight,
           color: styles.Colors.primary,
           title: _Titles.hang,
-          duration: _workout.holds[_currentHold].hangTime,
+          duration: _workout.holds[_currentHold - 1].hangTime,
           holdLabel: _HoldLabels.hang,
           board: _workout.board,
-          leftGrip: _workout.holds[_currentHold].leftGrip,
-          rightGrip: _workout.holds[_currentHold].rightGrip,
-          leftGripBoardHold: _workout.holds[_currentHold].leftGripBoardHold,
-          rightGripBoardHold: _workout.holds[_currentHold].rightGripBoardHold,
-          totalSets: _workout.sets,
-          currentSet: _currentSet,
-          currentHang: _currentHang,
-          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
-    );
-  }
-
-  void _addHoldRepetitionRestSequence(
-      int _currentSet, int _currentHold, int _currentHang) {
-    sequence.add(
-      CountdownViewModel(
-          endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightUnit: _workout.weightUnit,
-          addedWeight: _workout.holds[_currentHold].addedWeight,
-          color: styles.Colors.blue,
-          title: _Titles.restBetweenRepetitions,
-          duration: _workout.holds[_currentHold].restBetweenRepetitions,
-          holdLabel: _HoldLabels.nextUp,
-          board: _workout.board,
-          leftGrip: _workout.holds[_currentHold].leftGrip,
-          rightGrip: _workout.holds[_currentHold].rightGrip,
-          leftGripBoardHold: _workout.holds[_currentHold].leftGripBoardHold,
-          rightGripBoardHold: _workout.holds[_currentHold].rightGripBoardHold,
-          totalSets: _workout.sets,
-          currentSet: _currentSet,
-          currentHang: _currentHang,
-          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
-    );
-  }
-
-  void _addHoldRestSequence(
-      int _currentSet, int _currentHold, int _currentHang) {
-    sequence.add(
-      CountdownViewModel(
-          endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightUnit: _workout.weightUnit,
-          addedWeight: _workout.holds[_currentHold + 1].addedWeight,
-          color: styles.Colors.blue,
-          title: _Titles.restBetweenHolds,
-          duration: _workout.restBetweenHolds,
-          holdLabel: _HoldLabels.nextUp,
-          board: _workout.board,
-          leftGrip: _workout.holds[_currentHold + 1].leftGrip,
-          rightGrip: _workout.holds[_currentHold + 1].rightGrip,
-          leftGripBoardHold: _workout.holds[_currentHold + 1].leftGripBoardHold,
+          leftGrip: _workout.holds[_currentHold - 1].leftGrip,
+          rightGrip: _workout.holds[_currentHold - 1].rightGrip,
+          leftGripBoardHold: _workout.holds[_currentHold - 1].leftGripBoardHold,
           rightGripBoardHold:
-              _workout.holds[_currentHold + 1].rightGripBoardHold,
+              _workout.holds[_currentHold - 1].rightGripBoardHold,
           totalSets: _workout.sets,
           currentSet: _currentSet,
-          currentHang: _currentHang,
-          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
+          currentHang: _currentHangPerSet,
+          totalHangsPerSet: workout.totalHangsPerSet),
     );
   }
 
-  void _addSetRestSequence(int _currentSet, int _currentHang) {
+  void _addRestAfterHangSequence(
+      int _currentSet, int _currentHold, int _currentHangPerSet) {
     sequence.add(
       CountdownViewModel(
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
           weightUnit: _workout.weightUnit,
-          addedWeight: _workout.holds[0].addedWeight,
+          addedWeight: _workout.holds[_currentHold - 1].addedWeight,
           color: styles.Colors.blue,
-          title: _Titles.restBetweenSets,
-          duration: _workout.restBetweenSets,
+          title: _Titles.recoveryRest,
+          duration: _workout.holds[_currentHold - 1].countdownRestDuration,
           holdLabel: _HoldLabels.nextUp,
           board: _workout.board,
-          leftGrip: _workout.holds[0].leftGrip,
-          rightGrip: _workout.holds[0].rightGrip,
-          leftGripBoardHold: _workout.holds[0].leftGripBoardHold,
-          rightGripBoardHold: _workout.holds[0].rightGripBoardHold,
+          leftGrip: _workout.holds[_currentHold - 1].leftGrip,
+          rightGrip: _workout.holds[_currentHold - 1].rightGrip,
+          leftGripBoardHold: _workout.holds[_currentHold - 1].leftGripBoardHold,
+          rightGripBoardHold:
+              _workout.holds[_currentHold - 1].rightGripBoardHold,
           totalSets: _workout.sets,
           currentSet: _currentSet,
-          currentHang: _currentHang,
-          totalHangsPerSet: _getTotalHangs(_workout.holds.toList())),
+          currentHang: _currentHangPerSet,
+          totalHangsPerSet: workout.totalHangsPerSet),
     );
   }
-}
-
-int _getTotalHangs(List<Hold> holds) {
-  int total = 0;
-  holds.forEach((hold) => {total += hold.repetitions});
-  return total;
 }

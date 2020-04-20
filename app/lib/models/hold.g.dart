@@ -55,10 +55,10 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
         ..add(serializers.serialize(object.rightGripBoardHold,
             specifiedType: const FullType(BoardHold)));
     }
-    if (object.restBetweenRepetitions != null) {
+    if (object.countdownRestDuration != null) {
       result
-        ..add('restBetweenRepetitions')
-        ..add(serializers.serialize(object.restBetweenRepetitions,
+        ..add('countdownRestDuration')
+        ..add(serializers.serialize(object.countdownRestDuration,
             specifiedType: const FullType(int)));
     }
     return result;
@@ -99,8 +99,8 @@ class _$HoldSerializer implements StructuredSerializer<Hold> {
           result.repetitions = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'restBetweenRepetitions':
-          result.restBetweenRepetitions = serializers.deserialize(value,
+        case 'countdownRestDuration':
+          result.countdownRestDuration = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
         case 'hangTime':
@@ -132,7 +132,7 @@ class _$Hold extends Hold {
   @override
   final int repetitions;
   @override
-  final int restBetweenRepetitions;
+  final int countdownRestDuration;
   @override
   final int hangTime;
   @override
@@ -148,7 +148,7 @@ class _$Hold extends Hold {
       this.leftGripBoardHold,
       this.rightGripBoardHold,
       this.repetitions,
-      this.restBetweenRepetitions,
+      this.countdownRestDuration,
       this.hangTime,
       this.addedWeight})
       : super._() {
@@ -183,7 +183,7 @@ class _$Hold extends Hold {
         leftGripBoardHold == other.leftGripBoardHold &&
         rightGripBoardHold == other.rightGripBoardHold &&
         repetitions == other.repetitions &&
-        restBetweenRepetitions == other.restBetweenRepetitions &&
+        countdownRestDuration == other.countdownRestDuration &&
         hangTime == other.hangTime &&
         addedWeight == other.addedWeight;
   }
@@ -203,7 +203,7 @@ class _$Hold extends Hold {
                             leftGripBoardHold.hashCode),
                         rightGripBoardHold.hashCode),
                     repetitions.hashCode),
-                restBetweenRepetitions.hashCode),
+                countdownRestDuration.hashCode),
             hangTime.hashCode),
         addedWeight.hashCode));
   }
@@ -217,7 +217,7 @@ class _$Hold extends Hold {
           ..add('leftGripBoardHold', leftGripBoardHold)
           ..add('rightGripBoardHold', rightGripBoardHold)
           ..add('repetitions', repetitions)
-          ..add('restBetweenRepetitions', restBetweenRepetitions)
+          ..add('countdownRestDuration', countdownRestDuration)
           ..add('hangTime', hangTime)
           ..add('addedWeight', addedWeight))
         .toString();
@@ -255,10 +255,10 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
   int get repetitions => _$this._repetitions;
   set repetitions(int repetitions) => _$this._repetitions = repetitions;
 
-  int _restBetweenRepetitions;
-  int get restBetweenRepetitions => _$this._restBetweenRepetitions;
-  set restBetweenRepetitions(int restBetweenRepetitions) =>
-      _$this._restBetweenRepetitions = restBetweenRepetitions;
+  int _countdownRestDuration;
+  int get countdownRestDuration => _$this._countdownRestDuration;
+  set countdownRestDuration(int countdownRestDuration) =>
+      _$this._countdownRestDuration = countdownRestDuration;
 
   int _hangTime;
   int get hangTime => _$this._hangTime;
@@ -278,7 +278,7 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
       _leftGripBoardHold = _$v.leftGripBoardHold?.toBuilder();
       _rightGripBoardHold = _$v.rightGripBoardHold?.toBuilder();
       _repetitions = _$v.repetitions;
-      _restBetweenRepetitions = _$v.restBetweenRepetitions;
+      _countdownRestDuration = _$v.countdownRestDuration;
       _hangTime = _$v.hangTime;
       _addedWeight = _$v.addedWeight;
       _$v = null;
@@ -311,7 +311,7 @@ class HoldBuilder implements Builder<Hold, HoldBuilder> {
               leftGripBoardHold: _leftGripBoardHold?.build(),
               rightGripBoardHold: _rightGripBoardHold?.build(),
               repetitions: repetitions,
-              restBetweenRepetitions: restBetweenRepetitions,
+              countdownRestDuration: countdownRestDuration,
               hangTime: hangTime,
               addedWeight: addedWeight);
     } catch (_) {

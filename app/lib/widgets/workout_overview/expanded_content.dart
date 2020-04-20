@@ -45,12 +45,12 @@ class WorkoutExpandedContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            if (workout.stopwatchRestTimers == false)
+            if (workout.countdownRestTimer == true)
               ExpandedContentTile(
                 title: 'total rest time',
                 content: DisplayDurationSeconds(seconds: workout.totalRestTime),
               ),
-            if (workout.stopwatchRestTimers == true)
+            if (workout.countdownRestTimer == false)
               ExpandedContentTile(
                 title: 'total rest time',
                 content: Text(

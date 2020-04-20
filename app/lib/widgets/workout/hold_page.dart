@@ -113,7 +113,7 @@ class _HoldPageState extends State<HoldPage> {
                       handleValueChanged: _viewModel.setHangTime,
                       initialValue: _state.hangTime,
                     ),
-                    if (_state.stopwatchRestTimers == false)
+                    if (_state.countdownRestTimer == true)
                       Column(
                         children: <Widget>[
                           Divider(
@@ -121,13 +121,13 @@ class _HoldPageState extends State<HoldPage> {
                           ),
                           NumberInputAndDescription<int>(
                             key: ValueKey(
-                                'hold-page-rest_between_reps-${_state.currentHoldIndex}'),
+                                'hold-page-countdown_rest_duration-${_state.currentHoldIndex}'),
                             enabled: _state.inputsEnabled,
                             primaryColor: _state.primaryColor,
-                            description: 'rest seconds between repetitions',
+                            description: 'rest seconds after hang',
                             handleValueChanged:
-                                _viewModel.setRestBetweenRepetitions,
-                            initialValue: _state.restBetweenRepetitions,
+                                _viewModel.setCountdownRestDuration,
+                            initialValue: _state.countdownRestDuration,
                           ),
                         ],
                       ),

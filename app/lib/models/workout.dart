@@ -31,6 +31,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   int get totalRestTime => _calculateTotalRestTime();
   double get averageAddedWeight => _calculateAverageAddedWeight();
   int get averageHangTime => _calculateAverageHangTime();
+  int get totalHangsPerSet => _calculateTotalHangsPerSet();
 
   double _calculateAverageAddedWeight() {
     final List<double> weights = holds.map((w) => w.addedWeight).toList();
@@ -54,33 +55,21 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   }
 
   int _calculateTotalRestTime() {
-    if (stopwatchRestTimers == true) {
+    if (countdownRestTimer == false) {
       return 0;
     }
 
     int _total = 0;
-    int _totalRestBetweenRepsPerSet = 0;
-    int _totalRestBetweenHoldsPerSet = 0;
-    int _totalRestBetweenSets = 0;
-
     holds.forEach((hold) {
-      if (hold.repetitions > 1) {
-        _totalRestBetweenRepsPerSet +=
-            (hold.repetitions - 1) * hold.restBetweenRepetitions;
-      }
+      _total += hold.countdownRestDuration * hold.repetitions;
     });
+    return _total * sets;
+  }
 
-    if (holds.length > 1) {
-      _totalRestBetweenHoldsPerSet += (holds.length - 1) * restBetweenHolds;
-    }
-    if (sets > 1) {
-      _totalRestBetweenSets += (sets - 1) * restBetweenSets;
-    }
-    for (var i = 0; i < sets; i++) {
-      _total += _totalRestBetweenRepsPerSet + _totalRestBetweenHoldsPerSet;
-    }
-    _total += _totalRestBetweenSets;
-    return _total.toInt();
+  int _calculateTotalHangsPerSet() {
+    int total = 0;
+    holds.forEach((hold) => {total += hold.repetitions});
+    return total;
   }
 
   factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;

@@ -74,10 +74,10 @@ class _GeneralPageState extends State<GeneralPage> {
             ],
           ),
           StreamBuilder<bool>(
-            initialData: _viewModel.stopwatchRestTimers,
-            stream: _viewModel.stopwatchRestTimers$,
+            initialData: _viewModel.countdownRestTimer,
+            stream: _viewModel.countdownRestTimer$,
             builder: (context, snapshot) {
-              final bool _stopwatchRestTimers = snapshot.data;
+              final bool _countdownRestTimer = snapshot.data;
               return SectionWithInfoIcon(
                 appDialogContent: _RestTimersInfo(),
                 title: 'rest timers',
@@ -85,40 +85,15 @@ class _GeneralPageState extends State<GeneralPage> {
                   Tabs(
                     leftText: 'Countdown',
                     rightText: 'Stopwatch',
-                    handleLeftTap: () =>
-                        _viewModel.setStopwatchRestTimers(isStopWatch: false),
-                    handleRightTap: () =>
-                        _viewModel.setStopwatchRestTimers(isStopWatch: true),
-                    isLeftSelected: _stopwatchRestTimers == false,
-                    isRightSelected: _stopwatchRestTimers == true,
+                    handleLeftTap: () => _viewModel.setCountdownRestTimer(
+                        countdownRestTimer: true),
+                    handleRightTap: () => _viewModel.setCountdownRestTimer(
+                        countdownRestTimer: false),
+                    isLeftSelected: _countdownRestTimer == true,
+                    isRightSelected: _countdownRestTimer == false,
                     primaryColor: _viewModel.state.primaryColor,
                     textPrimaryColor: _viewModel.state.textPrimaryColor,
                   ),
-                  if (_stopwatchRestTimers == false)
-                    Column(
-                      children: <Widget>[
-                        Divider(
-                          height: styles.Measurements.l,
-                        ),
-                        NumberInputAndDescription<int>(
-                          enabled: _viewModel.state.inputsEnabled,
-                          primaryColor: _viewModel.state.primaryColor,
-                          description: 'rest seconds between holds',
-                          handleValueChanged: _viewModel.setRestBetweenHolds,
-                          initialValue: _viewModel.state.restBetweenHolds,
-                        ),
-                        Divider(
-                          height: styles.Measurements.m,
-                        ),
-                        NumberInputAndDescription<int>(
-                          enabled: _viewModel.state.inputsEnabled,
-                          primaryColor: _viewModel.state.primaryColor,
-                          description: 'rest seconds between sets',
-                          handleValueChanged: _viewModel.setRestBetweenSets,
-                          initialValue: _viewModel.state.restBetweenSets,
-                        ),
-                      ],
-                    ),
                   Divider(
                     height: styles.Measurements.m,
                   ),

@@ -28,7 +28,7 @@ abstract class Hold implements Built<Hold, HoldBuilder> {
   int get repetitions;
 
   @nullable
-  int get countdownDuration;
+  int get countdownRestDuration;
 
   int get hangTime;
   double get addedWeight;

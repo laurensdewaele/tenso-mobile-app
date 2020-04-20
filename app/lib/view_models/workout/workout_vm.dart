@@ -6,7 +6,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:app/data/basic_workout.dart';
-import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
 import 'package:app/state/settings_state.dart';
@@ -55,13 +54,11 @@ class WorkoutViewModel {
 
   void setWorkout() async {
     Workout _workout = Workout((b) => b
-      ..stopwatchRestTimers = state.stopwatchRestTimers
+      ..countdownRestTimer = state.countdownRestTimer
       ..id = state.id
       ..label = state.label
       ..sets = state.sets
       ..holdCount = state.holdCount
-      ..restBetweenHolds = state.restBetweenHolds
-      ..restBetweenSets = state.restBetweenSets
       ..board = state.board.toBuilder()
       ..holds = state.holds.toBuiltList().toBuilder()
       ..name = state.name
@@ -86,20 +83,16 @@ class WorkoutViewModel {
   void setGeneralVariables(
       {@required int holdCount,
       @required int sets,
-      @required bool stopwatchRestTimers,
-      @required int restBetweenHolds,
-      @required int restBetweenSets,
+      @required bool countdownRestTimer,
       @required Board board}) {
     _state$.add(state.copyWith(
         holdCount: holdCount,
         sets: sets,
-        stopwatchRestTimers: stopwatchRestTimers,
-        restBetweenHolds: Nullable(restBetweenHolds),
-        restBetweenSets: Nullable(restBetweenSets),
+        countdownRestTimer: countdownRestTimer,
         board: board,
-        holds: _setRestSecondsBetweenReps(
+        holds: _setCountdownRestDuration(
             holds: _generateHoldsFromHoldCount(holdCount),
-            stopwatchRestTimers: stopwatchRestTimers)));
+            countdownRestTimer: countdownRestTimer)));
   }
 
   void setHoldVariables(
@@ -109,7 +102,7 @@ class WorkoutViewModel {
       @required BoardHold rightGripBoardHold,
       @required int repetitions,
       @required int hangTime,
-      @required int restBetweenRepetitions,
+      @required int countdownRestDuration,
       @required double addedWeight,
       @required HandHold handHold,
       @required int holdIndex}) {
@@ -121,7 +114,7 @@ class WorkoutViewModel {
         ..rightGripBoardHold = rightGripBoardHold?.toBuilder() ?? null
         ..repetitions = repetitions
         ..hangTime = hangTime
-        ..restBetweenRepetitions = restBetweenRepetitions
+        ..countdownRestDuration = countdownRestDuration
         ..addedWeight = addedWeight
         ..handHold = handHold);
 
@@ -155,19 +148,19 @@ class WorkoutViewModel {
     return _holds;
   }
 
-  List<Hold> _setRestSecondsBetweenReps(
-      {List<Hold> holds, bool stopwatchRestTimers}) {
+  List<Hold> _setCountdownRestDuration(
+      {List<Hold> holds, bool countdownRestTimer}) {
     List<Hold> _newHolds = []..addAll(holds);
-    if (stopwatchRestTimers == true) {
+    if (countdownRestTimer == false) {
       _newHolds = holds
-          .map((h) => h.rebuild((b) => b..restBetweenRepetitions = null))
+          .map((h) => h.rebuild((b) => b..countdownRestDuration = null))
           .toList();
     }
-    if (stopwatchRestTimers == false) {
+    if (countdownRestTimer == true) {
       _newHolds = holds
           .map((h) => h.rebuild((b) => b
-            ..restBetweenRepetitions =
-                h.restBetweenRepetitions ?? basicRestTime))
+            ..countdownRestDuration =
+                h.countdownRestDuration ?? basicCountdownRestDuration))
           .toList();
     }
     return _newHolds;

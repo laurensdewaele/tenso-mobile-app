@@ -58,7 +58,7 @@ class HoldPageViewModel {
 
   HoldPageState _buildState(WorkoutViewModelState workoutState, holdIndex) {
     return HoldPageState(
-      stopwatchRestTimers: workoutState.stopwatchRestTimers,
+      countdownRestTimer: workoutState.countdownRestTimer,
       primaryColor: workoutState.primaryColor,
       inputsEnabled: workoutState.inputsEnabled,
       handHold: workoutState.holds[holdIndex].handHold,
@@ -67,8 +67,8 @@ class HoldPageViewModel {
       leftGripBoardHold: workoutState.holds[holdIndex].leftGripBoardHold,
       rightGripBoardHold: workoutState.holds[holdIndex].rightGripBoardHold,
       repetitions: workoutState.holds[holdIndex].repetitions,
-      restBetweenRepetitions:
-          workoutState.holds[holdIndex].restBetweenRepetitions,
+      countdownRestDuration:
+          workoutState.holds[holdIndex].countdownRestDuration,
       hangTime: workoutState.holds[holdIndex].hangTime,
       addedWeight: workoutState.holds[holdIndex].addedWeight,
       board: workoutState.board,
@@ -79,8 +79,8 @@ class HoldPageViewModel {
       textPrimaryColor: workoutState.textPrimaryColor,
       currentHoldIndex: holdIndex,
       repetitionsInput: workoutState.holds[holdIndex].repetitions.toString(),
-      restBetweenRepetitionsInput:
-          workoutState.holds[holdIndex].restBetweenRepetitions.toString(),
+      countdownRestDurationInput:
+          workoutState.holds[holdIndex].countdownRestDuration.toString(),
       hangTimeInput: workoutState.holds[holdIndex].hangTime.toString(),
       addedWeightInput: workoutState.holds[holdIndex].addedWeight.toString(),
     );
@@ -95,7 +95,7 @@ class HoldPageViewModel {
           rightGripBoardHold: _state$.value.rightGripBoardHold,
           repetitions: _state$.value.repetitions,
           hangTime: _state$.value.hangTime,
-          restBetweenRepetitions: _state$.value.restBetweenRepetitions,
+          countdownRestDuration: _state$.value.countdownRestDuration,
           addedWeight: _state$.value.addedWeight,
           handHold: _state$.value.handHold,
           holdIndex: _state$.value.currentHoldIndex);
@@ -104,13 +104,13 @@ class HoldPageViewModel {
   }
 
   bool _validate() {
-    int _restBetweenRepetitions = _state$.value.restBetweenRepetitions;
+    int _countdownRestDuration = _state$.value.countdownRestDuration;
 
     final _repetitions = InputParsers.parseToInt(
         string: _state$.value.repetitionsInput, inputField: 'Repetitions');
-    if (initialState.stopwatchRestTimers == false) {
-      _restBetweenRepetitions = InputParsers.parseToInt(
-          string: _state$.value.restBetweenRepetitionsInput,
+    if (initialState.countdownRestTimer == true) {
+      _countdownRestDuration = InputParsers.parseToInt(
+          string: _state$.value.countdownRestDurationInput,
           inputField: 'Rest between repetitions');
     }
     final _hangTime = InputParsers.parseToInt(
@@ -120,17 +120,16 @@ class HoldPageViewModel {
 
     _state$.add(_state$.value.copyWith(
         repetitions: _repetitions,
-        restBetweenRepetitions: _restBetweenRepetitions,
+        countdownRestDuration: Nullable(_countdownRestDuration),
         hangTime: _hangTime,
         addedWeight: _addedWeight));
 
     final List<bool> _validations = [];
     _validations.add(Validators.biggerThanZero<int>(
         value: _repetitions, inputField: 'Repetitions'));
-    if (initialState.stopwatchRestTimers == false) {
+    if (initialState.countdownRestTimer == true) {
       _validations.add(Validators.biggerThanZero<int>(
-          value: _restBetweenRepetitions,
-          inputField: 'Rest between repetitions'));
+          value: _countdownRestDuration, inputField: 'Rest after hang'));
     }
     _validations.add(Validators.biggerThanZero<int>(
         value: _hangTime, inputField: 'Hang time'));
@@ -165,8 +164,8 @@ class HoldPageViewModel {
     _state$.add(_state$.value.copyWith(repetitionsInput: s));
   }
 
-  void setRestBetweenRepetitions(String s) {
-    _state$.add(_state$.value.copyWith(restBetweenRepetitionsInput: s));
+  void setCountdownRestDuration(String s) {
+    _state$.add(_state$.value.copyWith(countdownRestDurationInput: s));
   }
 
   void setHangTime(String s) {

@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
-import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 
@@ -14,9 +13,7 @@ class WorkoutViewModelState {
   final Label label;
   final int sets;
   final int holdCount;
-  final bool stopwatchRestTimers;
-  final int restBetweenHolds;
-  final int restBetweenSets;
+  final bool countdownRestTimer;
   final Board board;
   final List<Hold> holds;
   final String name;
@@ -35,9 +32,7 @@ class WorkoutViewModelState {
     @required this.label,
     @required this.sets,
     @required this.holdCount,
-    @required this.stopwatchRestTimers,
-    @required this.restBetweenHolds,
-    @required this.restBetweenSets,
+    @required this.countdownRestTimer,
     @required this.board,
     @required this.holds,
     @required this.name,
@@ -55,9 +50,7 @@ class WorkoutViewModelState {
         label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
-        stopwatchRestTimers = workout.stopwatchRestTimers,
-        restBetweenHolds = workout.restBetweenHolds,
-        restBetweenSets = workout.restBetweenSets,
+        countdownRestTimer = workout.countdownRestTimer,
         board = workout.board,
         holds = workout.holds.toList(),
         name = workout.name,
@@ -74,9 +67,7 @@ class WorkoutViewModelState {
         label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
-        stopwatchRestTimers = workout.stopwatchRestTimers,
-        restBetweenHolds = workout.restBetweenHolds,
-        restBetweenSets = workout.restBetweenSets,
+        countdownRestTimer = workout.countdownRestTimer,
         board = workout.board,
         holds = workout.holds.toList(),
         name = workout.name,
@@ -93,9 +84,7 @@ class WorkoutViewModelState {
         label = workout.label,
         sets = workout.sets,
         holdCount = workout.holdCount,
-        stopwatchRestTimers = workout.stopwatchRestTimers,
-        restBetweenHolds = workout.restBetweenHolds,
-        restBetweenSets = workout.restBetweenSets,
+        countdownRestTimer = workout.countdownRestTimer,
         board = workout.board,
         holds = workout.holds.toList(),
         name = workout.name,
@@ -115,9 +104,7 @@ class WorkoutViewModelState {
           label == other.label &&
           sets == other.sets &&
           holdCount == other.holdCount &&
-          stopwatchRestTimers == other.stopwatchRestTimers &&
-          restBetweenHolds == other.restBetweenHolds &&
-          restBetweenSets == other.restBetweenSets &&
+          countdownRestTimer == other.countdownRestTimer &&
           board == other.board &&
           listEquality.equals(holds, other.holds) &&
           name == other.name &&
@@ -135,9 +122,7 @@ class WorkoutViewModelState {
       label.hashCode ^
       sets.hashCode ^
       holdCount.hashCode ^
-      stopwatchRestTimers.hashCode ^
-      restBetweenHolds.hashCode ^
-      restBetweenSets.hashCode ^
+      countdownRestTimer.hashCode ^
       board.hashCode ^
       holds.hashCode ^
       name.hashCode ^
@@ -154,9 +139,7 @@ class WorkoutViewModelState {
     Label label,
     int sets,
     int holdCount,
-    bool stopwatchRestTimers,
-    Nullable<int> restBetweenHolds,
-    Nullable<int> restBetweenSets,
+    bool countdownRestTimer,
     Board board,
     List<Hold> holds,
     String name,
@@ -172,13 +155,7 @@ class WorkoutViewModelState {
       label: label ?? this.label,
       sets: sets ?? this.sets,
       holdCount: holdCount ?? this.holdCount,
-      stopwatchRestTimers: stopwatchRestTimers ?? this.stopwatchRestTimers,
-      restBetweenHolds: restBetweenHolds == null
-          ? this.restBetweenHolds
-          : restBetweenHolds.value,
-      restBetweenSets: restBetweenSets == null
-          ? this.restBetweenSets
-          : restBetweenSets.value,
+      countdownRestTimer: countdownRestTimer ?? this.countdownRestTimer,
       board: board ?? this.board,
       holds: holds ?? this.holds,
       name: name ?? this.name,

@@ -25,8 +25,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       'holdCount',
       serializers.serialize(object.holdCount,
           specifiedType: const FullType(int)),
-      'stopwatchRestTimers',
-      serializers.serialize(object.stopwatchRestTimers,
+      'countdownRestTimer',
+      serializers.serialize(object.countdownRestTimer,
           specifiedType: const FullType(bool)),
       'board',
       serializers.serialize(object.board, specifiedType: const FullType(Board)),
@@ -42,18 +42,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       'label',
       serializers.serialize(object.label, specifiedType: const FullType(Label)),
     ];
-    if (object.restBetweenHolds != null) {
-      result
-        ..add('restBetweenHolds')
-        ..add(serializers.serialize(object.restBetweenHolds,
-            specifiedType: const FullType(int)));
-    }
-    if (object.restBetweenSets != null) {
-      result
-        ..add('restBetweenSets')
-        ..add(serializers.serialize(object.restBetweenSets,
-            specifiedType: const FullType(int)));
-    }
+
     return result;
   }
 
@@ -80,17 +69,9 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           result.holdCount = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'stopwatchRestTimers':
-          result.stopwatchRestTimers = serializers.deserialize(value,
+        case 'countdownRestTimer':
+          result.countdownRestTimer = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'restBetweenHolds':
-          result.restBetweenHolds = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
-        case 'restBetweenSets':
-          result.restBetweenSets = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
           break;
         case 'board':
           result.board.replace(serializers.deserialize(value,
@@ -129,11 +110,7 @@ class _$Workout extends Workout {
   @override
   final int holdCount;
   @override
-  final bool stopwatchRestTimers;
-  @override
-  final int restBetweenHolds;
-  @override
-  final int restBetweenSets;
+  final bool countdownRestTimer;
   @override
   final Board board;
   @override
@@ -152,9 +129,7 @@ class _$Workout extends Workout {
       {this.id,
       this.sets,
       this.holdCount,
-      this.stopwatchRestTimers,
-      this.restBetweenHolds,
-      this.restBetweenSets,
+      this.countdownRestTimer,
       this.board,
       this.holds,
       this.weightUnit,
@@ -170,8 +145,8 @@ class _$Workout extends Workout {
     if (holdCount == null) {
       throw new BuiltValueNullFieldError('Workout', 'holdCount');
     }
-    if (stopwatchRestTimers == null) {
-      throw new BuiltValueNullFieldError('Workout', 'stopwatchRestTimers');
+    if (countdownRestTimer == null) {
+      throw new BuiltValueNullFieldError('Workout', 'countdownRestTimer');
     }
     if (board == null) {
       throw new BuiltValueNullFieldError('Workout', 'board');
@@ -204,9 +179,7 @@ class _$Workout extends Workout {
         id == other.id &&
         sets == other.sets &&
         holdCount == other.holdCount &&
-        stopwatchRestTimers == other.stopwatchRestTimers &&
-        restBetweenHolds == other.restBetweenHolds &&
-        restBetweenSets == other.restBetweenSets &&
+        countdownRestTimer == other.countdownRestTimer &&
         board == other.board &&
         holds == other.holds &&
         weightUnit == other.weightUnit &&
@@ -222,13 +195,9 @@ class _$Workout extends Workout {
                 $jc(
                     $jc(
                         $jc(
-                            $jc(
-                                $jc(
-                                    $jc($jc($jc(0, id.hashCode), sets.hashCode),
-                                        holdCount.hashCode),
-                                    stopwatchRestTimers.hashCode),
-                                restBetweenHolds.hashCode),
-                            restBetweenSets.hashCode),
+                            $jc($jc($jc(0, id.hashCode), sets.hashCode),
+                                holdCount.hashCode),
+                            countdownRestTimer.hashCode),
                         board.hashCode),
                     holds.hashCode),
                 weightUnit.hashCode),
@@ -242,9 +211,7 @@ class _$Workout extends Workout {
           ..add('id', id)
           ..add('sets', sets)
           ..add('holdCount', holdCount)
-          ..add('stopwatchRestTimers', stopwatchRestTimers)
-          ..add('restBetweenHolds', restBetweenHolds)
-          ..add('restBetweenSets', restBetweenSets)
+          ..add('countdownRestTimer', countdownRestTimer)
           ..add('board', board)
           ..add('holds', holds)
           ..add('weightUnit', weightUnit)
@@ -269,20 +236,10 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   int get holdCount => _$this._holdCount;
   set holdCount(int holdCount) => _$this._holdCount = holdCount;
 
-  bool _stopwatchRestTimers;
-  bool get stopwatchRestTimers => _$this._stopwatchRestTimers;
-  set stopwatchRestTimers(bool stopwatchRestTimers) =>
-      _$this._stopwatchRestTimers = stopwatchRestTimers;
-
-  int _restBetweenHolds;
-  int get restBetweenHolds => _$this._restBetweenHolds;
-  set restBetweenHolds(int restBetweenHolds) =>
-      _$this._restBetweenHolds = restBetweenHolds;
-
-  int _restBetweenSets;
-  int get restBetweenSets => _$this._restBetweenSets;
-  set restBetweenSets(int restBetweenSets) =>
-      _$this._restBetweenSets = restBetweenSets;
+  bool _countdownRestTimer;
+  bool get countdownRestTimer => _$this._countdownRestTimer;
+  set countdownRestTimer(bool countdownRestTimer) =>
+      _$this._countdownRestTimer = countdownRestTimer;
 
   BoardBuilder _board;
   BoardBuilder get board => _$this._board ??= new BoardBuilder();
@@ -311,9 +268,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
       _id = _$v.id;
       _sets = _$v.sets;
       _holdCount = _$v.holdCount;
-      _stopwatchRestTimers = _$v.stopwatchRestTimers;
-      _restBetweenHolds = _$v.restBetweenHolds;
-      _restBetweenSets = _$v.restBetweenSets;
+      _countdownRestTimer = _$v.countdownRestTimer;
       _board = _$v.board?.toBuilder();
       _holds = _$v.holds?.toBuilder();
       _weightUnit = _$v.weightUnit;
@@ -346,9 +301,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
               id: id,
               sets: sets,
               holdCount: holdCount,
-              stopwatchRestTimers: stopwatchRestTimers,
-              restBetweenHolds: restBetweenHolds,
-              restBetweenSets: restBetweenSets,
+              countdownRestTimer: countdownRestTimer,
               board: board.build(),
               holds: holds.build(),
               weightUnit: weightUnit,

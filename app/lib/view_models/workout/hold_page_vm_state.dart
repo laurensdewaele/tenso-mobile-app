@@ -14,7 +14,7 @@ class HoldPageState {
   final int currentHold;
   final int currentHoldIndex;
   final Board board;
-  final bool stopwatchRestTimers;
+  final bool countdownRestTimer;
 
   final HandHold handHold;
   final Grip leftGrip;
@@ -22,17 +22,17 @@ class HoldPageState {
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final int repetitions;
-  final int restBetweenRepetitions;
+  final int countdownRestDuration;
   final int hangTime;
   final double addedWeight;
 
   final String repetitionsInput;
-  final String restBetweenRepetitionsInput;
+  final String countdownRestDurationInput;
   final String hangTimeInput;
   final String addedWeightInput;
 
   const HoldPageState({
-    @required this.stopwatchRestTimers,
+    @required this.countdownRestTimer,
     @required this.currentHoldIndex,
     @required this.board,
     @required this.inputsEnabled,
@@ -47,17 +47,17 @@ class HoldPageState {
     @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
     @required this.repetitions,
-    @required this.restBetweenRepetitions,
+    @required this.countdownRestDuration,
     @required this.hangTime,
     @required this.addedWeight,
     @required this.repetitionsInput,
-    @required this.restBetweenRepetitionsInput,
+    @required this.countdownRestDurationInput,
     @required this.hangTimeInput,
     @required this.addedWeightInput,
   });
 
   HoldPageState copyWith({
-    bool stopwatchRestTimers,
+    bool countdownRestTimer,
     int currentHoldIndex,
     Board board,
     bool inputsEnabled,
@@ -72,16 +72,16 @@ class HoldPageState {
     Nullable<BoardHold> leftGripBoardHold,
     Nullable<BoardHold> rightGripBoardHold,
     int repetitions,
-    int restBetweenRepetitions,
+    Nullable<int> countdownRestDuration,
     int hangTime,
     double addedWeight,
     String repetitionsInput,
-    String restBetweenRepetitionsInput,
+    String countdownRestDurationInput,
     String hangTimeInput,
     String addedWeightInput,
   }) {
     return new HoldPageState(
-      stopwatchRestTimers: stopwatchRestTimers ?? this.stopwatchRestTimers,
+      countdownRestTimer: countdownRestTimer ?? this.countdownRestTimer,
       currentHoldIndex: currentHoldIndex ?? this.currentHoldIndex,
       board: board ?? this.board,
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,
@@ -101,13 +101,14 @@ class HoldPageState {
           ? this.rightGripBoardHold
           : rightGripBoardHold.value,
       repetitions: repetitions ?? this.repetitions,
-      restBetweenRepetitions:
-          restBetweenRepetitions ?? this.restBetweenRepetitions,
+      countdownRestDuration: countdownRestDuration == null
+          ? this.countdownRestDuration
+          : countdownRestDuration.value,
       hangTime: hangTime ?? this.hangTime,
       addedWeight: addedWeight ?? this.addedWeight,
       repetitionsInput: repetitionsInput ?? this.repetitionsInput,
-      restBetweenRepetitionsInput:
-          restBetweenRepetitionsInput ?? this.restBetweenRepetitionsInput,
+      countdownRestDurationInput:
+          countdownRestDurationInput ?? this.countdownRestDurationInput,
       hangTimeInput: hangTimeInput ?? this.hangTimeInput,
       addedWeightInput: addedWeightInput ?? this.addedWeightInput,
     );
