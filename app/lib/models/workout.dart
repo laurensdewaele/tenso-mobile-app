@@ -60,10 +60,24 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
     }
 
     int _total = 0;
-    holds.forEach((hold) {
-      _total += hold.countdownRestDuration * hold.repetitions;
-    });
-    return _total * sets;
+    int _currentHang = 1;
+    int _currentSet = 1;
+    final int _totalHangs = totalHangsPerSet * sets;
+    while (_currentSet <= sets) {
+      holds.forEach((hold) {
+        int _currentRep = 1;
+        while (_currentRep <= hold.repetitions) {
+          if (_currentHang < _totalHangs) {
+            _total += hold.countdownRestDuration;
+            _currentHang++;
+          }
+          _currentRep++;
+        }
+      });
+      _currentSet++;
+    }
+
+    return _total;
   }
 
   int _calculateTotalHangsPerSet() {
