@@ -29,7 +29,8 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   Label get label;
   // Color class cannot be serialized by built value
   Color get labelColor => styles.labelColors[label];
-  int get duration => _calculateDuration();
+  int get timeUnderTension => _calculateTimeUnderTension();
+  int get totalRestTime => _calculateTotalRestTime();
   double get averageAddedWeight => _calculateAverageAddedWeight();
   int get averageHangTime => _calculateAverageHangTime();
 
@@ -46,34 +47,42 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
     return total ~/ hangSeconds.length;
   }
 
-  int _calculateDuration() {
-    int total = 0;
-    int totalHangTimePerSet = 0;
-    int totalRestBetweenRepsPerSet = 0;
-    int totalRestBetweenHoldsPerSet = 0;
-    int totalRestBetweenSets = 0;
+  int _calculateTimeUnderTension() {
+    int _total = 0;
+    holds.forEach((hold) {
+      _total += hold.hangTime * hold.repetitions;
+    });
+    return _total * sets;
+  }
+
+  int _calculateTotalRestTime() {
+    if (stopwatchRestTimers == true) {
+      return 0;
+    }
+
+    int _total = 0;
+    int _totalRestBetweenRepsPerSet = 0;
+    int _totalRestBetweenHoldsPerSet = 0;
+    int _totalRestBetweenSets = 0;
 
     holds.forEach((hold) {
       if (hold.repetitions > 1) {
-        totalRestBetweenRepsPerSet +=
+        _totalRestBetweenRepsPerSet +=
             (hold.repetitions - 1) * hold.restBetweenRepetitions;
       }
-      totalHangTimePerSet += hold.hangTime * hold.repetitions;
     });
 
     if (holds.length > 1) {
-      totalRestBetweenHoldsPerSet += (holds.length - 1) * restBetweenHolds;
+      _totalRestBetweenHoldsPerSet += (holds.length - 1) * restBetweenHolds;
     }
     if (sets > 1) {
-      totalRestBetweenSets += (sets - 1) * restBetweenSets;
+      _totalRestBetweenSets += (sets - 1) * restBetweenSets;
     }
     for (var i = 0; i < sets; i++) {
-      total += totalHangTimePerSet +
-          totalRestBetweenRepsPerSet +
-          totalRestBetweenHoldsPerSet;
+      _total += _totalRestBetweenRepsPerSet + _totalRestBetweenHoldsPerSet;
     }
-    total += totalRestBetweenSets;
-    return total.toInt();
+    _total += _totalRestBetweenSets;
+    return _total.toInt();
   }
 
   factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;

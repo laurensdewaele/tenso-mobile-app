@@ -34,8 +34,9 @@ class WorkoutExpandedContent extends StatelessWidget {
               contentContainerHeight: styles.Measurements.xl,
             ),
             ExpandedContentTile(
-              title: 'total duration',
-              content: DisplayDurationSeconds(seconds: workout.duration),
+              title: 'time under tension',
+              content:
+                  DisplayDurationSeconds(seconds: workout.timeUnderTension),
               contentContainerHeight: styles.Measurements.xl,
             ),
           ],
@@ -44,10 +45,20 @@ class WorkoutExpandedContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            ExpandedContentTile(
-              title: 'av. hang time',
-              content: DisplayDurationSeconds(seconds: workout.averageHangTime),
-            ),
+            if (workout.stopwatchRestTimers == false)
+              ExpandedContentTile(
+                title: 'total rest time',
+                content: DisplayDurationSeconds(seconds: workout.totalRestTime),
+              ),
+            if (workout.stopwatchRestTimers == true)
+              ExpandedContentTile(
+                title: 'total rest time',
+                content: Text(
+                  'variable',
+                  textAlign: TextAlign.center,
+                  style: styles.Lato.xsGray,
+                ),
+              ),
             ExpandedContentTile(
                 title: 'av. added weight',
                 content: Text(

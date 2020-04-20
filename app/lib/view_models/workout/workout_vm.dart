@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'package:app/data/basic_workout.dart';
 import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/keyboard.dart';
@@ -54,6 +55,7 @@ class WorkoutViewModel {
 
   void setWorkout() async {
     Workout _workout = Workout((b) => b
+      ..stopwatchRestTimers = state.stopwatchRestTimers
       ..id = state.id
       ..label = state.label
       ..sets = state.sets
@@ -84,7 +86,7 @@ class WorkoutViewModel {
   void setGeneralVariables(
       {@required int holdCount,
       @required int sets,
-        @required bool stopwatchRestTimers,
+      @required bool stopwatchRestTimers,
       @required int restBetweenHolds,
       @required int restBetweenSets,
       @required Board board}) {
@@ -95,7 +97,9 @@ class WorkoutViewModel {
         restBetweenHolds: Nullable(restBetweenHolds),
         restBetweenSets: Nullable(restBetweenSets),
         board: board,
-        holds: _generateHoldsFromHoldCount(holdCount)));
+        holds: _setRestSecondsBetweenReps(
+            holds: _generateHoldsFromHoldCount(holdCount),
+            stopwatchRestTimers: stopwatchRestTimers)));
   }
 
   void setHoldVariables(
@@ -149,5 +153,23 @@ class WorkoutViewModel {
       ];
     }
     return _holds;
+  }
+
+  List<Hold> _setRestSecondsBetweenReps(
+      {List<Hold> holds, bool stopwatchRestTimers}) {
+    List<Hold> _newHolds = []..addAll(holds);
+    if (stopwatchRestTimers == true) {
+      _newHolds = holds
+          .map((h) => h.rebuild((b) => b..restBetweenRepetitions = null))
+          .toList();
+    }
+    if (stopwatchRestTimers == false) {
+      _newHolds = holds
+          .map((h) => h.rebuild((b) => b
+            ..restBetweenRepetitions =
+                h.restBetweenRepetitions ?? basicRestTime))
+          .toList();
+    }
+    return _newHolds;
   }
 }

@@ -104,11 +104,15 @@ class HoldPageViewModel {
   }
 
   bool _validate() {
+    int _restBetweenRepetitions = _state$.value.restBetweenRepetitions;
+
     final _repetitions = InputParsers.parseToInt(
         string: _state$.value.repetitionsInput, inputField: 'Repetitions');
-    final _restBetweenRepetitions = InputParsers.parseToInt(
-        string: _state$.value.restBetweenRepetitionsInput,
-        inputField: 'Rest between repetitions');
+    if (initialState.stopwatchRestTimers == false) {
+      _restBetweenRepetitions = InputParsers.parseToInt(
+          string: _state$.value.restBetweenRepetitionsInput,
+          inputField: 'Rest between repetitions');
+    }
     final _hangTime = InputParsers.parseToInt(
         string: _state$.value.hangTimeInput, inputField: 'Hang time');
     final _addedWeight = InputParsers.parseToDouble(
@@ -123,9 +127,11 @@ class HoldPageViewModel {
     final List<bool> _validations = [];
     _validations.add(Validators.biggerThanZero<int>(
         value: _repetitions, inputField: 'Repetitions'));
-    _validations.add(Validators.biggerThanZero<int>(
-        value: _restBetweenRepetitions,
-        inputField: 'Rest between repetitions'));
+    if (initialState.stopwatchRestTimers == false) {
+      _validations.add(Validators.biggerThanZero<int>(
+          value: _restBetweenRepetitions,
+          inputField: 'Rest between repetitions'));
+    }
     _validations.add(Validators.biggerThanZero<int>(
         value: _hangTime, inputField: 'Hang time'));
     _validations.add(_addedWeight != null);
