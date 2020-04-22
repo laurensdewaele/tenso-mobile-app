@@ -3,20 +3,16 @@
 ## Countdown
 - Stopwatch option for rest periods
 - Skip button
-- Stop and log
-- Stop and discard
-
-- Track time when skipped or stopped => effective time hung
-
+- Stop
+- Paused time
+- Rest time
+- Hung time     
 - Remove +- weight if weight is negative on countdown screen.
-- Keep screen alive when on countdown screen
-- Check if sounds come trough if app on bg 
-
-- Refactor countdown -> everything including ticker in viewModel;?
-- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
-
+- Keep screen alive
+- Check if sounds come through on bg
 
 ### Large prio
+
 
 - Add open crimp, check if all grips available.
 - Graphs
@@ -28,7 +24,7 @@
 
 ### Medium prio
 
-
+- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
 - Tests
@@ -40,7 +36,6 @@
 
 ### Small prio
 
-- Track everything - paused time + preparation time
 - Redesign toast
 - Edit completed workout.
 - Audioplayer service play sound takes a while when not already initted;
