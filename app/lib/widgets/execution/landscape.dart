@@ -24,7 +24,7 @@ class Landscape extends StatelessWidget {
     @required this.weightUnit,
     @required this.orientation,
     @required this.title,
-    this.addedWeight,
+    @required this.addedWeight,
   }) : super(key: key);
 
   final Color primaryColor;

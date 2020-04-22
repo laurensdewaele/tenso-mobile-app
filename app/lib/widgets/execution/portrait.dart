@@ -12,7 +12,7 @@ class Portrait extends StatefulWidget {
   Portrait({
     Key key,
     @required this.primaryColor,
-    @required this.remainingSeconds,
+    @required this.seconds,
     @required this.holdLabel,
     @required this.board,
     @required this.leftGrip,
@@ -26,11 +26,11 @@ class Portrait extends StatefulWidget {
     @required this.weightUnit,
     @required this.orientation,
     @required this.title,
-    this.addedWeight,
+    @required this.addedWeight,
   }) : super(key: key);
 
   final Color primaryColor;
-  final int remainingSeconds;
+  final int seconds;
   final String holdLabel;
   final Board board;
   final Grip leftGrip;
@@ -93,7 +93,7 @@ class __PortraitContentState extends State<Portrait> {
               Expanded(
                 child: Center(
                   child: AutoSizeText(
-                    widget.remainingSeconds.toString(),
+                    widget.seconds.toString(),
                     style: styles.Staatliches.countdownTimer,
                   ),
                 ),

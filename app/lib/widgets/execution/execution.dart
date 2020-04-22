@@ -12,13 +12,13 @@ class Execution extends StatefulWidget {
     @required this.animatedBackgroundHeightFactor,
     @required this.primaryColor,
     @required this.title,
-    @required this.remainingSeconds,
+    @required this.seconds,
     @required this.holdLabel,
     @required this.board,
-    this.leftGrip,
-    this.leftGripBoardHold,
-    this.rightGrip,
-    this.rightGripBoardHold,
+    @required this.leftGrip,
+    @required this.leftGripBoardHold,
+    @required this.rightGrip,
+    @required this.rightGripBoardHold,
     @required this.totalSets,
     @required this.currentSet,
     @required this.totalHangsPerSet,
@@ -27,7 +27,7 @@ class Execution extends StatefulWidget {
     @required this.endSound,
     @required this.beepSound,
     @required this.beepsBeforeEnd,
-    this.addedWeight,
+    @required this.addedWeight,
   }) : super(key: key);
 
   final Sound endSound;
@@ -36,7 +36,7 @@ class Execution extends StatefulWidget {
   final double animatedBackgroundHeightFactor;
   final Color primaryColor;
   final String title;
-  final int remainingSeconds;
+  final int seconds;
   final String holdLabel;
   final Board board;
   final Grip leftGrip;
@@ -60,7 +60,7 @@ class _ExecutionState extends State<Execution> {
   @override
   void initState() {
     _audioPlayerService = AudioPlayerService();
-    if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
+    if (widget.seconds <= widget.beepsBeforeEnd) {
       if (widget.beepSound.muted != true) {
         _audioPlayerService.play(widget.beepSound.filename);
       }
@@ -70,12 +70,12 @@ class _ExecutionState extends State<Execution> {
 
   @override
   void didUpdateWidget(Execution oldWidget) {
-    if (oldWidget.remainingSeconds != widget.remainingSeconds) {
-      if (widget.remainingSeconds == 0) {
+    if (oldWidget.seconds != widget.seconds) {
+      if (widget.seconds == 0) {
         if (widget.endSound.muted != true) {
           _audioPlayerService.play(widget.endSound.filename);
         }
-      } else if (widget.remainingSeconds <= widget.beepsBeforeEnd) {
+      } else if (widget.seconds <= widget.beepsBeforeEnd) {
         if (widget.beepSound.muted != true) {
           _audioPlayerService.play(widget.beepSound.filename);
         }
@@ -111,7 +111,7 @@ class _ExecutionState extends State<Execution> {
                   return Portrait(
                     title: widget.title,
                     weightUnit: widget.weightUnit,
-                    remainingSeconds: widget.remainingSeconds,
+                    seconds: widget.seconds,
                     orientation: _orientation,
                     rightGripBoardHold: widget.rightGripBoardHold,
                     rightGrip: widget.rightGrip,
@@ -150,4 +150,16 @@ class _ExecutionState extends State<Execution> {
       ),
     ]);
   }
+}
+
+abstract class ExecutionTitles {
+  static const String preparation = 'preparation';
+  static const String hang = 'hang';
+  static const String recoveryRest = 'recovery rest';
+}
+
+abstract class ExecutionHoldLabels {
+  static const String nextUp = 'next up';
+  // It needs to be empty, otherwise there's a shift in height across screens
+  static const String hang = '';
 }
