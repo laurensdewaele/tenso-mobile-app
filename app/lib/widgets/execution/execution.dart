@@ -57,6 +57,7 @@ class Execution extends StatefulWidget {
 class _ExecutionState extends State<Execution> {
   AudioPlayerService _audioPlayerService;
 
+  // TODO: Put logic in VM;
   @override
   void initState() {
     _audioPlayerService = AudioPlayerService();
@@ -92,6 +93,7 @@ class _ExecutionState extends State<Execution> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Skip this widget and put it in the screen
     final Orientation _orientation = MediaQuery.of(context).orientation;
     return Stack(children: <Widget>[
       Container(

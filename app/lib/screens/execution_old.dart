@@ -8,7 +8,6 @@
 //import 'package:app/view_models/countdown_screen_vm.dart';
 //import 'package:app/widgets/button.dart';
 //import 'package:app/widgets/divider.dart';
-//import 'package:app/widgets/execution/execution_old.dart';
 //import 'package:app/widgets/dialog.dart';
 //import 'package:app/widgets/icons.dart' as icons;
 //
@@ -18,12 +17,12 @@
 //  final Workout workout;
 //}
 //
-//class ExecutionScreen extends StatefulWidget {
+//class ExecutionScreen3 extends StatefulWidget {
 //  @override
-//  _ExecutionScreenState createState() => _ExecutionScreenState();
+//  _ExecutionScreenState3 createState() => _ExecutionScreenState3();
 //}
 //
-//class _ExecutionScreenState extends State<ExecutionScreen>
+//class _ExecutionScreenState3 extends State<ExecutionScreen3>
 //    with TickerProviderStateMixin {
 //  AnimationController _animationController;
 //  int _currentSequenceIndex = 0;

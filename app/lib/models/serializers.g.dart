@@ -12,10 +12,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CompletedWorkout.serializer)
       ..add(CompletedWorkouts.serializer)
       ..add(DeviceInfo.serializer)
+      ..add(ExecutionEvent.serializer)
+      ..add(ExecutionEventType.serializer)
       ..add(Fingers.serializer)
       ..add(Grip.serializer)
       ..add(HandHold.serializer)
       ..add(HandType.serializer)
+      ..add(History.serializer)
       ..add(Hold.serializer)
       ..add(HoldType.serializer)
       ..add(Label.serializer)
@@ -31,6 +34,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(CompletedWorkout)]),
           () => new ListBuilder<CompletedWorkout>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(ExecutionEvent)]),
+          () => new ListBuilder<ExecutionEvent>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Hold)]),
           () => new ListBuilder<Hold>())

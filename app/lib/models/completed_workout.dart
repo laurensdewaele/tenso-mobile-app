@@ -17,6 +17,8 @@ abstract class CompletedWorkout
 
   String get id;
 
+  History get history;
+
   Workout get workout;
   // Always save the date in UTC
   // Always display the date in local

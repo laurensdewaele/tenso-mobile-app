@@ -7,9 +7,10 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/rate_workout/congratulations_content.dart';
 
 class RateWorkoutArguments {
-  RateWorkoutArguments({this.workout});
+  RateWorkoutArguments({@required this.workout, @required this.history});
 
   final Workout workout;
+  final History history;
 }
 
 class CongratulationsScreen extends StatefulWidget {

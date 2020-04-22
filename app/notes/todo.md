@@ -11,6 +11,7 @@
 - Keep screen alive
 - Check if sounds come through on bg
 
+
 ### Large prio
 
 
@@ -36,6 +37,7 @@
 
 ### Small prio
 
+- Refactor navigation with navigator key?
 - Redesign toast
 - Edit completed workout.
 - Audioplayer service play sound takes a while when not already initted;

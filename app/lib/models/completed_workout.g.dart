@@ -22,6 +22,9 @@ class _$CompletedWorkoutSerializer
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'history',
+      serializers.serialize(object.history,
+          specifiedType: const FullType(History)),
       'workout',
       serializers.serialize(object.workout,
           specifiedType: const FullType(Workout)),
@@ -78,6 +81,10 @@ class _$CompletedWorkoutSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'history':
+          result.history.replace(serializers.deserialize(value,
+              specifiedType: const FullType(History)) as History);
+          break;
         case 'workout':
           result.workout.replace(serializers.deserialize(value,
               specifiedType: const FullType(Workout)) as Workout);
@@ -121,6 +128,8 @@ class _$CompletedWorkout extends CompletedWorkout {
   @override
   final String id;
   @override
+  final History history;
+  @override
   final Workout workout;
   @override
   final DateTime completedDate;
@@ -143,6 +152,7 @@ class _$CompletedWorkout extends CompletedWorkout {
 
   _$CompletedWorkout._(
       {this.id,
+      this.history,
       this.workout,
       this.completedDate,
       this.perceivedExertion,
@@ -154,6 +164,9 @@ class _$CompletedWorkout extends CompletedWorkout {
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'id');
+    }
+    if (history == null) {
+      throw new BuiltValueNullFieldError('CompletedWorkout', 'history');
     }
     if (workout == null) {
       throw new BuiltValueNullFieldError('CompletedWorkout', 'workout');
@@ -183,6 +196,7 @@ class _$CompletedWorkout extends CompletedWorkout {
     if (identical(other, this)) return true;
     return other is CompletedWorkout &&
         id == other.id &&
+        history == other.history &&
         workout == other.workout &&
         completedDate == other.completedDate &&
         perceivedExertion == other.perceivedExertion &&
@@ -201,7 +215,9 @@ class _$CompletedWorkout extends CompletedWorkout {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), workout.hashCode),
+                            $jc(
+                                $jc($jc($jc(0, id.hashCode), history.hashCode),
+                                    workout.hashCode),
                                 completedDate.hashCode),
                             perceivedExertion.hashCode),
                         bodyWeight.hashCode),
@@ -215,6 +231,7 @@ class _$CompletedWorkout extends CompletedWorkout {
   String toString() {
     return (newBuiltValueToStringHelper('CompletedWorkout')
           ..add('id', id)
+          ..add('history', history)
           ..add('workout', workout)
           ..add('completedDate', completedDate)
           ..add('perceivedExertion', perceivedExertion)
@@ -234,6 +251,10 @@ class CompletedWorkoutBuilder
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  HistoryBuilder _history;
+  HistoryBuilder get history => _$this._history ??= new HistoryBuilder();
+  set history(HistoryBuilder history) => _$this._history = history;
 
   WorkoutBuilder _workout;
   WorkoutBuilder get workout => _$this._workout ??= new WorkoutBuilder();
@@ -274,6 +295,7 @@ class CompletedWorkoutBuilder
   CompletedWorkoutBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _history = _$v.history?.toBuilder();
       _workout = _$v.workout?.toBuilder();
       _completedDate = _$v.completedDate;
       _perceivedExertion = _$v.perceivedExertion;
@@ -307,6 +329,7 @@ class CompletedWorkoutBuilder
       _$result = _$v ??
           new _$CompletedWorkout._(
               id: id,
+              history: history.build(),
               workout: workout.build(),
               completedDate: completedDate,
               perceivedExertion: perceivedExertion,
@@ -318,6 +341,8 @@ class CompletedWorkoutBuilder
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'history';
+        history.build();
         _$failedField = 'workout';
         workout.build();
       } catch (e) {

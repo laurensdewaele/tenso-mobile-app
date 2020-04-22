@@ -1,154 +1,195 @@
 import 'package:flutter/widgets.dart';
 
+import 'package:rxdart/rxdart.dart';
+
 import 'package:app/models/models.dart';
-import 'package:app/state/settings_state.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/execution/execution.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/screens/congratulations.dart';
+import 'package:app/services/navigation.dart';
+import 'package:app/view_models/execution_vm_state.dart';
+import 'package:app/view_models/execution_sequence_builder.dart';
 
 class ExecutionViewModel {
+  Workout _workout;
   AnimationController _animationController;
-  TickerProvider _tickerProvider;
-  int _currentSequenceIndex = 0;
-  List<_SequenceEvent> _sequence;
+  int _currentSequenceIndex;
+  List<SequenceEvent> _sequence;
+  NavigationService _navigationService;
+  List<ExecutionEvent> _events = [];
+  History get _history => History((b) => b..history.replace(_events));
+  Stopwatch _pauseTimer;
+
+  BehaviorSubject<ExecutionViewModelState> _state$;
+  Stream<ExecutionViewModelState> get state$ => _state$.stream;
+  ExecutionViewModelState get state => _state$.value;
 
   ExecutionViewModel(
-      {Workout workout,
-      AnimationController animationController,
-      TickerProvider vsync}) {
+      {@required Workout workout,
+      @required AnimationController animationController}) {
+    _workout = workout;
     _animationController = animationController;
-    _sequence = _sequenceBuilder(workout: workout);
-  }
-}
-
-enum _SequenceTypes { hang, preparationRest, countdownRest, stopwatchRest }
-
-class _SequenceEvent {
-  final _SequenceTypes type;
-  final int duration;
-
-  final Sound endSound;
-  final Sound beepSound;
-  final int beepsBeforeEnd;
-  final Color primaryColor;
-  final String title;
-  final String holdLabel;
-  final Board board;
-  final Grip leftGrip;
-  final Grip rightGrip;
-  final BoardHold leftGripBoardHold;
-  final BoardHold rightGripBoardHold;
-  final int totalSets;
-  final int currentSet;
-  final int totalHangsPerSet;
-  final int currentHang;
-  final WeightUnit weightUnit;
-  final double addedWeight;
-
-  const _SequenceEvent({
-    @required this.type,
-    @required this.duration,
-    @required this.endSound,
-    @required this.beepSound,
-    @required this.beepsBeforeEnd,
-    @required this.primaryColor,
-    @required this.title,
-    @required this.holdLabel,
-    @required this.board,
-    @required this.leftGrip,
-    @required this.rightGrip,
-    @required this.leftGripBoardHold,
-    @required this.rightGripBoardHold,
-    @required this.totalSets,
-    @required this.currentSet,
-    @required this.totalHangsPerSet,
-    @required this.currentHang,
-    @required this.weightUnit,
-    @required this.addedWeight,
-  });
-}
-
-List<_SequenceEvent> _sequenceBuilder({@required Workout workout}) {
-  Settings _settings = SettingsState().settings;
-  Workout _workout = workout;
-
-  List<_SequenceEvent> _sequence = [];
-
-  void _addPreparationSequence() {
-    _sequence.add(_SequenceEvent(
-        type: _SequenceTypes.preparationRest,
-        duration: _settings.preparationTimer,
-        endSound: _settings.hangSound,
-        beepSound: _settings.beepSound,
-        beepsBeforeEnd: _settings.beepsBeforeHang,
-        weightUnit: _workout.weightUnit,
-        addedWeight: _workout.holds[0].addedWeight,
-        primaryColor: styles.Colors.blue,
-        title: ExecutionTitles.preparation,
-        holdLabel: ExecutionHoldLabels.nextUp,
-        board: _workout.board,
-        leftGrip: _workout.holds[0].leftGrip,
-        rightGrip: _workout.holds[0].rightGrip,
-        leftGripBoardHold: _workout.holds[0].leftGripBoardHold,
-        rightGripBoardHold: _workout.holds[0].rightGripBoardHold,
-        totalSets: _workout.sets,
-        currentSet: 1,
-        currentHang: 1,
-        totalHangsPerSet: workout.totalHangsPerSet));
+    _sequence = sequenceBuilder(workout: workout);
+    _navigationService = NavigationService();
+    _currentSequenceIndex = 0;
+    _pauseTimer = Stopwatch();
+    _initialize();
   }
 
-  void _addHangSequence(
-      int _currentSet, int _currentHold, int _currentHangPerSet) {
-    _sequence.add(
-      _SequenceEvent(
-          type: _SequenceTypes.hang,
-          duration: _workout.holds[_currentHold - 1].hangTime,
-          endSound: _settings.restSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeRest,
-          weightUnit: _workout.weightUnit,
-          addedWeight: _workout.holds[_currentHold - 1].addedWeight,
-          primaryColor: styles.Colors.primary,
-          title: ExecutionTitles.hang,
-          holdLabel: ExecutionHoldLabels.hang,
-          board: _workout.board,
-          leftGrip: _workout.holds[_currentHold - 1].leftGrip,
-          rightGrip: _workout.holds[_currentHold - 1].rightGrip,
-          leftGripBoardHold: _workout.holds[_currentHold - 1].leftGripBoardHold,
-          rightGripBoardHold:
-              _workout.holds[_currentHold - 1].rightGripBoardHold,
-          totalSets: _workout.sets,
-          currentSet: _currentSet,
-          currentHang: _currentHangPerSet,
-          totalHangsPerSet: workout.totalHangsPerSet),
+  void _initialize() {
+    _state$ = BehaviorSubject.seeded(_buildState());
+    _animationController.addListener(_setState);
+    _animationController.addStatusListener(_animationStatusListener);
+    _start();
+  }
+
+  void _animationStatusListener(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      // TODO: Add to history
+      _nextSequence();
+    }
+  }
+
+  void _setState() {
+    _state$.add(_buildState());
+  }
+
+  void _nextSequence() {
+    final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
+    if (_lastSequence == true) {
+      _stop();
+    }
+    _currentSequenceIndex++;
+    _start();
+  }
+
+  void _start() {
+    final _type = _sequence[_currentSequenceIndex].type;
+    if (_type == SequenceTypes.stopwatchRest) {
+      _animationController.duration = Duration(minutes: 30);
+      _animationController.reset();
+      _animationController.forward();
+    } else {
+      final int _seconds = _sequence[_currentSequenceIndex].duration;
+      _animationController.duration = Duration(seconds: _seconds);
+      _animationController.reset();
+      _animationController.forward();
+    }
+  }
+
+  void _stop() {
+    _animationController.stop(canceled: true);
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
+    _navigationService.pushNamed(Routes.congratulationsScreen,
+        arguments: RateWorkoutArguments(workout: _workout, history: _history));
+  }
+
+  void handleReadyTap() {
+    _animationController.stop(canceled: false);
+    _events.add(ExecutionEvent((b) => b
+      ..type = ExecutionEventType.stopwatchTimer
+      ..elapsed = _getSeconds()));
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
+    _animationController.reset();
+    _nextSequence();
+  }
+
+  void handlePauseTap() {
+    _animationController.stop(canceled: false);
+    _pauseTimer.start();
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
+  }
+
+  void handleSkipTap() {
+    _pauseTimer.stop();
+    if (state.type == SequenceTypes.hang) {
+      _events.add(ExecutionEvent((b) => b
+        ..type = ExecutionEventType.hangTimer
+        ..elapsed = _getSeconds()
+        ..targetDuration = _animationController.duration.inSeconds));
+      _nextSequence();
+    } else {
+      if (_currentSequenceIndex < _sequence.length - 1) {
+        _sequence.removeAt(_currentSequenceIndex + 1);
+      }
+      if (_currentSequenceIndex < _sequence.length - 2) {
+        _sequence.removeAt(_currentSequenceIndex + 2);
+      }
+      final _nextHang = _sequence[_currentSequenceIndex + 1];
+      _nextSequence();
+      // TODO: Notify the user => enlarge indicator?
+    }
+    _events.add(ExecutionEvent((b) => b
+      ..type = ExecutionEventType.pauseTimer
+      ..elapsed = _pauseTimer.elapsed.inSeconds));
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
+    _pauseTimer.reset();
+
+    _navigationService.pop();
+  }
+
+  void handleStopTap() {
+    _stop();
+  }
+
+  void handleResumeTap() {
+    _pauseTimer.stop();
+    _events.add(ExecutionEvent((b) => b
+      ..type = ExecutionEventType.pauseTimer
+      ..elapsed = _pauseTimer.elapsed.inSeconds));
+    _pauseTimer.reset();
+    _events
+        .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
+    _animationController.forward();
+    _navigationService.pop();
+  }
+
+  ExecutionViewModelState _buildState() {
+    final _type = _sequence[_currentSequenceIndex].type;
+    final bool _isStopwatch = _type == SequenceTypes.stopwatchRest;
+    return ExecutionViewModelState(
+      type: _sequence[_currentSequenceIndex].type,
+      duration: _sequence[_currentSequenceIndex].duration,
+      seconds: _getSeconds(),
+      animatedBackgroundHeightFactor:
+          _isStopwatch ? _animationController.value : 0,
+      endSound: _sequence[_currentSequenceIndex].endSound,
+      beepSound: _sequence[_currentSequenceIndex].endSound,
+      beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
+      primaryColor: _sequence[_currentSequenceIndex].primaryColor,
+      title: _sequence[_currentSequenceIndex].title,
+      holdLabel: _sequence[_currentSequenceIndex].holdLabel,
+      board: _sequence[_currentSequenceIndex].board,
+      leftGrip: _sequence[_currentSequenceIndex].leftGrip,
+      rightGrip: _sequence[_currentSequenceIndex].rightGrip,
+      leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
+      rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
+      totalSets: _sequence[_currentSequenceIndex].totalSets,
+      currentSet: _sequence[_currentSequenceIndex].currentSet,
+      totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
+      currentHang: _sequence[_currentSequenceIndex].currentHang,
+      weightUnit: _sequence[_currentSequenceIndex].weightUnit,
+      addedWeight: _sequence[_currentSequenceIndex].addedWeight,
     );
   }
 
-  void _addCountdownRestSequence(
-      int _currentSet, int _currentHold, int _currentHangPerSet) {
-    _sequence.add(
-      _SequenceEvent(
-          type: _SequenceTypes.countdownRest,
-          duration: _workout.holds[_currentHold - 1].countdownRestDuration,
-          endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightUnit: _workout.weightUnit,
-          addedWeight: _workout.holds[_currentHold - 1].addedWeight,
-          primaryColor: styles.Colors.blue,
-          title: ExecutionTitles.recoveryRest,
-          holdLabel: ExecutionHoldLabels.nextUp,
-          board: _workout.board,
-          leftGrip: _workout.holds[_currentHold - 1].leftGrip,
-          rightGrip: _workout.holds[_currentHold - 1].rightGrip,
-          leftGripBoardHold: _workout.holds[_currentHold - 1].leftGripBoardHold,
-          rightGripBoardHold:
-              _workout.holds[_currentHold - 1].rightGripBoardHold,
-          totalSets: _workout.sets,
-          currentSet: _currentSet,
-          currentHang: _currentHangPerSet,
-          totalHangsPerSet: workout.totalHangsPerSet),
-    );
+  int _getSeconds() {
+    if (_sequence[_currentSequenceIndex].type == SequenceTypes.stopwatchRest) {
+      return (_animationController.duration.inSeconds *
+              _animationController.value)
+          .ceil();
+    } else {
+      return (_animationController.duration.inSeconds -
+              _animationController.duration.inSeconds *
+                  _animationController.value)
+          .ceil();
+    }
   }
 
-  return _sequence;
+  void dispose() {
+    _animationController.removeListener(_setState);
+    _animationController.removeStatusListener(_animationStatusListener);
+    _animationController.dispose();
+    _pauseTimer.stop();
+    _state$.close();
+  }
 }
