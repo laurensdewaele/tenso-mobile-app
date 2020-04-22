@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board_with_grips.dart';
-import 'package:app/widgets/countdown/indicator_tabs.dart';
-import 'package:app/widgets/countdown/landscape_info.dart';
+import 'package:app/widgets/execution/indicator_tabs.dart';
+import 'package:app/widgets/execution/landscape_info.dart';
 import 'package:app/widgets/divider.dart';
 
 class Landscape extends StatelessWidget {

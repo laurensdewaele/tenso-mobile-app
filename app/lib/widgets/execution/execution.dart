@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/audio_player.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/countdown/portrait.dart';
-import 'package:app/widgets/countdown/landscape.dart';
+import 'package:app/widgets/execution/portrait.dart';
+import 'package:app/widgets/execution/landscape.dart';
 
-class Countdown extends StatefulWidget {
-  Countdown({
+class Execution extends StatefulWidget {
+  Execution({
     Key key,
     @required this.animatedBackgroundHeightFactor,
     @required this.primaryColor,
@@ -51,10 +51,10 @@ class Countdown extends StatefulWidget {
   final double addedWeight;
 
   @override
-  _CountdownState createState() => _CountdownState();
+  _ExecutionState createState() => _ExecutionState();
 }
 
-class _CountdownState extends State<Countdown> {
+class _ExecutionState extends State<Execution> {
   AudioPlayerService _audioPlayerService;
 
   @override
@@ -69,7 +69,7 @@ class _CountdownState extends State<Countdown> {
   }
 
   @override
-  void didUpdateWidget(Countdown oldWidget) {
+  void didUpdateWidget(Execution oldWidget) {
     if (oldWidget.remainingSeconds != widget.remainingSeconds) {
       if (widget.remainingSeconds == 0) {
         if (widget.endSound.muted != true) {

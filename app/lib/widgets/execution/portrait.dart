@@ -6,7 +6,7 @@ import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/board_with_grips.dart';
-import 'package:app/widgets/countdown/indicator_tabs.dart';
+import 'package:app/widgets/execution/indicator_tabs.dart';
 
 class Portrait extends StatefulWidget {
   Portrait({

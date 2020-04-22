@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/countdown.dart';
+import 'package:app/screens/execution.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/color_square.dart';
@@ -104,7 +104,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
 
   void _handleStart() {
     Navigator.of(context).pushNamed(Routes.countdownScreen,
-        arguments: CountdownScreenArguments(workout: _workout));
+        arguments: ExecutionScreenArguments(workout: _workout));
   }
 
   Widget _buildChildren(BuildContext context, Widget child) {

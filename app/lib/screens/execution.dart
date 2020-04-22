@@ -7,23 +7,23 @@ import 'package:app/screens/congratulations.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/countdown_screen_vm.dart';
 import 'package:app/widgets/button.dart';
-import 'package:app/widgets/countdown/countdown.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/execution/execution.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/icons.dart' as icons;
 
-class CountdownScreenArguments {
-  CountdownScreenArguments({this.workout});
+class ExecutionScreenArguments {
+  ExecutionScreenArguments({this.workout});
 
   final Workout workout;
 }
 
-class CountdownScreen extends StatefulWidget {
+class ExecutionScreen extends StatefulWidget {
   @override
-  _CountdownScreenState createState() => _CountdownScreenState();
+  _ExecutionScreenState createState() => _ExecutionScreenState();
 }
 
-class _CountdownScreenState extends State<CountdownScreen>
+class _ExecutionScreenState extends State<ExecutionScreen>
     with TickerProviderStateMixin {
   AnimationController _animationController;
   int _currentSequenceIndex = 0;
@@ -35,7 +35,7 @@ class _CountdownScreenState extends State<CountdownScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_countdownScreenViewModel == null) {
-      final CountdownScreenArguments routeArguments =
+      final ExecutionScreenArguments routeArguments =
           ModalRoute.of(context).settings.arguments;
       _countdownScreenViewModel =
           CountdownScreenViewModel(workout: routeArguments.workout);
@@ -69,7 +69,7 @@ class _CountdownScreenState extends State<CountdownScreen>
   }
 
   void _animationControllerListener() {
-    // End of a single countdown
+    // End of a single sequence
     if (_animationController.value == 1) {
       // On the end of the whole sequence, navigate back
       if (_currentSequenceIndex == _sequence.length - 1) {
@@ -181,7 +181,7 @@ class _CountdownScreenState extends State<CountdownScreen>
 
     return GestureDetector(
       onTap: _handleTap,
-      child: Countdown(
+      child: Execution(
         weightUnit: _sequence[_currentSequenceIndex].weightUnit,
         addedWeight: _sequence[_currentSequenceIndex].addedWeight,
         animatedBackgroundHeightFactor: _animationController.value,
