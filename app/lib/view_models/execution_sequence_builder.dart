@@ -107,21 +107,11 @@ class SequenceEvent {
       addedWeight: addedWeight ?? this.addedWeight,
     );
   }
-}
 
-List<SequenceEvent> skipNextHangInSequence(
-    List<SequenceEvent> sequence, int currentSequenceIndex) {
-  final List<SequenceEvent> _newSequence = []..addAll(sequence);
-  _newSequence.removeRange(currentSequenceIndex + 1, currentSequenceIndex + 3);
-  return _newSequence.map((SequenceEvent e) {
-    if (e.currentHang >= sequence[currentSequenceIndex].currentHang &&
-        e.currentSet == sequence[currentSequenceIndex].currentSet) {
-      return e.copyWith(
-          currentHang: e.currentHang - 1,
-          totalHangsPerSet: e.totalHangsPerSet - 1);
-    }
-    return e;
-  }).toList();
+  @override
+  String toString() {
+    return 'SequenceEvent{type: $type, duration: $duration, endSound: $endSound, beepSound: $beepSound, beepsBeforeEnd: $beepsBeforeEnd, primaryColor: $primaryColor, title: $title, holdLabel: $holdLabel, board: $board, leftGrip: $leftGrip, rightGrip: $rightGrip, leftGripBoardHold: $leftGripBoardHold, rightGripBoardHold: $rightGripBoardHold, totalSets: $totalSets, currentSet: $currentSet, totalHangsPerSet: $totalHangsPerSet, currentHang: $currentHang, weightUnit: $weightUnit, addedWeight: $addedWeight}';
+  }
 }
 
 List<SequenceEvent> sequenceBuilder({@required Workout workout}) {

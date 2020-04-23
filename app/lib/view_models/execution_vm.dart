@@ -119,11 +119,11 @@ class ExecutionViewModel {
     if (_isPaused == false) {
       _events.add(ExecutionEvent((b) => b
         ..type = _type
-        ..elapsed = _elapsedTimer.elapsed.inMilliseconds));
+        ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
     } else {
       _events.add(ExecutionEvent((b) => b
         ..type = ExecutionEventType.pauseTimer
-        ..elapsed = _elapsedTimer.elapsed.inMilliseconds));
+        ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
     }
   }
 
@@ -194,7 +194,23 @@ class ExecutionViewModel {
       _navigationService.pop();
     } else {
       if (_currentSequenceIndex < _sequence.length - 2) {
-        _sequence = skipNextHangInSequence(_sequence, _currentSequenceIndex);
+        if (_workout.stopwatchRestTimer) {
+          final _current = _sequence[_currentSequenceIndex];
+          final _next = _sequence[_currentSequenceIndex + 3];
+          final _newSequence = <SequenceEvent>[]..addAll(_sequence);
+          _newSequence[_currentSequenceIndex + 3] =
+              _next.copyWith(type: _current.type, duration: _current.duration);
+          _sequence = _newSequence;
+          _currentSequenceIndex = _currentSequenceIndex + 3;
+        } else {
+          final _current = _sequence[_currentSequenceIndex];
+          final _next = _sequence[_currentSequenceIndex + 2];
+          final _newSequence = <SequenceEvent>[]..addAll(_sequence);
+          _newSequence[_currentSequenceIndex + 2] =
+              _next.copyWith(type: _current.type, duration: _current.duration);
+          _sequence = _newSequence;
+          _currentSequenceIndex = _currentSequenceIndex + 2;
+        }
         _setState();
         _elapsedTimer.reset();
         _elapsedTimer.start();

@@ -15,7 +15,7 @@ abstract class ExecutionEvent
 
   ExecutionEventType get type;
   @nullable
-  int get elapsed;
+  int get elapsedMs;
 
   factory ExecutionEvent([void Function(ExecutionEventBuilder) updates]) =
       _$ExecutionEvent;
