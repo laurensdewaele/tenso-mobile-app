@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:app/models/models.dart';
-import 'package:app/services/audio_player.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/execution/portrait.dart';
 import 'package:app/widgets/execution/landscape.dart';
@@ -55,39 +54,13 @@ class Execution extends StatefulWidget {
 }
 
 class _ExecutionState extends State<Execution> {
-  AudioPlayerService _audioPlayerService;
-
-  // TODO: Put logic in VM;
   @override
   void initState() {
-    _audioPlayerService = AudioPlayerService();
-    if (widget.seconds <= widget.beepsBeforeEnd) {
-      if (widget.beepSound.muted != true) {
-        _audioPlayerService.play(widget.beepSound.filename);
-      }
-    }
     super.initState();
   }
 
   @override
-  void didUpdateWidget(Execution oldWidget) {
-    if (oldWidget.seconds != widget.seconds) {
-      if (widget.seconds == 0) {
-        if (widget.endSound.muted != true) {
-          _audioPlayerService.play(widget.endSound.filename);
-        }
-      } else if (widget.seconds <= widget.beepsBeforeEnd) {
-        if (widget.beepSound.muted != true) {
-          _audioPlayerService.play(widget.beepSound.filename);
-        }
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   void dispose() {
-    // TODO: Save progress of workout;
     super.dispose();
   }
 

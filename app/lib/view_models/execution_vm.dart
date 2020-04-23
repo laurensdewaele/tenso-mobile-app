@@ -5,11 +5,13 @@ import 'package:rxdart/rxdart.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.dart';
+import 'package:app/services/audio_player.dart';
 import 'package:app/services/navigation.dart';
 import 'package:app/view_models/execution_vm_state.dart';
 import 'package:app/view_models/execution_sequence_builder.dart';
 
 class ExecutionViewModel {
+  AudioPlayerService _audioPlayerService;
   Workout _workout;
   AnimationController _animationController;
   int _currentSequenceIndex;
@@ -26,29 +28,41 @@ class ExecutionViewModel {
   ExecutionViewModel(
       {@required Workout workout,
       @required AnimationController animationController}) {
+    _audioPlayerService = AudioPlayerService();
     _workout = workout;
     _animationController = animationController;
     _sequence = sequenceBuilder(workout: workout);
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
     _pauseTimer = Stopwatch();
-    _state$ = BehaviorSubject.seeded(_buildState());
+    _state$ = BehaviorSubject.seeded(_buildStateAndPlaySounds());
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
     _start();
   }
 
-  ExecutionViewModelState _buildState() {
+  ExecutionViewModelState _buildStateAndPlaySounds() {
+    final int _seconds = _getSeconds();
     final _type = _sequence[_currentSequenceIndex].type;
     final bool _isStopwatch = _type == SequenceTypes.stopwatchRest;
+    final bool _isCountdown = !_isStopwatch;
+    if (_state$ != null &&
+        _isCountdown == true &&
+        state.beepSound.muted == false &&
+        _seconds != state.seconds &&
+        _seconds != 0 &&
+        _seconds <= state.beepsBeforeEnd) {
+      _audioPlayerService.play(state.beepSound.filename);
+    }
+
     return ExecutionViewModelState(
       type: _sequence[_currentSequenceIndex].type,
       duration: _sequence[_currentSequenceIndex].duration,
-      seconds: _getSeconds(),
+      seconds: _seconds,
       animatedBackgroundHeightFactor:
-          _isStopwatch ? _animationController.value : 0,
+          _isStopwatch == false ? _animationController.value : 0,
       endSound: _sequence[_currentSequenceIndex].endSound,
-      beepSound: _sequence[_currentSequenceIndex].endSound,
+      beepSound: _sequence[_currentSequenceIndex].beepSound,
       beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
       primaryColor: _sequence[_currentSequenceIndex].primaryColor,
       title: _sequence[_currentSequenceIndex].title,
@@ -68,11 +82,20 @@ class ExecutionViewModel {
   }
 
   void _setState() {
-    _state$.add(_buildState());
+    _state$.add(_buildStateAndPlaySounds());
   }
 
+  void _animationStatusListener(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      if (state.endSound.muted == false) {
+        _audioPlayerService.play(state.endSound.filename);
+      }
+      _addCurrentTimerToHistory(completed: true);
+      _nextSequence();
+    }
+  }
 
-  void _addCurrentTimerToHistory() {
+  void _addCurrentTimerToHistory({@required bool completed}) {
     ExecutionEventType _type;
     switch (state.type) {
       case SequenceTypes.hang:
@@ -90,26 +113,18 @@ class ExecutionViewModel {
     }
     _events.add(ExecutionEvent((b) => b
       ..type = _type
-      ..elapsed = _getSeconds()
+      ..elapsed = completed == true ? state.duration : _getSeconds()
       ..targetDuration = state.duration));
-  }
-
-
-  void _animationStatusListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
-      print('animationStatus completed');
-      _addCurrentTimerToHistory();
-      _nextSequence();
-    }
   }
 
   void _nextSequence() {
     final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
     if (_lastSequence == true) {
-      _stop();
+      _stop(completed: true);
+    } else {
+      _currentSequenceIndex++;
+      _start();
     }
-    _currentSequenceIndex++;
-    _start();
   }
 
   void _start() {
@@ -126,9 +141,9 @@ class ExecutionViewModel {
     }
   }
 
-  void _stop() {
+  void _stop({bool completed}) {
     _animationController.stop(canceled: true);
-    _addCurrentTimerToHistory();
+    _addCurrentTimerToHistory(completed: completed);
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
     _navigationService.pushNamed(Routes.congratulationsScreen,
         arguments: RateWorkoutArguments(workout: _workout, history: _history));
@@ -136,16 +151,16 @@ class ExecutionViewModel {
 
   void handleReadyTap() {
     _animationController.stop(canceled: false);
-    _addCurrentTimerToHistory();
+    _addCurrentTimerToHistory(completed: false);
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
     _nextSequence();
   }
 
   void handlePauseTap() {
-    _animationController.stop(canceled: false);
     _pauseTimer.start();
+    _animationController.stop(canceled: false);
+    _addCurrentTimerToHistory(completed: false);
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
-    _addCurrentTimerToHistory();
   }
 
   void handleSkipTap() {
@@ -192,6 +207,10 @@ class ExecutionViewModel {
   }
 
   int _getSeconds() {
+    if (_animationController.duration == null) {
+      return 0;
+    }
+
     if (_sequence[_currentSequenceIndex].type == SequenceTypes.stopwatchRest) {
       return (_animationController.duration.inSeconds *
               _animationController.value)

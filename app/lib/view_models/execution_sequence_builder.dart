@@ -197,13 +197,13 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
                 _workout.holds[_currentHold - 1].repetitions;
             _currentRepetitionPerHold++) {
           if (_currentHang == 1) {
-            _addHangSequence(_currentSet, _currentHold, _currentHangPerSet);
+            _addHangSequence(_currentSet, _currentHold - 1, _currentHangPerSet);
           } else {
-            _addRestSequence(_currentSet, _currentHold, _currentHangPerSet);
+            _addRestSequence(_currentSet, _currentHold - 1, _currentHangPerSet);
             if (workout.stopwatchRestTimer) {
               _addPreparationRestSequence();
             }
-            _addHangSequence(_currentSet, _currentHold, _currentHangPerSet);
+            _addHangSequence(_currentSet, _currentHold - 1, _currentHangPerSet);
           }
           _currentHang++;
           _currentHangPerSet++;

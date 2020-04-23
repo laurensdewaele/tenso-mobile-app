@@ -22,6 +22,7 @@ class CongratulationsScreen extends StatefulWidget {
 
 class _CongratulationsScreenState extends State<CongratulationsScreen> {
   Workout _workout;
+  History _history;
 
   @override
   void didChangeDependencies() {
@@ -29,6 +30,8 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
     final RateWorkoutArguments routeArguments =
         ModalRoute.of(context).settings.arguments;
     _workout = routeArguments.workout;
+    _history = routeArguments.history;
+    print(_history);
   }
 
   @override
@@ -43,9 +46,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
 
   void _handleRateWorkoutTap(context) {
     Navigator.of(context).pushNamed(Routes.rateWorkoutScreen,
-        arguments: RateWorkoutArguments(
-          workout: _workout,
-        ));
+        arguments: RateWorkoutArguments(workout: _workout, history: _history));
   }
 
   @override
