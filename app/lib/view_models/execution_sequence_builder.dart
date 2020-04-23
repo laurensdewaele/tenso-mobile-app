@@ -119,7 +119,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
   Workout _workout = workout;
   List<SequenceEvent> _sequence = [];
 
-  void _addPreparationRestSequence() {
+  void _addPreparationRestSequence(
+      int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(SequenceEvent(
         type: SequenceTypes.preparationRest,
         duration: _settings.preparationTimer,
@@ -127,18 +128,19 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         beepSound: _settings.beepSound,
         beepsBeforeEnd: _settings.beepsBeforeHang,
         weightUnit: _workout.weightUnit,
-        addedWeight: _workout.holds[0].addedWeight,
+        addedWeight: _workout.holds[_currentHoldIndex].addedWeight,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.preparation,
         holdLabel: _ExecutionHoldLabels.nextUp,
         board: _workout.board,
-        leftGrip: _workout.holds[0].leftGrip,
-        rightGrip: _workout.holds[0].rightGrip,
-        leftGripBoardHold: _workout.holds[0].leftGripBoardHold,
-        rightGripBoardHold: _workout.holds[0].rightGripBoardHold,
+        leftGrip: _workout.holds[_currentHoldIndex].leftGrip,
+        rightGrip: _workout.holds[_currentHoldIndex].rightGrip,
+        leftGripBoardHold: _workout.holds[_currentHoldIndex].leftGripBoardHold,
+        rightGripBoardHold:
+            _workout.holds[_currentHoldIndex].rightGripBoardHold,
         totalSets: _workout.sets,
-        currentSet: 1,
-        currentHang: 1,
+        currentSet: _currentSet,
+        currentHang: _currentHangPerSet,
         totalHangsPerSet: workout.totalHangsPerSet));
   }
 
@@ -246,7 +248,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       _currentHangPerSet = 1;
     }
 
-    _addPreparationRestSequence();
+    _addPreparationRestSequence(_currentSet, 0, _currentHangPerSet);
 
     while (_currentSet <= _workout.sets) {
       for (var _currentHold = 1;
@@ -261,7 +263,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           } else {
             _addRestSequence(_currentSet, _currentHold - 1, _currentHangPerSet);
             if (workout.stopwatchRestTimer) {
-              _addPreparationRestSequence();
+              _addPreparationRestSequence(
+                  _currentSet, _currentHold - 1, _currentHangPerSet);
             }
             _addHangSequence(_currentSet, _currentHold - 1, _currentHangPerSet);
           }
