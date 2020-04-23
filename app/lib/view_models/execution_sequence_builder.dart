@@ -63,6 +63,65 @@ class SequenceEvent {
     @required this.weightUnit,
     @required this.addedWeight,
   });
+
+  SequenceEvent copyWith({
+    SequenceTypes type,
+    int duration,
+    Sound endSound,
+    Sound beepSound,
+    int beepsBeforeEnd,
+    Color primaryColor,
+    String title,
+    String holdLabel,
+    Board board,
+    Grip leftGrip,
+    Grip rightGrip,
+    BoardHold leftGripBoardHold,
+    BoardHold rightGripBoardHold,
+    int totalSets,
+    int currentSet,
+    int totalHangsPerSet,
+    int currentHang,
+    WeightUnit weightUnit,
+    double addedWeight,
+  }) {
+    return new SequenceEvent(
+      type: type ?? this.type,
+      duration: duration ?? this.duration,
+      endSound: endSound ?? this.endSound,
+      beepSound: beepSound ?? this.beepSound,
+      beepsBeforeEnd: beepsBeforeEnd ?? this.beepsBeforeEnd,
+      primaryColor: primaryColor ?? this.primaryColor,
+      title: title ?? this.title,
+      holdLabel: holdLabel ?? this.holdLabel,
+      board: board ?? this.board,
+      leftGrip: leftGrip ?? this.leftGrip,
+      rightGrip: rightGrip ?? this.rightGrip,
+      leftGripBoardHold: leftGripBoardHold ?? this.leftGripBoardHold,
+      rightGripBoardHold: rightGripBoardHold ?? this.rightGripBoardHold,
+      totalSets: totalSets ?? this.totalSets,
+      currentSet: currentSet ?? this.currentSet,
+      totalHangsPerSet: totalHangsPerSet ?? this.totalHangsPerSet,
+      currentHang: currentHang ?? this.currentHang,
+      weightUnit: weightUnit ?? this.weightUnit,
+      addedWeight: addedWeight ?? this.addedWeight,
+    );
+  }
+}
+
+List<SequenceEvent> skipNextHangInSequence(
+    List<SequenceEvent> sequence, int currentSequenceIndex) {
+  final List<SequenceEvent> _newSequence = []..addAll(sequence);
+  _newSequence.removeRange(currentSequenceIndex + 1, currentSequenceIndex + 3);
+  return _newSequence.map((SequenceEvent e) {
+    if (e.currentHang >= sequence[currentSequenceIndex].currentHang &&
+        e.currentSet == sequence[currentSequenceIndex].currentSet) {
+      return e.copyWith(
+          currentHang: e.currentHang - 1,
+          totalHangsPerSet: e.totalHangsPerSet - 1);
+    }
+    return e;
+  }).toList();
 }
 
 List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
