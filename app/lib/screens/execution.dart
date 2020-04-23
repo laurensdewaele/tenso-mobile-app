@@ -57,6 +57,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
     _viewModel.handlePauseTap();
     showAppDialog(
         width: styles.Measurements.xxl * 6,
+        landscapeWidth: styles.Measurements.xxl * 7,
         context: context,
         content: _PauseDialog(
             handleResumeTap: _viewModel.handleResumeTap,
@@ -112,6 +113,9 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                           );
                         } else {
                           return Landscape(
+                            seconds: _state.seconds,
+                            handleReadyTap: _viewModel.handleReadyTap,
+                            type: _state.type,
                             title: _state.title,
                             weightUnit: _state.weightUnit,
                             orientation: _orientation,
@@ -152,47 +156,53 @@ class _PauseDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Text(
-          'paused',
-          style: styles.Staatliches.xlBlack,
-        ),
-        Divider(
-          height: styles.Measurements.xs,
-        ),
-        Text(
-          'Progress will be saved when skipping or stopping.',
-          textAlign: TextAlign.center,
-          style: styles.Lato.xsBlack,
-        ),
-        Divider(
-          height: styles.Measurements.xxl,
-        ),
-        Button(
-            text: 'skip',
-            handleTap: handleSkipTap,
-            displayBackground: true,
-            backgroundColor: styles.Colors.gray,
-            leadingIcon: icons.skipIconWhiteXl),
-        Divider(
-          height: styles.Measurements.m,
-        ),
-        Button(
-            text: 'stop',
-            handleTap: handleStopTap,
-            displayBackground: true,
-            backgroundColor: styles.Colors.primary,
-            leadingIcon: icons.stopIconWhiteXl),
-        Divider(
-          height: styles.Measurements.m,
-        ),
-        Button(
-            text: 'resume',
-            handleTap: handleResumeTap,
-            displayBackground: false,
-            leadingIcon: icons.playIconBlackXl),
+    return ListView(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              'paused',
+              style: styles.Staatliches.xlBlack,
+            ),
+            Divider(
+              height: styles.Measurements.xs,
+            ),
+            Text(
+              'Progress will be saved when skipping or stopping.',
+              textAlign: TextAlign.center,
+              style: styles.Lato.xsBlack,
+            ),
+            Divider(
+              height: styles.Measurements.xxl,
+            ),
+            Button(
+                text: 'skip',
+                handleTap: handleSkipTap,
+                displayBackground: true,
+                backgroundColor: styles.Colors.gray,
+                leadingIcon: icons.skipIconWhiteXl),
+            Divider(
+              height: styles.Measurements.m,
+            ),
+            Button(
+                text: 'stop',
+                handleTap: handleStopTap,
+                displayBackground: true,
+                backgroundColor: styles.Colors.primary,
+                leadingIcon: icons.stopIconWhiteXl),
+            Divider(
+              height: styles.Measurements.m,
+            ),
+            Button(
+                text: 'resume',
+                handleTap: handleResumeTap,
+                displayBackground: false,
+                leadingIcon: icons.playIconBlackXl),
+          ],
+        )
       ],
     );
   }

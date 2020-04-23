@@ -5,6 +5,7 @@ import 'package:app/models/models.dart';
 abstract class Colors {
   static const Color primary = const Color.fromRGBO(220, 88, 88, 1);
   static const Color white = const Color.fromRGBO(255, 255, 255, 1);
+  static const Color whiteTranslucent = const Color.fromRGBO(255, 255, 255, .9);
   static const Color black = const Color.fromRGBO(52, 52, 52, 1);
   static const Color darkGray = const Color.fromRGBO(71, 71, 71, 1);
   static const Color gray = const Color.fromRGBO(102, 102, 102, 1);

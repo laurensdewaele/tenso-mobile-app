@@ -7,23 +7,23 @@ Future<void> showAppDialog({
   @required BuildContext context,
   @required Widget content,
   double width,
+  double landscapeWidth,
 }) {
   return showCupertinoDialog(
       context: context,
-      builder: (BuildContext context) =>
-          AppDialog(content: content, width: width));
+      builder: (BuildContext context) => AppDialog(
+          content: content, width: width, landscapeWidth: landscapeWidth));
 }
 
 /// Creates an iOS-style alert dialog.
 class AppDialog extends StatelessWidget {
-  const AppDialog({
-    Key key,
-    @required this.content,
-    this.width,
-  }) : super(key: key);
+  const AppDialog(
+      {Key key, @required this.content, this.width, this.landscapeWidth})
+      : super(key: key);
 
   final Widget content;
   final double width;
+  final double landscapeWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class AppDialog extends StatelessWidget {
                   ));
             } else {
               return Container(
-                  width: styles.kLandscapeDialogWidth,
+                  width: landscapeWidth ?? styles.kLandscapeDialogWidth,
                   child: _Dialog(
                     content: content,
                   ));
