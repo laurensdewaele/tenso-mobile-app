@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:app/helpers/nullable.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:app/models/models.dart';
@@ -104,57 +103,4 @@ class ExecutionViewModelState {
       currentHang.hashCode ^
       weightUnit.hashCode ^
       addedWeight.hashCode;
-
-  ExecutionViewModelState copyWith({
-    SequenceTypes type,
-    Nullable<int> duration,
-    int seconds,
-    double animatedBackgroundHeightFactor,
-    Sound endSound,
-    Sound beepSound,
-    int beepsBeforeEnd,
-    Color primaryColor,
-    String title,
-    String holdLabel,
-    Board board,
-    Nullable<Grip> leftGrip,
-    Nullable<Grip> rightGrip,
-    Nullable<BoardHold> leftGripBoardHold,
-    Nullable<BoardHold> rightGripBoardHold,
-    int totalSets,
-    int currentSet,
-    int totalHangsPerSet,
-    int currentHang,
-    WeightUnit weightUnit,
-    Nullable<double> addedWeight,
-  }) {
-    return new ExecutionViewModelState(
-      type: type ?? this.type,
-      duration: duration == null ? this.duration : duration.value,
-      seconds: seconds ?? this.seconds,
-      animatedBackgroundHeightFactor:
-          animatedBackgroundHeightFactor ?? this.animatedBackgroundHeightFactor,
-      endSound: endSound ?? this.endSound,
-      beepSound: beepSound ?? this.beepSound,
-      beepsBeforeEnd: beepsBeforeEnd ?? this.beepsBeforeEnd,
-      primaryColor: primaryColor ?? this.primaryColor,
-      title: title ?? this.title,
-      holdLabel: holdLabel ?? this.holdLabel,
-      board: board ?? this.board,
-      leftGrip: leftGrip == null ? this.leftGrip : leftGrip.value,
-      rightGrip: rightGrip == null ? this.rightGrip : rightGrip.value,
-      leftGripBoardHold: leftGripBoardHold == null
-          ? this.leftGripBoardHold
-          : leftGripBoardHold.value,
-      rightGripBoardHold: rightGripBoardHold == null
-          ? this.rightGripBoardHold
-          : rightGripBoardHold.value,
-      totalSets: totalSets ?? this.totalSets,
-      currentSet: currentSet ?? this.currentSet,
-      totalHangsPerSet: totalHangsPerSet ?? this.totalHangsPerSet,
-      currentHang: currentHang ?? this.currentHang,
-      weightUnit: weightUnit ?? this.weightUnit,
-      addedWeight: addedWeight == null ? this.addedWeight : addedWeight.value,
-    );
-  }
 }
