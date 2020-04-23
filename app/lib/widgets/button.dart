@@ -10,7 +10,7 @@ class Button extends StatelessWidget {
       @required this.handleTap,
       this.backgroundColor = styles.Colors.primary,
       this.leadingIcon,
-      this.leadingIconTextCentered,
+      this.leadingIconTextCentered = false,
       this.displayBackground = true,
       this.width = double.infinity});
 
@@ -40,7 +40,7 @@ class Button extends StatelessWidget {
             color: styles.Colors.translucent,
           );
 
-    final iconRow = leadingIconTextCentered != null
+    final iconRow = leadingIconTextCentered == true
         ? _ButtonIconCenteredText(
             text: text,
             textStyle: _textStyle,

@@ -56,6 +56,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
   void _pause() {
     _viewModel.handlePauseTap();
     showAppDialog(
+        width: styles.Measurements.xxl * 6,
         context: context,
         content: _PauseDialog(
             handleResumeTap: _viewModel.handleResumeTap,
@@ -68,71 +69,70 @@ class _ExecutionScreenState extends State<ExecutionScreen>
     final Orientation _orientation = MediaQuery.of(context).orientation;
 
     return StreamBuilder<ExecutionViewModelState>(
-      initialData: _viewModel.state,
-      stream: _viewModel.state$,
-      builder: (context, snapshot) {
-        final _state = snapshot.data;
-        return GestureDetector(
-          onTap: _pause,
-          child: Stack(children: <Widget>[
-            Container(
-              decoration: BoxDecoration(color: styles.Colors.bgBlack),
-            ),
-            FractionallySizedBox(
-                heightFactor: _state.animatedBackgroundHeightFactor,
-                child: Container(
-                  decoration: BoxDecoration(color: _state.primaryColor),
-                )),
-            SafeArea(
-              child: Padding(
-                  padding: const EdgeInsets.all(styles.Measurements.m),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      if (_orientation == Orientation.portrait) {
-                        return Portrait(
-                          title: _state.title,
-                          weightUnit: _state.weightUnit,
-                          seconds: _state.seconds,
-                          orientation: _orientation,
-                          rightGripBoardHold: _state.rightGripBoardHold,
-                          rightGrip: _state.rightGrip,
-                          leftGripBoardHold: _state.leftGripBoardHold,
-                          leftGrip: _state.leftGrip,
-                          board: _state.board,
-                          currentHang: _state.currentHang,
-                          currentSet: _state.currentSet,
-                          holdLabel: _state.holdLabel,
-                          primaryColor: _state.primaryColor,
-                          totalHangsPerSet: _state.totalHangsPerSet,
-                          totalSets: _state.totalSets,
-                          addedWeight: _state.addedWeight,
-                        );
-                      } else {
-                        return Landscape(
-                          title: _state.title,
-                          weightUnit: _state.weightUnit,
-                          orientation: _orientation,
-                          rightGripBoardHold: _state.rightGripBoardHold,
-                          rightGrip: _state.rightGrip,
-                          leftGripBoardHold: _state.leftGripBoardHold,
-                          leftGrip: _state.leftGrip,
-                          board: _state.board,
-                          currentHang: _state.currentHang,
-                          currentSet: _state.currentSet,
-                          holdLabel: _state.holdLabel,
-                          primaryColor: _state.primaryColor,
-                          totalHangsPerSet: _state.totalHangsPerSet,
-                          totalSets: _state.totalSets,
-                          addedWeight: _state.addedWeight,
-                        );
-                      }
-                    },
+        initialData: _viewModel.state,
+        stream: _viewModel.state$,
+        builder: (context, snapshot) {
+          final _state = snapshot.data;
+          return GestureDetector(
+            onTap: _pause,
+            child: Stack(children: <Widget>[
+              Container(
+                decoration: BoxDecoration(color: styles.Colors.bgBlack),
+              ),
+              FractionallySizedBox(
+                  heightFactor: _state.animatedBackgroundHeightFactor,
+                  child: Container(
+                    decoration: BoxDecoration(color: _state.primaryColor),
                   )),
-            ),
-          ]),
-        );
-      }
-    );
+              SafeArea(
+                child: Padding(
+                    padding: const EdgeInsets.all(styles.Measurements.m),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        if (_orientation == Orientation.portrait) {
+                          return Portrait(
+                            title: _state.title,
+                            weightUnit: _state.weightUnit,
+                            seconds: _state.seconds,
+                            orientation: _orientation,
+                            rightGripBoardHold: _state.rightGripBoardHold,
+                            rightGrip: _state.rightGrip,
+                            leftGripBoardHold: _state.leftGripBoardHold,
+                            leftGrip: _state.leftGrip,
+                            board: _state.board,
+                            currentHang: _state.currentHang,
+                            currentSet: _state.currentSet,
+                            holdLabel: _state.holdLabel,
+                            primaryColor: _state.primaryColor,
+                            totalHangsPerSet: _state.totalHangsPerSet,
+                            totalSets: _state.totalSets,
+                            addedWeight: _state.addedWeight,
+                          );
+                        } else {
+                          return Landscape(
+                            title: _state.title,
+                            weightUnit: _state.weightUnit,
+                            orientation: _orientation,
+                            rightGripBoardHold: _state.rightGripBoardHold,
+                            rightGrip: _state.rightGrip,
+                            leftGripBoardHold: _state.leftGripBoardHold,
+                            leftGrip: _state.leftGrip,
+                            board: _state.board,
+                            currentHang: _state.currentHang,
+                            currentSet: _state.currentSet,
+                            holdLabel: _state.holdLabel,
+                            primaryColor: _state.primaryColor,
+                            totalHangsPerSet: _state.totalHangsPerSet,
+                            totalSets: _state.totalSets,
+                            addedWeight: _state.addedWeight,
+                          );
+                        }
+                      },
+                    )),
+              ),
+            ]),
+          );
+        });
   }
 }
 
@@ -158,29 +158,39 @@ class _PauseDialog extends StatelessWidget {
           style: styles.Staatliches.xlBlack,
         ),
         Divider(
+          height: styles.Measurements.xs,
+        ),
+        Text(
+          'Progress will be saved when skipping or stopping.',
+          textAlign: TextAlign.center,
+          style: styles.Lato.xsBlack,
+        ),
+        Divider(
           height: styles.Measurements.xxl,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Button(
-                  text: 'play',
-                  handleTap: handleResumeTap,
-                  displayBackground: false,
-                  leadingIcon: icons.playIconBlackXl),
-            ),
-            Expanded(
-              flex: 1,
-              child: Button(
-                text: 'stop',
-                handleTap: handleStopTap,
-                leadingIcon: icons.stopIconWhiteXl,
-              ),
-            )
-          ],
-        )
+        Button(
+            text: 'skip',
+            handleTap: handleSkipTap,
+            displayBackground: true,
+            backgroundColor: styles.Colors.gray,
+            leadingIcon: icons.skipIconWhiteXl),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        Button(
+            text: 'stop',
+            handleTap: handleStopTap,
+            displayBackground: true,
+            backgroundColor: styles.Colors.primary,
+            leadingIcon: icons.stopIconWhiteXl),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        Button(
+            text: 'resume',
+            handleTap: handleResumeTap,
+            displayBackground: false,
+            leadingIcon: icons.playIconBlackXl),
       ],
     );
   }

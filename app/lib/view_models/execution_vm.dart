@@ -187,23 +187,33 @@ class ExecutionViewModel {
     _elapsedTimer.stop();
     if (state.type == SequenceTypes.hang) {
       _addCurrentTimerToHistory();
+      _events
+          .add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
+      _isPaused = false;
       _nextSequence();
+      _navigationService.pop();
     } else {
-      if (_currentSequenceIndex < _sequence.length - 1) {
-        _sequence.removeAt(_currentSequenceIndex + 1);
-      }
       if (_currentSequenceIndex < _sequence.length - 2) {
-        _sequence.removeAt(_currentSequenceIndex + 2);
+        _sequence.removeAt(_currentSequenceIndex + 1);
+        _sequence.removeAt(_currentSequenceIndex + 1);
+        // TODO: Notify the user => enlarge indicator?
+        // Adjust the indicators from built sequence.
+        // Rebuild next sequence
+        _addCurrentTimerToHistory();
+        _elapsedTimer.reset();
+        _elapsedTimer.start();
+        _animationController.forward();
+        _events
+            .add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
+        _isPaused = false;
+        _navigationService.pop();
+      } else {
+        _isPaused = false;
+        _events
+            .add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
+        _stop();
       }
-      _addCurrentTimerToHistory();
-      _elapsedTimer.reset();
-      _elapsedTimer.start();
-      _animationController.forward();
-      // TODO: Notify the user => enlarge indicator?
     }
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
-    _isPaused = false;
-    _navigationService.pop();
   }
 
   void handleStopTap() {

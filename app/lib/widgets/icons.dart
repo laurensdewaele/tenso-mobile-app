@@ -68,6 +68,12 @@ const stopIconWhiteXl = Icon(
     size: styles.IconMeasurements.xl,
     color: styles.Colors.white);
 
+const skipIconWhiteXl = Icon(
+    iconData: IconData(0xf4ac,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.xl,
+    color: styles.Colors.white);
+
 const downCaretBlack = Icon(
   iconData: IconData(0xf3d0,
       fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
