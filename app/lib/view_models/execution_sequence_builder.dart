@@ -5,7 +5,18 @@ import 'package:flutter/foundation.dart';
 import 'package:app/models/models.dart';
 import 'package:app/state/settings_state.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/execution/execution.dart';
+
+abstract class _ExecutionTitles {
+  static const String preparation = 'preparation';
+  static const String hang = 'hang';
+  static const String recoveryRest = 'recovery rest';
+}
+
+abstract class _ExecutionHoldLabels {
+  static const String nextUp = 'next up';
+  // It needs to be empty, otherwise there's a shift in height across screens
+  static const String hang = '';
+}
 
 enum SequenceTypes { hang, preparationRest, countdownRest, stopwatchRest }
 
@@ -69,8 +80,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         weightUnit: _workout.weightUnit,
         addedWeight: _workout.holds[0].addedWeight,
         primaryColor: styles.Colors.blue,
-        title: ExecutionTitles.preparation,
-        holdLabel: ExecutionHoldLabels.nextUp,
+        title: _ExecutionTitles.preparation,
+        holdLabel: _ExecutionHoldLabels.nextUp,
         board: _workout.board,
         leftGrip: _workout.holds[0].leftGrip,
         rightGrip: _workout.holds[0].rightGrip,
@@ -94,8 +105,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[_currentHoldIndex].addedWeight,
           primaryColor: styles.Colors.primary,
-          title: ExecutionTitles.hang,
-          holdLabel: ExecutionHoldLabels.hang,
+          title: _ExecutionTitles.hang,
+          holdLabel: _ExecutionHoldLabels.hang,
           board: _workout.board,
           leftGrip: _workout.holds[_currentHoldIndex].leftGrip,
           rightGrip: _workout.holds[_currentHoldIndex].rightGrip,
@@ -122,8 +133,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[_currentHoldIndex].addedWeight,
           primaryColor: styles.Colors.blue,
-          title: ExecutionTitles.recoveryRest,
-          holdLabel: ExecutionHoldLabels.nextUp,
+          title: _ExecutionTitles.recoveryRest,
+          holdLabel: _ExecutionHoldLabels.nextUp,
           board: _workout.board,
           leftGrip: _workout.holds[_currentHoldIndex].leftGrip,
           rightGrip: _workout.holds[_currentHoldIndex].rightGrip,
@@ -150,8 +161,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           weightUnit: _workout.weightUnit,
           addedWeight: _workout.holds[_currentHoldIndex].addedWeight,
           primaryColor: styles.Colors.blue,
-          title: ExecutionTitles.recoveryRest,
-          holdLabel: ExecutionHoldLabels.nextUp,
+          title: _ExecutionTitles.recoveryRest,
+          holdLabel: _ExecutionHoldLabels.nextUp,
           board: _workout.board,
           leftGrip: _workout.holds[_currentHoldIndex].leftGrip,
           rightGrip: _workout.holds[_currentHoldIndex].rightGrip,
