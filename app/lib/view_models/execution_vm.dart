@@ -193,32 +193,40 @@ class ExecutionViewModel {
       _nextSequence();
       _navigationService.pop();
     } else {
-      if (_currentSequenceIndex < _sequence.length - 2) {
-        if (_workout.stopwatchRestTimer) {
-          final _current = _sequence[_currentSequenceIndex];
-          final _next = _sequence[_currentSequenceIndex + 3];
-          final _newSequence = <SequenceEvent>[]..addAll(_sequence);
+      final SequenceEvent _current = _sequence[_currentSequenceIndex];
+      SequenceEvent _next;
+      final List<SequenceEvent> _newSequence = []..addAll(_sequence);
+
+      if (_workout.stopwatchRestTimer) {
+        if (_currentSequenceIndex < _sequence.length - 3) {
+          _next = _sequence[_currentSequenceIndex + 3];
           _newSequence[_currentSequenceIndex + 3] =
               _next.copyWith(type: _current.type, duration: _current.duration);
-          _sequence = _newSequence;
           _currentSequenceIndex = _currentSequenceIndex + 3;
         } else {
-          final _current = _sequence[_currentSequenceIndex];
-          final _next = _sequence[_currentSequenceIndex + 2];
-          final _newSequence = <SequenceEvent>[]..addAll(_sequence);
+          _stop();
+          return;
+        }
+      }
+
+      if (!_workout.stopwatchRestTimer) {
+        if (_currentSequenceIndex < _sequence.length - 2) {
+          _next = _sequence[_currentSequenceIndex + 2];
           _newSequence[_currentSequenceIndex + 2] =
               _next.copyWith(type: _current.type, duration: _current.duration);
-          _sequence = _newSequence;
           _currentSequenceIndex = _currentSequenceIndex + 2;
+        } else {
+          _stop();
+          return;
         }
-        _setState();
-        _elapsedTimer.reset();
-        _elapsedTimer.start();
-        _animationController.forward();
-        _navigationService.pop();
-      } else {
-        _stop();
       }
+
+      _sequence = _newSequence;
+      _setState();
+      _elapsedTimer.reset();
+      _elapsedTimer.start();
+      _animationController.forward();
+      _navigationService.pop();
     }
   }
 
