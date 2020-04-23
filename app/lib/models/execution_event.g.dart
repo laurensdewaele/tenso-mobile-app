@@ -30,12 +30,6 @@ class _$ExecutionEventSerializer
         ..add(serializers.serialize(object.elapsed,
             specifiedType: const FullType(int)));
     }
-    if (object.targetDuration != null) {
-      result
-        ..add('targetDuration')
-        ..add(serializers.serialize(object.targetDuration,
-            specifiedType: const FullType(int)));
-    }
     return result;
   }
 
@@ -60,10 +54,6 @@ class _$ExecutionEventSerializer
           result.elapsed = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'targetDuration':
-          result.targetDuration = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
       }
     }
 
@@ -76,14 +66,11 @@ class _$ExecutionEvent extends ExecutionEvent {
   final ExecutionEventType type;
   @override
   final int elapsed;
-  @override
-  final int targetDuration;
 
   factory _$ExecutionEvent([void Function(ExecutionEventBuilder) updates]) =>
       (new ExecutionEventBuilder()..update(updates)).build();
 
-  _$ExecutionEvent._({this.type, this.elapsed, this.targetDuration})
-      : super._() {
+  _$ExecutionEvent._({this.type, this.elapsed}) : super._() {
     if (type == null) {
       throw new BuiltValueNullFieldError('ExecutionEvent', 'type');
     }
@@ -102,22 +89,19 @@ class _$ExecutionEvent extends ExecutionEvent {
     if (identical(other, this)) return true;
     return other is ExecutionEvent &&
         type == other.type &&
-        elapsed == other.elapsed &&
-        targetDuration == other.targetDuration;
+        elapsed == other.elapsed;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc(0, type.hashCode), elapsed.hashCode), targetDuration.hashCode));
+    return $jf($jc($jc(0, type.hashCode), elapsed.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ExecutionEvent')
           ..add('type', type)
-          ..add('elapsed', elapsed)
-          ..add('targetDuration', targetDuration))
+          ..add('elapsed', elapsed))
         .toString();
   }
 }
@@ -134,18 +118,12 @@ class ExecutionEventBuilder
   int get elapsed => _$this._elapsed;
   set elapsed(int elapsed) => _$this._elapsed = elapsed;
 
-  int _targetDuration;
-  int get targetDuration => _$this._targetDuration;
-  set targetDuration(int targetDuration) =>
-      _$this._targetDuration = targetDuration;
-
   ExecutionEventBuilder();
 
   ExecutionEventBuilder get _$this {
     if (_$v != null) {
       _type = _$v.type;
       _elapsed = _$v.elapsed;
-      _targetDuration = _$v.targetDuration;
       _$v = null;
     }
     return this;
@@ -166,9 +144,8 @@ class ExecutionEventBuilder
 
   @override
   _$ExecutionEvent build() {
-    final _$result = _$v ??
-        new _$ExecutionEvent._(
-            type: type, elapsed: elapsed, targetDuration: targetDuration);
+    final _$result =
+        _$v ?? new _$ExecutionEvent._(type: type, elapsed: elapsed);
     replace(_$result);
     return _$result;
   }

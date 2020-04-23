@@ -19,7 +19,8 @@ class ExecutionViewModel {
   NavigationService _navigationService;
   List<ExecutionEvent> _events = [];
   History get _history => History((b) => b..history.replace(_events));
-  Stopwatch _pauseTimer;
+  Stopwatch _elapsedTimer;
+  bool _isPaused;
 
   BehaviorSubject<ExecutionViewModelState> _state$;
   Stream<ExecutionViewModelState> get state$ => _state$.stream;
@@ -34,7 +35,9 @@ class ExecutionViewModel {
     _sequence = sequenceBuilder(workout: workout);
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
-    _pauseTimer = Stopwatch();
+    // This is only used for building the history
+    _elapsedTimer = Stopwatch();
+    _isPaused = false;
     _state$ = BehaviorSubject.seeded(_buildStateAndPlaySounds());
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
@@ -42,7 +45,7 @@ class ExecutionViewModel {
   }
 
   ExecutionViewModelState _buildStateAndPlaySounds() {
-    final int _seconds = _getSeconds();
+    final int _seconds = _getDisplaySeconds();
     final _type = _sequence[_currentSequenceIndex].type;
     final bool _isStopwatch = _type == SequenceTypes.stopwatchRest;
     final bool _isCountdown = !_isStopwatch;
@@ -90,12 +93,13 @@ class ExecutionViewModel {
       if (state.endSound.muted == false) {
         _audioPlayerService.play(state.endSound.filename);
       }
-      _addCurrentTimerToHistory(completed: true);
+      _elapsedTimer.stop();
+      _addCurrentTimerToHistory();
       _nextSequence();
     }
   }
 
-  void _addCurrentTimerToHistory({@required bool completed}) {
+  void _addCurrentTimerToHistory() {
     ExecutionEventType _type;
     switch (state.type) {
       case SequenceTypes.hang:
@@ -111,16 +115,23 @@ class ExecutionViewModel {
         _type = ExecutionEventType.preparationTimer;
         break;
     }
-    _events.add(ExecutionEvent((b) => b
-      ..type = _type
-      ..elapsed = completed == true ? state.duration : _getSeconds()
-      ..targetDuration = state.duration));
+
+    if (_isPaused == false) {
+      _events.add(ExecutionEvent((b) => b
+        ..type = _type
+        ..elapsed = _elapsedTimer.elapsed.inMilliseconds));
+    } else {
+      _events.add(ExecutionEvent((b) => b
+        ..type = ExecutionEventType.pauseTimer
+        ..elapsed = _elapsedTimer.elapsed.inMilliseconds));
+    }
   }
 
   void _nextSequence() {
+    _elapsedTimer.reset();
     final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
     if (_lastSequence == true) {
-      _stop(completed: true);
+      _stop();
     } else {
       _currentSequenceIndex++;
       _start();
@@ -139,37 +150,43 @@ class ExecutionViewModel {
       _animationController.reset();
       _animationController.forward();
     }
+    _elapsedTimer.start();
   }
 
-  void _stop({bool completed}) {
+  void _stop() {
+    if (_elapsedTimer.isRunning == true) {
+      _elapsedTimer.stop();
+      _addCurrentTimerToHistory();
+    }
     _animationController.stop(canceled: true);
-    _addCurrentTimerToHistory(completed: completed);
+    _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
     _navigationService.pushNamed(Routes.congratulationsScreen,
         arguments: RateWorkoutArguments(workout: _workout, history: _history));
   }
 
   void handleReadyTap() {
+    _elapsedTimer.stop();
     _animationController.stop(canceled: false);
-    _addCurrentTimerToHistory(completed: false);
+    _addCurrentTimerToHistory();
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
     _nextSequence();
   }
 
   void handlePauseTap() {
-    _pauseTimer.start();
+    _elapsedTimer.stop();
     _animationController.stop(canceled: false);
-    _addCurrentTimerToHistory(completed: false);
+    _addCurrentTimerToHistory();
+    _isPaused = true;
+    _elapsedTimer.reset();
+    _elapsedTimer.start();
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
   }
 
   void handleSkipTap() {
-    _pauseTimer.stop();
+    _elapsedTimer.stop();
     if (state.type == SequenceTypes.hang) {
-      _events.add(ExecutionEvent((b) => b
-        ..type = ExecutionEventType.hangTimer
-        ..elapsed = _getSeconds()
-        ..targetDuration = state.duration));
+      _addCurrentTimerToHistory();
       _nextSequence();
     } else {
       if (_currentSequenceIndex < _sequence.length - 1) {
@@ -178,15 +195,14 @@ class ExecutionViewModel {
       if (_currentSequenceIndex < _sequence.length - 2) {
         _sequence.removeAt(_currentSequenceIndex + 2);
       }
+      _addCurrentTimerToHistory();
+      _elapsedTimer.reset();
+      _elapsedTimer.start();
       _animationController.forward();
       // TODO: Notify the user => enlarge indicator?
     }
-    _events.add(ExecutionEvent((b) => b
-      ..type = ExecutionEventType.pauseTimer
-      ..elapsed = _pauseTimer.elapsed.inSeconds));
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
-    _pauseTimer.reset();
-
+    _isPaused = false;
     _navigationService.pop();
   }
 
@@ -195,18 +211,18 @@ class ExecutionViewModel {
   }
 
   void handleResumeTap() {
-    _pauseTimer.stop();
-    _events.add(ExecutionEvent((b) => b
-      ..type = ExecutionEventType.pauseTimer
-      ..elapsed = _pauseTimer.elapsed.inSeconds));
-    _pauseTimer.reset();
+    _elapsedTimer.stop();
+    _addCurrentTimerToHistory();
+    _elapsedTimer.reset();
+    _elapsedTimer.start();
+    _isPaused = false;
     _events
         .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
     _animationController.forward();
     _navigationService.pop();
   }
 
-  int _getSeconds() {
+  int _getDisplaySeconds() {
     if (_animationController.duration == null) {
       return 0;
     }
@@ -227,7 +243,7 @@ class ExecutionViewModel {
     _animationController.removeListener(_setState);
     _animationController.removeStatusListener(_animationStatusListener);
     _animationController.dispose();
-    _pauseTimer.stop();
+    _elapsedTimer.stop();
     _state$.close();
   }
 }
