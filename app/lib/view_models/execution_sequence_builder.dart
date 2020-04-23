@@ -197,7 +197,6 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
                 _workout.holds[_currentHold - 1].repetitions;
             _currentRepetitionPerHold++) {
           if (_currentHang == 1) {
-            // No rest before the hang if it's the first hang
             _addHangSequence(_currentSet, _currentHold, _currentHangPerSet);
           } else {
             _addRestSequence(_currentSet, _currentHold, _currentHangPerSet);

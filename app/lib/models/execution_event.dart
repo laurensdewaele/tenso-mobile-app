@@ -19,7 +19,14 @@ abstract class ExecutionEvent
   @nullable
   int get targetDuration;
   @nullable
-  double get completionPercentage;
+  double get completionPercentage => _calculateCompletionPercentage();
+
+  double _calculateCompletionPercentage() {
+    if (elapsed != null && targetDuration != null && targetDuration > 0) {
+      return elapsed / targetDuration * 100;
+    }
+    return null;
+  }
 
   factory ExecutionEvent([void Function(ExecutionEventBuilder) updates]) =
       _$ExecutionEvent;

@@ -36,12 +36,6 @@ class _$ExecutionEventSerializer
         ..add(serializers.serialize(object.targetDuration,
             specifiedType: const FullType(int)));
     }
-    if (object.completionPercentage != null) {
-      result
-        ..add('completionPercentage')
-        ..add(serializers.serialize(object.completionPercentage,
-            specifiedType: const FullType(double)));
-    }
     return result;
   }
 
@@ -70,10 +64,6 @@ class _$ExecutionEventSerializer
           result.targetDuration = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'completionPercentage':
-          result.completionPercentage = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
       }
     }
 
@@ -88,14 +78,11 @@ class _$ExecutionEvent extends ExecutionEvent {
   final int elapsed;
   @override
   final int targetDuration;
-  @override
-  final double completionPercentage;
 
   factory _$ExecutionEvent([void Function(ExecutionEventBuilder) updates]) =>
       (new ExecutionEventBuilder()..update(updates)).build();
 
-  _$ExecutionEvent._(
-      {this.type, this.elapsed, this.targetDuration, this.completionPercentage})
+  _$ExecutionEvent._({this.type, this.elapsed, this.targetDuration})
       : super._() {
     if (type == null) {
       throw new BuiltValueNullFieldError('ExecutionEvent', 'type');
@@ -116,16 +103,13 @@ class _$ExecutionEvent extends ExecutionEvent {
     return other is ExecutionEvent &&
         type == other.type &&
         elapsed == other.elapsed &&
-        targetDuration == other.targetDuration &&
-        completionPercentage == other.completionPercentage;
+        targetDuration == other.targetDuration;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, type.hashCode), elapsed.hashCode),
-            targetDuration.hashCode),
-        completionPercentage.hashCode));
+        $jc($jc(0, type.hashCode), elapsed.hashCode), targetDuration.hashCode));
   }
 
   @override
@@ -133,8 +117,7 @@ class _$ExecutionEvent extends ExecutionEvent {
     return (newBuiltValueToStringHelper('ExecutionEvent')
           ..add('type', type)
           ..add('elapsed', elapsed)
-          ..add('targetDuration', targetDuration)
-          ..add('completionPercentage', completionPercentage))
+          ..add('targetDuration', targetDuration))
         .toString();
   }
 }
@@ -156,11 +139,6 @@ class ExecutionEventBuilder
   set targetDuration(int targetDuration) =>
       _$this._targetDuration = targetDuration;
 
-  double _completionPercentage;
-  double get completionPercentage => _$this._completionPercentage;
-  set completionPercentage(double completionPercentage) =>
-      _$this._completionPercentage = completionPercentage;
-
   ExecutionEventBuilder();
 
   ExecutionEventBuilder get _$this {
@@ -168,7 +146,6 @@ class ExecutionEventBuilder
       _type = _$v.type;
       _elapsed = _$v.elapsed;
       _targetDuration = _$v.targetDuration;
-      _completionPercentage = _$v.completionPercentage;
       _$v = null;
     }
     return this;
@@ -191,10 +168,7 @@ class ExecutionEventBuilder
   _$ExecutionEvent build() {
     final _$result = _$v ??
         new _$ExecutionEvent._(
-            type: type,
-            elapsed: elapsed,
-            targetDuration: targetDuration,
-            completionPercentage: completionPercentage);
+            type: type, elapsed: elapsed, targetDuration: targetDuration);
     replace(_$result);
     return _$result;
   }

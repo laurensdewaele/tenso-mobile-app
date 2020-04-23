@@ -32,115 +32,10 @@ class ExecutionViewModel {
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
     _pauseTimer = Stopwatch();
-    _initialize();
-  }
-
-  void _initialize() {
     _state$ = BehaviorSubject.seeded(_buildState());
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
     _start();
-  }
-
-  void _animationStatusListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
-      // TODO: Add to history
-      _nextSequence();
-    }
-  }
-
-  void _setState() {
-    _state$.add(_buildState());
-  }
-
-  void _nextSequence() {
-    final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
-    if (_lastSequence == true) {
-      _stop();
-    }
-    _currentSequenceIndex++;
-    _start();
-  }
-
-  void _start() {
-    final _type = _sequence[_currentSequenceIndex].type;
-    if (_type == SequenceTypes.stopwatchRest) {
-      _animationController.duration = Duration(minutes: 30);
-      _animationController.reset();
-      _animationController.forward();
-    } else {
-      final int _seconds = _sequence[_currentSequenceIndex].duration;
-      _animationController.duration = Duration(seconds: _seconds);
-      _animationController.reset();
-      _animationController.forward();
-    }
-  }
-
-  void _stop() {
-    _animationController.stop(canceled: true);
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
-    _navigationService.pushNamed(Routes.congratulationsScreen,
-        arguments: RateWorkoutArguments(workout: _workout, history: _history));
-  }
-
-  void handleReadyTap() {
-    _animationController.stop(canceled: false);
-    _events.add(ExecutionEvent((b) => b
-      ..type = ExecutionEventType.stopwatchTimer
-      ..elapsed = _getSeconds()));
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
-    _animationController.reset();
-    _nextSequence();
-  }
-
-  void handlePauseTap() {
-    _animationController.stop(canceled: false);
-    _pauseTimer.start();
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
-  }
-
-  void handleSkipTap() {
-    _pauseTimer.stop();
-    if (state.type == SequenceTypes.hang) {
-      _events.add(ExecutionEvent((b) => b
-        ..type = ExecutionEventType.hangTimer
-        ..elapsed = _getSeconds()
-        ..targetDuration = _animationController.duration.inSeconds));
-      _nextSequence();
-    } else {
-      if (_currentSequenceIndex < _sequence.length - 1) {
-        _sequence.removeAt(_currentSequenceIndex + 1);
-      }
-      if (_currentSequenceIndex < _sequence.length - 2) {
-        _sequence.removeAt(_currentSequenceIndex + 2);
-      }
-      final _nextHang = _sequence[_currentSequenceIndex + 1];
-      _nextSequence();
-      // TODO: Notify the user => enlarge indicator?
-    }
-    _events.add(ExecutionEvent((b) => b
-      ..type = ExecutionEventType.pauseTimer
-      ..elapsed = _pauseTimer.elapsed.inSeconds));
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
-    _pauseTimer.reset();
-
-    _navigationService.pop();
-  }
-
-  void handleStopTap() {
-    _stop();
-  }
-
-  void handleResumeTap() {
-    _pauseTimer.stop();
-    _events.add(ExecutionEvent((b) => b
-      ..type = ExecutionEventType.pauseTimer
-      ..elapsed = _pauseTimer.elapsed.inSeconds));
-    _pauseTimer.reset();
-    _events
-        .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
-    _animationController.forward();
-    _navigationService.pop();
   }
 
   ExecutionViewModelState _buildState() {
@@ -170,6 +65,130 @@ class ExecutionViewModel {
       weightUnit: _sequence[_currentSequenceIndex].weightUnit,
       addedWeight: _sequence[_currentSequenceIndex].addedWeight,
     );
+  }
+
+  void _setState() {
+    _state$.add(_buildState());
+  }
+
+
+  void _addCurrentTimerToHistory() {
+    ExecutionEventType _type;
+    switch (state.type) {
+      case SequenceTypes.hang:
+        _type = ExecutionEventType.hangTimer;
+        break;
+      case SequenceTypes.stopwatchRest:
+        _type = ExecutionEventType.stopwatchTimer;
+        break;
+      case SequenceTypes.countdownRest:
+        _type = ExecutionEventType.countdownTimer;
+        break;
+      case SequenceTypes.preparationRest:
+        _type = ExecutionEventType.preparationTimer;
+        break;
+    }
+    _events.add(ExecutionEvent((b) => b
+      ..type = _type
+      ..elapsed = _getSeconds()
+      ..targetDuration = state.duration));
+  }
+
+
+  void _animationStatusListener(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      print('animationStatus completed');
+      _addCurrentTimerToHistory();
+      _nextSequence();
+    }
+  }
+
+  void _nextSequence() {
+    final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
+    if (_lastSequence == true) {
+      _stop();
+    }
+    _currentSequenceIndex++;
+    _start();
+  }
+
+  void _start() {
+    final _type = _sequence[_currentSequenceIndex].type;
+    if (_type == SequenceTypes.stopwatchRest) {
+      _animationController.duration = Duration(minutes: 30);
+      _animationController.reset();
+      _animationController.forward();
+    } else {
+      final int _seconds = _sequence[_currentSequenceIndex].duration;
+      _animationController.duration = Duration(seconds: _seconds);
+      _animationController.reset();
+      _animationController.forward();
+    }
+  }
+
+  void _stop() {
+    _animationController.stop(canceled: true);
+    _addCurrentTimerToHistory();
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
+    _navigationService.pushNamed(Routes.congratulationsScreen,
+        arguments: RateWorkoutArguments(workout: _workout, history: _history));
+  }
+
+  void handleReadyTap() {
+    _animationController.stop(canceled: false);
+    _addCurrentTimerToHistory();
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
+    _nextSequence();
+  }
+
+  void handlePauseTap() {
+    _animationController.stop(canceled: false);
+    _pauseTimer.start();
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
+    _addCurrentTimerToHistory();
+  }
+
+  void handleSkipTap() {
+    _pauseTimer.stop();
+    if (state.type == SequenceTypes.hang) {
+      _events.add(ExecutionEvent((b) => b
+        ..type = ExecutionEventType.hangTimer
+        ..elapsed = _getSeconds()
+        ..targetDuration = state.duration));
+      _nextSequence();
+    } else {
+      if (_currentSequenceIndex < _sequence.length - 1) {
+        _sequence.removeAt(_currentSequenceIndex + 1);
+      }
+      if (_currentSequenceIndex < _sequence.length - 2) {
+        _sequence.removeAt(_currentSequenceIndex + 2);
+      }
+      _animationController.forward();
+      // TODO: Notify the user => enlarge indicator?
+    }
+    _events.add(ExecutionEvent((b) => b
+      ..type = ExecutionEventType.pauseTimer
+      ..elapsed = _pauseTimer.elapsed.inSeconds));
+    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
+    _pauseTimer.reset();
+
+    _navigationService.pop();
+  }
+
+  void handleStopTap() {
+    _stop();
+  }
+
+  void handleResumeTap() {
+    _pauseTimer.stop();
+    _events.add(ExecutionEvent((b) => b
+      ..type = ExecutionEventType.pauseTimer
+      ..elapsed = _pauseTimer.elapsed.inSeconds));
+    _pauseTimer.reset();
+    _events
+        .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
+    _animationController.forward();
+    _navigationService.pop();
   }
 
   int _getSeconds() {

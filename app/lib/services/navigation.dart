@@ -12,7 +12,8 @@ class NavigationService {
     String routeName, {
     Object arguments,
   }) {
-    return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
+    return navigatorKey.currentState
+        .pushNamed<T>(routeName, arguments: arguments);
   }
 
   bool pop() {
