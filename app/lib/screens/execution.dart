@@ -91,6 +91,8 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                       builder: (context, constraints) {
                         if (_orientation == Orientation.portrait) {
                           return Portrait(
+                            handleReadyTap: _viewModel.handleReadyTap,
+                            type: _state.type,
                             title: _state.title,
                             weightUnit: _state.weightUnit,
                             seconds: _state.seconds,
