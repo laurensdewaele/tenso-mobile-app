@@ -107,11 +107,6 @@ class SequenceEvent {
       addedWeight: addedWeight ?? this.addedWeight,
     );
   }
-
-  @override
-  String toString() {
-    return 'SequenceEvent{type: $type, duration: $duration, endSound: $endSound, beepSound: $beepSound, beepsBeforeEnd: $beepsBeforeEnd, primaryColor: $primaryColor, title: $title, holdLabel: $holdLabel, board: $board, leftGrip: $leftGrip, rightGrip: $rightGrip, leftGripBoardHold: $leftGripBoardHold, rightGripBoardHold: $rightGripBoardHold, totalSets: $totalSets, currentSet: $currentSet, totalHangsPerSet: $totalHangsPerSet, currentHang: $currentHang, weightUnit: $weightUnit, addedWeight: $addedWeight}';
-  }
 }
 
 List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
