@@ -16,7 +16,7 @@ abstract class Routes {
   static const String settingsScreen = '/settingsScreen';
   static const String progressScreen = '/progressScreen';
   static const String soundSettingsScreen = '/soundSettingsScreen';
-  static const String countdownScreen = '/countdownScreen';
+  static const String executionScreen = '/executionScreen';
   static const String calendarScreen = '/calendarScreen';
   static const String feedbackScreen = '/feedbackScreen';
   static const String congratulationsScreen = '/congratulationsScreen';
@@ -30,7 +30,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
-    Routes.countdownScreen: (context) => ExecutionScreen(),
+    Routes.executionScreen: (context) => ExecutionScreen(),
     Routes.calendarScreen: (context) => CalendarScreen(),
     Routes.congratulationsScreen: (context) => CongratulationsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),

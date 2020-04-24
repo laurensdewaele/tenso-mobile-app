@@ -103,7 +103,7 @@ class _WorkoutOverviewCardState extends State<WorkoutOverviewCard>
   }
 
   void _handleStart() {
-    Navigator.of(context).pushNamed(Routes.countdownScreen,
+    Navigator.of(context).pushNamed(Routes.executionScreen,
         arguments: ExecutionScreenArguments(workout: _workout));
   }
 
