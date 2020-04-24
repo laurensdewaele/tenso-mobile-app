@@ -146,6 +146,7 @@ class ExecutionViewModel {
   void _stop() {
     _animationController.stop(canceled: true);
     _resetElapsedTimerAndAddToHistory();
+    // settings _isPaused should be always be done after _resetElapsedTimerAndAddToHistory
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
 
@@ -168,9 +169,9 @@ class ExecutionViewModel {
   void handlePauseTap() {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
-    _elapsedTimer.start();
     _isPaused = true;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
+    _elapsedTimer.start();
   }
 
   void handleSkipTap() {
@@ -225,10 +226,10 @@ class ExecutionViewModel {
 
   void handleResumeTap() {
     _resetElapsedTimerAndAddToHistory();
-    _elapsedTimer.start();
     _isPaused = false;
     _events
         .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
+    _elapsedTimer.start();
     _animationController.forward();
     _navigationService.pop();
   }
