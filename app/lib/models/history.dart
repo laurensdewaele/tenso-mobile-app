@@ -13,6 +13,17 @@ abstract class History implements Built<History, HistoryBuilder> {
   static Serializer<History> get serializer => _$historySerializer;
 
   BuiltList<ExecutionEvent> get history;
+  int get timeUnderTension => _calculateTimeUnderTension();
+
+  int _calculateTimeUnderTension() {
+    final List<int> _times = history
+        .toList()
+        .where((ExecutionEvent e) => e.type == ExecutionEventType.hangTimer)
+        .map((e) => e.elapsedMs)
+        .toList();
+
+    return _times.fold(0, (previous, current) => previous + current);
+  }
 
   factory History([void Function(HistoryBuilder) updates]) = _$History;
   History._();
@@ -22,6 +33,7 @@ abstract class History implements Built<History, HistoryBuilder> {
   }
 
   static History fromJson(String jsonString) {
-    return serializers.deserializeWith(History.serializer, json.decode(jsonString));
+    return serializers.deserializeWith(
+        History.serializer, json.decode(jsonString));
   }
 }

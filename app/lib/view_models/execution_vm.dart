@@ -46,11 +46,9 @@ class ExecutionViewModel {
 
   ExecutionViewModelState _buildStateAndPlaySounds() {
     final int _seconds = _getDisplaySeconds();
-    final _type = _sequence[_currentSequenceIndex].type;
-    final bool _isStopwatch = _type == SequenceTypes.stopwatchRest;
-    final bool _isCountdown = !_isStopwatch;
+    final bool _isStopwatch = _workout.stopwatchRestTimer;
     if (_state$ != null &&
-        _isCountdown == true &&
+        _isStopwatch == false &&
         state.beepSound.muted == false &&
         _seconds != state.seconds &&
         _seconds != 0 &&
@@ -93,42 +91,46 @@ class ExecutionViewModel {
       if (state.endSound.muted == false) {
         _audioPlayerService.play(state.endSound.filename);
       }
-      _elapsedTimer.stop();
-      _addCurrentTimerToHistory();
+      _resetElapsedTimerAndAddToHistory();
       _nextSequence();
     }
   }
 
-  void _addCurrentTimerToHistory() {
-    ExecutionEventType _type;
-    switch (state.type) {
-      case SequenceTypes.hang:
-        _type = ExecutionEventType.hangTimer;
-        break;
-      case SequenceTypes.stopwatchRest:
-        _type = ExecutionEventType.stopwatchTimer;
-        break;
-      case SequenceTypes.countdownRest:
-        _type = ExecutionEventType.countdownTimer;
-        break;
-      case SequenceTypes.preparationRest:
-        _type = ExecutionEventType.preparationTimer;
-        break;
-    }
+  void _resetElapsedTimerAndAddToHistory() {
+    if (_elapsedTimer.isRunning) {
+      _elapsedTimer.stop();
 
-    if (_isPaused == false) {
-      _events.add(ExecutionEvent((b) => b
-        ..type = _type
-        ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
-    } else {
-      _events.add(ExecutionEvent((b) => b
-        ..type = ExecutionEventType.pauseTimer
-        ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+      ExecutionEventType _type;
+      switch (state.type) {
+        case SequenceTypes.hang:
+          _type = ExecutionEventType.hangTimer;
+          break;
+        case SequenceTypes.stopwatchRest:
+          _type = ExecutionEventType.stopwatchTimer;
+          break;
+        case SequenceTypes.countdownRest:
+          _type = ExecutionEventType.countdownTimer;
+          break;
+        case SequenceTypes.preparationRest:
+          _type = ExecutionEventType.preparationTimer;
+          break;
+      }
+
+      if (_isPaused == false) {
+        _events.add(ExecutionEvent((b) => b
+          ..type = _type
+          ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+      } else {
+        _events.add(ExecutionEvent((b) => b
+          ..type = ExecutionEventType.pauseTimer
+          ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+      }
+
+      _elapsedTimer.reset();
     }
   }
 
   void _nextSequence() {
-    _elapsedTimer.reset();
     final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
     if (_lastSequence == true) {
       _stop();
@@ -154,21 +156,12 @@ class ExecutionViewModel {
   }
 
   void _stop() {
-    if (_elapsedTimer.isRunning == true) {
-      _elapsedTimer.stop();
-      _addCurrentTimerToHistory();
-    }
+    _resetElapsedTimerAndAddToHistory();
     _animationController.stop(canceled: true);
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
 
-    final List<int> _hangTimes = _events
-        .where((ExecutionEvent e) => e.type == ExecutionEventType.hangTimer)
-        .map((e) => e.elapsedMs)
-        .toList();
-    final int _elapsedTotal =
-        _hangTimes.fold(0, (previous, current) => previous + current);
-    if (_elapsedTotal == 0) {
+    if (_history.timeUnderTension == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
       _navigationService.pushNamed(Routes.congratulationsScreen,
@@ -178,26 +171,25 @@ class ExecutionViewModel {
   }
 
   void handleReadyTap() {
-    _elapsedTimer.stop();
     _animationController.stop(canceled: false);
-    _addCurrentTimerToHistory();
+    _resetElapsedTimerAndAddToHistory();
+
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
     _nextSequence();
   }
 
   void handlePauseTap() {
-    _elapsedTimer.stop();
     _animationController.stop(canceled: false);
-    _addCurrentTimerToHistory();
-    _isPaused = true;
-    _elapsedTimer.reset();
+    _resetElapsedTimerAndAddToHistory();
+
     _elapsedTimer.start();
+    _isPaused = true;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
   }
 
   void handleSkipTap() {
-    _elapsedTimer.stop();
-    _addCurrentTimerToHistory();
+    _resetElapsedTimerAndAddToHistory();
+
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
 
@@ -235,7 +227,6 @@ class ExecutionViewModel {
 
       _sequence = _newSequence;
       _setState();
-      _elapsedTimer.reset();
       _elapsedTimer.start();
       _animationController.forward();
       _navigationService.pop();
@@ -247,11 +238,10 @@ class ExecutionViewModel {
   }
 
   void handleResumeTap() {
-    _elapsedTimer.stop();
-    _addCurrentTimerToHistory();
-    _elapsedTimer.reset();
+    _resetElapsedTimerAndAddToHistory();
     _elapsedTimer.start();
     _isPaused = false;
+
     _events
         .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
     _animationController.forward();
