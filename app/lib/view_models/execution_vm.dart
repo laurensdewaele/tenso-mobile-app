@@ -38,13 +38,13 @@ class ExecutionViewModel {
     // This is only used for building the history
     _elapsedTimer = Stopwatch();
     _isPaused = false;
-    _state$ = BehaviorSubject.seeded(_buildStateAndPlaySounds());
+    _state$ = BehaviorSubject.seeded(_buildStateAndPlayBeepSound());
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
     _start();
   }
 
-  ExecutionViewModelState _buildStateAndPlaySounds() {
+  ExecutionViewModelState _buildStateAndPlayBeepSound() {
     final int _seconds = _getDisplaySeconds();
     // Can't use state.type here because it's possible state has not been initialized yet.
     final bool _isStopwatch = _sequence[_currentSequenceIndex].type ==
@@ -87,7 +87,7 @@ class ExecutionViewModel {
   }
 
   void _setState() {
-    _state$.add(_buildStateAndPlaySounds());
+    _state$.add(_buildStateAndPlayBeepSound());
   }
 
   void _animationStatusListener(AnimationStatus status) {
@@ -144,8 +144,8 @@ class ExecutionViewModel {
   }
 
   void _stop() {
-    _resetElapsedTimerAndAddToHistory();
     _animationController.stop(canceled: true);
+    _resetElapsedTimerAndAddToHistory();
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
 
@@ -161,7 +161,6 @@ class ExecutionViewModel {
   void handleReadyTap() {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
-
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
     _nextSequence();
   }
@@ -169,7 +168,6 @@ class ExecutionViewModel {
   void handlePauseTap() {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
-
     _elapsedTimer.start();
     _isPaused = true;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
@@ -177,7 +175,6 @@ class ExecutionViewModel {
 
   void handleSkipTap() {
     _resetElapsedTimerAndAddToHistory();
-
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
 
@@ -190,6 +187,7 @@ class ExecutionViewModel {
       final List<SequenceEvent> _newSequence = []..addAll(_sequence);
 
       if (state.isStopwatch) {
+        // There's always a preparation timer after the stopwatchRestTimer.
         if (_currentSequenceIndex < _sequence.length - 3) {
           _next = _sequence[_currentSequenceIndex + 3];
           _newSequence[_currentSequenceIndex + 3] =
@@ -229,7 +227,6 @@ class ExecutionViewModel {
     _resetElapsedTimerAndAddToHistory();
     _elapsedTimer.start();
     _isPaused = false;
-
     _events
         .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
     _animationController.forward();
@@ -237,8 +234,8 @@ class ExecutionViewModel {
   }
 
   int _getDisplaySeconds() {
-    if (_animationController.duration == null) {
-      return 0;
+    if (_state$ == null) {
+      return _sequence[_currentSequenceIndex].duration;
     }
 
     if (state.isStopwatch == true) {
