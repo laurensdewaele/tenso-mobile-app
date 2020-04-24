@@ -11,4 +11,4 @@ flutter packages pub run build_runner watch
 
 Path to applications dir:
 
-/Users/laurens/Library/Developer/CoreSimulator/Devices/E75788F1-923F-495F-B1EE-EE11166390DD/data/Containers/Data/Application/5A14E153-B644-48E4-96CB-E7D083B6313C/Documents
+/Users/laurens/Library/Developer/CoreSimulator/Devices/E75788F1-923F-495F-B1EE-EE11166390DD/data/Containers/Data/Application/951257B4-AF77-43E0-8605-68E44EE4AD2D

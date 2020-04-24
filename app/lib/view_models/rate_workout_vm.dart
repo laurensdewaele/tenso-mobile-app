@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
@@ -46,11 +48,11 @@ class RateWorkoutViewModel {
     _commentsInput = s;
   }
 
-  bool completeWorkout(Workout workout) {
+  bool completeWorkout({@required Workout workout, @required History history}) {
     if (_validateAll() == false) {
       return false;
     } else {
-      _saveCompletedWorkout(workout);
+      _saveCompletedWorkout(workout, history);
       return true;
     }
   }
@@ -149,8 +151,9 @@ class RateWorkoutViewModel {
     return value;
   }
 
-  void _saveCompletedWorkout(Workout workout) {
+  void _saveCompletedWorkout(Workout workout, History history) {
     final CompletedWorkout completedWorkout = CompletedWorkout((b) => b
+      ..history = history.toBuilder()
       ..workout = workout.toBuilder()
       ..perceivedExertion = _perceivedExertion
       ..bodyWeight = _bodyWeight

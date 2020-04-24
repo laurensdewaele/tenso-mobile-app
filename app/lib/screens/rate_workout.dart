@@ -29,6 +29,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   RateWorkoutViewModel _rateWorkoutViewModel;
   Workout _workout;
+  History _history;
 
   @override
   void didChangeDependencies() {
@@ -36,6 +37,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     final RateWorkoutArguments routeArguments =
         ModalRoute.of(context).settings.arguments;
     _workout = routeArguments.workout;
+    _history = routeArguments.history;
   }
 
   @override
@@ -51,7 +53,9 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteTap() {
-    if (_rateWorkoutViewModel.completeWorkout(_workout) == false) {
+    if (_rateWorkoutViewModel.completeWorkout(
+            workout: _workout, history: _history) ==
+        false) {
       return;
     }
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);

@@ -31,7 +31,6 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
         ModalRoute.of(context).settings.arguments;
     _workout = routeArguments.workout;
     _history = routeArguments.history;
-    print(_history);
   }
 
   @override
