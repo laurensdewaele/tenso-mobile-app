@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 
 import 'package:app/models/models.dart';
-import 'package:app/view_models/execution_sequence_builder.dart';
 
 class ExecutionViewModelState {
-  final SequenceTypes type;
+  final ExecutionEventType type;
+  final bool isStopwatch;
   final int duration;
   final int seconds;
   final double animatedBackgroundHeightFactor;
@@ -29,6 +29,7 @@ class ExecutionViewModelState {
   final double addedWeight;
 
   const ExecutionViewModelState({
+    @required this.isStopwatch,
     @required this.type,
     @required this.duration,
     @required this.seconds,
@@ -58,6 +59,7 @@ class ExecutionViewModelState {
       other is ExecutionViewModelState &&
           runtimeType == other.runtimeType &&
           type == other.type &&
+          isStopwatch == other.isStopwatch &&
           duration == other.duration &&
           seconds == other.seconds &&
           animatedBackgroundHeightFactor ==
@@ -83,6 +85,7 @@ class ExecutionViewModelState {
   @override
   int get hashCode =>
       type.hashCode ^
+      isStopwatch.hashCode ^
       duration.hashCode ^
       seconds.hashCode ^
       animatedBackgroundHeightFactor.hashCode ^

@@ -8,8 +8,8 @@ class ExecutionEventType extends EnumClass {
   static Serializer<ExecutionEventType> get serializer =>
       _$executionEventTypeSerializer;
 
-  static const ExecutionEventType stopwatchTimer = _$stopwatchTimer;
-  static const ExecutionEventType countdownTimer = _$countdownTimer;
+  static const ExecutionEventType stopwatchRestTimer = _$stopwatchRestTimer;
+  static const ExecutionEventType countdownRestTimer = _$countdownRestTimer;
   static const ExecutionEventType pauseTimer = _$pauseTimer;
   static const ExecutionEventType preparationTimer = _$preparationTimer;
   static const ExecutionEventType hangTimer = _$hangTimer;

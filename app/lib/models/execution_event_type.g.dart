@@ -6,10 +6,10 @@ part of 'execution_event_type.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const ExecutionEventType _$stopwatchTimer =
-    const ExecutionEventType._('stopwatchTimer');
-const ExecutionEventType _$countdownTimer =
-    const ExecutionEventType._('countdownTimer');
+const ExecutionEventType _$stopwatchRestTimer =
+    const ExecutionEventType._('stopwatchRestTimer');
+const ExecutionEventType _$countdownRestTimer =
+    const ExecutionEventType._('countdownRestTimer');
 const ExecutionEventType _$pauseTimer =
     const ExecutionEventType._('pauseTimer');
 const ExecutionEventType _$preparationTimer =
@@ -26,10 +26,10 @@ const ExecutionEventType _$readyEvent =
 
 ExecutionEventType _$stValueOf(String name) {
   switch (name) {
-    case 'stopwatchTimer':
-      return _$stopwatchTimer;
-    case 'countdownTimer':
-      return _$countdownTimer;
+    case 'stopwatchRestTimer':
+      return _$stopwatchRestTimer;
+    case 'countdownRestTimer':
+      return _$countdownRestTimer;
     case 'pauseTimer':
       return _$pauseTimer;
     case 'preparationTimer':
@@ -53,8 +53,8 @@ ExecutionEventType _$stValueOf(String name) {
 
 final BuiltSet<ExecutionEventType> _$stValues =
     new BuiltSet<ExecutionEventType>(const <ExecutionEventType>[
-  _$stopwatchTimer,
-  _$countdownTimer,
+  _$stopwatchRestTimer,
+  _$countdownRestTimer,
   _$pauseTimer,
   _$preparationTimer,
   _$hangTimer,

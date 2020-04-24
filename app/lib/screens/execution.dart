@@ -103,7 +103,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                           if (_orientation == Orientation.portrait) {
                             return Portrait(
                               handleReadyTap: _viewModel.handleReadyTap,
-                              type: _state.type,
+                              isStopwatch: _state.isStopwatch,
                               title: _state.title,
                               weightUnit: _state.weightUnit,
                               seconds: _state.seconds,
@@ -125,7 +125,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                             return Landscape(
                               seconds: _state.seconds,
                               handleReadyTap: _viewModel.handleReadyTap,
-                              type: _state.type,
+                              isStopwatch: _state.isStopwatch,
                               title: _state.title,
                               weightUnit: _state.weightUnit,
                               orientation: _orientation,

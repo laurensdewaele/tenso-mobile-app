@@ -18,10 +18,8 @@ abstract class _ExecutionHoldLabels {
   static const String hang = '';
 }
 
-enum SequenceTypes { hang, preparationRest, countdownRest, stopwatchRest }
-
 class SequenceEvent {
-  final SequenceTypes type;
+  final ExecutionEventType type;
   final int duration;
 
   final Sound endSound;
@@ -65,7 +63,7 @@ class SequenceEvent {
   });
 
   SequenceEvent copyWith({
-    SequenceTypes type,
+    ExecutionEventType type,
     int duration,
     Sound endSound,
     Sound beepSound,
@@ -117,7 +115,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
   void _addPreparationRestSequence(
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(SequenceEvent(
-        type: SequenceTypes.preparationRest,
+        type: ExecutionEventType.preparationTimer,
         duration: _settings.preparationTimer,
         endSound: _settings.hangSound,
         beepSound: _settings.beepSound,
@@ -143,7 +141,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(
       SequenceEvent(
-          type: SequenceTypes.hang,
+          type: ExecutionEventType.hangTimer,
           duration: _workout.holds[_currentHoldIndex].hangTime,
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
@@ -171,7 +169,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(
       SequenceEvent(
-          type: SequenceTypes.countdownRest,
+          type: ExecutionEventType.countdownRestTimer,
           duration: _workout.holds[_currentHoldIndex].countdownRestDuration,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
@@ -199,7 +197,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(
       SequenceEvent(
-          type: SequenceTypes.stopwatchRest,
+          type: ExecutionEventType.stopwatchRestTimer,
           duration: 0,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,

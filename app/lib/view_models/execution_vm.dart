@@ -46,7 +46,8 @@ class ExecutionViewModel {
 
   ExecutionViewModelState _buildStateAndPlaySounds() {
     final int _seconds = _getDisplaySeconds();
-    final bool _isStopwatch = state.type == SequenceTypes.stopwatchRest;
+    final bool _isStopwatch =
+        state.type == ExecutionEventType.stopwatchRestTimer;
     final bool _isCountdown = !_isStopwatch;
     if (_state$ != null &&
         _isCountdown == true &&
@@ -59,6 +60,7 @@ class ExecutionViewModel {
 
     return ExecutionViewModelState(
       type: _sequence[_currentSequenceIndex].type,
+      isStopwatch: _isStopwatch,
       duration: _sequence[_currentSequenceIndex].duration,
       seconds: _seconds,
       animatedBackgroundHeightFactor:
@@ -101,25 +103,9 @@ class ExecutionViewModel {
     if (_elapsedTimer.isRunning) {
       _elapsedTimer.stop();
 
-      ExecutionEventType _type;
-      switch (state.type) {
-        case SequenceTypes.hang:
-          _type = ExecutionEventType.hangTimer;
-          break;
-        case SequenceTypes.stopwatchRest:
-          _type = ExecutionEventType.stopwatchTimer;
-          break;
-        case SequenceTypes.countdownRest:
-          _type = ExecutionEventType.countdownTimer;
-          break;
-        case SequenceTypes.preparationRest:
-          _type = ExecutionEventType.preparationTimer;
-          break;
-      }
-
       if (_isPaused == false) {
         _events.add(ExecutionEvent((b) => b
-          ..type = _type
+          ..type = state.type
           ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
       } else {
         _events.add(ExecutionEvent((b) => b
@@ -142,13 +128,12 @@ class ExecutionViewModel {
   }
 
   void _start() {
-    final _type = _sequence[_currentSequenceIndex].type;
-    if (_type == SequenceTypes.stopwatchRest) {
+    if (state.isStopwatch == true) {
       _animationController.duration = Duration(minutes: 30);
       _animationController.reset();
       _animationController.forward();
     } else {
-      final int _seconds = _sequence[_currentSequenceIndex].duration;
+      final int _seconds = state.duration;
       _animationController.duration = Duration(seconds: _seconds);
       _animationController.reset();
       _animationController.forward();
@@ -194,7 +179,7 @@ class ExecutionViewModel {
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
 
-    if (state.type == SequenceTypes.hang) {
+    if (state.type == ExecutionEventType.hangTimer) {
       _nextSequence();
       _navigationService.pop();
     } else {
@@ -254,7 +239,7 @@ class ExecutionViewModel {
       return 0;
     }
 
-    if (_sequence[_currentSequenceIndex].type == SequenceTypes.stopwatchRest) {
+    if (state.isStopwatch == true) {
       return (_animationController.duration.inSeconds *
               _animationController.value)
           .ceil();

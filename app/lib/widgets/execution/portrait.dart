@@ -4,7 +4,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution_sequence_builder.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/board_with_grips.dart';
 import 'package:app/widgets/divider.dart';
@@ -15,7 +14,7 @@ class Portrait extends StatefulWidget {
   Portrait({
     Key key,
     @required this.handleReadyTap,
-    @required this.type,
+    @required this.isStopwatch,
     @required this.primaryColor,
     @required this.seconds,
     @required this.holdLabel,
@@ -35,7 +34,7 @@ class Portrait extends StatefulWidget {
   }) : super(key: key);
 
   final VoidCallback handleReadyTap;
-  final SequenceTypes type;
+  final bool isStopwatch;
   final Color primaryColor;
   final int seconds;
   final String holdLabel;
@@ -85,7 +84,7 @@ class __PortraitContentState extends State<Portrait> {
         widget.weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
     final String _addedWeight = widget.addedWeight.toString();
 
-    final Widget _topWidget = widget.type == SequenceTypes.stopwatchRest
+    final Widget _topWidget = widget.isStopwatch
         ? Button(
             text: 'ready',
             handleTap: widget.handleReadyTap,

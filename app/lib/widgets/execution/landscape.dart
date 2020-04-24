@@ -4,7 +4,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution_sequence_builder.dart';
 import 'package:app/widgets/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/execution/indicator_tabs.dart';
@@ -17,7 +16,7 @@ class Landscape extends StatelessWidget {
     Key key,
     @required this.seconds,
     @required this.handleReadyTap,
-    @required this.type,
+    @required this.isStopwatch,
     @required this.primaryColor,
     @required this.holdLabel,
     @required this.board,
@@ -37,7 +36,7 @@ class Landscape extends StatelessWidget {
 
   final int seconds;
   final VoidCallback handleReadyTap;
-  final SequenceTypes type;
+  final bool isStopwatch;
   final Color primaryColor;
   final String holdLabel;
   final Board board;
@@ -56,8 +55,6 @@ class Landscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool _isStopwatch = type == SequenceTypes.stopwatchRest;
-
     return Stack(
       children: <Widget>[
         Column(
@@ -132,7 +129,7 @@ class Landscape extends StatelessWidget {
             style: styles.Staatliches.countdownTimerTranslucent,
           ),
         ),
-        if (_isStopwatch == true)
+        if (isStopwatch == true)
           Align(
             alignment: Alignment.topCenter,
             child: Button(
