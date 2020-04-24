@@ -83,6 +83,7 @@ class __PortraitContentState extends State<Portrait> {
     final String _unitText =
         widget.weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
     final String _addedWeight = widget.addedWeight.toString();
+    final String _addedWeightPrefix = widget.addedWeight > 0 ? '+' : '';
 
     final Widget _topWidget = widget.isStopwatch
         ? Button(
@@ -136,7 +137,8 @@ class __PortraitContentState extends State<Portrait> {
                         leftGrip: widget.leftGrip,
                         orientation: widget.orientation,
                       ),
-                      if (widget.addedWeight > 0.0)
+                      if (widget.addedWeight != null &&
+                          widget.addedWeight != 0.0)
                         Container(
                           height: _boardGripsAddedWeightContainerHeight,
                           width: double.infinity,
@@ -151,7 +153,7 @@ class __PortraitContentState extends State<Portrait> {
                                       vertical: styles.Measurements.xs,
                                       horizontal: styles.Measurements.m),
                                   child: Text(
-                                    '+ $_addedWeight $_unitText',
+                                    '$_addedWeightPrefix $_addedWeight $_unitText',
                                     style: styles.Staatliches.xlWhite,
                                     textAlign: TextAlign.center,
                                   ))),

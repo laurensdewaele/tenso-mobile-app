@@ -48,6 +48,7 @@ class LandscapeInfo extends StatelessWidget {
     }
 
     final String _unitText = weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
+    final String _addedWeightPrefix = addedWeight > 0 ? '+' : '';
 
     return Container(
         decoration: BoxDecoration(
@@ -88,15 +89,16 @@ class LandscapeInfo extends StatelessWidget {
                       ],
                     ),
                   ),
-                Positioned.fill(
-                  child: Center(
-                    child: Text(
-                      '+ $addedWeight $_unitText',
-                      style: styles.Staatliches.xlWhite,
-                      textAlign: TextAlign.center,
+                if (addedWeight != null && addedWeight != 0.0)
+                  Positioned.fill(
+                    child: Center(
+                      child: Text(
+                        '$_addedWeightPrefix $addedWeight $_unitText',
+                        style: styles.Staatliches.xlWhite,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
                 if (rightGripName != null && rightHoldInfo != null)
                   Align(
                     alignment: Alignment.centerRight,
