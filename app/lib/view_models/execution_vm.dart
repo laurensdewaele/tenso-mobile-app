@@ -46,9 +46,10 @@ class ExecutionViewModel {
 
   ExecutionViewModelState _buildStateAndPlaySounds() {
     final int _seconds = _getDisplaySeconds();
-    final bool _isStopwatch = _workout.stopwatchRestTimer;
+    final bool _isStopwatch = state.type == SequenceTypes.stopwatchRest;
+    final bool _isCountdown = !_isStopwatch;
     if (_state$ != null &&
-        _isStopwatch == false &&
+        _isCountdown == true &&
         state.beepSound.muted == false &&
         _seconds != state.seconds &&
         _seconds != 0 &&
