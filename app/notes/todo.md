@@ -1,7 +1,6 @@
 # TODO
 
 ## Countdown
-- Remove +- weight if weight is negative on countdown screen.
 - Keep screen alive
 - Check if sounds come through on bg
 
