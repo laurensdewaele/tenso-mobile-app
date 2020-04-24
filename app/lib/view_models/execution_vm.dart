@@ -159,6 +159,7 @@ class ExecutionViewModel {
           arguments:
               RateWorkoutArguments(workout: _workout, history: _history));
     }
+    dispose();
   }
 
   void handleReadyTap() {
