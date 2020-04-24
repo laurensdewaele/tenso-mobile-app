@@ -183,6 +183,7 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
   void _handleLongPress() async {
     await showAppDialog(
         width: styles.Measurements.xxl * 6,
+        landscapeWidth: styles.Measurements.xxl * 6,
         context: context,
         content: _LongPressDialog(
             handleDeleteTap: () {
