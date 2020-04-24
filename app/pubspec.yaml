@@ -29,6 +29,7 @@ dependencies:
   path_provider: ^1.5.1
   uuid: ^2.0.4
   rxdart: ^0.23.1
+  wakelock: ^0.1.4+1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
@@ -29,6 +30,7 @@ class ExecutionViewModel {
   ExecutionViewModel(
       {@required Workout workout,
       @required AnimationController animationController}) {
+    Wakelock.enable();
     _audioPlayerService = AudioPlayerService();
     _workout = workout;
     _animationController = animationController;
@@ -252,6 +254,7 @@ class ExecutionViewModel {
   }
 
   void dispose() {
+    Wakelock.disable();
     _animationController.removeListener(_setState);
     _animationController.removeStatusListener(_animationStatusListener);
     _animationController.dispose();
