@@ -13,9 +13,11 @@ abstract class History implements Built<History, HistoryBuilder> {
   static Serializer<History> get serializer => _$historySerializer;
 
   BuiltList<ExecutionEvent> get history;
-  int get timeUnderTension => _calculateTimeUnderTension();
+  int get timeUnderTensionMs => _calculateTimeUnderTensionMs();
+  int get timeUnderTensionS =>
+      Duration(milliseconds: timeUnderTensionMs).inSeconds;
 
-  int _calculateTimeUnderTension() {
+  int _calculateTimeUnderTensionMs() {
     final List<int> _times = history
         .toList()
         .where((ExecutionEvent e) => e.type == ExecutionEventType.hangTimer)

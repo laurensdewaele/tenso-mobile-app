@@ -161,7 +161,7 @@ class ExecutionViewModel {
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
 
-    if (_history.timeUnderTension == 0) {
+    if (_history.timeUnderTensionMs == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
       _navigationService.pushNamed(Routes.congratulationsScreen,
