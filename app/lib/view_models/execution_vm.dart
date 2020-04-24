@@ -46,8 +46,9 @@ class ExecutionViewModel {
 
   ExecutionViewModelState _buildStateAndPlaySounds() {
     final int _seconds = _getDisplaySeconds();
-    final bool _isStopwatch =
-        state.type == ExecutionEventType.stopwatchRestTimer;
+    // Can't use state.type here because it's possible state has not been initialized yet.
+    final bool _isStopwatch = _sequence[_currentSequenceIndex].type ==
+        ExecutionEventType.stopwatchRestTimer;
     final bool _isCountdown = !_isStopwatch;
     if (_state$ != null &&
         _isCountdown == true &&
@@ -123,6 +124,7 @@ class ExecutionViewModel {
       _stop();
     } else {
       _currentSequenceIndex++;
+      _setState();
       _start();
     }
   }
@@ -187,7 +189,7 @@ class ExecutionViewModel {
       SequenceEvent _next;
       final List<SequenceEvent> _newSequence = []..addAll(_sequence);
 
-      if (_workout.stopwatchRestTimer) {
+      if (state.isStopwatch) {
         if (_currentSequenceIndex < _sequence.length - 3) {
           _next = _sequence[_currentSequenceIndex + 3];
           _newSequence[_currentSequenceIndex + 3] =
@@ -199,7 +201,7 @@ class ExecutionViewModel {
         }
       }
 
-      if (!_workout.stopwatchRestTimer) {
+      if (!state.isStopwatch) {
         if (_currentSequenceIndex < _sequence.length - 2) {
           _next = _sequence[_currentSequenceIndex + 2];
           _newSequence[_currentSequenceIndex + 2] =
