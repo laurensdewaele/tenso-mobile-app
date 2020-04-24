@@ -161,8 +161,20 @@ class ExecutionViewModel {
     _animationController.stop(canceled: true);
     _isPaused = false;
     _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
-    _navigationService.pushNamed(Routes.congratulationsScreen,
-        arguments: RateWorkoutArguments(workout: _workout, history: _history));
+
+    final List<int> _hangTimes = _events
+        .where((ExecutionEvent e) => e.type == ExecutionEventType.hangTimer)
+        .map((e) => e.elapsedMs)
+        .toList();
+    final int _elapsedTotal =
+        _hangTimes.fold(0, (previous, current) => previous + current);
+    if (_elapsedTotal == 0) {
+      _navigationService.pushNamed(Routes.workoutOverviewScreen);
+    } else {
+      _navigationService.pushNamed(Routes.congratulationsScreen,
+          arguments:
+              RateWorkoutArguments(workout: _workout, history: _history));
+    }
   }
 
   void handleReadyTap() {
