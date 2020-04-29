@@ -26,23 +26,23 @@ abstract class Sounds {
     ..filename = 'thud_deep.mp3'
     ..muted = false);
 
-  static Sound thudHollow = Sound((b) => b
-    ..name = 'Wooden thud holllow'
-    ..filename = 'thud_deep_hollow.mp3'
+  static Sound femaleHang = Sound((b) => b
+    ..name = 'Female hang'
+    ..filename = 'hang.m4a'
     ..muted = false);
 
-  static Sound thudSoft = Sound((b) => b
-    ..name = 'Wooden thud soft'
-    ..filename = 'thud_soft.mp3'
+  static Sound femaleHangAggressive = Sound((b) => b
+    ..name = 'Female hang aggresive'
+    ..filename = 'hang_aggro.m4a'
     ..muted = false);
 
-  static Sound metalHitSmall = Sound((b) => b
-    ..name = 'Metal hit small'
-    ..filename = 'metal_hit_small.mp3'
+  static Sound femaleRelax = Sound((b) => b
+    ..name = 'Female relax'
+    ..filename = 'relax.m4a'
     ..muted = false);
 
-  static Sound metalHitLarge = Sound((b) => b
-    ..name = 'Metal hit large'
-    ..filename = 'metal_hit_large.mp3'
+  static Sound femaleRelaxSensual = Sound((b) => b
+    ..name = 'Female relax, relaxed'
+    ..filename = 'relax_sensual.m4a'
     ..muted = false);
 }

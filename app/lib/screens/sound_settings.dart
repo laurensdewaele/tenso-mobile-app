@@ -141,17 +141,19 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                                 _viewModel.setAndPlayHangSound,
                                           ),
                                           RadioButton<Sound>(
-                                            description: Sounds.thudHollow.name,
-                                            value: Sounds.thudHollow,
+                                            description: Sounds.femaleHang.name,
+                                            value: Sounds.femaleHang,
                                             active:
-                                                _viewModel.isThudHollowActive,
+                                                _viewModel.isWomanHangActive,
                                             handleSelected:
                                                 _viewModel.setAndPlayHangSound,
                                           ),
                                           RadioButton<Sound>(
-                                            description: Sounds.thudSoft.name,
-                                            value: Sounds.thudSoft,
-                                            active: _viewModel.isThudSoftActive,
+                                            description: Sounds
+                                                .femaleHangAggressive.name,
+                                            value: Sounds.femaleHangAggressive,
+                                            active: _viewModel
+                                                .isWomanHangAggressiveActive,
                                             handleSelected:
                                                 _viewModel.setAndPlayHangSound,
                                           ),
@@ -179,27 +181,27 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                         title: 'rest sound',
                                         children: <Widget>[
                                           RadioButton<Sound>(
-                                            description:
-                                                Sounds.metalHitSmall.name,
-                                            value: Sounds.metalHitSmall,
-                                            active: _viewModel
-                                                .isMetalHitSmallActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayRestSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description:
-                                                Sounds.metalHitLarge.name,
-                                            value: Sounds.metalHitLarge,
-                                            active: _viewModel
-                                                .isMetalHitLargeActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayRestSound,
-                                          ),
-                                          RadioButton<Sound>(
                                             description: Sounds.gong.name,
                                             value: Sounds.gong,
                                             active: _viewModel.isGongActive,
+                                            handleSelected:
+                                                _viewModel.setAndPlayRestSound,
+                                          ),
+                                          RadioButton<Sound>(
+                                            description:
+                                                Sounds.femaleRelax.name,
+                                            value: Sounds.femaleRelax,
+                                            active:
+                                                _viewModel.isWomanRelaxActive,
+                                            handleSelected:
+                                                _viewModel.setAndPlayRestSound,
+                                          ),
+                                          RadioButton<Sound>(
+                                            description:
+                                                Sounds.femaleRelaxSensual.name,
+                                            value: Sounds.femaleRelaxSensual,
+                                            active: _viewModel
+                                                .isWomanRelaxSensualActive,
                                             handleSelected:
                                                 _viewModel.setAndPlayRestSound,
                                           ),
@@ -268,7 +270,7 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                         title: 'accreditation',
                                         children: <Widget>[
                                           Text(
-                                            'Sounds obtained from zapsplat.com',
+                                            'Female voice by Ann-Sofie, others obtained from zapsplat.com',
                                             style: styles.Lato.xsGray,
                                           )
                                         ],

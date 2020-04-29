@@ -1,9 +1,8 @@
 # TODO
 
-- Close menu on click
+- Ann-sofie sounds
 - Add custom board => Slopers, pinches, ...
 - Add board selection. Only beastmaker1000 atm.
-
 
 ### Large prio
 - Add open crimp, pinch grip, check if all grips available

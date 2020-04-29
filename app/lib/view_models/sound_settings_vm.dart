@@ -33,14 +33,16 @@ class SoundSettingsViewModel extends ChangeNotifier {
 
   // Hang sound
   bool isThudDeepActive;
-  bool isThudHollowActive;
-  bool isThudSoftActive;
   bool isHangSoundOffActive;
+  bool isWomanHangActive;
+  bool isWomanHangAggressiveActive;
   // Rest sound
   bool isMetalHitSmallActive;
   bool isMetalHitLargeActive;
   bool isGongActive;
   bool isRestSoundOffActive;
+  bool isWomanRelaxActive;
+  bool isWomanRelaxSensualActive;
   // Beep sound
   bool isHitLightSoftActive;
   bool isHitLightHardActive;
@@ -61,13 +63,15 @@ class SoundSettingsViewModel extends ChangeNotifier {
 
   void _setRadioButtons() {
     isThudDeepActive = _settings.hangSound == Sounds.thudDeep;
-    isThudHollowActive = _settings.hangSound == Sounds.thudHollow;
-    isThudSoftActive = _settings.hangSound == Sounds.thudSoft;
     isHangSoundOffActive = _settings.hangSound == Sounds.off;
-    isMetalHitSmallActive = _settings.restSound == Sounds.metalHitSmall;
-    isMetalHitLargeActive = _settings.restSound == Sounds.metalHitLarge;
+    isWomanHangActive = _settings.hangSound == Sounds.femaleHang;
+    isWomanHangAggressiveActive =
+        _settings.hangSound == Sounds.femaleHangAggressive;
     isGongActive = _settings.restSound == Sounds.gong;
     isRestSoundOffActive = _settings.restSound == Sounds.off;
+    isWomanRelaxActive = _settings.restSound == Sounds.femaleRelax;
+    isWomanRelaxSensualActive =
+        _settings.restSound == Sounds.femaleRelaxSensual;
     isHitLightSoftActive = _settings.beepSound == Sounds.hitLightSoft;
     isHitLightHardActive = _settings.beepSound == Sounds.hitLightHard;
     isBeepSoundOffActive = _settings.beepSound == Sounds.off;
