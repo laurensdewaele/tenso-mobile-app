@@ -199,6 +199,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                           .map(
                             (menuItem) => GestureDetector(
                               onTap: () {
+                                _forward();
                                 Navigator.of(context).pushNamed(menuItem.route);
                               },
                               child: _MenuItemRow(

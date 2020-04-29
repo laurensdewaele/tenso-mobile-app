@@ -1,7 +1,6 @@
 # TODO
 
 - Close menu on click
-
 - Add custom board => Slopers, pinches, ...
 - Add board selection. Only beastmaker1000 atm.
 
