@@ -1,18 +1,20 @@
 # TODO
 
-## Countdown
-- Keep screen alive
-- Check if sounds come through on bg
+- Close menu on click
+
+- Add custom board => Slopers, pinches, ...
+- Add board selection. Only beastmaker1000 atm.
+
 
 ### Large prio
-- Add open crimp, check if all grips available.
+- Add open crimp, pinch grip, check if all grips available
 - Graphs
-- Add board selection. Only beastmaker1000 atm.
-- Add custom board => Slopers, pinches, ...
 - Info/explanation screen
 - Implement a feedback button.
+- Backend
 
 ### Medium prio
+
 - Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
@@ -24,6 +26,9 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
+
+- Add other boards
+- Keep alive whilst on background and playing sounds. 
 - Refactor navigation with navigator key?
 - Redesign toast
 - Edit completed workout.
