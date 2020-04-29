@@ -65,6 +65,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  void _handleBoardNavigation() async {
+    final bool _canNavigate = await _viewModel.canNavigate();
+    if (_canNavigate == true) {
+      Navigator.of(context).pushNamed(Routes.boardSettingsScreen);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -94,6 +101,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            Divider(
+                              height: styles.Measurements.xs,
+                            ),
+                            _InfoSection(
+                                title: 'boards',
+                                handleNavigation: _handleBoardNavigation),
                             Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: styles.Measurements.m,
@@ -103,10 +116,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   children: <Widget>[
                                     Divider(
                                       height: styles.Measurements.l,
-                                    ),
-                                    Section(
-                                      title: 'default board',
-                                      children: <Widget>[],
                                     ),
                                     Section(
                                       title: 'preparation timer',
@@ -122,7 +131,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     ),
                                   ],
                                 )),
-                            _SoundSection(
+                            _InfoSection(
                                 title: 'sound',
                                 handleNavigation: _handleSoundNavigation),
                             Divider(
@@ -198,9 +207,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 }
 
-class _SoundSection extends StatelessWidget {
-  _SoundSection(
-      {Key key, @required this.title, @required this.handleNavigation})
+class _InfoSection extends StatelessWidget {
+  _InfoSection({Key key, @required this.title, @required this.handleNavigation})
       : super(key: key);
 
   final String title;
