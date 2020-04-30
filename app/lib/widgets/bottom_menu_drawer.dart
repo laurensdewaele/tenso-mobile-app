@@ -11,7 +11,7 @@ class MenuItem {
 
   const MenuItem({
     @required this.name,
-    @required this.icon,
+    this.icon,
     @required this.handleTap,
   });
 }
@@ -30,12 +30,16 @@ class BottomMenuDrawer extends StatefulWidget {
       {Key key,
       this.startOpen = false,
       @required this.longestMenuItemLength,
-      @required this.menuItems})
+      @required this.menuItems,
+      @required this.dragIndicatorColor,
+      this.icons = false})
       : super(key: key);
 
   final bool startOpen;
   final List<MenuItem> menuItems;
   final double longestMenuItemLength;
+  final Color dragIndicatorColor;
+  final bool icons;
 
   @override
   _BottomMenuDrawerState createState() => _BottomMenuDrawerState();
@@ -189,7 +193,8 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                           height: _kRedDragIndicatorContainerHeight,
                           width: double.infinity,
                           child: Center(
-                            child: _RedDragIndicatorRectangle(),
+                            child: _DragIndicatorRectangle(
+                                color: widget.dragIndicatorColor),
                           ),
                         ),
                       ),
@@ -200,11 +205,16 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                                 _forward();
                                 menuItem.handleTap();
                               },
-                              child: _MenuItemRow(
-                                  name: menuItem.name,
-                                  icon: menuItem.icon,
-                                  longestMenuItemLength:
-                                      widget.longestMenuItemLength),
+                              child: widget.icons
+                                  ? _IconRow(
+                                      name: menuItem.name,
+                                      icon: menuItem.icon,
+                                      longestMenuItemLength:
+                                          widget.longestMenuItemLength)
+                                  : _Row(
+                                      name: menuItem.name,
+                                      longestMenuItemLength:
+                                          widget.longestMenuItemLength),
                             ),
                           )
                           .toList(),
@@ -219,20 +229,26 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 }
 
-class _RedDragIndicatorRectangle extends StatelessWidget {
+class _DragIndicatorRectangle extends StatelessWidget {
+  const _DragIndicatorRectangle({
+    @required this.color,
+  });
+
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: _kRedDragIndicatorWidth,
       height: _kRedDragIndicatorHeight,
-      decoration: BoxDecoration(
-          color: styles.Colors.primary, borderRadius: styles.kBorderRadiusAll),
+      decoration:
+          BoxDecoration(color: color, borderRadius: styles.kBorderRadiusAll),
     );
   }
 }
 
-class _MenuItemRow extends StatelessWidget {
-  _MenuItemRow(
+class _IconRow extends StatelessWidget {
+  _IconRow(
       {Key key,
       @required this.name,
       @required this.icon,
@@ -280,5 +296,26 @@ class _MenuItemRow extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _Row extends StatelessWidget {
+  _Row({Key key, @required this.name, @required this.longestMenuItemLength})
+      : super(key: key);
+
+  final String name;
+  final double longestMenuItemLength;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: _kMenuItemHeight,
+        decoration: BoxDecoration(color: styles.Colors.translucent),
+        child: Center(
+          child: Text(
+            name,
+            style: styles.Staatliches.xlBlack,
+          ),
+        ));
   }
 }

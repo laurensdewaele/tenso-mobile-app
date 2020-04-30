@@ -107,6 +107,8 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
             startOpen: _viewModel.startOpen,
             menuItems: _menuItems,
             longestMenuItemLength: 140,
+            dragIndicatorColor: styles.Colors.primary,
+            icons: true,
           )
         ],
       ),
@@ -171,4 +173,3 @@ List<MenuItem> _menuItems = [
       },
       icon: icons.editIconBlackS)
 ];
-

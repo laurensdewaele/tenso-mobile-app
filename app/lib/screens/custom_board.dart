@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/bottom_menu_drawer.dart';
-import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
 
@@ -68,19 +67,20 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
           ),
         ),
         BottomMenuDrawer(
+          dragIndicatorColor: styles.Colors.lightGray,
           menuItems: [
             MenuItem(
-                name: 'save',
-                handleTap: _handleSaveTap,
-                icon: icons.saveIconBlackL),
+              name: 'save',
+              handleTap: _handleSaveTap,
+            ),
             MenuItem(
-                name: 'preview',
-                handleTap: _handlePreviewTap,
-                icon: icons.previewIconL),
+              name: 'preview',
+              handleTap: _handlePreviewTap,
+            ),
             MenuItem(
-                name: 'info',
-                handleTap: _handleInfoTap,
-                icon: icons.infoIconBlackL)
+              name: 'info',
+              handleTap: _handleInfoTap,
+            )
           ],
           longestMenuItemLength: 120,
         )
