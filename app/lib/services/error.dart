@@ -175,16 +175,15 @@ abstract class ErrorMessages {
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
           TextSpan(
-            text: 'Multiple select requires items to be ',
+            text: 'Multiple select requires ',
             style: styles.Lato.sBlack,
           ),
           TextSpan(
-            text: 'adjacent. ',
+            text: 'adjacency. ',
             style: styles.Lato.sBlackBold,
           ),
-          TextSpan(
-              text: 'Deselecting this one would ', style: styles.Lato.sBlack),
-          TextSpan(text: 'create a gap.', style: styles.Lato.sBlackBold),
+          TextSpan(text: 'Deselecting ', style: styles.Lato.sBlack),
+          TextSpan(text: 'creates a gap.', style: styles.Lato.sBlackBold),
         ]),
       );
 }
