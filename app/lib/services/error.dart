@@ -159,14 +159,14 @@ abstract class ErrorMessages {
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
           TextSpan(
-            text: 'Multiple select only works for ',
+            text: 'Multiple selection requires elements ',
             style: styles.Lato.sBlack,
           ),
           TextSpan(
-            text: 'adjacent ',
+            text: 'next to each other, ',
             style: styles.Lato.sBlackBold,
           ),
-          TextSpan(text: 'holds on the ', style: styles.Lato.sBlack),
+          TextSpan(text: 'on the ', style: styles.Lato.sBlack),
           TextSpan(text: 'same row.', style: styles.Lato.sBlackBold),
         ]),
       );
@@ -175,15 +175,18 @@ abstract class ErrorMessages {
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
           TextSpan(
-            text: 'Multiple select requires ',
+            text: 'Deselecting here will ',
             style: styles.Lato.sBlack,
           ),
           TextSpan(
-            text: 'adjacency. ',
+            text: 'create a gap. ',
             style: styles.Lato.sBlackBold,
           ),
-          TextSpan(text: 'Deselecting ', style: styles.Lato.sBlack),
-          TextSpan(text: 'creates a gap.', style: styles.Lato.sBlackBold),
+          TextSpan(text: 'Elements ', style: styles.Lato.sBlack),
+          TextSpan(
+            text: 'need to be next to each other.',
+            style: styles.Lato.sBlackBold,
+          ),
         ]),
       );
 }

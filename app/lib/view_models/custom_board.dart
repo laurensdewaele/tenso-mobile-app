@@ -34,14 +34,12 @@ class CustomBoardViewModel extends ChangeNotifier {
   ToastService _toastService;
 
   bool modalOpen;
-  bool locked;
 
   CustomBoardViewModel() {
     _toastService = ToastService();
     boxes = List.generate(
         4 * 4, (i) => BoxState(index: i, selected: false, row: i ~/ 4));
     modalOpen = false;
-    locked = false;
     notifyListeners();
   }
 
