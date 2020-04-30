@@ -1,6 +1,10 @@
 # TODO
 
 - Add custom board => Slopers, pinches, ...
+
+- Refactor bottom menu drawer to accept generic stuff.
+
+
 - Add board selection. Only beastmaker1000 atm.
 
 ### Large prio
