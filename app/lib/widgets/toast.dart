@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/divider.dart';
 
 class Toast extends StatefulWidget {
   Toast();
@@ -89,24 +90,39 @@ class _ToastUIState extends State<_ToastUI>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _animationController.drive(_offSetTween),
-      child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: styles.Colors.bgWhite,
-            borderRadius: BorderRadius.only(
-                bottomLeft: styles.kBorderRadius,
-                bottomRight: styles.kBorderRadius),
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              stops: [0.0005, 0.005],
-              colors: [styles.Colors.bgGrayStop, styles.Colors.bgWhite],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
+        child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: styles.Colors.bgWhite,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: styles.kBorderRadius,
+                  bottomRight: styles.kBorderRadius),
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                stops: [0.0005, 0.005],
+                colors: [styles.Colors.bgGrayStop, styles.Colors.bgWhite],
+              ),
             ),
-          ),
-          padding: EdgeInsets.symmetric(
-              vertical: styles.Measurements.m,
-              horizontal: styles.Measurements.m * 2),
-          child: SafeArea(child: widget.message)),
+            padding: EdgeInsets.symmetric(
+                vertical: styles.Measurements.m,
+                horizontal: styles.Measurements.m),
+            child: SafeArea(
+                child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Image.asset('assets/images/icons/error.png'),
+                    Divider(width: styles.Measurements.m),
+                    Expanded(child: Center(child: widget.message))
+                  ],
+                ),
+              ],
+            ))),
+      ),
     );
   }
 }

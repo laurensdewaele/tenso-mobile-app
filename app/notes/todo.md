@@ -1,6 +1,11 @@
 # TODO
 
 - Add custom board => Slopers, pinches, ...
+
+=> Bottom nav
+=> Add hold
+=> Remove
+
 - Add board selection. Only beastmaker1000 atm.
 
 ### Large prio
@@ -27,7 +32,6 @@
 - Add other boards
 - Keep alive whilst on background and playing sounds. 
 - Refactor navigation with navigator key?
-- Redesign toast
 - Edit completed workout.
 - Audioplayer service play sound takes a while when not already initted;
 - keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)

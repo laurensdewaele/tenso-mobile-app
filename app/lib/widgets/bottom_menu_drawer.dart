@@ -1,37 +1,20 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 
-import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
-import 'package:app/widgets/icons.dart' as icons;
 
-class _MenuItem {
-  _MenuItem({@required this.name, @required this.route, @required this.icon});
-
+class MenuItem {
   final String name;
-  final String route;
   final Icon icon;
-}
+  final VoidCallback handleTap;
 
-final List<_MenuItem> _menuItems = [
-  _MenuItem(
-      name: 'settings',
-      route: Routes.settingsScreen,
-      icon: icons.settingsIconBlackL),
-  _MenuItem(
-      name: 'progress',
-      route: Routes.progressScreen,
-      icon: icons.chartIconBlackS),
-  _MenuItem(
-      name: 'history',
-      route: Routes.calendarScreen,
-      icon: icons.calendarIconBlackM),
-  _MenuItem(
-      name: 'feedback',
-      route: Routes.feedbackScreen,
-      icon: icons.editIconBlackS)
-];
+  const MenuItem({
+    @required this.name,
+    this.icon,
+    @required this.handleTap,
+  });
+}
 
 const double _kRedDragIndicatorHeight = 3.0;
 const double _kRedDragIndicatorContainerHeight = styles.Measurements.xl;
@@ -39,18 +22,24 @@ const double _kRedDragIndicatorWidth =
     styles.Measurements.m + styles.Measurements.l;
 const double _kMenuItemHeight = styles.Measurements.m * 2;
 const double _kDividerHeight = styles.Measurements.m;
+
 enum SliderPositions { begin, end }
-final double _totalHeight = _menuItems.length * _kMenuItemHeight +
-    _kDividerHeight +
-    _kRedDragIndicatorContainerHeight;
-final double _heightToHide =
-    _menuItems.length * _kMenuItemHeight + _kDividerHeight;
-final double _offsetHeight = _heightToHide / _totalHeight;
 
 class BottomMenuDrawer extends StatefulWidget {
-  BottomMenuDrawer({Key key, this.startOpen = false}) : super(key: key);
+  BottomMenuDrawer(
+      {Key key,
+      this.startOpen = false,
+      @required this.longestMenuItemLength,
+      @required this.menuItems,
+      @required this.dragIndicatorColor,
+      this.icons = false})
+      : super(key: key);
 
   final bool startOpen;
+  final List<MenuItem> menuItems;
+  final double longestMenuItemLength;
+  final Color dragIndicatorColor;
+  final bool icons;
 
   @override
   _BottomMenuDrawerState createState() => _BottomMenuDrawerState();
@@ -64,9 +53,13 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   double _dy = 0.0;
   SliderPositions _position = SliderPositions.begin;
 
+  double _heightToHide;
+  double _offsetHeight;
+
   @override
   void initState() {
     super.initState();
+    _setMeasurements();
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     _slideController.value = 1;
@@ -77,6 +70,15 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     if (widget.startOpen == true) {
       _reverse();
     }
+  }
+
+  void _setMeasurements() {
+    final double _totalHeight = widget.menuItems.length * _kMenuItemHeight +
+        _kDividerHeight +
+        _kRedDragIndicatorContainerHeight;
+    _heightToHide =
+        widget.menuItems.length * _kMenuItemHeight + _kDividerHeight;
+    _offsetHeight = _heightToHide / _totalHeight;
   }
 
   @override
@@ -191,21 +193,28 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                           height: _kRedDragIndicatorContainerHeight,
                           width: double.infinity,
                           child: Center(
-                            child: _RedDragIndicatorRectangle(),
+                            child: _DragIndicatorRectangle(
+                                color: widget.dragIndicatorColor),
                           ),
                         ),
                       ),
-                      ..._menuItems
+                      ...widget.menuItems
                           .map(
                             (menuItem) => GestureDetector(
                               onTap: () {
                                 _forward();
-                                Navigator.of(context).pushNamed(menuItem.route);
+                                menuItem.handleTap();
                               },
-                              child: _MenuItemRow(
-                                name: menuItem.name,
-                                icon: menuItem.icon,
-                              ),
+                              child: widget.icons
+                                  ? _IconRow(
+                                      name: menuItem.name,
+                                      icon: menuItem.icon,
+                                      longestMenuItemLength:
+                                          widget.longestMenuItemLength)
+                                  : _Row(
+                                      name: menuItem.name,
+                                      longestMenuItemLength:
+                                          widget.longestMenuItemLength),
                             ),
                           )
                           .toList(),
@@ -220,24 +229,35 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 }
 
-class _RedDragIndicatorRectangle extends StatelessWidget {
+class _DragIndicatorRectangle extends StatelessWidget {
+  const _DragIndicatorRectangle({
+    @required this.color,
+  });
+
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: _kRedDragIndicatorWidth,
       height: _kRedDragIndicatorHeight,
-      decoration: BoxDecoration(
-          color: styles.Colors.primary, borderRadius: styles.kBorderRadiusAll),
+      decoration:
+          BoxDecoration(color: color, borderRadius: styles.kBorderRadiusAll),
     );
   }
 }
 
-class _MenuItemRow extends StatelessWidget {
-  _MenuItemRow({Key key, @required this.name, @required this.icon})
+class _IconRow extends StatelessWidget {
+  _IconRow(
+      {Key key,
+      @required this.name,
+      @required this.icon,
+      @required this.longestMenuItemLength})
       : super(key: key);
 
   final String name;
   final Icon icon;
+  final double longestMenuItemLength;
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +271,7 @@ class _MenuItemRow extends StatelessWidget {
             child: Container(),
           ),
           Container(
-            width: 140,
+            width: longestMenuItemLength,
             child: Row(
               children: <Widget>[
                 Container(
@@ -276,5 +296,26 @@ class _MenuItemRow extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _Row extends StatelessWidget {
+  _Row({Key key, @required this.name, @required this.longestMenuItemLength})
+      : super(key: key);
+
+  final String name;
+  final double longestMenuItemLength;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: _kMenuItemHeight,
+        decoration: BoxDecoration(color: styles.Colors.translucent),
+        child: Center(
+          child: Text(
+            name,
+            style: styles.Staatliches.xlBlack,
+          ),
+        ));
   }
 }

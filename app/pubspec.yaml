@@ -52,6 +52,7 @@ flutter:
     - assets/images/
     - assets/images/grips/
     - assets/images/boards/
+    - assets/images/icons/
 
   uses-material-design: false
   fonts:

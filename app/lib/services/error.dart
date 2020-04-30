@@ -154,4 +154,39 @@ abstract class ErrorMessages {
           TextSpan(text: 'larger than $max.', style: styles.Lato.sBlackBold),
         ]),
       );
+
+  static Widget customBoardNotAdjacent() => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: 'Multiple selection requires elements ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: 'next to each other, ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(text: 'on the ', style: styles.Lato.sBlack),
+          TextSpan(text: 'same row.', style: styles.Lato.sBlackBold),
+        ]),
+      );
+
+  static Widget customBoardDeselect() => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: 'Deselecting here will ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: 'create a gap. ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(text: 'Elements ', style: styles.Lato.sBlack),
+          TextSpan(
+            text: 'need to be next to each other.',
+            style: styles.Lato.sBlackBold,
+          ),
+        ]),
+      );
 }

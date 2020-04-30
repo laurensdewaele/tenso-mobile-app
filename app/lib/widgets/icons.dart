@@ -62,6 +62,18 @@ const plusIconWhiteXl = Icon(
     size: styles.IconMeasurements.xl,
     color: styles.Colors.white);
 
+const plusIconWhiteS = Icon(
+    iconData: IconData(0xf489,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.s,
+    color: styles.Colors.white);
+
+const selectedIconBlackS = Icon(
+    iconData: IconData(0xf3fd,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.s,
+    color: styles.Colors.black);
+
 const stopIconWhiteXl = Icon(
     iconData: IconData(0xf371,
         fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
@@ -112,6 +124,20 @@ const copyIconWhiteXl = Icon(
   iconData: IconData(0xf220,
       fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
   color: styles.Colors.white,
+);
+
+const saveIconBlackL = Icon(
+  size: styles.IconMeasurements.l,
+  iconData: IconData(0xf373,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.black,
+);
+
+const previewIconL = Icon(
+  size: styles.IconMeasurements.l,
+  iconData: IconData(0xf425,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.black,
 );
 
 const deleteIconWhiteXl = Icon(

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:app/data/basic_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/services/navigation.dart';
 import 'package:app/screens/workout.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout_overview_vm.dart';
@@ -104,6 +105,10 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
             )),
           BottomMenuDrawer(
             startOpen: _viewModel.startOpen,
+            menuItems: _menuItems,
+            longestMenuItemLength: 140,
+            dragIndicatorColor: styles.Colors.primary,
+            icons: true,
           )
         ],
       ),
@@ -141,3 +146,30 @@ class _AddWorkoutButton extends StatelessWidget {
         leadingIcon: icons.plusIconWhiteXl);
   }
 }
+
+List<MenuItem> _menuItems = [
+  MenuItem(
+      name: 'settings',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.settingsScreen);
+      },
+      icon: icons.settingsIconBlackL),
+  MenuItem(
+      name: 'progress',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.progressScreen);
+      },
+      icon: icons.chartIconBlackS),
+  MenuItem(
+      name: 'history',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.calendarScreen);
+      },
+      icon: icons.calendarIconBlackM),
+  MenuItem(
+      name: 'feedback',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.feedbackScreen);
+      },
+      icon: icons.editIconBlackS)
+];
