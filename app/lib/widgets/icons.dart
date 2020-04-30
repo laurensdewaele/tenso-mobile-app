@@ -62,6 +62,18 @@ const plusIconWhiteXl = Icon(
     size: styles.IconMeasurements.xl,
     color: styles.Colors.white);
 
+const plusIconWhiteS = Icon(
+    iconData: IconData(0xf489,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.s,
+    color: styles.Colors.white);
+
+const selectedIconBlackS = Icon(
+    iconData: IconData(0xf3fd,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.s,
+    color: styles.Colors.black);
+
 const stopIconWhiteXl = Icon(
     iconData: IconData(0xf371,
         fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),

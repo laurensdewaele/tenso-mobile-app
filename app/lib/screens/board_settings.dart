@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/board_settings.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
@@ -21,22 +20,13 @@ class BoardSettingsScreen extends StatefulWidget {
 }
 
 class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
-  BoardSettingsViewModel _viewModel;
-
   @override
   void initState() {
-    _viewModel = BoardSettingsViewModel();
-    _viewModel.addListener(_viewModelListener);
     super.initState();
-  }
-
-  void _viewModelListener() {
-    setState(() {});
   }
 
   @override
   void dispose() {
-    _viewModel.removeListener(_viewModelListener);
     super.dispose();
   }
 
