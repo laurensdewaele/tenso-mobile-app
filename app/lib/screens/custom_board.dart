@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/bottom_menu_drawer.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
 
@@ -34,6 +35,10 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
     super.dispose();
   }
 
+  void _handleSaveTap() {}
+  void _handlePreviewTap() {}
+  void _handleInfoTap() {}
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -62,7 +67,23 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 child: Image.asset('assets/images/boards/custom_board.png')),
           ),
         ),
-        BottomMenuDrawer()
+        BottomMenuDrawer(
+          menuItems: [
+            MenuItem(
+                name: 'save',
+                handleTap: _handleSaveTap,
+                icon: icons.saveIconBlackL),
+            MenuItem(
+                name: 'preview',
+                handleTap: _handlePreviewTap,
+                icon: icons.previewIconL),
+            MenuItem(
+                name: 'info',
+                handleTap: _handleInfoTap,
+                icon: icons.infoIconBlackL)
+          ],
+          longestMenuItemLength: 120,
+        )
       ],
     );
   }

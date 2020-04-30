@@ -114,6 +114,20 @@ const copyIconWhiteXl = Icon(
   color: styles.Colors.white,
 );
 
+const saveIconBlackL = Icon(
+  size: styles.IconMeasurements.l,
+  iconData: IconData(0xf373,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.black,
+);
+
+const previewIconL = Icon(
+  size: styles.IconMeasurements.l,
+  iconData: IconData(0xf425,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.black,
+);
+
 const deleteIconWhiteXl = Icon(
   size: styles.IconMeasurements.xl,
   iconData: IconData(0xf4c4,
