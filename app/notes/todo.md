@@ -2,7 +2,9 @@
 
 - Add custom board => Slopers, pinches, ...
 
-=> Bottom add hold
+- refactor bottom menu drawer? animation seems contrived with calculating the height etc.
+The modals just use offset 0,1 ;s
+
 => Bottom nav
 => Add hold
 => Remove
