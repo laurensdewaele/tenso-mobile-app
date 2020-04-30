@@ -125,8 +125,76 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
               )
             ],
             longestMenuItemLength: 120,
-          )
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: _Modal(
+                open: _viewModel.modalOpen,
+              ))
         ],
+      ),
+    );
+  }
+}
+
+class _Modal extends StatefulWidget {
+  _Modal({Key key, @required this.open}) : super(key: key);
+
+  final bool open;
+
+  @override
+  _ModalState createState() => _ModalState();
+}
+
+class _ModalState extends State<_Modal> with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  final Animatable<Offset> _offSetTween =
+      Tween<Offset>(begin: Offset(0, 1), end: Offset(0.0, 0.0))
+          .chain(CurveTween(curve: Curves.easeIn));
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(_Modal oldWidget) {
+    if (oldWidget.open != widget.open) {
+      if (widget.open == true) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: _animationController.drive(_offSetTween),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: styles.kBorderRadius, topRight: styles.kBorderRadius),
+            color: styles.Colors.bgWhite),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: styles.Measurements.xs),
+          child: Text(
+            'add hold',
+            style: styles.Staatliches.xlBlack,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }

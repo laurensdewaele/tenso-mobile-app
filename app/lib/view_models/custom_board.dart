@@ -29,12 +29,19 @@ class BoxState {
 
 class CustomBoardViewModel extends ChangeNotifier {
   List<BoxState> boxes;
+  List<BoxState> get selectedBoxes =>
+      boxes.where((box) => box.selected == true).toList();
   ToastService _toastService;
+
+  bool modalOpen;
+  bool locked;
 
   CustomBoardViewModel() {
     _toastService = ToastService();
     boxes = List.generate(
         4 * 4, (i) => BoxState(index: i, selected: false, row: i ~/ 4));
+    modalOpen = false;
+    locked = false;
     notifyListeners();
   }
 
@@ -65,7 +72,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   bool _isAdjacentSameRow({int index, int row}) {
     bool _isAdjacentSameRow = false;
 
-    if (boxes.where((box) => box.selected == true).length == 0) return true;
+    if (selectedBoxes.length == 0) return true;
 
     try {
       if (boxes[index - 1].row == row && boxes[index - 1].selected == true) {
@@ -97,10 +104,15 @@ class CustomBoardViewModel extends ChangeNotifier {
     return _isInCenter;
   }
 
+  void _determineModalState() {
+    modalOpen = selectedBoxes.length > 0;
+  }
+
   void _invertSelectedStateBox(BoxState boxState) {
     final List<BoxState> _newBoxes = []..addAll(boxes);
     _newBoxes[boxState.index] = boxState.copyWith(selected: !boxState.selected);
     boxes = _newBoxes;
+    _determineModalState();
     notifyListeners();
   }
 }

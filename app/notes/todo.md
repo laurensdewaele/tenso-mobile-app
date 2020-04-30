@@ -2,6 +2,11 @@
 
 - Add custom board => Slopers, pinches, ...
 
+=> Bottom add hold
+=> Bottom nav
+=> Add hold
+=> Remove
+
 - Add board selection. Only beastmaker1000 atm.
 
 ### Large prio
