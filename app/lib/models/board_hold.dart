@@ -27,6 +27,7 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   double get heightPercent;
 
   bool checkGripCompatibility(Grip grip) {
+    if (supportedFingers == null) return true;
     return grip.fingers.count > supportedFingers ? false : true;
   }
 
