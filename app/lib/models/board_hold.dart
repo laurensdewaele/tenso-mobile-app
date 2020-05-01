@@ -11,20 +11,20 @@ part 'board_hold.g.dart';
 abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   static Serializer<BoardHold> get serializer => _$boardHoldSerializer;
 
+  int get position;
+  HoldType get type;
   @nullable
   double get depth;
-  double get hangAnchorXPercent;
-  double get hangAnchorYPercent;
-  double get heightPercent;
-  int get position;
   @nullable
   int get supportedFingers;
   @nullable
   double get sloperDegrees;
+  double get hangAnchorXPercent;
+  double get hangAnchorYPercent;
   double get topLeftXPercent;
   double get topLeftYPercent;
-  HoldType get type;
   double get widthPercent;
+  double get heightPercent;
 
   bool checkGripCompatibility(Grip grip) {
     return grip.fingers.count > supportedFingers ? false : true;

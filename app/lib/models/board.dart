@@ -13,20 +13,20 @@ abstract class Board implements Built<Board, BoardBuilder> {
   static Serializer<Board> get serializer => _$boardSerializer;
 
   String get id;
-  double get aspectRatio;
-  BuiltList<BoardHold> get boardHolds;
   bool get custom;
   @nullable
   BuiltList<CustomBoardHoldImage> get customBoardHoldImages;
-  BoardHold get defaultLeftGripHold;
-  BoardHold get defaultRightGripHold;
-  String get imageAsset;
-  double get handToBoardHeightRatio;
-  double get height;
   @nullable
   String get manufacturer;
   String get model;
+  String get imageAsset;
+  double get aspectRatio;
+  double get height;
   double get width;
+  double get handToBoardHeightRatio;
+  BuiltList<BoardHold> get boardHolds;
+  BoardHold get defaultLeftGripHold;
+  BoardHold get defaultRightGripHold;
 
   factory Board([void Function(BoardBuilder) updates]) = _$Board;
   Board._();
