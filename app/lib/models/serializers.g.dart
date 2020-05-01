@@ -11,6 +11,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(BoardHold.serializer)
       ..add(CompletedWorkout.serializer)
       ..add(CompletedWorkouts.serializer)
+      ..add(CustomBoardHoldImage.serializer)
       ..add(DeviceInfo.serializer)
       ..add(ExecutionEvent.serializer)
       ..add(ExecutionEventType.serializer)
@@ -31,6 +32,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(BoardHold)]),
           () => new ListBuilder<BoardHold>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(CustomBoardHoldImage)]),
+          () => new ListBuilder<CustomBoardHoldImage>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(CompletedWorkout)]),
           () => new ListBuilder<CompletedWorkout>())

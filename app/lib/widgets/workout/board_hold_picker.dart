@@ -87,13 +87,13 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {
-    final double gripDYHangAnchor = grip.dyRelativeHangAnchor * _gripHeight;
+    final double gripDYHangAnchor = grip.hangAnchorYPercent * _gripHeight;
     final double gripDXHangAnchor =
-        grip.dxRelativeHangAnchor * grip.assetAspectRatio * _gripHeight;
+        grip.hangAnchorXPercent * grip.assetAspectRatio * _gripHeight;
     final double holdDYHangAnchor =
-        boardHold.dyRelativeHangAnchor * _boardSize.height;
+        boardHold.hangAnchorYPercent * _boardSize.height;
     final double holdDXHangAnchor =
-        boardHold.dxRelativeHangAnchor * _boardSize.width;
+        boardHold.hangAnchorXPercent * _boardSize.width;
     final Offset offset = Offset(holdDXHangAnchor - gripDXHangAnchor,
         holdDYHangAnchor - gripDYHangAnchor);
 
@@ -116,11 +116,11 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     double gripHeight,
   ) {
     Offset position = event.localPosition;
-    final double dxHangAnchor =
-        grip.dxRelativeHangAnchor * gripHeight * grip.assetAspectRatio;
-    final double dyHangAnchor = grip.dyRelativeHangAnchor * gripHeight;
-    final double dy = position.dy - dyHangAnchor;
-    final double dx = position.dx - dxHangAnchor;
+    final double hangAnchorX =
+        grip.hangAnchorXPercent * gripHeight * grip.assetAspectRatio;
+    final double hangAnchorY = grip.hangAnchorYPercent * gripHeight;
+    final double dy = position.dy - hangAnchorY;
+    final double dx = position.dx - hangAnchorX;
     setState(() {
       if (grip.handType == HandType.leftHand) {
         _leftHandFeedbackOffset = Offset(-dx, -dy);
@@ -162,7 +162,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
           ),
           BoardDragTargets(
             boardAspectRatio: widget.board.aspectRatio,
-            boardAssetSrc: widget.board.assetSrc,
+            boardImageAsset: widget.board.imageAsset,
             boardHolds: widget.board.boardHolds.toList(),
             activeBoardHolds: [
               widget.rightGripBoardHold,
@@ -192,7 +192,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   feedback: Container(
                     height: _gripHeight,
                     child: GripImage(
-                      assetSrc: widget.leftGrip.assetSrc,
+                      imageAsset: widget.leftGrip.imageAsset,
                       selected: false,
                       color: styles.Colors.lighestGray,
                     ),
@@ -200,7 +200,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   child: Container(
                     height: _gripHeight,
                     child: GripImage(
-                      assetSrc: widget.leftGrip.assetSrc,
+                      imageAsset: widget.leftGrip.imageAsset,
                       selected: false,
                       color: styles.Colors.lighestGray,
                     ),
@@ -230,7 +230,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   feedback: Container(
                     height: _gripHeight,
                     child: GripImage(
-                      assetSrc: widget.rightGrip.assetSrc,
+                      imageAsset: widget.rightGrip.imageAsset,
                       selected: false,
                       color: styles.Colors.lighestGray,
                     ),
@@ -238,7 +238,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   child: Container(
                     height: _gripHeight,
                     child: GripImage(
-                      assetSrc: widget.rightGrip.assetSrc,
+                      imageAsset: widget.rightGrip.imageAsset,
                       selected: false,
                       color: styles.Colors.lighestGray,
                     ),

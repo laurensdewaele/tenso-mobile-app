@@ -12,10 +12,10 @@ abstract class Grips {
       ..ring = false
       ..pinky = true
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_pinky_L.png'
+    ..imageAsset = 'assets/images/grips/mono_pinky_L.png'
     ..handType = HandType.leftHand
-    ..dxHangAnchor = 45.0 - 20
-    ..dyHangAnchor = 33.0 - 26
+    ..hangAnchorX = 45.0 - 20
+    ..hangAnchorY = 33.0 - 26
     ..assetWidth = 234 / (330 / 120)
     ..assetHeight = 120);
 
@@ -23,8 +23,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 234 / (330 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 + 14.0
-    ..dyHangAnchor = 33.0 - 26.0
+    ..hangAnchorX = 45.0 + 14.0
+    ..hangAnchorY = 33.0 - 26.0
     ..description = 'mono pinky'
     ..name = 'monoPinkyR'
     ..fingers = Fingers((b) => b
@@ -34,15 +34,15 @@ abstract class Grips {
       ..ring = false
       ..pinky = true
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_pinky_R.png'
+    ..imageAsset = 'assets/images/grips/mono_pinky_R.png'
     ..handType = HandType.rightHand);
 
   static Grip monoRingL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 336 / (219 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 16.0
-    ..dyHangAnchor = 33.0 - 27.0
+    ..hangAnchorX = 45.0 - 16.0
+    ..hangAnchorY = 33.0 - 27.0
     ..description = 'mono ring finger'
     ..name = 'monoRingL'
     ..fingers = Fingers((b) => b
@@ -52,15 +52,15 @@ abstract class Grips {
       ..ring = true
       ..pinky = false
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_ring_L.png'
+    ..imageAsset = 'assets/images/grips/mono_ring_L.png'
     ..handType = HandType.leftHand);
 
   static Grip monoRingR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 219 / (336 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 + 4.0
-    ..dyHangAnchor = 33.0 - 27.0
+    ..hangAnchorX = 45.0 + 4.0
+    ..hangAnchorY = 33.0 - 27.0
     ..description = 'mono ring finger'
     ..name = 'monoRingR'
     ..handType = HandType.rightHand
@@ -71,14 +71,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = false
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_ring_R.png');
+    ..imageAsset = 'assets/images/grips/mono_ring_R.png');
 
   static Grip monoMiddleL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 211 / (369 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 11
-    ..dyHangAnchor = 33.0 - 27
+    ..hangAnchorX = 45.0 - 11
+    ..hangAnchorY = 33.0 - 27
     ..description = 'mono middle finger'
     ..name = 'monoMiddleL'
     ..handType = HandType.leftHand
@@ -89,14 +89,14 @@ abstract class Grips {
       ..ring = false
       ..pinky = false
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_middle_L.png');
+    ..imageAsset = 'assets/images/grips/mono_middle_L.png');
 
   static Grip monoMiddleR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 211 / (369 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 11
-    ..dyHangAnchor = 33.0 - 27
+    ..hangAnchorX = 45.0 - 11
+    ..hangAnchorY = 33.0 - 27
     ..description = 'mono middle finger'
     ..name = 'monoMiddleR'
     ..handType = HandType.rightHand
@@ -107,14 +107,14 @@ abstract class Grips {
       ..ring = false
       ..pinky = false
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_middle_R.png');
+    ..imageAsset = 'assets/images/grips/mono_middle_R.png');
 
   static Grip monoIndexL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 176 / (317 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 1
-    ..dyHangAnchor = 33.0 - 25
+    ..hangAnchorX = 45.0 - 1
+    ..hangAnchorY = 33.0 - 25
     ..description = 'mono index finger'
     ..name = 'monoIndexL'
     ..handType = HandType.leftHand
@@ -125,14 +125,14 @@ abstract class Grips {
       ..ring = false
       ..pinky = false
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_index_L.png');
+    ..imageAsset = 'assets/images/grips/mono_index_L.png');
 
   static Grip monoIndexR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 176 / (317 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 23
-    ..dyHangAnchor = 33.0 - 25
+    ..hangAnchorX = 45.0 - 23
+    ..hangAnchorY = 33.0 - 25
     ..description = 'mono index finger'
     ..name = 'monoIndexR'
     ..handType = HandType.rightHand
@@ -143,15 +143,15 @@ abstract class Grips {
       ..ring = false
       ..pinky = false
       ..count = 1).toBuilder()
-    ..assetSrc = 'assets/images/grips/mono_index_R.png');
+    ..imageAsset = 'assets/images/grips/mono_index_R.png');
 
   static Grip frontTwoL = Grip(
     (b) => b
       ..crimped = false
       ..assetWidth = 210 / (300 / 120)
       ..assetHeight = 120
-      ..dxHangAnchor = 45.0 - 3
-      ..dyHangAnchor = 33.0 - 27
+      ..hangAnchorX = 45.0 - 3
+      ..hangAnchorY = 33.0 - 27
       ..description = 'front two'
       ..name = 'frontTwoL'
       ..handType = HandType.leftHand
@@ -162,15 +162,15 @@ abstract class Grips {
         ..ring = false
         ..pinky = false
         ..count = 2).toBuilder()
-      ..assetSrc = 'assets/images/grips/front_two_L.png',
+      ..imageAsset = 'assets/images/grips/front_two_L.png',
   );
 
   static Grip frontTwoR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 210 / (300 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 3
-    ..dyHangAnchor = 33.0 - 27
+    ..hangAnchorX = 45.0 - 3
+    ..hangAnchorY = 33.0 - 27
     ..description = 'front two'
     ..name = 'frontTwoR'
     ..handType = HandType.rightHand
@@ -181,14 +181,14 @@ abstract class Grips {
       ..ring = false
       ..pinky = false
       ..count = 2).toBuilder()
-    ..assetSrc = 'assets/images/grips/front_two_R.png');
+    ..imageAsset = 'assets/images/grips/front_two_R.png');
 
   static Grip middleTwoL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 236 / (332 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 11
-    ..dyHangAnchor = 33.0 - 21
+    ..hangAnchorX = 45.0 - 11
+    ..hangAnchorY = 33.0 - 21
     ..description = 'middle two'
     ..name = 'middleTwoL'
     ..handType = HandType.leftHand
@@ -199,14 +199,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = false
       ..count = 2).toBuilder()
-    ..assetSrc = 'assets/images/grips/middle_two_L.png');
+    ..imageAsset = 'assets/images/grips/middle_two_L.png');
 
   static Grip middleTwoR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 236 / (332 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 + 8
-    ..dyHangAnchor = 33.0 - 21
+    ..hangAnchorX = 45.0 + 8
+    ..hangAnchorY = 33.0 - 21
     ..description = 'middle two'
     ..name = 'middleTwoR'
     ..handType = HandType.rightHand
@@ -217,14 +217,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = false
       ..count = 2).toBuilder()
-    ..assetSrc = 'assets/images/grips/middle_two_R.png');
+    ..imageAsset = 'assets/images/grips/middle_two_R.png');
 
   static Grip backTwoL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 219 / (322 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 25
-    ..dyHangAnchor = 33.0 - 25
+    ..hangAnchorX = 45.0 - 25
+    ..hangAnchorY = 33.0 - 25
     ..description = 'back two'
     ..name = 'backTwoL'
     ..handType = HandType.leftHand
@@ -235,14 +235,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = true
       ..count = 2).toBuilder()
-    ..assetSrc = 'assets/images/grips/back_two_L.png');
+    ..imageAsset = 'assets/images/grips/back_two_L.png');
 
   static Grip backTwoR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 219 / (332 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 + 17.0
-    ..dyHangAnchor = 33.0 - 25
+    ..hangAnchorX = 45.0 + 17.0
+    ..hangAnchorY = 33.0 - 25
     ..description = 'back two'
     ..name = 'backTwoR'
     ..handType = HandType.rightHand
@@ -253,14 +253,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = true
       ..count = 2).toBuilder()
-    ..assetSrc = 'assets/images/grips/back_two_R.png');
+    ..imageAsset = 'assets/images/grips/back_two_R.png');
 
   static Grip frontThreeL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 177 / (297 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 9.0
-    ..dyHangAnchor = 33.0 - 24.0
+    ..hangAnchorX = 45.0 - 9.0
+    ..hangAnchorY = 33.0 - 24.0
     ..description = 'front three'
     ..name = 'frontThreeL'
     ..handType = HandType.leftHand
@@ -271,14 +271,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = false
       ..count = 3).toBuilder()
-    ..assetSrc = 'assets/images/grips/front_three_L.png');
+    ..imageAsset = 'assets/images/grips/front_three_L.png');
 
   static Grip frontThreeR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 177 / (297 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 9
-    ..dyHangAnchor = 33.0 - 24.0
+    ..hangAnchorX = 45.0 - 9
+    ..hangAnchorY = 33.0 - 24.0
     ..description = 'front three'
     ..name = 'frontThreeR'
     ..handType = HandType.rightHand
@@ -289,14 +289,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = false
       ..count = 3).toBuilder()
-    ..assetSrc = 'assets/images/grips/front_three_R.png');
+    ..imageAsset = 'assets/images/grips/front_three_R.png');
 
   static Grip backThreeL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 241 / (292 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 5
-    ..dyHangAnchor = 33.0 - 20
+    ..hangAnchorX = 45.0 - 5
+    ..hangAnchorY = 33.0 - 20
     ..description = 'back three'
     ..name = 'backThreeL'
     ..handType = HandType.leftHand
@@ -307,14 +307,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = true
       ..count = 3).toBuilder()
-    ..assetSrc = 'assets/images/grips/back_three_L.png');
+    ..imageAsset = 'assets/images/grips/back_three_L.png');
 
   static Grip backThreeR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 241 / (292 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 + 18.0
-    ..dyHangAnchor = 33.0 - 20.0
+    ..hangAnchorX = 45.0 + 18.0
+    ..hangAnchorY = 33.0 - 20.0
     ..description = 'back three'
     ..name = 'backThreeR'
     ..handType = HandType.rightHand
@@ -325,14 +325,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = true
       ..count = 3).toBuilder()
-    ..assetSrc = 'assets/images/grips/back_three_R.png');
+    ..imageAsset = 'assets/images/grips/back_three_R.png');
 
   static Grip openHandL = Grip((b) => b
     ..crimped = false
     ..assetWidth = 238 / (316 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 39.5
-    ..dyHangAnchor = 10
+    ..hangAnchorX = 39.5
+    ..hangAnchorY = 10
     ..description = 'open hand'
     ..name = 'openHandL'
     ..handType = HandType.leftHand
@@ -343,14 +343,14 @@ abstract class Grips {
       ..ring = true
       ..pinky = true
       ..count = 4).toBuilder()
-    ..assetSrc = 'assets/images/grips/open_hand_L.png');
+    ..imageAsset = 'assets/images/grips/open_hand_L.png');
 
   static Grip openHandR = Grip((b) => b
     ..crimped = false
     ..assetWidth = 238 / (316 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 51
-    ..dyHangAnchor = 10
+    ..hangAnchorX = 51
+    ..hangAnchorY = 10
     ..description = 'open hand'
     ..name = 'openHandR'
     ..handType = HandType.rightHand
@@ -361,13 +361,13 @@ abstract class Grips {
       ..ring = true
       ..pinky = true
       ..count = 4).toBuilder()
-    ..assetSrc = 'assets/images/grips/open_hand_R.png');
+    ..imageAsset = 'assets/images/grips/open_hand_R.png');
 
   static Grip halfCrimpL = Grip((b) => b
     ..assetWidth = 274 / (318 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0
-    ..dyHangAnchor = 33.0 - 10
+    ..hangAnchorX = 45.0
+    ..hangAnchorY = 33.0 - 10
     ..description = 'half crimp'
     ..name = 'halfCrimpL'
     ..handType = HandType.leftHand
@@ -379,13 +379,13 @@ abstract class Grips {
       ..pinky = true
       ..count = 4).toBuilder()
     ..crimped = true
-    ..assetSrc = 'assets/images/grips/half_crimp_L.png');
+    ..imageAsset = 'assets/images/grips/half_crimp_L.png');
 
   static Grip halfCrimpR = Grip((b) => b
     ..assetWidth = 274 / (318 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 + 16.0
-    ..dyHangAnchor = 33.0 - 10.0
+    ..hangAnchorX = 45.0 + 16.0
+    ..hangAnchorY = 33.0 - 10.0
     ..description = 'half crimp'
     ..name = 'halfCrimpR'
     ..handType = HandType.rightHand
@@ -397,14 +397,14 @@ abstract class Grips {
       ..pinky = true
       ..count = 4).toBuilder()
     ..crimped = true
-    ..assetSrc = 'assets/images/grips/half_crimp_R.png');
+    ..imageAsset = 'assets/images/grips/half_crimp_R.png');
 
   static Grip fullCrimpL = Grip(
     (b) => b
       ..assetWidth = 177 / (282 / 120)
       ..assetHeight = 120
-      ..dxHangAnchor = 45.0 - 6
-      ..dyHangAnchor = 33.0 - 7
+      ..hangAnchorX = 45.0 - 6
+      ..hangAnchorY = 33.0 - 7
       ..description = 'full crimp'
       ..name = 'fullCrimpL'
       ..handType = HandType.leftHand
@@ -416,13 +416,13 @@ abstract class Grips {
         ..pinky = true
         ..count = 5).toBuilder()
       ..crimped = true
-      ..assetSrc = 'assets/images/grips/full_crimp_L.png',
+      ..imageAsset = 'assets/images/grips/full_crimp_L.png',
   );
   static Grip fullCrimpR = Grip((b) => b
     ..assetWidth = 177 / (282 / 120)
     ..assetHeight = 120
-    ..dxHangAnchor = 45.0 - 6
-    ..dyHangAnchor = 33.0 - 7
+    ..hangAnchorX = 45.0 - 6
+    ..hangAnchorY = 33.0 - 7
     ..description = 'full crimp'
     ..name = 'fullCrimpR'
     ..handType = HandType.rightHand
@@ -434,7 +434,7 @@ abstract class Grips {
       ..pinky = true
       ..count = 5).toBuilder()
     ..crimped = true
-    ..assetSrc = 'assets/images/grips/full_crimp_R.png');
+    ..imageAsset = 'assets/images/grips/full_crimp_R.png');
 
   static List<Grip> left = [
     Grips.fullCrimpL,

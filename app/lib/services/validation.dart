@@ -89,8 +89,8 @@ abstract class Validators {
     } else {
       throw ValidationException<BoardHold>(
           input: boardHold,
-          errorMessage: ErrorMessages.maxAllowedFingers(
-              maxAllowedFingers: boardHold.maxAllowedFingers),
+          errorMessage: ErrorMessages.exceedsSupportedFingers(
+              max: boardHold.supportedFingers),
           validationType: 'gripCompatibility');
     }
     return _bool;

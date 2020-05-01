@@ -56,8 +56,8 @@ class ErrorService {
 class AppException {}
 
 abstract class ErrorMessages {
-  static Widget maxAllowedFingers({int maxAllowedFingers}) => Text(
-        'This hold only has room for $maxAllowedFingers fingers.',
+  static Widget exceedsSupportedFingers({int max}) => Text(
+        'This hold only has room for $max fingers.',
         textAlign: TextAlign.center,
         style: styles.Lato.sBlack,
       );

@@ -135,7 +135,7 @@ class _Grip extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget image = GripImage(
         primaryColor: primaryColor,
-        assetSrc: grip.assetSrc,
+        imageAsset: grip.imageAsset,
         selected: selected,
         color: styles.Colors.lightGray);
 

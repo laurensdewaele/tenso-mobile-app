@@ -14,13 +14,13 @@ abstract class Grip implements Built<Grip, GripBuilder> {
   HandType get handType;
   Fingers get fingers;
   bool get crimped;
-  String get assetSrc;
+  String get imageAsset;
   String get name;
   String get description;
-  double get dxHangAnchor;
-  double get dyHangAnchor;
-  double get dxRelativeHangAnchor => dxHangAnchor / assetWidth;
-  double get dyRelativeHangAnchor => dyHangAnchor / assetHeight;
+  double get hangAnchorX;
+  double get hangAnchorY;
+  double get hangAnchorXPercent => hangAnchorX / assetWidth;
+  double get hangAnchorYPercent => hangAnchorY / assetHeight;
   double get assetWidth;
   double get assetHeight;
   double get assetAspectRatio => assetWidth / assetHeight;

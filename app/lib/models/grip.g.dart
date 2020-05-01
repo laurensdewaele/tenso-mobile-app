@@ -27,19 +27,19 @@ class _$GripSerializer implements StructuredSerializer<Grip> {
       'crimped',
       serializers.serialize(object.crimped,
           specifiedType: const FullType(bool)),
-      'assetSrc',
-      serializers.serialize(object.assetSrc,
+      'imageAsset',
+      serializers.serialize(object.imageAsset,
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'description',
       serializers.serialize(object.description,
           specifiedType: const FullType(String)),
-      'dxHangAnchor',
-      serializers.serialize(object.dxHangAnchor,
+      'hangAnchorX',
+      serializers.serialize(object.hangAnchorX,
           specifiedType: const FullType(double)),
-      'dyHangAnchor',
-      serializers.serialize(object.dyHangAnchor,
+      'hangAnchorY',
+      serializers.serialize(object.hangAnchorY,
           specifiedType: const FullType(double)),
       'assetWidth',
       serializers.serialize(object.assetWidth,
@@ -75,8 +75,8 @@ class _$GripSerializer implements StructuredSerializer<Grip> {
           result.crimped = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
-        case 'assetSrc':
-          result.assetSrc = serializers.deserialize(value,
+        case 'imageAsset':
+          result.imageAsset = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'name':
@@ -87,12 +87,12 @@ class _$GripSerializer implements StructuredSerializer<Grip> {
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'dxHangAnchor':
-          result.dxHangAnchor = serializers.deserialize(value,
+        case 'hangAnchorX':
+          result.hangAnchorX = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'dyHangAnchor':
-          result.dyHangAnchor = serializers.deserialize(value,
+        case 'hangAnchorY':
+          result.hangAnchorY = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'assetWidth':
@@ -118,15 +118,15 @@ class _$Grip extends Grip {
   @override
   final bool crimped;
   @override
-  final String assetSrc;
+  final String imageAsset;
   @override
   final String name;
   @override
   final String description;
   @override
-  final double dxHangAnchor;
+  final double hangAnchorX;
   @override
-  final double dyHangAnchor;
+  final double hangAnchorY;
   @override
   final double assetWidth;
   @override
@@ -139,11 +139,11 @@ class _$Grip extends Grip {
       {this.handType,
       this.fingers,
       this.crimped,
-      this.assetSrc,
+      this.imageAsset,
       this.name,
       this.description,
-      this.dxHangAnchor,
-      this.dyHangAnchor,
+      this.hangAnchorX,
+      this.hangAnchorY,
       this.assetWidth,
       this.assetHeight})
       : super._() {
@@ -156,8 +156,8 @@ class _$Grip extends Grip {
     if (crimped == null) {
       throw new BuiltValueNullFieldError('Grip', 'crimped');
     }
-    if (assetSrc == null) {
-      throw new BuiltValueNullFieldError('Grip', 'assetSrc');
+    if (imageAsset == null) {
+      throw new BuiltValueNullFieldError('Grip', 'imageAsset');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('Grip', 'name');
@@ -165,11 +165,11 @@ class _$Grip extends Grip {
     if (description == null) {
       throw new BuiltValueNullFieldError('Grip', 'description');
     }
-    if (dxHangAnchor == null) {
-      throw new BuiltValueNullFieldError('Grip', 'dxHangAnchor');
+    if (hangAnchorX == null) {
+      throw new BuiltValueNullFieldError('Grip', 'hangAnchorX');
     }
-    if (dyHangAnchor == null) {
-      throw new BuiltValueNullFieldError('Grip', 'dyHangAnchor');
+    if (hangAnchorY == null) {
+      throw new BuiltValueNullFieldError('Grip', 'hangAnchorY');
     }
     if (assetWidth == null) {
       throw new BuiltValueNullFieldError('Grip', 'assetWidth');
@@ -193,11 +193,11 @@ class _$Grip extends Grip {
         handType == other.handType &&
         fingers == other.fingers &&
         crimped == other.crimped &&
-        assetSrc == other.assetSrc &&
+        imageAsset == other.imageAsset &&
         name == other.name &&
         description == other.description &&
-        dxHangAnchor == other.dxHangAnchor &&
-        dyHangAnchor == other.dyHangAnchor &&
+        hangAnchorX == other.hangAnchorX &&
+        hangAnchorY == other.hangAnchorY &&
         assetWidth == other.assetWidth &&
         assetHeight == other.assetHeight;
   }
@@ -215,11 +215,11 @@ class _$Grip extends Grip {
                                     $jc($jc(0, handType.hashCode),
                                         fingers.hashCode),
                                     crimped.hashCode),
-                                assetSrc.hashCode),
+                                imageAsset.hashCode),
                             name.hashCode),
                         description.hashCode),
-                    dxHangAnchor.hashCode),
-                dyHangAnchor.hashCode),
+                    hangAnchorX.hashCode),
+                hangAnchorY.hashCode),
             assetWidth.hashCode),
         assetHeight.hashCode));
   }
@@ -230,11 +230,11 @@ class _$Grip extends Grip {
           ..add('handType', handType)
           ..add('fingers', fingers)
           ..add('crimped', crimped)
-          ..add('assetSrc', assetSrc)
+          ..add('imageAsset', imageAsset)
           ..add('name', name)
           ..add('description', description)
-          ..add('dxHangAnchor', dxHangAnchor)
-          ..add('dyHangAnchor', dyHangAnchor)
+          ..add('hangAnchorX', hangAnchorX)
+          ..add('hangAnchorY', hangAnchorY)
           ..add('assetWidth', assetWidth)
           ..add('assetHeight', assetHeight))
         .toString();
@@ -256,9 +256,9 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
   bool get crimped => _$this._crimped;
   set crimped(bool crimped) => _$this._crimped = crimped;
 
-  String _assetSrc;
-  String get assetSrc => _$this._assetSrc;
-  set assetSrc(String assetSrc) => _$this._assetSrc = assetSrc;
+  String _imageAsset;
+  String get imageAsset => _$this._imageAsset;
+  set imageAsset(String imageAsset) => _$this._imageAsset = imageAsset;
 
   String _name;
   String get name => _$this._name;
@@ -268,13 +268,13 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
-  double _dxHangAnchor;
-  double get dxHangAnchor => _$this._dxHangAnchor;
-  set dxHangAnchor(double dxHangAnchor) => _$this._dxHangAnchor = dxHangAnchor;
+  double _hangAnchorX;
+  double get hangAnchorX => _$this._hangAnchorX;
+  set hangAnchorX(double hangAnchorX) => _$this._hangAnchorX = hangAnchorX;
 
-  double _dyHangAnchor;
-  double get dyHangAnchor => _$this._dyHangAnchor;
-  set dyHangAnchor(double dyHangAnchor) => _$this._dyHangAnchor = dyHangAnchor;
+  double _hangAnchorY;
+  double get hangAnchorY => _$this._hangAnchorY;
+  set hangAnchorY(double hangAnchorY) => _$this._hangAnchorY = hangAnchorY;
 
   double _assetWidth;
   double get assetWidth => _$this._assetWidth;
@@ -291,11 +291,11 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
       _handType = _$v.handType;
       _fingers = _$v.fingers?.toBuilder();
       _crimped = _$v.crimped;
-      _assetSrc = _$v.assetSrc;
+      _imageAsset = _$v.imageAsset;
       _name = _$v.name;
       _description = _$v.description;
-      _dxHangAnchor = _$v.dxHangAnchor;
-      _dyHangAnchor = _$v.dyHangAnchor;
+      _hangAnchorX = _$v.hangAnchorX;
+      _hangAnchorY = _$v.hangAnchorY;
       _assetWidth = _$v.assetWidth;
       _assetHeight = _$v.assetHeight;
       _$v = null;
@@ -325,11 +325,11 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
               handType: handType,
               fingers: fingers.build(),
               crimped: crimped,
-              assetSrc: assetSrc,
+              imageAsset: imageAsset,
               name: name,
               description: description,
-              dxHangAnchor: dxHangAnchor,
-              dyHangAnchor: dyHangAnchor,
+              hangAnchorX: hangAnchorX,
+              hangAnchorY: hangAnchorY,
               assetWidth: assetWidth,
               assetHeight: assetHeight);
     } catch (_) {

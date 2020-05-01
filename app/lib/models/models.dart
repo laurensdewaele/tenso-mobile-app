@@ -4,6 +4,7 @@ export 'package:app/models/board.dart';
 export 'package:app/models/board_hold.dart';
 export 'package:app/models/completed_workout.dart';
 export 'package:app/models/completed_workouts.dart';
+export 'package:app/models/custom_board_hold_image.dart';
 export 'package:app/models/device_info.dart';
 export 'package:app/models/execution_event.dart';
 export 'package:app/models/execution_event_type.dart';
@@ -21,4 +22,3 @@ export 'package:app/models/temp_unit.dart';
 export 'package:app/models/weight_unit.dart';
 export 'package:app/models/workout.dart';
 export 'package:app/models/workouts.dart';
-

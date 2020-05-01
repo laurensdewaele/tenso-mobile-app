@@ -45,11 +45,11 @@ class BoardHoldInfo extends StatelessWidget {
                       style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
-                            text: leftGripBoardHold.holdType.toString(),
+                            text: leftGripBoardHold.type.toString(),
                             style: styles.Lato.xsGray),
                       ]),
                 ),
-                if (leftGripBoardHold.holdType == HoldType.pocket)
+                if (leftGripBoardHold.type == HoldType.pocket)
                   RichText(
                     text: TextSpan(
                         text: 'depth: ',
@@ -61,7 +61,7 @@ class BoardHoldInfo extends StatelessWidget {
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
                   ),
-                if (leftGripBoardHold.holdType == HoldType.sloper)
+                if (leftGripBoardHold.type == HoldType.sloper)
                   RichText(
                     text: TextSpan(
                         text: 'degrees: ',
@@ -111,11 +111,11 @@ class BoardHoldInfo extends StatelessWidget {
                       style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
-                            text: rightGripBoardHold.holdType.toString(),
+                            text: rightGripBoardHold.type.toString(),
                             style: styles.Lato.xsGray),
                       ]),
                 ),
-                if (rightGripBoardHold.holdType == HoldType.pocket)
+                if (rightGripBoardHold.type == HoldType.pocket)
                   RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(
@@ -128,7 +128,7 @@ class BoardHoldInfo extends StatelessWidget {
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
                   ),
-                if (rightGripBoardHold.holdType == HoldType.sloper)
+                if (rightGripBoardHold.type == HoldType.sloper)
                   RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(

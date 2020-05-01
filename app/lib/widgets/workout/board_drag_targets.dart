@@ -12,14 +12,14 @@ class BoardDragTargets extends StatefulWidget {
       @required this.orientation,
       @required this.setErrorMessage,
       @required this.boardAspectRatio,
-      @required this.boardAssetSrc,
+      @required this.boardImageAsset,
       @required this.boardHolds,
       @required this.activeBoardHolds})
       : super(key: key);
 
   final List<BoardHold> activeBoardHolds;
   final double boardAspectRatio;
-  final String boardAssetSrc;
+  final String boardImageAsset;
   final List<BoardHold> boardHolds;
   final void Function(Size boardSize) handleBoardDimensions;
   final void Function(Grip grip, BoardHold boardHold) setHandOffset;
@@ -76,14 +76,14 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
         children: <Widget>[
           Container(
               child: Image.asset(
-            widget.boardAssetSrc,
+            widget.boardImageAsset,
           )),
           ...widget.boardHolds.map((BoardHold boardHold) {
             final Rect rect = Rect.fromLTWH(
-                boardHold.relativeLeft * _boardSize.width,
-                boardHold.relativeTop * _boardSize.height,
-                boardHold.relativeWidth * _boardSize.width,
-                boardHold.relativeHeight * _boardSize.height);
+                boardHold.topLeftXPercent * _boardSize.width,
+                boardHold.topLeftYPercent * _boardSize.height,
+                boardHold.widthPercent * _boardSize.width,
+                boardHold.heightPercent * _boardSize.height);
             return Positioned.fromRect(
                 rect: rect,
                 child: DragTarget(
@@ -116,8 +116,8 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                     if (boardHold.checkGripCompatibility(grip) == true) {
                       return true;
                     } else {
-                      widget.setErrorMessage(ErrorMessages.maxAllowedFingers(
-                          maxAllowedFingers: boardHold.maxAllowedFingers));
+                      widget.setErrorMessage(ErrorMessages.exceedsSupportedFingers(
+                          max: boardHold.supportedFingers));
                       return false;
                     }
                   },

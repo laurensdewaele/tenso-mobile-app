@@ -12,16 +12,21 @@ part 'board.g.dart';
 abstract class Board implements Built<Board, BoardBuilder> {
   static Serializer<Board> get serializer => _$boardSerializer;
 
+  String get id;
+  double get aspectRatio;
+  BuiltList<BoardHold> get boardHolds;
+  bool get custom;
+  @nullable
+  BuiltList<CustomBoardHoldImage> get customBoardHoldImages;
+  BoardHold get defaultLeftGripHold;
+  BoardHold get defaultRightGripHold;
+  String get imageAsset;
+  double get handToBoardHeightRatio;
+  double get height;
+  @nullable
   String get manufacturer;
   String get model;
   double get width;
-  double get height;
-  double get aspectRatio;
-  BuiltList<BoardHold> get boardHolds;
-  double get handToBoardHeightRatio;
-  String get assetSrc;
-  BoardHold get defaultLeftGripHold;
-  BoardHold get defaultRightGripHold;
 
   factory Board([void Function(BoardBuilder) updates]) = _$Board;
   Board._();

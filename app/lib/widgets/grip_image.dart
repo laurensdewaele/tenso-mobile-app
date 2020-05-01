@@ -5,13 +5,13 @@ import 'package:app/styles/styles.dart' as styles;
 class GripImage extends StatelessWidget {
   GripImage(
       {Key key,
-      @required this.assetSrc,
+      @required this.imageAsset,
       @required this.selected,
       this.color,
       this.primaryColor = styles.Colors.primary})
       : super(key: key);
 
-  final String assetSrc;
+  final String imageAsset;
   final bool selected;
   final Color color;
   final Color primaryColor;
@@ -19,7 +19,7 @@ class GripImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      assetSrc,
+      imageAsset,
       color: selected ? primaryColor : color,
     );
   }

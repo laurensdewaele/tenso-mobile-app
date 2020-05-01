@@ -9,11 +9,11 @@ class HangBoard extends StatefulWidget {
     @required this.setHandOffset,
     @required this.orientation,
     @required this.boardAspectRatio,
-    @required this.boardAssetSrc,
+    @required this.boardImageAsset,
   }) : super(key: key);
 
   final double boardAspectRatio;
-  final String boardAssetSrc;
+  final String boardImageAsset;
   final void Function(Size boardSize) handleBoardDimensions;
   final void Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
@@ -68,7 +68,7 @@ class _BoardState extends State<HangBoard> {
         children: <Widget>[
           Container(
               child: Image.asset(
-            widget.boardAssetSrc,
+            widget.boardImageAsset,
           )),
         ],
       );
