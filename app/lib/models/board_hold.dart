@@ -17,9 +17,8 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   @nullable
   double get sloperDegrees;
   @nullable
-  double get pocketDepth;
+  double get depth;
   @nullable
-  double get edgeDepth;
   double get dxRelativeHangAnchor;
   double get dyRelativeHangAnchor;
   double get relativeLeft;

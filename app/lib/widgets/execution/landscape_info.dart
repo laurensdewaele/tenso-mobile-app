@@ -28,8 +28,8 @@ class LandscapeInfo extends StatelessWidget {
     if (leftGrip != null && leftGripBoardHold != null) {
       leftGripName = leftGrip.description;
       if (leftGripBoardHold.holdType == HoldType.pocket) {
-        final String pocketDepth = leftGripBoardHold.pocketDepth.toString();
-        leftHoldInfo = '$pocketDepth MM';
+        final String depth = leftGripBoardHold.depth.toString();
+        leftHoldInfo = '$depth MM';
       } else {
         leftHoldInfo = leftGripBoardHold.holdType.toString();
       }
@@ -40,8 +40,8 @@ class LandscapeInfo extends StatelessWidget {
     if (rightGrip != null && rightGripBoardHold != null) {
       rightGripName = rightGrip.description;
       if (rightGripBoardHold.holdType == HoldType.pocket) {
-        final String pocketDepth = rightGripBoardHold.pocketDepth.toString();
-        rightHoldInfo = '$pocketDepth MM';
+        final String depth = rightGripBoardHold.depth.toString();
+        rightHoldInfo = '$depth MM';
       } else {
         rightHoldInfo = rightGripBoardHold.holdType.toString();
       }

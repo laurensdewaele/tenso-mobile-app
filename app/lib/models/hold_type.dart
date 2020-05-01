@@ -7,9 +7,11 @@ part 'hold_type.g.dart';
 class HoldType extends EnumClass {
   static Serializer<HoldType> get serializer => _$holdTypeSerializer;
 
+  static const HoldType pinchBlock = _$pinchBlock;
   static const HoldType sloper = _$sloper;
-  static const HoldType pocket = _$pocket;
   static const HoldType jug = _$jug;
+  static const HoldType pocket = _$pocket;
+  static const HoldType edge = _$edge;
 
   const HoldType._(String name) : super(name);
 

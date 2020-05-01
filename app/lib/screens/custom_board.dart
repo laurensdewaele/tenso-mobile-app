@@ -54,16 +54,14 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
     await showAppModalPopup(
         context: context,
         content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Expanded(
-              child: Text('pinch block'),
+            Text(
+              'pinch block',
+              style: styles.Staatliches.xlBlack,
             ),
-            Expanded(
-              child: Text('sloper'),
-            ),
-            Expanded(
-              child: Text('jug'),
-            ),
+            Text('sloper', style: styles.Staatliches.xlBlack),
+            Text('jug', style: styles.Staatliches.xlBlack),
           ],
         ));
   }
@@ -202,10 +200,7 @@ class _ModalState extends State<_Modal> with SingleTickerProviderStateMixin {
     return SlideTransition(
       position: _animationController.drive(_offSetTween),
       child: GestureDetector(
-        onTap: () {
-          _animationController.reverse();
-          widget.handleTap();
-        },
+        onTap: widget.handleTap,
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(

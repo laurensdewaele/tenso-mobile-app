@@ -6,27 +6,35 @@ part of 'hold_type.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+const HoldType _$pinchBlock = const HoldType._('pinchBlock');
 const HoldType _$sloper = const HoldType._('sloper');
-const HoldType _$pocket = const HoldType._('pocket');
 const HoldType _$jug = const HoldType._('jug');
+const HoldType _$pocket = const HoldType._('pocket');
+const HoldType _$edge = const HoldType._('edge');
 
 HoldType _$stValueOf(String name) {
   switch (name) {
+    case 'pinchBlock':
+      return _$pinchBlock;
     case 'sloper':
       return _$sloper;
-    case 'pocket':
-      return _$pocket;
     case 'jug':
       return _$jug;
+    case 'pocket':
+      return _$pocket;
+    case 'edge':
+      return _$edge;
     default:
       throw new ArgumentError(name);
   }
 }
 
 final BuiltSet<HoldType> _$stValues = new BuiltSet<HoldType>(const <HoldType>[
+  _$pinchBlock,
   _$sloper,
-  _$pocket,
   _$jug,
+  _$pocket,
+  _$edge,
 ]);
 
 Serializer<HoldType> _$holdTypeSerializer = new _$HoldTypeSerializer();

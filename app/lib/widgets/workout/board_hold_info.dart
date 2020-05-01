@@ -56,7 +56,7 @@ class BoardHoldInfo extends StatelessWidget {
                         style: styles.Staatliches.xsBlack,
                         children: [
                           TextSpan(
-                              text: leftGripBoardHold.pocketDepth.toString(),
+                              text: leftGripBoardHold.depth.toString(),
                               style: styles.Lato.xsGray),
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
@@ -123,7 +123,7 @@ class BoardHoldInfo extends StatelessWidget {
                         style: styles.Staatliches.xsBlack,
                         children: [
                           TextSpan(
-                              text: rightGripBoardHold.pocketDepth.toString(),
+                              text: rightGripBoardHold.depth.toString(),
                               style: styles.Lato.xsGray),
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
