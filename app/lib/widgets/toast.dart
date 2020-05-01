@@ -95,17 +95,11 @@ class _ToastUIState extends State<_ToastUI>
         child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: styles.Colors.bgWhite,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: styles.kBorderRadius,
-                  bottomRight: styles.kBorderRadius),
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                stops: [0.0005, 0.005],
-                colors: [styles.Colors.bgGrayStop, styles.Colors.bgWhite],
-              ),
-            ),
+                color: styles.Colors.bgWhite,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: styles.kBorderRadius,
+                    bottomRight: styles.kBorderRadius),
+                boxShadow: [styles.kBoxShadow]),
             padding: EdgeInsets.symmetric(
                 vertical: styles.Measurements.m,
                 horizontal: styles.Measurements.m),
