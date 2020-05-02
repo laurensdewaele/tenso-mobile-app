@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
 Future<void> showAppModalPopup({
   @required BuildContext context,
@@ -8,13 +7,15 @@ Future<void> showAppModalPopup({
 }) {
   return showCupertinoModalPopup(
       context: context,
-      builder: (BuildContext context) => _AppModal(
+      builder: (BuildContext context) => AppModal(
             content: content,
           ));
 }
 
-class _AppModal extends StatelessWidget {
-  _AppModal({Key key, @required this.content}) : super(key: key);
+// Padding can not be generic. We can have buttons inside our modal.
+// Buttons ideally need to be as big as possible.
+class AppModal extends StatelessWidget {
+  AppModal({Key key, @required this.content}) : super(key: key);
 
   final Widget content;
 
@@ -25,10 +26,6 @@ class _AppModal extends StatelessWidget {
             color: styles.Colors.bgWhite,
             borderRadius: BorderRadius.only(
                 topLeft: styles.kBorderRadius, topRight: styles.kBorderRadius)),
-        child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: styles.Measurements.xs,
-                vertical: styles.Measurements.xs),
-            child: content));
+        child: content);
   }
 }

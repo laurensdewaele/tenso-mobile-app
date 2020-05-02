@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/custom_board.dart';
+import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
+import 'package:app/widgets/custom_board/add_hold_modal.dart';
+import 'package:app/widgets/custom_board/hold_input_modal.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/modal_popup.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 
 class CustomBoardScreen extends StatefulWidget {
   CustomBoardScreen({Key key}) : super(key: key);
@@ -53,16 +54,8 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   void _handleAddHoldTap() async {
     await showAppModalPopup(
         context: context,
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              'pinch block',
-              style: styles.Staatliches.xlBlack,
-            ),
-            Text('sloper', style: styles.Staatliches.xlBlack),
-            Text('jug', style: styles.Staatliches.xlBlack),
-          ],
+        content: HoldInputModal(
+          customBoardViewModel: _viewModel,
         ));
   }
 
@@ -144,80 +137,11 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
           ),
           Align(
               alignment: Alignment.bottomCenter,
-              child: _Modal(
-                open: _viewModel.modalOpen,
+              child: AddHoldModal(
+                open: _viewModel.addHoldModalOpen,
                 handleTap: _handleAddHoldTap,
               ))
         ],
-      ),
-    );
-  }
-}
-
-class _Modal extends StatefulWidget {
-  _Modal({Key key, @required this.open, this.handleTap}) : super(key: key);
-
-  final bool open;
-  final VoidCallback handleTap;
-
-  @override
-  _ModalState createState() => _ModalState();
-}
-
-class _ModalState extends State<_Modal> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  final Animatable<Offset> _offSetTween =
-      Tween<Offset>(begin: Offset(0, 1), end: Offset(0.0, 0.0))
-          .chain(CurveTween(curve: Curves.easeIn));
-
-  @override
-  void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(_Modal oldWidget) {
-    if (oldWidget.open != widget.open) {
-      if (widget.open == true) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animationController.drive(_offSetTween),
-      child: GestureDetector(
-        onTap: widget.handleTap,
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: styles.kBorderRadius,
-                  topRight: styles.kBorderRadius),
-              color: styles.Colors.bgWhite),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: styles.Measurements.xs),
-            child: Text(
-              'add hold',
-              style: styles.Staatliches.xlBlack,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
       ),
     );
   }

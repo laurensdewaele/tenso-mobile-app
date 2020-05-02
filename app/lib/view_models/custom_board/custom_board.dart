@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/services/error.dart';
 import 'package:app/services/toast.dart';
+import 'package:flutter/cupertino.dart';
 
 class BoxState {
   final bool selected;
@@ -28,18 +27,21 @@ class BoxState {
 }
 
 class CustomBoardViewModel extends ChangeNotifier {
+  ToastService _toastService;
+
   List<BoxState> boxes;
   List<BoxState> get selectedBoxes =>
       boxes.where((box) => box.selected == true).toList();
-  ToastService _toastService;
+  bool get selectedBoxesIsTopRow => selectedBoxes.first.row == 0;
+  bool get selectedBoxesIsBottomRow => !selectedBoxesIsTopRow;
 
-  bool modalOpen;
+  bool addHoldModalOpen;
 
   CustomBoardViewModel() {
     _toastService = ToastService();
     boxes = List.generate(
         4 * 4, (i) => BoxState(index: i, selected: false, row: i ~/ 4));
-    modalOpen = false;
+    addHoldModalOpen = false;
     notifyListeners();
   }
 
@@ -103,7 +105,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   void _determineModalState() {
-    modalOpen = selectedBoxes.length > 0;
+    addHoldModalOpen = selectedBoxes.length > 0;
   }
 
   void _invertSelectedStateBox(BoxState boxState) {
@@ -113,4 +115,10 @@ class CustomBoardViewModel extends ChangeNotifier {
     _determineModalState();
     notifyListeners();
   }
+
+  void handlePinchBlockInput() {}
+  void handleJugInput() {}
+  void handleSloperInput({double degrees}) {}
+  void handlePocketInput({double depth, int supportedFingers}) {}
+  void handleEdgeInput({double depth}) {}
 }

@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input.dart';
+import 'package:flutter/cupertino.dart';
 
 class NumberInputAndDescription<T> extends StatelessWidget {
   NumberInputAndDescription({
@@ -23,6 +22,7 @@ class NumberInputAndDescription<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         NumberInput<T>(
           enabled: enabled,
@@ -33,10 +33,8 @@ class NumberInputAndDescription<T> extends StatelessWidget {
         Divider(
           width: styles.Measurements.s,
         ),
-        Expanded(
-          child: Text(description,
-              style: styles.Lato.xsGray, overflow: TextOverflow.clip),
-        )
+        Text(description,
+            style: styles.Lato.xsGray, overflow: TextOverflow.clip)
       ],
     );
   }
