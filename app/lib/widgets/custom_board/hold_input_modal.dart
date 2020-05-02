@@ -49,8 +49,9 @@ class _HoldInputModalState extends State<HoldInputModal> {
         : _InputPage(
             inputs: _viewModel.inputPageInputs,
             handleInput: _viewModel.handleInput,
-            handleNextTap: _viewModel.handleNextTap,
-          );
+            handleNextTap: () async {
+              await _viewModel.handleNextTap();
+            });
   }
 }
 

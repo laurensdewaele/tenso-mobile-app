@@ -138,7 +138,7 @@ class HoldInputViewModel extends ChangeNotifier {
     return validInputs.fold(true, (a, b) => a && b);
   }
 
-  void handleNextTap() {
+  void _validateAndSet() {
     if (_validateInputs() == true) {
       switch (_activeHoldType) {
         case HoldType.sloper:
@@ -155,5 +155,9 @@ class HoldInputViewModel extends ChangeNotifier {
           return;
       }
     }
+  }
+
+  Future<void> handleNextTap() async {
+    return Future.sync(_validateAndSet);
   }
 }
