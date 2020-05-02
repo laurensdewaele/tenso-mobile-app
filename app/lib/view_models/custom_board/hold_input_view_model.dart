@@ -16,9 +16,13 @@ class InputPageInput {
   final InputPageInputTypes type;
   final String description;
   final bool isInt;
+  final String initialValue;
 
   const InputPageInput(
-      {@required this.type, @required this.description, @required this.isInt});
+      {@required this.type,
+      @required this.description,
+      @required this.isInt,
+      @required this.initialValue});
 }
 
 class HoldInputViewModel extends ChangeNotifier {
@@ -44,6 +48,10 @@ class HoldInputViewModel extends ChangeNotifier {
     _navigationService = NavigationService();
     inputPageInputs = [];
     isChooseHoldTypePageActive = true;
+    _sloperDegreesInput = '0';
+    _pocketDepthInput = '0';
+    _edgeDepthInput = '0';
+    _pocketSupportedFingersInput = '5';
     notifyListeners();
   }
 
@@ -61,7 +69,8 @@ class HoldInputViewModel extends ChangeNotifier {
         inputPageInputs = []..add(InputPageInput(
             type: InputPageInputTypes.sloperDegrees,
             description: 'degrees of slope',
-            isInt: false));
+            isInt: false,
+            initialValue: _sloperDegreesInput));
         isChooseHoldTypePageActive = false;
         break;
       case HoldType.pocket:
@@ -69,18 +78,21 @@ class HoldInputViewModel extends ChangeNotifier {
           ..add(InputPageInput(
               type: InputPageInputTypes.pocketDepth,
               description: 'mm of depth',
-              isInt: false))
+              isInt: false,
+              initialValue: _pocketDepthInput))
           ..add(InputPageInput(
               type: InputPageInputTypes.pocketSupportedFingers,
-              description: 'amount of supported fingers',
-              isInt: true));
+              description: 'fingers can fit',
+              isInt: true,
+              initialValue: _pocketSupportedFingersInput));
         isChooseHoldTypePageActive = false;
         break;
       case HoldType.edge:
         inputPageInputs = []..add(InputPageInput(
             type: InputPageInputTypes.edgeDepth,
             description: 'mm of depth',
-            isInt: false));
+            isInt: false,
+            initialValue: _edgeDepthInput));
         isChooseHoldTypePageActive = false;
         break;
     }

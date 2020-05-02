@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
+import 'package:flutter/cupertino.dart';
 
 class Toast extends StatefulWidget {
   Toast();
@@ -53,8 +52,9 @@ class _ToastUI extends StatefulWidget {
 class _ToastUIState extends State<_ToastUI>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
+  // -1.1 used for making sure the dropshadow is not visisble.
   final Animatable<Offset> _offSetTween =
-      Tween<Offset>(begin: Offset(0, -1), end: Offset(0.0, 0.0))
+      Tween<Offset>(begin: Offset(0, -1.1), end: Offset(0.0, 0.0))
           .chain(CurveTween(curve: Curves.easeIn));
   final Future _delayedTicker = Future.delayed(Duration(milliseconds: 3000));
   StreamSubscription _subscription;

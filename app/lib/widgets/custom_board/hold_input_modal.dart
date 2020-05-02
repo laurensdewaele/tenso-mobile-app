@@ -162,6 +162,7 @@ class _InputPage extends StatelessWidget {
                 ...inputs.map((InputPageInput input) => Flexible(
                       fit: _flexFit,
                       child: _InputPageInput(
+                        initialValue: input.initialValue,
                         isInt: input.isInt,
                         description: input.description,
                         handleValueChanged: (String v) =>
@@ -190,22 +191,24 @@ class _InputPageInput extends StatelessWidget {
     @required this.isInt,
     @required this.description,
     @required this.handleValueChanged,
+    @required this.initialValue,
   });
 
   final bool isInt;
   final String description;
   final void Function(String v) handleValueChanged;
+  final String initialValue;
 
   @override
   Widget build(BuildContext context) {
     final Widget _input = isInt == true
         ? NumberInputAndDescription<int>(
             description: description,
-            initialValue: 0,
+            initialValue: int.parse(initialValue),
             handleValueChanged: handleValueChanged)
         : NumberInputAndDescription<double>(
             description: description,
-            initialValue: 0.0,
+            initialValue: double.parse(initialValue),
             handleValueChanged: handleValueChanged);
     return _input;
   }
