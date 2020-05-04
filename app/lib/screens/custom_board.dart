@@ -11,6 +11,8 @@ import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+final double _kCustomBoardAspectRatio = 3.0;
+
 class CustomBoardScreen extends StatefulWidget {
   CustomBoardScreen({Key key}) : super(key: key);
 
@@ -83,37 +85,61 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(
                   styles.Measurements.xs, 64, styles.Measurements.xs, 45),
-              child: Stack(
-                children: <Widget>[
-                  ClipRRect(
-                      borderRadius: styles.kBorderRadiusAll,
-                      // The custom_board image has an aspect ratio of 3
-                      child: Image.asset(
-                          'assets/images/custom_board/custom_board.png')),
-                  AspectRatio(
-                    aspectRatio: 3,
-                    child: GridView.count(
-                      padding: EdgeInsets.all(styles.Measurements.xs),
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      crossAxisSpacing: styles.Measurements.xs,
-                      mainAxisSpacing: styles.Measurements.xs,
-                      childAspectRatio: 3.6,
-                      crossAxisCount: 4,
-                      children: <Widget>[
-                        ..._viewModel.boxes.map((BoxState boxState) =>
-                            boxState.selected == true
-                                ? _SelectedBox(
-                                    handleTap: () =>
-                                        _viewModel.handleBoxTap(boxState))
-                                : _Box(
-                                    handleTap: () =>
-                                        _viewModel.handleBoxTap(boxState),
-                                  ))
-                      ],
-                    ),
-                  )
-                ],
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  final _width = constraints.maxWidth;
+                  final _customBoardHeight = _width / _kCustomBoardAspectRatio;
+                  final _heightFromTop =
+                      (constraints.maxHeight - _customBoardHeight) / 2;
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: ClipRRect(
+                            borderRadius: styles.kBorderRadiusAll,
+                            child: Image.asset(
+                                'assets/images/custom_board/custom_board.png')),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: AspectRatio(
+                          aspectRatio: _kCustomBoardAspectRatio,
+                          child: GridView.count(
+                            padding: EdgeInsets.all(styles.Measurements.xs),
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            crossAxisSpacing: styles.Measurements.xs,
+                            mainAxisSpacing: styles.Measurements.xs,
+                            childAspectRatio: 3.6,
+                            crossAxisCount: 4,
+                            children: <Widget>[
+                              ..._viewModel.boxes.map((BoxState boxState) =>
+                                  boxState.selected == true
+                                      ? _SelectedBox(
+                                          handleTap: () =>
+                                              _viewModel.handleBoxTap(boxState))
+                                      : _Box(
+                                          handleTap: () =>
+                                              _viewModel.handleBoxTap(boxState),
+                                        ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned.fromRect(
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: styles.Colors.blue),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _heightFromTop - 0.079 * _customBoardHeight,
+                              .231 * _width,
+                              .316 * _customBoardHeight))
+                    ],
+                  );
+                },
               ),
             ),
           ),
