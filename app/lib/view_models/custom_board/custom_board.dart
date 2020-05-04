@@ -39,10 +39,14 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   CustomBoardViewModel() {
     _toastService = ToastService();
-    boxes = List.generate(
-        4 * 4, (i) => BoxState(index: i, selected: false, row: i ~/ 4));
+    _resetBoxes();
     addHoldModalOpen = false;
     notifyListeners();
+  }
+
+  void _resetBoxes() {
+    boxes = List.generate(
+        4 * 4, (i) => BoxState(index: i, selected: false, row: i ~/ 4));
   }
 
   void handleBoxTap(BoxState boxState) {
@@ -116,9 +120,28 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handlePinchBlockInput() {}
-  void handleJugInput() {}
-  void handleSloperInput({double degrees}) {}
-  void handlePocketInput({double depth, int supportedFingers}) {}
-  void handleEdgeInput({double depth}) {}
+  void handlePinchBlockInput() {
+    _resetBoxes();
+    notifyListeners();
+  }
+
+  void handleJugInput() {
+    _resetBoxes();
+    notifyListeners();
+  }
+
+  void handleSloperInput({double degrees}) {
+    _resetBoxes();
+    notifyListeners();
+  }
+
+  void handlePocketInput({double depth, int supportedFingers}) {
+    _resetBoxes();
+    notifyListeners();
+  }
+
+  void handleEdgeInput({double depth}) {
+    _resetBoxes();
+    notifyListeners();
+  }
 }

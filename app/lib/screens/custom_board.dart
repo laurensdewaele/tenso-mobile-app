@@ -88,8 +88,8 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                   ClipRRect(
                       borderRadius: styles.kBorderRadiusAll,
                       // The custom_board image has an aspect ratio of 3
-                      child:
-                          Image.asset('assets/images/boards/custom_board.png')),
+                      child: Image.asset(
+                          'assets/images/custom_board/custom_board.png')),
                   AspectRatio(
                     aspectRatio: 3,
                     child: GridView.count(

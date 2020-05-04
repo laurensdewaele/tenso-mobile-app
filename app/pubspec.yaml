@@ -50,8 +50,9 @@ flutter:
   assets:
     - assets/audio/
     - assets/images/
-    - assets/images/grips/
     - assets/images/boards/
+    - assets/images/custom_board/
+    - assets/images/grips/
     - assets/images/icons/
 
   uses-material-design: false
