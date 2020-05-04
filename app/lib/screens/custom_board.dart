@@ -136,7 +136,33 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                               0.015 * _width,
                               _heightFromTop - 0.079 * _customBoardHeight,
                               .231 * _width,
-                              .316 * _customBoardHeight))
+                              .316 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: styles.Colors.blue),
+                          ),
+                          rect: Rect.fromLTWH(0.262 * _width, _heightFromTop,
+                              .231 * _width, .237 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1.09,
+                            child: Image.asset(
+                              'assets/images/custom_board/pinch_block_1.png',
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _heightFromTop - 0.079 * _customBoardHeight,
+                              .231 * _width,
+                              .316 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: FittedBox(
+                              child: Image.asset(
+                            'assets/images/custom_board/sloper_1.png',
+                          )),
+                          rect: Rect.fromLTWH(0.262 * _width, _heightFromTop,
+                              .231 * _width, .237 * _customBoardHeight))
                     ],
                   );
                 },
