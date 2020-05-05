@@ -89,8 +89,11 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 builder: (BuildContext context, BoxConstraints constraints) {
                   final _width = constraints.maxWidth;
                   final _customBoardHeight = _width / _kCustomBoardAspectRatio;
-                  final _heightFromTop =
+                  final _customBoardY0 =
                       (constraints.maxHeight - _customBoardHeight) / 2;
+                  print('width, $_width');
+                  print('board height, $_customBoardHeight');
+                  print('custom board y 0, $_customBoardY0');
                   return Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
@@ -134,7 +137,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                           ),
                           rect: Rect.fromLTWH(
                               0.015 * _width,
-                              _heightFromTop - 0.079 * _customBoardHeight,
+                              _customBoardY0 - 0.079 * _customBoardHeight,
                               .231 * _width,
                               .316 * _customBoardHeight)),
                       Positioned.fromRect(
@@ -142,27 +145,18 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                             decoration:
                                 BoxDecoration(color: styles.Colors.blue),
                           ),
-                          rect: Rect.fromLTWH(0.262 * _width, _heightFromTop,
+                          rect: Rect.fromLTWH(0.262 * _width, _customBoardY0,
                               .231 * _width, .237 * _customBoardHeight)),
                       Positioned.fromRect(
-                          child: Transform.scale(
-                            scale: 1.09,
-                            child: Image.asset(
-                              'assets/images/custom_board/pinch_block_1.png',
-                            ),
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: styles.Colors.blue),
                           ),
                           rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _heightFromTop - 0.079 * _customBoardHeight,
+                              0.508 * _width,
+                              _customBoardY0 + 0.046 * _customBoardHeight,
                               .231 * _width,
-                              .316 * _customBoardHeight)),
-                      Positioned.fromRect(
-                          child: FittedBox(
-                              child: Image.asset(
-                            'assets/images/custom_board/sloper_1.png',
-                          )),
-                          rect: Rect.fromLTWH(0.262 * _width, _heightFromTop,
-                              .231 * _width, .237 * _customBoardHeight))
+                              .191 * _customBoardHeight)),
                     ],
                   );
                 },
