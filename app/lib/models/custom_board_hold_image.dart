@@ -16,7 +16,8 @@ abstract class CustomBoardHoldImage
   int get position;
   int get widthFactor;
   HoldType get type;
-  double get topYPercent;
+  List<double> get topYPercent;
+  List<double> get leftXPercent;
   double get heightPercent;
   double get widthPercent;
   double get scale;

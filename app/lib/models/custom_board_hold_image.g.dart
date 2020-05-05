@@ -32,7 +32,10 @@ class _$CustomBoardHoldImageSerializer
           specifiedType: const FullType(HoldType)),
       'topYPercent',
       serializers.serialize(object.topYPercent,
-          specifiedType: const FullType(double)),
+          specifiedType: const FullType(List, const [const FullType(double)])),
+      'leftXPercent',
+      serializers.serialize(object.leftXPercent,
+          specifiedType: const FullType(List, const [const FullType(double)])),
       'heightPercent',
       serializers.serialize(object.heightPercent,
           specifiedType: const FullType(double)),
@@ -81,7 +84,15 @@ class _$CustomBoardHoldImageSerializer
           break;
         case 'topYPercent':
           result.topYPercent = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+                  specifiedType:
+                      const FullType(List, const [const FullType(double)]))
+              as List<double>;
+          break;
+        case 'leftXPercent':
+          result.leftXPercent = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(double)]))
+              as List<double>;
           break;
         case 'heightPercent':
           result.heightPercent = serializers.deserialize(value,
@@ -114,7 +125,9 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
   final HoldType type;
   @override
-  final double topYPercent;
+  final List<double> topYPercent;
+  @override
+  final List<double> leftXPercent;
   @override
   final double heightPercent;
   @override
@@ -133,6 +146,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       this.widthFactor,
       this.type,
       this.topYPercent,
+      this.leftXPercent,
       this.heightPercent,
       this.widthPercent,
       this.scale,
@@ -146,6 +160,10 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
     }
     if (topYPercent == null) {
       throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'topYPercent');
+    }
+    if (leftXPercent == null) {
+      throw new BuiltValueNullFieldError(
+          'CustomBoardHoldImage', 'leftXPercent');
     }
     if (heightPercent == null) {
       throw new BuiltValueNullFieldError(
@@ -180,6 +198,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
         widthFactor == other.widthFactor &&
         type == other.type &&
         topYPercent == other.topYPercent &&
+        leftXPercent == other.leftXPercent &&
         heightPercent == other.heightPercent &&
         widthPercent == other.widthPercent &&
         scale == other.scale &&
@@ -194,10 +213,12 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc(0, position.hashCode),
-                                widthFactor.hashCode),
-                            type.hashCode),
-                        topYPercent.hashCode),
+                            $jc(
+                                $jc($jc(0, position.hashCode),
+                                    widthFactor.hashCode),
+                                type.hashCode),
+                            topYPercent.hashCode),
+                        leftXPercent.hashCode),
                     heightPercent.hashCode),
                 widthPercent.hashCode),
             scale.hashCode),
@@ -211,6 +232,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
           ..add('widthFactor', widthFactor)
           ..add('type', type)
           ..add('topYPercent', topYPercent)
+          ..add('leftXPercent', leftXPercent)
           ..add('heightPercent', heightPercent)
           ..add('widthPercent', widthPercent)
           ..add('scale', scale)
@@ -235,9 +257,15 @@ class CustomBoardHoldImageBuilder
   HoldType get type => _$this._type;
   set type(HoldType type) => _$this._type = type;
 
-  double _topYPercent;
-  double get topYPercent => _$this._topYPercent;
-  set topYPercent(double topYPercent) => _$this._topYPercent = topYPercent;
+  List<double> _topYPercent;
+  List<double> get topYPercent => _$this._topYPercent;
+  set topYPercent(List<double> topYPercent) =>
+      _$this._topYPercent = topYPercent;
+
+  List<double> _leftXPercent;
+  List<double> get leftXPercent => _$this._leftXPercent;
+  set leftXPercent(List<double> leftXPercent) =>
+      _$this._leftXPercent = leftXPercent;
 
   double _heightPercent;
   double get heightPercent => _$this._heightPercent;
@@ -264,6 +292,7 @@ class CustomBoardHoldImageBuilder
       _widthFactor = _$v.widthFactor;
       _type = _$v.type;
       _topYPercent = _$v.topYPercent;
+      _leftXPercent = _$v.leftXPercent;
       _heightPercent = _$v.heightPercent;
       _widthPercent = _$v.widthPercent;
       _scale = _$v.scale;
@@ -294,6 +323,7 @@ class CustomBoardHoldImageBuilder
             widthFactor: widthFactor,
             type: type,
             topYPercent: topYPercent,
+            leftXPercent: leftXPercent,
             heightPercent: heightPercent,
             widthPercent: widthPercent,
             scale: scale,

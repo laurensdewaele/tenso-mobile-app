@@ -101,9 +101,10 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                   final _pocketEdgeDifference = ((.13159 * _customBoardHeight) -
                       (.070588235 * _customBoardHeight * 1.16));
 
-                  print('width, $_width');
-                  print('board height, $_customBoardHeight');
-                  print('custom board y 0, $_customBoardY0');
+//                  print('width, $_width');
+//                  print('board height, $_customBoardHeight');
+//                  print('custom board y 0, $_customBoardY0');
+
                   return Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
@@ -114,85 +115,130 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                             child: Image.asset(
                                 'assets/images/custom_board/custom_board.png')),
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: AspectRatio(
-                          aspectRatio: kCustomBoardAspectRatio,
-                          child: GridView.count(
-                            padding: EdgeInsets.all(styles.Measurements.xs),
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            crossAxisSpacing: styles.Measurements.xs,
-                            mainAxisSpacing: styles.Measurements.xs,
-                            childAspectRatio: kSelectionBoxAspectRatio,
-                            crossAxisCount: kCustomBoardColumns,
-                            children: <Widget>[
-                              ..._viewModel.boxes.map((BoxState boxState) =>
-                                  boxState.selected == true
-                                      ? _SelectedBox(
-                                          handleTap: () =>
-                                              _viewModel.handleBoxTap(boxState))
-                                      : _Box(
-                                          handleTap: () =>
-                                              _viewModel.handleBoxTap(boxState),
-                                        ))
-                            ],
-                          ),
-                        ),
-                      ),
+//                      Align(
+//                        alignment: Alignment.center,
+//                        child: AspectRatio(
+//                          aspectRatio: kCustomBoardAspectRatio,
+//                          child: GridView.count(
+//                            padding: EdgeInsets.all(styles.Measurements.xs),
+//                            shrinkWrap: true,
+//                            physics: ClampingScrollPhysics(),
+//                            crossAxisSpacing: styles.Measurements.xs,
+//                            mainAxisSpacing: styles.Measurements.xs,
+//                            childAspectRatio: kSelectionBoxAspectRatio,
+//                            crossAxisCount: kCustomBoardColumns,
+//                            children: <Widget>[
+//                              ..._viewModel.boxes.map((BoxState boxState) =>
+//                                  boxState.selected == true
+//                                      ? _SelectedBox(
+//                                          handleTap: () =>
+//                                              _viewModel.handleBoxTap(boxState))
+//                                      : _Box(
+//                                          handleTap: () =>
+//                                              _viewModel.handleBoxTap(boxState),
+//                                        ))
+//                            ],
+//                          ),
+//                        ),
+//                      ),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: pinchBlock4.scale,
+                            scale: jug1.scale,
                             child: Image.asset(
-                              pinchBlock4.imageAsset,
+                              jug1.imageAsset,
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _customBoardY0 -
-                                  pinchBlock4.topYPercent * _customBoardHeight,
-                              pinchBlock4.widthPercent * _width,
-                              pinchBlock4.heightPercent * _customBoardHeight)),
+                              jug1.leftXPercent[0] * _width,
+                              _customBoardY0 +
+                                  jug1.topYPercent[0] * _customBoardHeight,
+                              jug1.widthPercent * _width,
+                              jug1.heightPercent * _customBoardHeight)),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: 1,
+                            scale: pinchBlock1.scale,
                             child: Image.asset(
-                              'assets/images/custom_board/pocket_4.png',
+                              pinchBlock1.imageAsset,
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _y1 - _pocketEdgeDifference,
-                              .96908809 * _width,
-                              .13159 * _customBoardHeight)),
+                              jug1.leftXPercent[1] * _width,
+                              _customBoardY0 +
+                                  pinchBlock1.topYPercent[0] *
+                                      _customBoardHeight,
+                              pinchBlock1.widthPercent * _width,
+                              pinchBlock1.heightPercent * _customBoardHeight)),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: 1,
+                            scale: sloper2.scale,
                             child: Image.asset(
-                              'assets/images/custom_board/pocket_4.png',
+                              sloper2.imageAsset,
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _y2 - _pocketEdgeDifference,
-                              .96908809 * _width,
-                              .13159 * _customBoardHeight)),
+                              jug1.leftXPercent[2] * _width,
+                              _customBoardY0 +
+                                  sloper2.topYPercent[0] * _customBoardHeight,
+                              sloper2.widthPercent * _width,
+                              sloper2.heightPercent * _customBoardHeight)),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: 1,
+                            scale: edge4.scale,
                             child: Image.asset(
-                              'assets/images/custom_board/pocket_4.png',
+                              edge4.imageAsset,
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _y3 - _pocketEdgeDifference,
-                              .96908809 * _width,
-                              .13159 * _customBoardHeight)),
+                              edge4.leftXPercent[0] * _width,
+                              _customBoardY0 +
+                                  edge4.topYPercent[1] * _customBoardHeight,
+                              edge4.widthPercent * _width,
+                              edge4.heightPercent * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: edge4.scale,
+                            child: Image.asset(
+                              edge4.imageAsset,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              edge4.leftXPercent[0] * _width,
+                              _customBoardY0 +
+                                  edge4.topYPercent[2] * _customBoardHeight,
+                              edge4.widthPercent * _width,
+                              edge4.heightPercent * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: edge2.scale,
+                            child: Image.asset(
+                              edge2.imageAsset,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              edge2.leftXPercent[0] * _width,
+                              _customBoardY0 +
+                                  edge2.topYPercent[3] * _customBoardHeight,
+                              edge2.widthPercent * _width,
+                              edge2.heightPercent * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: pocket2.scale,
+                            child: Image.asset(
+                              pocket2.imageAsset,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              pocket2.leftXPercent[2] * _width,
+                              pocket2.topYPercent[3] * _customBoardHeight,
+                              pocket2.widthPercent * _width,
+                              pocket2.heightPercent * _customBoardHeight)),
                     ],
                   );
                 },
