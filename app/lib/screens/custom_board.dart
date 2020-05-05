@@ -141,10 +141,28 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                               .231 * _width,
                               .316 * _customBoardHeight)),
                       Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1.08,
+                            child: Image.asset(
+                              'assets/images/custom_board/pinch_block_1.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _customBoardY0 - 0.067 * _customBoardHeight,
+                              .231 * _width,
+                              .316 * _customBoardHeight)),
+                      Positioned.fromRect(
                           child: Container(
                             decoration:
                                 BoxDecoration(color: styles.Colors.blue),
                           ),
+                          rect: Rect.fromLTWH(0.262 * _width, _customBoardY0,
+                              .231 * _width, .237 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Image.asset(
+                              'assets/images/custom_board/sloper_1.png'),
                           rect: Rect.fromLTWH(0.262 * _width, _customBoardY0,
                               .231 * _width, .237 * _customBoardHeight)),
                       Positioned.fromRect(
@@ -157,6 +175,29 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                               _customBoardY0 + 0.046 * _customBoardHeight,
                               .231 * _width,
                               .191 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: styles.Colors.blue),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.754 * _width,
+                              _customBoardY0 - 0.079 * _customBoardHeight,
+                              .231 * _width,
+                              .316 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1.08,
+                            child: Image.asset(
+                              'assets/images/custom_board/jug_1.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              .754 * _width,
+                              _customBoardY0 - 0.067 * _customBoardHeight,
+                              .231 * _width,
+                              .316 * _customBoardHeight)),
                     ],
                   );
                 },
