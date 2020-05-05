@@ -91,6 +91,15 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                   final _customBoardHeight = _width / _kCustomBoardAspectRatio;
                   final _customBoardY0 =
                       (constraints.maxHeight - _customBoardHeight) / 2;
+                  final _sloperHeight = .238 * _customBoardHeight;
+                  final _bottomRowHeight =
+                      (_customBoardHeight - _sloperHeight) / 3;
+                  final _centerBottomRowHeight = _bottomRowHeight / 2;
+                  final _y1 =
+                      _customBoardY0 + _sloperHeight + _centerBottomRowHeight;
+                  final _y2 = _y1 + _bottomRowHeight;
+                  final _y3 = _y2 + _bottomRowHeight;
+
                   print('width, $_width');
                   print('board height, $_customBoardHeight');
                   print('custom board y 0, $_customBoardY0');
@@ -104,32 +113,32 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                             child: Image.asset(
                                 'assets/images/custom_board/custom_board.png')),
                       ),
-//                      Align(
-//                        alignment: Alignment.center,
-//                        child: AspectRatio(
-//                          aspectRatio: _kCustomBoardAspectRatio,
-//                          child: GridView.count(
-//                            padding: EdgeInsets.all(styles.Measurements.xs),
-//                            shrinkWrap: true,
-//                            physics: ClampingScrollPhysics(),
-//                            crossAxisSpacing: styles.Measurements.xs,
-//                            mainAxisSpacing: styles.Measurements.xs,
-//                            childAspectRatio: 3.6,
-//                            crossAxisCount: 4,
-//                            children: <Widget>[
-//                              ..._viewModel.boxes.map((BoxState boxState) =>
-//                                  boxState.selected == true
-//                                      ? _SelectedBox(
-//                                          handleTap: () =>
-//                                              _viewModel.handleBoxTap(boxState))
-//                                      : _Box(
-//                                          handleTap: () =>
-//                                              _viewModel.handleBoxTap(boxState),
-//                                        ))
-//                            ],
-//                          ),
-//                        ),
-//                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: AspectRatio(
+                          aspectRatio: _kCustomBoardAspectRatio,
+                          child: GridView.count(
+                            padding: EdgeInsets.all(styles.Measurements.xs),
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            crossAxisSpacing: styles.Measurements.xs,
+                            mainAxisSpacing: styles.Measurements.xs,
+                            childAspectRatio: 3.6,
+                            crossAxisCount: 4,
+                            children: <Widget>[
+                              ..._viewModel.boxes.map((BoxState boxState) =>
+                                  boxState.selected == true
+                                      ? _SelectedBox(
+                                          handleTap: () =>
+                                              _viewModel.handleBoxTap(boxState))
+                                      : _Box(
+                                          handleTap: () =>
+                                              _viewModel.handleBoxTap(boxState),
+                                        ))
+                            ],
+                          ),
+                        ),
+                      ),
                       Positioned.fromRect(
                           child: Transform.scale(
                             scale: 1,
@@ -142,17 +151,43 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                               .96908809 * _width, .238 * _customBoardHeight)),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: 1,
+                            scale: 1.16,
                             child: Image.asset(
-                              'assets/images/custom_board/pocket_4.png',
+                              'assets/images/custom_board/edge_4.png',
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
                               0.015 * _width,
-                              _customBoardY0 + .285 * _customBoardHeight,
+                              _y1,
                               .96908809 * _width,
-                              .12 * _customBoardHeight)),
+                              .070588235 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1.16,
+                            child: Image.asset(
+                              'assets/images/custom_board/edge_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _y2,
+                              .96908809 * _width,
+                              .070588235 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1.16,
+                            child: Image.asset(
+                              'assets/images/custom_board/edge_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _y3,
+                              .96908809 * _width,
+                              .070588235 * _customBoardHeight)),
                       Positioned.fromRect(
                           child: Transform.scale(
                             scale: 1,
@@ -162,23 +197,13 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                             ),
                           ),
                           rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _customBoardY0 + .523 * _customBoardHeight,
+                              0.2 * _width,
+                              _y3 -
+                                  0 -
+                                  ((.13159 * _customBoardHeight) -
+                                      (.070588235 * _customBoardHeight * 1.16)),
                               .96908809 * _width,
-                              .12 * _customBoardHeight)),
-                      Positioned.fromRect(
-                          child: Transform.scale(
-                            scale: 1,
-                            child: Image.asset(
-                              'assets/images/custom_board/pocket_4.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _customBoardY0 + .762 * _customBoardHeight,
-                              .96908809 * _width,
-                              .12 * _customBoardHeight)),
+                              .13159 * _customBoardHeight)),
                     ],
                   );
                 },
