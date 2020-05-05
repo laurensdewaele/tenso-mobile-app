@@ -18,29 +18,29 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
   Iterable<Object> serialize(Serializers serializers, BoardHold object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'position',
+      serializers.serialize(object.position,
+          specifiedType: const FullType(int)),
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(HoldType)),
       'hangAnchorXPercent',
       serializers.serialize(object.hangAnchorXPercent,
           specifiedType: const FullType(double)),
       'hangAnchorYPercent',
       serializers.serialize(object.hangAnchorYPercent,
           specifiedType: const FullType(double)),
-      'heightPercent',
-      serializers.serialize(object.heightPercent,
-          specifiedType: const FullType(double)),
-      'position',
-      serializers.serialize(object.position,
-          specifiedType: const FullType(int)),
       'topLeftXPercent',
       serializers.serialize(object.topLeftXPercent,
           specifiedType: const FullType(double)),
       'topLeftYPercent',
       serializers.serialize(object.topLeftYPercent,
           specifiedType: const FullType(double)),
-      'type',
-      serializers.serialize(object.type,
-          specifiedType: const FullType(HoldType)),
       'widthPercent',
       serializers.serialize(object.widthPercent,
+          specifiedType: const FullType(double)),
+      'heightPercent',
+      serializers.serialize(object.heightPercent,
           specifiedType: const FullType(double)),
     ];
     if (object.depth != null) {
@@ -75,8 +75,24 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'position':
+          result.position = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(HoldType)) as HoldType;
+          break;
         case 'depth':
           result.depth = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'supportedFingers':
+          result.supportedFingers = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'sloperDegrees':
+          result.sloperDegrees = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'hangAnchorXPercent':
@@ -87,22 +103,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.hangAnchorYPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'heightPercent':
-          result.heightPercent = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'position':
-          result.position = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
-        case 'supportedFingers':
-          result.supportedFingers = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
-        case 'sloperDegrees':
-          result.sloperDegrees = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
         case 'topLeftXPercent':
           result.topLeftXPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
@@ -111,12 +111,12 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.topLeftYPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'type':
-          result.type = serializers.deserialize(value,
-              specifiedType: const FullType(HoldType)) as HoldType;
-          break;
         case 'widthPercent':
           result.widthPercent = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'heightPercent':
+          result.heightPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
       }
@@ -128,55 +128,55 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
 
 class _$BoardHold extends BoardHold {
   @override
-  final double depth;
-  @override
-  final double hangAnchorXPercent;
-  @override
-  final double hangAnchorYPercent;
-  @override
-  final double heightPercent;
-  @override
   final int position;
+  @override
+  final HoldType type;
+  @override
+  final double depth;
   @override
   final int supportedFingers;
   @override
   final double sloperDegrees;
   @override
+  final double hangAnchorXPercent;
+  @override
+  final double hangAnchorYPercent;
+  @override
   final double topLeftXPercent;
   @override
   final double topLeftYPercent;
   @override
-  final HoldType type;
-  @override
   final double widthPercent;
+  @override
+  final double heightPercent;
 
   factory _$BoardHold([void Function(BoardHoldBuilder) updates]) =>
       (new BoardHoldBuilder()..update(updates)).build();
 
   _$BoardHold._(
-      {this.depth,
-      this.hangAnchorXPercent,
-      this.hangAnchorYPercent,
-      this.heightPercent,
-      this.position,
+      {this.position,
+      this.type,
+      this.depth,
       this.supportedFingers,
       this.sloperDegrees,
+      this.hangAnchorXPercent,
+      this.hangAnchorYPercent,
       this.topLeftXPercent,
       this.topLeftYPercent,
-      this.type,
-      this.widthPercent})
+      this.widthPercent,
+      this.heightPercent})
       : super._() {
+    if (position == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'position');
+    }
+    if (type == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'type');
+    }
     if (hangAnchorXPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'hangAnchorXPercent');
     }
     if (hangAnchorYPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'hangAnchorYPercent');
-    }
-    if (heightPercent == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'heightPercent');
-    }
-    if (position == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'position');
     }
     if (topLeftXPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'topLeftXPercent');
@@ -184,11 +184,11 @@ class _$BoardHold extends BoardHold {
     if (topLeftYPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'topLeftYPercent');
     }
-    if (type == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'type');
-    }
     if (widthPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'widthPercent');
+    }
+    if (heightPercent == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'heightPercent');
     }
   }
 
@@ -203,17 +203,17 @@ class _$BoardHold extends BoardHold {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is BoardHold &&
-        depth == other.depth &&
-        hangAnchorXPercent == other.hangAnchorXPercent &&
-        hangAnchorYPercent == other.hangAnchorYPercent &&
-        heightPercent == other.heightPercent &&
         position == other.position &&
+        type == other.type &&
+        depth == other.depth &&
         supportedFingers == other.supportedFingers &&
         sloperDegrees == other.sloperDegrees &&
+        hangAnchorXPercent == other.hangAnchorXPercent &&
+        hangAnchorYPercent == other.hangAnchorYPercent &&
         topLeftXPercent == other.topLeftXPercent &&
         topLeftYPercent == other.topLeftYPercent &&
-        type == other.type &&
-        widthPercent == other.widthPercent;
+        widthPercent == other.widthPercent &&
+        heightPercent == other.heightPercent;
   }
 
   @override
@@ -227,33 +227,33 @@ class _$BoardHold extends BoardHold {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, depth.hashCode),
-                                            hangAnchorXPercent.hashCode),
-                                        hangAnchorYPercent.hashCode),
-                                    heightPercent.hashCode),
-                                position.hashCode),
-                            supportedFingers.hashCode),
-                        sloperDegrees.hashCode),
+                                        $jc($jc(0, position.hashCode),
+                                            type.hashCode),
+                                        depth.hashCode),
+                                    supportedFingers.hashCode),
+                                sloperDegrees.hashCode),
+                            hangAnchorXPercent.hashCode),
+                        hangAnchorYPercent.hashCode),
                     topLeftXPercent.hashCode),
                 topLeftYPercent.hashCode),
-            type.hashCode),
-        widthPercent.hashCode));
+            widthPercent.hashCode),
+        heightPercent.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('BoardHold')
-          ..add('depth', depth)
-          ..add('hangAnchorXPercent', hangAnchorXPercent)
-          ..add('hangAnchorYPercent', hangAnchorYPercent)
-          ..add('heightPercent', heightPercent)
           ..add('position', position)
+          ..add('type', type)
+          ..add('depth', depth)
           ..add('supportedFingers', supportedFingers)
           ..add('sloperDegrees', sloperDegrees)
+          ..add('hangAnchorXPercent', hangAnchorXPercent)
+          ..add('hangAnchorYPercent', hangAnchorYPercent)
           ..add('topLeftXPercent', topLeftXPercent)
           ..add('topLeftYPercent', topLeftYPercent)
-          ..add('type', type)
-          ..add('widthPercent', widthPercent))
+          ..add('widthPercent', widthPercent)
+          ..add('heightPercent', heightPercent))
         .toString();
   }
 }
@@ -261,28 +261,17 @@ class _$BoardHold extends BoardHold {
 class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   _$BoardHold _$v;
 
-  double _depth;
-  double get depth => _$this._depth;
-  set depth(double depth) => _$this._depth = depth;
-
-  double _hangAnchorXPercent;
-  double get hangAnchorXPercent => _$this._hangAnchorXPercent;
-  set hangAnchorXPercent(double hangAnchorXPercent) =>
-      _$this._hangAnchorXPercent = hangAnchorXPercent;
-
-  double _hangAnchorYPercent;
-  double get hangAnchorYPercent => _$this._hangAnchorYPercent;
-  set hangAnchorYPercent(double hangAnchorYPercent) =>
-      _$this._hangAnchorYPercent = hangAnchorYPercent;
-
-  double _heightPercent;
-  double get heightPercent => _$this._heightPercent;
-  set heightPercent(double heightPercent) =>
-      _$this._heightPercent = heightPercent;
-
   int _position;
   int get position => _$this._position;
   set position(int position) => _$this._position = position;
+
+  HoldType _type;
+  HoldType get type => _$this._type;
+  set type(HoldType type) => _$this._type = type;
+
+  double _depth;
+  double get depth => _$this._depth;
+  set depth(double depth) => _$this._depth = depth;
 
   int _supportedFingers;
   int get supportedFingers => _$this._supportedFingers;
@@ -294,6 +283,16 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   set sloperDegrees(double sloperDegrees) =>
       _$this._sloperDegrees = sloperDegrees;
 
+  double _hangAnchorXPercent;
+  double get hangAnchorXPercent => _$this._hangAnchorXPercent;
+  set hangAnchorXPercent(double hangAnchorXPercent) =>
+      _$this._hangAnchorXPercent = hangAnchorXPercent;
+
+  double _hangAnchorYPercent;
+  double get hangAnchorYPercent => _$this._hangAnchorYPercent;
+  set hangAnchorYPercent(double hangAnchorYPercent) =>
+      _$this._hangAnchorYPercent = hangAnchorYPercent;
+
   double _topLeftXPercent;
   double get topLeftXPercent => _$this._topLeftXPercent;
   set topLeftXPercent(double topLeftXPercent) =>
@@ -304,29 +303,30 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   set topLeftYPercent(double topLeftYPercent) =>
       _$this._topLeftYPercent = topLeftYPercent;
 
-  HoldType _type;
-  HoldType get type => _$this._type;
-  set type(HoldType type) => _$this._type = type;
-
   double _widthPercent;
   double get widthPercent => _$this._widthPercent;
   set widthPercent(double widthPercent) => _$this._widthPercent = widthPercent;
+
+  double _heightPercent;
+  double get heightPercent => _$this._heightPercent;
+  set heightPercent(double heightPercent) =>
+      _$this._heightPercent = heightPercent;
 
   BoardHoldBuilder();
 
   BoardHoldBuilder get _$this {
     if (_$v != null) {
-      _depth = _$v.depth;
-      _hangAnchorXPercent = _$v.hangAnchorXPercent;
-      _hangAnchorYPercent = _$v.hangAnchorYPercent;
-      _heightPercent = _$v.heightPercent;
       _position = _$v.position;
+      _type = _$v.type;
+      _depth = _$v.depth;
       _supportedFingers = _$v.supportedFingers;
       _sloperDegrees = _$v.sloperDegrees;
+      _hangAnchorXPercent = _$v.hangAnchorXPercent;
+      _hangAnchorYPercent = _$v.hangAnchorYPercent;
       _topLeftXPercent = _$v.topLeftXPercent;
       _topLeftYPercent = _$v.topLeftYPercent;
-      _type = _$v.type;
       _widthPercent = _$v.widthPercent;
+      _heightPercent = _$v.heightPercent;
       _$v = null;
     }
     return this;
@@ -349,17 +349,17 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   _$BoardHold build() {
     final _$result = _$v ??
         new _$BoardHold._(
-            depth: depth,
-            hangAnchorXPercent: hangAnchorXPercent,
-            hangAnchorYPercent: hangAnchorYPercent,
-            heightPercent: heightPercent,
             position: position,
+            type: type,
+            depth: depth,
             supportedFingers: supportedFingers,
             sloperDegrees: sloperDegrees,
+            hangAnchorXPercent: hangAnchorXPercent,
+            hangAnchorYPercent: hangAnchorYPercent,
             topLeftXPercent: topLeftXPercent,
             topLeftYPercent: topLeftYPercent,
-            type: type,
-            widthPercent: widthPercent);
+            widthPercent: widthPercent,
+            heightPercent: heightPercent);
     replace(_$result);
     return _$result;
   }

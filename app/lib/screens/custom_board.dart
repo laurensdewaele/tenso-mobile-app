@@ -1,3 +1,4 @@
+import 'package:app/data/custom_board_hold_images.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
@@ -10,8 +11,6 @@ import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
-final double _kCustomBoardAspectRatio = 3.0;
 
 class CustomBoardScreen extends StatefulWidget {
   CustomBoardScreen({Key key}) : super(key: key);
@@ -88,7 +87,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   final _width = constraints.maxWidth;
-                  final _customBoardHeight = _width / _kCustomBoardAspectRatio;
+                  final _customBoardHeight = _width / kCustomBoardAspectRatio;
                   final _customBoardY0 =
                       (constraints.maxHeight - _customBoardHeight) / 2;
                   final _sloperHeight = .238 * _customBoardHeight;
@@ -99,6 +98,8 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                       _customBoardY0 + _sloperHeight + _centerBottomRowHeight;
                   final _y2 = _y1 + _bottomRowHeight;
                   final _y3 = _y2 + _bottomRowHeight;
+                  final _pocketEdgeDifference = ((.13159 * _customBoardHeight) -
+                      (.070588235 * _customBoardHeight * 1.16));
 
                   print('width, $_width');
                   print('board height, $_customBoardHeight');
@@ -116,15 +117,15 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                       Align(
                         alignment: Alignment.center,
                         child: AspectRatio(
-                          aspectRatio: _kCustomBoardAspectRatio,
+                          aspectRatio: kCustomBoardAspectRatio,
                           child: GridView.count(
                             padding: EdgeInsets.all(styles.Measurements.xs),
                             shrinkWrap: true,
                             physics: ClampingScrollPhysics(),
                             crossAxisSpacing: styles.Measurements.xs,
                             mainAxisSpacing: styles.Measurements.xs,
-                            childAspectRatio: 3.6,
-                            crossAxisCount: 4,
+                            childAspectRatio: kSelectionBoxAspectRatio,
+                            crossAxisCount: kCustomBoardColumns,
                             children: <Widget>[
                               ..._viewModel.boxes.map((BoxState boxState) =>
                                   boxState.selected == true
@@ -141,53 +142,18 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                       ),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: 1,
+                            scale: pinchBlock4.scale,
                             child: Image.asset(
-                              'assets/images/custom_board/sloper_4.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          rect: Rect.fromLTWH(0.015 * _width, _customBoardY0,
-                              .96908809 * _width, .238 * _customBoardHeight)),
-                      Positioned.fromRect(
-                          child: Transform.scale(
-                            scale: 1.16,
-                            child: Image.asset(
-                              'assets/images/custom_board/edge_4.png',
+                              pinchBlock4.imageAsset,
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
                               0.015 * _width,
-                              _y1,
-                              .96908809 * _width,
-                              .070588235 * _customBoardHeight)),
-                      Positioned.fromRect(
-                          child: Transform.scale(
-                            scale: 1.16,
-                            child: Image.asset(
-                              'assets/images/custom_board/edge_4.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _y2,
-                              .96908809 * _width,
-                              .070588235 * _customBoardHeight)),
-                      Positioned.fromRect(
-                          child: Transform.scale(
-                            scale: 1.16,
-                            child: Image.asset(
-                              'assets/images/custom_board/edge_4.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          rect: Rect.fromLTWH(
-                              0.015 * _width,
-                              _y3,
-                              .96908809 * _width,
-                              .070588235 * _customBoardHeight)),
+                              _customBoardY0 -
+                                  pinchBlock4.topYPercent * _customBoardHeight,
+                              pinchBlock4.widthPercent * _width,
+                              pinchBlock4.heightPercent * _customBoardHeight)),
                       Positioned.fromRect(
                           child: Transform.scale(
                             scale: 1,
@@ -197,11 +163,34 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                             ),
                           ),
                           rect: Rect.fromLTWH(
-                              0.2 * _width,
-                              _y3 -
-                                  0 -
-                                  ((.13159 * _customBoardHeight) -
-                                      (.070588235 * _customBoardHeight * 1.16)),
+                              0.015 * _width,
+                              _y1 - _pocketEdgeDifference,
+                              .96908809 * _width,
+                              .13159 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1,
+                            child: Image.asset(
+                              'assets/images/custom_board/pocket_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _y2 - _pocketEdgeDifference,
+                              .96908809 * _width,
+                              .13159 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1,
+                            child: Image.asset(
+                              'assets/images/custom_board/pocket_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _y3 - _pocketEdgeDifference,
                               .96908809 * _width,
                               .13159 * _customBoardHeight)),
                     ],

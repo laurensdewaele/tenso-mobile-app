@@ -30,15 +30,15 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Workout.serializer)
       ..add(Workouts.serializer)
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(BoardHold)]),
-          () => new ListBuilder<BoardHold>())
+          const FullType(BuiltList, const [const FullType(CompletedWorkout)]),
+          () => new ListBuilder<CompletedWorkout>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(CustomBoardHoldImage)]),
           () => new ListBuilder<CustomBoardHoldImage>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(CompletedWorkout)]),
-          () => new ListBuilder<CompletedWorkout>())
+          const FullType(BuiltList, const [const FullType(BoardHold)]),
+          () => new ListBuilder<BoardHold>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ExecutionEvent)]),
           () => new ListBuilder<ExecutionEvent>())
