@@ -104,45 +104,81 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                             child: Image.asset(
                                 'assets/images/custom_board/custom_board.png')),
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: AspectRatio(
-                          aspectRatio: _kCustomBoardAspectRatio,
-                          child: GridView.count(
-                            padding: EdgeInsets.all(styles.Measurements.xs),
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            crossAxisSpacing: styles.Measurements.xs,
-                            mainAxisSpacing: styles.Measurements.xs,
-                            childAspectRatio: 3.6,
-                            crossAxisCount: 4,
-                            children: <Widget>[
-                              ..._viewModel.boxes.map((BoxState boxState) =>
-                                  boxState.selected == true
-                                      ? _SelectedBox(
-                                          handleTap: () =>
-                                              _viewModel.handleBoxTap(boxState))
-                                      : _Box(
-                                          handleTap: () =>
-                                              _viewModel.handleBoxTap(boxState),
-                                        ))
-                            ],
-                          ),
-                        ),
-                      ),
+//                      Align(
+//                        alignment: Alignment.center,
+//                        child: AspectRatio(
+//                          aspectRatio: _kCustomBoardAspectRatio,
+//                          child: GridView.count(
+//                            padding: EdgeInsets.all(styles.Measurements.xs),
+//                            shrinkWrap: true,
+//                            physics: ClampingScrollPhysics(),
+//                            crossAxisSpacing: styles.Measurements.xs,
+//                            mainAxisSpacing: styles.Measurements.xs,
+//                            childAspectRatio: 3.6,
+//                            crossAxisCount: 4,
+//                            children: <Widget>[
+//                              ..._viewModel.boxes.map((BoxState boxState) =>
+//                                  boxState.selected == true
+//                                      ? _SelectedBox(
+//                                          handleTap: () =>
+//                                              _viewModel.handleBoxTap(boxState))
+//                                      : _Box(
+//                                          handleTap: () =>
+//                                              _viewModel.handleBoxTap(boxState),
+//                                        ))
+//                            ],
+//                          ),
+//                        ),
+//                      ),
                       Positioned.fromRect(
                           child: Transform.scale(
-                            scale: 1.08,
+                            scale: 1,
                             child: Image.asset(
-                              'assets/images/custom_board/jug_4.png',
+                              'assets/images/custom_board/sloper_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(0.015 * _width, _customBoardY0,
+                              .96908809 * _width, .238 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1,
+                            child: Image.asset(
+                              'assets/images/custom_board/pocket_4.png',
                               fit: BoxFit.contain,
                             ),
                           ),
                           rect: Rect.fromLTWH(
                               0.015 * _width,
-                              _customBoardY0 - 0.067 * _customBoardHeight,
+                              _customBoardY0 + .285 * _customBoardHeight,
                               .96908809 * _width,
-                              .316 * _customBoardHeight)),
+                              .12 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1,
+                            child: Image.asset(
+                              'assets/images/custom_board/pocket_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _customBoardY0 + .523 * _customBoardHeight,
+                              .96908809 * _width,
+                              .12 * _customBoardHeight)),
+                      Positioned.fromRect(
+                          child: Transform.scale(
+                            scale: 1,
+                            child: Image.asset(
+                              'assets/images/custom_board/pocket_4.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          rect: Rect.fromLTWH(
+                              0.015 * _width,
+                              _customBoardY0 + .762 * _customBoardHeight,
+                              .96908809 * _width,
+                              .12 * _customBoardHeight)),
                     ],
                   );
                 },
