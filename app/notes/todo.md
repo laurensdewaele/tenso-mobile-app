@@ -1,15 +1,12 @@
 # TODO
 
 ### Custom board
+- Generate board_holds_images and board_holds from view_model.
 - Make a generic board.dart that handles displaying a board, which can either be a plain image 
   or one with the custom hold images. Board + Custom board.
   It also needs a handleTap on every image, with it's own state.
   Maybe a bool interactive.
 - Use that one in your custom board widget (extract from screen). Stack(board(board: board), boxes)
-- This means that you should generate a board in it's entirety and pass it to the board widget.
-  Well, not really, it only needs the image and the board_hold_images and how to paint them.
-  -> The custom_board_view_model is responsible for generating the board_hold_images array
-     and pass it to board.dart
      
 - When generating the board_hold_images, that are only used for painting, you also need to generate the 
   board_holds (otherwise the data will be lost).

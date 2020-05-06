@@ -32,7 +32,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   List<BoxState> boxes;
   List<BoxState> get selectedBoxes =>
       boxes.where((box) => box.selected == true).toList();
-  bool get selectedBoxesIsTopRow => selectedBoxes.first.row == 0;
+  bool get selectedBoxesIsTopRow => selectedBoxes.first?.row == 0 || false;
   bool get selectedBoxesIsBottomRow => !selectedBoxesIsTopRow;
 
   bool addHoldModalOpen;
