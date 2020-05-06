@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'grip.g.dart';
 
@@ -17,10 +16,10 @@ abstract class Grip implements Built<Grip, GripBuilder> {
   String get imageAsset;
   String get name;
   String get description;
-  double get hangAnchorX;
-  double get hangAnchorY;
-  double get hangAnchorXPercent => hangAnchorX / assetWidth;
-  double get hangAnchorYPercent => hangAnchorY / assetHeight;
+  double get anchorLeft;
+  double get anchorTop;
+  double get anchorLeftPercent => anchorLeft / assetWidth;
+  double get anchorTopPercent => anchorTop / assetHeight;
   double get assetWidth;
   double get assetHeight;
   double get assetAspectRatio => assetWidth / assetHeight;

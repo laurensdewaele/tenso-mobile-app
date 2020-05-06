@@ -1,10 +1,10 @@
 import 'dart:convert';
-
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
+import 'dart:ui';
 
 import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'board_hold.g.dart';
 
@@ -19,12 +19,17 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   int get supportedFingers;
   @nullable
   double get sloperDegrees;
-  double get hangAnchorXPercent;
-  double get hangAnchorYPercent;
-  double get topLeftXPercent;
-  double get topLeftYPercent;
+  double get anchorLeftPercent;
+  double get anchorTopPercent;
+  double get leftPercent;
+  double get topPercent;
   double get widthPercent;
   double get heightPercent;
+
+  Rect getRect({double boardWidth, double boardHeight}) {
+    return Rect.fromLTWH(leftPercent * boardWidth, topPercent * boardHeight,
+        widthPercent * boardWidth, heightPercent * boardHeight);
+  }
 
   bool checkGripCompatibility(Grip grip) {
     if (supportedFingers == null) return true;

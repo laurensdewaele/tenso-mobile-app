@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
 class BoardDragTargets extends StatefulWidget {
   BoardDragTargets(
@@ -79,11 +78,8 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
             widget.boardImageAsset,
           )),
           ...widget.boardHolds.map((BoardHold boardHold) {
-            final Rect rect = Rect.fromLTWH(
-                boardHold.topLeftXPercent * _boardSize.width,
-                boardHold.topLeftYPercent * _boardSize.height,
-                boardHold.widthPercent * _boardSize.width,
-                boardHold.heightPercent * _boardSize.height);
+            final Rect rect = boardHold.getRect(
+                boardHeight: _boardSize.height, boardWidth: _boardSize.width);
             return Positioned.fromRect(
                 rect: rect,
                 child: DragTarget(
@@ -116,8 +112,9 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
                     if (boardHold.checkGripCompatibility(grip) == true) {
                       return true;
                     } else {
-                      widget.setErrorMessage(ErrorMessages.exceedsSupportedFingers(
-                          max: boardHold.supportedFingers));
+                      widget.setErrorMessage(
+                          ErrorMessages.exceedsSupportedFingers(
+                              max: boardHold.supportedFingers));
                       return false;
                     }
                   },

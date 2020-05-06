@@ -14,8 +14,8 @@ abstract class Grips {
       ..count = 1).toBuilder()
     ..imageAsset = 'assets/images/grips/mono_pinky_L.png'
     ..handType = HandType.leftHand
-    ..hangAnchorX = 45.0 - 20
-    ..hangAnchorY = 33.0 - 26
+    ..anchorLeft = 45.0 - 20
+    ..anchorTop = 33.0 - 26
     ..assetWidth = 234 / (330 / 120)
     ..assetHeight = 120);
 
@@ -23,8 +23,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 234 / (330 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 + 14.0
-    ..hangAnchorY = 33.0 - 26.0
+    ..anchorLeft = 45.0 + 14.0
+    ..anchorTop = 33.0 - 26.0
     ..description = 'mono pinky'
     ..name = 'monoPinkyR'
     ..fingers = Fingers((b) => b
@@ -41,8 +41,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 336 / (219 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 16.0
-    ..hangAnchorY = 33.0 - 27.0
+    ..anchorLeft = 45.0 - 16.0
+    ..anchorTop = 33.0 - 27.0
     ..description = 'mono ring finger'
     ..name = 'monoRingL'
     ..fingers = Fingers((b) => b
@@ -59,8 +59,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 219 / (336 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 + 4.0
-    ..hangAnchorY = 33.0 - 27.0
+    ..anchorLeft = 45.0 + 4.0
+    ..anchorTop = 33.0 - 27.0
     ..description = 'mono ring finger'
     ..name = 'monoRingR'
     ..handType = HandType.rightHand
@@ -77,8 +77,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 211 / (369 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 11
-    ..hangAnchorY = 33.0 - 27
+    ..anchorLeft = 45.0 - 11
+    ..anchorTop = 33.0 - 27
     ..description = 'mono middle finger'
     ..name = 'monoMiddleL'
     ..handType = HandType.leftHand
@@ -95,8 +95,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 211 / (369 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 11
-    ..hangAnchorY = 33.0 - 27
+    ..anchorLeft = 45.0 - 11
+    ..anchorTop = 33.0 - 27
     ..description = 'mono middle finger'
     ..name = 'monoMiddleR'
     ..handType = HandType.rightHand
@@ -113,8 +113,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 176 / (317 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 1
-    ..hangAnchorY = 33.0 - 25
+    ..anchorLeft = 45.0 - 1
+    ..anchorTop = 33.0 - 25
     ..description = 'mono index finger'
     ..name = 'monoIndexL'
     ..handType = HandType.leftHand
@@ -131,8 +131,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 176 / (317 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 23
-    ..hangAnchorY = 33.0 - 25
+    ..anchorLeft = 45.0 - 23
+    ..anchorTop = 33.0 - 25
     ..description = 'mono index finger'
     ..name = 'monoIndexR'
     ..handType = HandType.rightHand
@@ -150,8 +150,8 @@ abstract class Grips {
       ..crimped = false
       ..assetWidth = 210 / (300 / 120)
       ..assetHeight = 120
-      ..hangAnchorX = 45.0 - 3
-      ..hangAnchorY = 33.0 - 27
+      ..anchorLeft = 45.0 - 3
+      ..anchorTop = 33.0 - 27
       ..description = 'front two'
       ..name = 'frontTwoL'
       ..handType = HandType.leftHand
@@ -169,8 +169,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 210 / (300 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 3
-    ..hangAnchorY = 33.0 - 27
+    ..anchorLeft = 45.0 - 3
+    ..anchorTop = 33.0 - 27
     ..description = 'front two'
     ..name = 'frontTwoR'
     ..handType = HandType.rightHand
@@ -187,8 +187,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 236 / (332 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 11
-    ..hangAnchorY = 33.0 - 21
+    ..anchorLeft = 45.0 - 11
+    ..anchorTop = 33.0 - 21
     ..description = 'middle two'
     ..name = 'middleTwoL'
     ..handType = HandType.leftHand
@@ -205,8 +205,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 236 / (332 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 + 8
-    ..hangAnchorY = 33.0 - 21
+    ..anchorLeft = 45.0 + 8
+    ..anchorTop = 33.0 - 21
     ..description = 'middle two'
     ..name = 'middleTwoR'
     ..handType = HandType.rightHand
@@ -223,8 +223,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 219 / (322 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 25
-    ..hangAnchorY = 33.0 - 25
+    ..anchorLeft = 45.0 - 25
+    ..anchorTop = 33.0 - 25
     ..description = 'back two'
     ..name = 'backTwoL'
     ..handType = HandType.leftHand
@@ -241,8 +241,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 219 / (332 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 + 17.0
-    ..hangAnchorY = 33.0 - 25
+    ..anchorLeft = 45.0 + 17.0
+    ..anchorTop = 33.0 - 25
     ..description = 'back two'
     ..name = 'backTwoR'
     ..handType = HandType.rightHand
@@ -259,8 +259,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 177 / (297 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 9.0
-    ..hangAnchorY = 33.0 - 24.0
+    ..anchorLeft = 45.0 - 9.0
+    ..anchorTop = 33.0 - 24.0
     ..description = 'front three'
     ..name = 'frontThreeL'
     ..handType = HandType.leftHand
@@ -277,8 +277,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 177 / (297 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 9
-    ..hangAnchorY = 33.0 - 24.0
+    ..anchorLeft = 45.0 - 9
+    ..anchorTop = 33.0 - 24.0
     ..description = 'front three'
     ..name = 'frontThreeR'
     ..handType = HandType.rightHand
@@ -295,8 +295,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 241 / (292 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 5
-    ..hangAnchorY = 33.0 - 20
+    ..anchorLeft = 45.0 - 5
+    ..anchorTop = 33.0 - 20
     ..description = 'back three'
     ..name = 'backThreeL'
     ..handType = HandType.leftHand
@@ -313,8 +313,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 241 / (292 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 + 18.0
-    ..hangAnchorY = 33.0 - 20.0
+    ..anchorLeft = 45.0 + 18.0
+    ..anchorTop = 33.0 - 20.0
     ..description = 'back three'
     ..name = 'backThreeR'
     ..handType = HandType.rightHand
@@ -331,8 +331,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 238 / (316 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 39.5
-    ..hangAnchorY = 10
+    ..anchorLeft = 39.5
+    ..anchorTop = 10
     ..description = 'open hand'
     ..name = 'openHandL'
     ..handType = HandType.leftHand
@@ -349,8 +349,8 @@ abstract class Grips {
     ..crimped = false
     ..assetWidth = 238 / (316 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 51
-    ..hangAnchorY = 10
+    ..anchorLeft = 51
+    ..anchorTop = 10
     ..description = 'open hand'
     ..name = 'openHandR'
     ..handType = HandType.rightHand
@@ -366,8 +366,8 @@ abstract class Grips {
   static Grip halfCrimpL = Grip((b) => b
     ..assetWidth = 274 / (318 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0
-    ..hangAnchorY = 33.0 - 10
+    ..anchorLeft = 45.0
+    ..anchorTop = 33.0 - 10
     ..description = 'half crimp'
     ..name = 'halfCrimpL'
     ..handType = HandType.leftHand
@@ -384,8 +384,8 @@ abstract class Grips {
   static Grip halfCrimpR = Grip((b) => b
     ..assetWidth = 274 / (318 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 + 16.0
-    ..hangAnchorY = 33.0 - 10.0
+    ..anchorLeft = 45.0 + 16.0
+    ..anchorTop = 33.0 - 10.0
     ..description = 'half crimp'
     ..name = 'halfCrimpR'
     ..handType = HandType.rightHand
@@ -403,8 +403,8 @@ abstract class Grips {
     (b) => b
       ..assetWidth = 177 / (282 / 120)
       ..assetHeight = 120
-      ..hangAnchorX = 45.0 - 6
-      ..hangAnchorY = 33.0 - 7
+      ..anchorLeft = 45.0 - 6
+      ..anchorTop = 33.0 - 7
       ..description = 'full crimp'
       ..name = 'fullCrimpL'
       ..handType = HandType.leftHand
@@ -421,8 +421,8 @@ abstract class Grips {
   static Grip fullCrimpR = Grip((b) => b
     ..assetWidth = 177 / (282 / 120)
     ..assetHeight = 120
-    ..hangAnchorX = 45.0 - 6
-    ..hangAnchorY = 33.0 - 7
+    ..anchorLeft = 45.0 - 6
+    ..anchorTop = 33.0 - 7
     ..description = 'full crimp'
     ..name = 'fullCrimpR'
     ..handType = HandType.rightHand

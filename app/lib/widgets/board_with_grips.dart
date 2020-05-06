@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board.dart';
 import 'package:app/widgets/grip_image.dart';
+import 'package:flutter/cupertino.dart';
 
 class BoardWithGrips extends StatefulWidget {
   BoardWithGrips(
@@ -66,15 +65,14 @@ class _BoardWithGripsState extends State<BoardWithGrips> {
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {
-    final double gripDYHangAnchor = grip.hangAnchorYPercent * _gripHeight;
-    final double gripDXHangAnchor =
-        grip.hangAnchorXPercent * grip.assetAspectRatio * _gripHeight;
-    final double holdDYHangAnchor =
-        boardHold.hangAnchorYPercent * _boardSize.height;
-    final double holdDXHangAnchor =
-        boardHold.hangAnchorXPercent * _boardSize.width;
-    final Offset offset = Offset(holdDXHangAnchor - gripDXHangAnchor,
-        holdDYHangAnchor - gripDYHangAnchor);
+    final double gripAnchorTop = grip.anchorTopPercent * _gripHeight;
+    final double gripAnchorLeft =
+        grip.anchorLeftPercent * grip.assetAspectRatio * _gripHeight;
+    final double holdAnchorTop = boardHold.anchorTopPercent * _boardSize.height;
+    final double holdAnchorLeft =
+        boardHold.anchorLeftPercent * _boardSize.width;
+    final Offset offset =
+        Offset(holdAnchorLeft - gripAnchorLeft, holdAnchorTop - gripAnchorTop);
 
     if (grip.handType == HandType.leftHand) {
       setState(() {

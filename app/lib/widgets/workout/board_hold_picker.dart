@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/scheduler.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/grip_image.dart';
 import 'package:app/widgets/workout/board_drag_targets.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/scheduler.dart';
 
 class BoardHoldPicker extends StatefulWidget {
   BoardHoldPicker({
@@ -87,15 +86,14 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {
-    final double gripDYHangAnchor = grip.hangAnchorYPercent * _gripHeight;
-    final double gripDXHangAnchor =
-        grip.hangAnchorXPercent * grip.assetAspectRatio * _gripHeight;
-    final double holdDYHangAnchor =
-        boardHold.hangAnchorYPercent * _boardSize.height;
-    final double holdDXHangAnchor =
-        boardHold.hangAnchorXPercent * _boardSize.width;
-    final Offset offset = Offset(holdDXHangAnchor - gripDXHangAnchor,
-        holdDYHangAnchor - gripDYHangAnchor);
+    final double gripAnchorTop = grip.anchorTopPercent * _gripHeight;
+    final double gripAnchorLeft =
+        grip.anchorLeftPercent * grip.assetAspectRatio * _gripHeight;
+    final double holdAnchorTop = boardHold.anchorTopPercent * _boardSize.height;
+    final double holdAnchorLeft =
+        boardHold.anchorLeftPercent * _boardSize.width;
+    final Offset offset =
+        Offset(holdAnchorLeft - gripAnchorLeft, holdAnchorTop - gripAnchorTop);
 
     if (grip.handType == HandType.leftHand) {
       setState(() {
@@ -116,11 +114,11 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
     double gripHeight,
   ) {
     Offset position = event.localPosition;
-    final double hangAnchorX =
-        grip.hangAnchorXPercent * gripHeight * grip.assetAspectRatio;
-    final double hangAnchorY = grip.hangAnchorYPercent * gripHeight;
-    final double dy = position.dy - hangAnchorY;
-    final double dx = position.dx - hangAnchorX;
+    final double anchorLeft =
+        grip.anchorLeftPercent * gripHeight * grip.assetAspectRatio;
+    final double anchorTop = grip.anchorTopPercent * gripHeight;
+    final double dy = position.dy - anchorTop;
+    final double dx = position.dx - anchorLeft;
     setState(() {
       if (grip.handType == HandType.leftHand) {
         _leftHandFeedbackOffset = Offset(-dx, -dy);

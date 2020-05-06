@@ -1,14 +1,20 @@
 import 'package:app/data/custom_board_hold_images.dart';
+import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/widgets/custom_board/box.dart';
 import 'package:flutter/cupertino.dart';
 
 class CustomBoard extends StatefulWidget {
-  CustomBoard({Key key, @required this.boxes, @required this.handleBoxTap})
+  CustomBoard(
+      {Key key,
+      @required this.boxes,
+      @required this.handleBoxTap,
+      @required this.images})
       : super(key: key);
 
   final List<BoxState> boxes;
+  final List<CustomBoardHoldImage> images;
   final void Function(BoxState boxState) handleBoxTap;
 
   @override
@@ -62,97 +68,18 @@ class _CustomBoardState extends State<CustomBoard> {
                 ],
               ),
             ),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: jug1.scale,
-                  child: Image.asset(
-                    jug1.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    jug1.leftXPercent[0] * _customBoardWidth,
-                    jug1.topYPercent[0] * _customBoardHeight,
-                    jug1.widthPercent * _customBoardWidth,
-                    jug1.heightPercent * _customBoardHeight)),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: pinchBlock1.scale,
-                  child: Image.asset(
-                    pinchBlock1.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    jug1.leftXPercent[1] * _customBoardWidth,
-                    pinchBlock1.topYPercent[0] * _customBoardHeight,
-                    pinchBlock1.widthPercent * _customBoardWidth,
-                    pinchBlock1.heightPercent * _customBoardHeight)),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: sloper2.scale,
-                  child: Image.asset(
-                    sloper2.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    jug1.leftXPercent[2] * _customBoardWidth,
-                    sloper2.topYPercent[0] * _customBoardHeight,
-                    sloper2.widthPercent * _customBoardWidth,
-                    sloper2.heightPercent * _customBoardHeight)),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: edge4.scale,
-                  child: Image.asset(
-                    edge4.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    edge4.leftXPercent[0] * _customBoardWidth,
-                    edge4.topYPercent[1] * _customBoardHeight,
-                    edge4.widthPercent * _customBoardWidth,
-                    edge4.heightPercent * _customBoardHeight)),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: edge4.scale,
-                  child: Image.asset(
-                    edge4.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    edge4.leftXPercent[0] * _customBoardWidth,
-                    edge4.topYPercent[2] * _customBoardHeight,
-                    edge4.widthPercent * _customBoardWidth,
-                    edge4.heightPercent * _customBoardHeight)),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: edge2.scale,
-                  child: Image.asset(
-                    edge2.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    edge2.leftXPercent[0] * _customBoardWidth,
-                    edge2.topYPercent[3] * _customBoardHeight,
-                    edge2.widthPercent * _customBoardWidth,
-                    edge2.heightPercent * _customBoardHeight)),
-            Positioned.fromRect(
-                child: Transform.scale(
-                  scale: pocket2.scale,
-                  child: Image.asset(
-                    pocket2.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: Rect.fromLTWH(
-                    pocket2.leftXPercent[2] * _customBoardWidth,
-                    pocket2.topYPercent[3] * _customBoardHeight,
-                    pocket2.widthPercent * _customBoardWidth,
-                    pocket2.heightPercent * _customBoardHeight)),
+            ...widget.images.map((CustomBoardHoldImage image) =>
+                Positioned.fromRect(
+                    child: Transform.scale(
+                      scale: image.scale,
+                      child: Image.asset(
+                        image.imageAsset,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    rect: image.getRect(
+                        boardWidth: _customBoardWidth,
+                        boardHeight: _customBoardHeight)))
           ],
         );
       },
