@@ -1,35 +1,38 @@
+library custom_board;
+
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 
-const int kCustomBoardRows = 4;
-const int kCustomBoardColumns = 4;
-const double kCustomBoardAspectRatio = 3;
+const int kRows = 4;
+const int kColumns = 4;
+const double kAspectRatio = 3;
 const double kSelectionBoxAspectRatio = 3.6;
-const double kCustomBoardSpacingPercent =
-    _kCustomBoardSpacing / _measuredCustomBoardWidth;
+const double kHorizontalSpacingPercent = _kSpacing / _measuredWidth;
+const double kVerticalSpacingPercent = _kSpacing / _measuredHeight;
 
-const double _kCustomBoardSpacing = styles.Measurements.xs;
-const double _measuredCustomBoardWidth = 647;
+const double _kSpacing = styles.Measurements.xs;
+const double _measuredWidth = 647;
+const double _measuredHeight = _measuredWidth / kAspectRatio;
 
-const double _widthPercent1 =
-    (1 - (kCustomBoardSpacingPercent * 5)) / kCustomBoardColumns;
-const double _widthPercent2 = _widthPercent1 * 2 + kCustomBoardSpacingPercent;
+const double _widthPercent1 = (1 - (kHorizontalSpacingPercent * 5)) / kColumns;
+const double _widthPercent2 = _widthPercent1 * 2 + kHorizontalSpacingPercent;
 const double _widthPercent3 =
-    _widthPercent1 * 3 + (kCustomBoardSpacingPercent * 2);
+    _widthPercent1 * 3 + (kHorizontalSpacingPercent * 2);
 const double _widthPercent4 =
-    _widthPercent1 * 4 + (kCustomBoardSpacingPercent * 3);
+    _widthPercent1 * 4 + (kHorizontalSpacingPercent * 3);
 
-const double _leftPercentColumn1 = kCustomBoardSpacingPercent;
+const double _leftPercentColumn1 = kHorizontalSpacingPercent;
 const double _leftPercentColumn2 =
-    _widthPercent1 + kCustomBoardSpacingPercent * 2;
+    _widthPercent1 + kHorizontalSpacingPercent * 2;
 const double _leftPercentColumn3 =
-    _widthPercent2 + kCustomBoardSpacingPercent * 2;
+    _widthPercent2 + kHorizontalSpacingPercent * 2;
 const double _leftPercentColumn4 =
-    _widthPercent3 + kCustomBoardSpacingPercent * 2;
+    _widthPercent3 + kHorizontalSpacingPercent * 2;
 
-const double _bottomRowsTopPercent =
-    (_widthPercent1 / kSelectionBoxAspectRatio) + kCustomBoardSpacingPercent;
+const double _bottomRowsTopPercent = (kVerticalSpacingPercent) +
+    ((_widthPercent1 * _measuredWidth / kSelectionBoxAspectRatio) /
+        _measuredHeight);
 
 // TODO: Do i really need to scale?
 const double _pinchBlockJugScale = 1.08;
