@@ -59,13 +59,16 @@ class _CustomBoardState extends State<CustomBoard> {
                 childAspectRatio: kSelectionBoxAspectRatio,
                 crossAxisCount: kCustomBoardColumns,
                 children: <Widget>[
-                  ...widget.boxes.map((BoxState boxState) =>
-                      boxState.selected == true
-                          ? SelectedBox(
-                              handleTap: () => widget.handleBoxTap(boxState))
-                          : Box(
-                              handleTap: () => widget.handleBoxTap(boxState),
-                            ))
+                  ...widget.boxes.map((BoxState boxState) {
+                    if (boxState.visibility == BoxVisibility.selected)
+                      return SelectedBox(
+                          handleTap: () => widget.handleBoxTap(boxState));
+
+                    if (boxState.visibility == BoxVisibility.deselected)
+                      return Box(
+                          handleTap: () => widget.handleBoxTap(boxState));
+                    return Container();
+                  })
                 ],
               ),
             ),
