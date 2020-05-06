@@ -2,7 +2,6 @@ import 'package:app/models/hold_type.dart';
 import 'package:app/services/navigation.dart';
 import 'package:app/services/parser.dart';
 import 'package:app/services/validation.dart';
-import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:flutter/cupertino.dart';
 
 enum InputPageInputTypes {
@@ -26,8 +25,13 @@ class InputPageInput {
 }
 
 class HoldInputViewModel extends ChangeNotifier {
+  VoidCallback handlePinchBlockInput;
+  VoidCallback handleJugInput;
+  void Function({double degrees}) handleSloperInput;
+  void Function({double depth, int supportedFingers}) handlePocketInput;
+  void Function({double depth}) handleEdgeInput;
+
   NavigationService _navigationService;
-  CustomBoardViewModel _customBoardViewModel;
 
   List<InputPageInput> inputPageInputs;
   bool isChooseHoldTypePageActive;
@@ -43,8 +47,12 @@ class HoldInputViewModel extends ChangeNotifier {
   String _edgeDepthInput;
   String _pocketSupportedFingersInput;
 
-  HoldInputViewModel({@required CustomBoardViewModel customBoardViewModel}) {
-    _customBoardViewModel = customBoardViewModel;
+  HoldInputViewModel(
+      {@required this.handleEdgeInput,
+      @required this.handlePocketInput,
+      @required this.handleSloperInput,
+      @required this.handleJugInput,
+      @required this.handlePinchBlockInput}) {
     _navigationService = NavigationService();
     inputPageInputs = [];
     isChooseHoldTypePageActive = true;
@@ -58,11 +66,11 @@ class HoldInputViewModel extends ChangeNotifier {
   void handleHoldTypeTap(HoldType type) {
     switch (type) {
       case HoldType.pinchBlock:
-        _customBoardViewModel.handlePinchBlockInput();
+        handlePinchBlockInput();
         _navigationService.pop();
         break;
       case HoldType.jug:
-        _customBoardViewModel.handleJugInput();
+        handleJugInput();
         _navigationService.pop();
         break;
       case HoldType.sloper:
@@ -154,14 +162,14 @@ class HoldInputViewModel extends ChangeNotifier {
     if (_validateInputs() == true) {
       switch (_activeHoldType) {
         case HoldType.sloper:
-          _customBoardViewModel.handleSloperInput(degrees: _sloperDegrees);
+          handleSloperInput(degrees: _sloperDegrees);
           break;
         case HoldType.pocket:
-          _customBoardViewModel.handlePocketInput(
+          handlePocketInput(
               depth: _pocketDepth, supportedFingers: _pocketSupportedFingers);
           break;
         case HoldType.edge:
-          _customBoardViewModel.handleEdgeInput(depth: _edgeDepth);
+          handleEdgeInput(depth: _edgeDepth);
           break;
         default:
           return;

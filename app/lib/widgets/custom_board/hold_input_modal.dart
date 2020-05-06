@@ -1,6 +1,5 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/view_models/custom_board/hold_input_view_model.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/icons.dart' as icons;
@@ -9,10 +8,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
 class HoldInputModal extends StatefulWidget {
-  HoldInputModal({Key key, @required this.customBoardViewModel})
-      : super(key: key);
+  const HoldInputModal({
+    @required this.handlePinchBlockInput,
+    @required this.handleJugInput,
+    @required this.handleSloperInput,
+    @required this.handlePocketInput,
+    @required this.handleEdgeInput,
+    @required this.isTopRow,
+  });
 
-  final CustomBoardViewModel customBoardViewModel;
+  final bool isTopRow;
+  final VoidCallback handlePinchBlockInput;
+  final VoidCallback handleJugInput;
+  final void Function({double degrees}) handleSloperInput;
+  final void Function({double depth, int supportedFingers}) handlePocketInput;
+  final void Function({double depth}) handleEdgeInput;
 
   @override
   _HoldInputModalState createState() => _HoldInputModalState();
@@ -23,8 +33,12 @@ class _HoldInputModalState extends State<HoldInputModal> {
 
   @override
   void initState() {
-    _viewModel =
-        HoldInputViewModel(customBoardViewModel: widget.customBoardViewModel);
+    _viewModel = HoldInputViewModel(
+        handleEdgeInput: widget.handleEdgeInput,
+        handleJugInput: widget.handleJugInput,
+        handlePinchBlockInput: widget.handlePinchBlockInput,
+        handlePocketInput: widget.handlePocketInput,
+        handleSloperInput: widget.handleSloperInput);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }
@@ -43,26 +57,21 @@ class _HoldInputModalState extends State<HoldInputModal> {
   Widget build(BuildContext context) {
     return _viewModel.isChooseHoldTypePageActive == true
         ? _ChooseHoldTypePage(
-            topRow: widget.customBoardViewModel.selectedBoxesIsTopRow,
-            bottomRow: widget.customBoardViewModel.selectedBoxesIsBottomRow,
-            handleTap: _viewModel.handleHoldTypeTap)
+            isTopRow: widget.isTopRow, handleTap: _viewModel.handleHoldTypeTap)
         : _InputPage(
             inputs: _viewModel.inputPageInputs,
             handleInput: _viewModel.handleInput,
             handleNextTap: () async {
               await _viewModel.handleNextTap();
+              Navigator.of(context).pop();
             });
   }
 }
 
 class _ChooseHoldTypePage extends StatelessWidget {
-  _ChooseHoldTypePage(
-      {@required this.topRow,
-      @required this.bottomRow,
-      @required this.handleTap});
+  _ChooseHoldTypePage({@required this.isTopRow, @required this.handleTap});
 
-  final bool topRow;
-  final bool bottomRow;
+  final bool isTopRow;
   final void Function(HoldType type) handleTap;
 
   @override
@@ -70,7 +79,7 @@ class _ChooseHoldTypePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: styles.Measurements.xs, vertical: styles.Measurements.xs),
-      child: topRow == true
+      child: isTopRow == true
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[

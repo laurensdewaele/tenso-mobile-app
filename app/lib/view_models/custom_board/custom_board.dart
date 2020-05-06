@@ -42,8 +42,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   List<BoxState> get boxes => _boxes;
   List<BoxState> get _selectedBoxes =>
       boxes.where((box) => box.visibility == BoxVisibility.selected).toList();
-  bool get selectedBoxesIsTopRow => _selectedBoxes.first?.row == 1 || false;
-  bool get selectedBoxesIsBottomRow => !selectedBoxesIsTopRow;
+  bool get selectedBoxesIsTopRow => _selectedBoxes?.first?.row == 1 || false;
 
   List<CustomBoardHoldImage> _images;
   List<CustomBoardHoldImage> get images => _images;
@@ -55,6 +54,11 @@ class CustomBoardViewModel extends ChangeNotifier {
     _resetBoxes();
     _images = [];
     addHoldModalOpen = false;
+    notifyListeners();
+  }
+
+  void setAddHoldModalOpen(bool open) {
+    addHoldModalOpen = open;
     notifyListeners();
   }
 
@@ -155,15 +159,14 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   void _removeSelectedBoxes() {
-    final List<BoxState> _newBoxes = []..addAll(boxes);
-    _newBoxes.map((BoxState boxState) {
+    _boxes = _boxes.map((BoxState boxState) {
+      print(boxState.visibility);
       if (boxState.visibility == BoxVisibility.selected) {
         return boxState.copyWith(visibility: BoxVisibility.hidden);
       } else {
         return boxState;
       }
-    });
-    _boxes = _newBoxes;
+    }).toList();
     notifyListeners();
   }
 

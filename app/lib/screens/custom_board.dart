@@ -52,10 +52,16 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   void _handlePreviewTap() {}
   void _handleInfoTap() {}
   void _handleAddHoldTap() async {
+    _viewModel.setAddHoldModalOpen(false);
     await showAppModalPopup(
         context: context,
         content: HoldInputModal(
-          customBoardViewModel: _viewModel,
+          isTopRow: _viewModel.selectedBoxesIsTopRow,
+          handleEdgeInput: _viewModel.handleEdgeInput,
+          handleSloperInput: _viewModel.handleSloperInput,
+          handlePocketInput: _viewModel.handlePocketInput,
+          handleJugInput: _viewModel.handleJugInput,
+          handlePinchBlockInput: _viewModel.handlePinchBlockInput,
         ));
   }
 
