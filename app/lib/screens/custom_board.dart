@@ -84,9 +84,9 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 padding: const EdgeInsets.fromLTRB(
                     styles.Measurements.xs, 64, styles.Measurements.xs, 45),
                 child: CustomBoard(
-                  boxes: _viewModel.boxes,
-                  handleBoxTap: _viewModel.handleBoxTap,
-                )),
+                    boxes: _viewModel.boxes,
+                    handleBoxTap: _viewModel.handleBoxTap,
+                    images: _viewModel.images)),
           ),
           BottomMenuDrawer(
             dragIndicatorColor: styles.Colors.lightGray,
