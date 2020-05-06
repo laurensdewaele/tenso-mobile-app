@@ -51,7 +51,7 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   CustomBoardViewModel() {
     _toastService = ToastService();
-    _resetBoxes();
+    _generateBoxes();
     _images = [];
     addHoldModalOpen = false;
     notifyListeners();
@@ -62,7 +62,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _resetBoxes() {
+  void _generateBoxes() {
     _boxes = List.generate(4 * 4, (i) {
       final int _row = i ~/ 4 + 1;
       final int _column = _row == 1 ? i + 1 : i - (((_row - 1) * 4) - 1);
@@ -135,10 +135,6 @@ class CustomBoardViewModel extends ChangeNotifier {
     return _isInCenter;
   }
 
-  void _determineModalState() {
-    addHoldModalOpen = _selectedBoxes.length > 0;
-  }
-
   void _invertSelectedStateBox(BoxState boxState) {
     final List<BoxState> _newBoxes = []..addAll(boxes);
     _newBoxes[boxState.index] = boxState.copyWith(
@@ -146,7 +142,7 @@ class CustomBoardViewModel extends ChangeNotifier {
             ? BoxVisibility.deselected
             : BoxVisibility.selected);
     _boxes = _newBoxes;
-    _determineModalState();
+    addHoldModalOpen = _selectedBoxes.length > 0;
     notifyListeners();
   }
 
@@ -158,9 +154,8 @@ class CustomBoardViewModel extends ChangeNotifier {
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
   }
 
-  void _removeSelectedBoxes() {
+  void _hideSelectedBoxes() {
     _boxes = _boxes.map((BoxState boxState) {
-      print(boxState.visibility);
       if (boxState.visibility == BoxVisibility.selected) {
         return boxState.copyWith(visibility: BoxVisibility.hidden);
       } else {
@@ -172,26 +167,26 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   void handlePinchBlockInput() {
     _images.add(_getImage(HoldType.pinchBlock));
-    _removeSelectedBoxes();
+    _hideSelectedBoxes();
   }
 
   void handleJugInput() {
     _images.add(_getImage(HoldType.jug));
-    _removeSelectedBoxes();
+    _hideSelectedBoxes();
   }
 
   void handleSloperInput({double degrees}) {
     _images.add(_getImage(HoldType.sloper));
-    _removeSelectedBoxes();
+    _hideSelectedBoxes();
   }
 
   void handlePocketInput({double depth, int supportedFingers}) {
     _images.add(_getImage(HoldType.pocket));
-    _removeSelectedBoxes();
+    _hideSelectedBoxes();
   }
 
   void handleEdgeInput({double depth}) {
     _images.add(_getImage(HoldType.edge));
-    _removeSelectedBoxes();
+    _hideSelectedBoxes();
   }
 }

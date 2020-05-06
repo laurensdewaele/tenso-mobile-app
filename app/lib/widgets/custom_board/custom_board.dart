@@ -5,7 +5,7 @@ import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/widgets/custom_board/box.dart';
 import 'package:flutter/cupertino.dart';
 
-class CustomBoard extends StatefulWidget {
+class CustomBoard extends StatelessWidget {
   CustomBoard(
       {Key key,
       @required this.boxes,
@@ -16,23 +16,6 @@ class CustomBoard extends StatefulWidget {
   final List<BoxState> boxes;
   final List<CustomBoardHoldImage> images;
   final void Function(BoxState boxState) handleBoxTap;
-
-  @override
-  _CustomBoardState createState() => _CustomBoardState();
-}
-
-class _CustomBoardState extends State<CustomBoard> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +45,13 @@ class _CustomBoardState extends State<CustomBoard> {
                 childAspectRatio: custom_board.kSelectionBoxAspectRatio,
                 crossAxisCount: custom_board.kColumns,
                 children: <Widget>[
-                  ...widget.boxes.map((BoxState boxState) {
+                  ...boxes.map((BoxState boxState) {
                     if (boxState.visibility == BoxVisibility.selected) {
                       return SelectedBox(
-                          handleTap: () => widget.handleBoxTap(boxState));
+                          handleTap: () => handleBoxTap(boxState));
                     } else if (boxState.visibility ==
                         BoxVisibility.deselected) {
-                      return Box(
-                          handleTap: () => widget.handleBoxTap(boxState));
+                      return Box(handleTap: () => handleBoxTap(boxState));
                     } else {
                       return Container();
                     }
@@ -77,18 +59,17 @@ class _CustomBoardState extends State<CustomBoard> {
                 ],
               ),
             ),
-            ...widget.images.map((CustomBoardHoldImage image) =>
-                Positioned.fromRect(
-                    child: Transform.scale(
-                      scale: image.scale,
-                      child: Image.asset(
-                        image.imageAsset,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    rect: image.getRect(
-                        boardWidth: _customBoardWidth,
-                        boardHeight: _customBoardHeight)))
+            ...images.map((CustomBoardHoldImage image) => Positioned.fromRect(
+                child: Transform.scale(
+                  scale: image.scale,
+                  child: Image.asset(
+                    image.imageAsset,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                rect: image.getRect(
+                    boardWidth: _customBoardWidth,
+                    boardHeight: _customBoardHeight)))
           ],
         );
       },
