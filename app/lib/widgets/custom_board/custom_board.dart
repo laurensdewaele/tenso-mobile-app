@@ -40,6 +40,7 @@ class _CustomBoardState extends State<CustomBoard> {
       builder: (BuildContext context, BoxConstraints constraints) {
         final _customBoardWidth = constraints.maxWidth;
         final _customBoardHeight = _customBoardWidth / kCustomBoardAspectRatio;
+        final _spacing = kCustomBoardSpacingPercent * _customBoardWidth;
         return Stack(
           overflow: Overflow.visible,
           children: <Widget>[
@@ -53,8 +54,8 @@ class _CustomBoardState extends State<CustomBoard> {
                 padding: EdgeInsets.all(styles.Measurements.xs),
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
-                crossAxisSpacing: kCustomBoardSpacing,
-                mainAxisSpacing: kCustomBoardSpacing,
+                crossAxisSpacing: _spacing,
+                mainAxisSpacing: _spacing,
                 childAspectRatio: kSelectionBoxAspectRatio,
                 crossAxisCount: kCustomBoardColumns,
                 children: <Widget>[

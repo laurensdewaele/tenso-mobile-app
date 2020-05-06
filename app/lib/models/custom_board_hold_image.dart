@@ -16,6 +16,8 @@ abstract class CustomBoardHoldImage
   double get topPercent;
   double get widthPercent;
   double get heightPercent;
+  // We need to scale images because Figma adds pixels to the original
+  // measurements, in order to add room for the shadows.
   double get scale;
   String get imageAsset;
 

@@ -18,6 +18,7 @@
 - Abstract and refactor anything that has to do with a board, choosing grips, displaying into it's own
   folder. 
 - Abstract input page.
+- Test custom board on different screen sizes!
 
 
 

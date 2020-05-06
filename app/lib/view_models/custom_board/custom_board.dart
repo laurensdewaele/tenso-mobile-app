@@ -1,3 +1,4 @@
+import 'package:app/data/custom_board_hold_images.dart';
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
@@ -134,10 +135,11 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   CustomBoardHoldImage _getImage(HoldType type) {
-    final _width = _selectedBoxes.length;
+    final _widthFactor = _selectedBoxes.length;
     final _row = _selectedBoxes.first.row;
     final _column = _selectedBoxes.first.column;
-    return getImage(row: _row, column: _column, width: _width, type: type);
+    return getCustomBoardHoldImage(
+        row: _row, column: _column, widthFactor: _widthFactor, type: type);
   }
 
   void handlePinchBlockInput() {
