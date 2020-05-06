@@ -34,7 +34,6 @@ class _CustomBoardState extends State<CustomBoard> {
       builder: (BuildContext context, BoxConstraints constraints) {
         final _customBoardWidth = constraints.maxWidth;
         final _customBoardHeight = _customBoardWidth / kCustomBoardAspectRatio;
-        final _customBoardY0 = (constraints.maxHeight - _customBoardHeight) / 2;
         return Stack(
           overflow: Overflow.visible,
           children: <Widget>[
@@ -73,7 +72,7 @@ class _CustomBoardState extends State<CustomBoard> {
                 ),
                 rect: Rect.fromLTWH(
                     jug1.leftXPercent[0] * _customBoardWidth,
-                    -50,
+                    jug1.topYPercent[0] * _customBoardHeight,
                     jug1.widthPercent * _customBoardWidth,
                     jug1.heightPercent * _customBoardHeight)),
             Positioned.fromRect(
@@ -86,8 +85,7 @@ class _CustomBoardState extends State<CustomBoard> {
                 ),
                 rect: Rect.fromLTWH(
                     jug1.leftXPercent[1] * _customBoardWidth,
-                    _customBoardY0 +
-                        pinchBlock1.topYPercent[0] * _customBoardHeight,
+                    pinchBlock1.topYPercent[0] * _customBoardHeight,
                     pinchBlock1.widthPercent * _customBoardWidth,
                     pinchBlock1.heightPercent * _customBoardHeight)),
             Positioned.fromRect(
@@ -100,8 +98,7 @@ class _CustomBoardState extends State<CustomBoard> {
                 ),
                 rect: Rect.fromLTWH(
                     jug1.leftXPercent[2] * _customBoardWidth,
-                    _customBoardY0 +
-                        sloper2.topYPercent[0] * _customBoardHeight,
+                    sloper2.topYPercent[0] * _customBoardHeight,
                     sloper2.widthPercent * _customBoardWidth,
                     sloper2.heightPercent * _customBoardHeight)),
             Positioned.fromRect(
@@ -114,7 +111,7 @@ class _CustomBoardState extends State<CustomBoard> {
                 ),
                 rect: Rect.fromLTWH(
                     edge4.leftXPercent[0] * _customBoardWidth,
-                    _customBoardY0 + edge4.topYPercent[1] * _customBoardHeight,
+                    edge4.topYPercent[1] * _customBoardHeight,
                     edge4.widthPercent * _customBoardWidth,
                     edge4.heightPercent * _customBoardHeight)),
             Positioned.fromRect(
@@ -127,7 +124,7 @@ class _CustomBoardState extends State<CustomBoard> {
                 ),
                 rect: Rect.fromLTWH(
                     edge4.leftXPercent[0] * _customBoardWidth,
-                    _customBoardY0 + edge4.topYPercent[2] * _customBoardHeight,
+                    edge4.topYPercent[2] * _customBoardHeight,
                     edge4.widthPercent * _customBoardWidth,
                     edge4.heightPercent * _customBoardHeight)),
             Positioned.fromRect(
@@ -140,7 +137,7 @@ class _CustomBoardState extends State<CustomBoard> {
                 ),
                 rect: Rect.fromLTWH(
                     edge2.leftXPercent[0] * _customBoardWidth,
-                    _customBoardY0 + edge2.topYPercent[3] * _customBoardHeight,
+                    edge2.topYPercent[3] * _customBoardHeight,
                     edge2.widthPercent * _customBoardWidth,
                     edge2.heightPercent * _customBoardHeight)),
             Positioned.fromRect(

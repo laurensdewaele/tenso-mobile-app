@@ -265,9 +265,9 @@ final CustomBoardHoldImage pocket1 = CustomBoardHoldImage((b) => b
   ..type = HoldType.pocket
   ..topYPercent = [
     null,
-    _bottomRowTopY1Percent + _pocketEdgeDifference,
-    _bottomRowTopY2Percent + _pocketEdgeDifference,
-    _bottomRowTopY3Percent + _pocketEdgeDifference
+    _bottomRowTopY1Percent - _pocketEdgeDifference,
+    _bottomRowTopY2Percent - _pocketEdgeDifference,
+    _bottomRowTopY3Percent - _pocketEdgeDifference
   ]
   ..leftXPercent = _leftXPercent
   ..heightPercent = _pocketHeightPercent
@@ -280,9 +280,9 @@ final CustomBoardHoldImage pocket2 = CustomBoardHoldImage((b) => b
   ..type = HoldType.pocket
   ..topYPercent = [
     null,
-    _bottomRowTopY1Percent + _pocketEdgeDifference,
-    _bottomRowTopY2Percent + _pocketEdgeDifference,
-    _bottomRowTopY3Percent + _pocketEdgeDifference
+    _bottomRowTopY1Percent - _pocketEdgeDifference,
+    _bottomRowTopY2Percent - _pocketEdgeDifference,
+    _bottomRowTopY3Percent - _pocketEdgeDifference
   ]
   ..leftXPercent = _leftXPercent
   ..heightPercent = _pocketHeightPercent
@@ -295,9 +295,9 @@ final CustomBoardHoldImage pocket3 = CustomBoardHoldImage((b) => b
   ..type = HoldType.pocket
   ..topYPercent = [
     null,
-    _bottomRowTopY1Percent + _pocketEdgeDifference,
-    _bottomRowTopY2Percent + _pocketEdgeDifference,
-    _bottomRowTopY3Percent + _pocketEdgeDifference
+    _bottomRowTopY1Percent - _pocketEdgeDifference,
+    _bottomRowTopY2Percent - _pocketEdgeDifference,
+    _bottomRowTopY3Percent - _pocketEdgeDifference
   ]
   ..leftXPercent = _leftXPercent
   ..heightPercent = _pocketHeightPercent
@@ -310,9 +310,9 @@ final CustomBoardHoldImage pocket4 = CustomBoardHoldImage((b) => b
   ..type = HoldType.pocket
   ..topYPercent = [
     null,
-    _bottomRowTopY1Percent + _pocketEdgeDifference,
-    _bottomRowTopY2Percent + _pocketEdgeDifference,
-    _bottomRowTopY3Percent + _pocketEdgeDifference
+    _bottomRowTopY1Percent - _pocketEdgeDifference,
+    _bottomRowTopY2Percent - _pocketEdgeDifference,
+    _bottomRowTopY3Percent - _pocketEdgeDifference
   ]
   ..leftXPercent = _leftXPercent
   ..heightPercent = _pocketHeightPercent
