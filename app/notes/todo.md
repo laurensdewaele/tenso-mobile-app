@@ -3,6 +3,8 @@
 ### Custom board
 - Make a generic board.dart that handles displaying a board, which can either be a plain image 
   or one with the custom hold images. Board + Custom board.
+  It also needs a handleTap on every image, with it's own state.
+  Maybe a bool interactive.
 - Use that one in your custom board widget (extract from screen). Stack(board(board: board), boxes)
 - This means that you should generate a board in it's entirety and pass it to the board widget.
   Well, not really, it only needs the image and the board_hold_images and how to paint them.
@@ -18,6 +20,7 @@
   This means topPercent and leftPercent need to be generic for both, no arrays of any kind.
 - Abstract and refactor anything that has to do with a board, choosing grips, displaying into it's own
   folder. 
+- Abstract input page.
 
 
 

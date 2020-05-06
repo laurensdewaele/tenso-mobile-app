@@ -16,6 +16,8 @@ abstract class CustomBoardHoldImage
   @nullable
   int get position;
   int get widthFactor;
+  // Usefull for stats later
+  // But there are the boardholds for these. Maybe not the same
   HoldType get type;
 
   List<double> get topYPercent;
