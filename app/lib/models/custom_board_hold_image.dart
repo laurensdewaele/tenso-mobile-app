@@ -12,10 +12,12 @@ abstract class CustomBoardHoldImage
   static Serializer<CustomBoardHoldImage> get serializer =>
       _$customBoardHoldImageSerializer;
 
+  //TODO: Remove, not necessary. This is only for painting.
   @nullable
   int get position;
   int get widthFactor;
   HoldType get type;
+
   List<double> get topYPercent;
   List<double> get leftXPercent;
   double get heightPercent;

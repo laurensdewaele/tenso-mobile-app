@@ -7,52 +7,52 @@ const int kCustomBoardRows = 4;
 const int kCustomBoardColumns = 4;
 const double kCustomBoardAspectRatio = 3;
 const double kSelectionBoxAspectRatio = 3.6;
+const double kCustomBoardPadding = styles.Measurements.xs;
+const double kCustomBoardSpacing = styles.Measurements.xs;
 
-const double _customBoardPadding = styles.Measurements.xs;
-const double _customBoardSpacing = styles.Measurements.xs;
 const Size _measuredCustomBoardSize = Size(647, 647 / kCustomBoardAspectRatio);
 
 final double _widthPercent1 = ((_measuredCustomBoardSize.width -
-            (_customBoardPadding * 2) -
-            (_customBoardSpacing * 3)) /
+            (kCustomBoardPadding * 2) -
+            (kCustomBoardSpacing * 3)) /
         kCustomBoardColumns) /
     _measuredCustomBoardSize.width;
 
 final double _widthPercent2 =
-    _widthPercent1 * 2 + (_customBoardSpacing / _measuredCustomBoardSize.width);
+    _widthPercent1 * 2 + (kCustomBoardSpacing / _measuredCustomBoardSize.width);
 final double _widthPercent3 = _widthPercent1 * 3 +
-    ((_customBoardSpacing * 2) / _measuredCustomBoardSize.width);
+    ((kCustomBoardSpacing * 2) / _measuredCustomBoardSize.width);
 final double _widthPercent4 = _widthPercent1 * 4 +
-    ((_customBoardSpacing * 3)) / _measuredCustomBoardSize.width;
+    ((kCustomBoardSpacing * 3)) / _measuredCustomBoardSize.width;
 
 final Size _selectionBoxSize = Size(
     _widthPercent1 * _measuredCustomBoardSize.width,
     _widthPercent1 * _measuredCustomBoardSize.width / kSelectionBoxAspectRatio);
 final double _topRowBottomYPercent =
-    (_customBoardPadding + _selectionBoxSize.height) /
+    (kCustomBoardPadding + _selectionBoxSize.height) /
         _measuredCustomBoardSize.height;
 
 const double _pinchBlockJugScale = 1.08;
-// This is the pinchBlock image height and the custom board image height.
+// This is the raw pinchBlock image height and the raw custom board image height.
 // Not accounted for added shadows by Figma.
 const double _pinchBlockJugHeightPercent = 267 / 850;
 final double _pinchBlockJugTopYPercent =
     (_topRowBottomYPercent - _pinchBlockJugHeightPercent) + 0.0135;
 final double _sloperHeightPercent =
-    (_customBoardPadding + _selectionBoxSize.height) /
+    (kCustomBoardPadding + _selectionBoxSize.height) /
         _measuredCustomBoardSize.height;
 
 final double _x1Percent =
-    (_customBoardPadding / _measuredCustomBoardSize.width);
+    (kCustomBoardPadding / _measuredCustomBoardSize.width);
 final double _x2Percent =
-    ((_customBoardPadding + _selectionBoxSize.width + _customBoardSpacing) /
+    ((kCustomBoardPadding + _selectionBoxSize.width + kCustomBoardSpacing) /
         _measuredCustomBoardSize.width);
-final double _x3Percent = ((_customBoardPadding +
+final double _x3Percent = ((kCustomBoardPadding +
         _selectionBoxSize.width * 2 +
-        _customBoardSpacing * 2) /
+        kCustomBoardSpacing * 2) /
     _measuredCustomBoardSize.width);
 final double _x4Percent = ((_measuredCustomBoardSize.width -
-        _customBoardPadding -
+        kCustomBoardPadding -
         _selectionBoxSize.width) /
     _measuredCustomBoardSize.width);
 final List<double> _leftXPercent = [

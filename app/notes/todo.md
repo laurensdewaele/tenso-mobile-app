@@ -1,12 +1,28 @@
 # TODO
 
-- Add custom board => Slopers, pinches, ...
+### Custom board
+- Make a generic board.dart that handles displaying a board, which can either be a plain image 
+  or one with the custom hold images. Board + Custom board.
+- Use that one in your custom board widget (extract from screen). Stack(board(board: board), boxes)
+- This means that you should generate a board in it's entirety and pass it to the board widget.
+  Well, not really, it only needs the image and the board_hold_images and how to paint them.
+  -> The custom_board_view_model is responsible for generating the board_hold_images array
+     and pass it to board.dart
+     
+- When generating the board_hold_images, that are only used for painting, you also need to generate the 
+  board_holds (otherwise the data will be lost).
+  -> So I need my board_hold_picker inside my custom_board (only for testing purposes).
+  
+- Remodel the model. There needs to be rect and relative rect getters on board_holds and board_hold_images.
+  Make it a mixin, re-visit the github issue with PhilipH on built_value.
+  This means topPercent and leftPercent need to be generic for both, no arrays of any kind.
+- Abstract and refactor anything that has to do with a board, choosing grips, displaying into it's own
+  folder. 
 
-=> Bottom nav
-=> Add hold
-=> Remove
+
 
 - Add board selection. Only beastmaker1000 atm.
+- Beeps before rest, allow 0;
 
 ### Triage - think about
 
