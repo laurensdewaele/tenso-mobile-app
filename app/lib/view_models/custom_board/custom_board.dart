@@ -40,9 +40,9 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   List<BoxState> _boxes;
   List<BoxState> get boxes => _boxes;
-  List<BoxState> get _selectedBoxes =>
+  List<BoxState> get selectedBoxes =>
       boxes.where((box) => box.visibility == BoxVisibility.selected).toList();
-  bool get selectedBoxesIsTopRow => _selectedBoxes?.first?.row == 1 || false;
+  bool get selectedBoxesIsTopRow => selectedBoxes?.first?.row == 1 || false;
 
   List<CustomBoardHoldImage> _images;
   List<CustomBoardHoldImage> get images => _images;
@@ -101,7 +101,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   bool _isAdjacentSameRow({int index, int row}) {
     bool _isAdjacentSameRow = false;
 
-    if (_selectedBoxes.length == 0) return true;
+    if (selectedBoxes.length == 0) return true;
 
     try {
       if (boxes[index - 1].row == row &&
@@ -142,14 +142,14 @@ class CustomBoardViewModel extends ChangeNotifier {
             ? BoxVisibility.deselected
             : BoxVisibility.selected);
     _boxes = _newBoxes;
-    addHoldModalOpen = _selectedBoxes.length > 0;
+    addHoldModalOpen = selectedBoxes.length > 0;
     notifyListeners();
   }
 
   CustomBoardHoldImage _getImage(HoldType type) {
-    final _widthFactor = _selectedBoxes.length;
-    final _row = _selectedBoxes.first.row;
-    final _column = _selectedBoxes.first.column;
+    final _widthFactor = selectedBoxes.length;
+    final _row = selectedBoxes.first.row;
+    final _column = selectedBoxes.first.column;
     return getCustomBoardHoldImage(
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
   }

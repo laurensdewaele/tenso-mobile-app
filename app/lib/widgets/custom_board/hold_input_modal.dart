@@ -8,16 +8,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
 class HoldInputModal extends StatefulWidget {
-  const HoldInputModal({
-    @required this.handlePinchBlockInput,
-    @required this.handleJugInput,
-    @required this.handleSloperInput,
-    @required this.handlePocketInput,
-    @required this.handleEdgeInput,
-    @required this.isTopRow,
-  });
+  const HoldInputModal(
+      {@required this.handlePinchBlockInput,
+      @required this.handleJugInput,
+      @required this.handleSloperInput,
+      @required this.handlePocketInput,
+      @required this.handleEdgeInput,
+      @required this.isTopRow,
+      @required this.multipleSelection});
 
   final bool isTopRow;
+  final bool multipleSelection;
   final VoidCallback handlePinchBlockInput;
   final VoidCallback handleJugInput;
   final void Function({double degrees}) handleSloperInput;
@@ -34,6 +35,7 @@ class _HoldInputModalState extends State<HoldInputModal> {
   @override
   void initState() {
     _viewModel = HoldInputViewModel(
+        multipleSelection: widget.multipleSelection,
         handleEdgeInput: widget.handleEdgeInput,
         handleJugInput: widget.handleJugInput,
         handlePinchBlockInput: widget.handlePinchBlockInput,

@@ -57,6 +57,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
         context: context,
         content: HoldInputModal(
           isTopRow: _viewModel.selectedBoxesIsTopRow,
+          multipleSelection: _viewModel.selectedBoxes.length > 1,
           handleEdgeInput: _viewModel.handleEdgeInput,
           handleSloperInput: _viewModel.handleSloperInput,
           handlePocketInput: _viewModel.handlePocketInput,

@@ -30,6 +30,7 @@ class HoldInputViewModel extends ChangeNotifier {
   void Function({double degrees}) handleSloperInput;
   void Function({double depth, int supportedFingers}) handlePocketInput;
   void Function({double depth}) handleEdgeInput;
+  bool multipleSelection;
 
   NavigationService _navigationService;
 
@@ -52,7 +53,8 @@ class HoldInputViewModel extends ChangeNotifier {
       @required this.handlePocketInput,
       @required this.handleSloperInput,
       @required this.handleJugInput,
-      @required this.handlePinchBlockInput}) {
+      @required this.handlePinchBlockInput,
+      @required this.multipleSelection}) {
     _navigationService = NavigationService();
     inputPageInputs = [];
     isChooseHoldTypePageActive = true;
@@ -82,17 +84,21 @@ class HoldInputViewModel extends ChangeNotifier {
         isChooseHoldTypePageActive = false;
         break;
       case HoldType.pocket:
-        inputPageInputs = []
-          ..add(InputPageInput(
-              type: InputPageInputTypes.pocketDepth,
-              description: 'mm of depth',
-              isInt: false,
-              initialValue: _pocketDepthInput))
-          ..add(InputPageInput(
+        final List<InputPageInput> _inputs = [];
+
+        _inputs.add(InputPageInput(
+            type: InputPageInputTypes.pocketDepth,
+            description: 'mm of depth',
+            isInt: false,
+            initialValue: _pocketDepthInput));
+        if (multipleSelection == false) {
+          _inputs.add(InputPageInput(
               type: InputPageInputTypes.pocketSupportedFingers,
               description: 'fingers can fit',
               isInt: true,
               initialValue: _pocketSupportedFingersInput));
+        }
+        inputPageInputs = _inputs;
         isChooseHoldTypePageActive = false;
         break;
       case HoldType.edge:
