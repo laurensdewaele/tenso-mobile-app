@@ -161,7 +161,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     _boardHolds = _customBoardBuilder.boardHolds;
   }
 
-  void _hideSelectedBoxesAndNotify() {
+  void _hideSelectedBoxesCloseModalAndNotify() {
     _boxes = _boxes.map((BoxState boxState) {
       if (boxState.visibility == BoxVisibility.selected) {
         return boxState.copyWith(visibility: BoxVisibility.hidden);
@@ -175,26 +175,26 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   void handlePinchBlockInput() {
     _addCustomBoardHoldsAndImage(HoldType.pinchBlock);
-    _hideSelectedBoxesAndNotify();
+    _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handleJugInput() {
     _addCustomBoardHoldsAndImage(HoldType.jug);
-    _hideSelectedBoxesAndNotify();
+    _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handleSloperInput({double degrees}) {
     _addCustomBoardHoldsAndImage(HoldType.sloper);
-    _hideSelectedBoxesAndNotify();
+    _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handlePocketInput({double depth, int supportedFingers}) {
     _addCustomBoardHoldsAndImage(HoldType.pocket);
-    _hideSelectedBoxesAndNotify();
+    _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handleEdgeInput({double depth}) {
     _addCustomBoardHoldsAndImage(HoldType.edge);
-    _hideSelectedBoxesAndNotify();
+    _hideSelectedBoxesCloseModalAndNotify();
   }
 }
