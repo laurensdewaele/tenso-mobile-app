@@ -142,7 +142,7 @@ class CustomBoardBuilder {
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
             ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
             ..heightPercent =
-                _pinchBlockJugHeightPercent + _onePixelHeightPercent * 2
+                _pinchBlockJugHeightPercent + _onePixelHeightPercent
             ..position = _position
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
@@ -168,7 +168,7 @@ class CustomBoardBuilder {
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
             ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
             ..heightPercent =
-                _pinchBlockJugHeightPercent + _onePixelHeightPercent * 2
+                _pinchBlockJugHeightPercent + _onePixelHeightPercent
             ..position = _position
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
@@ -187,16 +187,21 @@ class CustomBoardBuilder {
           ..leftPercent = _leftPercents[column]
           ..topPercent = 0
           ..imageAsset = 'assets/images/custom_board/sloper_$widthFactor.png'));
-//      _boardHold = BoardHold((b) => b
-//        ..type = HoldType.sloper
-//        ..topPercent = _pinchBlockJugTopPercent
-//        ..leftPercent = _leftPercents[column]
-//        ..widthPercent = _widthPercents[widthFactor]
-//        ..heightPercent = _pinchBlockJugHeightPercent
-//        ..sloperDegrees = sloperDegrees
-//        ..position = 1
-//        ..anchorLeftPercent = 0
-//        ..anchorTopPercent = 0);
+        List.generate(widthFactor, (i) {
+          _boardHolds.add(BoardHold((b) => b
+            ..type = HoldType.sloper
+            ..topPercent = 0 - _onePixelHeightPercent
+            ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
+            ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
+            ..heightPercent = _sloperHeightPercent + _onePixelHeightPercent * 2
+            ..sloperDegrees = sloperDegrees
+            ..position = _position
+            ..anchorLeftPercent =
+                _leftPercents[column + i] + _widthPercents[1] / 2
+            ..anchorTopPercent = 0));
+
+          _position++;
+        });
         break;
       case HoldType.pocket:
         _images.add(CustomBoardHoldImage((b) => b
@@ -207,17 +212,24 @@ class CustomBoardBuilder {
           ..leftPercent = _leftPercents[column]
           ..topPercent = _topPercents[row] - _pocketEdgeDifference
           ..imageAsset = 'assets/images/custom_board/pocket_$widthFactor.png'));
-//      _boardHold = BoardHold((b) => b
-//        ..type = HoldType.pocket
-//        ..topPercent = _pinchBlockJugTopPercent
-//        ..leftPercent = _leftPercents[column]
-//        ..widthPercent = _widthPercents[widthFactor]
-//        ..heightPercent = _pinchBlockJugHeightPercent
-//        ..depth = 0
-//        ..supportedFingers = 0
-//        ..position = 1
-//        ..anchorLeftPercent = 0
-//        ..anchorTopPercent = 0);
+        List.generate(widthFactor, (i) {
+          _boardHolds.add(BoardHold((b) => b
+            ..type = HoldType.pocket
+            ..topPercent = _topPercents[row] -
+                _pocketEdgeDifference -
+                _onePixelHeightPercent
+            ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
+            ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
+            ..heightPercent = _pocketHeightPercent + _onePixelHeightPercent * 2
+            ..depth = depth
+            ..supportedFingers = supportedFingers
+            ..position = _position
+            ..anchorLeftPercent =
+                _leftPercents[column + i] + _widthPercents[1] / 2
+            ..anchorTopPercent = _topPercents[row] + _pocketHeightPercent));
+
+          _position++;
+        });
         break;
       case HoldType.edge:
         _images.add(CustomBoardHoldImage((b) => b
@@ -228,16 +240,21 @@ class CustomBoardBuilder {
           ..leftPercent = _leftPercents[column]
           ..topPercent = _topPercents[row]
           ..imageAsset = 'assets/images/custom_board/edge_$widthFactor.png'));
-//      _boardHold = BoardHold((b) => b
-//        ..type = HoldType.edge
-//        ..topPercent = _pinchBlockJugTopPercent
-//        ..leftPercent = _leftPercents[column]
-//        ..widthPercent = _widthPercents[widthFactor]
-//        ..heightPercent = _pinchBlockJugHeightPercent
-//        ..depth = 0
-//        ..position = 1
-//        ..anchorLeftPercent = 0
-//        ..anchorTopPercent = 0);
+        List.generate(widthFactor, (i) {
+          _boardHolds.add(BoardHold((b) => b
+            ..type = HoldType.edge
+            ..topPercent = _topPercents[row] - _onePixelHeightPercent
+            ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
+            ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
+            ..heightPercent = _edgeHeightPercent + _onePixelHeightPercent * 2
+            ..depth = depth
+            ..position = _position
+            ..anchorLeftPercent =
+                _leftPercents[column + i] + _widthPercents[1] / 2
+            ..anchorTopPercent = _topPercents[row]));
+
+          _position++;
+        });
         break;
     }
   }

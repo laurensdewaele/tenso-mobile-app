@@ -79,6 +79,16 @@ class CustomBoard extends StatelessWidget {
                 _borderRadius = BorderRadius.vertical(
                     top: Radius.circular(25), bottom: styles.kBorderRadius);
               }
+
+              if (boardHold.type == HoldType.sloper) {
+                _borderRadius =
+                    BorderRadius.vertical(bottom: styles.kBorderRadius);
+              }
+
+              if (boardHold.type == HoldType.pocket) {
+                _borderRadius = BorderRadius.horizontal(
+                    left: Radius.circular(25), right: Radius.circular(25));
+              }
               return Positioned.fromRect(
                   rect: boardHold.getRect(
                       boardWidth: _customBoardWidth,
