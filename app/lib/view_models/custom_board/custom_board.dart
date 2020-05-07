@@ -154,7 +154,7 @@ class CustomBoardViewModel extends ChangeNotifier {
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
   }
 
-  void _hideSelectedBoxes() {
+  void _hideSelectedBoxesAndNotify() {
     _boxes = _boxes.map((BoxState boxState) {
       if (boxState.visibility == BoxVisibility.selected) {
         return boxState.copyWith(visibility: BoxVisibility.hidden);
@@ -167,26 +167,26 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   void handlePinchBlockInput() {
     _images.add(_getImage(HoldType.pinchBlock));
-    _hideSelectedBoxes();
+    _hideSelectedBoxesAndNotify();
   }
 
   void handleJugInput() {
     _images.add(_getImage(HoldType.jug));
-    _hideSelectedBoxes();
+    _hideSelectedBoxesAndNotify();
   }
 
   void handleSloperInput({double degrees}) {
     _images.add(_getImage(HoldType.sloper));
-    _hideSelectedBoxes();
+    _hideSelectedBoxesAndNotify();
   }
 
   void handlePocketInput({double depth, int supportedFingers}) {
     _images.add(_getImage(HoldType.pocket));
-    _hideSelectedBoxes();
+    _hideSelectedBoxesAndNotify();
   }
 
   void handleEdgeInput({double depth}) {
     _images.add(_getImage(HoldType.edge));
-    _hideSelectedBoxes();
+    _hideSelectedBoxesAndNotify();
   }
 }
