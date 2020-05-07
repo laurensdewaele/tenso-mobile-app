@@ -47,6 +47,8 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   List<CustomBoardHoldImage> _images;
   List<CustomBoardHoldImage> get images => _images;
+  List<BoardHold> _boardHolds;
+  List<BoardHold> get boardHolds => _boardHolds;
 
   bool addHoldModalOpen;
 
@@ -55,6 +57,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     _customBoardBuilder = CustomBoardBuilder();
     _generateBoxes();
     _images = [];
+    _boardHolds = [];
     addHoldModalOpen = false;
     notifyListeners();
   }
@@ -155,6 +158,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     _customBoardBuilder.addBoardHoldAndImage(
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
     _images = _customBoardBuilder.images;
+    _boardHolds = _customBoardBuilder.boardHolds;
   }
 
   void _hideSelectedBoxesAndNotify() {
@@ -165,6 +169,7 @@ class CustomBoardViewModel extends ChangeNotifier {
         return boxState;
       }
     }).toList();
+    addHoldModalOpen = false;
     notifyListeners();
   }
 

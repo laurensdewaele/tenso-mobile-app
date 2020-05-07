@@ -1,5 +1,7 @@
 import 'package:app/data/custom_board_hold_builder.dart' as customBoard;
+import 'package:app/models/board_hold.dart';
 import 'package:app/models/custom_board_hold_image.dart';
+import 'package:app/models/hold_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/widgets/custom_board/box.dart';
@@ -10,9 +12,11 @@ class CustomBoard extends StatelessWidget {
       {Key key,
       @required this.boxes,
       @required this.handleBoxTap,
-      @required this.images})
+      @required this.images,
+      @required this.boardHolds})
       : super(key: key);
 
+  final List<BoardHold> boardHolds;
   final List<BoxState> boxes;
   final List<CustomBoardHoldImage> images;
   final void Function(BoxState boxState) handleBoxTap;
@@ -29,7 +33,8 @@ class CustomBoard extends StatelessWidget {
           children: <Widget>[
             ClipRRect(
                 borderRadius: styles.kBorderRadiusAll,
-                child: Image.asset('assets/images/custom_board/png')),
+                child:
+                    Image.asset('assets/images/custom_board/custom_board.png')),
             AspectRatio(
               aspectRatio: customBoard.kAspectRatio,
               child: GridView.count(
@@ -67,7 +72,24 @@ class CustomBoard extends StatelessWidget {
                 ),
                 rect: image.getRect(
                     boardWidth: _customBoardWidth,
-                    boardHeight: _customBoardHeight)))
+                    boardHeight: _customBoardHeight))),
+            ...boardHolds.map((BoardHold boardHold) {
+              BorderRadius _borderRadius = styles.kBorderRadiusAll;
+              if (boardHold.type == HoldType.jug) {
+                _borderRadius = BorderRadius.vertical(
+                    top: Radius.circular(25), bottom: styles.kBorderRadius);
+              }
+              return Positioned.fromRect(
+                  rect: boardHold.getRect(
+                      boardWidth: _customBoardWidth,
+                      boardHeight: _customBoardHeight),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: _borderRadius,
+                        border:
+                            Border.all(width: 2, color: styles.Colors.primary)),
+                  ));
+            })
           ],
         );
       },

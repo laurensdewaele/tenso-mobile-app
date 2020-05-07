@@ -52,7 +52,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   void _handlePreviewTap() {}
   void _handleInfoTap() {}
   void _handleAddHoldTap() async {
-    _viewModel.setAddHoldModalOpen(false);
     await showAppModalPopup(
         context: context,
         content: HoldInputModal(
@@ -91,9 +90,11 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 padding: const EdgeInsets.fromLTRB(
                     styles.Measurements.xs, 64, styles.Measurements.xs, 45),
                 child: CustomBoard(
-                    boxes: _viewModel.boxes,
-                    handleBoxTap: _viewModel.handleBoxTap,
-                    images: _viewModel.images)),
+                  boxes: _viewModel.boxes,
+                  handleBoxTap: _viewModel.handleBoxTap,
+                  images: _viewModel.images,
+                  boardHolds: _viewModel.boardHolds,
+                )),
           ),
           BottomMenuDrawer(
             dragIndicatorColor: styles.Colors.lightGray,

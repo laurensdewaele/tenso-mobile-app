@@ -138,16 +138,18 @@ class CustomBoardBuilder {
           _boardHolds.add(BoardHold((b) => b
             ..customBoardHoldImageId = _id
             ..type = HoldType.pinchBlock
-            ..topPercent = _pinchBlockJugTopPercent + _onePixelHeightPercent
+            ..topPercent = _pinchBlockJugTopPercent - _onePixelHeightPercent * 2
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
             ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
             ..heightPercent =
-                _pinchBlockJugHeightPercent * _onePixelHeightPercent * 2
-            ..position = i
+                _pinchBlockJugHeightPercent + _onePixelHeightPercent * 2
+            ..position = _position
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
             ..anchorTopPercent =
                 _pinchBlockJugTopPercent - _pinchBlockJugHeightPercent));
+
+          _position++;
         });
         break;
       case HoldType.jug:
@@ -159,15 +161,22 @@ class CustomBoardBuilder {
           ..leftPercent = _leftPercents[column]
           ..topPercent = _pinchBlockJugTopPercent
           ..imageAsset = 'assets/images/custom_board/jug_$widthFactor.png'));
-//      _boardHold = BoardHold((b) => b
-//        ..type = HoldType.jug
-//        ..topPercent = _pinchBlockJugTopPercent
-//        ..leftPercent = _leftPercents[column]
-//        ..widthPercent = _widthPercents[widthFactor]
-//        ..heightPercent = _pinchBlockJugHeightPercent
-//        ..position = 1
-//        ..anchorLeftPercent = 0
-//        ..anchorTopPercent = 0);
+        List.generate(widthFactor, (i) {
+          _boardHolds.add(BoardHold((b) => b
+            ..type = HoldType.jug
+            ..topPercent = _pinchBlockJugTopPercent - _onePixelHeightPercent * 2
+            ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
+            ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
+            ..heightPercent =
+                _pinchBlockJugHeightPercent + _onePixelHeightPercent * 2
+            ..position = _position
+            ..anchorLeftPercent =
+                _leftPercents[column + i] + _widthPercents[1] / 2
+            ..anchorTopPercent =
+                _pinchBlockJugTopPercent - _pinchBlockJugHeightPercent));
+
+          _position++;
+        });
         break;
       case HoldType.sloper:
         _images.add(CustomBoardHoldImage((b) => b
