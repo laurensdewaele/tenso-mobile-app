@@ -2,21 +2,17 @@
 
 ### Custom board
 - Generate board_holds from view_model.
-- Make a generic board.dart that handles displaying a board, which can either be a plain image 
-  or one with the custom hold images. Board + Custom board.
-  It also needs a handleTap on every image, with it's own state.
-  Maybe a bool interactive.
-- Use that one in your custom board widget (extract from screen). Stack(board(board: board), boxes)     
 - When generating the board_hold_images, that are only used for painting, you also need to generate the 
   board_holds (otherwise the data will be lost).
   -> So I need my board_hold_picker inside my custom_board (only for testing purposes).
   
-- Remodel the model. There needs to be rect and relative rect getters on board_holds and board_hold_images.
-  Make it a mixin, re-visit the github issue with PhilipH on built_value.
-  This means topPercent and leftPercent need to be generic for both, no arrays of any kind.
+- Make a generic board.dart that handles displaying a board, which can either be a plain image 
+  or one with the custom hold images. Board + Custom board.
+  It also needs a handleTap on every image, with it's own state.
+  Maybe a bool interactive.
+- Use that one in your custom board widget. Stack(board(board: board), boxes)     
 - Abstract and refactor anything that has to do with a board, choosing grips, displaying into it's own
   folder. 
-- Abstract input page.
 - Test custom board on different screen sizes!
 
 
