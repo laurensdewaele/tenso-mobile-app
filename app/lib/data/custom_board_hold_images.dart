@@ -3,6 +3,7 @@ library custom_board;
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/foundation.dart';
 
 const int kRows = 4;
 const int kColumns = 4;
@@ -34,7 +35,6 @@ const double _bottomRowsTopPercent = (kVerticalSpacingPercent) +
     ((_widthPercent1 * _measuredWidth / kSelectionBoxAspectRatio) /
         _measuredHeight);
 
-// TODO: Do i really need to scale?
 const double _pinchBlockJugScale = 1.08;
 // This is the raw pinchBlock image height and the raw custom board image height.
 const double _pinchBlockJugHeightPercent = 267 / 850;
@@ -78,9 +78,27 @@ const Map<int, double> _topPercents = {
   4: _topPercentRow4
 };
 
-CustomBoardHoldImage getCustomBoardHoldImage(
-    {int row, int column, int widthFactor, HoldType type}) {
+class CustomBoardHoldAndImage {
+  final BoardHold boardHold;
+  final CustomBoardHoldImage image;
+
+  const CustomBoardHoldAndImage({
+    @required this.boardHold,
+    @required this.image,
+  });
+}
+
+CustomBoardHoldAndImage getCustomBoardHoldAndImage({
+  @required int row,
+  @required int column,
+  @required int widthFactor,
+  @required HoldType type,
+  double sloperDegrees,
+  double depth,
+  int supportedFingers,
+}) {
   CustomBoardHoldImage _image;
+  BoardHold _boardHold;
 
   switch (type) {
     case HoldType.pinchBlock:
@@ -92,6 +110,15 @@ CustomBoardHoldImage getCustomBoardHoldImage(
         ..topPercent = _pinchBlockJugTopPercent
         ..imageAsset =
             'assets/images/custom_board/pinch_block_$widthFactor.png');
+      _boardHold = BoardHold((b) => b
+        ..type = HoldType.pinchBlock
+        ..topPercent = _pinchBlockJugTopPercent
+        ..leftPercent = _leftPercents[column]
+        ..widthPercent = _widthPercents[widthFactor]
+        ..heightPercent = _pinchBlockJugHeightPercent
+        ..position = 1
+        ..anchorLeftPercent = 0
+        ..anchorTopPercent = 0);
       break;
     case HoldType.jug:
       _image = CustomBoardHoldImage((b) => b
@@ -101,6 +128,15 @@ CustomBoardHoldImage getCustomBoardHoldImage(
         ..leftPercent = _leftPercents[column]
         ..topPercent = _pinchBlockJugTopPercent
         ..imageAsset = 'assets/images/custom_board/jug_$widthFactor.png');
+      _boardHold = BoardHold((b) => b
+        ..type = HoldType.jug
+        ..topPercent = _pinchBlockJugTopPercent
+        ..leftPercent = _leftPercents[column]
+        ..widthPercent = _widthPercents[widthFactor]
+        ..heightPercent = _pinchBlockJugHeightPercent
+        ..position = 1
+        ..anchorLeftPercent = 0
+        ..anchorTopPercent = 0);
       break;
     case HoldType.sloper:
       _image = CustomBoardHoldImage((b) => b
@@ -110,6 +146,16 @@ CustomBoardHoldImage getCustomBoardHoldImage(
         ..leftPercent = _leftPercents[column]
         ..topPercent = 0
         ..imageAsset = 'assets/images/custom_board/sloper_$widthFactor.png');
+      _boardHold = BoardHold((b) => b
+        ..type = HoldType.sloper
+        ..topPercent = _pinchBlockJugTopPercent
+        ..leftPercent = _leftPercents[column]
+        ..widthPercent = _widthPercents[widthFactor]
+        ..heightPercent = _pinchBlockJugHeightPercent
+        ..sloperDegrees = sloperDegrees
+        ..position = 1
+        ..anchorLeftPercent = 0
+        ..anchorTopPercent = 0);
       break;
     case HoldType.pocket:
       _image = CustomBoardHoldImage((b) => b
@@ -119,6 +165,17 @@ CustomBoardHoldImage getCustomBoardHoldImage(
         ..leftPercent = _leftPercents[column]
         ..topPercent = _topPercents[row] - _pocketEdgeDifference
         ..imageAsset = 'assets/images/custom_board/pocket_$widthFactor.png');
+      _boardHold = BoardHold((b) => b
+        ..type = HoldType.pocket
+        ..topPercent = _pinchBlockJugTopPercent
+        ..leftPercent = _leftPercents[column]
+        ..widthPercent = _widthPercents[widthFactor]
+        ..heightPercent = _pinchBlockJugHeightPercent
+        ..depth = 0
+        ..supportedFingers = 0
+        ..position = 1
+        ..anchorLeftPercent = 0
+        ..anchorTopPercent = 0);
       break;
     case HoldType.edge:
       _image = CustomBoardHoldImage((b) => b
@@ -128,7 +185,17 @@ CustomBoardHoldImage getCustomBoardHoldImage(
         ..leftPercent = _leftPercents[column]
         ..topPercent = _topPercents[row]
         ..imageAsset = 'assets/images/custom_board/edge_$widthFactor.png');
+      _boardHold = BoardHold((b) => b
+        ..type = HoldType.edge
+        ..topPercent = _pinchBlockJugTopPercent
+        ..leftPercent = _leftPercents[column]
+        ..widthPercent = _widthPercents[widthFactor]
+        ..heightPercent = _pinchBlockJugHeightPercent
+        ..depth = 0
+        ..position = 1
+        ..anchorLeftPercent = 0
+        ..anchorTopPercent = 0);
       break;
   }
-  return _image;
+  return CustomBoardHoldAndImage(boardHold: _boardHold, image: _image);
 }

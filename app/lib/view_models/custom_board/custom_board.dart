@@ -146,11 +146,11 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  CustomBoardHoldImage _getImage(HoldType type) {
+  CustomBoardHoldAndImage _getCustomBoardHoldAndImage(HoldType type) {
     final _widthFactor = selectedBoxes.length;
     final _row = selectedBoxes.first.row;
     final _column = selectedBoxes.first.column;
-    return getCustomBoardHoldImage(
+    return getCustomBoardHoldAndImage(
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
   }
 
@@ -166,27 +166,27 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   void handlePinchBlockInput() {
-    _images.add(_getImage(HoldType.pinchBlock));
+    _images.add(_getCustomBoardHoldAndImage(HoldType.pinchBlock).image);
     _hideSelectedBoxesAndNotify();
   }
 
   void handleJugInput() {
-    _images.add(_getImage(HoldType.jug));
+    _images.add(_getCustomBoardHoldAndImage(HoldType.jug).image);
     _hideSelectedBoxesAndNotify();
   }
 
   void handleSloperInput({double degrees}) {
-    _images.add(_getImage(HoldType.sloper));
+    _images.add(_getCustomBoardHoldAndImage(HoldType.sloper).image);
     _hideSelectedBoxesAndNotify();
   }
 
   void handlePocketInput({double depth, int supportedFingers}) {
-    _images.add(_getImage(HoldType.pocket));
+    _images.add(_getCustomBoardHoldAndImage(HoldType.pocket).image);
     _hideSelectedBoxesAndNotify();
   }
 
   void handleEdgeInput({double depth}) {
-    _images.add(_getImage(HoldType.edge));
+    _images.add(_getCustomBoardHoldAndImage(HoldType.edge).image);
     _hideSelectedBoxesAndNotify();
   }
 }
