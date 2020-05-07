@@ -135,7 +135,42 @@ class CustomBoardBuilder {
           ..imageAsset =
               'assets/images/custom_board/pinch_block_$widthFactor.png'));
         List.generate(widthFactor, (i) {
+          double _topLeftBorderRadius;
+          double _topRightBorderRadius;
+          double _bottomRightBorderRadius;
+          double _bottomLeftBorderRadius;
+
+          if (widthFactor == 1) {
+            _topLeftBorderRadius = 5;
+            _topRightBorderRadius = 5;
+            _bottomRightBorderRadius = 5;
+            _bottomLeftBorderRadius = 5;
+          }
+
+          if (widthFactor > 1) {
+            if (i == 0) {
+              _topLeftBorderRadius = 5;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 5;
+            } else if (i == widthFactor - 1) {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 5;
+              _bottomRightBorderRadius = 5;
+              _bottomLeftBorderRadius = 0;
+            } else {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 0;
+            }
+          }
           _boardHolds.add(BoardHold((b) => b
+            ..borderRadiusAll = false
+            ..topLeftBorderRadius = _topLeftBorderRadius
+            ..topRightBorderRadius = _topRightBorderRadius
+            ..bottomRightBorderRadius = _bottomRightBorderRadius
+            ..bottomLeftBorderRadius = _bottomLeftBorderRadius
             ..customBoardHoldImageId = _id
             ..type = HoldType.pinchBlock
             ..topPercent = _pinchBlockJugTopPercent - _onePixelHeightPercent * 2
@@ -162,7 +197,43 @@ class CustomBoardBuilder {
           ..topPercent = _pinchBlockJugTopPercent
           ..imageAsset = 'assets/images/custom_board/jug_$widthFactor.png'));
         List.generate(widthFactor, (i) {
+          double _topLeftBorderRadius;
+          double _topRightBorderRadius;
+          double _bottomRightBorderRadius;
+          double _bottomLeftBorderRadius;
+
+          if (widthFactor == 1) {
+            _topLeftBorderRadius = 25;
+            _topRightBorderRadius = 25;
+            _bottomRightBorderRadius = 5;
+            _bottomLeftBorderRadius = 5;
+          }
+
+          if (widthFactor > 1) {
+            if (i == 0) {
+              _topLeftBorderRadius = 25;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 5;
+            } else if (i == widthFactor - 1) {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 25;
+              _bottomRightBorderRadius = 5;
+              _bottomLeftBorderRadius = 0;
+            } else {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 0;
+            }
+          }
+
           _boardHolds.add(BoardHold((b) => b
+            ..borderRadiusAll = false
+            ..topLeftBorderRadius = _topLeftBorderRadius
+            ..topRightBorderRadius = _topRightBorderRadius
+            ..bottomRightBorderRadius = _bottomRightBorderRadius
+            ..bottomLeftBorderRadius = _bottomLeftBorderRadius
             ..type = HoldType.jug
             ..topPercent = _pinchBlockJugTopPercent - _onePixelHeightPercent * 2
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
@@ -188,7 +259,43 @@ class CustomBoardBuilder {
           ..topPercent = 0
           ..imageAsset = 'assets/images/custom_board/sloper_$widthFactor.png'));
         List.generate(widthFactor, (i) {
+          double _topLeftBorderRadius;
+          double _topRightBorderRadius;
+          double _bottomRightBorderRadius;
+          double _bottomLeftBorderRadius;
+
+          if (widthFactor == 1) {
+            _topLeftBorderRadius = 0;
+            _topRightBorderRadius = 0;
+            _bottomRightBorderRadius = 5;
+            _bottomLeftBorderRadius = 5;
+          }
+
+          if (widthFactor > 1) {
+            if (i == 0) {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 5;
+            } else if (i == widthFactor - 1) {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 5;
+              _bottomLeftBorderRadius = 0;
+            } else {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 0;
+            }
+          }
+
           _boardHolds.add(BoardHold((b) => b
+            ..borderRadiusAll = false
+            ..topLeftBorderRadius = _topLeftBorderRadius
+            ..topRightBorderRadius = _topRightBorderRadius
+            ..bottomRightBorderRadius = _bottomRightBorderRadius
+            ..bottomLeftBorderRadius = _bottomLeftBorderRadius
             ..type = HoldType.sloper
             ..topPercent = 0 - _onePixelHeightPercent
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
@@ -213,7 +320,43 @@ class CustomBoardBuilder {
           ..topPercent = _topPercents[row] - _pocketEdgeDifference
           ..imageAsset = 'assets/images/custom_board/pocket_$widthFactor.png'));
         List.generate(widthFactor, (i) {
+          double _topLeftBorderRadius;
+          double _topRightBorderRadius;
+          double _bottomRightBorderRadius;
+          double _bottomLeftBorderRadius;
+
+          if (widthFactor == 1) {
+            _topLeftBorderRadius = 25;
+            _topRightBorderRadius = 25;
+            _bottomRightBorderRadius = 25;
+            _bottomLeftBorderRadius = 25;
+          }
+
+          if (widthFactor > 1) {
+            if (i == 0) {
+              _topLeftBorderRadius = 25;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 25;
+            } else if (i == widthFactor - 1) {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 25;
+              _bottomRightBorderRadius = 25;
+              _bottomLeftBorderRadius = 0;
+            } else {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 0;
+            }
+          }
+
           _boardHolds.add(BoardHold((b) => b
+            ..borderRadiusAll = false
+            ..topLeftBorderRadius = _topLeftBorderRadius
+            ..topRightBorderRadius = _topRightBorderRadius
+            ..bottomRightBorderRadius = _bottomRightBorderRadius
+            ..bottomLeftBorderRadius = _bottomLeftBorderRadius
             ..type = HoldType.pocket
             ..topPercent = _topPercents[row] -
                 _pocketEdgeDifference -
@@ -241,7 +384,43 @@ class CustomBoardBuilder {
           ..topPercent = _topPercents[row]
           ..imageAsset = 'assets/images/custom_board/edge_$widthFactor.png'));
         List.generate(widthFactor, (i) {
+          double _topLeftBorderRadius;
+          double _topRightBorderRadius;
+          double _bottomRightBorderRadius;
+          double _bottomLeftBorderRadius;
+
+          if (widthFactor == 1) {
+            _topLeftBorderRadius = 5;
+            _topRightBorderRadius = 5;
+            _bottomRightBorderRadius = 5;
+            _bottomLeftBorderRadius = 5;
+          }
+
+          if (widthFactor > 1) {
+            if (i == 0) {
+              _topLeftBorderRadius = 5;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 5;
+            } else if (i == widthFactor - 1) {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 5;
+              _bottomRightBorderRadius = 5;
+              _bottomLeftBorderRadius = 0;
+            } else {
+              _topLeftBorderRadius = 0;
+              _topRightBorderRadius = 0;
+              _bottomRightBorderRadius = 0;
+              _bottomLeftBorderRadius = 0;
+            }
+          }
+
           _boardHolds.add(BoardHold((b) => b
+            ..borderRadiusAll = false
+            ..topLeftBorderRadius = _topLeftBorderRadius
+            ..topRightBorderRadius = _topRightBorderRadius
+            ..bottomRightBorderRadius = _bottomRightBorderRadius
+            ..bottomLeftBorderRadius = _bottomLeftBorderRadius
             ..type = HoldType.edge
             ..topPercent = _topPercents[row] - _onePixelHeightPercent
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent

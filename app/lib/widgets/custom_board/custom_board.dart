@@ -1,7 +1,6 @@
 import 'package:app/data/custom_board_hold_builder.dart' as customBoard;
 import 'package:app/models/board_hold.dart';
 import 'package:app/models/custom_board_hold_image.dart';
-import 'package:app/models/hold_type.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.dart';
 import 'package:app/widgets/custom_board/box.dart';
@@ -74,28 +73,24 @@ class CustomBoard extends StatelessWidget {
                     boardWidth: _customBoardWidth,
                     boardHeight: _customBoardHeight))),
             ...boardHolds.map((BoardHold boardHold) {
-              BorderRadius _borderRadius = styles.kBorderRadiusAll;
-              if (boardHold.type == HoldType.jug) {
-                _borderRadius = BorderRadius.vertical(
-                    top: Radius.circular(25), bottom: styles.kBorderRadius);
-              }
-
-              if (boardHold.type == HoldType.sloper) {
-                _borderRadius =
-                    BorderRadius.vertical(bottom: styles.kBorderRadius);
-              }
-
-              if (boardHold.type == HoldType.pocket) {
-                _borderRadius = BorderRadius.horizontal(
-                    left: Radius.circular(25), right: Radius.circular(25));
-              }
               return Positioned.fromRect(
                   rect: boardHold.getRect(
                       boardWidth: _customBoardWidth,
                       boardHeight: _customBoardHeight),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: _borderRadius,
+                        borderRadius: boardHold.borderRadiusAll
+                            ? styles.kBorderRadiusAll
+                            : BorderRadius.only(
+                                topLeft: Radius.circular(
+                                    boardHold.topLeftBorderRadius),
+                                topRight: Radius.circular(
+                                    boardHold.topRightBorderRadius),
+                                bottomRight: Radius.circular(
+                                    boardHold.bottomRightBorderRadius),
+                                bottomLeft: Radius.circular(
+                                    boardHold.bottomLeftBorderRadius),
+                              ),
                         border:
                             Border.all(width: 2, color: styles.Colors.primary)),
                   ));
