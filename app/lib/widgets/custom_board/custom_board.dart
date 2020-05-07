@@ -1,4 +1,4 @@
-import 'package:app/data/custom_board_hold_images.dart' as custom_board;
+import 'package:app/data/custom_board_hold_builder.dart' as customBoard;
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.dart';
@@ -22,28 +22,26 @@ class CustomBoard extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final _customBoardWidth = constraints.maxWidth;
-        final _customBoardHeight =
-            _customBoardWidth / custom_board.kAspectRatio;
+        final _customBoardHeight = _customBoardWidth / customBoard.kAspectRatio;
 
         return Stack(
           overflow: Overflow.visible,
           children: <Widget>[
             ClipRRect(
                 borderRadius: styles.kBorderRadiusAll,
-                child:
-                    Image.asset('assets/images/custom_board/custom_board.png')),
+                child: Image.asset('assets/images/custom_board/png')),
             AspectRatio(
-              aspectRatio: custom_board.kAspectRatio,
+              aspectRatio: customBoard.kAspectRatio,
               child: GridView.count(
                 padding: EdgeInsets.all(styles.Measurements.xs),
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 crossAxisSpacing:
-                    custom_board.kVerticalSpacingPercent * _customBoardHeight,
+                    customBoard.kVerticalSpacingPercent * _customBoardHeight,
                 mainAxisSpacing:
-                    custom_board.kHorizontalSpacingPercent * _customBoardWidth,
-                childAspectRatio: custom_board.kSelectionBoxAspectRatio,
-                crossAxisCount: custom_board.kColumns,
+                    customBoard.kHorizontalSpacingPercent * _customBoardWidth,
+                childAspectRatio: customBoard.kSelectionBoxAspectRatio,
+                crossAxisCount: customBoard.kColumns,
                 children: <Widget>[
                   ...boxes.map((BoxState boxState) {
                     if (boxState.visibility == BoxVisibility.selected) {

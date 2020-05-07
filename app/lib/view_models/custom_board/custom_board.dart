@@ -1,4 +1,4 @@
-import 'package:app/data/custom_board_hold_images.dart';
+import 'package:app/data/custom_board_hold_builder.dart';
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
@@ -37,6 +37,7 @@ class BoxState {
 
 class CustomBoardViewModel extends ChangeNotifier {
   ToastService _toastService;
+  CustomBoardBuilder _customBoardBuilder;
 
   List<BoxState> _boxes;
   List<BoxState> get boxes => _boxes;
@@ -51,6 +52,7 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   CustomBoardViewModel() {
     _toastService = ToastService();
+    _customBoardBuilder = CustomBoardBuilder();
     _generateBoxes();
     _images = [];
     addHoldModalOpen = false;
@@ -146,12 +148,13 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  CustomBoardHoldAndImage _getCustomBoardHoldAndImage(HoldType type) {
+  void _addCustomBoardHoldsAndImage(HoldType type) {
     final _widthFactor = selectedBoxes.length;
     final _row = selectedBoxes.first.row;
     final _column = selectedBoxes.first.column;
-    return getCustomBoardHoldAndImage(
+    _customBoardBuilder.addBoardHoldAndImage(
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
+    _images = _customBoardBuilder.images;
   }
 
   void _hideSelectedBoxesAndNotify() {
@@ -166,27 +169,27 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   void handlePinchBlockInput() {
-    _images.add(_getCustomBoardHoldAndImage(HoldType.pinchBlock).image);
+    _addCustomBoardHoldsAndImage(HoldType.pinchBlock);
     _hideSelectedBoxesAndNotify();
   }
 
   void handleJugInput() {
-    _images.add(_getCustomBoardHoldAndImage(HoldType.jug).image);
+    _addCustomBoardHoldsAndImage(HoldType.jug);
     _hideSelectedBoxesAndNotify();
   }
 
   void handleSloperInput({double degrees}) {
-    _images.add(_getCustomBoardHoldAndImage(HoldType.sloper).image);
+    _addCustomBoardHoldsAndImage(HoldType.sloper);
     _hideSelectedBoxesAndNotify();
   }
 
   void handlePocketInput({double depth, int supportedFingers}) {
-    _images.add(_getCustomBoardHoldAndImage(HoldType.pocket).image);
+    _addCustomBoardHoldsAndImage(HoldType.pocket);
     _hideSelectedBoxesAndNotify();
   }
 
   void handleEdgeInput({double depth}) {
-    _images.add(_getCustomBoardHoldAndImage(HoldType.edge).image);
+    _addCustomBoardHoldsAndImage(HoldType.edge);
     _hideSelectedBoxesAndNotify();
   }
 }

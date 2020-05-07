@@ -25,6 +25,8 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   double get topPercent;
   double get widthPercent;
   double get heightPercent;
+  @nullable
+  String get customBoardHoldImageId;
 
   Rect getRect({double boardWidth, double boardHeight}) {
     return Rect.fromLTWH(leftPercent * boardWidth, topPercent * boardHeight,

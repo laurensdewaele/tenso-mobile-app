@@ -61,6 +61,12 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
         ..add(serializers.serialize(object.sloperDegrees,
             specifiedType: const FullType(double)));
     }
+    if (object.customBoardHoldImageId != null) {
+      result
+        ..add('customBoardHoldImageId')
+        ..add(serializers.serialize(object.customBoardHoldImageId,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -119,6 +125,10 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.heightPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
+        case 'customBoardHoldImageId':
+          result.customBoardHoldImageId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -149,6 +159,8 @@ class _$BoardHold extends BoardHold {
   final double widthPercent;
   @override
   final double heightPercent;
+  @override
+  final String customBoardHoldImageId;
 
   factory _$BoardHold([void Function(BoardHoldBuilder) updates]) =>
       (new BoardHoldBuilder()..update(updates)).build();
@@ -164,7 +176,8 @@ class _$BoardHold extends BoardHold {
       this.leftPercent,
       this.topPercent,
       this.widthPercent,
-      this.heightPercent})
+      this.heightPercent,
+      this.customBoardHoldImageId})
       : super._() {
     if (position == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'position');
@@ -213,7 +226,8 @@ class _$BoardHold extends BoardHold {
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
         widthPercent == other.widthPercent &&
-        heightPercent == other.heightPercent;
+        heightPercent == other.heightPercent &&
+        customBoardHoldImageId == other.customBoardHoldImageId;
   }
 
   @override
@@ -227,17 +241,19 @@ class _$BoardHold extends BoardHold {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, position.hashCode),
-                                            type.hashCode),
-                                        depth.hashCode),
-                                    supportedFingers.hashCode),
-                                sloperDegrees.hashCode),
-                            anchorLeftPercent.hashCode),
-                        anchorTopPercent.hashCode),
-                    leftPercent.hashCode),
-                topPercent.hashCode),
-            widthPercent.hashCode),
-        heightPercent.hashCode));
+                                        $jc(
+                                            $jc($jc(0, position.hashCode),
+                                                type.hashCode),
+                                            depth.hashCode),
+                                        supportedFingers.hashCode),
+                                    sloperDegrees.hashCode),
+                                anchorLeftPercent.hashCode),
+                            anchorTopPercent.hashCode),
+                        leftPercent.hashCode),
+                    topPercent.hashCode),
+                widthPercent.hashCode),
+            heightPercent.hashCode),
+        customBoardHoldImageId.hashCode));
   }
 
   @override
@@ -253,7 +269,8 @@ class _$BoardHold extends BoardHold {
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
           ..add('widthPercent', widthPercent)
-          ..add('heightPercent', heightPercent))
+          ..add('heightPercent', heightPercent)
+          ..add('customBoardHoldImageId', customBoardHoldImageId))
         .toString();
   }
 }
@@ -310,6 +327,11 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   set heightPercent(double heightPercent) =>
       _$this._heightPercent = heightPercent;
 
+  String _customBoardHoldImageId;
+  String get customBoardHoldImageId => _$this._customBoardHoldImageId;
+  set customBoardHoldImageId(String customBoardHoldImageId) =>
+      _$this._customBoardHoldImageId = customBoardHoldImageId;
+
   BoardHoldBuilder();
 
   BoardHoldBuilder get _$this {
@@ -325,6 +347,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
       _topPercent = _$v.topPercent;
       _widthPercent = _$v.widthPercent;
       _heightPercent = _$v.heightPercent;
+      _customBoardHoldImageId = _$v.customBoardHoldImageId;
       _$v = null;
     }
     return this;
@@ -357,7 +380,8 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
             leftPercent: leftPercent,
             topPercent: topPercent,
             widthPercent: widthPercent,
-            heightPercent: heightPercent);
+            heightPercent: heightPercent,
+            customBoardHoldImageId: customBoardHoldImageId);
     replace(_$result);
     return _$result;
   }
