@@ -1,6 +1,7 @@
 # TODO
 
 ### Custom board
+- Design save => input name, default boardHolds     
 - Test with boardHoldPicker on preview tab.
 - Make a generic board.dart that handles displaying a board, which can either be a plain image 
   or one with the custom hold images. Board + Custom board.
@@ -8,7 +9,6 @@
   Maybe a bool interactive.
 - Use that one in your custom board widget. Stack(board(board: board), boxes)
 
-- Design save => input name, default boardHolds     
 - Abstract and refactor anything that has to do with a board, choosing grips, displaying into it's own
   folder. 
 - Test custom board on different screen sizes!
