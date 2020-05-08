@@ -198,4 +198,13 @@ class CustomBoardViewModel extends ChangeNotifier {
     _addCustomBoardHoldsAndImage(HoldType.edge);
     _hideSelectedBoxesCloseModalAndNotify();
   }
+
+  bool checkBoardHoldAmount() {
+    if (_boardHolds.length >= 2) {
+      return true;
+    } else {
+      ToastService().add(ErrorMessages.minimumTwoBoardHolds());
+      return false;
+    }
+  }
 }

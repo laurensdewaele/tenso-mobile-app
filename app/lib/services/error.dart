@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
-
 import 'package:app/services/parser.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/services/validation.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/widgets.dart';
 
 bool get isInDebugMode {
   bool inDebugMode = false;
@@ -187,6 +186,28 @@ abstract class ErrorMessages {
             text: 'need to be next to each other.',
             style: styles.Lato.sBlackBold,
           ),
+        ]),
+      );
+  static Widget minimumTwoBoardHolds() => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: 'There needs to be a ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: 'minimum ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'of ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: '2 ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(text: 'holds in order to save.', style: styles.Lato.sBlack),
         ]),
       );
 }

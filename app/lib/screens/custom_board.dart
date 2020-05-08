@@ -1,4 +1,5 @@
 import 'package:app/routes/routes.dart';
+import 'package:app/screens/save_custom_board.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
@@ -50,7 +51,12 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   }
 
   void _handleSaveTap() {
-    Navigator.of(context).pushNamed(Routes.saveCustomBoardScreen);
+    if (_viewModel.checkBoardHoldAmount() == true) {
+      Navigator.of(context).pushNamed(Routes.saveCustomBoardScreen,
+          arguments: SaveCustomBoardScreenArguments(
+              boardHolds: _viewModel.boardHolds,
+              customBoardHoldImages: _viewModel.customBoardHoldImages));
+    }
   }
 
   void _handlePreviewTap() {}

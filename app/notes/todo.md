@@ -26,6 +26,8 @@
 - Editing a workout whilst your training would be really nice.
   Adjusting the sequence directly? Or somehow going back to workout, edit, keep past hangs ...
   Or just simply editing in the history for correct values.
+  
+- Access settings during a workout.
 
 - Redesign rate workout. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.

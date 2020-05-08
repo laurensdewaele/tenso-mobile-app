@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 const int kRows = 4;
 const int kColumns = 4;
 const double kAspectRatio = 3;
+const String kImageAsset = 'assets/images/custom_board/custom_board.png';
 const double kSelectionBoxAspectRatio = 3.6;
 const double kHorizontalSpacingPercent = _kSpacing / _measuredWidth;
 const double kVerticalSpacingPercent = _kSpacing / _measuredHeight;

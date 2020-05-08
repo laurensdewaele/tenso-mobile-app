@@ -34,8 +34,9 @@ class CustomBoard extends StatelessWidget {
             HangBoard(
               boardSize: _boardSize,
               customBoardHoldImages: customBoardHoldImages,
-              boardImageAsset: 'assets/images/custom_board/custom_board.png',
+              boardImageAsset: customBoard.kImageAsset,
             ),
+            // TODO: You can scroll on portrait, not ideal
             AspectRatio(
               aspectRatio: customBoard.kAspectRatio,
               child: GridView.count(
@@ -63,29 +64,6 @@ class CustomBoard extends StatelessWidget {
                 ],
               ),
             ),
-            ...boardHolds.map((BoardHold boardHold) {
-              return Positioned.fromRect(
-                  rect: boardHold.getRect(
-                      boardWidth: _boardSize.width,
-                      boardHeight: _boardSize.height),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: boardHold.borderRadiusAll
-                            ? styles.kBorderRadiusAll
-                            : BorderRadius.only(
-                                topLeft: Radius.circular(
-                                    boardHold.topLeftBorderRadius),
-                                topRight: Radius.circular(
-                                    boardHold.topRightBorderRadius),
-                                bottomRight: Radius.circular(
-                                    boardHold.bottomRightBorderRadius),
-                                bottomLeft: Radius.circular(
-                                    boardHold.bottomLeftBorderRadius),
-                              ),
-                        border:
-                            Border.all(width: 2, color: styles.Colors.primary)),
-                  ));
-            })
           ],
         );
       },

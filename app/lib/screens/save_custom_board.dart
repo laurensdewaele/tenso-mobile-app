@@ -1,3 +1,5 @@
+import 'package:app/data/custom_board_hold_builder.dart' as customBoard;
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/save_custom_board_vm.dart';
 import 'package:app/widgets/button.dart';
@@ -10,8 +12,19 @@ import 'package:app/widgets/section.dart';
 import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:app/widgets/workout/board_hold_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart' hide TextInput;
+
+class SaveCustomBoardScreenArguments {
+  SaveCustomBoardScreenArguments({
+    @required this.boardHolds,
+    @required this.customBoardHoldImages,
+  });
+
+  List<BoardHold> boardHolds;
+  List<CustomBoardHoldImage> customBoardHoldImages;
+}
 
 class SaveCustomBoardScreen extends StatefulWidget {
   SaveCustomBoardScreen({Key key}) : super(key: key);
@@ -24,15 +37,26 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
   SaveCustomBoardViewModel _viewModel;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_viewModel == null) {
+      final SaveCustomBoardScreenArguments routeArguments =
+          ModalRoute.of(context).settings.arguments;
+      _viewModel = SaveCustomBoardViewModel(
+          boardHolds: routeArguments.boardHolds,
+          customBoardHoldImages: routeArguments.customBoardHoldImages);
+      _viewModel.addListener(_viewModelListener);
+    }
+  }
+
+  @override
   void initState() {
     SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    _viewModel = SaveCustomBoardViewModel();
-    _viewModel.addListener(_viewModelListener);
     super.initState();
   }
 
@@ -42,12 +66,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     _viewModel.removeListener(_viewModelListener);
     super.dispose();
   }
@@ -99,7 +117,24 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                 title: 'select default holds',
                                 appDialogContent: _DefaultHoldInfo(),
                                 children: <Widget>[
-                                  Text('test'),
+                                  BoardHoldPicker(
+                                    handToBoardHeightRatio: 1.2,
+                                    aspectRatio: customBoard.kAspectRatio,
+                                    imageAsset: customBoard.kImageAsset,
+                                    boardHolds: _viewModel.boardHolds,
+                                    customBoardHoldImages:
+                                        _viewModel.customBoardHoldImages,
+                                    rightGrip: _viewModel.rightGrip,
+                                    leftGrip: _viewModel.leftGrip,
+                                    leftGripBoardHold:
+                                        _viewModel.leftGripBoardHold,
+                                    rightGripBoardHold:
+                                        _viewModel.rightGripBoardHold,
+                                    handleLeftGripBoardHoldChanged: _viewModel
+                                        .handleLeftGripBoardHoldChanged,
+                                    handleRightGripBoardHoldChanged: _viewModel
+                                        .handleRightGripBoardHoldChanged,
+                                  ),
 //                        HangBoard()
                                 ],
                               ),
