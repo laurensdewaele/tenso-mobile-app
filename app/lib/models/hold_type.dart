@@ -13,6 +13,24 @@ class HoldType extends EnumClass {
   static const HoldType pocket = _$pocket;
   static const HoldType edge = _$edge;
 
+  @override
+  String toString() {
+    switch (name) {
+      case 'pinchBlock':
+        return 'pinch block';
+      case 'sloper':
+        return 'sloper';
+      case 'jug':
+        return 'jug';
+      case 'pocket':
+        return 'pocket';
+      case 'edge':
+        return 'edge';
+      default:
+        throw new ArgumentError(name);
+    }
+  }
+
   const HoldType._(String name) : super(name);
 
   static BuiltSet<HoldType> get values => _$stValues;

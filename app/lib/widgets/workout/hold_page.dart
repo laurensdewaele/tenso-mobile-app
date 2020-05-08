@@ -98,10 +98,6 @@ class _HoldPageState extends State<HoldPage> {
                             handleRightGripBoardHoldChanged:
                                 _viewModel.setRightGripBoardHold,
                           ),
-                          Divider(
-                            key: UniqueKey(),
-                            height: styles.Measurements.m,
-                          ),
                           BoardHoldInfo(
                             leftGripBoardHold: _state.leftGripBoardHold,
                             rightGripBoardHold: _state.rightGripBoardHold,

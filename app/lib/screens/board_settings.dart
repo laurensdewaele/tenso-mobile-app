@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
@@ -11,6 +9,8 @@ import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/section.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:flutter/services.dart';
 
 class BoardSettingsScreen extends StatefulWidget {
   BoardSettingsScreen({Key key}) : super(key: key);
@@ -22,6 +22,16 @@ class BoardSettingsScreen extends StatefulWidget {
 class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
   @override
   void initState() {
+    // Leave this here. We cannot set the preferredOrientations
+    // on SaveCustomBoardScreen's dispose, because it fires after
+    // CustomBoardScreen's initState
+    // We're only ever navigating back to here from SaveCustomBoardScreen.
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.initState();
   }
 

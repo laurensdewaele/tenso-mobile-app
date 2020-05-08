@@ -12,6 +12,7 @@ import 'package:app/widgets/section.dart';
 import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:app/widgets/workout/board_hold_info.dart';
 import 'package:app/widgets/workout/board_hold_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart' hide TextInput;
@@ -53,8 +54,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
   void initState() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitDown,
     ]);
     super.initState();
@@ -118,7 +117,7 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                 appDialogContent: _DefaultHoldInfo(),
                                 children: <Widget>[
                                   BoardHoldPicker(
-                                    handToBoardHeightRatio: 1.2,
+                                    handToBoardHeightRatio: 1,
                                     aspectRatio: customBoard.kAspectRatio,
                                     imageAsset: customBoard.kImageAsset,
                                     boardHolds: _viewModel.boardHolds,
@@ -135,6 +134,14 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                     handleRightGripBoardHoldChanged: _viewModel
                                         .handleRightGripBoardHoldChanged,
                                   ),
+                                  BoardHoldInfo(
+                                    leftGripBoardHold:
+                                        _viewModel.leftGripBoardHold,
+                                    rightGripBoardHold:
+                                        _viewModel.rightGripBoardHold,
+                                    leftGrip: _viewModel.leftGrip,
+                                    rightGrip: _viewModel.rightGrip,
+                                  )
 //                        HangBoard()
                                 ],
                               ),
