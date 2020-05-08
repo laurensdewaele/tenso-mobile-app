@@ -7,24 +7,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
 class BoardHoldPicker extends StatefulWidget {
-  BoardHoldPicker({
-    Key key,
-    @required this.board,
+  const BoardHoldPicker({
     @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
-    @required this.handleLeftGripBoardHoldChanged,
-    @required this.handleRightGripBoardHoldChanged,
     @required this.leftGrip,
     @required this.rightGrip,
-  }) : super(key: key);
+    @required this.handleLeftGripBoardHoldChanged,
+    @required this.handleRightGripBoardHoldChanged,
+    @required this.handToBoardHeightRatio,
+    @required this.aspectRatio,
+    @required this.imageAsset,
+    @required this.boardHolds,
+  });
 
-  final Board board;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
   final void Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
   final void Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
+  final double handToBoardHeightRatio;
+  final double aspectRatio;
+  final String imageAsset;
+  final List<BoardHold> boardHolds;
 
   @override
   _BoardHoldPickerState createState() => _BoardHoldPickerState();
@@ -72,9 +77,9 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   void _handleBoardDimensions(Size boardSize) {
     setState(() {
       _boardSize = boardSize;
-      _gripHeight = boardSize.height * widget.board.handToBoardHeightRatio;
-      _containerHeight = boardSize.height +
-          (boardSize.height * widget.board.handToBoardHeightRatio);
+      _gripHeight = boardSize.height * widget.handToBoardHeightRatio;
+      _containerHeight =
+          boardSize.height + (boardSize.height * widget.handToBoardHeightRatio);
     });
 
     if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
@@ -159,9 +164,9 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
             child: Container(),
           ),
           BoardDragTargets(
-            boardAspectRatio: widget.board.aspectRatio,
-            boardImageAsset: widget.board.imageAsset,
-            boardHolds: widget.board.boardHolds.toList(),
+            boardAspectRatio: widget.aspectRatio,
+            boardImageAsset: widget.imageAsset,
+            boardHolds: widget.boardHolds,
             activeBoardHolds: [
               widget.rightGripBoardHold,
               widget.leftGripBoardHold

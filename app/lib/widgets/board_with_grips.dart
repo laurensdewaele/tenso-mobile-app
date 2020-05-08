@@ -96,7 +96,6 @@ class _BoardWithGripsState extends State<BoardWithGrips> {
               boardAspectRatio: widget.board.aspectRatio,
               boardImageAsset: widget.board.imageAsset,
               handleBoardDimensions: _handleBoardDimensions,
-              setHandOffset: _setHandOffset,
               orientation: widget.orientation,
             ),
             if (widget.leftGrip != null && _leftHandOffset != null)

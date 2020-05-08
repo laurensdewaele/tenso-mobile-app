@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/models/models.dart';
-
 class HangBoard extends StatefulWidget {
   HangBoard({
     Key key,
     @required this.handleBoardDimensions,
-    @required this.setHandOffset,
     @required this.orientation,
     @required this.boardAspectRatio,
     @required this.boardImageAsset,
@@ -15,7 +12,6 @@ class HangBoard extends StatefulWidget {
   final double boardAspectRatio;
   final String boardImageAsset;
   final void Function(Size boardSize) handleBoardDimensions;
-  final void Function(Grip grip, BoardHold boardHold) setHandOffset;
   final Orientation orientation;
 
   @override

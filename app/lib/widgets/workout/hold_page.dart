@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/hold_page_vm.dart';
 import 'package:app/view_models/workout/hold_page_vm_state.dart';
@@ -8,10 +6,13 @@ import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/section.dart';
+import 'package:app/widgets/workout/board_hold_info.dart';
+import 'package:app/widgets/workout/board_hold_picker.dart';
 import 'package:app/widgets/workout/card_container.dart';
-import 'package:app/widgets/workout/hold_input_container.dart';
+import 'package:app/widgets/workout/grip_picker_container.dart';
 import 'package:app/widgets/workout/navigation_indicator.dart';
 import 'package:app/widgets/workout/selected_grips_and_holds.dart';
+import 'package:flutter/cupertino.dart';
 
 class HoldPage extends StatefulWidget {
   HoldPage({Key key, this.workoutNavigator, this.workoutViewModel})
@@ -54,25 +55,62 @@ class _HoldPageState extends State<HoldPage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 if (_state.inputsEnabled == true)
-                  HoldInputContainer(
-                    board: _state.board,
-                    currentHold: _state.currentHold,
-                    handHold: _state.handHold,
-                    totalHolds: _state.totalHolds,
-                    leftGrip: _state.leftGrip,
-                    leftGripBoardHold: _state.leftGripBoardHold,
-                    primaryColor: _state.primaryColor,
-                    rightGrip: _state.rightGrip,
-                    rightGripBoardHold: _state.rightGripBoardHold,
-                    textPrimaryColor: _state.textPrimaryColor,
-                    handleLeftGripSelected: _viewModel.handleLeftGripSelected,
-                    handleLeftHandSelected: _viewModel.handleLeftHandSelected,
-                    handleOneHandedTap: _viewModel.handleOneHandedTap,
-                    handleRightGripSelected: _viewModel.handleRightGripSelected,
-                    handleRightHandSelected: _viewModel.handleRightHandSelected,
-                    handleTwoHandedTap: _viewModel.handleTwoHandedTap,
-                    setLeftGripBoardHold: _viewModel.setLeftGripBoardHold,
-                    setRightGripBoardHold: _viewModel.setRightGripBoardHold,
+                  Column(
+                    children: <Widget>[
+                      Section(
+                        title:
+                            'hold ${_state.currentHold} / ${_state.totalHolds}',
+                        children: <Widget>[
+                          GripPickerContainer(
+                            textPrimaryColor: _state.textPrimaryColor,
+                            primaryColor: _state.primaryColor,
+                            handleLeftHandSelected:
+                                _viewModel.handleLeftHandSelected,
+                            handleRightHandSelected:
+                                _viewModel.handleRightHandSelected,
+                            handleOneHandedTap: _viewModel.handleOneHandedTap,
+                            handleTwoHandedTap: _viewModel.handleTwoHandedTap,
+                            rightGrip: _state.rightGrip,
+                            leftGrip: _state.leftGrip,
+                            handleRightGripSelected:
+                                _viewModel.handleRightGripSelected,
+                            handleLeftGripSelected:
+                                _viewModel.handleLeftGripSelected,
+                            handHold: _state.handHold,
+                          )
+                        ],
+                      ),
+                      Section(
+                        title: 'drag to choose',
+                        children: <Widget>[
+                          BoardHoldPicker(
+                            boardHolds: _state.board.boardHolds.toList(),
+                            aspectRatio: _state.board.aspectRatio,
+                            handToBoardHeightRatio:
+                                _state.board.handToBoardHeightRatio,
+                            imageAsset: _state.board.imageAsset,
+                            leftGrip: _state.leftGrip,
+                            rightGrip: _state.rightGrip,
+                            leftGripBoardHold: _state.leftGripBoardHold,
+                            rightGripBoardHold: _state.rightGripBoardHold,
+                            handleLeftGripBoardHoldChanged:
+                                _viewModel.setLeftGripBoardHold,
+                            handleRightGripBoardHoldChanged:
+                                _viewModel.setRightGripBoardHold,
+                          ),
+                          Divider(
+                            key: UniqueKey(),
+                            height: styles.Measurements.m,
+                          ),
+                          BoardHoldInfo(
+                            leftGripBoardHold: _state.leftGripBoardHold,
+                            rightGripBoardHold: _state.rightGripBoardHold,
+                            leftGrip: _state.leftGrip,
+                            rightGrip: _state.rightGrip,
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 if (_state.inputsEnabled != true)
                   SelectedGripsAndHolds(
