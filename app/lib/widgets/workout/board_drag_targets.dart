@@ -1,6 +1,7 @@
 import 'package:app/models/models.dart';
 import 'package:app/services/error.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/board.dart';
 import 'package:flutter/cupertino.dart';
 
 class BoardDragTargets extends StatefulWidget {
@@ -13,9 +14,11 @@ class BoardDragTargets extends StatefulWidget {
       @required this.boardAspectRatio,
       @required this.boardImageAsset,
       @required this.boardHolds,
-      @required this.activeBoardHolds})
+      @required this.activeBoardHolds,
+      @required this.customBoardHoldImages})
       : super(key: key);
 
+  final List<CustomBoardHoldImage> customBoardHoldImages;
   final List<BoardHold> activeBoardHolds;
   final double boardAspectRatio;
   final String boardImageAsset;
@@ -73,10 +76,11 @@ class _BoardDragTargetsState extends State<BoardDragTargets> {
       }
       return Stack(
         children: <Widget>[
-          Container(
-              child: Image.asset(
-            widget.boardImageAsset,
-          )),
+          HangBoard(
+            boardSize: _boardSize,
+            customBoardHoldImages: widget.customBoardHoldImages,
+            boardImageAsset: widget.boardImageAsset,
+          ),
           ...widget.boardHolds.map((BoardHold boardHold) {
             final Rect rect = boardHold.getRect(
                 boardHeight: _boardSize.height, boardWidth: _boardSize.width);

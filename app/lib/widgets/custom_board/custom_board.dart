@@ -3,6 +3,7 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board_vm.dart';
+import 'package:app/widgets/board.dart';
 import 'package:app/widgets/custom_board/box.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -11,29 +12,30 @@ class CustomBoard extends StatelessWidget {
       {Key key,
       @required this.boxes,
       @required this.handleBoxTap,
-      @required this.images,
+      @required this.customBoardHoldImages,
       @required this.boardHolds})
       : super(key: key);
 
   final List<BoardHold> boardHolds;
   final List<BoxState> boxes;
-  final List<CustomBoardHoldImage> images;
+  final List<CustomBoardHoldImage> customBoardHoldImages;
   final void Function(BoxState boxState) handleBoxTap;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        final _customBoardWidth = constraints.maxWidth;
-        final _customBoardHeight = _customBoardWidth / customBoard.kAspectRatio;
+        final Size _boardSize = Size(constraints.maxWidth,
+            constraints.maxWidth / customBoard.kAspectRatio);
 
         return Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-            ClipRRect(
-                borderRadius: styles.kBorderRadiusAll,
-                child:
-                    Image.asset('assets/images/custom_board/custom_board.png')),
+            HangBoard(
+              boardSize: _boardSize,
+              customBoardHoldImages: customBoardHoldImages,
+              boardImageAsset: 'assets/images/custom_board/custom_board.png',
+            ),
             AspectRatio(
               aspectRatio: customBoard.kAspectRatio,
               child: GridView.count(
@@ -41,9 +43,9 @@ class CustomBoard extends StatelessWidget {
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 crossAxisSpacing:
-                    customBoard.kVerticalSpacingPercent * _customBoardHeight,
+                    customBoard.kVerticalSpacingPercent * _boardSize.height,
                 mainAxisSpacing:
-                    customBoard.kHorizontalSpacingPercent * _customBoardWidth,
+                    customBoard.kHorizontalSpacingPercent * _boardSize.width,
                 childAspectRatio: customBoard.kSelectionBoxAspectRatio,
                 crossAxisCount: customBoard.kColumns,
                 children: <Widget>[
@@ -61,22 +63,11 @@ class CustomBoard extends StatelessWidget {
                 ],
               ),
             ),
-            ...images.map((CustomBoardHoldImage image) => Positioned.fromRect(
-                child: Transform.scale(
-                  scale: image.scale,
-                  child: Image.asset(
-                    image.imageAsset,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                rect: image.getRect(
-                    boardWidth: _customBoardWidth,
-                    boardHeight: _customBoardHeight))),
             ...boardHolds.map((BoardHold boardHold) {
               return Positioned.fromRect(
                   rect: boardHold.getRect(
-                      boardWidth: _customBoardWidth,
-                      boardHeight: _customBoardHeight),
+                      boardWidth: _boardSize.width,
+                      boardHeight: _boardSize.height),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: boardHold.borderRadiusAll

@@ -7,70 +7,63 @@ import 'package:flutter/cupertino.dart';
 class BoardWithGrips extends StatefulWidget {
   BoardWithGrips(
       {Key key,
-      @required this.board,
+      @required this.boardImageAsset,
       @required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
       @required this.leftGrip,
       @required this.rightGrip,
-      @required this.reportTotalHeight,
-      @required this.orientation})
+      @required this.boardSize,
+      @required this.gripHeight,
+      @required this.customBoardHoldImages})
       : super(key: key);
 
-  final Orientation orientation;
-  final Board board;
+  final List<CustomBoardHoldImage> customBoardHoldImages;
+  final Size boardSize;
+  final double gripHeight;
+  final String boardImageAsset;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
-  final void Function(double h) reportTotalHeight;
 
   @override
   _BoardWithGripsState createState() => _BoardWithGripsState();
 }
 
 class _BoardWithGripsState extends State<BoardWithGrips> {
-  Size _boardSize;
-  double _gripHeight;
   Offset _leftHandOffset;
   Offset _rightHandOffset;
 
   @override
-  void didUpdateWidget(Widget oldWidget) {
-    if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
-      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
-    }
+  void initState() {
+    super.initState();
+    _checkAndSetHandOffsets();
+  }
 
-    if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
-      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
-    }
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    _checkAndSetHandOffsets();
     super.didUpdateWidget(oldWidget);
   }
 
-  void _handleBoardDimensions(Size boardSize) {
-    final gripHeight = boardSize.height * widget.board.handToBoardHeightRatio;
-    final totalHeight = boardSize.height + gripHeight;
-    widget.reportTotalHeight(totalHeight);
-
-    setState(() {
-      _boardSize = boardSize;
-      _gripHeight = gripHeight;
-    });
-
+  void _checkAndSetHandOffsets() {
     if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
       _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
     }
+
     if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
       _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
     }
   }
 
-  _setHandOffset(Grip grip, BoardHold boardHold) {
-    final double gripAnchorTop = grip.anchorTopPercent * _gripHeight;
+  void _setHandOffset(Grip grip, BoardHold boardHold) {
+    final double gripAnchorTop = grip.anchorTopPercent * widget.gripHeight;
     final double gripAnchorLeft =
-        grip.anchorLeftPercent * grip.assetAspectRatio * _gripHeight;
-    final double holdAnchorTop = boardHold.anchorTopPercent * _boardSize.height;
+        grip.anchorLeftPercent * grip.assetAspectRatio * widget.gripHeight;
+    final double holdAnchorTop =
+        boardHold.anchorTopPercent * widget.boardSize.height;
     final double holdAnchorLeft =
-        boardHold.anchorLeftPercent * _boardSize.width;
+        boardHold.anchorLeftPercent * widget.boardSize.width;
     final Offset offset =
         Offset(holdAnchorLeft - gripAnchorLeft, holdAnchorTop - gripAnchorTop);
 
@@ -93,17 +86,16 @@ class _BoardWithGripsState extends State<BoardWithGrips> {
           overflow: Overflow.visible,
           children: <Widget>[
             HangBoard(
-              boardAspectRatio: widget.board.aspectRatio,
-              boardImageAsset: widget.board.imageAsset,
-              handleBoardDimensions: _handleBoardDimensions,
-              orientation: widget.orientation,
+              customBoardHoldImages: widget.customBoardHoldImages,
+              boardSize: widget.boardSize,
+              boardImageAsset: widget.boardImageAsset,
             ),
             if (widget.leftGrip != null && _leftHandOffset != null)
               Positioned(
                 left: _leftHandOffset.dx,
                 top: _leftHandOffset.dy,
                 child: Container(
-                  height: _gripHeight,
+                  height: widget.gripHeight,
                   child: GripImage(
                     imageAsset: widget.leftGrip.imageAsset,
                     selected: false,
@@ -116,7 +108,7 @@ class _BoardWithGripsState extends State<BoardWithGrips> {
                 left: _rightHandOffset.dx,
                 top: _rightHandOffset.dy,
                 child: Container(
-                  height: _gripHeight,
+                  height: widget.gripHeight,
                   child: GripImage(
                     imageAsset: widget.rightGrip.imageAsset,
                     selected: false,

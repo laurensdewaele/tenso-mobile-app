@@ -7,19 +7,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
 class BoardHoldPicker extends StatefulWidget {
-  const BoardHoldPicker({
-    @required this.leftGripBoardHold,
-    @required this.rightGripBoardHold,
-    @required this.leftGrip,
-    @required this.rightGrip,
-    @required this.handleLeftGripBoardHoldChanged,
-    @required this.handleRightGripBoardHoldChanged,
-    @required this.handToBoardHeightRatio,
-    @required this.aspectRatio,
-    @required this.imageAsset,
-    @required this.boardHolds,
-  });
+  const BoardHoldPicker(
+      {@required this.leftGripBoardHold,
+      @required this.rightGripBoardHold,
+      @required this.leftGrip,
+      @required this.rightGrip,
+      @required this.handleLeftGripBoardHoldChanged,
+      @required this.handleRightGripBoardHoldChanged,
+      @required this.handToBoardHeightRatio,
+      @required this.aspectRatio,
+      @required this.imageAsset,
+      @required this.boardHolds,
+      this.customBoardHoldImages});
 
+  final List<CustomBoardHoldImage> customBoardHoldImages;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
@@ -164,6 +165,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
             child: Container(),
           ),
           BoardDragTargets(
+            customBoardHoldImages: widget.customBoardHoldImages,
             boardAspectRatio: widget.aspectRatio,
             boardImageAsset: widget.imageAsset,
             boardHolds: widget.boardHolds,

@@ -45,8 +45,9 @@ class CustomBoardViewModel extends ChangeNotifier {
       boxes.where((box) => box.visibility == BoxVisibility.selected).toList();
   bool get selectedBoxesIsTopRow => selectedBoxes?.first?.row == 1 || false;
 
-  List<CustomBoardHoldImage> _images;
-  List<CustomBoardHoldImage> get images => _images;
+  List<CustomBoardHoldImage> _customBoardHoldImages;
+  List<CustomBoardHoldImage> get customBoardHoldImages =>
+      _customBoardHoldImages;
   List<BoardHold> _boardHolds;
   List<BoardHold> get boardHolds => _boardHolds;
 
@@ -56,7 +57,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     _toastService = ToastService();
     _customBoardBuilder = CustomBoardBuilder();
     _generateBoxes();
-    _images = [];
+    _customBoardHoldImages = [];
     _boardHolds = [];
     addHoldModalOpen = false;
     notifyListeners();
@@ -157,7 +158,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     final _column = selectedBoxes.first.column;
     _customBoardBuilder.addBoardHoldAndImage(
         row: _row, column: _column, widthFactor: _widthFactor, type: type);
-    _images = _customBoardBuilder.images;
+    _customBoardHoldImages = _customBoardBuilder.images;
     _boardHolds = _customBoardBuilder.boardHolds;
   }
 

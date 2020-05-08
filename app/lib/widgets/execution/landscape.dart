@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
-
-import 'package:auto_size_text/auto_size_text.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/execution/indicator_tabs.dart';
 import 'package:app/widgets/execution/landscape_info.dart';
-import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icons.dart' as icons;
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 
 class Landscape extends StatelessWidget {
   Landscape({
@@ -29,7 +27,6 @@ class Landscape extends StatelessWidget {
     @required this.totalHangsPerSet,
     @required this.currentHang,
     @required this.weightUnit,
-    @required this.orientation,
     @required this.title,
     @required this.addedWeight,
   }) : super(key: key);
@@ -50,7 +47,6 @@ class Landscape extends StatelessWidget {
   final int currentHang;
   final WeightUnit weightUnit;
   final double addedWeight;
-  final Orientation orientation;
   final String title;
 
   @override
@@ -73,15 +69,23 @@ class Landscape extends StatelessWidget {
                 child: Stack(
               overflow: Overflow.clip,
               children: <Widget>[
-                BoardWithGrips(
-                  orientation: orientation,
-                  leftGripBoardHold: leftGripBoardHold,
-                  rightGripBoardHold: rightGripBoardHold,
-                  reportTotalHeight: (double h) {},
-                  board: board,
-                  rightGrip: rightGrip,
-                  leftGrip: leftGrip,
-                ),
+                LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  final Size _boardSize = Size(constraints.maxWidth,
+                      constraints.maxWidth / board.aspectRatio);
+                  return BoardWithGrips(
+                    customBoardHoldImages:
+                        board.customBoardHoldImages?.toList(),
+                    boardSize: _boardSize,
+                    boardImageAsset: board.imageAsset,
+                    gripHeight:
+                        _boardSize.height * board.handToBoardHeightRatio,
+                    leftGripBoardHold: leftGripBoardHold,
+                    rightGripBoardHold: rightGripBoardHold,
+                    rightGrip: rightGrip,
+                    leftGrip: leftGrip,
+                  );
+                }),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: LandscapeInfo(

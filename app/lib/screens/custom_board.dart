@@ -96,7 +96,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 child: CustomBoard(
                   boxes: _viewModel.boxes,
                   handleBoxTap: _viewModel.handleBoxTap,
-                  images: _viewModel.images,
+                  customBoardHoldImages: _viewModel.customBoardHoldImages,
                   boardHolds: _viewModel.boardHolds,
                 )),
           ),

@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
-
-import 'package:auto_size_text/auto_size_text.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/button.dart';
 import 'package:app/widgets/board_with_grips.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/execution/indicator_tabs.dart';
+import 'package:app/widgets/icons.dart' as icons;
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 
 class Portrait extends StatefulWidget {
   Portrait({
@@ -28,7 +26,6 @@ class Portrait extends StatefulWidget {
     @required this.totalHangsPerSet,
     @required this.currentHang,
     @required this.weightUnit,
-    @required this.orientation,
     @required this.title,
     @required this.addedWeight,
   }) : super(key: key);
@@ -49,7 +46,6 @@ class Portrait extends StatefulWidget {
   final int currentHang;
   final WeightUnit weightUnit;
   final double addedWeight;
-  final Orientation orientation;
   final String title;
 
   @override
@@ -57,8 +53,6 @@ class Portrait extends StatefulWidget {
 }
 
 class __PortraitContentState extends State<Portrait> {
-  double _boardGripsAddedWeightContainerHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -67,12 +61,6 @@ class __PortraitContentState extends State<Portrait> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  void _setContainerHeight(double h) {
-    setState(() {
-      _boardGripsAddedWeightContainerHeight = h + 0;
-    });
   }
 
   @override
@@ -123,43 +111,56 @@ class __PortraitContentState extends State<Portrait> {
                 Divider(
                   height: styles.Measurements.m,
                 ),
-                Container(
-                  height: _boardGripsAddedWeightContainerHeight,
-                  child: Stack(
-                    overflow: Overflow.visible,
-                    children: <Widget>[
-                      BoardWithGrips(
-                        reportTotalHeight: _setContainerHeight,
-                        leftGripBoardHold: widget.leftGripBoardHold,
-                        rightGripBoardHold: widget.rightGripBoardHold,
-                        board: widget.board,
-                        rightGrip: widget.rightGrip,
-                        leftGrip: widget.leftGrip,
-                        orientation: widget.orientation,
+                LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    final double _boardHeight =
+                        constraints.maxWidth / widget.board.aspectRatio;
+                    final Size _boardSize =
+                        Size(constraints.maxWidth, _boardHeight);
+                    final _gripHeight =
+                        _boardHeight * widget.board.handToBoardHeightRatio;
+                    final _boardWithGripsHeight = _boardHeight + _gripHeight;
+                    return Container(
+                      height: _boardWithGripsHeight,
+                      child: Stack(
+                        overflow: Overflow.visible,
+                        children: <Widget>[
+                          BoardWithGrips(
+                            customBoardHoldImages:
+                                widget.board.customBoardHoldImages?.toList(),
+                            gripHeight: _gripHeight,
+                            boardImageAsset: widget.board.imageAsset,
+                            boardSize: _boardSize,
+                            leftGripBoardHold: widget.leftGripBoardHold,
+                            rightGripBoardHold: widget.rightGripBoardHold,
+                            rightGrip: widget.rightGrip,
+                            leftGrip: widget.leftGrip,
+                          ),
+                          if (widget.addedWeight != null &&
+                              widget.addedWeight != 0.0)
+                            Container(
+                              height: _boardWithGripsHeight,
+                              width: double.infinity,
+                              child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: styles.kBorderRadiusAll,
+                                          color: styles.Colors.darkGray,
+                                          boxShadow: [styles.kBoxShadow]),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: styles.Measurements.xs,
+                                          horizontal: styles.Measurements.m),
+                                      child: Text(
+                                        '$_addedWeightPrefix $_addedWeight $_unitText',
+                                        style: styles.Staatliches.xlWhite,
+                                        textAlign: TextAlign.center,
+                                      ))),
+                            ),
+                        ],
                       ),
-                      if (widget.addedWeight != null &&
-                          widget.addedWeight != 0.0)
-                        Container(
-                          height: _boardGripsAddedWeightContainerHeight,
-                          width: double.infinity,
-                          child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: styles.kBorderRadiusAll,
-                                      color: styles.Colors.darkGray,
-                                      boxShadow: [styles.kBoxShadow]),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: styles.Measurements.xs,
-                                      horizontal: styles.Measurements.m),
-                                  child: Text(
-                                    '$_addedWeightPrefix $_addedWeight $_unitText',
-                                    style: styles.Staatliches.xlWhite,
-                                    textAlign: TextAlign.center,
-                                  ))),
-                        ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ]),
             ],

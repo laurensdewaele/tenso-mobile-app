@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/execution_vm.dart';
 import 'package:app/view_models/execution_vm_state.dart';
 import 'package:app/widgets/button.dart';
-import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/dialog.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/execution/landscape.dart';
 import 'package:app/widgets/execution/portrait.dart';
 import 'package:app/widgets/icons.dart' as icons;
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class ExecutionScreenArguments {
   ExecutionScreenArguments({this.workout});
@@ -107,7 +106,6 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                               title: _state.title,
                               weightUnit: _state.weightUnit,
                               seconds: _state.seconds,
-                              orientation: _orientation,
                               rightGripBoardHold: _state.rightGripBoardHold,
                               rightGrip: _state.rightGrip,
                               leftGripBoardHold: _state.leftGripBoardHold,
@@ -128,7 +126,6 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                               isStopwatch: _state.isStopwatch,
                               title: _state.title,
                               weightUnit: _state.weightUnit,
-                              orientation: _orientation,
                               rightGripBoardHold: _state.rightGripBoardHold,
                               rightGrip: _state.rightGrip,
                               leftGripBoardHold: _state.leftGripBoardHold,
