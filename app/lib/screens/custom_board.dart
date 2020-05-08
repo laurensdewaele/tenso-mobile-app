@@ -1,5 +1,6 @@
+import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/custom_board/custom_board.dart';
+import 'package:app/view_models/custom_board/custom_board_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/custom_board/add_hold_modal.dart';
 import 'package:app/widgets/custom_board/custom_board.dart';
@@ -48,7 +49,10 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
     super.dispose();
   }
 
-  void _handleSaveTap() {}
+  void _handleSaveTap() {
+    Navigator.of(context).pushNamed(Routes.saveCustomBoardScreen);
+  }
+
   void _handlePreviewTap() {}
   void _handleInfoTap() {}
   void _handleAddHoldTap() async {

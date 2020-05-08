@@ -1,6 +1,6 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/custom_board/hold_input_view_model.dart';
+import 'package:app/view_models/custom_board/hold_input_vm.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/number_input_and_description.dart';

@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/screens/board_settings.dart';
 import 'package:app/screens/calendar.dart';
 import 'package:app/screens/congratulations.dart';
 import 'package:app/screens/custom_board.dart';
 import 'package:app/screens/execution.dart';
 import 'package:app/screens/rate_workout.dart';
+import 'package:app/screens/save_custom_board.dart';
 import 'package:app/screens/settings.dart';
 import 'package:app/screens/sound_settings.dart';
 import 'package:app/screens/workout.dart';
 import 'package:app/screens/workout_overview.dart';
+import 'package:flutter/cupertino.dart';
 
 abstract class Routes {
   static const String home = '/';
@@ -25,6 +25,7 @@ abstract class Routes {
   static const String congratulationsScreen = '/congratulationsScreen';
   static const String rateWorkoutScreen = '/rateWorkoutScreen';
   static const String customBoardScreen = '/customBoardScreen';
+  static const String saveCustomBoardScreen = '/saveCustomBoardScreen';
 }
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
@@ -39,6 +40,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.congratulationsScreen: (context) => CongratulationsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
     Routes.boardSettingsScreen: (context) => BoardSettingsScreen(),
-    Routes.customBoardScreen: (context) => CustomBoardScreen()
+    Routes.customBoardScreen: (context) => CustomBoardScreen(),
+    Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen()
   };
 }
