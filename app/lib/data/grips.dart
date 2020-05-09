@@ -481,10 +481,18 @@ abstract class Grips {
   };
 
   static Grip matchSupportedFingersL(int supportedFingers) {
-    return _standardGripsL[supportedFingers];
+    if (supportedFingers == null) {
+      return _standardGripsL[5];
+    } else {
+      return _standardGripsL[supportedFingers];
+    }
   }
 
   static Grip matchSupportedFingersR(int supportedFingers) {
-    return _standardGripsR[supportedFingers];
+    if (supportedFingers == null) {
+      return _standardGripsR[5];
+    } else {
+      return _standardGripsR[supportedFingers];
+    }
   }
 }

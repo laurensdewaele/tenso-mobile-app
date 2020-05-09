@@ -229,8 +229,7 @@ class HoldPageViewModel {
             .firstWhere((BoardHold boardHold) => boardHold != _inUseBoardHold);
       }
       setLeftGripBoardHold(_boardHold);
-      setLeftGrip(
-          Grips.matchSupportedFingersL(_boardHold.supportedFingers ?? 5));
+      setLeftGrip(Grips.matchSupportedFingersL(_boardHold.supportedFingers));
     }
 
     if (_state$.value.rightGrip == null) {
@@ -244,8 +243,7 @@ class HoldPageViewModel {
             .firstWhere((BoardHold boardHold) => boardHold != _inUseBoardHold);
       }
       setRightGripBoardHold(_boardHold);
-      setRightGrip(
-          Grips.matchSupportedFingersR(_boardHold.supportedFingers ?? 5));
+      setRightGrip(Grips.matchSupportedFingersR(_boardHold.supportedFingers));
     }
     setHandHold(handHold);
   }
