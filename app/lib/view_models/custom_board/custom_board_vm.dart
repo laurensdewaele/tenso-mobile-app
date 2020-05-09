@@ -152,12 +152,22 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _addCustomBoardHoldsAndImage(HoldType type) {
+  void _addCustomBoardHoldsAndImage(
+      {@required HoldType type,
+      double depth,
+      int supportedFingers,
+      double sloperDegrees}) {
     final _widthFactor = selectedBoxes.length;
     final _row = selectedBoxes.first.row;
     final _column = selectedBoxes.first.column;
     _customBoardBuilder.addBoardHoldAndImage(
-        row: _row, column: _column, widthFactor: _widthFactor, type: type);
+        row: _row,
+        column: _column,
+        widthFactor: _widthFactor,
+        type: type,
+        depth: depth,
+        supportedFingers: supportedFingers,
+        sloperDegrees: sloperDegrees);
     _customBoardHoldImages = _customBoardBuilder.images;
     _boardHolds = _customBoardBuilder.boardHolds;
   }
@@ -175,27 +185,31 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   void handlePinchBlockInput() {
-    _addCustomBoardHoldsAndImage(HoldType.pinchBlock);
+    _addCustomBoardHoldsAndImage(type: HoldType.pinchBlock);
     _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handleJugInput() {
-    _addCustomBoardHoldsAndImage(HoldType.jug);
+    _addCustomBoardHoldsAndImage(type: HoldType.jug);
     _hideSelectedBoxesCloseModalAndNotify();
   }
 
-  void handleSloperInput({double degrees}) {
-    _addCustomBoardHoldsAndImage(HoldType.sloper);
+  void handleSloperInput({double sloperDegrees}) {
+    _addCustomBoardHoldsAndImage(
+        type: HoldType.sloper, sloperDegrees: sloperDegrees);
     _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handlePocketInput({double depth, int supportedFingers}) {
-    _addCustomBoardHoldsAndImage(HoldType.pocket);
+    _addCustomBoardHoldsAndImage(
+        type: HoldType.pocket,
+        depth: depth,
+        supportedFingers: supportedFingers);
     _hideSelectedBoxesCloseModalAndNotify();
   }
 
   void handleEdgeInput({double depth}) {
-    _addCustomBoardHoldsAndImage(HoldType.edge);
+    _addCustomBoardHoldsAndImage(type: HoldType.edge, depth: depth);
     _hideSelectedBoxesCloseModalAndNotify();
   }
 

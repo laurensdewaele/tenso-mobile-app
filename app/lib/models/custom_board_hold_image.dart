@@ -12,7 +12,6 @@ abstract class CustomBoardHoldImage
   static Serializer<CustomBoardHoldImage> get serializer =>
       _$customBoardHoldImageSerializer;
 
-  String get id;
   double get leftPercent;
   double get topPercent;
   double get widthPercent;

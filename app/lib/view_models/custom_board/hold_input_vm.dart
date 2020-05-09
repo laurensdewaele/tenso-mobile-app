@@ -27,7 +27,7 @@ class InputPageInput {
 class HoldInputViewModel extends ChangeNotifier {
   VoidCallback handlePinchBlockInput;
   VoidCallback handleJugInput;
-  void Function({double degrees}) handleSloperInput;
+  void Function({double sloperDegrees}) handleSloperInput;
   void Function({double depth, int supportedFingers}) handlePocketInput;
   void Function({double depth}) handleEdgeInput;
   bool multipleSelection;
@@ -168,7 +168,7 @@ class HoldInputViewModel extends ChangeNotifier {
     if (_validateInputs() == true) {
       switch (_activeHoldType) {
         case HoldType.sloper:
-          handleSloperInput(degrees: _sloperDegrees);
+          handleSloperInput(sloperDegrees: _sloperDegrees);
           break;
         case HoldType.pocket:
           handlePocketInput(

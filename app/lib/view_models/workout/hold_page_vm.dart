@@ -1,9 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
-import 'package:rxdart/rxdart.dart';
-
 import 'package:app/data/grips.dart';
 import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
@@ -13,6 +9,8 @@ import 'package:app/view_models/workout/hold_page_vm_state.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/view_models/workout/workout_vm_state.dart';
+import 'package:flutter/foundation.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HoldPageViewModel {
   WorkoutNavigator _workoutNavigator;
@@ -221,40 +219,33 @@ class HoldPageViewModel {
         _state$.value.board.defaultRightGripHold;
 
     if (_state$.value.leftGrip == null) {
-      final existingPosition = _state$.value.rightGripBoardHold.position;
-      if (existingPosition != defaultLeftGripBoardHold.position) {
-        setLeftGripBoardHold(defaultLeftGripBoardHold);
+      final BoardHold _inUseBoardHold = _state$.value.rightGripBoardHold;
+      BoardHold _boardHold;
+      if (_inUseBoardHold != defaultLeftGripBoardHold) {
+        _boardHold = defaultLeftGripBoardHold;
       } else {
         final _boardHolds = _state$.value.board.boardHolds.toList();
-        // TODO: Figure out if I need recursiveness on different boards
-        final newBoardHoldPosition = _boardHolds.firstWhere(
-                (BoardHold boardHold) =>
-                    boardHold.position ==
-                    defaultLeftGripBoardHold.position - 1) ??
-            _boardHolds.firstWhere((BoardHold boardHold) =>
-                boardHold.position == defaultLeftGripBoardHold.position + 1);
-        setLeftGripBoardHold(newBoardHoldPosition);
+        _boardHold = _boardHolds
+            .firstWhere((BoardHold boardHold) => boardHold != _inUseBoardHold);
       }
-      setLeftGrip(Grips.openHandL);
+      setLeftGripBoardHold(_boardHold);
+      setLeftGrip(
+          Grips.matchSupportedFingersL(_boardHold.supportedFingers ?? 5));
     }
 
     if (_state$.value.rightGrip == null) {
-      final existingPosition = _state$.value.leftGripBoardHold.position;
-
-      if (existingPosition != defaultRightGripBoardHold.position) {
-        setRightGripBoardHold(defaultRightGripBoardHold);
+      final BoardHold _inUseBoardHold = _state$.value.leftGripBoardHold;
+      BoardHold _boardHold;
+      if (_inUseBoardHold != defaultRightGripBoardHold) {
+        _boardHold = defaultRightGripBoardHold;
       } else {
         final _boardHolds = _state$.value.board.boardHolds.toList();
-        // TODO: Figure out if I need recursiveness on different boards
-        final BoardHold newBoardHoldPosition = _boardHolds.firstWhere(
-                (BoardHold boardHold) =>
-                    boardHold.position ==
-                    defaultRightGripBoardHold.position + 1) ??
-            _boardHolds.firstWhere((BoardHold boardHold) =>
-                boardHold.position == defaultRightGripBoardHold.position - 1);
-        setRightGripBoardHold(newBoardHoldPosition);
+        _boardHold = _boardHolds
+            .firstWhere((BoardHold boardHold) => boardHold != _inUseBoardHold);
       }
-      setRightGrip(Grips.openHandR);
+      setRightGripBoardHold(_boardHold);
+      setRightGrip(
+          Grips.matchSupportedFingersR(_boardHold.supportedFingers ?? 5));
     }
     setHandHold(handHold);
   }

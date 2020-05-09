@@ -15,7 +15,6 @@ import 'package:app/widgets/top_navigation.dart';
 import 'package:app/widgets/workout/board_hold_info.dart';
 import 'package:app/widgets/workout/board_hold_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart' hide TextInput;
 
 class SaveCustomBoardScreenArguments {
   SaveCustomBoardScreenArguments({
@@ -52,10 +51,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     super.initState();
   }
 
@@ -87,10 +82,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                       title: 'save custom board',
                       dark: true,
                       handleBackNavigation: () {
-                        SystemChrome.setPreferredOrientations([
-                          DeviceOrientation.landscapeRight,
-                          DeviceOrientation.landscapeLeft,
-                        ]);
                         Navigator.of(context).pop();
                       },
                     ),

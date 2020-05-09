@@ -3,15 +3,17 @@ import 'package:app/screens/save_custom_board.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board_vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/custom_board/add_hold_modal.dart';
 import 'package:app/widgets/custom_board/custom_board.dart';
 import 'package:app/widgets/custom_board/hold_input_modal.dart';
+import 'package:app/widgets/dialog.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/modal_popup.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 
 class CustomBoardScreen extends StatefulWidget {
   CustomBoardScreen({Key key}) : super(key: key);
@@ -25,10 +27,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
     _viewModel = CustomBoardViewModel();
     _viewModel.addListener(_viewModelListener);
     super.initState();
@@ -40,12 +38,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     _viewModel.removeListener(_viewModelListener);
     super.dispose();
   }
@@ -59,8 +51,10 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
     }
   }
 
-  void _handlePreviewTap() {}
-  void _handleInfoTap() {}
+  void _handleInfoTap() async {
+    await showAppDialog(context: context, content: _InfoDialog());
+  }
+
   void _handleAddHoldTap() async {
     await showAppModalPopup(
         context: context,
@@ -114,10 +108,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 handleTap: _handleSaveTap,
               ),
               MenuItem(
-                name: 'preview',
-                handleTap: _handlePreviewTap,
-              ),
-              MenuItem(
                 name: 'info',
                 handleTap: _handleInfoTap,
               )
@@ -132,6 +122,64 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
               ))
         ],
       ),
+    );
+  }
+}
+
+class _InfoDialog extends StatelessWidget {
+  _InfoDialog({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        RichText(
+          text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
+            TextSpan(
+                text: 'This section is for people who have created '
+                    'their own hangboard, or is needed for people whose hangboard '
+                    'is not yet available in the list of boards to choose from.',
+                style: styles.Lato.xsBlack),
+          ]),
+        ),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        RichText(
+          text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
+            TextSpan(
+                text:
+                    'You can select multiple boxes in order to create a hold that stretches across multiple columns.',
+                style: styles.Lato.xsBlack),
+          ]),
+        ),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        RichText(
+          text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
+            TextSpan(
+                text: 'This page is best viewed in ',
+                style: styles.Lato.xsBlack),
+            TextSpan(text: 'landscape ', style: styles.Lato.xsBlackBold),
+            TextSpan(text: 'mode.', style: styles.Lato.xsBlack),
+          ]),
+        ),
+        Divider(
+          height: styles.Measurements.l,
+        ),
+        Transform.scale(
+          scale: .8,
+          child: Button(
+              displayBackground: false,
+              text: 'Ok',
+              handleTap: () {
+                Navigator.of(context).pop();
+              }),
+        )
+      ],
     );
   }
 }

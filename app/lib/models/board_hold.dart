@@ -11,6 +11,7 @@ part 'board_hold.g.dart';
 abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   static Serializer<BoardHold> get serializer => _$boardHoldSerializer;
 
+  @nullable
   int get position;
   HoldType get type;
   @nullable
@@ -25,17 +26,6 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   double get topPercent;
   double get widthPercent;
   double get heightPercent;
-  @nullable
-  String get customBoardHoldImageId;
-  bool get borderRadiusAll;
-  @nullable
-  double get topLeftBorderRadius;
-  @nullable
-  double get topRightBorderRadius;
-  @nullable
-  double get bottomRightBorderRadius;
-  @nullable
-  double get bottomLeftBorderRadius;
 
   Rect getRect({double boardWidth, double boardHeight}) {
     return Rect.fromLTWH(leftPercent * boardWidth, topPercent * boardHeight,

@@ -21,19 +21,6 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
   List<CustomBoardHoldImage> get customBoardHoldImages =>
       _customBoardHoldImages;
 
-  final Map<int, Grip> _gripsL = {
-    4: Grips.openHandL,
-    3: Grips.frontThreeL,
-    2: Grips.frontTwoL,
-    1: Grips.monoIndexL
-  };
-  final Map<int, Grip> _gripsR = {
-    4: Grips.openHandR,
-    3: Grips.frontThreeR,
-    2: Grips.frontTwoR,
-    1: Grips.monoIndexR
-  };
-
   String _nameInput;
   String _name;
 
@@ -46,35 +33,13 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
   BoardHold _rightGripBoardHold;
   BoardHold get rightGripBoardHold => _rightGripBoardHold;
 
-  Grip _matchGripL(int supportedFingers, int attempt) {
-    if (supportedFingers == null) {
-      return _gripsL[4];
-    }
-
-    if (attempt <= supportedFingers) {
-      return _gripsL[attempt];
-    } else {
-      return _matchGripL(supportedFingers, attempt - 1);
-    }
-  }
-
-  Grip _matchGripR(int supportedFingers, int attempt) {
-    if (supportedFingers == null) {
-      return _gripsR[4];
-    }
-
-    if (attempt <= supportedFingers) {
-      return _gripsR[attempt];
-    } else {
-      return _matchGripR(supportedFingers, attempt - 1);
-    }
-  }
-
   void _setGripsAndBoardHoldsAndNotify() {
     _leftGripBoardHold = _boardHolds[0];
     _rightGripBoardHold = _boardHolds[boardHolds.length - 1];
-    _leftGrip = _matchGripL(_leftGripBoardHold.supportedFingers, 4);
-    _rightGrip = _matchGripR(_rightGripBoardHold.supportedFingers, 4);
+    _leftGrip =
+        Grips.matchSupportedFingersL(_leftGripBoardHold.supportedFingers);
+    _rightGrip =
+        Grips.matchSupportedFingersR(_rightGripBoardHold.supportedFingers);
     notifyListeners();
   }
 

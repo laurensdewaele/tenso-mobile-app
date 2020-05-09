@@ -464,4 +464,33 @@ abstract class Grips {
     Grips.monoRingR,
     Grips.monoPinkyR,
   ];
+
+  static final Map<int, Grip> _standardGripsL = {
+    4: Grips.openHandL,
+    3: Grips.frontThreeL,
+    2: Grips.frontTwoL,
+    1: Grips.monoIndexL
+  };
+  static final Map<int, Grip> _standardGripsR = {
+    4: Grips.openHandR,
+    3: Grips.frontThreeR,
+    2: Grips.frontTwoR,
+    1: Grips.monoIndexR
+  };
+
+  static Grip matchSupportedFingersL(int supportedFingers) {
+    if (supportedFingers >= 4) {
+      return _standardGripsL[4];
+    } else {
+      return _standardGripsL[supportedFingers];
+    }
+  }
+
+  static Grip matchSupportedFingersR(int supportedFingers) {
+    if (supportedFingers >= 4) {
+      return _standardGripsR[4];
+    } else {
+      return _standardGripsR[supportedFingers];
+    }
+  }
 }

@@ -21,7 +21,7 @@ class HoldInputModal extends StatefulWidget {
   final bool multipleSelection;
   final VoidCallback handlePinchBlockInput;
   final VoidCallback handleJugInput;
-  final void Function({double degrees}) handleSloperInput;
+  final void Function({double sloperDegrees}) handleSloperInput;
   final void Function({double depth, int supportedFingers}) handlePocketInput;
   final void Function({double depth}) handleEdgeInput;
 

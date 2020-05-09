@@ -2,6 +2,7 @@
 
 ### Custom board
 - Save page
+  - Mono images for pockets.
   - Make boardHolds way bigger (too Small). 
   - Don't really need to round them. Gimmicky.
   - Why isn't overflow showing?
@@ -22,6 +23,8 @@
 - Editing a workout whilst your training would be really nice.
   Adjusting the sequence directly? Or somehow going back to workout, edit, keep past hangs ...
   Or just simply editing in the history for correct values.
+  
+- Remove built value?
   
 - Access settings during a workout.
 
@@ -52,6 +55,7 @@
 
 ### Small prio
 
+- Replace GridView in custom_board and make it pixel perfect without scrolling.
 - Add other boards
 - Keep alive whilst on background and playing sounds. 
 - Refactor navigation with navigator key?

@@ -24,8 +24,6 @@ class _$CustomBoardHoldImageSerializer
       Serializers serializers, CustomBoardHoldImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'leftPercent',
       serializers.serialize(object.leftPercent,
           specifiedType: const FullType(double)),
@@ -61,10 +59,6 @@ class _$CustomBoardHoldImageSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'leftPercent':
           result.leftPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
@@ -98,8 +92,6 @@ class _$CustomBoardHoldImageSerializer
 
 class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
-  final String id;
-  @override
   final double leftPercent;
   @override
   final double topPercent;
@@ -117,17 +109,13 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       (new CustomBoardHoldImageBuilder()..update(updates)).build();
 
   _$CustomBoardHoldImage._(
-      {this.id,
-      this.leftPercent,
+      {this.leftPercent,
       this.topPercent,
       this.widthPercent,
       this.heightPercent,
       this.scale,
       this.imageAsset})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'id');
-    }
     if (leftPercent == null) {
       throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'leftPercent');
     }
@@ -163,7 +151,6 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CustomBoardHoldImage &&
-        id == other.id &&
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
         widthPercent == other.widthPercent &&
@@ -177,9 +164,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
     return $jf($jc(
         $jc(
             $jc(
-                $jc(
-                    $jc($jc($jc(0, id.hashCode), leftPercent.hashCode),
-                        topPercent.hashCode),
+                $jc($jc($jc(0, leftPercent.hashCode), topPercent.hashCode),
                     widthPercent.hashCode),
                 heightPercent.hashCode),
             scale.hashCode),
@@ -189,7 +174,6 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CustomBoardHoldImage')
-          ..add('id', id)
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
           ..add('widthPercent', widthPercent)
@@ -203,10 +187,6 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
 class CustomBoardHoldImageBuilder
     implements Builder<CustomBoardHoldImage, CustomBoardHoldImageBuilder> {
   _$CustomBoardHoldImage _$v;
-
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
 
   double _leftPercent;
   double get leftPercent => _$this._leftPercent;
@@ -237,7 +217,6 @@ class CustomBoardHoldImageBuilder
 
   CustomBoardHoldImageBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
       _leftPercent = _$v.leftPercent;
       _topPercent = _$v.topPercent;
       _widthPercent = _$v.widthPercent;
@@ -266,7 +245,6 @@ class CustomBoardHoldImageBuilder
   _$CustomBoardHoldImage build() {
     final _$result = _$v ??
         new _$CustomBoardHoldImage._(
-            id: id,
             leftPercent: leftPercent,
             topPercent: topPercent,
             widthPercent: widthPercent,

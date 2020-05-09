@@ -18,9 +18,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
   Iterable<Object> serialize(Serializers serializers, BoardHold object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'position',
-      serializers.serialize(object.position,
-          specifiedType: const FullType(int)),
       'type',
       serializers.serialize(object.type,
           specifiedType: const FullType(HoldType)),
@@ -42,10 +39,13 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
       'heightPercent',
       serializers.serialize(object.heightPercent,
           specifiedType: const FullType(double)),
-      'borderRadiusAll',
-      serializers.serialize(object.borderRadiusAll,
-          specifiedType: const FullType(bool)),
     ];
+    if (object.position != null) {
+      result
+        ..add('position')
+        ..add(serializers.serialize(object.position,
+            specifiedType: const FullType(int)));
+    }
     if (object.depth != null) {
       result
         ..add('depth')
@@ -62,36 +62,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
       result
         ..add('sloperDegrees')
         ..add(serializers.serialize(object.sloperDegrees,
-            specifiedType: const FullType(double)));
-    }
-    if (object.customBoardHoldImageId != null) {
-      result
-        ..add('customBoardHoldImageId')
-        ..add(serializers.serialize(object.customBoardHoldImageId,
-            specifiedType: const FullType(String)));
-    }
-    if (object.topLeftBorderRadius != null) {
-      result
-        ..add('topLeftBorderRadius')
-        ..add(serializers.serialize(object.topLeftBorderRadius,
-            specifiedType: const FullType(double)));
-    }
-    if (object.topRightBorderRadius != null) {
-      result
-        ..add('topRightBorderRadius')
-        ..add(serializers.serialize(object.topRightBorderRadius,
-            specifiedType: const FullType(double)));
-    }
-    if (object.bottomRightBorderRadius != null) {
-      result
-        ..add('bottomRightBorderRadius')
-        ..add(serializers.serialize(object.bottomRightBorderRadius,
-            specifiedType: const FullType(double)));
-    }
-    if (object.bottomLeftBorderRadius != null) {
-      result
-        ..add('bottomLeftBorderRadius')
-        ..add(serializers.serialize(object.bottomLeftBorderRadius,
             specifiedType: const FullType(double)));
     }
     return result;
@@ -152,30 +122,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.heightPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'customBoardHoldImageId':
-          result.customBoardHoldImageId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'borderRadiusAll':
-          result.borderRadiusAll = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'topLeftBorderRadius':
-          result.topLeftBorderRadius = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'topRightBorderRadius':
-          result.topRightBorderRadius = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'bottomRightBorderRadius':
-          result.bottomRightBorderRadius = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'bottomLeftBorderRadius':
-          result.bottomLeftBorderRadius = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
       }
     }
 
@@ -206,18 +152,6 @@ class _$BoardHold extends BoardHold {
   final double widthPercent;
   @override
   final double heightPercent;
-  @override
-  final String customBoardHoldImageId;
-  @override
-  final bool borderRadiusAll;
-  @override
-  final double topLeftBorderRadius;
-  @override
-  final double topRightBorderRadius;
-  @override
-  final double bottomRightBorderRadius;
-  @override
-  final double bottomLeftBorderRadius;
 
   factory _$BoardHold([void Function(BoardHoldBuilder) updates]) =>
       (new BoardHoldBuilder()..update(updates)).build();
@@ -233,17 +167,8 @@ class _$BoardHold extends BoardHold {
       this.leftPercent,
       this.topPercent,
       this.widthPercent,
-      this.heightPercent,
-      this.customBoardHoldImageId,
-      this.borderRadiusAll,
-      this.topLeftBorderRadius,
-      this.topRightBorderRadius,
-      this.bottomRightBorderRadius,
-      this.bottomLeftBorderRadius})
+      this.heightPercent})
       : super._() {
-    if (position == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'position');
-    }
     if (type == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'type');
     }
@@ -264,9 +189,6 @@ class _$BoardHold extends BoardHold {
     }
     if (heightPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'heightPercent');
-    }
-    if (borderRadiusAll == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'borderRadiusAll');
     }
   }
 
@@ -291,13 +213,7 @@ class _$BoardHold extends BoardHold {
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
         widthPercent == other.widthPercent &&
-        heightPercent == other.heightPercent &&
-        customBoardHoldImageId == other.customBoardHoldImageId &&
-        borderRadiusAll == other.borderRadiusAll &&
-        topLeftBorderRadius == other.topLeftBorderRadius &&
-        topRightBorderRadius == other.topRightBorderRadius &&
-        bottomRightBorderRadius == other.bottomRightBorderRadius &&
-        bottomLeftBorderRadius == other.bottomLeftBorderRadius;
+        heightPercent == other.heightPercent;
   }
 
   @override
@@ -311,35 +227,17 @@ class _$BoardHold extends BoardHold {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        0,
-                                                                        position
-                                                                            .hashCode),
-                                                                    type
-                                                                        .hashCode),
-                                                                depth.hashCode),
-                                                            supportedFingers
-                                                                .hashCode),
-                                                        sloperDegrees.hashCode),
-                                                    anchorLeftPercent.hashCode),
-                                                anchorTopPercent.hashCode),
-                                            leftPercent.hashCode),
-                                        topPercent.hashCode),
-                                    widthPercent.hashCode),
-                                heightPercent.hashCode),
-                            customBoardHoldImageId.hashCode),
-                        borderRadiusAll.hashCode),
-                    topLeftBorderRadius.hashCode),
-                topRightBorderRadius.hashCode),
-            bottomRightBorderRadius.hashCode),
-        bottomLeftBorderRadius.hashCode));
+                                        $jc($jc(0, position.hashCode),
+                                            type.hashCode),
+                                        depth.hashCode),
+                                    supportedFingers.hashCode),
+                                sloperDegrees.hashCode),
+                            anchorLeftPercent.hashCode),
+                        anchorTopPercent.hashCode),
+                    leftPercent.hashCode),
+                topPercent.hashCode),
+            widthPercent.hashCode),
+        heightPercent.hashCode));
   }
 
   @override
@@ -355,13 +253,7 @@ class _$BoardHold extends BoardHold {
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
           ..add('widthPercent', widthPercent)
-          ..add('heightPercent', heightPercent)
-          ..add('customBoardHoldImageId', customBoardHoldImageId)
-          ..add('borderRadiusAll', borderRadiusAll)
-          ..add('topLeftBorderRadius', topLeftBorderRadius)
-          ..add('topRightBorderRadius', topRightBorderRadius)
-          ..add('bottomRightBorderRadius', bottomRightBorderRadius)
-          ..add('bottomLeftBorderRadius', bottomLeftBorderRadius))
+          ..add('heightPercent', heightPercent))
         .toString();
   }
 }
@@ -418,36 +310,6 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   set heightPercent(double heightPercent) =>
       _$this._heightPercent = heightPercent;
 
-  String _customBoardHoldImageId;
-  String get customBoardHoldImageId => _$this._customBoardHoldImageId;
-  set customBoardHoldImageId(String customBoardHoldImageId) =>
-      _$this._customBoardHoldImageId = customBoardHoldImageId;
-
-  bool _borderRadiusAll;
-  bool get borderRadiusAll => _$this._borderRadiusAll;
-  set borderRadiusAll(bool borderRadiusAll) =>
-      _$this._borderRadiusAll = borderRadiusAll;
-
-  double _topLeftBorderRadius;
-  double get topLeftBorderRadius => _$this._topLeftBorderRadius;
-  set topLeftBorderRadius(double topLeftBorderRadius) =>
-      _$this._topLeftBorderRadius = topLeftBorderRadius;
-
-  double _topRightBorderRadius;
-  double get topRightBorderRadius => _$this._topRightBorderRadius;
-  set topRightBorderRadius(double topRightBorderRadius) =>
-      _$this._topRightBorderRadius = topRightBorderRadius;
-
-  double _bottomRightBorderRadius;
-  double get bottomRightBorderRadius => _$this._bottomRightBorderRadius;
-  set bottomRightBorderRadius(double bottomRightBorderRadius) =>
-      _$this._bottomRightBorderRadius = bottomRightBorderRadius;
-
-  double _bottomLeftBorderRadius;
-  double get bottomLeftBorderRadius => _$this._bottomLeftBorderRadius;
-  set bottomLeftBorderRadius(double bottomLeftBorderRadius) =>
-      _$this._bottomLeftBorderRadius = bottomLeftBorderRadius;
-
   BoardHoldBuilder();
 
   BoardHoldBuilder get _$this {
@@ -463,12 +325,6 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
       _topPercent = _$v.topPercent;
       _widthPercent = _$v.widthPercent;
       _heightPercent = _$v.heightPercent;
-      _customBoardHoldImageId = _$v.customBoardHoldImageId;
-      _borderRadiusAll = _$v.borderRadiusAll;
-      _topLeftBorderRadius = _$v.topLeftBorderRadius;
-      _topRightBorderRadius = _$v.topRightBorderRadius;
-      _bottomRightBorderRadius = _$v.bottomRightBorderRadius;
-      _bottomLeftBorderRadius = _$v.bottomLeftBorderRadius;
       _$v = null;
     }
     return this;
@@ -501,13 +357,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
             leftPercent: leftPercent,
             topPercent: topPercent,
             widthPercent: widthPercent,
-            heightPercent: heightPercent,
-            customBoardHoldImageId: customBoardHoldImageId,
-            borderRadiusAll: borderRadiusAll,
-            topLeftBorderRadius: topLeftBorderRadius,
-            topRightBorderRadius: topRightBorderRadius,
-            bottomRightBorderRadius: bottomRightBorderRadius,
-            bottomLeftBorderRadius: bottomLeftBorderRadius);
+            heightPercent: heightPercent);
     replace(_$result);
     return _$result;
   }
