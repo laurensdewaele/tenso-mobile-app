@@ -1,5 +1,4 @@
 # TODO
-
 ### Custom board
 - Refactor board_hold_picker
 - Save page
