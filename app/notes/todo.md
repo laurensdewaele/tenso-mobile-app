@@ -1,16 +1,11 @@
 # TODO
 ### Custom board
-- Refactor board_hold_picker
 - Save page
   - Mono images for pockets.
   - Make boardHolds way bigger (too Small). 
-  - Don't really need to round them. Gimmicky.
   - Why isn't overflow showing?
-  - There's a massive distance that seems too much on custom_board and the info.
-  - degrees is null?
   
 - Selection and deleting / editing a placed boardHoldImage
-- Abstract everything with a board into it's own folder.
 - Test custom board on different screen sizes!
 
 ### Others

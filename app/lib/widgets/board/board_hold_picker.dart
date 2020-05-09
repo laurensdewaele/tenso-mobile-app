@@ -1,8 +1,8 @@
 import 'package:app/models/models.dart';
 import 'package:app/services/toast.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/board/board_drag_targets.dart';
 import 'package:app/widgets/grip_image.dart';
-import 'package:app/widgets/workout/board_drag_targets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 

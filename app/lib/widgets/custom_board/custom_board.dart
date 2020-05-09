@@ -3,8 +3,8 @@ import 'package:app/models/board_hold.dart';
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board_vm.dart';
+import 'package:app/widgets/board/hang_board.dart';
 import 'package:app/widgets/custom_board/box.dart';
-import 'package:app/widgets/hang_board.dart';
 import 'package:flutter/cupertino.dart';
 
 class CustomBoard extends StatelessWidget {

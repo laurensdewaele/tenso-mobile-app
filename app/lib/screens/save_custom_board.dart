@@ -2,6 +2,8 @@ import 'package:app/data/custom_board_hold_builder.dart' as customBoard;
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/save_custom_board_vm.dart';
+import 'package:app/widgets/board/board_hold_info.dart';
+import 'package:app/widgets/board/board_hold_picker.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
@@ -12,8 +14,6 @@ import 'package:app/widgets/section.dart';
 import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
-import 'package:app/widgets/workout/board_hold_info.dart';
-import 'package:app/widgets/workout/board_hold_picker.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCustomBoardScreenArguments {
