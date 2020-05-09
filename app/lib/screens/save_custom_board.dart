@@ -133,7 +133,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                     leftGrip: _viewModel.leftGrip,
                                     rightGrip: _viewModel.rightGrip,
                                   )
-//                        HangBoard()
                                 ],
                               ),
                               Section(
