@@ -10,16 +10,18 @@ class BoardHoldPicker extends StatefulWidget {
   const BoardHoldPicker(
       {@required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
+      @required this.boardSize,
       @required this.leftGrip,
       @required this.rightGrip,
+      @required this.gripHeight,
       @required this.handleLeftGripBoardHoldChanged,
       @required this.handleRightGripBoardHoldChanged,
-      @required this.handToBoardHeightRatio,
-      @required this.aspectRatio,
       @required this.imageAsset,
       @required this.boardHolds,
       this.customBoardHoldImages});
 
+  final Size boardSize;
+  final double gripHeight;
   final List<CustomBoardHoldImage> customBoardHoldImages;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
@@ -27,8 +29,6 @@ class BoardHoldPicker extends StatefulWidget {
   final Grip rightGrip;
   final void Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
   final void Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
-  final double handToBoardHeightRatio;
-  final double aspectRatio;
   final String imageAsset;
   final List<BoardHold> boardHolds;
 
@@ -37,67 +37,48 @@ class BoardHoldPicker extends StatefulWidget {
 }
 
 class _BoardHoldPickerState extends State<BoardHoldPicker> {
-  // We're setting the containerHeight via 'props' to BoardDragTargets
-  // because we it needs the grip size to calculate it.
-  // It needs to be in this Widget's Stack because
-  // it needs to absorb the pointer events from switching the tabs.
-  double _containerHeight;
-
   Widget _errorMessage;
-  Size _boardSize;
-  double _gripHeight;
   Offset _leftHandOffset;
   Offset _rightHandOffset;
   Offset _leftHandFeedbackOffset;
   Offset _rightHandFeedbackOffset;
 
   @override
-  void didUpdateWidget(BoardHoldPicker oldWidget) {
-    if (oldWidget.leftGrip != widget.leftGrip &&
-        widget.leftGrip != null &&
-        widget.leftGripBoardHold != null) {
-      // This gives a small delay, but need it.
-      // The error is acceptable in debug mode,
-      // Release mode doesn't work :)
-      // I haven't figured out yet how to not have delay here.
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
-      });
-    }
+  void initState() {
+    _checkAndSetHandOffsets();
+    super.initState();
+  }
 
-    if (oldWidget.rightGrip != widget.rightGrip &&
-        widget.rightGrip != null &&
-        widget.rightGripBoardHold != null) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
-      });
+  @override
+  void didUpdateWidget(BoardHoldPicker oldWidget) {
+    if ((oldWidget.leftGrip != widget.leftGrip) ||
+        (oldWidget.rightGrip != widget.rightGrip)) {
+      _checkAndSetHandOffsets();
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  void _handleBoardDimensions(Size boardSize) {
-    setState(() {
-      _boardSize = boardSize;
-      _gripHeight = boardSize.height * widget.handToBoardHeightRatio;
-      _containerHeight =
-          boardSize.height + (boardSize.height * widget.handToBoardHeightRatio);
-    });
-
+  void _checkAndSetHandOffsets() {
     if (widget.leftGrip != null && widget.leftGripBoardHold != null) {
-      _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _setHandOffset(widget.leftGrip, widget.leftGripBoardHold);
+      });
     }
     if (widget.rightGrip != null && widget.rightGripBoardHold != null) {
-      _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _setHandOffset(widget.rightGrip, widget.rightGripBoardHold);
+      });
     }
   }
 
   _setHandOffset(Grip grip, BoardHold boardHold) {
-    final double gripAnchorTop = grip.anchorTopPercent * _gripHeight;
+    final double gripAnchorTop = grip.anchorTopPercent * widget.gripHeight;
     final double gripAnchorLeft =
-        grip.anchorLeftPercent * grip.assetAspectRatio * _gripHeight;
-    final double holdAnchorTop = boardHold.anchorTopPercent * _boardSize.height;
+        grip.anchorLeftPercent * grip.assetAspectRatio * widget.gripHeight;
+    final double holdAnchorTop =
+        boardHold.anchorTopPercent * widget.boardSize.height;
     final double holdAnchorLeft =
-        boardHold.anchorLeftPercent * _boardSize.width;
+        boardHold.anchorLeftPercent * widget.boardSize.width;
     final Offset offset =
         Offset(holdAnchorLeft - gripAnchorLeft, holdAnchorTop - gripAnchorTop);
 
@@ -105,6 +86,9 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
       setState(() {
         _leftHandOffset = offset;
       });
+      // We cannot just let the parent update our state.
+      // On dragSuccess we need to update our state as fast as possible,
+      // Otherwise one will notice severe 'jank'.
       widget.handleLeftGripBoardHoldChanged(boardHold);
     } else {
       setState(() {
@@ -157,24 +141,19 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
       behavior: HitTestBehavior.opaque,
       onHorizontalDragEnd: _onHorizontalDragEnd,
       child: Stack(
+        fit: StackFit.expand,
         overflow: Overflow.visible,
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: _containerHeight,
-            child: Container(),
-          ),
           BoardDragTargets(
+            boardSize: widget.boardSize,
             customBoardHoldImages: widget.customBoardHoldImages,
-            boardAspectRatio: widget.aspectRatio,
             boardImageAsset: widget.imageAsset,
             boardHolds: widget.boardHolds,
             activeBoardHolds: [
               widget.rightGripBoardHold,
               widget.leftGripBoardHold
             ],
-            handleBoardDimensions: _handleBoardDimensions,
-            setHandOffset: _setHandOffset,
+            handleSuccess: _setHandOffset,
             orientation: MediaQuery.of(context).orientation,
             setErrorMessage: _setErrorMessage,
           ),
@@ -187,7 +166,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   _setHandFeedbackOffset(
                     event,
                     widget.leftGrip,
-                    _gripHeight,
+                    widget.gripHeight,
                   );
                 },
                 child: Draggable(
@@ -195,7 +174,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   feedbackOffset: _leftHandFeedbackOffset,
                   data: widget.leftGrip,
                   feedback: Container(
-                    height: _gripHeight,
+                    height: widget.gripHeight,
                     child: GripImage(
                       imageAsset: widget.leftGrip.imageAsset,
                       selected: false,
@@ -203,7 +182,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                     ),
                   ),
                   child: Container(
-                    height: _gripHeight,
+                    height: widget.gripHeight,
                     child: GripImage(
                       imageAsset: widget.leftGrip.imageAsset,
                       selected: false,
@@ -211,7 +190,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                     ),
                   ),
                   childWhenDragging: Container(
-                    height: _gripHeight,
+                    height: widget.gripHeight,
                   ),
                 ),
               ),
@@ -225,7 +204,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   _setHandFeedbackOffset(
                     event,
                     widget.rightGrip,
-                    _gripHeight,
+                    widget.gripHeight,
                   );
                 },
                 child: Draggable(
@@ -233,7 +212,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                   feedbackOffset: _rightHandFeedbackOffset,
                   data: widget.rightGrip,
                   feedback: Container(
-                    height: _gripHeight,
+                    height: widget.gripHeight,
                     child: GripImage(
                       imageAsset: widget.rightGrip.imageAsset,
                       selected: false,
@@ -241,7 +220,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                     ),
                   ),
                   child: Container(
-                    height: _gripHeight,
+                    height: widget.gripHeight,
                     child: GripImage(
                       imageAsset: widget.rightGrip.imageAsset,
                       selected: false,
@@ -249,7 +228,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
                     ),
                   ),
                   childWhenDragging: Container(
-                    height: _gripHeight,
+                    height: widget.gripHeight,
                   ),
                 ),
               ),

@@ -83,21 +83,37 @@ class _HoldPageState extends State<HoldPage> {
                       Section(
                         title: 'drag to choose',
                         children: <Widget>[
-                          BoardHoldPicker(
-                            boardHolds: _state.board.boardHolds.toList(),
-                            aspectRatio: _state.board.aspectRatio,
-                            handToBoardHeightRatio:
-                                _state.board.handToBoardHeightRatio,
-                            imageAsset: _state.board.imageAsset,
-                            leftGrip: _state.leftGrip,
-                            rightGrip: _state.rightGrip,
-                            leftGripBoardHold: _state.leftGripBoardHold,
-                            rightGripBoardHold: _state.rightGripBoardHold,
-                            handleLeftGripBoardHoldChanged:
-                                _viewModel.setLeftGripBoardHold,
-                            handleRightGripBoardHoldChanged:
-                                _viewModel.setRightGripBoardHold,
-                          ),
+                          LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            final double _boardHeight =
+                                constraints.maxWidth / _state.board.aspectRatio;
+                            final Size _boardSize =
+                                Size(constraints.maxWidth, _boardHeight);
+                            final _gripHeight = _boardHeight *
+                                _state.board.handToBoardHeightRatio;
+                            final _boardWithGripsHeight =
+                                _boardHeight + _gripHeight;
+                            return Container(
+                              height: _boardWithGripsHeight,
+                              child: BoardHoldPicker(
+                                boardHolds: _state.board.boardHolds.toList(),
+                                boardSize: _boardSize,
+                                gripHeight: _gripHeight,
+                                customBoardHoldImages: _state
+                                    .board.customBoardHoldImages
+                                    ?.toList(),
+                                imageAsset: _state.board.imageAsset,
+                                leftGrip: _state.leftGrip,
+                                rightGrip: _state.rightGrip,
+                                leftGripBoardHold: _state.leftGripBoardHold,
+                                rightGripBoardHold: _state.rightGripBoardHold,
+                                handleLeftGripBoardHoldChanged:
+                                    _viewModel.setLeftGripBoardHold,
+                                handleRightGripBoardHoldChanged:
+                                    _viewModel.setRightGripBoardHold,
+                              ),
+                            );
+                          }),
                           BoardHoldInfo(
                             leftGripBoardHold: _state.leftGripBoardHold,
                             rightGripBoardHold: _state.rightGripBoardHold,
