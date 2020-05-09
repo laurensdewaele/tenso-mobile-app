@@ -36,7 +36,6 @@ class CustomBoard extends StatelessWidget {
               customBoardHoldImages: customBoardHoldImages,
               boardImageAsset: customBoard.kImageAsset,
             ),
-            // TODO: You can scroll on portrait, not ideal
             AspectRatio(
               aspectRatio: customBoard.kAspectRatio,
               child: GridView.count(
