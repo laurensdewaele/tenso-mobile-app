@@ -6,8 +6,65 @@ import 'package:app/widgets/workout/board_drag_targets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
-class BoardHoldPicker extends StatefulWidget {
+class BoardHoldPicker extends StatelessWidget {
   const BoardHoldPicker(
+      {@required this.leftGripBoardHold,
+      @required this.rightGripBoardHold,
+      @required this.leftGrip,
+      @required this.rightGrip,
+      @required this.handleLeftGripBoardHoldChanged,
+      @required this.handleRightGripBoardHoldChanged,
+      @required this.imageAsset,
+      @required this.boardHolds,
+      this.customBoardHoldImages,
+      @required this.boardImageAsset,
+      @required this.handToBoardHeightRatio,
+      @required this.boardAspectRatio});
+
+  final double boardAspectRatio;
+  final double handToBoardHeightRatio;
+  final String boardImageAsset;
+
+  final List<CustomBoardHoldImage> customBoardHoldImages;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final void Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
+  final void Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
+  final String imageAsset;
+  final List<BoardHold> boardHolds;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      final double _boardHeight = constraints.maxWidth / boardAspectRatio;
+      final Size _boardSize = Size(constraints.maxWidth, _boardHeight);
+      final _gripHeight = _boardHeight * handToBoardHeightRatio;
+      final _boardWithGripsHeight = _boardHeight + _gripHeight;
+      return Container(
+        height: _boardWithGripsHeight,
+        child: _BoardHoldPicker(
+          gripHeight: _gripHeight,
+          boardSize: _boardSize,
+          imageAsset: boardImageAsset,
+          boardHolds: boardHolds,
+          customBoardHoldImages: customBoardHoldImages,
+          rightGrip: rightGrip,
+          leftGrip: leftGrip,
+          leftGripBoardHold: leftGripBoardHold,
+          rightGripBoardHold: rightGripBoardHold,
+          handleLeftGripBoardHoldChanged: handleLeftGripBoardHoldChanged,
+          handleRightGripBoardHoldChanged: handleRightGripBoardHoldChanged,
+        ),
+      );
+    });
+  }
+}
+
+class _BoardHoldPicker extends StatefulWidget {
+  const _BoardHoldPicker(
       {@required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
       @required this.boardSize,
@@ -36,7 +93,7 @@ class BoardHoldPicker extends StatefulWidget {
   _BoardHoldPickerState createState() => _BoardHoldPickerState();
 }
 
-class _BoardHoldPickerState extends State<BoardHoldPicker> {
+class _BoardHoldPickerState extends State<_BoardHoldPicker> {
   Widget _errorMessage;
   Offset _leftHandOffset;
   Offset _rightHandOffset;
@@ -50,7 +107,7 @@ class _BoardHoldPickerState extends State<BoardHoldPicker> {
   }
 
   @override
-  void didUpdateWidget(BoardHoldPicker oldWidget) {
+  void didUpdateWidget(_BoardHoldPicker oldWidget) {
     if ((oldWidget.leftGrip != widget.leftGrip) ||
         (oldWidget.rightGrip != widget.rightGrip)) {
       _checkAndSetHandOffsets();

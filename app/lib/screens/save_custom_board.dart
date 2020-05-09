@@ -107,41 +107,26 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                 title: 'select default holds',
                                 appDialogContent: _DefaultHoldInfo(),
                                 children: <Widget>[
-                                  LayoutBuilder(builder: (BuildContext context,
-                                      BoxConstraints constraints) {
-                                    final double _boardHeight =
-                                        constraints.maxWidth /
-                                            customBoard.kAspectRatio;
-                                    final Size _boardSize = Size(
-                                        constraints.maxWidth, _boardHeight);
-                                    final _gripHeight = _boardHeight *
-                                        customBoard.kHandToBoardHeightRatio;
-                                    final _boardWithGripsHeight =
-                                        _boardHeight + _gripHeight;
-                                    return Container(
-                                      height: _boardWithGripsHeight,
-                                      child: BoardHoldPicker(
-                                        gripHeight: _gripHeight,
-                                        boardSize: _boardSize,
-                                        imageAsset: customBoard.kImageAsset,
-                                        boardHolds: _viewModel.boardHolds,
-                                        customBoardHoldImages:
-                                            _viewModel.customBoardHoldImages,
-                                        rightGrip: _viewModel.rightGrip,
-                                        leftGrip: _viewModel.leftGrip,
-                                        leftGripBoardHold:
-                                            _viewModel.leftGripBoardHold,
-                                        rightGripBoardHold:
-                                            _viewModel.rightGripBoardHold,
-                                        handleLeftGripBoardHoldChanged:
-                                            _viewModel
-                                                .handleLeftGripBoardHoldChanged,
-                                        handleRightGripBoardHoldChanged:
-                                            _viewModel
-                                                .handleRightGripBoardHoldChanged,
-                                      ),
-                                    );
-                                  }),
+                                  BoardHoldPicker(
+                                    boardAspectRatio: customBoard.kAspectRatio,
+                                    boardImageAsset: customBoard.kImageAsset,
+                                    handToBoardHeightRatio:
+                                        customBoard.kHandToBoardHeightRatio,
+                                    imageAsset: customBoard.kImageAsset,
+                                    boardHolds: _viewModel.boardHolds,
+                                    customBoardHoldImages:
+                                        _viewModel.customBoardHoldImages,
+                                    rightGrip: _viewModel.rightGrip,
+                                    leftGrip: _viewModel.leftGrip,
+                                    leftGripBoardHold:
+                                        _viewModel.leftGripBoardHold,
+                                    rightGripBoardHold:
+                                        _viewModel.rightGripBoardHold,
+                                    handleLeftGripBoardHoldChanged: _viewModel
+                                        .handleLeftGripBoardHoldChanged,
+                                    handleRightGripBoardHoldChanged: _viewModel
+                                        .handleRightGripBoardHoldChanged,
+                                  ),
                                   BoardHoldInfo(
                                     leftGripBoardHold:
                                         _viewModel.leftGripBoardHold,
