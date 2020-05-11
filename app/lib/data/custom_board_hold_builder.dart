@@ -65,6 +65,14 @@ const Map<int, double> _widthPercents = {
   4: _widthPercent4
 };
 
+const Map<int, double> _widthPercentPocketFingers = {
+  5: _widthPercent1,
+  4: _widthPercent1 / 5 * 4,
+  3: _widthPercent1 / 5 * 3,
+  2: _widthPercent1 / 5 * 2,
+  1: _widthPercent1 / 5 * 1
+};
+
 const Map<int, double> _leftPercents = {
   1: _leftPercentColumn1,
   2: _leftPercentColumn2,
@@ -193,10 +201,19 @@ class CustomBoardBuilder {
         _images.add(CustomBoardHoldImage((b) => b
           ..scale = 1
           ..heightPercent = _pocketHeightPercent
-          ..widthPercent = _widthPercents[widthFactor]
-          ..leftPercent = _leftPercents[column]
+          ..widthPercent = _widthPercent1 == 1
+              ? _widthPercentPocketFingers[supportedFingers]
+              : _widthPercents[widthFactor]
+          ..leftPercent = _widthPercent1 == 1
+              ? _leftPercents[column] +
+                  ((_widthPercent1 -
+                          _widthPercentPocketFingers[supportedFingers]) /
+                      2)
+              : _leftPercents[column]
           ..topPercent = _topPercents[row] - _pocketEdgeDifference
-          ..imageAsset = 'assets/images/custom_board/pocket_$widthFactor.png'));
+          ..imageAsset = _widthPercent1 == 1
+              ? 'assets/images/custom_board/pocket_1_${supportedFingers}f.png'
+              : 'assets/images/custom_board/pocket_$widthFactor.png'));
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
             ..type = HoldType.pocket
