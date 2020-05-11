@@ -241,10 +241,12 @@ class CustomBoardBuilder {
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
             ..type = HoldType.edge
-            ..topPercent = _topPercents[row] - _onePixelHeightPercent
+            ..topPercent = _topPercents[row] -
+                _pocketEdgeDifference -
+                _onePixelHeightPercent
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
             ..widthPercent = _widthPercents[1] + _onePixelWidthPercent * 2
-            ..heightPercent = _edgeHeightPercent + _onePixelHeightPercent * 2
+            ..heightPercent = _pocketHeightPercent + _onePixelHeightPercent * 2
             ..depth = depth
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2

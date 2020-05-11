@@ -2,9 +2,6 @@
 
 ### Custom board
 - Save page
-  - Make boardHolds way bigger (too Small). Top row is fine.
-    Edges => expand upwards, pockets are ok 
-  
 - Selection and deleting / editing a placed boardHoldImage
 - Test custom board on different screen sizes!
 
@@ -30,10 +27,10 @@
 
 ### Large prio
 - Add open crimp, pinch grip, check if all grips available
-- Graphs
 - Info/explanation screen
 - Implement a feedback button.
 - Backend
+- Graphs
 
 ### Medium prio
 
