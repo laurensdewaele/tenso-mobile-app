@@ -2,8 +2,8 @@
 
 ### Custom board
 - Save page
-  - Mono images for pockets.
   - Why isn't overflow showing?
+  - Hang anchor positioning.
   - Make boardHolds way bigger (too Small). Top row is fine.
     Edges => expand upwards, pockets are ok 
   

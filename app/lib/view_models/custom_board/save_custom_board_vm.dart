@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app/data/grips.dart';
 import 'package:app/models/custom_board_hold_image.dart';
 import 'package:app/models/models.dart';
@@ -36,10 +38,17 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
   void _setGripsAndBoardHoldsAndNotify() {
     _leftGripBoardHold = _boardHolds[0];
     _rightGripBoardHold = _boardHolds[boardHolds.length - 1];
-    _leftGrip =
-        Grips.matchSupportedFingersL(_leftGripBoardHold.supportedFingers);
-    _rightGrip =
-        Grips.matchSupportedFingersR(_rightGripBoardHold.supportedFingers);
+    final List<int> _supportedFingers = _boardHolds
+        .map((BoardHold boardHold) => boardHold.supportedFingers)
+        .toList();
+    _supportedFingers.removeWhere((f) => f == null);
+    final int _lowestSupportedFingers =
+        _supportedFingers != null && _supportedFingers.length > 0
+            ? _supportedFingers?.reduce(min)
+            : 5;
+    Grips.matchSupportedFingersL(_lowestSupportedFingers);
+    _leftGrip = Grips.matchSupportedFingersL(_lowestSupportedFingers);
+    _rightGrip = Grips.matchSupportedFingersR(_lowestSupportedFingers);
     notifyListeners();
   }
 
