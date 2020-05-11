@@ -3,8 +3,9 @@
 ### Custom board
 - Save page
   - Mono images for pockets.
-  - Make boardHolds way bigger (too Small). 
   - Why isn't overflow showing?
+  - Make boardHolds way bigger (too Small). Top row is fine.
+    Edges => expand upwards, pockets are ok 
   
 - Selection and deleting / editing a placed boardHoldImage
 - Test custom board on different screen sizes!
