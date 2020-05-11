@@ -42,13 +42,13 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
         .map((BoardHold boardHold) => boardHold.supportedFingers)
         .toList();
     _supportedFingers.removeWhere((f) => f == null);
-    final int _lowestSupportedFingers =
+    final int _minSupportedFingers =
         _supportedFingers != null && _supportedFingers.length > 0
             ? _supportedFingers.reduce(min)
             : 5;
 
-    _leftGrip = Grips.matchSupportedFingersL(_lowestSupportedFingers);
-    _rightGrip = Grips.matchSupportedFingersR(_lowestSupportedFingers);
+    _leftGrip = Grips.matchSupportedFingersL(_minSupportedFingers);
+    _rightGrip = Grips.matchSupportedFingersR(_minSupportedFingers);
     notifyListeners();
   }
 
