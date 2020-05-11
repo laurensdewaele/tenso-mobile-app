@@ -24,6 +24,9 @@ class _$CustomBoardHoldImageSerializer
       Serializers serializers, CustomBoardHoldImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(HoldType)),
       'leftPercent',
       serializers.serialize(object.leftPercent,
           specifiedType: const FullType(double)),
@@ -59,6 +62,10 @@ class _$CustomBoardHoldImageSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(HoldType)) as HoldType;
+          break;
         case 'leftPercent':
           result.leftPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
@@ -92,6 +99,8 @@ class _$CustomBoardHoldImageSerializer
 
 class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
+  final HoldType type;
+  @override
   final double leftPercent;
   @override
   final double topPercent;
@@ -109,13 +118,17 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       (new CustomBoardHoldImageBuilder()..update(updates)).build();
 
   _$CustomBoardHoldImage._(
-      {this.leftPercent,
+      {this.type,
+      this.leftPercent,
       this.topPercent,
       this.widthPercent,
       this.heightPercent,
       this.scale,
       this.imageAsset})
       : super._() {
+    if (type == null) {
+      throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'type');
+    }
     if (leftPercent == null) {
       throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'leftPercent');
     }
@@ -151,6 +164,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CustomBoardHoldImage &&
+        type == other.type &&
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
         widthPercent == other.widthPercent &&
@@ -164,7 +178,9 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, leftPercent.hashCode), topPercent.hashCode),
+                $jc(
+                    $jc($jc($jc(0, type.hashCode), leftPercent.hashCode),
+                        topPercent.hashCode),
                     widthPercent.hashCode),
                 heightPercent.hashCode),
             scale.hashCode),
@@ -174,6 +190,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CustomBoardHoldImage')
+          ..add('type', type)
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
           ..add('widthPercent', widthPercent)
@@ -187,6 +204,10 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
 class CustomBoardHoldImageBuilder
     implements Builder<CustomBoardHoldImage, CustomBoardHoldImageBuilder> {
   _$CustomBoardHoldImage _$v;
+
+  HoldType _type;
+  HoldType get type => _$this._type;
+  set type(HoldType type) => _$this._type = type;
 
   double _leftPercent;
   double get leftPercent => _$this._leftPercent;
@@ -217,6 +238,7 @@ class CustomBoardHoldImageBuilder
 
   CustomBoardHoldImageBuilder get _$this {
     if (_$v != null) {
+      _type = _$v.type;
       _leftPercent = _$v.leftPercent;
       _topPercent = _$v.topPercent;
       _widthPercent = _$v.widthPercent;
@@ -245,6 +267,7 @@ class CustomBoardHoldImageBuilder
   _$CustomBoardHoldImage build() {
     final _$result = _$v ??
         new _$CustomBoardHoldImage._(
+            type: type,
             leftPercent: leftPercent,
             topPercent: topPercent,
             widthPercent: widthPercent,

@@ -1,8 +1,8 @@
 # TODO
 
 ### Custom board
-- Save page
 - Selection and deleting / editing a placed boardHoldImage
+- Save page
 - Test custom board on different screen sizes!
 
 ### Others

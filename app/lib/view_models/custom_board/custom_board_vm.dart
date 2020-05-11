@@ -221,4 +221,9 @@ class CustomBoardViewModel extends ChangeNotifier {
       return false;
     }
   }
+
+  void handleCustomBoardHoldImageTap(
+      CustomBoardHoldImage customBoardHoldImage) {
+    print(customBoardHoldImage);
+  }
 }

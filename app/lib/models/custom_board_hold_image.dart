@@ -5,6 +5,8 @@ import 'package:app/models/serializers.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
+import 'models.dart';
+
 part 'custom_board_hold_image.g.dart';
 
 abstract class CustomBoardHoldImage
@@ -12,6 +14,7 @@ abstract class CustomBoardHoldImage
   static Serializer<CustomBoardHoldImage> get serializer =>
       _$customBoardHoldImageSerializer;
 
+  HoldType get type;
   double get leftPercent;
   double get topPercent;
   double get widthPercent;
