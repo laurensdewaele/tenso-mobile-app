@@ -100,6 +100,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                   boardHolds: _viewModel.boardHolds,
                   handleCustomBoardHoldImageTap:
                       _viewModel.handleCustomBoardHoldImageTap,
+                  selectedBoardHoldImage: _viewModel.selectedBoardHoldImage,
                 )),
           ),
           BottomMenuDrawer(

@@ -45,6 +45,8 @@ class CustomBoardViewModel extends ChangeNotifier {
       boxes.where((box) => box.visibility == BoxVisibility.selected).toList();
   bool get selectedBoxesIsTopRow => selectedBoxes?.first?.row == 1 || false;
 
+  CustomBoardHoldImage _selectedBoardHoldImage;
+  CustomBoardHoldImage get selectedBoardHoldImage => _selectedBoardHoldImage;
   List<CustomBoardHoldImage> _customBoardHoldImages;
   List<CustomBoardHoldImage> get customBoardHoldImages =>
       _customBoardHoldImages;
@@ -224,6 +226,11 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   void handleCustomBoardHoldImageTap(
       CustomBoardHoldImage customBoardHoldImage) {
-    print(customBoardHoldImage);
+    if (_selectedBoardHoldImage == customBoardHoldImage) {
+      _selectedBoardHoldImage = null;
+    } else {
+      _selectedBoardHoldImage = customBoardHoldImage;
+    }
+    notifyListeners();
   }
 }

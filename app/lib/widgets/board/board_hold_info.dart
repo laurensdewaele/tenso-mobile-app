@@ -45,12 +45,12 @@ class BoardHoldInfo extends StatelessWidget {
                       style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
-                            text: leftGripBoardHold.type.toString(),
+                            text: leftGripBoardHold.holdType.toString(),
                             style: styles.Lato.xsGray),
                       ]),
                 ),
-                if (leftGripBoardHold.type == HoldType.pocket ||
-                    leftGripBoardHold.type == HoldType.edge)
+                if (leftGripBoardHold.holdType == HoldType.pocket ||
+                    leftGripBoardHold.holdType == HoldType.edge)
                   RichText(
                     text: TextSpan(
                         text: 'depth: ',
@@ -62,7 +62,7 @@ class BoardHoldInfo extends StatelessWidget {
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
                   ),
-                if (leftGripBoardHold.type == HoldType.sloper)
+                if (leftGripBoardHold.holdType == HoldType.sloper)
                   RichText(
                     text: TextSpan(
                         text: 'degrees: ',
@@ -113,12 +113,12 @@ class BoardHoldInfo extends StatelessWidget {
                       style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
-                            text: rightGripBoardHold.type.toString(),
+                            text: rightGripBoardHold.holdType.toString(),
                             style: styles.Lato.xsGray),
                       ]),
                 ),
-                if (rightGripBoardHold.type == HoldType.pocket ||
-                    rightGripBoardHold.type == HoldType.edge)
+                if (rightGripBoardHold.holdType == HoldType.pocket ||
+                    rightGripBoardHold.holdType == HoldType.edge)
                   RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(
@@ -131,7 +131,7 @@ class BoardHoldInfo extends StatelessWidget {
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
                   ),
-                if (rightGripBoardHold.type == HoldType.sloper)
+                if (rightGripBoardHold.holdType == HoldType.sloper)
                   RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(

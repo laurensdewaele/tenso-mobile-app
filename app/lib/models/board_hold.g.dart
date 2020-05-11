@@ -18,8 +18,8 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
   Iterable<Object> serialize(Serializers serializers, BoardHold object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'type',
-      serializers.serialize(object.type,
+      'holdType',
+      serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
       'anchorLeftPercent',
       serializers.serialize(object.anchorLeftPercent,
@@ -82,8 +82,8 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.position = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'type':
-          result.type = serializers.deserialize(value,
+        case 'holdType':
+          result.holdType = serializers.deserialize(value,
               specifiedType: const FullType(HoldType)) as HoldType;
           break;
         case 'depth':
@@ -133,7 +133,7 @@ class _$BoardHold extends BoardHold {
   @override
   final int position;
   @override
-  final HoldType type;
+  final HoldType holdType;
   @override
   final double depth;
   @override
@@ -158,7 +158,7 @@ class _$BoardHold extends BoardHold {
 
   _$BoardHold._(
       {this.position,
-      this.type,
+      this.holdType,
       this.depth,
       this.supportedFingers,
       this.sloperDegrees,
@@ -169,8 +169,8 @@ class _$BoardHold extends BoardHold {
       this.widthPercent,
       this.heightPercent})
       : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'type');
+    if (holdType == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'holdType');
     }
     if (anchorLeftPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'anchorLeftPercent');
@@ -204,7 +204,7 @@ class _$BoardHold extends BoardHold {
     if (identical(other, this)) return true;
     return other is BoardHold &&
         position == other.position &&
-        type == other.type &&
+        holdType == other.holdType &&
         depth == other.depth &&
         supportedFingers == other.supportedFingers &&
         sloperDegrees == other.sloperDegrees &&
@@ -228,7 +228,7 @@ class _$BoardHold extends BoardHold {
                                 $jc(
                                     $jc(
                                         $jc($jc(0, position.hashCode),
-                                            type.hashCode),
+                                            holdType.hashCode),
                                         depth.hashCode),
                                     supportedFingers.hashCode),
                                 sloperDegrees.hashCode),
@@ -244,7 +244,7 @@ class _$BoardHold extends BoardHold {
   String toString() {
     return (newBuiltValueToStringHelper('BoardHold')
           ..add('position', position)
-          ..add('type', type)
+          ..add('holdType', holdType)
           ..add('depth', depth)
           ..add('supportedFingers', supportedFingers)
           ..add('sloperDegrees', sloperDegrees)
@@ -265,9 +265,9 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   int get position => _$this._position;
   set position(int position) => _$this._position = position;
 
-  HoldType _type;
-  HoldType get type => _$this._type;
-  set type(HoldType type) => _$this._type = type;
+  HoldType _holdType;
+  HoldType get holdType => _$this._holdType;
+  set holdType(HoldType holdType) => _$this._holdType = holdType;
 
   double _depth;
   double get depth => _$this._depth;
@@ -315,7 +315,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   BoardHoldBuilder get _$this {
     if (_$v != null) {
       _position = _$v.position;
-      _type = _$v.type;
+      _holdType = _$v.holdType;
       _depth = _$v.depth;
       _supportedFingers = _$v.supportedFingers;
       _sloperDegrees = _$v.sloperDegrees;
@@ -348,7 +348,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
     final _$result = _$v ??
         new _$BoardHold._(
             position: position,
-            type: type,
+            holdType: holdType,
             depth: depth,
             supportedFingers: supportedFingers,
             sloperDegrees: sloperDegrees,

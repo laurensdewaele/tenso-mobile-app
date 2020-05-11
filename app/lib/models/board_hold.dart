@@ -13,7 +13,7 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
 
   @nullable
   int get position;
-  HoldType get type;
+  HoldType get holdType;
   @nullable
   double get depth;
   @nullable

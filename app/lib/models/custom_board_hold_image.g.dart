@@ -24,8 +24,8 @@ class _$CustomBoardHoldImageSerializer
       Serializers serializers, CustomBoardHoldImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'type',
-      serializers.serialize(object.type,
+      'holdType',
+      serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
       'leftPercent',
       serializers.serialize(object.leftPercent,
@@ -62,8 +62,8 @@ class _$CustomBoardHoldImageSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'type':
-          result.type = serializers.deserialize(value,
+        case 'holdType':
+          result.holdType = serializers.deserialize(value,
               specifiedType: const FullType(HoldType)) as HoldType;
           break;
         case 'leftPercent':
@@ -99,7 +99,7 @@ class _$CustomBoardHoldImageSerializer
 
 class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
-  final HoldType type;
+  final HoldType holdType;
   @override
   final double leftPercent;
   @override
@@ -118,7 +118,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       (new CustomBoardHoldImageBuilder()..update(updates)).build();
 
   _$CustomBoardHoldImage._(
-      {this.type,
+      {this.holdType,
       this.leftPercent,
       this.topPercent,
       this.widthPercent,
@@ -126,8 +126,8 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       this.scale,
       this.imageAsset})
       : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'type');
+    if (holdType == null) {
+      throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'holdType');
     }
     if (leftPercent == null) {
       throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'leftPercent');
@@ -164,7 +164,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CustomBoardHoldImage &&
-        type == other.type &&
+        holdType == other.holdType &&
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
         widthPercent == other.widthPercent &&
@@ -179,7 +179,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, type.hashCode), leftPercent.hashCode),
+                    $jc($jc($jc(0, holdType.hashCode), leftPercent.hashCode),
                         topPercent.hashCode),
                     widthPercent.hashCode),
                 heightPercent.hashCode),
@@ -190,7 +190,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CustomBoardHoldImage')
-          ..add('type', type)
+          ..add('holdType', holdType)
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
           ..add('widthPercent', widthPercent)
@@ -205,9 +205,9 @@ class CustomBoardHoldImageBuilder
     implements Builder<CustomBoardHoldImage, CustomBoardHoldImageBuilder> {
   _$CustomBoardHoldImage _$v;
 
-  HoldType _type;
-  HoldType get type => _$this._type;
-  set type(HoldType type) => _$this._type = type;
+  HoldType _holdType;
+  HoldType get holdType => _$this._holdType;
+  set holdType(HoldType holdType) => _$this._holdType = holdType;
 
   double _leftPercent;
   double get leftPercent => _$this._leftPercent;
@@ -238,7 +238,7 @@ class CustomBoardHoldImageBuilder
 
   CustomBoardHoldImageBuilder get _$this {
     if (_$v != null) {
-      _type = _$v.type;
+      _holdType = _$v.holdType;
       _leftPercent = _$v.leftPercent;
       _topPercent = _$v.topPercent;
       _widthPercent = _$v.widthPercent;
@@ -267,7 +267,7 @@ class CustomBoardHoldImageBuilder
   _$CustomBoardHoldImage build() {
     final _$result = _$v ??
         new _$CustomBoardHoldImage._(
-            type: type,
+            holdType: holdType,
             leftPercent: leftPercent,
             topPercent: topPercent,
             widthPercent: widthPercent,

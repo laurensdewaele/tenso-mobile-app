@@ -1,15 +1,13 @@
-import 'package:flutter/widgets.dart';
-
-import 'package:rxdart/rxdart.dart';
-import 'package:wakelock/wakelock.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.dart';
 import 'package:app/services/audio_player.dart';
 import 'package:app/services/navigation.dart';
-import 'package:app/view_models/execution_vm_state.dart';
 import 'package:app/view_models/execution_sequence_builder.dart';
+import 'package:app/view_models/execution_vm_state.dart';
+import 'package:flutter/widgets.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {
   AudioPlayerService _audioPlayerService;
@@ -108,11 +106,11 @@ class ExecutionViewModel {
 
       if (_isPaused == false) {
         _events.add(ExecutionEvent((b) => b
-          ..type = state.type
+          ..executionEventType = state.type
           ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
       } else {
         _events.add(ExecutionEvent((b) => b
-          ..type = ExecutionEventType.pauseTimer
+          ..executionEventType = ExecutionEventType.pauseTimer
           ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
       }
 
@@ -150,7 +148,8 @@ class ExecutionViewModel {
     _resetElapsedTimerAndAddToHistory();
     // settings _isPaused should be always be done after _resetElapsedTimerAndAddToHistory
     _isPaused = false;
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.stopEvent));
+    _events.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.stopEvent));
 
     if (_history.timeUnderTensionMs == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
@@ -165,7 +164,8 @@ class ExecutionViewModel {
   void handleReadyTap() {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.readyEvent));
+    _events.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.readyEvent));
     _nextSequence();
   }
 
@@ -173,14 +173,16 @@ class ExecutionViewModel {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
     _isPaused = true;
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.pauseEvent));
+    _events.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.pauseEvent));
     _elapsedTimer.start();
   }
 
   void handleSkipTap() {
     _resetElapsedTimerAndAddToHistory();
     _isPaused = false;
-    _events.add(ExecutionEvent((b) => b..type = ExecutionEventType.skipEvent));
+    _events.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.skipEvent));
 
     if (state.type == ExecutionEventType.hangTimer) {
       _nextSequence();
@@ -230,8 +232,8 @@ class ExecutionViewModel {
   void handleResumeTap() {
     _resetElapsedTimerAndAddToHistory();
     _isPaused = false;
-    _events
-        .add(ExecutionEvent((b) => b..type = ExecutionEventType.resumeEvent));
+    _events.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.resumeEvent));
     _elapsedTimer.start();
     _animationController.forward();
     _navigationService.pop();

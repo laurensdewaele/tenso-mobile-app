@@ -20,8 +20,8 @@ class _$ExecutionEventSerializer
   Iterable<Object> serialize(Serializers serializers, ExecutionEvent object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'type',
-      serializers.serialize(object.type,
+      'executionEventType',
+      serializers.serialize(object.executionEventType,
           specifiedType: const FullType(ExecutionEventType)),
     ];
     if (object.elapsedMs != null) {
@@ -45,8 +45,8 @@ class _$ExecutionEventSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'type':
-          result.type = serializers.deserialize(value,
+        case 'executionEventType':
+          result.executionEventType = serializers.deserialize(value,
                   specifiedType: const FullType(ExecutionEventType))
               as ExecutionEventType;
           break;
@@ -63,16 +63,17 @@ class _$ExecutionEventSerializer
 
 class _$ExecutionEvent extends ExecutionEvent {
   @override
-  final ExecutionEventType type;
+  final ExecutionEventType executionEventType;
   @override
   final int elapsedMs;
 
   factory _$ExecutionEvent([void Function(ExecutionEventBuilder) updates]) =>
       (new ExecutionEventBuilder()..update(updates)).build();
 
-  _$ExecutionEvent._({this.type, this.elapsedMs}) : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('ExecutionEvent', 'type');
+  _$ExecutionEvent._({this.executionEventType, this.elapsedMs}) : super._() {
+    if (executionEventType == null) {
+      throw new BuiltValueNullFieldError(
+          'ExecutionEvent', 'executionEventType');
     }
   }
 
@@ -88,19 +89,19 @@ class _$ExecutionEvent extends ExecutionEvent {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ExecutionEvent &&
-        type == other.type &&
+        executionEventType == other.executionEventType &&
         elapsedMs == other.elapsedMs;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, type.hashCode), elapsedMs.hashCode));
+    return $jf($jc($jc(0, executionEventType.hashCode), elapsedMs.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ExecutionEvent')
-          ..add('type', type)
+          ..add('executionEventType', executionEventType)
           ..add('elapsedMs', elapsedMs))
         .toString();
   }
@@ -110,9 +111,10 @@ class ExecutionEventBuilder
     implements Builder<ExecutionEvent, ExecutionEventBuilder> {
   _$ExecutionEvent _$v;
 
-  ExecutionEventType _type;
-  ExecutionEventType get type => _$this._type;
-  set type(ExecutionEventType type) => _$this._type = type;
+  ExecutionEventType _executionEventType;
+  ExecutionEventType get executionEventType => _$this._executionEventType;
+  set executionEventType(ExecutionEventType executionEventType) =>
+      _$this._executionEventType = executionEventType;
 
   int _elapsedMs;
   int get elapsedMs => _$this._elapsedMs;
@@ -122,7 +124,7 @@ class ExecutionEventBuilder
 
   ExecutionEventBuilder get _$this {
     if (_$v != null) {
-      _type = _$v.type;
+      _executionEventType = _$v.executionEventType;
       _elapsedMs = _$v.elapsedMs;
       _$v = null;
     }
@@ -144,8 +146,9 @@ class ExecutionEventBuilder
 
   @override
   _$ExecutionEvent build() {
-    final _$result =
-        _$v ?? new _$ExecutionEvent._(type: type, elapsedMs: elapsedMs);
+    final _$result = _$v ??
+        new _$ExecutionEvent._(
+            executionEventType: executionEventType, elapsedMs: elapsedMs);
     replace(_$result);
     return _$result;
   }

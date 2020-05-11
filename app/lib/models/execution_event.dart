@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/models/serializers.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'execution_event.g.dart';
 
@@ -13,7 +12,7 @@ abstract class ExecutionEvent
   static Serializer<ExecutionEvent> get serializer =>
       _$executionEventSerializer;
 
-  ExecutionEventType get type;
+  ExecutionEventType get executionEventType;
   @nullable
   int get elapsedMs;
 

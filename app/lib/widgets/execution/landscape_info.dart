@@ -1,9 +1,8 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
 class LandscapeInfo extends StatelessWidget {
   LandscapeInfo(
@@ -27,11 +26,11 @@ class LandscapeInfo extends StatelessWidget {
     String leftHoldInfo;
     if (leftGrip != null && leftGripBoardHold != null) {
       leftGripName = leftGrip.description;
-      if (leftGripBoardHold.type == HoldType.pocket) {
+      if (leftGripBoardHold.holdType == HoldType.pocket) {
         final String depth = leftGripBoardHold.depth.toString();
         leftHoldInfo = '$depth MM';
       } else {
-        leftHoldInfo = leftGripBoardHold.type.toString();
+        leftHoldInfo = leftGripBoardHold.holdType.toString();
       }
     }
 
@@ -39,11 +38,11 @@ class LandscapeInfo extends StatelessWidget {
     String rightHoldInfo;
     if (rightGrip != null && rightGripBoardHold != null) {
       rightGripName = rightGrip.description;
-      if (rightGripBoardHold.type == HoldType.pocket) {
+      if (rightGripBoardHold.holdType == HoldType.pocket) {
         final String depth = rightGripBoardHold.depth.toString();
         rightHoldInfo = '$depth MM';
       } else {
-        rightHoldInfo = rightGripBoardHold.type.toString();
+        rightHoldInfo = rightGripBoardHold.holdType.toString();
       }
     }
 

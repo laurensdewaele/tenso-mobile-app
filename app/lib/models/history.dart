@@ -1,11 +1,10 @@
 import 'dart:convert';
 
+import 'package:app/models/models.dart';
+import 'package:app/models/serializers.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-
-import 'package:app/models/models.dart';
-import 'package:app/models/serializers.dart';
 
 part 'history.g.dart';
 
@@ -20,7 +19,8 @@ abstract class History implements Built<History, HistoryBuilder> {
   int _calculateTimeUnderTensionMs() {
     final List<int> _times = history
         .toList()
-        .where((ExecutionEvent e) => e.type == ExecutionEventType.hangTimer)
+        .where((ExecutionEvent e) =>
+            e.executionEventType == ExecutionEventType.hangTimer)
         .map((e) => e.elapsedMs)
         .toList();
 

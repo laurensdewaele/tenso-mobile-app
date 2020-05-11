@@ -9,15 +9,17 @@ import 'package:app/widgets/custom_board/box.dart';
 import 'package:flutter/cupertino.dart';
 
 class CustomBoard extends StatelessWidget {
-  CustomBoard(
-      {Key key,
-      @required this.boxes,
-      @required this.handleBoxTap,
-      @required this.customBoardHoldImages,
-      @required this.boardHolds,
-      this.handleCustomBoardHoldImageTap})
-      : super(key: key);
+  CustomBoard({
+    Key key,
+    @required this.boxes,
+    @required this.handleBoxTap,
+    @required this.customBoardHoldImages,
+    @required this.boardHolds,
+    @required this.handleCustomBoardHoldImageTap,
+    @required this.selectedBoardHoldImage,
+  }) : super(key: key);
 
+  final CustomBoardHoldImage selectedBoardHoldImage;
   final List<BoardHold> boardHolds;
   final List<BoxState> boxes;
   final void Function(CustomBoardHoldImage customBoardHoldImage)
@@ -27,7 +29,6 @@ class CustomBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<CustomBoardHoldImage> _imageBorders = customBoardHoldImages;
     final List<CustomBoardHoldImage> _imageGestureDetectors =
         customBoardHoldImages;
 
@@ -71,32 +72,25 @@ class CustomBoard extends StatelessWidget {
                 ],
               ),
             ),
-            ..._imageBorders.map((CustomBoardHoldImage image) {
-              final Rect _rect = image.type == HoldType.pinchBlock ||
-                      image.type == HoldType.jug
-                  ? Rect.fromLTWH(
-                      image.leftPercent * _boardSize.width,
-                      (image.topPercent - .02) * _boardSize.height,
-                      image.widthPercent * _boardSize.width,
-                      (image.heightPercent + .02) * _boardSize.height)
-                  : image.getRect(
-                      boardWidth: _boardSize.width,
-                      boardHeight: _boardSize.height);
-              return Positioned.fromRect(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: styles.Colors.darkGray, width: 1),
+            if (selectedBoardHoldImage != null)
+              Positioned.fromRect(
+                  child: Transform.scale(
+                    scale: selectedBoardHoldImage.scale,
+                    child: Image.asset(
+                      selectedBoardHoldImage.imageAsset,
+                      color: styles.Colors.primary,
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  rect: _rect);
-            }),
+                  rect: selectedBoardHoldImage.getRect(
+                      boardWidth: _boardSize.width,
+                      boardHeight: _boardSize.height)),
             ..._imageGestureDetectors.map((CustomBoardHoldImage image) {
               Rect _rect = image.getRect(
                   boardHeight: _boardSize.height, boardWidth: _boardSize.width);
 
-              if (image.type == HoldType.pinchBlock ||
-                  image.type == HoldType.jug) {
+              if (image.holdType == HoldType.pinchBlock ||
+                  image.holdType == HoldType.jug) {
                 _rect = Rect.fromLTWH(
                     image.leftPercent * _boardSize.width,
                     (image.topPercent - .02) * _boardSize.height,
@@ -104,7 +98,7 @@ class CustomBoard extends StatelessWidget {
                     (image.heightPercent + .02) * _boardSize.height);
               }
 
-              if (image.type == HoldType.edge) {
+              if (image.holdType == HoldType.edge) {
                 _rect = Rect.fromLTWH(
                     image.leftPercent * _boardSize.width,
                     (image.topPercent - .09) * _boardSize.height,
@@ -112,7 +106,7 @@ class CustomBoard extends StatelessWidget {
                     (image.heightPercent + .13) * _boardSize.height);
               }
 
-              if (image.type == HoldType.pocket) {
+              if (image.holdType == HoldType.pocket) {
                 _rect = Rect.fromLTWH(
                     image.leftPercent * _boardSize.width,
                     (image.topPercent - .04) * _boardSize.height,
@@ -121,9 +115,7 @@ class CustomBoard extends StatelessWidget {
               }
               return Positioned.fromRect(
                   child: GestureDetector(
-                    onTap: () {
-                      print('tapped');
-                    },
+                    onTap: () => handleCustomBoardHoldImageTap(image),
                     child: Container(
                       decoration:
                           BoxDecoration(color: styles.Colors.translucent),
