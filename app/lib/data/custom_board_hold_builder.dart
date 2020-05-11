@@ -201,17 +201,17 @@ class CustomBoardBuilder {
         _images.add(CustomBoardHoldImage((b) => b
           ..scale = 1
           ..heightPercent = _pocketHeightPercent
-          ..widthPercent = _widthPercent1 == 1
+          ..widthPercent = widthFactor == 1
               ? _widthPercentPocketFingers[supportedFingers]
               : _widthPercents[widthFactor]
-          ..leftPercent = _widthPercent1 == 1
+          ..leftPercent = widthFactor == 1
               ? _leftPercents[column] +
                   ((_widthPercent1 -
                           _widthPercentPocketFingers[supportedFingers]) /
                       2)
               : _leftPercents[column]
           ..topPercent = _topPercents[row] - _pocketEdgeDifference
-          ..imageAsset = _widthPercent1 == 1
+          ..imageAsset = widthFactor == 1
               ? 'assets/images/custom_board/pocket_1_${supportedFingers}f.png'
               : 'assets/images/custom_board/pocket_$widthFactor.png'));
         List.generate(widthFactor, (i) {
