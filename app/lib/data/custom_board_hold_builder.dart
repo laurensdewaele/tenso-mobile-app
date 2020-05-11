@@ -225,7 +225,9 @@ class CustomBoardBuilder {
             ..supportedFingers = supportedFingers
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
-            ..anchorTopPercent = _topPercents[row] + _pocketHeightPercent));
+            ..anchorTopPercent = _topPercents[row] -
+                _pocketEdgeDifference +
+                _pocketHeightPercent));
         });
         break;
       case HoldType.edge:
