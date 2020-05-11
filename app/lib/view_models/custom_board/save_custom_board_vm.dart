@@ -47,7 +47,6 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
             ? _supportedFingers.reduce(min)
             : 5;
 
-    Grips.matchSupportedFingersL(_lowestSupportedFingers);
     _leftGrip = Grips.matchSupportedFingersL(_lowestSupportedFingers);
     _rightGrip = Grips.matchSupportedFingersR(_lowestSupportedFingers);
     notifyListeners();
