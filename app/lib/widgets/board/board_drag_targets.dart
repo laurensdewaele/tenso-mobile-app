@@ -29,6 +29,7 @@ class BoardDragTargets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      overflow: Overflow.visible,
       children: <Widget>[
         HangBoard(
           boardSize: boardSize,

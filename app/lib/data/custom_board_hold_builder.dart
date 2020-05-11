@@ -150,8 +150,7 @@ class CustomBoardBuilder {
                 _pinchBlockJugHeightPercent + _onePixelHeightPercent
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
-            ..anchorTopPercent =
-                _pinchBlockJugTopPercent - _pinchBlockJugHeightPercent));
+            ..anchorTopPercent = _pinchBlockJugTopPercent));
         });
         break;
       case HoldType.jug:
@@ -172,8 +171,7 @@ class CustomBoardBuilder {
                 _pinchBlockJugHeightPercent + _onePixelHeightPercent
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
-            ..anchorTopPercent =
-                _pinchBlockJugTopPercent - _pinchBlockJugHeightPercent));
+            ..anchorTopPercent = _pinchBlockJugTopPercent));
         });
         break;
       case HoldType.sloper:
@@ -194,7 +192,7 @@ class CustomBoardBuilder {
             ..sloperDegrees = sloperDegrees
             ..anchorLeftPercent =
                 _leftPercents[column + i] + _widthPercents[1] / 2
-            ..anchorTopPercent = 0));
+            ..anchorTopPercent = _sloperHeightPercent / 3));
         });
         break;
       case HoldType.pocket:
