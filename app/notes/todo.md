@@ -2,11 +2,11 @@
 
 ### Custom board
 - Selection and deleting / editing a placed boardHoldImage
-  => We need to pass the board_hold along with the board_hold_image somehow.
+  => We need to pass the board_hold along with the board_hold_image.
   => We need access to the values and access to the corresponding underlying selection_boxes
   in order to edit or delete.
 - Save page
-- Test custom board on different screen sizes!
+- Test custom board on different screen sizes! 
 
 ### Others
 - Add board selection. Only beastmaker1000 atm.
