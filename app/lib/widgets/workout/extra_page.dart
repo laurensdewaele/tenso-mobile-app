@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/extra_page_vm.dart';
-import 'package:app/view_models/workout/workout_vm.dart';
+import 'package:app/view_models/workout/extra_page.vm.dart';
+import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
@@ -12,6 +10,7 @@ import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/workout/label_picker.dart';
 import 'package:app/widgets/workout/navigation_indicator.dart';
+import 'package:flutter/cupertino.dart';
 
 class ExtraPage extends StatefulWidget {
   ExtraPage({Key key, this.workoutViewModel, this.workoutNavigator})
@@ -90,10 +89,9 @@ class _ExtraPageState extends State<ExtraPage> {
             primaryColor: _viewModel.state.primaryColor,
             activeIndex: _viewModel.state.totalPages - 1,
             count: _viewModel.state.totalPages,
-            handleBackNavigation:
-            widget.workoutNavigator.handleBackRequest,
+            handleBackNavigation: widget.workoutNavigator.handleBackRequest,
             handleForwardNavigation:
-            widget.workoutNavigator.handleForwardRequest,
+                widget.workoutNavigator.handleForwardRequest,
           )
         ],
       ),

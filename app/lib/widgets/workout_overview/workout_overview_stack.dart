@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -15,6 +13,7 @@ import 'package:app/widgets/workout_overview/workout_overview_card.dart';
 import 'package:app/widgets/workout_overview/workout_overview_delete_action.dart';
 import 'package:app/widgets/workout_overview/workout_overview_edit_action.dart';
 import 'package:app/widgets/workout_overview/workout_overview_view_action.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 enum _SlideDirection { left, right }
 

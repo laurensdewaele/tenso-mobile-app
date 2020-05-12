@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/calendar_vm.dart';
+import 'package:app/view_models/calendar.vm.dart';
 import 'package:app/widgets/calendar/constants.dart';
+import 'package:flutter/cupertino.dart';
 
 class CalendarDatePicker extends StatelessWidget {
   CalendarDatePicker(

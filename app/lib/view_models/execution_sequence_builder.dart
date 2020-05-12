@@ -1,10 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:app/models/models.dart';
-import 'package:app/state/settings_state.dart';
+import 'package:app/state/settings.state.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/foundation.dart';
 
 abstract class _ExecutionTitles {
   static const String preparation = 'preparation';

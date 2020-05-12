@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/color_square.dart';
-import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/workout_overview/display_duration_seconds.dart';
 import 'package:app/widgets/workout_overview/expanded_content_tile.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class WorkoutExpandedContent extends StatelessWidget {
   WorkoutExpandedContent(

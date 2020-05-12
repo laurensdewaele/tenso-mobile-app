@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/workout.dart';
-import 'package:app/view_models/calendar_vm.dart';
-import 'package:app/view_models/workout/workout_vm.dart';
+import 'package:app/screens/workout.screen.dart';
+import 'package:app/view_models/calendar.vm.dart';
+import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
 import 'package:app/widgets/calendar/date_picker.dart';
 import 'package:app/widgets/calendar/header.dart';
 import 'package:app/widgets/calendar/table.dart';
 import 'package:app/widgets/modal_popup.dart';
+import 'package:flutter/cupertino.dart';
 
 class Calendar extends StatefulWidget {
   Calendar({Key key}) : super(key: key);

@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/grip_image.dart';
+import 'package:flutter/cupertino.dart';
 
 final GlobalKey _kGripPickerContainerKey = GlobalKey();
 final double _kGripPickerHeight = 100;

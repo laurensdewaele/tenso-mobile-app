@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/constants.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
+import 'package:flutter/cupertino.dart';
 
 class CompletedWorkoutsOverview extends StatelessWidget {
   CompletedWorkoutsOverview(

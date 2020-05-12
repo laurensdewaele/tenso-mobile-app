@@ -1,5 +1,5 @@
 import 'package:app/models/models.dart';
-import 'package:app/services/error.dart';
+import 'package:app/services/error.service.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board/hang_board.dart';
 import 'package:flutter/cupertino.dart';

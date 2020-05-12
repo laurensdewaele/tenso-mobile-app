@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app/services/toast.dart';
+import 'package:app/services/toast.service.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';

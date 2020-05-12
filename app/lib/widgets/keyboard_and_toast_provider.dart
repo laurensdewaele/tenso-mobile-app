@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
-import 'package:app/services/keyboard.dart';
+import 'package:app/services/keyboard.service.dart';
 import 'package:app/widgets/toast.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class KeyboardAndToastProvider extends StatelessWidget {
   KeyboardAndToastProvider({Key key, @required this.child}) : super(key: key);

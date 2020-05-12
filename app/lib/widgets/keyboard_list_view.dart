@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:app/services/keyboard.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
-
-import 'package:app/services/keyboard.dart';
 
 // KeyboardAndToastProvider has to be on top of the widget tree.
 class KeyboardListView extends StatefulWidget {

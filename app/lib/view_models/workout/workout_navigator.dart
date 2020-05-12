@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:rxdart/rxdart.dart';
-
+import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/view_models/workout/workout_navigator_state.dart';
-import 'package:app/view_models/workout/workout_vm.dart';
+import 'package:rxdart/rxdart.dart';
 
 WorkoutNavigatorPage _initialNavigatorPage = WorkoutNavigatorPage(
   page: WorkoutPages.generalPage,

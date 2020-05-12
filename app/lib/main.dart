@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/app.dart';
-import 'package:app/services/error.dart';
-import 'package:app/state/completed_workouts_state.dart';
-import 'package:app/state/settings_state.dart';
-import 'package:app/state/user_state.dart';
-import 'package:app/state/workouts_state.dart';
+import 'package:app/services/error.service.dart';
+import 'package:app/state/completed_workouts.state.dart';
+import 'package:app/state/settings.state.dart';
+import 'package:app/state/user.state.dart';
+import 'package:app/state/workouts.state.dart';
+import 'package:flutter/cupertino.dart';
 
 Future<Null> main() async {
   ErrorService _errorService = ErrorService();

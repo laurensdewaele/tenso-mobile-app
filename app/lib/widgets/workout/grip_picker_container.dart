@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
-
-import 'package:app/data/grips.dart';
+import 'package:app/data/grips.data.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/radio_button.dart';
 import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/workout/grip_picker.dart';
+import 'package:flutter/cupertino.dart';
 
 class GripPickerContainer extends StatefulWidget {
   GripPickerContainer({

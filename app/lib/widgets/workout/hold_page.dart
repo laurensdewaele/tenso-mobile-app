@@ -1,8 +1,8 @@
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/hold_page_vm.dart';
-import 'package:app/view_models/workout/hold_page_vm_state.dart';
+import 'package:app/view_models/workout/hold_page.vm.dart';
+import 'package:app/view_models/workout/hold_page_state.vm.dart';
+import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
-import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/board/board_hold_info.dart';
 import 'package:app/widgets/board/board_hold_picker.dart';
 import 'package:app/widgets/divider.dart';

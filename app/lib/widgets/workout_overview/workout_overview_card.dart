@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/execution.dart';
+import 'package:app/screens/execution.screen.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/workout_overview/workout_overview_card_expanded.dart';
+import 'package:flutter/cupertino.dart';
 
 class WorkoutOverviewCard extends StatefulWidget {
   WorkoutOverviewCard({

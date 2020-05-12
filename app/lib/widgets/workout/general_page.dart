@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/general_page_vm.dart';
+import 'package:app/view_models/workout/general_page.vm.dart';
+import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/view_models/workout/workout_navigator.dart';
-import 'package:app/view_models/workout/workout_vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
@@ -12,6 +10,7 @@ import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/workout/card_container.dart';
 import 'package:app/widgets/workout/navigation_indicator.dart';
+import 'package:flutter/cupertino.dart';
 
 class GeneralPage extends StatefulWidget {
   GeneralPage({Key key, this.workoutNavigator, this.workoutViewModel})

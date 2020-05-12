@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-
-import 'package:app/services/keyboard.dart';
+import 'package:app/services/keyboard.service.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
 // Do not forget to specify <T>
 // The Widget builder depends on it
