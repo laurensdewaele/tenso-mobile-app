@@ -1,5 +1,4 @@
 # TODO
-
 ### Custom board
 - Selection and deleting / editing a placed boardHoldImage
   => We need to pass the board_hold along with the board_hold_image.
