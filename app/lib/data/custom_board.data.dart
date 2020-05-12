@@ -1,6 +1,7 @@
 import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 const int kRows = 4;
@@ -88,6 +89,41 @@ const Map<int, double> _topPercents = {
 
 const double _onePixelHeightPercent = 0.005;
 const double _onePixelWidthPercent = 0.002;
+
+Rect getGestureDetectorRect({CustomBoardHoldImage image, Size boardSize}) {
+  Rect _rect;
+
+  if (image.holdType == HoldType.pinchBlock || image.holdType == HoldType.jug) {
+    _rect = Rect.fromLTWH(
+        image.leftPercent * boardSize.width,
+        (image.topPercent - .02) * boardSize.height,
+        image.widthPercent * boardSize.width,
+        (image.heightPercent + .02) * boardSize.height);
+  }
+
+  if (image.holdType == HoldType.sloper) {
+    _rect = image.getRect(
+        boardHeight: boardSize.height, boardWidth: boardSize.width);
+  }
+
+  if (image.holdType == HoldType.edge) {
+    _rect = Rect.fromLTWH(
+        image.leftPercent * boardSize.width,
+        (image.topPercent - .09) * boardSize.height,
+        image.widthPercent * boardSize.width,
+        (image.heightPercent + .13) * boardSize.height);
+  }
+
+  if (image.holdType == HoldType.pocket) {
+    _rect = Rect.fromLTWH(
+        image.leftPercent * boardSize.width,
+        (image.topPercent - .04) * boardSize.height,
+        image.widthPercent * boardSize.width,
+        (image.heightPercent + .08) * boardSize.height);
+  }
+
+  return _rect;
+}
 
 class CustomBoardBuilder {
   CustomBoardBuilder() {

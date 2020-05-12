@@ -1,11 +1,12 @@
 import 'package:app/data/custom_board.data.dart' as customBoard;
+import 'package:app/data/custom_board.data.dart';
 import 'package:app/models/board_hold.model.dart';
 import 'package:app/models/custom_board_hold_image.model.dart';
-import 'package:app/models/hold_type.model.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.vm.dart';
 import 'package:app/widgets/board/hang_board.dart';
 import 'package:app/widgets/custom_board/box.dart';
+import 'package:app/widgets/custom_board/positioned_image.dart';
 import 'package:flutter/cupertino.dart';
 
 class CustomBoard extends StatelessWidget {
@@ -73,46 +74,12 @@ class CustomBoard extends StatelessWidget {
               ),
             ),
             if (selectedBoardHoldImage != null)
-              Positioned.fromRect(
-                  child: Transform.scale(
-                    scale: selectedBoardHoldImage.scale,
-                    child: Image.asset(
-                      selectedBoardHoldImage.imageAsset,
-                      color: styles.Colors.primary,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  rect: selectedBoardHoldImage.getRect(
-                      boardWidth: _boardSize.width,
-                      boardHeight: _boardSize.height)),
+              PositionedImage(
+                  customBoardHoldImage: selectedBoardHoldImage,
+                  boardSize: _boardSize),
+            // The gestureDetectors cannot be in the HangBoard widget.
+            // This is because we paint the selection boxes over them.
             ..._imageGestureDetectors.map((CustomBoardHoldImage image) {
-              Rect _rect = image.getRect(
-                  boardHeight: _boardSize.height, boardWidth: _boardSize.width);
-
-              if (image.holdType == HoldType.pinchBlock ||
-                  image.holdType == HoldType.jug) {
-                _rect = Rect.fromLTWH(
-                    image.leftPercent * _boardSize.width,
-                    (image.topPercent - .02) * _boardSize.height,
-                    image.widthPercent * _boardSize.width,
-                    (image.heightPercent + .02) * _boardSize.height);
-              }
-
-              if (image.holdType == HoldType.edge) {
-                _rect = Rect.fromLTWH(
-                    image.leftPercent * _boardSize.width,
-                    (image.topPercent - .09) * _boardSize.height,
-                    image.widthPercent * _boardSize.width,
-                    (image.heightPercent + .13) * _boardSize.height);
-              }
-
-              if (image.holdType == HoldType.pocket) {
-                _rect = Rect.fromLTWH(
-                    image.leftPercent * _boardSize.width,
-                    (image.topPercent - .04) * _boardSize.height,
-                    image.widthPercent * _boardSize.width,
-                    (image.heightPercent + .08) * _boardSize.height);
-              }
               return Positioned.fromRect(
                   child: GestureDetector(
                     onTap: () => handleCustomBoardHoldImageTap(image),
@@ -121,7 +88,8 @@ class CustomBoard extends StatelessWidget {
                           BoxDecoration(color: styles.Colors.translucent),
                     ),
                   ),
-                  rect: _rect);
+                  rect: getGestureDetectorRect(
+                      boardSize: _boardSize, image: image));
             })
           ],
         );

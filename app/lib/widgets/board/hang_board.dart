@@ -1,5 +1,6 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/custom_board/positioned_image.dart';
 import 'package:flutter/cupertino.dart';
 
 class HangBoard extends StatelessWidget {
@@ -24,17 +25,8 @@ class HangBoard extends StatelessWidget {
             child: Image.asset(boardImageAsset)),
         if (customBoardHoldImages != null && customBoardHoldImages.length > 0)
           ...customBoardHoldImages.map((CustomBoardHoldImage image) =>
-              Positioned.fromRect(
-                  child: Transform.scale(
-                    scale: image.scale,
-                    child: Image.asset(
-                      image.imageAsset,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  rect: image.getRect(
-                      boardWidth: boardSize.width,
-                      boardHeight: boardSize.height))),
+              PositionedImage(
+                  customBoardHoldImage: image, boardSize: boardSize)),
       ],
     );
   }
