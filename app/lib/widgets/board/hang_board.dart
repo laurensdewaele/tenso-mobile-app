@@ -26,7 +26,9 @@ class HangBoard extends StatelessWidget {
         if (customBoardHoldImages != null && customBoardHoldImages.length > 0)
           ...customBoardHoldImages.map((CustomBoardHoldImage image) =>
               PositionedImage(
-                  customBoardHoldImage: image, boardSize: boardSize)),
+                  isSelected: false,
+                  customBoardHoldImage: image,
+                  boardSize: boardSize)),
       ],
     );
   }

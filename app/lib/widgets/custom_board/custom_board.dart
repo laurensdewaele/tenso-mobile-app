@@ -75,6 +75,7 @@ class CustomBoard extends StatelessWidget {
             ),
             if (selectedBoardHoldImage != null)
               PositionedImage(
+                  isSelected: true,
                   customBoardHoldImage: selectedBoardHoldImage,
                   boardSize: _boardSize),
             // The gestureDetectors cannot be in the HangBoard widget.
