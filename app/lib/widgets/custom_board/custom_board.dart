@@ -30,9 +30,6 @@ class CustomBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<CustomBoardHoldImage> _imageGestureDetectors =
-        customBoardHoldImages;
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final Size _boardSize = Size(constraints.maxWidth,
@@ -80,7 +77,7 @@ class CustomBoard extends StatelessWidget {
                   boardSize: _boardSize),
             // The gestureDetectors cannot be in the HangBoard widget.
             // This is because we paint the selection boxes over them.
-            ..._imageGestureDetectors.map((CustomBoardHoldImage image) {
+            ...customBoardHoldImages.map((CustomBoardHoldImage image) {
               return Positioned.fromRect(
                   child: GestureDetector(
                     onTap: () => handleCustomBoardHoldImageTap(image),
