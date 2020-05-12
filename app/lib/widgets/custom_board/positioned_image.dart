@@ -2,8 +2,8 @@ import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 
-class PositionedImage extends StatelessWidget {
-  const PositionedImage({
+class PositionedCustomBoardHoldImage extends StatelessWidget {
+  const PositionedCustomBoardHoldImage({
     @required this.customBoardHoldImage,
     @required this.boardSize,
     @required this.isSelected,

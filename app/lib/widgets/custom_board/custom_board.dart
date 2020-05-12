@@ -74,7 +74,7 @@ class CustomBoard extends StatelessWidget {
               ),
             ),
             if (selectedBoardHoldImage != null)
-              PositionedImage(
+              PositionedCustomBoardHoldImage(
                   isSelected: true,
                   customBoardHoldImage: selectedBoardHoldImage,
                   boardSize: _boardSize),

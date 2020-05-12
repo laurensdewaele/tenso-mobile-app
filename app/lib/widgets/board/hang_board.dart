@@ -25,7 +25,7 @@ class HangBoard extends StatelessWidget {
             child: Image.asset(boardImageAsset)),
         if (customBoardHoldImages != null && customBoardHoldImages.length > 0)
           ...customBoardHoldImages.map((CustomBoardHoldImage image) =>
-              PositionedImage(
+              PositionedCustomBoardHoldImage(
                   isSelected: false,
                   customBoardHoldImage: image,
                   boardSize: boardSize)),

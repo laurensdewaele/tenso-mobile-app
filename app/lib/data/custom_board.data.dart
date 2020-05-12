@@ -1,4 +1,3 @@
-import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
