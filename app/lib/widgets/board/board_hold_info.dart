@@ -28,17 +28,16 @@ class BoardHoldInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                if (leftGripBoardHold.position != null)
-                  RichText(
-                    text: TextSpan(
-                        text: 'hold: ',
-                        style: styles.Staatliches.xsBlack,
-                        children: [
-                          TextSpan(
-                              text: leftGripBoardHold.position.toString(),
-                              style: styles.Lato.xsGray),
-                        ]),
-                  ),
+                RichText(
+                  text: TextSpan(
+                      text: 'hold: ',
+                      style: styles.Staatliches.xsBlack,
+                      children: [
+                        TextSpan(
+                            text: leftGripBoardHold.position.toString(),
+                            style: styles.Lato.xsGray),
+                      ]),
+                ),
                 RichText(
                   text: TextSpan(
                       text: 'type: ',

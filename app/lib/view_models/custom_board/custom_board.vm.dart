@@ -164,6 +164,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     final _widthFactor = selectedBoxes.length;
     final _row = selectedBoxes.first.row;
     final _column = selectedBoxes.first.column;
+    final _positions = selectedBoxes.map((box) => box.index + 1).toList();
     _customBoardBuilder.addBoardHoldAndImage(
         row: _row,
         column: _column,
@@ -171,7 +172,8 @@ class CustomBoardViewModel extends ChangeNotifier {
         type: type,
         depth: depth,
         supportedFingers: supportedFingers,
-        sloperDegrees: sloperDegrees);
+        sloperDegrees: sloperDegrees,
+        positions: _positions);
     _customBoardHoldImages = _customBoardBuilder.customBoardHoldImages;
     _boardHolds = _customBoardBuilder.boardHolds;
   }
