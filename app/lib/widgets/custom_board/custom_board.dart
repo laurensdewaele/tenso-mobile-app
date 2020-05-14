@@ -1,7 +1,5 @@
 import 'package:app/data/custom_board.data.dart' as customBoard;
-import 'package:app/data/custom_board.data.dart';
-import 'package:app/models/board_hold.model.dart';
-import 'package:app/models/custom_board_hold_image.model.dart';
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.vm.dart';
 import 'package:app/widgets/board/hang_board.dart';
@@ -88,7 +86,7 @@ class CustomBoard extends StatelessWidget {
                           BoxDecoration(color: styles.Colors.translucent),
                     ),
                   ),
-                  rect: getGestureDetectorRect(
+                  rect: _getGestureDetectorRect(
                       boardSize: _boardSize,
                       customBoardHoldImage: customBoardHoldImage));
             })
@@ -97,4 +95,41 @@ class CustomBoard extends StatelessWidget {
       },
     );
   }
+}
+
+Rect _getGestureDetectorRect(
+    {CustomBoardHoldImage customBoardHoldImage, Size boardSize}) {
+  Rect _rect;
+
+  if (customBoardHoldImage.holdType == HoldType.pinchBlock ||
+      customBoardHoldImage.holdType == HoldType.jug) {
+    _rect = Rect.fromLTWH(
+        customBoardHoldImage.leftPercent * boardSize.width,
+        (customBoardHoldImage.topPercent - .02) * boardSize.height,
+        customBoardHoldImage.widthPercent * boardSize.width,
+        (customBoardHoldImage.heightPercent + .02) * boardSize.height);
+  }
+
+  if (customBoardHoldImage.holdType == HoldType.sloper) {
+    _rect = customBoardHoldImage.getRect(
+        boardHeight: boardSize.height, boardWidth: boardSize.width);
+  }
+
+  if (customBoardHoldImage.holdType == HoldType.edge) {
+    _rect = Rect.fromLTWH(
+        customBoardHoldImage.leftPercent * boardSize.width,
+        (customBoardHoldImage.topPercent - .09) * boardSize.height,
+        customBoardHoldImage.widthPercent * boardSize.width,
+        (customBoardHoldImage.heightPercent + .13) * boardSize.height);
+  }
+
+  if (customBoardHoldImage.holdType == HoldType.pocket) {
+    _rect = Rect.fromLTWH(
+        customBoardHoldImage.leftPercent * boardSize.width,
+        (customBoardHoldImage.topPercent - .04) * boardSize.height,
+        customBoardHoldImage.widthPercent * boardSize.width,
+        (customBoardHoldImage.heightPercent + .08) * boardSize.height);
+  }
+
+  return _rect;
 }

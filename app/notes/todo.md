@@ -1,8 +1,24 @@
 # TODO
 ### Custom board
 - Get rid of builder, put it in vm
+- Refactor screen to have back swipe as standard.                                           
 - Close menu drawer when clicking on box or image.
 - Save page
+
+//    _board = Board((b) => b
+//      ..id = Uuid().v4()
+//      ..custom = true
+//      ..model = ''
+//      ..imageAsset = 'assets/images/custom_board/custom_board.png'
+//      ..aspectRatio = 3
+//      ..width = 2555
+//      ..height = 850
+//      ..handToBoardHeightRatio = 1.2
+//      ..boardHolds = null
+//      ..customBoardHoldImages = null
+//      ..defaultLeftGripHold = null
+//      ..defaultRightGripHold = null);
+
 - Test custom board on different screen sizes! 
 - Replace GridView in custom_board and make it pixel perfect without scrolling.
 

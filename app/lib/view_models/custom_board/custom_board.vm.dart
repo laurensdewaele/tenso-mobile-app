@@ -37,7 +37,6 @@ class BoxState {
 
 class CustomBoardViewModel extends ChangeNotifier {
   ToastService _toastService;
-  CustomBoardBuilder _customBoardBuilder;
 
   List<BoxState> _boxes;
   List<BoxState> get boxes => _boxes;
@@ -60,7 +59,6 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   CustomBoardViewModel() {
     _toastService = ToastService();
-    _customBoardBuilder = CustomBoardBuilder();
     _generateBoxes();
     _customBoardHoldImages = [];
     _boardHolds = [];
@@ -170,7 +168,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     final _row = selectedBoxes.first.row;
     final _column = selectedBoxes.first.column;
     final _positions = selectedBoxes.map((box) => box.index + 1).toList();
-    _customBoardBuilder.addBoardHoldAndImage(
+    final _CustomBoardHolds _customBoardHolds = _getCustomBoardHolds(
         row: _row,
         column: _column,
         widthFactor: _widthFactor,
@@ -179,8 +177,8 @@ class CustomBoardViewModel extends ChangeNotifier {
         supportedFingers: supportedFingers,
         sloperDegrees: sloperDegrees,
         positions: _positions);
-    _customBoardHoldImages = _customBoardBuilder.customBoardHoldImages;
-    _boardHolds = _customBoardBuilder.boardHolds;
+    _customBoardHoldImages.add(_customBoardHolds.customBoardHoldImage);
+    _boardHolds.addAll(_customBoardHolds.boardHolds);
   }
 
   void _hideSelectedBoxesCloseModalAndNotify() {
@@ -287,4 +285,167 @@ class CustomBoardViewModel extends ChangeNotifier {
     editDeleteModalOpen = false;
     notifyListeners();
   }
+}
+
+class _CustomBoardHolds {
+  const _CustomBoardHolds({
+    @required this.customBoardHoldImage,
+    @required this.boardHolds,
+  });
+
+  final CustomBoardHoldImage customBoardHoldImage;
+  final List<BoardHold> boardHolds;
+}
+
+_CustomBoardHolds _getCustomBoardHolds({
+  @required int row,
+  @required int column,
+  @required int widthFactor,
+  @required HoldType type,
+  @required List<int> positions,
+  double sloperDegrees,
+  double depth,
+  int supportedFingers,
+}) {
+  CustomBoardHoldImage _customBoardHoldImage;
+  List<BoardHold> _boardHolds = [];
+
+  switch (type) {
+    case HoldType.pinchBlock:
+      _customBoardHoldImage = CustomBoardHoldImage((b) => b
+        ..positions = positions
+        ..holdType = HoldType.pinchBlock
+        ..scale = kPinchBlockJugScale
+        ..heightPercent = kPinchBlockJugHeightPercent
+        ..widthPercent = kWidthPercents[widthFactor]
+        ..leftPercent = kLeftPercents[column]
+        ..topPercent = kPinchBlockJugTopPercent
+        ..imageAsset =
+            'assets/images/custom_board/pinch_block_$widthFactor.png');
+      List.generate(widthFactor, (i) {
+        _boardHolds.add(BoardHold((b) => b
+          ..position = positions[i]
+          ..holdType = HoldType.pinchBlock
+          ..topPercent = kPinchBlockJugTopPercent - kOnePixelHeightPercent * 2
+          ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
+          ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
+          ..heightPercent = kPinchBlockJugHeightPercent + kOnePixelHeightPercent
+          ..anchorLeftPercent =
+              kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorTopPercent = kPinchBlockJugTopPercent));
+      });
+      break;
+    case HoldType.jug:
+      _customBoardHoldImage = CustomBoardHoldImage((b) => b
+        ..positions = positions
+        ..holdType = HoldType.jug
+        ..scale = kPinchBlockJugScale
+        ..heightPercent = kPinchBlockJugHeightPercent
+        ..widthPercent = kWidthPercents[widthFactor]
+        ..leftPercent = kLeftPercents[column]
+        ..topPercent = kPinchBlockJugTopPercent
+        ..imageAsset = 'assets/images/custom_board/jug_$widthFactor.png');
+      List.generate(widthFactor, (i) {
+        _boardHolds.add(BoardHold((b) => b
+          ..position = positions[i]
+          ..holdType = HoldType.jug
+          ..topPercent = kPinchBlockJugTopPercent - kOnePixelHeightPercent * 2
+          ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
+          ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
+          ..heightPercent = kPinchBlockJugHeightPercent + kOnePixelHeightPercent
+          ..anchorLeftPercent =
+              kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorTopPercent = kPinchBlockJugTopPercent));
+      });
+      break;
+    case HoldType.sloper:
+      _customBoardHoldImage = CustomBoardHoldImage((b) => b
+        ..positions = positions
+        ..holdType = HoldType.sloper
+        ..scale = 1
+        ..heightPercent = kSloperHeightPercent
+        ..widthPercent = kWidthPercents[widthFactor]
+        ..leftPercent = kLeftPercents[column]
+        ..topPercent = 0
+        ..imageAsset = 'assets/images/custom_board/sloper_$widthFactor.png');
+      List.generate(widthFactor, (i) {
+        _boardHolds.add(BoardHold((b) => b
+          ..position = positions[i]
+          ..holdType = HoldType.sloper
+          ..topPercent = 0 - kOnePixelHeightPercent
+          ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
+          ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
+          ..heightPercent = kSloperHeightPercent + kOnePixelHeightPercent * 2
+          ..sloperDegrees = sloperDegrees
+          ..anchorLeftPercent =
+              kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorTopPercent = kSloperHeightPercent / 3));
+      });
+      break;
+    case HoldType.pocket:
+      _customBoardHoldImage = CustomBoardHoldImage((b) => b
+        ..positions = positions
+        ..holdType = HoldType.pocket
+        ..scale = 1
+        ..heightPercent = kPocketHeightPercent
+        ..widthPercent = widthFactor == 1
+            ? kWidthPercentPocketFingers[supportedFingers]
+            : kWidthPercents[widthFactor]
+        ..leftPercent = widthFactor == 1
+            ? kLeftPercents[column] +
+                ((kWidthPercent1 -
+                        kWidthPercentPocketFingers[supportedFingers]) /
+                    2)
+            : kLeftPercents[column]
+        ..topPercent = kTopPercents[row] - kPocketEdgeDifference
+        ..imageAsset = widthFactor == 1
+            ? 'assets/images/custom_board/pocket_1_${supportedFingers}f.png'
+            : 'assets/images/custom_board/pocket_$widthFactor.png');
+      List.generate(widthFactor, (i) {
+        _boardHolds.add(BoardHold((b) => b
+          ..position = positions[i]
+          ..holdType = HoldType.pocket
+          ..topPercent =
+              kTopPercents[row] - kPocketEdgeDifference - kOnePixelHeightPercent
+          ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
+          ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
+          ..heightPercent = kPocketHeightPercent + kOnePixelHeightPercent * 2
+          ..depth = depth
+          ..supportedFingers = supportedFingers
+          ..anchorLeftPercent =
+              kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorTopPercent = kTopPercents[row] -
+              kPocketEdgeDifference +
+              kPocketHeightPercent));
+      });
+      break;
+    case HoldType.edge:
+      _customBoardHoldImage = CustomBoardHoldImage((b) => b
+        ..positions = positions
+        ..holdType = HoldType.edge
+        ..scale = kEdgeScale
+        ..heightPercent = kEdgeHeightPercent
+        ..widthPercent = kWidthPercents[widthFactor]
+        ..leftPercent = kLeftPercents[column]
+        ..topPercent = kTopPercents[row]
+        ..imageAsset = 'assets/images/custom_board/edge_$widthFactor.png');
+      List.generate(widthFactor, (i) {
+        _boardHolds.add(BoardHold((b) => b
+          ..position = positions[i]
+          ..holdType = HoldType.edge
+          ..topPercent =
+              kTopPercents[row] - kPocketEdgeDifference - kOnePixelHeightPercent
+          ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
+          ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
+          ..heightPercent = kPocketHeightPercent + kOnePixelHeightPercent * 2
+          ..depth = depth
+          ..anchorLeftPercent =
+              kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorTopPercent = kTopPercents[row]));
+      });
+      break;
+  }
+
+  return _CustomBoardHolds(
+      customBoardHoldImage: _customBoardHoldImage, boardHolds: _boardHolds);
 }
