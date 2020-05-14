@@ -1,6 +1,5 @@
 # TODO
 ### Custom board
-- Get rid of builder, put it in vm
 - Refactor screen to have back swipe as standard.                                           
 - Close menu drawer when clicking on box or image.
 - Save page
