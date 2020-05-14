@@ -172,7 +172,7 @@ class CustomBoardViewModel extends ChangeNotifier {
         depth: depth,
         supportedFingers: supportedFingers,
         sloperDegrees: sloperDegrees);
-    _customBoardHoldImages = _customBoardBuilder.images;
+    _customBoardHoldImages = _customBoardBuilder.customBoardHoldImages;
     _boardHolds = _customBoardBuilder.boardHolds;
   }
 

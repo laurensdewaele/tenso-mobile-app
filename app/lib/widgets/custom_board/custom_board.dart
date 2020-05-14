@@ -77,17 +77,20 @@ class CustomBoard extends StatelessWidget {
                   boardSize: _boardSize),
             // The gestureDetectors cannot be in the HangBoard widget.
             // This is because we paint the selection boxes over them.
-            ...customBoardHoldImages.map((CustomBoardHoldImage image) {
+            ...customBoardHoldImages
+                .map((CustomBoardHoldImage customBoardHoldImage) {
               return Positioned.fromRect(
                   child: GestureDetector(
-                    onTap: () => handleCustomBoardHoldImageTap(image),
+                    onTap: () =>
+                        handleCustomBoardHoldImageTap(customBoardHoldImage),
                     child: Container(
                       decoration:
                           BoxDecoration(color: styles.Colors.translucent),
                     ),
                   ),
                   rect: getGestureDetectorRect(
-                      boardSize: _boardSize, image: image));
+                      boardSize: _boardSize,
+                      customBoardHoldImage: customBoardHoldImage));
             })
           ],
         );

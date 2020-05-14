@@ -6,6 +6,7 @@
   in order to edit or delete.
 - Save page
 - Test custom board on different screen sizes! 
+- Replace GridView in custom_board and make it pixel perfect without scrolling.
 
 ### Others
 - Add board selection. Only beastmaker1000 atm.
@@ -48,7 +49,6 @@
 
 ### Small prio
 
-- Replace GridView in custom_board and make it pixel perfect without scrolling.
 - Add other boards
 - Keep alive whilst on background and playing sounds. 
 - Refactor navigation with navigator key?

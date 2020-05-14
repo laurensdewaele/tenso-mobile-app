@@ -24,11 +24,12 @@ class HangBoard extends StatelessWidget {
             borderRadius: styles.kBorderRadiusAll,
             child: Image.asset(boardImageAsset)),
         if (customBoardHoldImages != null && customBoardHoldImages.length > 0)
-          ...customBoardHoldImages.map((CustomBoardHoldImage image) =>
-              PositionedCustomBoardHoldImage(
-                  isSelected: false,
-                  customBoardHoldImage: image,
-                  boardSize: boardSize)),
+          ...customBoardHoldImages.map(
+              (CustomBoardHoldImage customBoardHoldImage) =>
+                  PositionedCustomBoardHoldImage(
+                      isSelected: false,
+                      customBoardHoldImage: customBoardHoldImage,
+                      boardSize: boardSize)),
       ],
     );
   }

@@ -89,36 +89,38 @@ const Map<int, double> _topPercents = {
 const double _onePixelHeightPercent = 0.005;
 const double _onePixelWidthPercent = 0.002;
 
-Rect getGestureDetectorRect({CustomBoardHoldImage image, Size boardSize}) {
+Rect getGestureDetectorRect(
+    {CustomBoardHoldImage customBoardHoldImage, Size boardSize}) {
   Rect _rect;
 
-  if (image.holdType == HoldType.pinchBlock || image.holdType == HoldType.jug) {
+  if (customBoardHoldImage.holdType == HoldType.pinchBlock ||
+      customBoardHoldImage.holdType == HoldType.jug) {
     _rect = Rect.fromLTWH(
-        image.leftPercent * boardSize.width,
-        (image.topPercent - .02) * boardSize.height,
-        image.widthPercent * boardSize.width,
-        (image.heightPercent + .02) * boardSize.height);
+        customBoardHoldImage.leftPercent * boardSize.width,
+        (customBoardHoldImage.topPercent - .02) * boardSize.height,
+        customBoardHoldImage.widthPercent * boardSize.width,
+        (customBoardHoldImage.heightPercent + .02) * boardSize.height);
   }
 
-  if (image.holdType == HoldType.sloper) {
-    _rect = image.getRect(
+  if (customBoardHoldImage.holdType == HoldType.sloper) {
+    _rect = customBoardHoldImage.getRect(
         boardHeight: boardSize.height, boardWidth: boardSize.width);
   }
 
-  if (image.holdType == HoldType.edge) {
+  if (customBoardHoldImage.holdType == HoldType.edge) {
     _rect = Rect.fromLTWH(
-        image.leftPercent * boardSize.width,
-        (image.topPercent - .09) * boardSize.height,
-        image.widthPercent * boardSize.width,
-        (image.heightPercent + .13) * boardSize.height);
+        customBoardHoldImage.leftPercent * boardSize.width,
+        (customBoardHoldImage.topPercent - .09) * boardSize.height,
+        customBoardHoldImage.widthPercent * boardSize.width,
+        (customBoardHoldImage.heightPercent + .13) * boardSize.height);
   }
 
-  if (image.holdType == HoldType.pocket) {
+  if (customBoardHoldImage.holdType == HoldType.pocket) {
     _rect = Rect.fromLTWH(
-        image.leftPercent * boardSize.width,
-        (image.topPercent - .04) * boardSize.height,
-        image.widthPercent * boardSize.width,
-        (image.heightPercent + .08) * boardSize.height);
+        customBoardHoldImage.leftPercent * boardSize.width,
+        (customBoardHoldImage.topPercent - .04) * boardSize.height,
+        customBoardHoldImage.widthPercent * boardSize.width,
+        (customBoardHoldImage.heightPercent + .08) * boardSize.height);
   }
 
   return _rect;
@@ -141,8 +143,9 @@ class CustomBoardBuilder {
 //      ..defaultRightGripHold = null);
   }
   Board _board;
-  List<CustomBoardHoldImage> _images = [];
-  List<CustomBoardHoldImage> get images => _images;
+  List<CustomBoardHoldImage> _customBoardHoldImages = [];
+  List<CustomBoardHoldImage> get customBoardHoldImages =>
+      _customBoardHoldImages;
   List<BoardHold> _boardHolds = [];
   List<BoardHold> get boardHolds => _boardHolds;
 
@@ -157,7 +160,7 @@ class CustomBoardBuilder {
   }) {
     switch (type) {
       case HoldType.pinchBlock:
-        _images.add(CustomBoardHoldImage((b) => b
+        _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
           ..holdType = HoldType.pinchBlock
           ..scale = _pinchBlockJugScale
           ..heightPercent = _pinchBlockJugHeightPercent
@@ -180,7 +183,7 @@ class CustomBoardBuilder {
         });
         break;
       case HoldType.jug:
-        _images.add(CustomBoardHoldImage((b) => b
+        _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
           ..holdType = HoldType.jug
           ..scale = _pinchBlockJugScale
           ..heightPercent = _pinchBlockJugHeightPercent
@@ -202,7 +205,7 @@ class CustomBoardBuilder {
         });
         break;
       case HoldType.sloper:
-        _images.add(CustomBoardHoldImage((b) => b
+        _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
           ..holdType = HoldType.sloper
           ..scale = 1
           ..heightPercent = _sloperHeightPercent
@@ -224,7 +227,7 @@ class CustomBoardBuilder {
         });
         break;
       case HoldType.pocket:
-        _images.add(CustomBoardHoldImage((b) => b
+        _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
           ..holdType = HoldType.pocket
           ..scale = 1
           ..heightPercent = _pocketHeightPercent
@@ -260,7 +263,7 @@ class CustomBoardBuilder {
         });
         break;
       case HoldType.edge:
-        _images.add(CustomBoardHoldImage((b) => b
+        _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
           ..holdType = HoldType.edge
           ..scale = _edgeScale
           ..heightPercent = _edgeHeightPercent
