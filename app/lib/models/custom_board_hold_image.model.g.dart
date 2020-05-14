@@ -24,6 +24,9 @@ class _$CustomBoardHoldImageSerializer
       Serializers serializers, CustomBoardHoldImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'positions',
+      serializers.serialize(object.positions,
+          specifiedType: const FullType(List, const [const FullType(int)])),
       'holdType',
       serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
@@ -62,6 +65,12 @@ class _$CustomBoardHoldImageSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'positions':
+          result.positions = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(int)]))
+              as List<int>;
+          break;
         case 'holdType':
           result.holdType = serializers.deserialize(value,
               specifiedType: const FullType(HoldType)) as HoldType;
@@ -99,6 +108,8 @@ class _$CustomBoardHoldImageSerializer
 
 class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
+  final List<int> positions;
+  @override
   final HoldType holdType;
   @override
   final double leftPercent;
@@ -118,7 +129,8 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       (new CustomBoardHoldImageBuilder()..update(updates)).build();
 
   _$CustomBoardHoldImage._(
-      {this.holdType,
+      {this.positions,
+      this.holdType,
       this.leftPercent,
       this.topPercent,
       this.widthPercent,
@@ -126,6 +138,9 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
       this.scale,
       this.imageAsset})
       : super._() {
+    if (positions == null) {
+      throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'positions');
+    }
     if (holdType == null) {
       throw new BuiltValueNullFieldError('CustomBoardHoldImage', 'holdType');
     }
@@ -164,6 +179,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CustomBoardHoldImage &&
+        positions == other.positions &&
         holdType == other.holdType &&
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
@@ -179,7 +195,9 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, holdType.hashCode), leftPercent.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, positions.hashCode), holdType.hashCode),
+                            leftPercent.hashCode),
                         topPercent.hashCode),
                     widthPercent.hashCode),
                 heightPercent.hashCode),
@@ -190,6 +208,7 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('CustomBoardHoldImage')
+          ..add('positions', positions)
           ..add('holdType', holdType)
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
@@ -204,6 +223,10 @@ class _$CustomBoardHoldImage extends CustomBoardHoldImage {
 class CustomBoardHoldImageBuilder
     implements Builder<CustomBoardHoldImage, CustomBoardHoldImageBuilder> {
   _$CustomBoardHoldImage _$v;
+
+  List<int> _positions;
+  List<int> get positions => _$this._positions;
+  set positions(List<int> positions) => _$this._positions = positions;
 
   HoldType _holdType;
   HoldType get holdType => _$this._holdType;
@@ -238,6 +261,7 @@ class CustomBoardHoldImageBuilder
 
   CustomBoardHoldImageBuilder get _$this {
     if (_$v != null) {
+      _positions = _$v.positions;
       _holdType = _$v.holdType;
       _leftPercent = _$v.leftPercent;
       _topPercent = _$v.topPercent;
@@ -267,6 +291,7 @@ class CustomBoardHoldImageBuilder
   _$CustomBoardHoldImage build() {
     final _$result = _$v ??
         new _$CustomBoardHoldImage._(
+            positions: positions,
             holdType: holdType,
             leftPercent: leftPercent,
             topPercent: topPercent,

@@ -14,6 +14,7 @@ abstract class CustomBoardHoldImage
   static Serializer<CustomBoardHoldImage> get serializer =>
       _$customBoardHoldImageSerializer;
 
+  List<int> get positions;
   HoldType get holdType;
   double get leftPercent;
   double get topPercent;

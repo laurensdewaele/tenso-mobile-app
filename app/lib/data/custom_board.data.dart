@@ -154,6 +154,7 @@ class CustomBoardBuilder {
     @required int column,
     @required int widthFactor,
     @required HoldType type,
+    @required List<int> positions,
     double sloperDegrees,
     double depth,
     int supportedFingers,
@@ -161,6 +162,7 @@ class CustomBoardBuilder {
     switch (type) {
       case HoldType.pinchBlock:
         _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
+          ..positions = positions
           ..holdType = HoldType.pinchBlock
           ..scale = _pinchBlockJugScale
           ..heightPercent = _pinchBlockJugHeightPercent
@@ -171,6 +173,7 @@ class CustomBoardBuilder {
               'assets/images/custom_board/pinch_block_$widthFactor.png'));
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
+            ..position = positions[i]
             ..holdType = HoldType.pinchBlock
             ..topPercent = _pinchBlockJugTopPercent - _onePixelHeightPercent * 2
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
@@ -184,6 +187,7 @@ class CustomBoardBuilder {
         break;
       case HoldType.jug:
         _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
+          ..positions = positions
           ..holdType = HoldType.jug
           ..scale = _pinchBlockJugScale
           ..heightPercent = _pinchBlockJugHeightPercent
@@ -193,6 +197,7 @@ class CustomBoardBuilder {
           ..imageAsset = 'assets/images/custom_board/jug_$widthFactor.png'));
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
+            ..position = positions[i]
             ..holdType = HoldType.jug
             ..topPercent = _pinchBlockJugTopPercent - _onePixelHeightPercent * 2
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
@@ -206,6 +211,7 @@ class CustomBoardBuilder {
         break;
       case HoldType.sloper:
         _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
+          ..positions = positions
           ..holdType = HoldType.sloper
           ..scale = 1
           ..heightPercent = _sloperHeightPercent
@@ -215,6 +221,7 @@ class CustomBoardBuilder {
           ..imageAsset = 'assets/images/custom_board/sloper_$widthFactor.png'));
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
+            ..position = positions[i]
             ..holdType = HoldType.sloper
             ..topPercent = 0 - _onePixelHeightPercent
             ..leftPercent = _leftPercents[column + i] - _onePixelWidthPercent
@@ -228,6 +235,7 @@ class CustomBoardBuilder {
         break;
       case HoldType.pocket:
         _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
+          ..positions = positions
           ..holdType = HoldType.pocket
           ..scale = 1
           ..heightPercent = _pocketHeightPercent
@@ -246,6 +254,7 @@ class CustomBoardBuilder {
               : 'assets/images/custom_board/pocket_$widthFactor.png'));
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
+            ..position = positions[i]
             ..holdType = HoldType.pocket
             ..topPercent = _topPercents[row] -
                 _pocketEdgeDifference -
@@ -264,6 +273,7 @@ class CustomBoardBuilder {
         break;
       case HoldType.edge:
         _customBoardHoldImages.add(CustomBoardHoldImage((b) => b
+          ..positions = positions
           ..holdType = HoldType.edge
           ..scale = _edgeScale
           ..heightPercent = _edgeHeightPercent
@@ -273,6 +283,7 @@ class CustomBoardBuilder {
           ..imageAsset = 'assets/images/custom_board/edge_$widthFactor.png'));
         List.generate(widthFactor, (i) {
           _boardHolds.add(BoardHold((b) => b
+            ..position = positions[i]
             ..holdType = HoldType.edge
             ..topPercent = _topPercents[row] -
                 _pocketEdgeDifference -

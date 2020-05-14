@@ -11,7 +11,6 @@ part 'board_hold.model.g.dart';
 abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   static Serializer<BoardHold> get serializer => _$boardHoldSerializer;
 
-  @nullable
   int get position;
   HoldType get holdType;
   @nullable

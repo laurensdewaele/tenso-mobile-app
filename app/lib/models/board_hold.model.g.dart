@@ -18,6 +18,9 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
   Iterable<Object> serialize(Serializers serializers, BoardHold object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'position',
+      serializers.serialize(object.position,
+          specifiedType: const FullType(int)),
       'holdType',
       serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
@@ -40,12 +43,6 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
       serializers.serialize(object.heightPercent,
           specifiedType: const FullType(double)),
     ];
-    if (object.position != null) {
-      result
-        ..add('position')
-        ..add(serializers.serialize(object.position,
-            specifiedType: const FullType(int)));
-    }
     if (object.depth != null) {
       result
         ..add('depth')
@@ -169,6 +166,9 @@ class _$BoardHold extends BoardHold {
       this.widthPercent,
       this.heightPercent})
       : super._() {
+    if (position == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'position');
+    }
     if (holdType == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'holdType');
     }
