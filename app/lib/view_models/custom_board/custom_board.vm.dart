@@ -54,6 +54,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   List<BoardHold> get boardHolds => _boardHolds;
 
   bool addHoldModalOpen;
+  bool editDeleteModalOpen;
 
   CustomBoardViewModel() {
     _toastService = ToastService();
@@ -62,6 +63,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     _customBoardHoldImages = [];
     _boardHolds = [];
     addHoldModalOpen = false;
+    editDeleteModalOpen = false;
     notifyListeners();
   }
 
@@ -228,8 +230,10 @@ class CustomBoardViewModel extends ChangeNotifier {
       CustomBoardHoldImage customBoardHoldImage) {
     if (_selectedBoardHoldImage == customBoardHoldImage) {
       _selectedBoardHoldImage = null;
+      editDeleteModalOpen = false;
     } else {
       _selectedBoardHoldImage = customBoardHoldImage;
+      editDeleteModalOpen = true;
     }
     notifyListeners();
   }
