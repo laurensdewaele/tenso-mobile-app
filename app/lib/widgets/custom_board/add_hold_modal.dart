@@ -16,13 +16,15 @@ class AddHoldModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppModal(
       open: open,
-      handleTap: handleTap,
-      content: Container(
-        width: double.infinity,
-        child: Text(
-          'add hold',
-          style: styles.Staatliches.xlBlack,
-          textAlign: TextAlign.center,
+      content: GestureDetector(
+        onTap: handleTap,
+        child: Container(
+          width: double.infinity,
+          child: Text(
+            'add hold',
+            style: styles.Staatliches.xlBlack,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

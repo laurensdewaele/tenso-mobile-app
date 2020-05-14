@@ -1,9 +1,7 @@
 # TODO
 ### Custom board
-- Selection and deleting / editing a placed boardHoldImage
-  => We need to pass the board_hold along with the board_hold_image.
-  => We need access to the values and access to the corresponding underlying selection_boxes
-  in order to edit or delete.
+- Get rid of builder, put it in vm
+- Close menu drawer when clicking on box or image.
 - Save page
 - Test custom board on different screen sizes! 
 - Replace GridView in custom_board and make it pixel perfect without scrolling.

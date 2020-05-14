@@ -101,7 +101,8 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                   boardHolds: _viewModel.boardHolds,
                   handleCustomBoardHoldImageTap:
                       _viewModel.handleCustomBoardHoldImageTap,
-                  selectedBoardHoldImage: _viewModel.selectedBoardHoldImage,
+                  selectedCustomBoardHoldImage:
+                      _viewModel.selectedCustomBoardHoldImage,
                 )),
           ),
           BottomMenuDrawer(
@@ -120,16 +121,22 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
           ),
           Align(
               alignment: Alignment.bottomCenter,
+              child: EditDeleteModal(
+                holdType: _viewModel.boardHoldForSelectedImage?.holdType,
+                depth: _viewModel.boardHoldForSelectedImage?.depth,
+                sloperDegrees:
+                    _viewModel.boardHoldForSelectedImage?.sloperDegrees,
+                supportedFingers:
+                    _viewModel.boardHoldForSelectedImage?.supportedFingers,
+                open: _viewModel.editDeleteModalOpen,
+                handleDeleteTap: _viewModel.deleteSelectedCustomBoardHoldImage,
+              )),
+          Align(
+              alignment: Alignment.bottomCenter,
               child: AddHoldModal(
                 open: _viewModel.addHoldModalOpen,
                 handleTap: _handleAddHoldTap,
               )),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: EditDeleteModal(
-                open: _viewModel.editDeleteModalOpen,
-                handleTap: () {},
-              ))
         ],
       ),
     );
@@ -170,9 +177,9 @@ class _InfoDialog extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
-            TextSpan(
-                text: 'This page is best viewed in ',
-                style: styles.Lato.xsBlack),
+            TextSpan(text: 'This page is ', style: styles.Lato.xsBlack),
+            TextSpan(text: 'best viewed ', style: styles.Lato.xsBlackBold),
+            TextSpan(text: 'in', style: styles.Lato.xsBlack),
             TextSpan(text: 'landscape ', style: styles.Lato.xsBlackBold),
             TextSpan(text: 'mode.', style: styles.Lato.xsBlack),
           ]),

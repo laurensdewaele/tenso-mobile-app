@@ -45,13 +45,15 @@ class CustomBoardViewModel extends ChangeNotifier {
       boxes.where((box) => box.visibility == BoxVisibility.selected).toList();
   bool get selectedBoxesIsTopRow => selectedBoxes?.first?.row == 1 || false;
 
-  CustomBoardHoldImage _selectedBoardHoldImage;
-  CustomBoardHoldImage get selectedBoardHoldImage => _selectedBoardHoldImage;
+  CustomBoardHoldImage _selectedCustomBoardHoldImage;
+  CustomBoardHoldImage get selectedCustomBoardHoldImage =>
+      _selectedCustomBoardHoldImage;
   List<CustomBoardHoldImage> _customBoardHoldImages;
   List<CustomBoardHoldImage> get customBoardHoldImages =>
       _customBoardHoldImages;
   List<BoardHold> _boardHolds;
   List<BoardHold> get boardHolds => _boardHolds;
+  BoardHold get boardHoldForSelectedImage => _getBoardHoldForSelectedImage();
 
   bool addHoldModalOpen;
   bool editDeleteModalOpen;
@@ -85,6 +87,9 @@ class CustomBoardViewModel extends ChangeNotifier {
   }
 
   void handleBoxTap(BoxState boxState) {
+    _selectedCustomBoardHoldImage = null;
+    editDeleteModalOpen = false;
+
     if (boxState.visibility == BoxVisibility.deselected) {
       bool _isAdjacent =
           _isAdjacentSameRow(index: boxState.index, row: boxState.row);
@@ -190,6 +195,16 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _deselectBoxes() {
+    _boxes = _boxes.map((BoxState boxState) {
+      if (boxState.visibility == BoxVisibility.selected) {
+        return boxState.copyWith(visibility: BoxVisibility.deselected);
+      } else {
+        return boxState;
+      }
+    }).toList();
+  }
+
   void handlePinchBlockInput() {
     _addCustomBoardHoldsAndImage(type: HoldType.pinchBlock);
     _hideSelectedBoxesCloseModalAndNotify();
@@ -230,13 +245,46 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   void handleCustomBoardHoldImageTap(
       CustomBoardHoldImage customBoardHoldImage) {
-    if (_selectedBoardHoldImage == customBoardHoldImage) {
-      _selectedBoardHoldImage = null;
+    if (_selectedCustomBoardHoldImage == customBoardHoldImage) {
+      _selectedCustomBoardHoldImage = null;
       editDeleteModalOpen = false;
     } else {
-      _selectedBoardHoldImage = customBoardHoldImage;
+      _selectedCustomBoardHoldImage = customBoardHoldImage;
+      _deselectBoxes();
       editDeleteModalOpen = true;
     }
+    addHoldModalOpen = false;
+    notifyListeners();
+  }
+
+  BoardHold _getBoardHoldForSelectedImage() {
+    if (_boardHolds != null && _selectedCustomBoardHoldImage != null) {
+      return boardHolds.firstWhere(
+          (boardHold) =>
+              boardHold.position == selectedCustomBoardHoldImage.positions[0],
+          orElse: () => null);
+    } else {
+      return null;
+    }
+  }
+
+  void deleteSelectedCustomBoardHoldImage() {
+    _boardHolds = boardHolds
+        .where((boardHold) => !selectedCustomBoardHoldImage.positions
+            .contains(boardHold.position))
+        .toList();
+    _customBoardHoldImages = customBoardHoldImages
+        .where((customBoardHoldImage) =>
+            customBoardHoldImage != selectedCustomBoardHoldImage)
+        .toList();
+    _boxes = boxes.map((box) {
+      if (selectedCustomBoardHoldImage.positions.contains(box.index + 1)) {
+        return box.copyWith(visibility: BoxVisibility.deselected);
+      }
+      return box;
+    }).toList();
+    _selectedCustomBoardHoldImage = null;
+    editDeleteModalOpen = false;
     notifyListeners();
   }
 }

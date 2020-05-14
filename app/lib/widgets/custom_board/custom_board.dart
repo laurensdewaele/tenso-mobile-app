@@ -17,10 +17,10 @@ class CustomBoard extends StatelessWidget {
     @required this.customBoardHoldImages,
     @required this.boardHolds,
     @required this.handleCustomBoardHoldImageTap,
-    @required this.selectedBoardHoldImage,
+    @required this.selectedCustomBoardHoldImage,
   }) : super(key: key);
 
-  final CustomBoardHoldImage selectedBoardHoldImage;
+  final CustomBoardHoldImage selectedCustomBoardHoldImage;
   final List<BoardHold> boardHolds;
   final List<BoxState> boxes;
   final void Function(CustomBoardHoldImage customBoardHoldImage)
@@ -70,10 +70,10 @@ class CustomBoard extends StatelessWidget {
                 ],
               ),
             ),
-            if (selectedBoardHoldImage != null)
+            if (selectedCustomBoardHoldImage != null)
               PositionedCustomBoardHoldImage(
                   isSelected: true,
-                  customBoardHoldImage: selectedBoardHoldImage,
+                  customBoardHoldImage: selectedCustomBoardHoldImage,
                   boardSize: _boardSize),
             // The gestureDetectors cannot be in the HangBoard widget.
             // This is because we paint the selection boxes over them.

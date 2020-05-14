@@ -34,12 +34,10 @@ class AppModal extends StatefulWidget {
   AppModal({
     Key key,
     @required this.open,
-    @required this.handleTap,
     @required this.content,
   }) : super(key: key);
 
   final bool open;
-  final VoidCallback handleTap;
   final Widget content;
 
   @override
@@ -82,15 +80,12 @@ class _AddHoldModalState extends State<AppModal>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _animationController.drive(_offSetTween),
-      child: GestureDetector(
-        onTap: widget.handleTap,
-        child: _AppModalDecoration(
-          content: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: styles.Measurements.xs,
-                vertical: styles.Measurements.xs),
-            child: widget.content,
-          ),
+      child: _AppModalDecoration(
+        content: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: styles.Measurements.xs,
+              vertical: styles.Measurements.xs),
+          child: widget.content,
         ),
       ),
     );
