@@ -64,104 +64,115 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
     super.dispose();
   }
 
+  void _onHorizontalDragEnd(DragEndDetails details) {
+    if (details.primaryVelocity > 0) {
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return KeyboardAndToastProvider(
       child: Stack(
         children: <Widget>[
-          Screen(
-            gradientStartColor: styles.Colors.bgGrayStart,
-            gradientStopColor: styles.Colors.bgGrayStop,
-            child: KeyboardListView(
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    TopNavigation(
-                      title: 'save custom board',
-                      dark: true,
-                      handleBackNavigation: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                            styles.Measurements.xs,
-                            64,
-                            styles.Measurements.xs,
-                            styles.Measurements.xxl),
-                        child: Card(
-                          padding: EdgeInsets.only(
-                            left: styles.Measurements.m,
-                            top: 0,
-                            right: styles.Measurements.m,
-                            bottom: styles.Measurements.l,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Divider(height: 14),
-                              SectionWithInfoIcon(
-                                title: 'select default holds',
-                                appDialogContent: _DefaultHoldInfo(),
-                                children: <Widget>[
-                                  BoardHoldPicker(
-                                    boardAspectRatio: customBoard.kAspectRatio,
-                                    boardImageAsset: customBoard.kImageAsset,
-                                    handToBoardHeightRatio:
-                                        customBoard.kHandToBoardHeightRatio,
-                                    imageAsset: customBoard.kImageAsset,
-                                    boardHolds: _viewModel.boardHolds,
-                                    customBoardHoldImages:
-                                        _viewModel.customBoardHoldImages,
-                                    rightGrip: _viewModel.rightGrip,
-                                    leftGrip: _viewModel.leftGrip,
-                                    leftGripBoardHold:
-                                        _viewModel.leftGripBoardHold,
-                                    rightGripBoardHold:
-                                        _viewModel.rightGripBoardHold,
-                                    handleLeftGripBoardHoldChanged: _viewModel
-                                        .handleLeftGripBoardHoldChanged,
-                                    handleRightGripBoardHoldChanged: _viewModel
-                                        .handleRightGripBoardHoldChanged,
-                                  ),
-                                  BoardHoldInfo(
-                                    leftGripBoardHold:
-                                        _viewModel.leftGripBoardHold,
-                                    rightGripBoardHold:
-                                        _viewModel.rightGripBoardHold,
-                                    leftGrip: _viewModel.leftGrip,
-                                    rightGrip: _viewModel.rightGrip,
-                                  )
-                                ],
-                              ),
-                              Section(
-                                title: 'name',
-                                children: <Widget>[
-                                  TextInput(
-                                      multiLine: false,
-                                      enabled: true,
-                                      primaryColor: styles.Colors.primary,
-                                      initialValue: '',
-                                      handleValueChanged: _viewModel.setName)
-                                ],
-                              ),
-                              Center(
-                                child: Button(
-                                  backgroundColor: styles.Colors.primary,
-                                  width: styles.Measurements.xxl * 2,
-                                  text: 'save',
-                                  handleTap: _viewModel.save,
+          GestureDetector(
+            onHorizontalDragEnd: _onHorizontalDragEnd,
+            child: Screen(
+              gradientStartColor: styles.Colors.bgGrayStart,
+              gradientStopColor: styles.Colors.bgGrayStop,
+              child: KeyboardListView(
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      TopNavigation(
+                        title: 'save custom board',
+                        dark: true,
+                        handleBackNavigation: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              styles.Measurements.xs,
+                              64,
+                              styles.Measurements.xs,
+                              styles.Measurements.xxl),
+                          child: Card(
+                            padding: EdgeInsets.only(
+                              left: styles.Measurements.m,
+                              top: 0,
+                              right: styles.Measurements.m,
+                              bottom: styles.Measurements.l,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Divider(height: 14),
+                                SectionWithInfoIcon(
+                                  title: 'select default holds',
+                                  appDialogContent: _DefaultHoldInfo(),
+                                  children: <Widget>[
+                                    BoardHoldPicker(
+                                      boardAspectRatio:
+                                          customBoard.kAspectRatio,
+                                      boardImageAsset: customBoard.kImageAsset,
+                                      handToBoardHeightRatio:
+                                          customBoard.kHandToBoardHeightRatio,
+                                      imageAsset: customBoard.kImageAsset,
+                                      boardHolds: _viewModel.boardHolds,
+                                      customBoardHoldImages:
+                                          _viewModel.customBoardHoldImages,
+                                      rightGrip: _viewModel.rightGrip,
+                                      leftGrip: _viewModel.leftGrip,
+                                      leftGripBoardHold:
+                                          _viewModel.leftGripBoardHold,
+                                      rightGripBoardHold:
+                                          _viewModel.rightGripBoardHold,
+                                      handleLeftGripBoardHoldChanged: _viewModel
+                                          .handleLeftGripBoardHoldChanged,
+                                      handleRightGripBoardHoldChanged:
+                                          _viewModel
+                                              .handleRightGripBoardHoldChanged,
+                                    ),
+                                    BoardHoldInfo(
+                                      leftGripBoardHold:
+                                          _viewModel.leftGripBoardHold,
+                                      rightGripBoardHold:
+                                          _viewModel.rightGripBoardHold,
+                                      leftGrip: _viewModel.leftGrip,
+                                      rightGrip: _viewModel.rightGrip,
+                                    )
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                )
-              ],
+                                Section(
+                                  title: 'name',
+                                  children: <Widget>[
+                                    TextInput(
+                                        multiLine: false,
+                                        enabled: true,
+                                        primaryColor: styles.Colors.primary,
+                                        initialValue: '',
+                                        handleValueChanged: _viewModel.setName)
+                                  ],
+                                ),
+                                Center(
+                                  child: Button(
+                                    backgroundColor: styles.Colors.primary,
+                                    width: styles.Measurements.xxl * 2,
+                                    text: 'save',
+                                    handleTap: _viewModel.save,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
