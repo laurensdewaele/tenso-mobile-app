@@ -1,7 +1,8 @@
 # TODO
 ### Custom board
 - Refactor screen to have back swipe as standard.                                           
-- Close menu drawer when clicking on box or image.
+- Close menu drawer when clicking on box or image. => pass observable
+- Replace GridView
 - Save page
 
 //    _board = Board((b) => b
@@ -19,7 +20,7 @@
 //      ..defaultRightGripHold = null);
 
 - Test custom board on different screen sizes! 
-- Replace GridView in custom_board and make it pixel perfect without scrolling.
+
 
 ### Others
 - Add board selection. Only beastmaker1000 atm.

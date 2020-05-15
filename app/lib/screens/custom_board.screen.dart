@@ -179,7 +179,7 @@ class _InfoDialog extends StatelessWidget {
           text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
             TextSpan(text: 'This page is ', style: styles.Lato.xsBlack),
             TextSpan(text: 'best viewed ', style: styles.Lato.xsBlackBold),
-            TextSpan(text: 'in', style: styles.Lato.xsBlack),
+            TextSpan(text: 'in ', style: styles.Lato.xsBlack),
             TextSpan(text: 'landscape ', style: styles.Lato.xsBlackBold),
             TextSpan(text: 'mode.', style: styles.Lato.xsBlack),
           ]),
