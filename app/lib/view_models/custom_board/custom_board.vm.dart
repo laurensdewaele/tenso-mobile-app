@@ -401,7 +401,7 @@ _CustomBoardHolds _getCustomBoardHolds({
             : kWidthPercents[widthFactor]
         ..leftPercent = widthFactor == 1
             ? kLeftPercents[column] +
-                ((kWidthPercent1 -
+                ((kWidthPercents[1] -
                         kWidthPercentPocketFingers[supportedFingers]) /
                     2)
             : kLeftPercents[column]

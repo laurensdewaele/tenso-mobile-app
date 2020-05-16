@@ -15,23 +15,23 @@ const double _kSpacing = styles.Measurements.xs;
 const double _kMeasuredWidth = 647;
 const double _kMeasuredHeight = _kMeasuredWidth / kAspectRatio;
 
-const double kWidthPercent1 = (1 - (kHorizontalSpacingPercent * 5)) / kColumns;
-const double _kWidthPercent2 = kWidthPercent1 * 2 + kHorizontalSpacingPercent;
+const double _kWidthPercent1 = (1 - (kHorizontalSpacingPercent * 5)) / kColumns;
+const double _kWidthPercent2 = _kWidthPercent1 * 2 + kHorizontalSpacingPercent;
 const double _kWidthPercent3 =
-    kWidthPercent1 * 3 + (kHorizontalSpacingPercent * 2);
+    _kWidthPercent1 * 3 + (kHorizontalSpacingPercent * 2);
 const double _kWidthPercent4 =
-    kWidthPercent1 * 4 + (kHorizontalSpacingPercent * 3);
+    _kWidthPercent1 * 4 + (kHorizontalSpacingPercent * 3);
 
 const double _kLeftPercentColumn1 = kHorizontalSpacingPercent;
 const double _kLeftPercentColumn2 =
-    kWidthPercent1 + kHorizontalSpacingPercent * 2;
+    _kWidthPercent1 + kHorizontalSpacingPercent * 2;
 const double _kLeftPercentColumn3 =
     _kWidthPercent2 + kHorizontalSpacingPercent * 2;
 const double _kLeftPercentColumn4 =
     _kWidthPercent3 + kHorizontalSpacingPercent * 2;
 
 const double _kBottomRowsTopPercent = (kVerticalSpacingPercent) +
-    ((kWidthPercent1 * _kMeasuredWidth / kSelectionBoxAspectRatio) /
+    ((_kWidthPercent1 * _kMeasuredWidth / kSelectionBoxAspectRatio) /
         _kMeasuredHeight);
 
 const double kPinchBlockJugScale = 1.08;
@@ -58,18 +58,18 @@ const double kPocketEdgeDifference =
     (kPocketHeightPercent - (kEdgeHeightPercent * kEdgeScale));
 
 const Map<int, double> kWidthPercents = {
-  1: kWidthPercent1,
+  1: _kWidthPercent1,
   2: _kWidthPercent2,
   3: _kWidthPercent3,
   4: _kWidthPercent4
 };
 
 const Map<int, double> kWidthPercentPocketFingers = {
-  5: kWidthPercent1,
-  4: kWidthPercent1 / 5 * 4,
-  3: kWidthPercent1 / 5 * 3,
-  2: kWidthPercent1 / 5 * 2,
-  1: kWidthPercent1 / 5 * 1
+  5: _kWidthPercent1,
+  4: _kWidthPercent1 / 5 * 4,
+  3: _kWidthPercent1 / 5 * 3,
+  2: _kWidthPercent1 / 5 * 2,
+  1: _kWidthPercent1 / 5 * 1
 };
 
 const Map<int, double> kLeftPercents = {
