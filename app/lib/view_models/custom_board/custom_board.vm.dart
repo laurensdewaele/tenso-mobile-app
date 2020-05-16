@@ -338,9 +338,8 @@ _CustomBoardHolds _getCustomBoardHolds({
           ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
           ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
           ..heightPercent = kPinchBlockJugHeightPercent + kOnePixelHeightPercent
-          ..anchorLeftPercent =
-              kLeftPercents[column + i] + kWidthPercents[1] / 2
-          ..anchorTopPercent = kPinchBlockJugTopPercent));
+          ..anchorXPercent = kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorYPercent = kPinchBlockJugTopPercent));
       });
       break;
     case HoldType.jug:
@@ -361,9 +360,8 @@ _CustomBoardHolds _getCustomBoardHolds({
           ..leftPercent = kLeftPercents[column + i] - kOnePixelWidthPercent
           ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
           ..heightPercent = kPinchBlockJugHeightPercent + kOnePixelHeightPercent
-          ..anchorLeftPercent =
-              kLeftPercents[column + i] + kWidthPercents[1] / 2
-          ..anchorTopPercent = kPinchBlockJugTopPercent));
+          ..anchorXPercent = kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorYPercent = kPinchBlockJugTopPercent));
       });
       break;
     case HoldType.sloper:
@@ -385,9 +383,8 @@ _CustomBoardHolds _getCustomBoardHolds({
           ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
           ..heightPercent = kSloperHeightPercent + kOnePixelHeightPercent * 2
           ..sloperDegrees = sloperDegrees
-          ..anchorLeftPercent =
-              kLeftPercents[column + i] + kWidthPercents[1] / 2
-          ..anchorTopPercent = kSloperHeightPercent / 3));
+          ..anchorXPercent = kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorYPercent = kSloperHeightPercent / 3));
       });
       break;
     case HoldType.pocket:
@@ -420,9 +417,8 @@ _CustomBoardHolds _getCustomBoardHolds({
           ..heightPercent = kPocketHeightPercent + kOnePixelHeightPercent * 2
           ..depth = depth
           ..supportedFingers = supportedFingers
-          ..anchorLeftPercent =
-              kLeftPercents[column + i] + kWidthPercents[1] / 2
-          ..anchorTopPercent = kTopPercents[row] -
+          ..anchorXPercent = kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorYPercent = kTopPercents[row] -
               kPocketEdgeDifference +
               kPocketHeightPercent));
       });
@@ -447,9 +443,8 @@ _CustomBoardHolds _getCustomBoardHolds({
           ..widthPercent = kWidthPercents[1] + kOnePixelWidthPercent * 2
           ..heightPercent = kPocketHeightPercent + kOnePixelHeightPercent * 2
           ..depth = depth
-          ..anchorLeftPercent =
-              kLeftPercents[column + i] + kWidthPercents[1] / 2
-          ..anchorTopPercent = kTopPercents[row]));
+          ..anchorXPercent = kLeftPercents[column + i] + kWidthPercents[1] / 2
+          ..anchorYPercent = kTopPercents[row]));
       });
       break;
   }

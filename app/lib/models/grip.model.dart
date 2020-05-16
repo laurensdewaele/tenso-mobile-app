@@ -16,10 +16,10 @@ abstract class Grip implements Built<Grip, GripBuilder> {
   String get imageAsset;
   String get name;
   String get description;
-  double get anchorLeft;
-  double get anchorTop;
-  double get anchorLeftPercent => anchorLeft / imageAssetWidth;
-  double get anchorTopPercent => anchorTop / imageAssetHeight;
+  double get anchorX;
+  double get anchorY;
+  double get anchorXPercent => anchorX / imageAssetWidth;
+  double get anchorYPercent => anchorY / imageAssetHeight;
   double get imageAssetWidth;
   double get imageAssetHeight;
   double get aspectRatio => imageAssetWidth / imageAssetHeight;

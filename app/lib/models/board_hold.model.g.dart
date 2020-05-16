@@ -24,11 +24,11 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
       'holdType',
       serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
-      'anchorLeftPercent',
-      serializers.serialize(object.anchorLeftPercent,
+      'anchorXPercent',
+      serializers.serialize(object.anchorXPercent,
           specifiedType: const FullType(double)),
-      'anchorTopPercent',
-      serializers.serialize(object.anchorTopPercent,
+      'anchorYPercent',
+      serializers.serialize(object.anchorYPercent,
           specifiedType: const FullType(double)),
       'leftPercent',
       serializers.serialize(object.leftPercent,
@@ -95,12 +95,12 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           result.sloperDegrees = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'anchorLeftPercent':
-          result.anchorLeftPercent = serializers.deserialize(value,
+        case 'anchorXPercent':
+          result.anchorXPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'anchorTopPercent':
-          result.anchorTopPercent = serializers.deserialize(value,
+        case 'anchorYPercent':
+          result.anchorYPercent = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'leftPercent':
@@ -138,9 +138,9 @@ class _$BoardHold extends BoardHold {
   @override
   final double sloperDegrees;
   @override
-  final double anchorLeftPercent;
+  final double anchorXPercent;
   @override
-  final double anchorTopPercent;
+  final double anchorYPercent;
   @override
   final double leftPercent;
   @override
@@ -159,8 +159,8 @@ class _$BoardHold extends BoardHold {
       this.depth,
       this.supportedFingers,
       this.sloperDegrees,
-      this.anchorLeftPercent,
-      this.anchorTopPercent,
+      this.anchorXPercent,
+      this.anchorYPercent,
       this.leftPercent,
       this.topPercent,
       this.widthPercent,
@@ -172,11 +172,11 @@ class _$BoardHold extends BoardHold {
     if (holdType == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'holdType');
     }
-    if (anchorLeftPercent == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'anchorLeftPercent');
+    if (anchorXPercent == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'anchorXPercent');
     }
-    if (anchorTopPercent == null) {
-      throw new BuiltValueNullFieldError('BoardHold', 'anchorTopPercent');
+    if (anchorYPercent == null) {
+      throw new BuiltValueNullFieldError('BoardHold', 'anchorYPercent');
     }
     if (leftPercent == null) {
       throw new BuiltValueNullFieldError('BoardHold', 'leftPercent');
@@ -208,8 +208,8 @@ class _$BoardHold extends BoardHold {
         depth == other.depth &&
         supportedFingers == other.supportedFingers &&
         sloperDegrees == other.sloperDegrees &&
-        anchorLeftPercent == other.anchorLeftPercent &&
-        anchorTopPercent == other.anchorTopPercent &&
+        anchorXPercent == other.anchorXPercent &&
+        anchorYPercent == other.anchorYPercent &&
         leftPercent == other.leftPercent &&
         topPercent == other.topPercent &&
         widthPercent == other.widthPercent &&
@@ -232,8 +232,8 @@ class _$BoardHold extends BoardHold {
                                         depth.hashCode),
                                     supportedFingers.hashCode),
                                 sloperDegrees.hashCode),
-                            anchorLeftPercent.hashCode),
-                        anchorTopPercent.hashCode),
+                            anchorXPercent.hashCode),
+                        anchorYPercent.hashCode),
                     leftPercent.hashCode),
                 topPercent.hashCode),
             widthPercent.hashCode),
@@ -248,8 +248,8 @@ class _$BoardHold extends BoardHold {
           ..add('depth', depth)
           ..add('supportedFingers', supportedFingers)
           ..add('sloperDegrees', sloperDegrees)
-          ..add('anchorLeftPercent', anchorLeftPercent)
-          ..add('anchorTopPercent', anchorTopPercent)
+          ..add('anchorXPercent', anchorXPercent)
+          ..add('anchorYPercent', anchorYPercent)
           ..add('leftPercent', leftPercent)
           ..add('topPercent', topPercent)
           ..add('widthPercent', widthPercent)
@@ -283,15 +283,15 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   set sloperDegrees(double sloperDegrees) =>
       _$this._sloperDegrees = sloperDegrees;
 
-  double _anchorLeftPercent;
-  double get anchorLeftPercent => _$this._anchorLeftPercent;
-  set anchorLeftPercent(double anchorLeftPercent) =>
-      _$this._anchorLeftPercent = anchorLeftPercent;
+  double _anchorXPercent;
+  double get anchorXPercent => _$this._anchorXPercent;
+  set anchorXPercent(double anchorXPercent) =>
+      _$this._anchorXPercent = anchorXPercent;
 
-  double _anchorTopPercent;
-  double get anchorTopPercent => _$this._anchorTopPercent;
-  set anchorTopPercent(double anchorTopPercent) =>
-      _$this._anchorTopPercent = anchorTopPercent;
+  double _anchorYPercent;
+  double get anchorYPercent => _$this._anchorYPercent;
+  set anchorYPercent(double anchorYPercent) =>
+      _$this._anchorYPercent = anchorYPercent;
 
   double _leftPercent;
   double get leftPercent => _$this._leftPercent;
@@ -319,8 +319,8 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
       _depth = _$v.depth;
       _supportedFingers = _$v.supportedFingers;
       _sloperDegrees = _$v.sloperDegrees;
-      _anchorLeftPercent = _$v.anchorLeftPercent;
-      _anchorTopPercent = _$v.anchorTopPercent;
+      _anchorXPercent = _$v.anchorXPercent;
+      _anchorYPercent = _$v.anchorYPercent;
       _leftPercent = _$v.leftPercent;
       _topPercent = _$v.topPercent;
       _widthPercent = _$v.widthPercent;
@@ -352,8 +352,8 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
             depth: depth,
             supportedFingers: supportedFingers,
             sloperDegrees: sloperDegrees,
-            anchorLeftPercent: anchorLeftPercent,
-            anchorTopPercent: anchorTopPercent,
+            anchorXPercent: anchorXPercent,
+            anchorYPercent: anchorYPercent,
             leftPercent: leftPercent,
             topPercent: topPercent,
             widthPercent: widthPercent,

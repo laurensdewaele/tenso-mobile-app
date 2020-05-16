@@ -19,8 +19,8 @@ abstract class BoardHold implements Built<BoardHold, BoardHoldBuilder> {
   int get supportedFingers;
   @nullable
   double get sloperDegrees;
-  double get anchorLeftPercent;
-  double get anchorTopPercent;
+  double get anchorXPercent;
+  double get anchorYPercent;
   double get leftPercent;
   double get topPercent;
   double get widthPercent;
