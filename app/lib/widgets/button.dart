@@ -1,26 +1,30 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class Button extends StatelessWidget {
-  const Button(
-      {@required this.text,
-      @required this.handleTap,
-      this.backgroundColor = styles.Colors.primary,
-      this.leadingIcon,
-      this.leadingIconTextCentered = false,
-      this.displayBackground = true,
-      this.width = double.infinity});
+  const Button({
+    @required this.text,
+    @required this.handleTap,
+    this.backgroundColor = styles.Colors.primary,
+    this.leadingIcon,
+    this.leadingIconTextCentered = false,
+    this.displayBackground = true,
+    this.width = double.infinity,
+    this.height = styles.kStandardButtonHeight,
+    this.small = false,
+  });
 
   final Color backgroundColor;
   final String text;
   final VoidCallback handleTap;
   final double width;
+  final double height;
   final Icon leadingIcon;
   final bool leadingIconTextCentered;
   final bool displayBackground;
+  final bool small;
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +58,24 @@ class Button extends StatelessWidget {
             iconColor: _iconColor,
           );
 
-    return GestureDetector(
-        onTap: handleTap,
-        child: Container(
-            width: width,
-            decoration: _boxDecoration,
-            padding: EdgeInsets.symmetric(
-                vertical: styles.Measurements.xs,
-                horizontal: styles.Measurements.m),
-            child: _hasIcon
-                ? iconRow
-                : Text(
-                    text,
-                    style: _textStyle,
-                    textAlign: TextAlign.center,
-                  )));
+    return Transform.scale(
+      scale: small ? 0.8 : 1,
+      child: GestureDetector(
+          onTap: handleTap,
+          child: Container(
+              width: width,
+              height: height,
+              decoration: _boxDecoration,
+              child: _hasIcon
+                  ? iconRow
+                  : Center(
+                      child: Text(
+                        text,
+                        style: _textStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ))),
+    );
   }
 }
 
@@ -119,7 +126,14 @@ class _ButtonIconCenteredText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Align(alignment: Alignment.centerLeft, child: leadingIcon),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: styles.Measurements.m,
+              ),
+              child: leadingIcon,
+            )),
         Align(
           alignment: Alignment.center,
           child: Text(

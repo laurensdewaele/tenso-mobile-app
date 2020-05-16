@@ -168,15 +168,13 @@ class _RestTimersInfo extends StatelessWidget {
             Divider(
               height: styles.Measurements.l,
             ),
-            Transform.scale(
-              scale: .8,
-              child: Button(
-                  displayBackground: false,
-                  text: 'Ok',
-                  handleTap: () {
-                    Navigator.of(context).pop();
-                  }),
-            )
+            Button(
+                small: true,
+                displayBackground: false,
+                text: 'Ok',
+                handleTap: () {
+                  Navigator.of(context).pop();
+                })
           ],
         )
       ],

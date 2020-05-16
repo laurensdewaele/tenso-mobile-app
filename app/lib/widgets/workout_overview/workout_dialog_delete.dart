@@ -1,10 +1,9 @@
-import 'package:app/widgets/calendar/constants.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
+import 'package:app/widgets/calendar/constants.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:flutter/cupertino.dart';
 
 Future<void> showWorkoutDeleteDialog({
   @required BuildContext context,
@@ -36,20 +35,17 @@ Future<void> showWorkoutDeleteDialog({
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: Transform.scale(
-                      scale: 0.8,
-                      child: Button(
-                          displayBackground: false,
-                          text: 'Cancel',
-                          handleTap: handleCancelTap))),
+                  child: Button(
+                      small: true,
+                      displayBackground: false,
+                      text: 'Cancel',
+                      handleTap: handleCancelTap)),
               Expanded(
                   flex: 1,
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Button(
-                      text: 'Delete',
-                      handleTap: handleDeleteTap,
-                    ),
+                  child: Button(
+                    small: true,
+                    text: 'Delete',
+                    handleTap: handleDeleteTap,
                   ))
             ],
           )
@@ -104,20 +100,17 @@ Future<void> showCompletedWorkoutDeleteDialog({
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: Transform.scale(
-                      scale: 0.8,
-                      child: Button(
-                          displayBackground: false,
-                          text: 'Cancel',
-                          handleTap: handleCancelTap))),
+                  child: Button(
+                      small: true,
+                      displayBackground: false,
+                      text: 'Cancel',
+                      handleTap: handleCancelTap)),
               Expanded(
                   flex: 1,
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Button(
-                      text: 'Delete',
-                      handleTap: handleDeleteTap,
-                    ),
+                  child: Button(
+                    small: true,
+                    text: 'Delete',
+                    handleTap: handleDeleteTap,
                   ))
             ],
           )

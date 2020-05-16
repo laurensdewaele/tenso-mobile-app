@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
@@ -7,6 +5,7 @@ import 'package:app/widgets/empty_input_and_description.dart';
 import 'package:app/widgets/expanded_section.dart';
 import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/text_input.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class RateWorkoutContent extends StatelessWidget {
   RateWorkoutContent(
@@ -167,15 +166,13 @@ class _PerceivedExertionInfo extends StatelessWidget {
             Divider(
               height: styles.Measurements.l,
             ),
-            Transform.scale(
-              scale: .8,
-              child: Button(
-                  displayBackground: false,
-                  text: 'Ok',
-                  handleTap: () {
-                    Navigator.of(context).pop();
-                  }),
-            )
+            Button(
+                small: true,
+                displayBackground: false,
+                text: 'Ok',
+                handleTap: () {
+                  Navigator.of(context).pop();
+                })
           ],
         )
       ],

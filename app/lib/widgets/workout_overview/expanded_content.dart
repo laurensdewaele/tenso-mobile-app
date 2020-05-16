@@ -92,9 +92,10 @@ class WorkoutExpandedContent extends StatelessWidget {
         Container(
             width: 175.0,
             child: Button(
-                text: 'start',
-                handleTap: handleStart,
-                leadingIcon: icons.playIconWhiteL)),
+              text: 'start',
+              handleTap: handleStart,
+              leadingIcon: icons.playIconWhiteL,
+            )),
         Divider(height: styles.Measurements.m),
       ],
     );

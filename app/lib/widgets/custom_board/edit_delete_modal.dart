@@ -106,6 +106,9 @@ class EditDeleteModal extends StatelessWidget {
                     handleTap: handleDeleteTap,
                     text: 'delete',
                     backgroundColor: styles.Colors.primary,
+                    height: _orientation == Orientation.landscape
+                        ? styles.kSmallButtonHeight
+                        : styles.kStandardButtonHeight,
                   ),
                 ),
               ],

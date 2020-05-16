@@ -191,15 +191,13 @@ class _DefaultHoldInfo extends StatelessWidget {
         ),
         Divider(height: styles.Measurements.l),
         Center(
-          child: Transform.scale(
-            scale: .8,
-            child: Button(
-                displayBackground: false,
-                text: 'Ok',
-                handleTap: () {
-                  Navigator.of(context).pop();
-                }),
-          ),
+          child: Button(
+              small: true,
+              displayBackground: false,
+              text: 'Ok',
+              handleTap: () {
+                Navigator.of(context).pop();
+              }),
         )
       ],
     );

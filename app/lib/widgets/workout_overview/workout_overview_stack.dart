@@ -379,11 +379,11 @@ class _LongPressDialog extends StatelessWidget {
             handleTap: handleDeleteTap,
             leadingIconTextCentered: true),
         Divider(height: styles.Measurements.l),
-        Transform.scale(
-          scale: .8,
-          child: Button(
-              displayBackground: false, text: 'Back', handleTap: handleBackTap),
-        )
+        Button(
+            displayBackground: false,
+            text: 'Back',
+            handleTap: handleBackTap,
+            small: true)
       ],
     );
   }
