@@ -37,6 +37,9 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
   Widget build(BuildContext context) {
     return KeyboardAndToastProvider(
       child: Screen(
+          handleBackNavigation: () {
+            Navigator.of(context).pop();
+          },
           gradientStartColor: styles.Colors.bgGrayStart,
           gradientStopColor: styles.Colors.bgGrayStop,
           child: KeyboardListView(children: [

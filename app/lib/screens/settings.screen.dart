@@ -44,12 +44,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  void _onHorizontalDragEnd(DragEndDetails details) {
-    if (details.primaryVelocity > 0) {
-      _handleBackNavigation();
-    }
-  }
-
   void _handleBackNavigation() async {
     final bool _canNavigate = await _viewModel.canNavigate();
     if (_canNavigate == true) {
@@ -78,128 +72,124 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return await _viewModel.canNavigate();
       },
       child: KeyboardAndToastProvider(
-        child: GestureDetector(
-          onHorizontalDragEnd: _onHorizontalDragEnd,
-          child: Screen(
-            gradientStartColor: styles.Colors.bgGrayStart,
-            gradientStopColor: styles.Colors.bgGrayStop,
-            child: KeyboardListView(children: [
-              Column(
-                children: <Widget>[
-                  TopNavigation(
-                    handleBackNavigation: _handleBackNavigation,
-                    title: 'settings',
-                    dark: true,
+        child: Screen(
+          handleBackNavigation: _handleBackNavigation,
+          gradientStartColor: styles.Colors.bgGrayStart,
+          gradientStopColor: styles.Colors.bgGrayStop,
+          child: KeyboardListView(children: [
+            Column(
+              children: <Widget>[
+                TopNavigation(
+                  handleBackNavigation: _handleBackNavigation,
+                  title: 'settings',
+                  dark: true,
+                ),
+                Divider(height: styles.Measurements.xxl),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
+                  child: Card(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Divider(
+                            height: styles.Measurements.xs,
+                          ),
+                          _InfoSection(
+                              title: 'boards',
+                              handleNavigation: _handleBoardNavigation),
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: styles.Measurements.m,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Divider(
+                                    height: styles.Measurements.l,
+                                  ),
+                                  Section(
+                                    title: 'preparation timer',
+                                    children: <Widget>[
+                                      NumberInputAndDescription<int>(
+                                        description: 'seconds',
+                                        initialValue:
+                                            _viewModel.preparationTimerInitial,
+                                        handleValueChanged: _viewModel
+                                            .handlePreparationTimerInput,
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              )),
+                          _InfoSection(
+                              title: 'sound',
+                              handleNavigation: _handleSoundNavigation),
+                          Divider(
+                            height: styles.Measurements.xxl,
+                          ),
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: styles.Measurements.m,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Section(
+                                    title: 'weight unit',
+                                    children: <Widget>[
+                                      RadioButton<WeightUnit>(
+                                        description: 'Metric (kg)',
+                                        value: WeightUnit.metric,
+                                        active: _viewModel.isMetricActive,
+                                        handleSelected:
+                                            _viewModel.setWeightUnit,
+                                      ),
+                                      RadioButton<WeightUnit>(
+                                        description: 'Imperial (pounds)',
+                                        value: WeightUnit.imperial,
+                                        active: _viewModel.isImperialActive,
+                                        handleSelected:
+                                            _viewModel.setWeightUnit,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: styles.Measurements.m,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Section(
+                                    title: 'temperature unit',
+                                    children: <Widget>[
+                                      RadioButton<TempUnit>(
+                                        description: 'Celsius',
+                                        value: TempUnit.celsius,
+                                        active: _viewModel.isCelsiusActive,
+                                        handleSelected: _viewModel.setTempUnit,
+                                      ),
+                                      RadioButton<TempUnit>(
+                                        description: 'Fahrenheit',
+                                        value: TempUnit.fahrenheit,
+                                        active: _viewModel.isFahrenheitActive,
+                                        handleSelected: _viewModel.setTempUnit,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                        ]),
                   ),
-                  Divider(height: styles.Measurements.xxl),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: styles.Measurements.xs),
-                    child: Card(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Divider(
-                              height: styles.Measurements.xs,
-                            ),
-                            _InfoSection(
-                                title: 'boards',
-                                handleNavigation: _handleBoardNavigation),
-                            Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: styles.Measurements.m,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Divider(
-                                      height: styles.Measurements.l,
-                                    ),
-                                    Section(
-                                      title: 'preparation timer',
-                                      children: <Widget>[
-                                        NumberInputAndDescription<int>(
-                                          description: 'seconds',
-                                          initialValue: _viewModel
-                                              .preparationTimerInitial,
-                                          handleValueChanged: _viewModel
-                                              .handlePreparationTimerInput,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                            _InfoSection(
-                                title: 'sound',
-                                handleNavigation: _handleSoundNavigation),
-                            Divider(
-                              height: styles.Measurements.xxl,
-                            ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: styles.Measurements.m,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Section(
-                                      title: 'weight unit',
-                                      children: <Widget>[
-                                        RadioButton<WeightUnit>(
-                                          description: 'Metric (kg)',
-                                          value: WeightUnit.metric,
-                                          active: _viewModel.isMetricActive,
-                                          handleSelected:
-                                              _viewModel.setWeightUnit,
-                                        ),
-                                        RadioButton<WeightUnit>(
-                                          description: 'Imperial (pounds)',
-                                          value: WeightUnit.imperial,
-                                          active: _viewModel.isImperialActive,
-                                          handleSelected:
-                                              _viewModel.setWeightUnit,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                            Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: styles.Measurements.m,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Section(
-                                      title: 'temperature unit',
-                                      children: <Widget>[
-                                        RadioButton<TempUnit>(
-                                          description: 'Celsius',
-                                          value: TempUnit.celsius,
-                                          active: _viewModel.isCelsiusActive,
-                                          handleSelected:
-                                              _viewModel.setTempUnit,
-                                        ),
-                                        RadioButton<TempUnit>(
-                                          description: 'Fahrenheit',
-                                          value: TempUnit.fahrenheit,
-                                          active: _viewModel.isFahrenheitActive,
-                                          handleSelected:
-                                              _viewModel.setTempUnit,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                          ]),
-                    ),
-                  ),
-                  Divider(height: styles.Measurements.xxl),
-                ],
-              )
-            ]),
-          ),
+                ),
+                Divider(height: styles.Measurements.xxl),
+              ],
+            )
+          ]),
         ),
       ),
     );

@@ -48,12 +48,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
     }
   }
 
-  void _onHorizontalDragEnd(DragEndDetails details) {
-    if (details.primaryVelocity > 0) {
-      _handleBackNavigation();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -61,231 +55,219 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
         return await _viewModel.canNavigate();
       },
       child: KeyboardAndToastProvider(
-        child: GestureDetector(
-          onHorizontalDragEnd: _onHorizontalDragEnd,
-          child: Screen(
-              gradientStartColor: styles.Colors.bgGrayStart,
-              gradientStopColor: styles.Colors.bgGrayStop,
-              child: KeyboardListView(children: [
-                Column(
-                  children: <Widget>[
-                    TopNavigation(
-                      handleBackNavigation: _handleBackNavigation,
-                      title: 'sound settings',
-                      dark: true,
+        child: Screen(
+            handleBackNavigation: _handleBackNavigation,
+            gradientStartColor: styles.Colors.bgGrayStart,
+            gradientStopColor: styles.Colors.bgGrayStop,
+            child: KeyboardListView(children: [
+              Column(
+                children: <Widget>[
+                  TopNavigation(
+                    handleBackNavigation: _handleBackNavigation,
+                    title: 'sound settings',
+                    dark: true,
+                  ),
+                  Divider(height: styles.Measurements.xxl),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: styles.Measurements.xs),
+                    child: Card(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.m,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Divider(
+                                      height: styles.Measurements.l,
+                                    ),
+                                    Section(
+                                      title: 'indicator beeps',
+                                      children: <Widget>[
+                                        NumberInputAndDescription<int>(
+                                          description: 'beeps before hang',
+                                          initialValue:
+                                              _viewModel.beepsBeforeHangInitial,
+                                          handleValueChanged: _viewModel
+                                              .handleBeepsBeforeHangInput,
+                                        ),
+                                        Divider(
+                                          height: styles.Measurements.m,
+                                        ),
+                                        NumberInputAndDescription<int>(
+                                          description: 'beeps before rest',
+                                          initialValue:
+                                              _viewModel.beepsBeforeRestInitial,
+                                          handleValueChanged: _viewModel
+                                              .handleBeepsBeforeRestInput,
+                                        ),
+                                        Divider(
+                                          height: styles.Measurements.m,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.m,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Section(
+                                      title: 'hang sound',
+                                      children: <Widget>[
+                                        RadioButton<Sound>(
+                                          description: Sounds.thudDeep.name,
+                                          value: Sounds.thudDeep,
+                                          active: _viewModel.isThudDeepActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayHangSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description: Sounds.femaleHang.name,
+                                          value: Sounds.femaleHang,
+                                          active: _viewModel.isWomanHangActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayHangSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description:
+                                              Sounds.femaleHangAggressive.name,
+                                          value: Sounds.femaleHangAggressive,
+                                          active: _viewModel
+                                              .isWomanHangAggressiveActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayHangSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description: Sounds.off.name,
+                                          value: Sounds.off,
+                                          active:
+                                              _viewModel.isHangSoundOffActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayHangSound,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.m,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Section(
+                                      title: 'rest sound',
+                                      children: <Widget>[
+                                        RadioButton<Sound>(
+                                          description: Sounds.gong.name,
+                                          value: Sounds.gong,
+                                          active: _viewModel.isGongActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayRestSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description: Sounds.femaleRelax.name,
+                                          value: Sounds.femaleRelax,
+                                          active: _viewModel.isWomanRelaxActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayRestSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description:
+                                              Sounds.femaleRelaxSensual.name,
+                                          value: Sounds.femaleRelaxSensual,
+                                          active: _viewModel
+                                              .isWomanRelaxSensualActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayRestSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description: Sounds.off.name,
+                                          value: Sounds.off,
+                                          active:
+                                              _viewModel.isRestSoundOffActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayRestSound,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.m,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Section(
+                                      title: 'beep sound',
+                                      children: <Widget>[
+                                        RadioButton<Sound>(
+                                          description: Sounds.hitLightSoft.name,
+                                          value: Sounds.hitLightSoft,
+                                          active:
+                                              _viewModel.isHitLightSoftActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayBeepSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description: Sounds.hitLightHard.name,
+                                          value: Sounds.hitLightHard,
+                                          active:
+                                              _viewModel.isHitLightHardActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayBeepSound,
+                                        ),
+                                        RadioButton<Sound>(
+                                          description: Sounds.off.name,
+                                          value: Sounds.off,
+                                          active:
+                                              _viewModel.isBeepSoundOffActive,
+                                          handleSelected:
+                                              _viewModel.setAndPlayBeepSound,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.m,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Section(
+                                      title: 'accreditation',
+                                      children: <Widget>[
+                                        Text(
+                                          'Female voice by Ann-Sofie, others obtained from zapsplat.com',
+                                          style: styles.Lato.xsGray,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                          ]),
                     ),
-                    Divider(height: styles.Measurements.xxl),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: styles.Measurements.xs),
-                      child: Card(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Divider(
-                                        height: styles.Measurements.l,
-                                      ),
-                                      Section(
-                                        title: 'indicator beeps',
-                                        children: <Widget>[
-                                          NumberInputAndDescription<int>(
-                                            description: 'beeps before hang',
-                                            initialValue: _viewModel
-                                                .beepsBeforeHangInitial,
-                                            handleValueChanged: _viewModel
-                                                .handleBeepsBeforeHangInput,
-                                          ),
-                                          Divider(
-                                            height: styles.Measurements.m,
-                                          ),
-                                          NumberInputAndDescription<int>(
-                                            description: 'beeps before rest',
-                                            initialValue: _viewModel
-                                                .beepsBeforeRestInitial,
-                                            handleValueChanged: _viewModel
-                                                .handleBeepsBeforeRestInput,
-                                          ),
-                                          Divider(
-                                            height: styles.Measurements.m,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Section(
-                                        title: 'hang sound',
-                                        children: <Widget>[
-                                          RadioButton<Sound>(
-                                            description: Sounds.thudDeep.name,
-                                            value: Sounds.thudDeep,
-                                            active: _viewModel.isThudDeepActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayHangSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description: Sounds.femaleHang.name,
-                                            value: Sounds.femaleHang,
-                                            active:
-                                                _viewModel.isWomanHangActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayHangSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description: Sounds
-                                                .femaleHangAggressive.name,
-                                            value: Sounds.femaleHangAggressive,
-                                            active: _viewModel
-                                                .isWomanHangAggressiveActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayHangSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description: Sounds.off.name,
-                                            value: Sounds.off,
-                                            active:
-                                                _viewModel.isHangSoundOffActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayHangSound,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Section(
-                                        title: 'rest sound',
-                                        children: <Widget>[
-                                          RadioButton<Sound>(
-                                            description: Sounds.gong.name,
-                                            value: Sounds.gong,
-                                            active: _viewModel.isGongActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayRestSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description:
-                                                Sounds.femaleRelax.name,
-                                            value: Sounds.femaleRelax,
-                                            active:
-                                                _viewModel.isWomanRelaxActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayRestSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description:
-                                                Sounds.femaleRelaxSensual.name,
-                                            value: Sounds.femaleRelaxSensual,
-                                            active: _viewModel
-                                                .isWomanRelaxSensualActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayRestSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description: Sounds.off.name,
-                                            value: Sounds.off,
-                                            active:
-                                                _viewModel.isRestSoundOffActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayRestSound,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Section(
-                                        title: 'beep sound',
-                                        children: <Widget>[
-                                          RadioButton<Sound>(
-                                            description:
-                                                Sounds.hitLightSoft.name,
-                                            value: Sounds.hitLightSoft,
-                                            active:
-                                                _viewModel.isHitLightSoftActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayBeepSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description:
-                                                Sounds.hitLightHard.name,
-                                            value: Sounds.hitLightHard,
-                                            active:
-                                                _viewModel.isHitLightHardActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayBeepSound,
-                                          ),
-                                          RadioButton<Sound>(
-                                            description: Sounds.off.name,
-                                            value: Sounds.off,
-                                            active:
-                                                _viewModel.isBeepSoundOffActive,
-                                            handleSelected:
-                                                _viewModel.setAndPlayBeepSound,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: styles.Measurements.m,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Section(
-                                        title: 'accreditation',
-                                        children: <Widget>[
-                                          Text(
-                                            'Female voice by Ann-Sofie, others obtained from zapsplat.com',
-                                            style: styles.Lato.xsGray,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                            ]),
-                      ),
-                    ),
-                    Divider(
-                      height: styles.Measurements.xxl,
-                    )
-                  ],
-                )
-              ])),
-        ),
+                  ),
+                  Divider(
+                    height: styles.Measurements.xxl,
+                  )
+                ],
+              )
+            ])),
       ),
     );
   }

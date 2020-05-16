@@ -77,6 +77,9 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
       child: Stack(
         children: <Widget>[
           Screen(
+            handleBackNavigation: () {
+              Navigator.of(context).pop();
+            },
             gradientStartColor: styles.Colors.bgGrayStart,
             gradientStopColor: styles.Colors.bgGrayStop,
             child: Column(

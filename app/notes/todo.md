@@ -14,6 +14,11 @@
 
 ### Triage - think about
 
+- When saving data to disk/be, specify a model version no. e.g workouts.txt:
+  {v1: {}, v2{}}
+
+- When saving data 
+
 - Editing a workout whilst your training would be really nice.
   Adjusting the sequence directly? Or somehow going back to workout, edit, keep past hangs ...
   Or just simply editing in the history for correct values.

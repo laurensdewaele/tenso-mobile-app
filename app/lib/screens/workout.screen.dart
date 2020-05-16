@@ -62,16 +62,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     super.dispose();
   }
 
-  void _onHorizontalDragEnd(DragEndDetails details) {
-    if (details.primaryVelocity > 0) {
-      _workoutNavigator.handleBackRequest();
-    }
-
-    if (details.primaryVelocity < 0) {
-      _workoutNavigator.handleForwardRequest();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -81,74 +71,72 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       },
       child: _ShouldPopRouteListener(
           shouldPopRoute$: _workoutNavigator.shouldPopRoute$,
-          child: GestureDetector(
-            onHorizontalDragEnd: _onHorizontalDragEnd,
-            child: KeyboardAndToastProvider(
-              child: StreamBuilder<WorkoutViewModelState>(
-                initialData: _workoutViewModel.state,
-                stream: _workoutViewModel.state$,
-                builder: (BuildContext context,
-                    AsyncSnapshot<WorkoutViewModelState> snapshot) {
-                  final _workoutState = snapshot.data;
-                  return Screen(
-                      gradientStartColor: _workoutState.primaryColor,
-                      gradientStopColor: _workoutState.primaryColor,
-                      child: KeyboardListView(
-                          scrollToTopStream:
-                              _workoutNavigator.activePage$.map((page) => true),
-                          children: [
-                            Column(
-                              children: <Widget>[
-                                TopNavigation(
-                                  title: _workoutState.title,
-                                ),
-                                Divider(height: styles.Measurements.xxl),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: styles.Measurements.xs),
-                                  child: StreamBuilder(
-                                    initialData: _workoutNavigator.initialPage,
-                                    stream: _workoutNavigator.activePage$,
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<WorkoutNavigatorPage>
-                                            snapshot) {
-                                      final WorkoutNavigatorPage activePage =
-                                          snapshot.data;
-                                      return Column(
-                                        children: <Widget>[
-                                          if (activePage.page ==
-                                              WorkoutPages.generalPage)
-                                            GeneralPage(
-                                                workoutNavigator:
-                                                    _workoutNavigator,
-                                                workoutViewModel:
-                                                    _workoutViewModel),
-                                          if (activePage.page ==
-                                              WorkoutPages.holdPage)
-                                            HoldPage(
-                                                workoutNavigator:
-                                                    _workoutNavigator,
-                                                workoutViewModel:
-                                                    _workoutViewModel),
-                                          if (activePage.page ==
-                                              WorkoutPages.extraPage)
-                                            ExtraPage(
-                                              workoutViewModel:
-                                                  _workoutViewModel,
+          child: KeyboardAndToastProvider(
+            child: StreamBuilder<WorkoutViewModelState>(
+              initialData: _workoutViewModel.state,
+              stream: _workoutViewModel.state$,
+              builder: (BuildContext context,
+                  AsyncSnapshot<WorkoutViewModelState> snapshot) {
+                final _workoutState = snapshot.data;
+                return Screen(
+                    handleBackNavigation: _workoutNavigator.handleBackRequest,
+                    handleForwardNavigation:
+                        _workoutNavigator.handleForwardRequest,
+                    gradientStartColor: _workoutState.primaryColor,
+                    gradientStopColor: _workoutState.primaryColor,
+                    child: KeyboardListView(
+                        scrollToTopStream:
+                            _workoutNavigator.activePage$.map((page) => true),
+                        children: [
+                          Column(
+                            children: <Widget>[
+                              TopNavigation(
+                                title: _workoutState.title,
+                              ),
+                              Divider(height: styles.Measurements.xxl),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: styles.Measurements.xs),
+                                child: StreamBuilder(
+                                  initialData: _workoutNavigator.initialPage,
+                                  stream: _workoutNavigator.activePage$,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<WorkoutNavigatorPage>
+                                          snapshot) {
+                                    final WorkoutNavigatorPage activePage =
+                                        snapshot.data;
+                                    return Column(
+                                      children: <Widget>[
+                                        if (activePage.page ==
+                                            WorkoutPages.generalPage)
+                                          GeneralPage(
                                               workoutNavigator:
                                                   _workoutNavigator,
-                                            )
-                                        ],
-                                      );
-                                    },
-                                  ),
+                                              workoutViewModel:
+                                                  _workoutViewModel),
+                                        if (activePage.page ==
+                                            WorkoutPages.holdPage)
+                                          HoldPage(
+                                              workoutNavigator:
+                                                  _workoutNavigator,
+                                              workoutViewModel:
+                                                  _workoutViewModel),
+                                        if (activePage.page ==
+                                            WorkoutPages.extraPage)
+                                          ExtraPage(
+                                            workoutViewModel: _workoutViewModel,
+                                            workoutNavigator: _workoutNavigator,
+                                          )
+                                      ],
+                                    );
+                                  },
                                 ),
-                                Divider(height: styles.Measurements.xxl)
-                              ],
-                            )
-                          ]));
-                },
-              ),
+                              ),
+                              Divider(height: styles.Measurements.xxl)
+                            ],
+                          )
+                        ]));
+              },
             ),
           )),
     );
