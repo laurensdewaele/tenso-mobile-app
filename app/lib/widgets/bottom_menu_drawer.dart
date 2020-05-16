@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart' hide Icon;
+import 'dart:async';
 
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class MenuItem {
   final String name;
@@ -32,6 +33,7 @@ class BottomMenuDrawer extends StatefulWidget {
       @required this.longestMenuItemLength,
       @required this.menuItems,
       @required this.dragIndicatorColor,
+      this.close$,
       this.icons = false})
       : super(key: key);
 
@@ -40,6 +42,7 @@ class BottomMenuDrawer extends StatefulWidget {
   final double longestMenuItemLength;
   final Color dragIndicatorColor;
   final bool icons;
+  final Stream<bool> close$;
 
   @override
   _BottomMenuDrawerState createState() => _BottomMenuDrawerState();
@@ -49,6 +52,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     with SingleTickerProviderStateMixin {
   AnimationController _slideController;
   Animatable<Offset> _slideAnimation;
+  StreamSubscription _sub;
 
   double _dy = 0.0;
   SliderPositions _position = SliderPositions.begin;
@@ -59,6 +63,11 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   @override
   void initState() {
     super.initState();
+    if (widget.close$ != null) {
+      _sub = widget.close$.listen((_) {
+        _forward();
+      });
+    }
     _setMeasurements();
     _slideController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
@@ -84,6 +93,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   @override
   void dispose() {
     _slideController.dispose();
+    _sub.cancel();
     super.dispose();
   }
 

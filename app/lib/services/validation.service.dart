@@ -60,11 +60,7 @@ abstract class Validators {
       {@required String string, @required String inputField}) {
     bool _bool = false;
 
-    if (string == null) {
-      return _bool;
-    }
-
-    if (string.length == 0) {
+    if (string == null || string.length == 0) {
       throw ValidationException<String>(
           validationType: 'stringNotEmpty',
           errorMessage: ErrorMessages.inputNotEmpty(inputField: inputField),

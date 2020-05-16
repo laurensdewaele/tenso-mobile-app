@@ -267,7 +267,6 @@ final beastmaker1000 = Board((b) => b
   ..height = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/beastmaker_1000.png'
   ..handToBoardHeightRatio = 1.2
-  ..aspectRatio = _kBoardSize.aspectRatio
   ..boardHolds.addAll(boardHolds)
   ..defaultLeftGripHold = boardHolds
       .singleWhere((boardHold) => boardHold.position == 11)

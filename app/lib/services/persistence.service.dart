@@ -25,6 +25,11 @@ class PersistenceService {
     return File('$path/workouts.txt');
   }
 
+  Future<File> get _localBoardsFile async {
+    final path = await _localPath;
+    return File('$path/boards.txt');
+  }
+
   Future<File> get _localCompletedWorkoutsFile async {
     final path = await _localPath;
     return File('$path/completed_workouts.txt');
@@ -51,6 +56,29 @@ class PersistenceService {
       // TODO: Error handling.
     }
     return deviceInfo;
+  }
+
+  Future<Boards> getBoards() async {
+    Boards boards;
+    try {
+      final file = await _localBoardsFile;
+      String contents = await file.readAsString();
+      boards = Boards.fromJson(contents);
+    } catch (e) {
+      print(e);
+      // TODO: Error handling.
+    }
+    return boards;
+  }
+
+  void saveBoards(Boards boards) async {
+    try {
+      final file = await _localBoardsFile;
+      file.writeAsString(boards.toJson().toString());
+    } catch (e) {
+      print(e);
+      // TODO: Error handling
+    }
   }
 
   void saveDeviceInfo(DeviceInfo info) async {

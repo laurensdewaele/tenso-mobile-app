@@ -17,15 +17,18 @@ abstract class Board implements Built<Board, BoardBuilder> {
   BuiltList<CustomBoardHoldImage> get customBoardHoldImages;
   @nullable
   String get manufacturer;
+  @nullable
   String get model;
+  @nullable
+  String get customName;
   String get imageAsset;
-  double get aspectRatio;
   double get height;
   double get width;
   double get handToBoardHeightRatio;
   BuiltList<BoardHold> get boardHolds;
   BoardHold get defaultLeftGripHold;
   BoardHold get defaultRightGripHold;
+  double get aspectRatio => width / height;
 
   factory Board([void Function(BoardBuilder) updates]) = _$Board;
   Board._();

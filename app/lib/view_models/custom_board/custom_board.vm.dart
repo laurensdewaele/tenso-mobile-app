@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:app/data/custom_board.data.dart';
 import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/error.service.dart';
 import 'package:app/services/toast.service.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/cupertino.dart';
 
 enum BoxVisibility { selected, deselected, hidden }
@@ -56,6 +59,8 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   bool addHoldModalOpen;
   bool editDeleteModalOpen;
+  StreamController<bool> _closeBottomMenuDrawer$ = StreamController<bool>();
+  Stream<bool> get closeBottomMenuDrawer$ => _closeBottomMenuDrawer$.stream;
 
   CustomBoardViewModel() {
     _toastService = ToastService();
@@ -67,9 +72,10 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setAddHoldModalOpen(bool open) {
-    addHoldModalOpen = open;
-    notifyListeners();
+  @override
+  void dispose() {
+    _closeBottomMenuDrawer$.close();
+    super.dispose();
   }
 
   void _generateBoxes() {
@@ -87,6 +93,7 @@ class CustomBoardViewModel extends ChangeNotifier {
   void handleBoxTap(BoxState boxState) {
     _selectedCustomBoardHoldImage = null;
     editDeleteModalOpen = false;
+    _closeBottomMenuDrawer$.add(true);
 
     if (boxState.visibility == BoxVisibility.deselected) {
       bool _isAdjacent =
@@ -251,6 +258,7 @@ class CustomBoardViewModel extends ChangeNotifier {
       _deselectBoxes();
       editDeleteModalOpen = true;
     }
+    _closeBottomMenuDrawer$.add(true);
     addHoldModalOpen = false;
     notifyListeners();
   }
@@ -313,7 +321,7 @@ _CustomBoardHolds _getCustomBoardHolds({
   switch (type) {
     case HoldType.pinchBlock:
       _customBoardHoldImage = CustomBoardHoldImage((b) => b
-        ..positions = positions
+        ..positions = ListBuilder<int>(positions)
         ..holdType = HoldType.pinchBlock
         ..scale = kPinchBlockJugScale
         ..heightPercent = kPinchBlockJugHeightPercent
@@ -337,7 +345,7 @@ _CustomBoardHolds _getCustomBoardHolds({
       break;
     case HoldType.jug:
       _customBoardHoldImage = CustomBoardHoldImage((b) => b
-        ..positions = positions
+        ..positions = ListBuilder<int>(positions)
         ..holdType = HoldType.jug
         ..scale = kPinchBlockJugScale
         ..heightPercent = kPinchBlockJugHeightPercent
@@ -360,7 +368,7 @@ _CustomBoardHolds _getCustomBoardHolds({
       break;
     case HoldType.sloper:
       _customBoardHoldImage = CustomBoardHoldImage((b) => b
-        ..positions = positions
+        ..positions = ListBuilder<int>(positions)
         ..holdType = HoldType.sloper
         ..scale = 1
         ..heightPercent = kSloperHeightPercent
@@ -384,7 +392,7 @@ _CustomBoardHolds _getCustomBoardHolds({
       break;
     case HoldType.pocket:
       _customBoardHoldImage = CustomBoardHoldImage((b) => b
-        ..positions = positions
+        ..positions = ListBuilder<int>(positions)
         ..holdType = HoldType.pocket
         ..scale = 1
         ..heightPercent = kPocketHeightPercent
@@ -421,7 +429,7 @@ _CustomBoardHolds _getCustomBoardHolds({
       break;
     case HoldType.edge:
       _customBoardHoldImage = CustomBoardHoldImage((b) => b
-        ..positions = positions
+        ..positions = ListBuilder<int>(positions)
         ..holdType = HoldType.edge
         ..scale = kEdgeScale
         ..heightPercent = kEdgeHeightPercent

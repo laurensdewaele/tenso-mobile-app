@@ -7,6 +7,7 @@ part 'serializers.g.dart';
 
 @SerializersFor(const [
   Board,
+  Boards,
   BoardHold,
   CompletedWorkout,
   CompletedWorkouts,

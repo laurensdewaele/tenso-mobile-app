@@ -1,10 +1,15 @@
 import 'dart:math';
 
+import 'package:app/data/custom_board.data.dart';
 import 'package:app/data/grips.data.dart';
+import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
+import 'package:app/state/boards.state.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCustomBoardViewModel extends ChangeNotifier {
@@ -36,8 +41,10 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
   BoardHold get rightGripBoardHold => _rightGripBoardHold;
 
   void _setGripsAndBoardHoldsAndNotify() {
-    _leftGripBoardHold = _boardHolds[0];
-    _rightGripBoardHold = _boardHolds[boardHolds.length - 1];
+    final _sorted = []..addAll(_boardHolds);
+    _sorted.sort((a, b) => a.position.compareTo(b.position));
+    _leftGripBoardHold = _sorted[0];
+    _rightGripBoardHold = _sorted[_sorted.length - 1];
     final List<int> _supportedFingers = _boardHolds
         .map((BoardHold boardHold) => boardHold.supportedFingers)
         .toList();
@@ -70,7 +77,19 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
     _name = InputParsers.parseString(string: _nameInput);
     final _valid = Validators.stringNotEmpty(string: _name, inputField: 'Name');
     if (_valid == true) {
-      print('saving');
+      BoardsState().addBoard(Board((b) => b
+        ..id = generateUniqueId()
+        ..custom = true
+        ..customName = _name
+        ..imageAsset = 'assets/images/custom_board/custom_board.png'
+        ..width = kImageAssetWidth
+        ..height = kImageAssetHeight
+        ..handToBoardHeightRatio = kHandToBoardHeightRatio
+        ..boardHolds.addAll(boardHolds)
+        ..customBoardHoldImages.addAll(customBoardHoldImages)
+        ..defaultLeftGripHold = leftGripBoardHold.toBuilder()
+        ..defaultRightGripHold = rightGripBoardHold.toBuilder()));
+      NavigationService().pushNamed(Routes.boardSettingsScreen);
     }
     return _valid;
   }

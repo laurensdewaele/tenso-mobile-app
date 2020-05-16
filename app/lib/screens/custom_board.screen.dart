@@ -40,6 +40,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   @override
   void dispose() {
     _viewModel.removeListener(_viewModelListener);
+    _viewModel.dispose();
     super.dispose();
   }
 
@@ -106,6 +107,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 )),
           ),
           BottomMenuDrawer(
+            close$: _viewModel.closeBottomMenuDrawer$,
             dragIndicatorColor: styles.Colors.lightGray,
             menuItems: [
               MenuItem(
@@ -170,18 +172,6 @@ class _InfoDialog extends StatelessWidget {
                 text:
                     'You can select multiple boxes in order to create a hold that stretches across multiple columns.',
                 style: styles.Lato.xsBlack),
-          ]),
-        ),
-        Divider(
-          height: styles.Measurements.m,
-        ),
-        RichText(
-          text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
-            TextSpan(text: 'This page is ', style: styles.Lato.xsBlack),
-            TextSpan(text: 'best viewed ', style: styles.Lato.xsBlackBold),
-            TextSpan(text: 'in ', style: styles.Lato.xsBlack),
-            TextSpan(text: 'landscape ', style: styles.Lato.xsBlackBold),
-            TextSpan(text: 'mode.', style: styles.Lato.xsBlack),
           ]),
         ),
         Divider(

@@ -192,7 +192,7 @@ class _DefaultHoldInfo extends StatelessWidget {
         Text(
           'Place the hands in the most common, '
           'most often used holds of the board. '
-          'This is done so you will loose less time '
+          'This is done so you will lose less time '
           'positioning them correctly on every new '
           'workout creation.',
           style: styles.Lato.xsBlack,

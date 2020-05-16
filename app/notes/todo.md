@@ -1,25 +1,11 @@
 # TODO
 ### Custom board
-- Refactor screen to have back swipe as standard.                                           
-- Close menu drawer when clicking on box or image. => pass observable
-- Replace GridView
 - Save page
-
-//    _board = Board((b) => b
-//      ..id = Uuid().v4()
-//      ..custom = true
-//      ..model = ''
-//      ..imageAsset = 'assets/images/custom_board/custom_board.png'
-//      ..aspectRatio = 3
-//      ..width = 2555
-//      ..height = 850
-//      ..handToBoardHeightRatio = 1.2
-//      ..boardHolds = null
-//      ..customBoardHoldImages = null
-//      ..defaultLeftGripHold = null
-//      ..defaultRightGripHold = null);
-
+- Replace GridView
 - Test custom board on different screen sizes! 
+
+
+
 
 
 ### Others

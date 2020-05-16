@@ -26,7 +26,8 @@ class _$CustomBoardHoldImageSerializer
     final result = <Object>[
       'positions',
       serializers.serialize(object.positions,
-          specifiedType: const FullType(List, const [const FullType(int)])),
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(int)])),
       'holdType',
       serializers.serialize(object.holdType,
           specifiedType: const FullType(HoldType)),
@@ -66,10 +67,10 @@ class _$CustomBoardHoldImageSerializer
       final dynamic value = iterator.current;
       switch (key) {
         case 'positions':
-          result.positions = serializers.deserialize(value,
+          result.positions.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(List, const [const FullType(int)]))
-              as List<int>;
+                      const FullType(BuiltList, const [const FullType(int)]))
+              as BuiltList<Object>);
           break;
         case 'holdType':
           result.holdType = serializers.deserialize(value,
@@ -108,7 +109,7 @@ class _$CustomBoardHoldImageSerializer
 
 class _$CustomBoardHoldImage extends CustomBoardHoldImage {
   @override
-  final List<int> positions;
+  final BuiltList<int> positions;
   @override
   final HoldType holdType;
   @override
@@ -224,9 +225,10 @@ class CustomBoardHoldImageBuilder
     implements Builder<CustomBoardHoldImage, CustomBoardHoldImageBuilder> {
   _$CustomBoardHoldImage _$v;
 
-  List<int> _positions;
-  List<int> get positions => _$this._positions;
-  set positions(List<int> positions) => _$this._positions = positions;
+  ListBuilder<int> _positions;
+  ListBuilder<int> get positions =>
+      _$this._positions ??= new ListBuilder<int>();
+  set positions(ListBuilder<int> positions) => _$this._positions = positions;
 
   HoldType _holdType;
   HoldType get holdType => _$this._holdType;
@@ -261,7 +263,7 @@ class CustomBoardHoldImageBuilder
 
   CustomBoardHoldImageBuilder get _$this {
     if (_$v != null) {
-      _positions = _$v.positions;
+      _positions = _$v.positions?.toBuilder();
       _holdType = _$v.holdType;
       _leftPercent = _$v.leftPercent;
       _topPercent = _$v.topPercent;
@@ -289,16 +291,29 @@ class CustomBoardHoldImageBuilder
 
   @override
   _$CustomBoardHoldImage build() {
-    final _$result = _$v ??
-        new _$CustomBoardHoldImage._(
-            positions: positions,
-            holdType: holdType,
-            leftPercent: leftPercent,
-            topPercent: topPercent,
-            widthPercent: widthPercent,
-            heightPercent: heightPercent,
-            scale: scale,
-            imageAsset: imageAsset);
+    _$CustomBoardHoldImage _$result;
+    try {
+      _$result = _$v ??
+          new _$CustomBoardHoldImage._(
+              positions: positions.build(),
+              holdType: holdType,
+              leftPercent: leftPercent,
+              topPercent: topPercent,
+              widthPercent: widthPercent,
+              heightPercent: heightPercent,
+              scale: scale,
+              imageAsset: imageAsset);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'positions';
+        positions.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'CustomBoardHoldImage', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

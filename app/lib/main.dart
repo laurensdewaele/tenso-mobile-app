@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app/app.dart';
 import 'package:app/services/error.service.dart';
+import 'package:app/state/boards.state.dart';
 import 'package:app/state/completed_workouts.state.dart';
 import 'package:app/state/settings.state.dart';
 import 'package:app/state/user.state.dart';
@@ -18,6 +19,7 @@ Future<Null> main() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     final futures = <Future>[
+      BoardsState().init(),
       WorkoutsState().init(),
       CompletedWorkoutsState().init(),
       SettingsState().init(),

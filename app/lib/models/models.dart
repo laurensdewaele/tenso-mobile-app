@@ -2,6 +2,7 @@ library models;
 
 export 'package:app/models/board.model.dart';
 export 'package:app/models/board_hold.model.dart';
+export 'package:app/models/boards.model.dart';
 export 'package:app/models/completed_workout.model.dart';
 export 'package:app/models/completed_workouts.model.dart';
 export 'package:app/models/custom_board_hold_image.model.dart';

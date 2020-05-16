@@ -22,15 +22,9 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'custom',
       serializers.serialize(object.custom, specifiedType: const FullType(bool)),
-      'model',
-      serializers.serialize(object.model,
-          specifiedType: const FullType(String)),
       'imageAsset',
       serializers.serialize(object.imageAsset,
           specifiedType: const FullType(String)),
-      'aspectRatio',
-      serializers.serialize(object.aspectRatio,
-          specifiedType: const FullType(double)),
       'height',
       serializers.serialize(object.height,
           specifiedType: const FullType(double)),
@@ -62,6 +56,18 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
       result
         ..add('manufacturer')
         ..add(serializers.serialize(object.manufacturer,
+            specifiedType: const FullType(String)));
+    }
+    if (object.model != null) {
+      result
+        ..add('model')
+        ..add(serializers.serialize(object.model,
+            specifiedType: const FullType(String)));
+    }
+    if (object.customName != null) {
+      result
+        ..add('customName')
+        ..add(serializers.serialize(object.customName,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -100,13 +106,13 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
           result.model = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'customName':
+          result.customName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'imageAsset':
           result.imageAsset = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
-          break;
-        case 'aspectRatio':
-          result.aspectRatio = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
           break;
         case 'height':
           result.height = serializers.deserialize(value,
@@ -153,9 +159,9 @@ class _$Board extends Board {
   @override
   final String model;
   @override
-  final String imageAsset;
+  final String customName;
   @override
-  final double aspectRatio;
+  final String imageAsset;
   @override
   final double height;
   @override
@@ -178,8 +184,8 @@ class _$Board extends Board {
       this.customBoardHoldImages,
       this.manufacturer,
       this.model,
+      this.customName,
       this.imageAsset,
-      this.aspectRatio,
       this.height,
       this.width,
       this.handToBoardHeightRatio,
@@ -193,14 +199,8 @@ class _$Board extends Board {
     if (custom == null) {
       throw new BuiltValueNullFieldError('Board', 'custom');
     }
-    if (model == null) {
-      throw new BuiltValueNullFieldError('Board', 'model');
-    }
     if (imageAsset == null) {
       throw new BuiltValueNullFieldError('Board', 'imageAsset');
-    }
-    if (aspectRatio == null) {
-      throw new BuiltValueNullFieldError('Board', 'aspectRatio');
     }
     if (height == null) {
       throw new BuiltValueNullFieldError('Board', 'height');
@@ -238,8 +238,8 @@ class _$Board extends Board {
         customBoardHoldImages == other.customBoardHoldImages &&
         manufacturer == other.manufacturer &&
         model == other.model &&
+        customName == other.customName &&
         imageAsset == other.imageAsset &&
-        aspectRatio == other.aspectRatio &&
         height == other.height &&
         width == other.width &&
         handToBoardHeightRatio == other.handToBoardHeightRatio &&
@@ -266,8 +266,8 @@ class _$Board extends Board {
                                                 customBoardHoldImages.hashCode),
                                             manufacturer.hashCode),
                                         model.hashCode),
-                                    imageAsset.hashCode),
-                                aspectRatio.hashCode),
+                                    customName.hashCode),
+                                imageAsset.hashCode),
                             height.hashCode),
                         width.hashCode),
                     handToBoardHeightRatio.hashCode),
@@ -284,8 +284,8 @@ class _$Board extends Board {
           ..add('customBoardHoldImages', customBoardHoldImages)
           ..add('manufacturer', manufacturer)
           ..add('model', model)
+          ..add('customName', customName)
           ..add('imageAsset', imageAsset)
-          ..add('aspectRatio', aspectRatio)
           ..add('height', height)
           ..add('width', width)
           ..add('handToBoardHeightRatio', handToBoardHeightRatio)
@@ -322,13 +322,13 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
   String get model => _$this._model;
   set model(String model) => _$this._model = model;
 
+  String _customName;
+  String get customName => _$this._customName;
+  set customName(String customName) => _$this._customName = customName;
+
   String _imageAsset;
   String get imageAsset => _$this._imageAsset;
   set imageAsset(String imageAsset) => _$this._imageAsset = imageAsset;
-
-  double _aspectRatio;
-  double get aspectRatio => _$this._aspectRatio;
-  set aspectRatio(double aspectRatio) => _$this._aspectRatio = aspectRatio;
 
   double _height;
   double get height => _$this._height;
@@ -370,8 +370,8 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
       _customBoardHoldImages = _$v.customBoardHoldImages?.toBuilder();
       _manufacturer = _$v.manufacturer;
       _model = _$v.model;
+      _customName = _$v.customName;
       _imageAsset = _$v.imageAsset;
-      _aspectRatio = _$v.aspectRatio;
       _height = _$v.height;
       _width = _$v.width;
       _handToBoardHeightRatio = _$v.handToBoardHeightRatio;
@@ -407,8 +407,8 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
               customBoardHoldImages: _customBoardHoldImages?.build(),
               manufacturer: manufacturer,
               model: model,
+              customName: customName,
               imageAsset: imageAsset,
-              aspectRatio: aspectRatio,
               height: height,
               width: width,
               handToBoardHeightRatio: handToBoardHeightRatio,
