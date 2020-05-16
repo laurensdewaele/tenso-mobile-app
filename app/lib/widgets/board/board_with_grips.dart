@@ -59,7 +59,7 @@ class _BoardWithGripsState extends State<BoardWithGrips> {
   void _setHandOffset(Grip grip, BoardHold boardHold) {
     final double gripAnchorTop = grip.anchorTopPercent * widget.gripHeight;
     final double gripAnchorLeft =
-        grip.anchorLeftPercent * grip.assetAspectRatio * widget.gripHeight;
+        grip.anchorLeftPercent * grip.aspectRatio * widget.gripHeight;
     final double holdAnchorTop =
         boardHold.anchorTopPercent * widget.boardSize.height;
     final double holdAnchorLeft =

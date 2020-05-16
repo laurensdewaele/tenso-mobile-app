@@ -25,11 +25,11 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
       'imageAsset',
       serializers.serialize(object.imageAsset,
           specifiedType: const FullType(String)),
-      'height',
-      serializers.serialize(object.height,
+      'imageAssetHeight',
+      serializers.serialize(object.imageAssetHeight,
           specifiedType: const FullType(double)),
-      'width',
-      serializers.serialize(object.width,
+      'imageAssetWidth',
+      serializers.serialize(object.imageAssetWidth,
           specifiedType: const FullType(double)),
       'handToBoardHeightRatio',
       serializers.serialize(object.handToBoardHeightRatio,
@@ -114,12 +114,12 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
           result.imageAsset = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'height':
-          result.height = serializers.deserialize(value,
+        case 'imageAssetHeight':
+          result.imageAssetHeight = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'width':
-          result.width = serializers.deserialize(value,
+        case 'imageAssetWidth':
+          result.imageAssetWidth = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'handToBoardHeightRatio':
@@ -163,9 +163,9 @@ class _$Board extends Board {
   @override
   final String imageAsset;
   @override
-  final double height;
+  final double imageAssetHeight;
   @override
-  final double width;
+  final double imageAssetWidth;
   @override
   final double handToBoardHeightRatio;
   @override
@@ -186,8 +186,8 @@ class _$Board extends Board {
       this.model,
       this.customName,
       this.imageAsset,
-      this.height,
-      this.width,
+      this.imageAssetHeight,
+      this.imageAssetWidth,
       this.handToBoardHeightRatio,
       this.boardHolds,
       this.defaultLeftGripHold,
@@ -202,11 +202,11 @@ class _$Board extends Board {
     if (imageAsset == null) {
       throw new BuiltValueNullFieldError('Board', 'imageAsset');
     }
-    if (height == null) {
-      throw new BuiltValueNullFieldError('Board', 'height');
+    if (imageAssetHeight == null) {
+      throw new BuiltValueNullFieldError('Board', 'imageAssetHeight');
     }
-    if (width == null) {
-      throw new BuiltValueNullFieldError('Board', 'width');
+    if (imageAssetWidth == null) {
+      throw new BuiltValueNullFieldError('Board', 'imageAssetWidth');
     }
     if (handToBoardHeightRatio == null) {
       throw new BuiltValueNullFieldError('Board', 'handToBoardHeightRatio');
@@ -240,8 +240,8 @@ class _$Board extends Board {
         model == other.model &&
         customName == other.customName &&
         imageAsset == other.imageAsset &&
-        height == other.height &&
-        width == other.width &&
+        imageAssetHeight == other.imageAssetHeight &&
+        imageAssetWidth == other.imageAssetWidth &&
         handToBoardHeightRatio == other.handToBoardHeightRatio &&
         boardHolds == other.boardHolds &&
         defaultLeftGripHold == other.defaultLeftGripHold &&
@@ -268,8 +268,8 @@ class _$Board extends Board {
                                         model.hashCode),
                                     customName.hashCode),
                                 imageAsset.hashCode),
-                            height.hashCode),
-                        width.hashCode),
+                            imageAssetHeight.hashCode),
+                        imageAssetWidth.hashCode),
                     handToBoardHeightRatio.hashCode),
                 boardHolds.hashCode),
             defaultLeftGripHold.hashCode),
@@ -286,8 +286,8 @@ class _$Board extends Board {
           ..add('model', model)
           ..add('customName', customName)
           ..add('imageAsset', imageAsset)
-          ..add('height', height)
-          ..add('width', width)
+          ..add('imageAssetHeight', imageAssetHeight)
+          ..add('imageAssetWidth', imageAssetWidth)
           ..add('handToBoardHeightRatio', handToBoardHeightRatio)
           ..add('boardHolds', boardHolds)
           ..add('defaultLeftGripHold', defaultLeftGripHold)
@@ -330,13 +330,15 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
   String get imageAsset => _$this._imageAsset;
   set imageAsset(String imageAsset) => _$this._imageAsset = imageAsset;
 
-  double _height;
-  double get height => _$this._height;
-  set height(double height) => _$this._height = height;
+  double _imageAssetHeight;
+  double get imageAssetHeight => _$this._imageAssetHeight;
+  set imageAssetHeight(double imageAssetHeight) =>
+      _$this._imageAssetHeight = imageAssetHeight;
 
-  double _width;
-  double get width => _$this._width;
-  set width(double width) => _$this._width = width;
+  double _imageAssetWidth;
+  double get imageAssetWidth => _$this._imageAssetWidth;
+  set imageAssetWidth(double imageAssetWidth) =>
+      _$this._imageAssetWidth = imageAssetWidth;
 
   double _handToBoardHeightRatio;
   double get handToBoardHeightRatio => _$this._handToBoardHeightRatio;
@@ -372,8 +374,8 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
       _model = _$v.model;
       _customName = _$v.customName;
       _imageAsset = _$v.imageAsset;
-      _height = _$v.height;
-      _width = _$v.width;
+      _imageAssetHeight = _$v.imageAssetHeight;
+      _imageAssetWidth = _$v.imageAssetWidth;
       _handToBoardHeightRatio = _$v.handToBoardHeightRatio;
       _boardHolds = _$v.boardHolds?.toBuilder();
       _defaultLeftGripHold = _$v.defaultLeftGripHold?.toBuilder();
@@ -409,8 +411,8 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
               model: model,
               customName: customName,
               imageAsset: imageAsset,
-              height: height,
-              width: width,
+              imageAssetHeight: imageAssetHeight,
+              imageAssetWidth: imageAssetWidth,
               handToBoardHeightRatio: handToBoardHeightRatio,
               boardHolds: boardHolds.build(),
               defaultLeftGripHold: defaultLeftGripHold.build(),

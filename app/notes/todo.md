@@ -1,12 +1,7 @@
 # TODO
 ### Custom board
-- Save page
 - Replace GridView
 - Test custom board on different screen sizes! 
-
-
-
-
 
 ### Others
 - Add board selection. Only beastmaker1000 atm.

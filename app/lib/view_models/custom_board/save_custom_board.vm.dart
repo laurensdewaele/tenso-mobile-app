@@ -82,8 +82,8 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
         ..custom = true
         ..customName = _name
         ..imageAsset = 'assets/images/custom_board/custom_board.png'
-        ..width = kImageAssetWidth
-        ..height = kImageAssetHeight
+        ..imageAssetWidth = kImageAssetWidth
+        ..imageAssetHeight = kImageAssetHeight
         ..handToBoardHeightRatio = kHandToBoardHeightRatio
         ..boardHolds.addAll(boardHolds)
         ..customBoardHoldImages.addAll(customBoardHoldImages)

@@ -16,13 +16,13 @@ abstract class Grips {
     ..handType = HandType.leftHand
     ..anchorLeft = 45.0 - 20
     ..anchorTop = 33.0 - 26
-    ..assetWidth = 234 / (330 / 120)
-    ..assetHeight = 120);
+    ..imageAssetWidth = 234 / (330 / 120)
+    ..imageAssetHeight = 120);
 
   static Grip monoPinkyR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 234 / (330 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 234 / (330 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 + 14.0
     ..anchorTop = 33.0 - 26.0
     ..description = 'mono pinky'
@@ -39,8 +39,8 @@ abstract class Grips {
 
   static Grip monoRingL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 336 / (219 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 336 / (219 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 16.0
     ..anchorTop = 33.0 - 27.0
     ..description = 'mono ring finger'
@@ -57,8 +57,8 @@ abstract class Grips {
 
   static Grip monoRingR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 219 / (336 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 219 / (336 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 + 4.0
     ..anchorTop = 33.0 - 27.0
     ..description = 'mono ring finger'
@@ -75,8 +75,8 @@ abstract class Grips {
 
   static Grip monoMiddleL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 211 / (369 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 211 / (369 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 11
     ..anchorTop = 33.0 - 27
     ..description = 'mono middle finger'
@@ -93,8 +93,8 @@ abstract class Grips {
 
   static Grip monoMiddleR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 211 / (369 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 211 / (369 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 11
     ..anchorTop = 33.0 - 27
     ..description = 'mono middle finger'
@@ -111,8 +111,8 @@ abstract class Grips {
 
   static Grip monoIndexL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 176 / (317 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 176 / (317 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 1
     ..anchorTop = 33.0 - 25
     ..description = 'mono index finger'
@@ -129,8 +129,8 @@ abstract class Grips {
 
   static Grip monoIndexR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 176 / (317 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 176 / (317 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 23
     ..anchorTop = 33.0 - 25
     ..description = 'mono index finger'
@@ -148,8 +148,8 @@ abstract class Grips {
   static Grip frontTwoL = Grip(
     (b) => b
       ..crimped = false
-      ..assetWidth = 210 / (300 / 120)
-      ..assetHeight = 120
+      ..imageAssetWidth = 210 / (300 / 120)
+      ..imageAssetHeight = 120
       ..anchorLeft = 45.0 - 3
       ..anchorTop = 33.0 - 27
       ..description = 'front two'
@@ -167,8 +167,8 @@ abstract class Grips {
 
   static Grip frontTwoR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 210 / (300 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 210 / (300 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 3
     ..anchorTop = 33.0 - 27
     ..description = 'front two'
@@ -185,8 +185,8 @@ abstract class Grips {
 
   static Grip middleTwoL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 236 / (332 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 236 / (332 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 11
     ..anchorTop = 33.0 - 21
     ..description = 'middle two'
@@ -203,8 +203,8 @@ abstract class Grips {
 
   static Grip middleTwoR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 236 / (332 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 236 / (332 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 + 8
     ..anchorTop = 33.0 - 21
     ..description = 'middle two'
@@ -221,8 +221,8 @@ abstract class Grips {
 
   static Grip backTwoL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 219 / (322 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 219 / (322 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 25
     ..anchorTop = 33.0 - 25
     ..description = 'back two'
@@ -239,8 +239,8 @@ abstract class Grips {
 
   static Grip backTwoR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 219 / (332 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 219 / (332 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 + 17.0
     ..anchorTop = 33.0 - 25
     ..description = 'back two'
@@ -257,8 +257,8 @@ abstract class Grips {
 
   static Grip frontThreeL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 177 / (297 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 177 / (297 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 9.0
     ..anchorTop = 33.0 - 24.0
     ..description = 'front three'
@@ -275,8 +275,8 @@ abstract class Grips {
 
   static Grip frontThreeR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 177 / (297 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 177 / (297 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 9
     ..anchorTop = 33.0 - 24.0
     ..description = 'front three'
@@ -293,8 +293,8 @@ abstract class Grips {
 
   static Grip backThreeL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 241 / (292 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 241 / (292 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 5
     ..anchorTop = 33.0 - 20
     ..description = 'back three'
@@ -311,8 +311,8 @@ abstract class Grips {
 
   static Grip backThreeR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 241 / (292 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 241 / (292 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 + 18.0
     ..anchorTop = 33.0 - 20.0
     ..description = 'back three'
@@ -329,8 +329,8 @@ abstract class Grips {
 
   static Grip openHandL = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 238 / (316 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 238 / (316 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 39.5
     ..anchorTop = 10
     ..description = 'open hand'
@@ -347,8 +347,8 @@ abstract class Grips {
 
   static Grip openHandR = Grip((b) => b
     ..crimped = false
-    ..assetWidth = 238 / (316 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 238 / (316 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 51
     ..anchorTop = 10
     ..description = 'open hand'
@@ -364,8 +364,8 @@ abstract class Grips {
     ..imageAsset = 'assets/images/grips/open_hand_R.png');
 
   static Grip halfCrimpL = Grip((b) => b
-    ..assetWidth = 274 / (318 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 274 / (318 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0
     ..anchorTop = 33.0 - 10
     ..description = 'half crimp'
@@ -382,8 +382,8 @@ abstract class Grips {
     ..imageAsset = 'assets/images/grips/half_crimp_L.png');
 
   static Grip halfCrimpR = Grip((b) => b
-    ..assetWidth = 274 / (318 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 274 / (318 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 + 16.0
     ..anchorTop = 33.0 - 10.0
     ..description = 'half crimp'
@@ -401,8 +401,8 @@ abstract class Grips {
 
   static Grip fullCrimpL = Grip(
     (b) => b
-      ..assetWidth = 177 / (282 / 120)
-      ..assetHeight = 120
+      ..imageAssetWidth = 177 / (282 / 120)
+      ..imageAssetHeight = 120
       ..anchorLeft = 45.0 - 6
       ..anchorTop = 33.0 - 7
       ..description = 'full crimp'
@@ -419,8 +419,8 @@ abstract class Grips {
       ..imageAsset = 'assets/images/grips/full_crimp_L.png',
   );
   static Grip fullCrimpR = Grip((b) => b
-    ..assetWidth = 177 / (282 / 120)
-    ..assetHeight = 120
+    ..imageAssetWidth = 177 / (282 / 120)
+    ..imageAssetHeight = 120
     ..anchorLeft = 45.0 - 6
     ..anchorTop = 33.0 - 7
     ..description = 'full crimp'

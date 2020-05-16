@@ -131,7 +131,7 @@ class _BoardHoldPickerState extends State<_BoardHoldPicker> {
   _setHandOffset(Grip grip, BoardHold boardHold) {
     final double gripAnchorTop = grip.anchorTopPercent * widget.gripHeight;
     final double gripAnchorLeft =
-        grip.anchorLeftPercent * grip.assetAspectRatio * widget.gripHeight;
+        grip.anchorLeftPercent * grip.aspectRatio * widget.gripHeight;
     final double holdAnchorTop =
         boardHold.anchorTopPercent * widget.boardSize.height;
     final double holdAnchorLeft =
@@ -162,7 +162,7 @@ class _BoardHoldPickerState extends State<_BoardHoldPicker> {
   ) {
     Offset position = event.localPosition;
     final double anchorLeft =
-        grip.anchorLeftPercent * gripHeight * grip.assetAspectRatio;
+        grip.anchorLeftPercent * gripHeight * grip.aspectRatio;
     final double anchorTop = grip.anchorTopPercent * gripHeight;
     final double dy = position.dy - anchorTop;
     final double dx = position.dx - anchorLeft;

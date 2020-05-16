@@ -22,13 +22,13 @@ abstract class Board implements Built<Board, BoardBuilder> {
   @nullable
   String get customName;
   String get imageAsset;
-  double get height;
-  double get width;
+  double get imageAssetHeight;
+  double get imageAssetWidth;
   double get handToBoardHeightRatio;
   BuiltList<BoardHold> get boardHolds;
   BoardHold get defaultLeftGripHold;
   BoardHold get defaultRightGripHold;
-  double get aspectRatio => width / height;
+  double get aspectRatio => imageAssetWidth / imageAssetHeight;
 
   factory Board([void Function(BoardBuilder) updates]) = _$Board;
   Board._();

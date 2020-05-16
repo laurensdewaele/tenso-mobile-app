@@ -263,8 +263,8 @@ final beastmaker1000 = Board((b) => b
   ..custom = false
   ..manufacturer = 'Beastmaker'
   ..model = '1000'
-  ..width = _kBoardSize.width
-  ..height = _kBoardSize.height
+  ..imageAssetWidth = _kBoardSize.width
+  ..imageAssetHeight = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/beastmaker_1000.png'
   ..handToBoardHeightRatio = 1.2
   ..boardHolds.addAll(boardHolds)

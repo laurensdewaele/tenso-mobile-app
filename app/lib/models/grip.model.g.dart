@@ -41,11 +41,11 @@ class _$GripSerializer implements StructuredSerializer<Grip> {
       'anchorTop',
       serializers.serialize(object.anchorTop,
           specifiedType: const FullType(double)),
-      'assetWidth',
-      serializers.serialize(object.assetWidth,
+      'imageAssetWidth',
+      serializers.serialize(object.imageAssetWidth,
           specifiedType: const FullType(double)),
-      'assetHeight',
-      serializers.serialize(object.assetHeight,
+      'imageAssetHeight',
+      serializers.serialize(object.imageAssetHeight,
           specifiedType: const FullType(double)),
     ];
 
@@ -95,12 +95,12 @@ class _$GripSerializer implements StructuredSerializer<Grip> {
           result.anchorTop = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'assetWidth':
-          result.assetWidth = serializers.deserialize(value,
+        case 'imageAssetWidth':
+          result.imageAssetWidth = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'assetHeight':
-          result.assetHeight = serializers.deserialize(value,
+        case 'imageAssetHeight':
+          result.imageAssetHeight = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
       }
@@ -128,9 +128,9 @@ class _$Grip extends Grip {
   @override
   final double anchorTop;
   @override
-  final double assetWidth;
+  final double imageAssetWidth;
   @override
-  final double assetHeight;
+  final double imageAssetHeight;
 
   factory _$Grip([void Function(GripBuilder) updates]) =>
       (new GripBuilder()..update(updates)).build();
@@ -144,8 +144,8 @@ class _$Grip extends Grip {
       this.description,
       this.anchorLeft,
       this.anchorTop,
-      this.assetWidth,
-      this.assetHeight})
+      this.imageAssetWidth,
+      this.imageAssetHeight})
       : super._() {
     if (handType == null) {
       throw new BuiltValueNullFieldError('Grip', 'handType');
@@ -171,11 +171,11 @@ class _$Grip extends Grip {
     if (anchorTop == null) {
       throw new BuiltValueNullFieldError('Grip', 'anchorTop');
     }
-    if (assetWidth == null) {
-      throw new BuiltValueNullFieldError('Grip', 'assetWidth');
+    if (imageAssetWidth == null) {
+      throw new BuiltValueNullFieldError('Grip', 'imageAssetWidth');
     }
-    if (assetHeight == null) {
-      throw new BuiltValueNullFieldError('Grip', 'assetHeight');
+    if (imageAssetHeight == null) {
+      throw new BuiltValueNullFieldError('Grip', 'imageAssetHeight');
     }
   }
 
@@ -198,8 +198,8 @@ class _$Grip extends Grip {
         description == other.description &&
         anchorLeft == other.anchorLeft &&
         anchorTop == other.anchorTop &&
-        assetWidth == other.assetWidth &&
-        assetHeight == other.assetHeight;
+        imageAssetWidth == other.imageAssetWidth &&
+        imageAssetHeight == other.imageAssetHeight;
   }
 
   @override
@@ -220,8 +220,8 @@ class _$Grip extends Grip {
                         description.hashCode),
                     anchorLeft.hashCode),
                 anchorTop.hashCode),
-            assetWidth.hashCode),
-        assetHeight.hashCode));
+            imageAssetWidth.hashCode),
+        imageAssetHeight.hashCode));
   }
 
   @override
@@ -235,8 +235,8 @@ class _$Grip extends Grip {
           ..add('description', description)
           ..add('anchorLeft', anchorLeft)
           ..add('anchorTop', anchorTop)
-          ..add('assetWidth', assetWidth)
-          ..add('assetHeight', assetHeight))
+          ..add('imageAssetWidth', imageAssetWidth)
+          ..add('imageAssetHeight', imageAssetHeight))
         .toString();
   }
 }
@@ -276,13 +276,15 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
   double get anchorTop => _$this._anchorTop;
   set anchorTop(double anchorTop) => _$this._anchorTop = anchorTop;
 
-  double _assetWidth;
-  double get assetWidth => _$this._assetWidth;
-  set assetWidth(double assetWidth) => _$this._assetWidth = assetWidth;
+  double _imageAssetWidth;
+  double get imageAssetWidth => _$this._imageAssetWidth;
+  set imageAssetWidth(double imageAssetWidth) =>
+      _$this._imageAssetWidth = imageAssetWidth;
 
-  double _assetHeight;
-  double get assetHeight => _$this._assetHeight;
-  set assetHeight(double assetHeight) => _$this._assetHeight = assetHeight;
+  double _imageAssetHeight;
+  double get imageAssetHeight => _$this._imageAssetHeight;
+  set imageAssetHeight(double imageAssetHeight) =>
+      _$this._imageAssetHeight = imageAssetHeight;
 
   GripBuilder();
 
@@ -296,8 +298,8 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
       _description = _$v.description;
       _anchorLeft = _$v.anchorLeft;
       _anchorTop = _$v.anchorTop;
-      _assetWidth = _$v.assetWidth;
-      _assetHeight = _$v.assetHeight;
+      _imageAssetWidth = _$v.imageAssetWidth;
+      _imageAssetHeight = _$v.imageAssetHeight;
       _$v = null;
     }
     return this;
@@ -330,8 +332,8 @@ class GripBuilder implements Builder<Grip, GripBuilder> {
               description: description,
               anchorLeft: anchorLeft,
               anchorTop: anchorTop,
-              assetWidth: assetWidth,
-              assetHeight: assetHeight);
+              imageAssetWidth: imageAssetWidth,
+              imageAssetHeight: imageAssetHeight);
     } catch (_) {
       String _$failedField;
       try {

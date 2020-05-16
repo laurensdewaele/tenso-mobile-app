@@ -18,11 +18,11 @@ abstract class Grip implements Built<Grip, GripBuilder> {
   String get description;
   double get anchorLeft;
   double get anchorTop;
-  double get anchorLeftPercent => anchorLeft / assetWidth;
-  double get anchorTopPercent => anchorTop / assetHeight;
-  double get assetWidth;
-  double get assetHeight;
-  double get assetAspectRatio => assetWidth / assetHeight;
+  double get anchorLeftPercent => anchorLeft / imageAssetWidth;
+  double get anchorTopPercent => anchorTop / imageAssetHeight;
+  double get imageAssetWidth;
+  double get imageAssetHeight;
+  double get aspectRatio => imageAssetWidth / imageAssetHeight;
 
   factory Grip([void Function(GripBuilder) updates]) = _$Grip;
   Grip._();
