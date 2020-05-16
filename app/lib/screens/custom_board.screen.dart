@@ -1,5 +1,3 @@
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/save_custom_board.screen.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
@@ -42,15 +40,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
     _viewModel.removeListener(_viewModelListener);
     _viewModel.dispose();
     super.dispose();
-  }
-
-  void _handleSaveTap() {
-    if (_viewModel.checkBoardHoldAmount() == true) {
-      Navigator.of(context).pushNamed(Routes.saveCustomBoardScreen,
-          arguments: SaveCustomBoardScreenArguments(
-              boardHolds: _viewModel.boardHolds,
-              customBoardHoldImages: _viewModel.customBoardHoldImages));
-    }
   }
 
   void _handleInfoTap() async {
@@ -115,7 +104,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
             menuItems: [
               MenuItem(
                 name: 'save',
-                handleTap: _handleSaveTap,
+                handleTap: _viewModel.handleSaveTap,
               ),
               MenuItem(
                 name: 'info',

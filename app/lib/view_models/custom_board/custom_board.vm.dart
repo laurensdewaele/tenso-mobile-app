@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:app/data/custom_board.data.dart';
 import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/screens/save_custom_board.screen.dart';
 import 'package:app/services/error.service.dart';
+import 'package:app/services/navigation.service.dart';
 import 'package:app/services/toast.service.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -239,15 +242,6 @@ class CustomBoardViewModel extends ChangeNotifier {
     _hideSelectedBoxesCloseModalAndNotify();
   }
 
-  bool checkBoardHoldAmount() {
-    if (_boardHolds.length >= 2) {
-      return true;
-    } else {
-      ToastService().add(ErrorMessages.minimumTwoBoardHolds());
-      return false;
-    }
-  }
-
   void handleCustomBoardHoldImageTap(
       CustomBoardHoldImage customBoardHoldImage) {
     if (_selectedCustomBoardHoldImage == customBoardHoldImage) {
@@ -292,6 +286,17 @@ class CustomBoardViewModel extends ChangeNotifier {
     _selectedCustomBoardHoldImage = null;
     editDeleteModalOpen = false;
     notifyListeners();
+  }
+
+  void handleSaveTap() {
+    if (_boardHolds.length < 2) {
+      ToastService().add(ErrorMessages.minimumTwoBoardHolds());
+    } else {
+      NavigationService().pushNamed(Routes.saveCustomBoardScreen,
+          arguments: SaveCustomBoardScreenArguments(
+              boardHolds: boardHolds,
+              customBoardHoldImages: customBoardHoldImages));
+    }
   }
 }
 
