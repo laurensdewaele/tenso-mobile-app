@@ -1,6 +1,5 @@
 # TODO
 ### Custom board
-- Replace GridView
 - Test custom board on different screen sizes! 
 
 ### Others

@@ -2,7 +2,7 @@ import 'package:app/styles/styles.dart' as styles;
 
 const int kRows = 4;
 const int kColumns = 4;
-const double kAspectRatio = 3;
+const double kAspectRatio = kImageAssetWidth / kImageAssetHeight;
 const String kImageAsset = 'assets/images/custom_board/custom_board.png';
 const double kImageAssetWidth = 2555;
 const double kImageAssetHeight = 850;

@@ -33,6 +33,11 @@ class CustomBoard extends StatelessWidget {
         final Size _boardSize = Size(constraints.maxWidth,
             constraints.maxWidth / customBoard.kAspectRatio);
 
+        final _verticalSpacing =
+            customBoard.kVerticalSpacingPercent * _boardSize.height;
+        final _horizontalSpacing =
+            customBoard.kHorizontalSpacingPercent * _boardSize.width;
+
         return Stack(
           overflow: Overflow.visible,
           children: <Widget>[
@@ -44,13 +49,12 @@ class CustomBoard extends StatelessWidget {
             AspectRatio(
               aspectRatio: customBoard.kAspectRatio,
               child: GridView.count(
-                padding: EdgeInsets.all(styles.Measurements.xs),
+                padding: EdgeInsets.symmetric(
+                    vertical: _verticalSpacing, horizontal: _horizontalSpacing),
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
-                crossAxisSpacing:
-                    customBoard.kVerticalSpacingPercent * _boardSize.height,
-                mainAxisSpacing:
-                    customBoard.kHorizontalSpacingPercent * _boardSize.width,
+                crossAxisSpacing: _verticalSpacing,
+                mainAxisSpacing: _horizontalSpacing,
                 childAspectRatio: customBoard.kSelectionBoxAspectRatio,
                 crossAxisCount: customBoard.kColumns,
                 children: <Widget>[
