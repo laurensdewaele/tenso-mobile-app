@@ -20,8 +20,6 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'custom',
-      serializers.serialize(object.custom, specifiedType: const FullType(bool)),
       'imageAsset',
       serializers.serialize(object.imageAsset,
           specifiedType: const FullType(String)),
@@ -88,10 +86,6 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'custom':
-          result.custom = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
         case 'customBoardHoldImages':
           result.customBoardHoldImages.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -151,8 +145,6 @@ class _$Board extends Board {
   @override
   final String id;
   @override
-  final bool custom;
-  @override
   final BuiltList<CustomBoardHoldImage> customBoardHoldImages;
   @override
   final String manufacturer;
@@ -180,7 +172,6 @@ class _$Board extends Board {
 
   _$Board._(
       {this.id,
-      this.custom,
       this.customBoardHoldImages,
       this.manufacturer,
       this.model,
@@ -195,9 +186,6 @@ class _$Board extends Board {
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Board', 'id');
-    }
-    if (custom == null) {
-      throw new BuiltValueNullFieldError('Board', 'custom');
     }
     if (imageAsset == null) {
       throw new BuiltValueNullFieldError('Board', 'imageAsset');
@@ -234,7 +222,6 @@ class _$Board extends Board {
     if (identical(other, this)) return true;
     return other is Board &&
         id == other.id &&
-        custom == other.custom &&
         customBoardHoldImages == other.customBoardHoldImages &&
         manufacturer == other.manufacturer &&
         model == other.model &&
@@ -260,9 +247,7 @@ class _$Board extends Board {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc(
-                                                $jc($jc(0, id.hashCode),
-                                                    custom.hashCode),
+                                            $jc($jc(0, id.hashCode),
                                                 customBoardHoldImages.hashCode),
                                             manufacturer.hashCode),
                                         model.hashCode),
@@ -280,7 +265,6 @@ class _$Board extends Board {
   String toString() {
     return (newBuiltValueToStringHelper('Board')
           ..add('id', id)
-          ..add('custom', custom)
           ..add('customBoardHoldImages', customBoardHoldImages)
           ..add('manufacturer', manufacturer)
           ..add('model', model)
@@ -302,10 +286,6 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
-
-  bool _custom;
-  bool get custom => _$this._custom;
-  set custom(bool custom) => _$this._custom = custom;
 
   ListBuilder<CustomBoardHoldImage> _customBoardHoldImages;
   ListBuilder<CustomBoardHoldImage> get customBoardHoldImages =>
@@ -368,7 +348,6 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
   BoardBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _custom = _$v.custom;
       _customBoardHoldImages = _$v.customBoardHoldImages?.toBuilder();
       _manufacturer = _$v.manufacturer;
       _model = _$v.model;
@@ -405,7 +384,6 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
       _$result = _$v ??
           new _$Board._(
               id: id,
-              custom: custom,
               customBoardHoldImages: _customBoardHoldImages?.build(),
               manufacturer: manufacturer,
               model: model,

@@ -260,7 +260,6 @@ final List<BoardHold> boardHolds = [
 
 final beastmaker1000 = Board((b) => b
   ..id = 'beastmaker_1000'
-  ..custom = false
   ..manufacturer = 'Beastmaker'
   ..model = '1000'
   ..imageAssetWidth = _kBoardSize.width

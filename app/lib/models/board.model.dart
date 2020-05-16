@@ -12,7 +12,6 @@ abstract class Board implements Built<Board, BoardBuilder> {
   static Serializer<Board> get serializer => _$boardSerializer;
 
   String get id;
-  bool get custom;
   @nullable
   BuiltList<CustomBoardHoldImage> get customBoardHoldImages;
   @nullable

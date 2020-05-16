@@ -79,7 +79,6 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
     if (_valid == true) {
       BoardsState().addBoard(Board((b) => b
         ..id = generateUniqueId()
-        ..custom = true
         ..customName = _name
         ..imageAsset = 'assets/images/custom_board/custom_board.png'
         ..imageAssetWidth = kImageAssetWidth
