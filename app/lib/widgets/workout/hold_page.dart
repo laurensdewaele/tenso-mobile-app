@@ -86,12 +86,12 @@ class _HoldPageState extends State<HoldPage> {
                           BoardHoldPicker(
                             handToBoardHeightRatio:
                                 _state.board.handToBoardHeightRatio,
-                            boardImageAsset: _state.board.imageAsset,
                             boardAspectRatio: _state.board.aspectRatio,
                             boardHolds: _state.board.boardHolds.toList(),
                             customBoardHoldImages:
                                 _state.board.customBoardHoldImages?.toList(),
-                            imageAsset: _state.board.imageAsset,
+                            boardImageAsset: _state.board.imageAsset,
+                            boardImageAssetWidth: _state.board.imageAssetWidth,
                             leftGrip: _state.leftGrip,
                             rightGrip: _state.rightGrip,
                             leftGripBoardHold: _state.leftGripBoardHold,

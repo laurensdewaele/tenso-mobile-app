@@ -113,9 +113,10 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                   BoardHoldPicker(
                                     boardAspectRatio: customBoard.kAspectRatio,
                                     boardImageAsset: customBoard.kImageAsset,
+                                    boardImageAssetWidth:
+                                        customBoard.kImageAssetWidth,
                                     handToBoardHeightRatio:
                                         customBoard.kHandToBoardHeightRatio,
-                                    imageAsset: customBoard.kImageAsset,
                                     boardHolds: _viewModel.boardHolds,
                                     customBoardHoldImages:
                                         _viewModel.customBoardHoldImages,

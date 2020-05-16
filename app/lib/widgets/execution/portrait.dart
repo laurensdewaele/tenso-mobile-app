@@ -126,6 +126,7 @@ class __PortraitContentState extends State<Portrait> {
                         overflow: Overflow.visible,
                         children: <Widget>[
                           BoardWithGrips(
+                            boardImageAssetWidth: widget.board.imageAssetWidth,
                             customBoardHoldImages:
                                 widget.board.customBoardHoldImages?.toList(),
                             gripHeight: _gripHeight,

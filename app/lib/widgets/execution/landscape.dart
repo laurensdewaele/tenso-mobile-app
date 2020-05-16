@@ -74,6 +74,7 @@ class Landscape extends StatelessWidget {
                   final Size _boardSize = Size(constraints.maxWidth,
                       constraints.maxWidth / board.aspectRatio);
                   return BoardWithGrips(
+                    boardImageAssetWidth: board.imageAssetWidth,
                     customBoardHoldImages:
                         board.customBoardHoldImages?.toList(),
                     boardSize: _boardSize,

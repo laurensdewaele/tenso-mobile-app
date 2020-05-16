@@ -14,16 +14,17 @@ class BoardHoldPicker extends StatelessWidget {
       @required this.rightGrip,
       @required this.handleLeftGripBoardHoldChanged,
       @required this.handleRightGripBoardHoldChanged,
-      @required this.imageAsset,
+      @required this.boardImageAsset,
+      @required this.boardImageAssetWidth,
       @required this.boardHolds,
       this.customBoardHoldImages,
-      @required this.boardImageAsset,
       @required this.handToBoardHeightRatio,
       @required this.boardAspectRatio});
 
   final double boardAspectRatio;
   final double handToBoardHeightRatio;
   final String boardImageAsset;
+  final double boardImageAssetWidth;
 
   final List<CustomBoardHoldImage> customBoardHoldImages;
   final BoardHold leftGripBoardHold;
@@ -32,7 +33,6 @@ class BoardHoldPicker extends StatelessWidget {
   final Grip rightGrip;
   final void Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
   final void Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
-  final String imageAsset;
   final List<BoardHold> boardHolds;
 
   @override
@@ -48,7 +48,8 @@ class BoardHoldPicker extends StatelessWidget {
         child: _BoardHoldPicker(
           gripHeight: _gripHeight,
           boardSize: _boardSize,
-          imageAsset: boardImageAsset,
+          boardImageAsset: boardImageAsset,
+          boardImageAssetWidth: boardImageAssetWidth,
           boardHolds: boardHolds,
           customBoardHoldImages: customBoardHoldImages,
           rightGrip: rightGrip,
@@ -73,7 +74,8 @@ class _BoardHoldPicker extends StatefulWidget {
       @required this.gripHeight,
       @required this.handleLeftGripBoardHoldChanged,
       @required this.handleRightGripBoardHoldChanged,
-      @required this.imageAsset,
+      @required this.boardImageAsset,
+      @required this.boardImageAssetWidth,
       @required this.boardHolds,
       this.customBoardHoldImages});
 
@@ -86,7 +88,8 @@ class _BoardHoldPicker extends StatefulWidget {
   final Grip rightGrip;
   final void Function(BoardHold boardHold) handleLeftGripBoardHoldChanged;
   final void Function(BoardHold boardHold) handleRightGripBoardHoldChanged;
-  final String imageAsset;
+  final String boardImageAsset;
+  final double boardImageAssetWidth;
   final List<BoardHold> boardHolds;
 
   @override
@@ -202,9 +205,10 @@ class _BoardHoldPickerState extends State<_BoardHoldPicker> {
         overflow: Overflow.visible,
         children: <Widget>[
           BoardDragTargets(
+            boardImageAssetWidth: widget.boardImageAssetWidth,
             boardSize: widget.boardSize,
             customBoardHoldImages: widget.customBoardHoldImages,
-            boardImageAsset: widget.imageAsset,
+            boardImageAsset: widget.boardImageAsset,
             boardHolds: widget.boardHolds,
             activeBoardHolds: [
               widget.rightGripBoardHold,

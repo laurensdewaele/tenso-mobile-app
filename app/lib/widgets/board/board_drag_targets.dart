@@ -12,6 +12,7 @@ class BoardDragTargets extends StatelessWidget {
       @required this.orientation,
       @required this.setErrorMessage,
       @required this.boardImageAsset,
+      @required this.boardImageAssetWidth,
       @required this.boardHolds,
       @required this.activeBoardHolds,
       @required this.customBoardHoldImages})
@@ -21,6 +22,7 @@ class BoardDragTargets extends StatelessWidget {
   final List<CustomBoardHoldImage> customBoardHoldImages;
   final List<BoardHold> activeBoardHolds;
   final String boardImageAsset;
+  final double boardImageAssetWidth;
   final List<BoardHold> boardHolds;
   final void Function(Grip grip, BoardHold boardHold) handleSuccess;
   final Orientation orientation;
@@ -32,6 +34,7 @@ class BoardDragTargets extends StatelessWidget {
       overflow: Overflow.visible,
       children: <Widget>[
         HangBoard(
+          boardImageAssetWidth: boardImageAssetWidth,
           boardSize: boardSize,
           customBoardHoldImages: customBoardHoldImages,
           boardImageAsset: boardImageAsset,

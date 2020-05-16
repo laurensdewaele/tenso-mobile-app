@@ -1,6 +1,4 @@
 # TODO
-### Custom board
-- Test custom board on different screen sizes! 
 
 ### Others
 - Add board selection. Only beastmaker1000 atm.

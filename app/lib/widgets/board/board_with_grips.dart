@@ -8,6 +8,7 @@ class BoardWithGrips extends StatefulWidget {
   BoardWithGrips(
       {Key key,
       @required this.boardImageAsset,
+      @required this.boardImageAssetWidth,
       @required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
       @required this.leftGrip,
@@ -25,6 +26,7 @@ class BoardWithGrips extends StatefulWidget {
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
+  final double boardImageAssetWidth;
 
   @override
   _BoardWithGripsState createState() => _BoardWithGripsState();
@@ -86,6 +88,7 @@ class _BoardWithGripsState extends State<BoardWithGrips> {
           overflow: Overflow.visible,
           children: <Widget>[
             HangBoard(
+              boardImageAssetWidth: widget.boardImageAssetWidth,
               customBoardHoldImages: widget.customBoardHoldImages,
               boardSize: widget.boardSize,
               boardImageAsset: widget.boardImageAsset,

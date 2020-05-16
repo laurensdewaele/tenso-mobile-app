@@ -42,6 +42,7 @@ class CustomBoard extends StatelessWidget {
           overflow: Overflow.visible,
           children: <Widget>[
             HangBoard(
+              boardImageAssetWidth: customBoard.kImageAssetWidth,
               boardSize: _boardSize,
               customBoardHoldImages: customBoardHoldImages,
               boardImageAsset: customBoard.kImageAsset,

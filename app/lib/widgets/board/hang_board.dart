@@ -8,21 +8,31 @@ class HangBoard extends StatelessWidget {
       {Key key,
       @required this.boardSize,
       @required this.boardImageAsset,
+      @required this.boardImageAssetWidth,
       @required this.customBoardHoldImages})
       : super(key: key);
 
   final Size boardSize;
   final String boardImageAsset;
+  final double boardImageAssetWidth;
   final List<CustomBoardHoldImage> customBoardHoldImages;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    final double imageScale = boardSize.width > boardImageAssetWidth
+        ? boardImageAssetWidth / boardSize.width
+        : 1.0;
+
+    final Widget _content = Stack(
       overflow: Overflow.visible,
       children: <Widget>[
         ClipRRect(
             borderRadius: styles.kBorderRadiusAll,
-            child: Image.asset(boardImageAsset)),
+            child: Image.asset(
+              boardImageAsset,
+              scale: imageScale,
+              fit: BoxFit.contain,
+            )),
         if (customBoardHoldImages != null && customBoardHoldImages.length > 0)
           ...customBoardHoldImages.map(
               (CustomBoardHoldImage customBoardHoldImage) =>
@@ -32,5 +42,7 @@ class HangBoard extends StatelessWidget {
                       boardSize: boardSize)),
       ],
     );
+
+    return _content;
   }
 }

@@ -44,6 +44,7 @@ class SelectedGripsAndHolds extends StatelessWidget {
             Container(
               height: _boardWithGripsHeight,
               child: BoardWithGrips(
+                boardImageAssetWidth: board.imageAssetWidth,
                 customBoardHoldImages: board.customBoardHoldImages?.toList(),
                 boardSize: _boardSize,
                 boardImageAsset: board.imageAsset,
