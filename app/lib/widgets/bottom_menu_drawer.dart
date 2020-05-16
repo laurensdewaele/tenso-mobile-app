@@ -93,7 +93,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   @override
   void dispose() {
     _slideController.dispose();
-    _sub.cancel();
+    _sub?.cancel();
     super.dispose();
   }
 

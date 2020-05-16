@@ -22,29 +22,33 @@ class CalendarDatePicker extends StatelessWidget {
     final int initialItem = months.indexOf(isSelectedMonth);
 
     return Container(
-      height: 150,
-      child: CupertinoPicker(
-        scrollController: FixedExtentScrollController(initialItem: initialItem),
-        useMagnifier: false,
-        magnification: 1,
-        backgroundColor: styles.Colors.bgWhite,
-        onSelectedItemChanged: (int index) {
-          handleSelectedMonth(months[index]);
-        },
-        itemExtent: 40,
-        children: <Widget>[
-          ...months.map((DateTime month) {
-            final String _month = kMonths[month.month];
-            final String _year = month.year.toString();
+      padding: EdgeInsets.all(styles.Measurements.xs),
+      child: Container(
+        height: 150,
+        child: CupertinoPicker(
+          scrollController:
+              FixedExtentScrollController(initialItem: initialItem),
+          useMagnifier: false,
+          magnification: 1,
+          backgroundColor: styles.Colors.bgWhite,
+          onSelectedItemChanged: (int index) {
+            handleSelectedMonth(months[index]);
+          },
+          itemExtent: 40,
+          children: <Widget>[
+            ...months.map((DateTime month) {
+              final String _month = kMonths[month.month];
+              final String _year = month.year.toString();
 
-            return Center(
-              child: Text(
-                ' $_month $_year',
-                style: styles.Staatliches.lBlack,
-              ),
-            );
-          })
-        ],
+              return Center(
+                child: Text(
+                  ' $_month $_year',
+                  style: styles.Staatliches.lBlack,
+                ),
+              );
+            })
+          ],
+        ),
       ),
     );
   }
