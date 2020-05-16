@@ -7,7 +7,7 @@ const String kImageAsset = 'assets/images/custom_board/custom_board.png';
 const double kImageAssetWidth = 2555;
 const double kImageAssetHeight = 850;
 const double kHandToBoardHeightRatio = .85;
-const double kSelectionBoxAspectRatio = 3.6;
+const double kSelectionBoxAspectRatio = 3.62;
 const double kHorizontalSpacingPercent = _kSpacing / _kMeasuredWidth;
 const double kVerticalSpacingPercent = _kSpacing / _kMeasuredHeight;
 
