@@ -12,7 +12,7 @@ class BoardsState {
 
   BehaviorSubject<Boards> _boards$;
   List<Board> get boardList => _boards$.value.boards.toList();
-  Stream<List<Board>> get workoutList$ =>
+  Stream<List<Board>> get boardList$ =>
       _boards$.stream.map((Boards b) => b.boards.toList());
   Board get defaultBoard => _boards$.value.defaultBoard;
   Stream<Board> get defaultBoard$ =>
