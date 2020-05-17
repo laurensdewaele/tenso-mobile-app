@@ -21,14 +21,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  audioplayers: ^0.14.0
+  audioplayers: ^0.15.1
   auto_size_text: ^2.1.0
   built_collection: ^4.3.2
   built_value: ^7.0.8
   cupertino_icons: ^0.1.2
   path_provider: ^1.5.1
   uuid: ^2.0.4
-  rxdart: ^0.23.1
+  rxdart: ^0.24.1
   wakelock: ^0.1.4+1
 
 dev_dependencies:
