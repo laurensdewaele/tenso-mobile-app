@@ -217,6 +217,7 @@ class HoldPageViewModel {
         _state$.value.board.defaultLeftGripHold;
     final BoardHold defaultRightGripBoardHold =
         _state$.value.board.defaultRightGripHold;
+    final _boardHolds = _state$.value.board.boardHolds.toList();
 
     if (_state$.value.leftGrip == null) {
       final BoardHold _inUseBoardHold = _state$.value.rightGripBoardHold;
@@ -224,7 +225,6 @@ class HoldPageViewModel {
       if (_inUseBoardHold != defaultLeftGripBoardHold) {
         _boardHold = defaultLeftGripBoardHold;
       } else {
-        final _boardHolds = _state$.value.board.boardHolds.toList();
         _boardHold = _boardHolds
             .firstWhere((BoardHold boardHold) => boardHold != _inUseBoardHold);
       }
@@ -238,7 +238,6 @@ class HoldPageViewModel {
       if (_inUseBoardHold != defaultRightGripBoardHold) {
         _boardHold = defaultRightGripBoardHold;
       } else {
-        final _boardHolds = _state$.value.board.boardHolds.toList();
         _boardHold = _boardHolds
             .firstWhere((BoardHold boardHold) => boardHold != _inUseBoardHold);
       }

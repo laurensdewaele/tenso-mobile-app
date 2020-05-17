@@ -178,7 +178,7 @@ class _BoardHoldPickerState extends State<_BoardHoldPicker> {
   }
 
   void _onHorizontalDragEnd(DragEndDetails detail) {
-    // This is just here so it competes with the
+    // This is here so it competes with the
     // horizontalDragEnd from NewWorkout
   }
 

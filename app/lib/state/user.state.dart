@@ -1,4 +1,4 @@
-import 'package:app/models/device_info.model.dart';
+import 'package:app/models/models.dart';
 import 'package:app/services/persistence.service.dart';
 
 final DeviceInfo _initialDeviceInfo = DeviceInfo((b) => b..firstLaunch = true);

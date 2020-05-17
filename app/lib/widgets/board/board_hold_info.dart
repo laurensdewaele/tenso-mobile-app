@@ -30,7 +30,7 @@ class BoardHoldInfo extends StatelessWidget {
               children: <Widget>[
                 RichText(
                   text: TextSpan(
-                      text: 'hold: ',
+                      text: 'position: ',
                       style: styles.Staatliches.xsBlack,
                       children: [
                         TextSpan(
@@ -93,18 +93,17 @@ class BoardHoldInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                if (rightGripBoardHold.position != null)
-                  RichText(
-                    textAlign: TextAlign.right,
-                    text: TextSpan(
-                        text: 'hold: ',
-                        style: styles.Staatliches.xsBlack,
-                        children: [
-                          TextSpan(
-                              text: rightGripBoardHold.position.toString(),
-                              style: styles.Lato.xsGray),
-                        ]),
-                  ),
+                RichText(
+                  textAlign: TextAlign.right,
+                  text: TextSpan(
+                      text: 'position: ',
+                      style: styles.Staatliches.xsBlack,
+                      children: [
+                        TextSpan(
+                            text: rightGripBoardHold.position.toString(),
+                            style: styles.Lato.xsGray),
+                      ]),
+                ),
                 RichText(
                   textAlign: TextAlign.right,
                   text: TextSpan(

@@ -34,8 +34,10 @@ class HoldInputViewModel extends ChangeNotifier {
 
   NavigationService _navigationService;
 
-  List<InputPageInput> inputPageInputs;
-  bool isChooseHoldTypePageActive;
+  List<InputPageInput> _inputPageInputs;
+  List<InputPageInput> get inputPageInputs => _inputPageInputs;
+  bool _isChooseHoldTypePageActive;
+  bool get isChooseHoldTypePageActive => _isChooseHoldTypePageActive;
   HoldType _activeHoldType;
 
   double _sloperDegrees;
@@ -56,8 +58,8 @@ class HoldInputViewModel extends ChangeNotifier {
       @required this.handlePinchBlockInput,
       @required this.multipleSelection}) {
     _navigationService = NavigationService();
-    inputPageInputs = [];
-    isChooseHoldTypePageActive = true;
+    _inputPageInputs = [];
+    _isChooseHoldTypePageActive = true;
     _sloperDegreesInput = '0';
     _pocketDepthInput = '0';
     _edgeDepthInput = '0';
@@ -76,16 +78,15 @@ class HoldInputViewModel extends ChangeNotifier {
         _navigationService.pop();
         break;
       case HoldType.sloper:
-        inputPageInputs = []..add(InputPageInput(
+        _inputPageInputs = []..add(InputPageInput(
             type: InputPageInputTypes.sloperDegrees,
             description: 'degrees of slope',
             isInt: false,
             initialValue: _sloperDegreesInput));
-        isChooseHoldTypePageActive = false;
+        _isChooseHoldTypePageActive = false;
         break;
       case HoldType.pocket:
         final List<InputPageInput> _inputs = [];
-
         _inputs.add(InputPageInput(
             type: InputPageInputTypes.pocketDepth,
             description: 'mm of depth',
@@ -98,16 +99,17 @@ class HoldInputViewModel extends ChangeNotifier {
               isInt: true,
               initialValue: _pocketSupportedFingersInput));
         }
-        inputPageInputs = _inputs;
-        isChooseHoldTypePageActive = false;
+
+        _inputPageInputs = _inputs;
+        _isChooseHoldTypePageActive = false;
         break;
       case HoldType.edge:
-        inputPageInputs = []..add(InputPageInput(
+        _inputPageInputs = []..add(InputPageInput(
             type: InputPageInputTypes.edgeDepth,
             description: 'mm of depth',
             isInt: false,
             initialValue: _edgeDepthInput));
-        isChooseHoldTypePageActive = false;
+        _isChooseHoldTypePageActive = false;
         break;
     }
     _activeHoldType = type;
