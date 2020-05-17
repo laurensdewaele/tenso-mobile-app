@@ -23,7 +23,7 @@ class HangBoard extends StatelessWidget {
         ? boardImageAssetWidth / boardSize.width
         : 1.0;
 
-    final Widget _content = Stack(
+    return Stack(
       overflow: Overflow.visible,
       children: <Widget>[
         ClipRRect(
@@ -42,7 +42,5 @@ class HangBoard extends StatelessWidget {
                       boardSize: boardSize)),
       ],
     );
-
-    return _content;
   }
 }

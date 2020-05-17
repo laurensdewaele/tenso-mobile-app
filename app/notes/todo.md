@@ -4,6 +4,7 @@
 - Add board selection. Only beastmaker1000 atm.
 - Beeps before rest, allow 0;
 - Remove gradients from screen
+- Make as much constants and WIDGETS! consts.
 
 ### Triage - think about
 
