@@ -115,8 +115,6 @@ class __PortraitContentState extends State<Portrait> {
                   builder: (BuildContext context, BoxConstraints constraints) {
                     final double _boardHeight =
                         constraints.maxWidth / widget.board.aspectRatio;
-                    final Size _boardSize =
-                        Size(constraints.maxWidth, _boardHeight);
                     final _gripHeight =
                         _boardHeight * widget.board.handToBoardHeightRatio;
                     final _boardWithGripsHeight = _boardHeight + _gripHeight;
@@ -126,12 +124,14 @@ class __PortraitContentState extends State<Portrait> {
                         overflow: Overflow.visible,
                         children: <Widget>[
                           BoardWithGrips(
+                            withFixedHeight: false,
+                            handToBoardHeightRatio:
+                                widget.board.handToBoardHeightRatio,
+                            boardAspectRatio: widget.board.aspectRatio,
                             boardImageAssetWidth: widget.board.imageAssetWidth,
                             customBoardHoldImages:
                                 widget.board.customBoardHoldImages?.toList(),
-                            gripHeight: _gripHeight,
                             boardImageAsset: widget.board.imageAsset,
-                            boardSize: _boardSize,
                             leftGripBoardHold: widget.leftGripBoardHold,
                             rightGripBoardHold: widget.rightGripBoardHold,
                             rightGrip: widget.rightGrip,

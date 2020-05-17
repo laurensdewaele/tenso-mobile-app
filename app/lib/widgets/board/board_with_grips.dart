@@ -4,8 +4,62 @@ import 'package:app/widgets/board/hang_board.dart';
 import 'package:app/widgets/grip_image.dart';
 import 'package:flutter/cupertino.dart';
 
-class BoardWithGrips extends StatefulWidget {
+class BoardWithGrips extends StatelessWidget {
   BoardWithGrips(
+      {Key key,
+      @required this.boardAspectRatio,
+      @required this.boardImageAsset,
+      @required this.boardImageAssetWidth,
+      @required this.leftGripBoardHold,
+      @required this.rightGripBoardHold,
+      @required this.handToBoardHeightRatio,
+      @required this.leftGrip,
+      @required this.rightGrip,
+      @required this.customBoardHoldImages,
+      @required this.withFixedHeight})
+      : super(key: key);
+
+  final List<CustomBoardHoldImage> customBoardHoldImages;
+  final String boardImageAsset;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final double boardImageAssetWidth;
+  final double boardAspectRatio;
+  final double handToBoardHeightRatio;
+  final bool withFixedHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      final Size _boardSize =
+          Size(constraints.maxWidth, constraints.maxWidth / boardAspectRatio);
+      final double _gripHeight = _boardSize.height * handToBoardHeightRatio;
+      final _boardWithGripsHeight = _boardSize.height + _gripHeight;
+
+      final Widget _content = _BoardWithGrips(
+        boardImageAssetWidth: boardImageAssetWidth,
+        customBoardHoldImages: customBoardHoldImages,
+        boardSize: _boardSize,
+        boardImageAsset: boardImageAsset,
+        gripHeight: _gripHeight,
+        leftGripBoardHold: leftGripBoardHold,
+        rightGripBoardHold: rightGripBoardHold,
+        rightGrip: rightGrip,
+        leftGrip: leftGrip,
+      );
+
+      return withFixedHeight
+          ? Container(height: _boardWithGripsHeight, child: _content)
+          : _content;
+    });
+  }
+}
+
+class _BoardWithGrips extends StatefulWidget {
+  _BoardWithGrips(
       {Key key,
       @required this.boardImageAsset,
       @required this.boardImageAssetWidth,
@@ -32,7 +86,7 @@ class BoardWithGrips extends StatefulWidget {
   _BoardWithGripsState createState() => _BoardWithGripsState();
 }
 
-class _BoardWithGripsState extends State<BoardWithGrips> {
+class _BoardWithGripsState extends State<_BoardWithGrips> {
   Offset _leftHandOffset;
   Offset _rightHandOffset;
 

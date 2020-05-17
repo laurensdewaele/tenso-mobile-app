@@ -69,24 +69,18 @@ class Landscape extends StatelessWidget {
                 child: Stack(
               overflow: Overflow.clip,
               children: <Widget>[
-                LayoutBuilder(builder:
-                    (BuildContext context, BoxConstraints constraints) {
-                  final Size _boardSize = Size(constraints.maxWidth,
-                      constraints.maxWidth / board.aspectRatio);
-                  return BoardWithGrips(
-                    boardImageAssetWidth: board.imageAssetWidth,
-                    customBoardHoldImages:
-                        board.customBoardHoldImages?.toList(),
-                    boardSize: _boardSize,
-                    boardImageAsset: board.imageAsset,
-                    gripHeight:
-                        _boardSize.height * board.handToBoardHeightRatio,
-                    leftGripBoardHold: leftGripBoardHold,
-                    rightGripBoardHold: rightGripBoardHold,
-                    rightGrip: rightGrip,
-                    leftGrip: leftGrip,
-                  );
-                }),
+                BoardWithGrips(
+                  withFixedHeight: false,
+                  handToBoardHeightRatio: board.handToBoardHeightRatio,
+                  boardAspectRatio: board.aspectRatio,
+                  boardImageAssetWidth: board.imageAssetWidth,
+                  customBoardHoldImages: board.customBoardHoldImages?.toList(),
+                  boardImageAsset: board.imageAsset,
+                  leftGripBoardHold: leftGripBoardHold,
+                  rightGripBoardHold: rightGripBoardHold,
+                  rightGrip: rightGrip,
+                  leftGrip: leftGrip,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: LandscapeInfo(

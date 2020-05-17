@@ -27,44 +27,34 @@ class SelectedGripsAndHolds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final double _boardHeight = constraints.maxWidth / board.aspectRatio;
-        final Size _boardSize = Size(constraints.maxWidth, _boardHeight);
-        final _gripHeight = _boardHeight * board.handToBoardHeightRatio;
-        final _boardWithGripsHeight = _boardHeight + _gripHeight;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Hold $currentHold / $totalHolds',
-              style: styles.Staatliches.xlBlack,
-            ),
-            Divider(height: styles.Measurements.l),
-            Container(
-              height: _boardWithGripsHeight,
-              child: BoardWithGrips(
-                boardImageAssetWidth: board.imageAssetWidth,
-                customBoardHoldImages: board.customBoardHoldImages?.toList(),
-                boardSize: _boardSize,
-                boardImageAsset: board.imageAsset,
-                gripHeight: _gripHeight,
-                leftGrip: leftGrip,
-                leftGripBoardHold: leftGripBoardHold,
-                rightGrip: rightGrip,
-                rightGripBoardHold: rightGripBoardHold,
-              ),
-            ),
-            BoardHoldInfo(
-              leftGripBoardHold: leftGripBoardHold,
-              rightGripBoardHold: rightGripBoardHold,
-              leftGrip: leftGrip,
-              rightGrip: rightGrip,
-            ),
-            Divider(height: styles.Measurements.xxl),
-          ],
-        );
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Hold $currentHold / $totalHolds',
+          style: styles.Staatliches.xlBlack,
+        ),
+        Divider(height: styles.Measurements.l),
+        BoardWithGrips(
+          withFixedHeight: true,
+          boardImageAssetWidth: board.imageAssetWidth,
+          customBoardHoldImages: board.customBoardHoldImages?.toList(),
+          boardAspectRatio: board.aspectRatio,
+          handToBoardHeightRatio: board.handToBoardHeightRatio,
+          boardImageAsset: board.imageAsset,
+          leftGrip: leftGrip,
+          leftGripBoardHold: leftGripBoardHold,
+          rightGrip: rightGrip,
+          rightGripBoardHold: rightGripBoardHold,
+        ),
+        BoardHoldInfo(
+          leftGripBoardHold: leftGripBoardHold,
+          rightGripBoardHold: rightGripBoardHold,
+          leftGrip: leftGrip,
+          rightGrip: rightGrip,
+        ),
+        Divider(height: styles.Measurements.xxl),
+      ],
     );
   }
 }
