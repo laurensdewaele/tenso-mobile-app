@@ -19,14 +19,4 @@ class BoardSettingsViewModelState {
       defaultBoard: defaultBoard ?? this.defaultBoard,
     );
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BoardSettingsViewModelState &&
-          runtimeType == other.runtimeType &&
-          boards == other.boards;
-
-  @override
-  int get hashCode => boards.hashCode;
 }
