@@ -47,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _handleBackNavigation() async {
     final bool _canNavigate = await _viewModel.canNavigate();
     if (_canNavigate == true) {
-      Navigator.of(context).pop();
+      Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
     }
   }
 
