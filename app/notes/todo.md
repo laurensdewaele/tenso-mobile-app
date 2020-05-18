@@ -1,5 +1,4 @@
 # TODO
-
 - Refactor grip_picker.
 - Display custom boards with edit + delete func.
 
