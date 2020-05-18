@@ -1,10 +1,7 @@
 # TODO
 
-- Add board selection. Only beastmaker1000 atm.
-  Remove defaultBoard from boards => it's a setting.
-  Provide a viewmodel for the board_settings_screen.
-  
-- Refactor grip_picker
+- Refactor grip_picker.
+- Display custom boards with edit + delete func.
 
 ### Others
 
