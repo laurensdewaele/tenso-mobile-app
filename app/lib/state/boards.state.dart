@@ -11,12 +11,9 @@ class BoardsState {
   PersistenceService _persistenceService = PersistenceService();
 
   BehaviorSubject<Boards> _boards$;
-  List<Board> get boardList => _boards$.value.boards.toList();
-  Stream<List<Board>> get boardList$ =>
-      _boards$.stream.map((Boards b) => b.boards.toList());
-  Board get defaultBoard => _boards$.value.defaultBoard;
-  Stream<Board> get defaultBoard$ =>
-      _boards$.stream.map((Boards b) => b.defaultBoard);
+  Stream<Boards> get boards$ => _boards$.stream;
+  Boards get boards => _boards$.value;
+  List<Board> get boardsList => _boards$.value.boards.toList();
 
   Future<void> init() async {
     final Boards _boards = await _getBoards();
@@ -42,7 +39,7 @@ class BoardsState {
 
   void addBoard(Board board) {
     final List<Board> _newBoardList = []
-      ..addAll(boardList)
+      ..addAll(boardsList)
       ..add(board);
     _setAndSaveBoardList(_newBoardList);
   }

@@ -259,6 +259,7 @@ final List<BoardHold> boardHolds = [
 ];
 
 final beastmaker1000 = Board((b) => b
+  ..name = 'Beastmaker 1000'
   ..id = 'beastmaker_1000'
   ..manufacturer = 'Beastmaker'
   ..model = '1000'

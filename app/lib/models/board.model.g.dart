@@ -20,6 +20,8 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
       'imageAsset',
       serializers.serialize(object.imageAsset,
           specifiedType: const FullType(String)),
@@ -62,12 +64,6 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
         ..add(serializers.serialize(object.model,
             specifiedType: const FullType(String)));
     }
-    if (object.customName != null) {
-      result
-        ..add('customName')
-        ..add(serializers.serialize(object.customName,
-            specifiedType: const FullType(String)));
-    }
     return result;
   }
 
@@ -100,8 +96,8 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
           result.model = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'customName':
-          result.customName = serializers.deserialize(value,
+        case 'name':
+          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'imageAsset':
@@ -151,7 +147,7 @@ class _$Board extends Board {
   @override
   final String model;
   @override
-  final String customName;
+  final String name;
   @override
   final String imageAsset;
   @override
@@ -175,7 +171,7 @@ class _$Board extends Board {
       this.customBoardHoldImages,
       this.manufacturer,
       this.model,
-      this.customName,
+      this.name,
       this.imageAsset,
       this.imageAssetHeight,
       this.imageAssetWidth,
@@ -186,6 +182,9 @@ class _$Board extends Board {
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Board', 'id');
+    }
+    if (name == null) {
+      throw new BuiltValueNullFieldError('Board', 'name');
     }
     if (imageAsset == null) {
       throw new BuiltValueNullFieldError('Board', 'imageAsset');
@@ -225,7 +224,7 @@ class _$Board extends Board {
         customBoardHoldImages == other.customBoardHoldImages &&
         manufacturer == other.manufacturer &&
         model == other.model &&
-        customName == other.customName &&
+        name == other.name &&
         imageAsset == other.imageAsset &&
         imageAssetHeight == other.imageAssetHeight &&
         imageAssetWidth == other.imageAssetWidth &&
@@ -251,7 +250,7 @@ class _$Board extends Board {
                                                 customBoardHoldImages.hashCode),
                                             manufacturer.hashCode),
                                         model.hashCode),
-                                    customName.hashCode),
+                                    name.hashCode),
                                 imageAsset.hashCode),
                             imageAssetHeight.hashCode),
                         imageAssetWidth.hashCode),
@@ -268,7 +267,7 @@ class _$Board extends Board {
           ..add('customBoardHoldImages', customBoardHoldImages)
           ..add('manufacturer', manufacturer)
           ..add('model', model)
-          ..add('customName', customName)
+          ..add('name', name)
           ..add('imageAsset', imageAsset)
           ..add('imageAssetHeight', imageAssetHeight)
           ..add('imageAssetWidth', imageAssetWidth)
@@ -302,9 +301,9 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
   String get model => _$this._model;
   set model(String model) => _$this._model = model;
 
-  String _customName;
-  String get customName => _$this._customName;
-  set customName(String customName) => _$this._customName = customName;
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
 
   String _imageAsset;
   String get imageAsset => _$this._imageAsset;
@@ -351,7 +350,7 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
       _customBoardHoldImages = _$v.customBoardHoldImages?.toBuilder();
       _manufacturer = _$v.manufacturer;
       _model = _$v.model;
-      _customName = _$v.customName;
+      _name = _$v.name;
       _imageAsset = _$v.imageAsset;
       _imageAssetHeight = _$v.imageAssetHeight;
       _imageAssetWidth = _$v.imageAssetWidth;
@@ -387,7 +386,7 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
               customBoardHoldImages: _customBoardHoldImages?.build(),
               manufacturer: manufacturer,
               model: model,
-              customName: customName,
+              name: name,
               imageAsset: imageAsset,
               imageAssetHeight: imageAssetHeight,
               imageAssetWidth: imageAssetWidth,

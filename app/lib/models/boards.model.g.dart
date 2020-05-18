@@ -22,9 +22,6 @@ class _$BoardsSerializer implements StructuredSerializer<Boards> {
       serializers.serialize(object.boards,
           specifiedType:
               const FullType(BuiltList, const [const FullType(Board)])),
-      'defaultBoard',
-      serializers.serialize(object.defaultBoard,
-          specifiedType: const FullType(Board)),
     ];
 
     return result;
@@ -47,10 +44,6 @@ class _$BoardsSerializer implements StructuredSerializer<Boards> {
                       const FullType(BuiltList, const [const FullType(Board)]))
               as BuiltList<Object>);
           break;
-        case 'defaultBoard':
-          result.defaultBoard.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Board)) as Board);
-          break;
       }
     }
 
@@ -61,18 +54,13 @@ class _$BoardsSerializer implements StructuredSerializer<Boards> {
 class _$Boards extends Boards {
   @override
   final BuiltList<Board> boards;
-  @override
-  final Board defaultBoard;
 
   factory _$Boards([void Function(BoardsBuilder) updates]) =>
       (new BoardsBuilder()..update(updates)).build();
 
-  _$Boards._({this.boards, this.defaultBoard}) : super._() {
+  _$Boards._({this.boards}) : super._() {
     if (boards == null) {
       throw new BuiltValueNullFieldError('Boards', 'boards');
-    }
-    if (defaultBoard == null) {
-      throw new BuiltValueNullFieldError('Boards', 'defaultBoard');
     }
   }
 
@@ -86,21 +74,17 @@ class _$Boards extends Boards {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Boards &&
-        boards == other.boards &&
-        defaultBoard == other.defaultBoard;
+    return other is Boards && boards == other.boards;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, boards.hashCode), defaultBoard.hashCode));
+    return $jf($jc(0, boards.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Boards')
-          ..add('boards', boards)
-          ..add('defaultBoard', defaultBoard))
+    return (newBuiltValueToStringHelper('Boards')..add('boards', boards))
         .toString();
   }
 }
@@ -112,17 +96,11 @@ class BoardsBuilder implements Builder<Boards, BoardsBuilder> {
   ListBuilder<Board> get boards => _$this._boards ??= new ListBuilder<Board>();
   set boards(ListBuilder<Board> boards) => _$this._boards = boards;
 
-  BoardBuilder _defaultBoard;
-  BoardBuilder get defaultBoard => _$this._defaultBoard ??= new BoardBuilder();
-  set defaultBoard(BoardBuilder defaultBoard) =>
-      _$this._defaultBoard = defaultBoard;
-
   BoardsBuilder();
 
   BoardsBuilder get _$this {
     if (_$v != null) {
       _boards = _$v.boards?.toBuilder();
-      _defaultBoard = _$v.defaultBoard?.toBuilder();
       _$v = null;
     }
     return this;
@@ -145,16 +123,12 @@ class BoardsBuilder implements Builder<Boards, BoardsBuilder> {
   _$Boards build() {
     _$Boards _$result;
     try {
-      _$result = _$v ??
-          new _$Boards._(
-              boards: boards.build(), defaultBoard: defaultBoard.build());
+      _$result = _$v ?? new _$Boards._(boards: boards.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'boards';
         boards.build();
-        _$failedField = 'defaultBoard';
-        defaultBoard.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Boards', _$failedField, e.toString());

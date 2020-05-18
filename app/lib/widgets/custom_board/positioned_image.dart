@@ -15,19 +15,25 @@ class PositionedCustomBoardHoldImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget _image;
+
+    if (isSelected == true) {
+      _image = Image.asset(
+        customBoardHoldImage.imageAsset,
+        color: styles.Colors.primary,
+        fit: BoxFit.contain,
+      );
+    } else {
+      _image = Image.asset(
+        customBoardHoldImage.imageAsset,
+        fit: BoxFit.contain,
+      );
+    }
+
     return Positioned.fromRect(
         child: Transform.scale(
           scale: customBoardHoldImage.scale,
-          child: isSelected
-              ? Image.asset(
-                  customBoardHoldImage.imageAsset,
-                  color: styles.Colors.primary,
-                  fit: BoxFit.contain,
-                )
-              : Image.asset(
-                  customBoardHoldImage.imageAsset,
-                  fit: BoxFit.contain,
-                ),
+          child: _image,
         ),
         rect: customBoardHoldImage.getRect(
             boardWidth: boardSize.width, boardHeight: boardSize.height));

@@ -12,7 +12,6 @@ abstract class Boards implements Built<Boards, BoardsBuilder> {
   static Serializer<Boards> get serializer => _$boardsSerializer;
 
   BuiltList<Board> get boards;
-  Board get defaultBoard;
 
   factory Boards([void Function(BoardsBuilder) updates]) = _$Boards;
   Boards._();

@@ -1,9 +1,9 @@
+import 'package:app/data/boards/beastmaker_1000.data.dart';
 import 'package:app/data/sounds.data.dart';
 import 'package:app/models/models.dart';
-import 'package:app/state/boards.state.dart';
 
 final Settings basicSettings = Settings((b) => b
-  ..defaultBoard = BoardsState().defaultBoard.toBuilder()
+  ..defaultBoard = beastmaker1000.toBuilder()
   ..preparationTimer = 20
   ..weightUnit = WeightUnit.metric
   ..tempUnit = TempUnit.celsius

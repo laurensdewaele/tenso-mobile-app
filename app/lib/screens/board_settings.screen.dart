@@ -1,5 +1,7 @@
-import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/board_settings.vm.dart';
+import 'package:app/view_models/board_settings_state.vm.dart';
+import 'package:app/widgets/board/board_picker.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
@@ -19,18 +21,18 @@ class BoardSettingsScreen extends StatefulWidget {
 }
 
 class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
+  BoardSettingsViewModel _viewModel;
+
   @override
   void initState() {
     super.initState();
+    _viewModel = BoardSettingsViewModel();
   }
 
   @override
   void dispose() {
+    _viewModel.dispose();
     super.dispose();
-  }
-
-  void _handleAddBoardTap() {
-    Navigator.of(context).pushNamed(Routes.customBoardScreen);
   }
 
   @override
@@ -46,9 +48,7 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
             Column(
               children: <Widget>[
                 TopNavigation(
-                  handleBackNavigation: () {
-                    Navigator.of(context).pop();
-                  },
+                  handleBackNavigation: _viewModel.handleBackNavigation,
                   title: 'board settings',
                   dark: true,
                 ),
@@ -60,33 +60,48 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
                     padding: EdgeInsets.symmetric(
                         horizontal: styles.Measurements.m,
                         vertical: styles.Measurements.l),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Section(
-                                title: 'default board',
-                                children: <Widget>[],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Section(
-                                title: 'custom boards',
-                                children: <Widget>[],
-                              ),
-                            ],
-                          ),
-                          Button(
-                              text: 'Add custom board',
-                              handleTap: _handleAddBoardTap,
-                              leadingIcon: icons.plusIconWhiteXl)
-                        ]),
+                    child: StreamBuilder<Object>(
+                        initialData: _viewModel.state,
+                        stream: _viewModel.state$,
+                        builder: (context, snapshot) {
+                          final BoardSettingsViewModelState _state =
+                              snapshot.data;
+                          return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Section(
+                                      title: 'default board',
+                                      children: <Widget>[
+                                        BoardPicker(
+                                          primaryColor: styles.Colors.primary,
+                                          boards: _state.boards,
+                                          handleBoardChanged:
+                                              _viewModel.handleBoardChanged,
+                                          selectedBoard: _state.defaultBoard,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Section(
+                                      title: 'custom boards',
+                                      children: <Widget>[],
+                                    ),
+                                  ],
+                                ),
+                                Button(
+                                    text: 'Add custom board',
+                                    handleTap: _viewModel.handleAddBoardTap,
+                                    leadingIcon: icons.plusIconWhiteXl)
+                              ]);
+                        }),
                   ),
                 ),
                 Divider(

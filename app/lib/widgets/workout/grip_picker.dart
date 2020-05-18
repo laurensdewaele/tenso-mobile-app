@@ -59,18 +59,9 @@ class _GripPickerState extends State<GripPicker> {
     final Size size = container.size;
     final double center = size.width / 2;
     final int index = widget.grips.indexOf(widget.selectedGrip);
-    final double totalWidth = _kGripWidth * widget.grips.length;
 
-    if (index * _kGripWidth < center) {
-      _scrollController.animateTo(0,
-          duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
-    }
-    if (index * _kGripWidth > totalWidth - center) {
-      _scrollController.animateTo(totalWidth,
-          duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
-    }
     _scrollController.animateTo(
-        index * _kGripWidth + (_kGripWidth / 2) - center,
+        (index + 1) * _kGripWidth - (_kGripWidth / 2) - center,
         duration: Duration(milliseconds: 200),
         curve: Curves.easeInOut);
   }

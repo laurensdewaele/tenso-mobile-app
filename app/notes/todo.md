@@ -1,44 +1,42 @@
 # TODO
 
-### Others
 - Add board selection. Only beastmaker1000 atm.
+  Remove defaultBoard from boards => it's a setting.
+  Provide a viewmodel for the board_settings_screen.
+  
+- Refactor grip_picker
+
+### Others
+
 - Beeps before rest, allow 0;
-- Remove gradients from screen
-- Make as much constants and WIDGETS! consts.
 
-### Triage - think about
 
-- When saving data to disk/be, specify a model version no. e.g workouts.txt:
-  {v1: {}, v2{}}
-
-- When saving data 
-
+### Triage - think about 
 - Editing a workout whilst your training would be really nice.
-  Adjusting the sequence directly? Or somehow going back to workout, edit, keep past hangs ...
+  Adjusting the sequence directly.
   Or just simply editing in the history for correct values.
+- Access settings during a workout? Why?
+  Adjust sounds, and preparation timer.
   
-- Remove built value?
   
-- Access settings during a workout.
-
+### Large prio
 - Redesign rate workout. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
-  
- 
-
-### Large prio
 - Add open crimp, pinch grip, check if all grips available
 - Info/explanation screen
+- More beginner workouts. => Repeaters / max-hang / density 
 - Implement a feedback button.
-- Backend
 - Graphs
+- Backend
 
 ### Medium prio
 
 - Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
+  When saving data to disk/be, specify a model version no. e.g workouts.txt:
+    {v1: {}, v2{}}
 - Tests
 - Try catch blocks on sensitive code. E.g. deleting workout.
 - Setup sentry.io, don't think about self hosting for now.
@@ -48,6 +46,9 @@
 
 ### Small prio
 
+- Remove built value?
+- Remove gradients from screen
+- Make as much constants and WIDGETS! consts.
 - Add other boards
 - Keep alive whilst on background and playing sounds. 
 - Refactor navigation with navigator key?

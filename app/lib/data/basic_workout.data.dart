@@ -1,11 +1,10 @@
 import 'package:app/data/boards/beastmaker_1000.data.dart';
 import 'package:app/data/grips.data.dart';
 import 'package:app/models/models.dart';
-import 'package:app/state/boards.state.dart';
 
 const int basicCountdownRestDuration = 3 * 60;
 
-final Board _defaultBoard = BoardsState().defaultBoard;
+final Board _defaultBoard = beastmaker1000;
 
 final Workout basicWorkout = Workout((b) => b
   ..id = '1'

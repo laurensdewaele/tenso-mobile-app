@@ -18,8 +18,7 @@ abstract class Board implements Built<Board, BoardBuilder> {
   String get manufacturer;
   @nullable
   String get model;
-  @nullable
-  String get customName;
+  String get name;
   String get imageAsset;
   double get imageAssetHeight;
   double get imageAssetWidth;
