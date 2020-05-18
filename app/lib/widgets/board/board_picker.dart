@@ -139,33 +139,20 @@ class _BoardPickerState extends State<_BoardPicker> {
                 width: _centerContainerWidth,
               ),
               ...widget.boards.map((Board board) => AnimatedSwitcher(
-                    duration: Duration(milliseconds: 200),
-                    child: board == widget.selectedBoard
-                        ? _SelectedHangBoard(
-                            onTap: () => widget.handleBoardChanged(board),
-                            boardImageAssetWidth: board.imageAssetWidth,
-                            boardImageAsset: board.imageAsset,
-                            customBoardHoldImages:
-                                board.customBoardHoldImages?.toList(),
-                            boardSize: Size(
-                                widget.containerWidth * _kBoardWidthPercent,
-                                widget.containerWidth *
-                                    _kBoardWidthPercent /
-                                    board.aspectRatio),
-                          )
-                        : _DeselectedHangBoard(
-                            onTap: () => widget.handleBoardChanged(board),
-                            boardImageAssetWidth: board.imageAssetWidth,
-                            boardImageAsset: board.imageAsset,
-                            customBoardHoldImages:
-                                board.customBoardHoldImages?.toList(),
-                            boardSize: Size(
-                                widget.containerWidth * _kBoardWidthPercent,
-                                widget.containerWidth *
-                                    _kBoardWidthPercent /
-                                    board.aspectRatio),
-                          ),
-                  )),
+                  duration: Duration(milliseconds: 200),
+                  child: _HangBoard(
+                    selected: board == widget.selectedBoard,
+                    onTap: () => widget.handleBoardChanged(board),
+                    boardImageAssetWidth: board.imageAssetWidth,
+                    boardImageAsset: board.imageAsset,
+                    customBoardHoldImages:
+                        board.customBoardHoldImages?.toList(),
+                    boardSize: Size(
+                        widget.containerWidth * _kBoardWidthPercent,
+                        widget.containerWidth *
+                            _kBoardWidthPercent /
+                            board.aspectRatio),
+                  ))),
               Divider(
                 width: _centerContainerWidth,
               ),
@@ -203,72 +190,6 @@ class _HangBoard extends StatelessWidget {
           scale: selected ? 1 : .9,
           child: Opacity(
             opacity: selected ? 1 : .9,
-            child: HangBoard(
-              boardImageAssetWidth: boardImageAssetWidth,
-              boardImageAsset: boardImageAsset,
-              customBoardHoldImages: customBoardHoldImages,
-              boardSize: boardSize,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SelectedHangBoard extends StatelessWidget {
-  const _SelectedHangBoard(
-      {@required this.boardImageAssetWidth,
-      @required this.boardImageAsset,
-      @required this.customBoardHoldImages,
-      @required this.boardSize,
-      @required this.onTap});
-
-  final double boardImageAssetWidth;
-  final String boardImageAsset;
-  final List<CustomBoardHoldImage> customBoardHoldImages;
-  final Size boardSize;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Center(
-        child: HangBoard(
-          boardImageAssetWidth: boardImageAssetWidth,
-          boardImageAsset: boardImageAsset,
-          customBoardHoldImages: customBoardHoldImages,
-          boardSize: boardSize,
-        ),
-      ),
-    );
-  }
-}
-
-class _DeselectedHangBoard extends StatelessWidget {
-  const _DeselectedHangBoard(
-      {@required this.boardImageAssetWidth,
-      @required this.boardImageAsset,
-      @required this.customBoardHoldImages,
-      @required this.boardSize,
-      @required this.onTap});
-
-  final double boardImageAssetWidth;
-  final String boardImageAsset;
-  final List<CustomBoardHoldImage> customBoardHoldImages;
-  final Size boardSize;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Center(
-        child: Transform.scale(
-          scale: .9,
-          child: Opacity(
-            opacity: .9,
             child: HangBoard(
               boardImageAssetWidth: boardImageAssetWidth,
               boardImageAsset: boardImageAsset,
