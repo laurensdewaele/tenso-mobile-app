@@ -1,20 +1,14 @@
 # TODO
-- Display custom boards with edit + delete func.
 
 ### Others
 
+### Large prio
 - Beeps before rest, allow 0;
-
-
-### Triage - think about 
 - Editing a workout whilst your training would be really nice.
   Adjusting the sequence directly.
   Or just simply editing in the history for correct values.
 - Access settings during a workout? Why?
   Adjust sounds, and preparation timer.
-  
-  
-### Large prio
 - Redesign rate workout. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
@@ -22,6 +16,7 @@
 - Info/explanation screen
 - More beginner workouts. => Repeaters / max-hang / density 
 - Implement a feedback button.
+-----
 - Graphs
 - Backend
 
