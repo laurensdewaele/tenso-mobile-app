@@ -24,7 +24,6 @@ class HangBoard extends StatelessWidget {
         : 1.0;
 
     return Container(
-      height: boardSize.height,
       width: boardSize.width,
       child: Stack(
         overflow: Overflow.visible,

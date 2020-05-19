@@ -126,7 +126,7 @@ class _BoardPickerState extends State<_BoardPicker> {
           style: styles.Lato.sBlack,
           textAlign: TextAlign.center,
         ),
-        Divider(height: styles.Measurements.m),
+        Divider(height: styles.Measurements.xs),
         Container(
           width: double.infinity,
           height: _boardPickerHeight,

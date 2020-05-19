@@ -2,6 +2,10 @@ import 'dart:ui';
 
 import 'package:app/models/models.dart';
 
+// There's a small mistake.
+// The beastmaker_1000.png doesn't have these measurements.
+// Therefor, it's ever so slightly off.
+// Only an issue when forcing the hang_board height.
 const Size _kBoardSize = const Size(395.88, 100);
 
 final List<BoardHold> boardHolds = [

@@ -2,6 +2,7 @@
 - Refactor grip_picker.
 - Display custom boards with edit + delete func.
 
+
 ### Others
 
 - Beeps before rest, allow 0;
