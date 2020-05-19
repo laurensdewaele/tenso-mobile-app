@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
+import 'package:app/screens/custom_board.screen.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/state/boards.state.dart';
 import 'package:app/state/settings.state.dart';
@@ -58,15 +59,25 @@ class BoardSettingsViewModel {
   }
 
   void handleDeleteCustomBoard(Board customBoard) {
+    _deleteCustomBoard(customBoard);
+    _navigationService.pop();
+  }
+
+  void _deleteCustomBoard(Board customBoard) {
     if (state.defaultBoard == customBoard) {
       _setDefaultBoard(
           state.boards.firstWhere((Board board) => board.id != customBoard.id));
     }
     _boardsState.deleteBoard(customBoard);
-    _navigationService.pop();
   }
 
-  void handleEditCustomBoard(Board customBoard) {}
+  void handleEditCustomBoard(Board customBoard) async {
+    _navigationService.pop();
+    _navigationService.pushNamed(Routes.customBoardScreen,
+        arguments: CustomBoardScreenArguments(boardToEdit: customBoard));
+    await Future.delayed(const Duration(milliseconds: 200),
+        () => _deleteCustomBoard(customBoard));
+  }
 
   void dispose() {
     _state$.close();

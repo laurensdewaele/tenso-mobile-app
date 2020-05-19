@@ -20,10 +20,12 @@ class SaveCustomBoardScreenArguments {
   SaveCustomBoardScreenArguments({
     @required this.boardHolds,
     @required this.customBoardHoldImages,
+    @required this.boardToEditName,
   });
 
-  List<BoardHold> boardHolds;
-  List<CustomBoardHoldImage> customBoardHoldImages;
+  final String boardToEditName;
+  final List<BoardHold> boardHolds;
+  final List<CustomBoardHoldImage> customBoardHoldImages;
 }
 
 class SaveCustomBoardScreen extends StatefulWidget {
@@ -43,6 +45,7 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
       final SaveCustomBoardScreenArguments routeArguments =
           ModalRoute.of(context).settings.arguments;
       _viewModel = SaveCustomBoardViewModel(
+          boardToEditName: routeArguments.boardToEditName,
           boardHolds: routeArguments.boardHolds,
           customBoardHoldImages: routeArguments.customBoardHoldImages);
       _viewModel.addListener(_viewModelListener);
@@ -148,7 +151,8 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                                       multiLine: false,
                                       enabled: true,
                                       primaryColor: styles.Colors.primary,
-                                      initialValue: '',
+                                      initialValue:
+                                          _viewModel.initialName ?? '',
                                       handleValueChanged: _viewModel.setName)
                                 ],
                               ),

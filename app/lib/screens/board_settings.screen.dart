@@ -44,6 +44,7 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
         landscapeWidth: styles.Measurements.xxl * 6,
         context: context,
         content: _CustomBoardPressDialog(
+          customBoardName: customBoard.name,
           handleDeleteTap: () =>
               _viewModel.handleDeleteCustomBoard(customBoard),
           handleBackTap: () => Navigator.of(context).pop(),
@@ -201,19 +202,26 @@ class _CustomBoardPressDialog extends StatelessWidget {
   _CustomBoardPressDialog(
       {Key key,
       @required this.handleDeleteTap,
-      this.handleEditTap,
-      @required this.handleBackTap})
+      @required this.handleEditTap,
+      @required this.handleBackTap,
+      @required this.customBoardName})
       : super(key: key);
 
   final VoidCallback handleEditTap;
   final VoidCallback handleDeleteTap;
   final VoidCallback handleBackTap;
+  final String customBoardName;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        Text(
+          customBoardName,
+          style: styles.Staatliches.lBlack,
+        ),
+        Divider(height: styles.Measurements.l),
         Button(
             text: 'Edit',
             backgroundColor: styles.Colors.blue,

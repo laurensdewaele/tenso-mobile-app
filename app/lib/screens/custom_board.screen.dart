@@ -1,3 +1,4 @@
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/custom_board/custom_board.vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
@@ -14,6 +15,14 @@ import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart';
 
+class CustomBoardScreenArguments {
+  final Board boardToEdit;
+
+  const CustomBoardScreenArguments({
+    @required this.boardToEdit,
+  });
+}
+
 class CustomBoardScreen extends StatefulWidget {
   CustomBoardScreen({Key key}) : super(key: key);
 
@@ -26,9 +35,19 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
 
   @override
   void initState() {
-    _viewModel = CustomBoardViewModel();
-    _viewModel.addListener(_viewModelListener);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_viewModel == null) {
+      final CustomBoardScreenArguments routeArguments =
+          ModalRoute.of(context).settings.arguments;
+      final Board _boardToEdit = routeArguments?.boardToEdit;
+      _viewModel = CustomBoardViewModel(boardToEdit: _boardToEdit);
+      _viewModel.addListener(_viewModelListener);
+    }
   }
 
   void _viewModelListener() {

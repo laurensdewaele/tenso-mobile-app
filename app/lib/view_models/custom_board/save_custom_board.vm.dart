@@ -13,10 +13,12 @@ import 'package:app/state/boards.state.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCustomBoardViewModel extends ChangeNotifier {
-  SaveCustomBoardViewModel({
-    @required List<BoardHold> boardHolds,
-    @required List<CustomBoardHoldImage> customBoardHoldImages,
-  }) {
+  SaveCustomBoardViewModel(
+      {@required List<BoardHold> boardHolds,
+      @required List<CustomBoardHoldImage> customBoardHoldImages,
+      @required String boardToEditName}) {
+    _nameInput = boardToEditName;
+    _name = boardToEditName;
     _boardHolds = boardHolds;
     _customBoardHoldImages = customBoardHoldImages;
     _setGripsAndBoardHoldsAndNotify();
@@ -30,6 +32,7 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
 
   String _nameInput;
   String _name;
+  String get initialName => _name;
 
   Grip _leftGrip;
   Grip get leftGrip => _leftGrip;

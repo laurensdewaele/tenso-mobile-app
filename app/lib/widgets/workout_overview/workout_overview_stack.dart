@@ -185,6 +185,8 @@ class _WorkoutOverviewStackState extends State<WorkoutOverviewStack>
         landscapeWidth: styles.Measurements.xxl * 6,
         context: context,
         content: _LongPressDialog(
+            workoutName:
+                widget.workout?.name ?? widget.completedWorkout?.workout?.name,
             handleDeleteTap: () {
               Navigator.of(context).pop();
               if (_isCompletedWorkout == true) {
@@ -331,9 +333,11 @@ class _LongPressDialog extends StatelessWidget {
       @required this.handleDeleteTap,
       this.handleViewTap,
       this.handleEditTap,
-      @required this.handleBackTap})
+      @required this.handleBackTap,
+      @required this.workoutName})
       : super(key: key);
 
+  final String workoutName;
   final bool isCompletedWorkout;
   final VoidCallback handleViewTap;
   final VoidCallback handleEditTap;
@@ -346,6 +350,11 @@ class _LongPressDialog extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        Text(
+          workoutName,
+          style: styles.Staatliches.lBlack,
+        ),
+        Divider(height: styles.Measurements.l),
         if (isCompletedWorkout == true)
           Button(
               text: 'View',
