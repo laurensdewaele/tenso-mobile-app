@@ -4,11 +4,10 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/grip_image.dart';
 import 'package:flutter/cupertino.dart';
 
-final GlobalKey _kGripPickerContainerKey = GlobalKey();
 final double _kGripPickerHeight = 100;
 final double _kGripWidth = 80;
 
-class GripPicker extends StatefulWidget {
+class GripPicker extends StatelessWidget {
   GripPicker(
       {Key key,
       @required this.grips,
@@ -23,10 +22,41 @@ class GripPicker extends StatefulWidget {
   final void Function(Grip grip) handleGripChanged;
 
   @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return _GripPicker(
+        containerWidth: constraints.maxWidth,
+        grips: grips,
+        primaryColor: primaryColor,
+        handleGripChanged: handleGripChanged,
+        selectedGrip: selectedGrip,
+      );
+    });
+  }
+}
+
+class _GripPicker extends StatefulWidget {
+  _GripPicker(
+      {Key key,
+      @required this.grips,
+      @required this.selectedGrip,
+      @required this.handleGripChanged,
+      @required this.primaryColor,
+      @required this.containerWidth})
+      : super(key: key);
+
+  final double containerWidth;
+  final Color primaryColor;
+  final List<Grip> grips;
+  final Grip selectedGrip;
+  final void Function(Grip grip) handleGripChanged;
+
+  @override
   _GripPickerState createState() => _GripPickerState();
 }
 
-class _GripPickerState extends State<GripPicker> {
+class _GripPickerState extends State<_GripPicker> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -46,18 +76,16 @@ class _GripPickerState extends State<GripPicker> {
   }
 
   @override
-  void didUpdateWidget(GripPicker oldWidget) {
-    if (oldWidget.selectedGrip != widget.selectedGrip) {
+  void didUpdateWidget(_GripPicker oldWidget) {
+    if (oldWidget.selectedGrip != widget.selectedGrip ||
+        oldWidget.containerWidth != widget.containerWidth) {
       _scrollToSelected();
     }
     super.didUpdateWidget(oldWidget);
   }
 
   void _scrollToSelected() {
-    final RenderBox container =
-        _kGripPickerContainerKey.currentContext.findRenderObject();
-    final Size size = container.size;
-    final double center = size.width / 2;
+    final double center = widget.containerWidth / 2;
     final int index = widget.grips.indexOf(widget.selectedGrip);
 
     _scrollController.animateTo(
@@ -83,7 +111,6 @@ class _GripPickerState extends State<GripPicker> {
         Container(
           width: double.infinity,
           height: _kGripPickerHeight,
-          key: _kGripPickerContainerKey,
           child: ListView(
             physics: ClampingScrollPhysics(),
             controller: _scrollController,
