@@ -122,8 +122,8 @@ class _BoardPickerState extends State<_BoardPicker> {
     return Column(
       children: <Widget>[
         Text(
-          widget.selectedBoard.name,
-          style: styles.Lato.sBlack,
+          widget.selectedBoard.capitalizedName,
+          style: styles.Lato.sBlackBold,
           textAlign: TextAlign.center,
         ),
         Divider(height: styles.Measurements.xs),

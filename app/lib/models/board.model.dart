@@ -27,6 +27,16 @@ abstract class Board implements Built<Board, BoardBuilder> {
   BoardHold get defaultLeftGripHold;
   BoardHold get defaultRightGripHold;
   double get aspectRatio => imageAssetWidth / imageAssetHeight;
+  bool get isCustom => customBoardHoldImages != null;
+  String get capitalizedName => _capitalizeName();
+
+  String _capitalizeName() {
+    if (name.length > 1) {
+      return name[0].toUpperCase() + name.substring(1);
+    } else {
+      return name[0].toUpperCase();
+    }
+  }
 
   factory Board([void Function(BoardBuilder) updates]) = _$Board;
   Board._();

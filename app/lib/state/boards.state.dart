@@ -44,6 +44,12 @@ class BoardsState {
     _setAndSaveBoardList(_newBoardList);
   }
 
+  void deleteBoard(Board board) {
+    final List<Board> _newBoardList = []
+      ..addAll(boardsList.where((Board b) => b.id != board.id));
+    _setAndSaveBoardList(_newBoardList);
+  }
+
   dispose() {
     _boards$.close();
   }

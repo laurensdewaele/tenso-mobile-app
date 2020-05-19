@@ -42,6 +42,10 @@ class BoardSettingsViewModel {
   }
 
   void handleBoardChanged(Board board) {
+    _setDefaultBoard(board);
+  }
+
+  void _setDefaultBoard(Board board) {
     _settingsState.setDefaultBoard(board);
   }
 
@@ -52,6 +56,17 @@ class BoardSettingsViewModel {
   void handleBackNavigation() {
     _navigationService.pushNamed(Routes.settingsScreen);
   }
+
+  void handleDeleteCustomBoard(Board customBoard) {
+    if (state.defaultBoard == customBoard) {
+      _setDefaultBoard(
+          state.boards.firstWhere((Board board) => board.id != customBoard.id));
+    }
+    _boardsState.deleteBoard(customBoard);
+    _navigationService.pop();
+  }
+
+  void handleEditCustomBoard(Board customBoard) {}
 
   void dispose() {
     _state$.close();
