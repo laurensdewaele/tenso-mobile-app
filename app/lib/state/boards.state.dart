@@ -44,6 +44,14 @@ class BoardsState {
     _setAndSaveBoardList(_newBoardList);
   }
 
+  void editBoard({String boardId, Board updatedBoard}) {
+    final int _boardIndex =
+        boardsList.indexWhere((Board board) => board.id == boardId);
+    final List<Board> _newBoardList = []..addAll(boardsList);
+    _newBoardList[_boardIndex] = updatedBoard;
+    _setAndSaveBoardList(_newBoardList);
+  }
+
   void deleteBoard(Board board) {
     final List<Board> _newBoardList = []
       ..addAll(boardsList.where((Board b) => b.id != board.id));

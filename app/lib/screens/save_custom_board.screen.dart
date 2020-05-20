@@ -21,8 +21,10 @@ class SaveCustomBoardScreenArguments {
     @required this.boardHolds,
     @required this.customBoardHoldImages,
     @required this.boardToEditName,
+    @required this.boardToEditId,
   });
 
+  final String boardToEditId;
   final String boardToEditName;
   final List<BoardHold> boardHolds;
   final List<CustomBoardHoldImage> customBoardHoldImages;
@@ -45,6 +47,7 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
       final SaveCustomBoardScreenArguments routeArguments =
           ModalRoute.of(context).settings.arguments;
       _viewModel = SaveCustomBoardViewModel(
+          boardToEditId: routeArguments.boardToEditId,
           boardToEditName: routeArguments.boardToEditName,
           boardHolds: routeArguments.boardHolds,
           customBoardHoldImages: routeArguments.customBoardHoldImages);

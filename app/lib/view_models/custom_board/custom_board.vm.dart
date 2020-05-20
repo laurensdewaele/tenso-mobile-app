@@ -66,14 +66,16 @@ class CustomBoardViewModel extends ChangeNotifier {
   Stream<bool> get closeBottomMenuDrawer$ => _closeBottomMenuDrawer$.stream;
 
   String _boardToEditName;
+  String _boardToEditId;
 
   CustomBoardViewModel({Board boardToEdit}) {
     _toastService = ToastService();
     _generateBoxes();
     if (boardToEdit != null) {
-      _hideTakenBoxes(
+      _hideBoxesForTakenPositions(
           positions: boardToEdit.boardHolds.map((b) => b.position).toList());
       _boardToEditName = boardToEdit.name;
+      _boardToEditId = boardToEdit.id;
     }
     _customBoardHoldImages = boardToEdit?.customBoardHoldImages?.toList() ?? [];
     _boardHolds = boardToEdit?.boardHolds?.toList() ?? [];
@@ -82,7 +84,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _hideTakenBoxes({List<int> positions}) {
+  void _hideBoxesForTakenPositions({List<int> positions}) {
     _boxes = _boxes.map((b) {
       if (positions.contains(b.index + 1)) {
         return b.copyWith(visibility: BoxVisibility.hidden);
@@ -311,6 +313,7 @@ class CustomBoardViewModel extends ChangeNotifier {
     } else {
       NavigationService().pushNamed(Routes.saveCustomBoardScreen,
           arguments: SaveCustomBoardScreenArguments(
+              boardToEditId: _boardToEditId,
               boardToEditName: _boardToEditName,
               boardHolds: boardHolds,
               customBoardHoldImages: customBoardHoldImages));

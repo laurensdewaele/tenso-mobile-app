@@ -13,16 +13,22 @@ import 'package:app/state/boards.state.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCustomBoardViewModel extends ChangeNotifier {
-  SaveCustomBoardViewModel(
-      {@required List<BoardHold> boardHolds,
-      @required List<CustomBoardHoldImage> customBoardHoldImages,
-      @required String boardToEditName}) {
+  SaveCustomBoardViewModel({
+    @required List<BoardHold> boardHolds,
+    @required List<CustomBoardHoldImage> customBoardHoldImages,
+    @required String boardToEditName,
+    @required String boardToEditId,
+  }) {
+    _boardsState = BoardsState();
+    _boardToEditId = boardToEditId;
     _nameInput = boardToEditName;
     _name = boardToEditName;
     _boardHolds = boardHolds;
     _customBoardHoldImages = customBoardHoldImages;
     _setGripsAndBoardHoldsAndNotify();
   }
+
+  BoardsState _boardsState;
 
   List<BoardHold> _boardHolds;
   List<BoardHold> get boardHolds => _boardHolds;
@@ -33,6 +39,7 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
   String _nameInput;
   String _name;
   String get initialName => _name;
+  String _boardToEditId;
 
   Grip _leftGrip;
   Grip get leftGrip => _leftGrip;
@@ -80,8 +87,8 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
     _name = InputParsers.parseString(string: _nameInput);
     final _valid = Validators.stringNotEmpty(string: _name, inputField: 'Name');
     if (_valid == true) {
-      BoardsState().addBoard(Board((b) => b
-        ..id = generateUniqueId()
+      final Board _board = Board((b) => b
+        ..id = _boardToEditId ?? generateUniqueId()
         ..name = _name
         ..imageAsset = kImageAsset
         ..imageAssetWidth = kImageAssetWidth
@@ -90,7 +97,14 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
         ..boardHolds.addAll(boardHolds)
         ..customBoardHoldImages.addAll(customBoardHoldImages)
         ..defaultLeftGripHold = leftGripBoardHold.toBuilder()
-        ..defaultRightGripHold = rightGripBoardHold.toBuilder()));
+        ..defaultRightGripHold = rightGripBoardHold.toBuilder());
+
+      if (_boardToEditId != null) {
+        _boardsState.editBoard(boardId: _boardToEditId, updatedBoard: _board);
+      } else {
+        _boardsState.addBoard(_board);
+      }
+
       NavigationService().pushNamed(Routes.boardSettingsScreen);
     }
     return _valid;
