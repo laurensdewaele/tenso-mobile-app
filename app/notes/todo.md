@@ -1,14 +1,10 @@
 # TODO
-
-### Others
+- Edit hangs.
+  
 
 ### Large prio
+- History update times
 - Beeps before rest, allow 0;
-- Editing a workout whilst your training would be really nice.
-  Adjusting the sequence directly.
-  Or just simply editing in the history for correct values.
-- Access settings during a workout? Why?
-  Adjust sounds, and preparation timer.
 - Redesign rate workout. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
@@ -16,12 +12,12 @@
 - Info/explanation screen
 - More beginner workouts. => Repeaters / max-hang / density 
 - Implement a feedback button.
------
-- Graphs
-- Backend
+- LAUNCH
+
 
 ### Medium prio
-
+- Graphs
+- Backend
 - Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
