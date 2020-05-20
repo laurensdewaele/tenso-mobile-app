@@ -1,6 +1,7 @@
 library styles;
 
 import 'package:app/styles/colors.dart';
+import 'package:app/styles/measurements.dart';
 import 'package:flutter/cupertino.dart';
 
 export 'package:app/styles/colors.dart';
@@ -10,6 +11,7 @@ export 'package:app/styles/typography.dart';
 const double kStandardButtonHeight = 55;
 const double kSmallButtonHeight = 40;
 const double kLandscapeDialogWidth = 450;
+const double kSmallDialogWidth = Measurements.xxl * 6;
 const double kBorderRadiusValue = 5.0;
 const Radius kBorderRadius = Radius.circular(kBorderRadiusValue);
 const BorderRadius kBorderRadiusAll =

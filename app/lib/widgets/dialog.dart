@@ -1,29 +1,26 @@
 import 'dart:ui' show ImageFilter;
-import 'package:flutter/cupertino.dart';
 
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
 Future<void> showAppDialog({
   @required BuildContext context,
   @required Widget content,
-  double width,
-  double landscapeWidth,
+  @required bool smallWidth,
 }) {
   return showCupertinoDialog(
       context: context,
-      builder: (BuildContext context) => AppDialog(
-          content: content, width: width, landscapeWidth: landscapeWidth));
+      builder: (BuildContext context) =>
+          AppDialog(content: content, smallWidth: smallWidth));
 }
 
 /// Creates an iOS-style alert dialog.
 class AppDialog extends StatelessWidget {
-  const AppDialog(
-      {Key key, @required this.content, this.width, this.landscapeWidth})
+  const AppDialog({Key key, @required this.content, this.smallWidth})
       : super(key: key);
 
   final Widget content;
-  final double width;
-  final double landscapeWidth;
+  final bool smallWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,9 @@ class AppDialog extends StatelessWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (_orientation == Orientation.portrait) {
               return Container(
-                  width: width ?? double.infinity,
+                  width: smallWidth == true
+                      ? styles.kSmallDialogWidth
+                      : double.infinity,
                   margin: const EdgeInsets.symmetric(
                       vertical: styles.Measurements.m),
                   padding:
@@ -44,7 +43,9 @@ class AppDialog extends StatelessWidget {
                   ));
             } else {
               return Container(
-                  width: landscapeWidth ?? styles.kLandscapeDialogWidth,
+                  width: smallWidth == true
+                      ? styles.kSmallDialogWidth
+                      : styles.kLandscapeDialogWidth,
                   child: _Dialog(
                     content: content,
                   ));

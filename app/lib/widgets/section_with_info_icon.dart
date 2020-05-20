@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/icons.dart' as icons;
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class SectionWithInfoIcon extends StatelessWidget {
   SectionWithInfoIcon(
@@ -33,7 +32,10 @@ class SectionWithInfoIcon extends StatelessWidget {
             ),
             IconButton(
                 handleTap: () {
-                  showAppDialog(context: context, content: appDialogContent);
+                  showAppDialog(
+                      context: context,
+                      content: appDialogContent,
+                      smallWidth: false);
                 },
                 icon: icons.infoIconBlackL)
           ],

@@ -62,7 +62,8 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   }
 
   void _handleInfoTap() async {
-    await showAppDialog(context: context, content: _InfoDialog());
+    await showAppDialog(
+        context: context, content: _InfoDialog(), smallWidth: false);
   }
 
   void _handleAddHoldTap() async {

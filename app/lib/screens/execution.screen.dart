@@ -55,8 +55,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
   void _pause() {
     _viewModel.handlePauseTap();
     showAppDialog(
-        width: styles.Measurements.xxl * 6,
-        landscapeWidth: styles.Measurements.xxl * 6,
+        smallWidth: true,
         context: context,
         content: _PauseDialog(
             handleResumeTap: _viewModel.handleResumeTap,

@@ -40,8 +40,7 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
 
   void _handleCustomBoardPress(Board customBoard) async {
     await showAppDialog(
-        width: styles.Measurements.xxl * 6,
-        landscapeWidth: styles.Measurements.xxl * 6,
+        smallWidth: true,
         context: context,
         content: _CustomBoardPressDialog(
           customBoardName: customBoard.name,

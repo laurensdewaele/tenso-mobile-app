@@ -14,6 +14,7 @@ Future<void> showWorkoutDeleteDialog({
   final String name = workoutName.toLowerCase();
 
   return showAppDialog(
+      smallWidth: false,
       context: context,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -70,6 +71,7 @@ Future<void> showCompletedWorkoutDeleteDialog({
   final String date = '$weekDay $day $month - $hour:$minute';
 
   return showAppDialog(
+      smallWidth: false,
       context: context,
       content: Column(
         mainAxisSize: MainAxisSize.min,
