@@ -117,45 +117,29 @@ class _PerceivedExertionInfo extends StatelessWidget {
               'This value signifies how hard the workout was for you.',
               style: styles.Lato.xsBlack,
             ),
+            Divider(
+              height: styles.Measurements.xs,
+            ),
             RichText(
               text: TextSpan(
                   text: 'Or, in other words, ',
                   style: styles.Lato.xsBlack,
                   children: [
                     TextSpan(
-                        text:
-                            'how much effort it took for you to complete the workout',
+                        text: 'how much effort ',
                         style: styles.Lato.xsBlackBold),
                     TextSpan(
-                        text: ', on a scale of 1 to 10.',
+                        text:
+                            'it took for you to complete the workout, on a scale of 1 to 10.',
                         style: styles.Lato.xsBlack),
                   ]),
             ),
             Divider(
-              height: styles.Measurements.m,
-            ),
-            Text(
-              'As all things in life, this will not be constant.',
-              style: styles.Lato.xsBlack,
-            ),
-            Text(
-              'On good days this workout might not have been very hard, whereas on lesser days, it might seem really difficult to hold on.',
-              style: styles.Lato.xsBlack,
-            ),
-            Divider(
-              height: styles.Measurements.m,
-            ),
-            Text(
-              'However, as we continually stimulate the body to adjust to the stresses of fingerboarding, we should see a particular exercise become easier over time.',
-              style: styles.Lato.xsBlack,
-            ),
-            Divider(
-              height: styles.Measurements.m,
+              height: styles.Measurements.xs,
             ),
             RichText(
               text: TextSpan(
-                  text:
-                      'Therefore, we kindly request you to fill out this value, ',
+                  text: 'We kindly request you to fill out this value, ',
                   style: styles.Lato.xsBlack,
                   children: [
                     TextSpan(
