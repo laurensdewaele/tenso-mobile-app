@@ -10,6 +10,7 @@ import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
 import 'package:app/state/boards.state.dart';
+import 'package:app/state/settings.state.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCustomBoardViewModel extends ChangeNotifier {
@@ -20,6 +21,7 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
     @required String boardToEditId,
   }) {
     _boardsState = BoardsState();
+    _settingsState = SettingsState();
     _boardToEditId = boardToEditId;
     _nameInput = boardToEditName;
     _name = boardToEditName;
@@ -29,6 +31,7 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
   }
 
   BoardsState _boardsState;
+  SettingsState _settingsState;
 
   List<BoardHold> _boardHolds;
   List<BoardHold> get boardHolds => _boardHolds;
@@ -101,6 +104,9 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
 
       if (_boardToEditId != null) {
         _boardsState.editBoard(boardId: _boardToEditId, updatedBoard: _board);
+        if (_settingsState.settings.defaultBoard.id == _boardToEditId) {
+          _settingsState.setDefaultBoard(_board);
+        }
       } else {
         _boardsState.addBoard(_board);
       }
