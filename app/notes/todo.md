@@ -1,7 +1,6 @@
 # TODO
 - Edit hangs.
   
-
 ### Large prio
 - History update times
 - Beeps before rest, allow 0;
