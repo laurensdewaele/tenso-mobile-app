@@ -9,7 +9,7 @@
 - bug in skip (it goes into hang) and doesn't go to rate workout
 - History update times
 - Beeps before rest, allow 0;
-- Redesign rate workout. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
+- Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
 - Add open crimp, pinch grip, check if all grips available
