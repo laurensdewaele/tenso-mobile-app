@@ -1,11 +1,12 @@
 # TODO
 - Edit hangs.
 
-
 ### Triage
 - Show history with pauses included, skip buttons etc. 
   
 ### Large prio
+- board picker on general_tab
+- bug in skip (it goes into hang) and doesn't go to rate workout
 - History update times
 - Beeps before rest, allow 0;
 - Redesign rate workout. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.

@@ -5,7 +5,6 @@ import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
-import 'package:app/widgets/section.dart';
 import 'package:flutter/cupertino.dart';
 
 class EditHangInfo {
@@ -73,14 +72,8 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData _mediaQueryData = MediaQuery.of(context);
-    final double _maxContainerHeight = _mediaQueryData.size.height -
-        _mediaQueryData.padding.top -
-        _mediaQueryData.padding.bottom;
-
     return Container(
       width: double.infinity,
-      height: _maxContainerHeight,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,9 +83,8 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Section(
-                  title:
-                      'hang ${_viewModel.selectedHangInfo.currentHang}/${_viewModel.totalHangs}',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     BoardWithGrips(
                       boardImageAssetWidth:
@@ -134,7 +126,48 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                       initialValue: _viewModel.selectedHangInfo.addedWeight,
                     ),
                   ],
-                )
+                ),
+                Divider(
+                  height: styles.Measurements.l,
+                ),
+                Container(
+                  height: 1,
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: styles.Colors.lighestGray),
+                ),
+                Expanded(
+                  child: CupertinoPicker(
+//                      scrollController:
+//                          FixedExtentScrollController(initialItem: initialItem),
+                    useMagnifier: false,
+                    magnification: 1,
+                    backgroundColor: styles.Colors.bgWhite,
+                    onSelectedItemChanged: (int index) {},
+                    itemExtent: 40,
+                    children: <Widget>[
+                      ..._viewModel.editHangInfoList
+                          .map((EditHangInfo info) => RichText(
+                                text: TextSpan(
+                                    text: '',
+                                    style: styles.Lato.xsBlack,
+                                    children: [
+                                      TextSpan(
+                                          text: 'Hang ',
+                                          style: styles.Staatliches.xsBlack),
+                                      TextSpan(
+                                          text:
+                                              '${info.currentHang}/${_viewModel.totalHangs}',
+                                          style: styles.Lato.xsBlack),
+                                    ]),
+                              ))
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: styles.Colors.lighestGray),
+                ),
               ],
             ),
           ),

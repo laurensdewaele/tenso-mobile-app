@@ -26,7 +26,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
       StreamController<bool>.broadcast();
   Stream get _scrollToBottomStream => _scrollToBottomStreamController.stream;
 
-  RateWorkoutViewModel _rateWorkoutViewModel;
+  RateWorkoutViewModel _viewModel;
   Workout _workout;
   History _history;
 
@@ -41,7 +41,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   @override
   void initState() {
-    _rateWorkoutViewModel = RateWorkoutViewModel();
+    _viewModel = RateWorkoutViewModel();
     super.initState();
   }
 
@@ -52,32 +52,11 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteTap() {
-    if (_rateWorkoutViewModel.completeWorkout(
-            workout: _workout, history: _history) ==
+    if (_viewModel.completeWorkout(workout: _workout, history: _history) ==
         false) {
       return;
     }
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
-  }
-
-  void _handlePerceivedExertionChanged(int n) {
-    _rateWorkoutViewModel.setPerceivedExertion(n);
-  }
-
-  void _handleBodyWeightChanged(String s) {
-    _rateWorkoutViewModel.setBodyWeight(s);
-  }
-
-  void _handleTemperatureChanged(String s) {
-    _rateWorkoutViewModel.setTemperature(s);
-  }
-
-  void _handleHumidityChanged(String s) {
-    _rateWorkoutViewModel.setHumidity(s);
-  }
-
-  void _handleCommentsChanged(String s) {
-    _rateWorkoutViewModel.setComments(s);
   }
 
   void _handleOpen() {
@@ -108,15 +87,15 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         handleCompleteTap: _handleCompleteTap,
                         maxContainerHeight: _maxContainerHeight,
                         content: RateWorkoutContent(
-                          tempUnit: _rateWorkoutViewModel.tempUnit,
+                          tempUnit: _viewModel.tempUnit,
                           handleOpen: _handleOpen,
                           handleCompleteTap: _handleCompleteTap,
                           handlePerceivedExertionChanged:
-                              _handlePerceivedExertionChanged,
-                          handleBodyWeightChanged: _handleBodyWeightChanged,
-                          handleTemperatureChanged: _handleTemperatureChanged,
-                          handleHumidityChanged: _handleHumidityChanged,
-                          handleCommentsChanged: _handleCommentsChanged,
+                              _viewModel.setPerceivedExertion,
+                          handleBodyWeightChanged: _viewModel.setBodyWeight,
+                          handleTemperatureChanged: _viewModel.setTemperature,
+                          handleHumidityChanged: _viewModel.setHumidity,
+                          handleCommentsChanged: _viewModel.setComments,
                         ),
                       ),
                     if (_orientation == Orientation.landscape)
@@ -128,13 +107,14 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                                 handleOpen: _handleOpen,
                                 handleCompleteTap: _handleCompleteTap,
                                 handlePerceivedExertionChanged:
-                                    _handlePerceivedExertionChanged,
+                                    _viewModel.setPerceivedExertion,
                                 handleBodyWeightChanged:
-                                    _handleBodyWeightChanged,
+                                    _viewModel.setBodyWeight,
                                 handleTemperatureChanged:
-                                    _handleTemperatureChanged,
-                                handleHumidityChanged: _handleHumidityChanged,
-                                handleCommentsChanged: _handleCommentsChanged,
+                                    _viewModel.setTemperature,
+                                handleHumidityChanged: _viewModel.setHumidity,
+                                handleCommentsChanged: _viewModel.setComments,
+                                tempUnit: _viewModel.tempUnit,
                               ),
                               Divider(
                                 height: styles.Measurements.m,
