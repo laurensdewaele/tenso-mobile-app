@@ -10,6 +10,17 @@ class WeightUnit extends EnumClass {
   static const WeightUnit imperial = _$imperial;
   static const WeightUnit metric = _$metric;
 
+  String get unitText {
+    switch (name) {
+      case 'imperial':
+        return 'lbs';
+      case 'metric':
+        return 'kg';
+      default:
+        return '';
+    }
+  }
+
   const WeightUnit._(String name) : super(name);
 
   static BuiltSet<WeightUnit> get values => _$stValues;

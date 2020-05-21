@@ -1,5 +1,9 @@
 # TODO
 - Edit hangs.
+
+
+### Triage
+- Show history with pauses included, skip buttons etc. 
   
 ### Large prio
 - History update times

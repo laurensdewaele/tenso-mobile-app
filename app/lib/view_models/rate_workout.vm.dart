@@ -15,6 +15,7 @@ class RateWorkoutViewModel {
 
   CompletedWorkoutsState _completedWorkoutsState;
   TempUnit _tempUnit;
+  TempUnit get tempUnit => _tempUnit;
   ToastService _toastService;
 
   int _perceivedExertion;

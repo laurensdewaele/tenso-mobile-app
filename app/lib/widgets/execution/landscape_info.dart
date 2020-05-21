@@ -46,7 +46,6 @@ class LandscapeInfo extends StatelessWidget {
       }
     }
 
-    final String _unitText = weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
     final String _addedWeightPrefix = addedWeight > 0 ? '+' : '';
 
     return Container(
@@ -92,7 +91,7 @@ class LandscapeInfo extends StatelessWidget {
                   Positioned.fill(
                     child: Center(
                       child: Text(
-                        '$_addedWeightPrefix $addedWeight $_unitText',
+                        '$_addedWeightPrefix $addedWeight ${weightUnit.unitText}',
                         style: styles.Staatliches.xlWhite,
                         textAlign: TextAlign.center,
                       ),

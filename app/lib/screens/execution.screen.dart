@@ -1,10 +1,11 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution.vm.dart';
-import 'package:app/view_models/execution_state.vm.dart';
+import 'package:app/view_models/execution/execution.vm.dart';
+import 'package:app/view_models/execution/execution_state.vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/execution/edit_hangs_dialog.dart';
 import 'package:app/widgets/execution/landscape.dart';
 import 'package:app/widgets/execution/portrait.dart';
 import 'package:app/widgets/icons.dart' as icons;
@@ -58,9 +59,21 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         smallWidth: true,
         context: context,
         content: _PauseDialog(
+            handleEditHangsTap: _handleEditHangsTap,
             handleResumeTap: _viewModel.handleResumeTap,
             handleSkipTap: _viewModel.handleSkipTap,
             handleStopTap: _viewModel.handleStopTap));
+  }
+
+  void _handleEditHangsTap() async {
+    await showAppDialog(
+        context: context,
+        content: EditHangsDialog(
+          totalHangs: _viewModel.totalHangs,
+          editHangInfoList: _viewModel.editHangInfoList,
+          currentHang: _viewModel.state.currentHang,
+        ),
+        smallWidth: false);
   }
 
   void _onHorizontalDragEnd(DragEndDetails detail) {
@@ -150,16 +163,18 @@ class _ExecutionScreenState extends State<ExecutionScreen>
 }
 
 class _PauseDialog extends StatelessWidget {
-  _PauseDialog(
-      {Key key,
-      @required this.handleResumeTap,
-      @required this.handleSkipTap,
-      @required this.handleStopTap})
-      : super(key: key);
+  _PauseDialog({
+    Key key,
+    @required this.handleResumeTap,
+    @required this.handleSkipTap,
+    @required this.handleStopTap,
+    @required this.handleEditHangsTap,
+  }) : super(key: key);
 
   final VoidCallback handleStopTap;
   final VoidCallback handleResumeTap;
   final VoidCallback handleSkipTap;
+  final VoidCallback handleEditHangsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -186,28 +201,45 @@ class _PauseDialog extends StatelessWidget {
               height: styles.Measurements.xxl,
             ),
             Button(
-                text: 'skip',
-                handleTap: handleSkipTap,
-                displayBackground: true,
-                backgroundColor: styles.Colors.gray,
-                leadingIcon: icons.skipIconWhiteXl),
+              text: 'edit',
+              handleTap: handleEditHangsTap,
+              displayBackground: true,
+              backgroundColor: styles.Colors.blue,
+              leadingIcon: icons.editIconWhiteXl,
+              leadingIconTextCentered: true,
+            ),
             Divider(
               height: styles.Measurements.m,
             ),
             Button(
-                text: 'stop',
-                handleTap: handleStopTap,
-                displayBackground: true,
-                backgroundColor: styles.Colors.primary,
-                leadingIcon: icons.stopIconWhiteXl),
+              text: 'skip',
+              handleTap: handleSkipTap,
+              displayBackground: true,
+              backgroundColor: styles.Colors.gray,
+              leadingIcon: icons.skipIconWhiteXl,
+              leadingIconTextCentered: true,
+            ),
             Divider(
               height: styles.Measurements.m,
             ),
             Button(
-                text: 'resume',
-                handleTap: handleResumeTap,
-                displayBackground: false,
-                leadingIcon: icons.playIconBlackXl),
+              text: 'stop',
+              handleTap: handleStopTap,
+              displayBackground: true,
+              backgroundColor: styles.Colors.primary,
+              leadingIcon: icons.stopIconWhiteXl,
+              leadingIconTextCentered: true,
+            ),
+            Divider(
+              height: styles.Measurements.l,
+            ),
+            Button(
+              text: 'resume',
+              handleTap: handleResumeTap,
+              displayBackground: false,
+              leadingIcon: icons.playIconBlackXl,
+              leadingIconTextCentered: true,
+            ),
           ],
         )
       ],

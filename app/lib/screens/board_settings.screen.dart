@@ -187,7 +187,7 @@ class _CustomBoard extends StatelessWidget {
           HangBoard(
             boardSize: Size(constraints.maxWidth,
                 constraints.maxWidth / customBoard.aspectRatio),
-            customBoardHoldImages: customBoard.customBoardHoldImages.toList(),
+            customBoardHoldImages: customBoard.customBoardHoldImages?.toList(),
             boardImageAsset: customBoard.imageAsset,
             boardImageAssetWidth: customBoard.imageAssetWidth,
           )

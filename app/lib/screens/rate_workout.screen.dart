@@ -108,6 +108,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         handleCompleteTap: _handleCompleteTap,
                         maxContainerHeight: _maxContainerHeight,
                         content: RateWorkoutContent(
+                          tempUnit: _rateWorkoutViewModel.tempUnit,
                           handleOpen: _handleOpen,
                           handleCompleteTap: _handleCompleteTap,
                           handlePerceivedExertionChanged:

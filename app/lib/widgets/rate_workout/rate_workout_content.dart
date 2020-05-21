@@ -1,3 +1,4 @@
+import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
@@ -16,7 +17,8 @@ class RateWorkoutContent extends StatelessWidget {
       @required this.handleBodyWeightChanged,
       @required this.handleCommentsChanged,
       @required this.handleHumidityChanged,
-      @required this.handleTemperatureChanged})
+      @required this.handleTemperatureChanged,
+      @required this.tempUnit})
       : super(key: key);
 
   final void Function(int v) handlePerceivedExertionChanged;
@@ -26,6 +28,7 @@ class RateWorkoutContent extends StatelessWidget {
   final void Function(String s) handleCommentsChanged;
   final VoidCallback handleCompleteTap;
   final VoidCallback handleOpen;
+  final TempUnit tempUnit;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,7 @@ class RateWorkoutContent extends StatelessWidget {
             ),
             EmptyInputAndDescription(
               primaryColor: styles.Colors.turquoise,
-              description: 'temperature',
+              description: '° ${tempUnit.toString()}',
               handleValueChanged: handleTemperatureChanged,
             ),
             Divider(

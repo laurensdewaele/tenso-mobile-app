@@ -3,8 +3,9 @@ import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
-import 'package:app/view_models/execution_sequence_builder.dart';
-import 'package:app/view_models/execution_state.vm.dart';
+import 'package:app/view_models/execution/execution_sequence_builder.dart';
+import 'package:app/view_models/execution/execution_state.vm.dart';
+import 'package:app/widgets/execution/edit_hangs_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wakelock/wakelock.dart';
@@ -20,6 +21,8 @@ class ExecutionViewModel {
   History get _history => History((b) => b..history.replace(_events));
   Stopwatch _elapsedTimer;
   bool _isPaused;
+  List<EditHangInfo> get editHangInfoList => _getEditHangInfoList();
+  int get totalHangs => _getTotalHangs();
 
   BehaviorSubject<ExecutionViewModelState> _state$;
   Stream<ExecutionViewModelState> get state$ => _state$.stream;
@@ -42,6 +45,30 @@ class ExecutionViewModel {
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
     _start();
+  }
+
+  int _getTotalHangs() {
+    return _sequence
+        .where((SequenceEvent e) => e.type == ExecutionEventType.hangTimer)
+        .length;
+  }
+
+  List<EditHangInfo> _getEditHangInfoList() {
+    final List<SequenceEvent> _hangEvents = _sequence
+        .where((SequenceEvent e) => e.type == ExecutionEventType.hangTimer)
+        .toList();
+    return _hangEvents.map((SequenceEvent e) {
+      return EditHangInfo(
+          duration: e.duration,
+          currentHang: e.currentHang,
+          weightUnit: e.weightUnit,
+          addedWeight: e.addedWeight,
+          board: e.board,
+          leftGripBoardHold: e.leftGripBoardHold,
+          rightGripBoardHold: e.rightGripBoardHold,
+          rightGrip: e.rightGrip,
+          leftGrip: e.leftGrip);
+    }).toList();
   }
 
   ExecutionViewModelState _buildStateAndPlayBeepSound() {

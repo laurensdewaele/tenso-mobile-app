@@ -68,8 +68,6 @@ class __PortraitContentState extends State<Portrait> {
     final String _currentSet = widget.currentSet.toString();
     final String _totalSets = widget.totalSets.toString();
     final String _titleText = widget.title;
-    final String _unitText =
-        widget.weightUnit == WeightUnit.metric ? 'kg' : 'lbs';
     final String _addedWeight = widget.addedWeight.toString();
     final String _addedWeightPrefix = widget.addedWeight > 0 ? '+' : '';
 
@@ -153,7 +151,7 @@ class __PortraitContentState extends State<Portrait> {
                                           vertical: styles.Measurements.xs,
                                           horizontal: styles.Measurements.m),
                                       child: Text(
-                                        '$_addedWeightPrefix $_addedWeight $_unitText',
+                                        '$_addedWeightPrefix $_addedWeight ${widget.weightUnit.unitText}',
                                         style: styles.Staatliches.xlWhite,
                                         textAlign: TextAlign.center,
                                       ))),

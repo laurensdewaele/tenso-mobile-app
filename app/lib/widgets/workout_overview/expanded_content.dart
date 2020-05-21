@@ -61,7 +61,7 @@ class WorkoutExpandedContent extends StatelessWidget {
             ExpandedContentTile(
                 title: 'av. added weight',
                 content: Text(
-                  '${workout.averageAddedWeight} ${workout.weightUnit == WeightUnit.metric ? 'kg' : 'lbs'}',
+                  '${workout.averageAddedWeight} ${workout.weightUnit.unitText}',
                   textAlign: TextAlign.center,
                   style: styles.Lato.xsGray,
                 )),
