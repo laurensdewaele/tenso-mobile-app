@@ -34,6 +34,8 @@ class EditHangsDialogViewModel extends ChangeNotifier {
   List<EditHangInfo> _editHangInfoList;
   List<EditHangInfo> get editHangInfoList => _editHangInfoList;
   List<_EditedHangInput> _editedHangInputs;
+  _EditedHangInput get _affectedHangInput => _editedHangInputs
+      .firstWhere((input) => input.currentHang == selectedHang);
   int _nextHang;
   int get nextHang => _nextHang;
   int _totalHangs;
@@ -64,15 +66,11 @@ class EditHangsDialogViewModel extends ChangeNotifier {
   }
 
   void setHangTime(String s) {
-    final _EditedHangInput _affectedHangInput = _editedHangInputs
-        .firstWhere((input) => input.currentHang == selectedHang);
     final _index = _editedHangInputs.indexOf(_affectedHangInput);
     _editedHangInputs[_index] = _affectedHangInput.copyWith(durationInput: s);
   }
 
   void setAddedWeight(String s) {
-    final _EditedHangInput _affectedHangInput = _editedHangInputs
-        .firstWhere((input) => input.currentHang == selectedHang);
     final _index = _editedHangInputs.indexOf(_affectedHangInput);
     _editedHangInputs[_index] =
         _affectedHangInput.copyWith(addedWeightInput: s);
