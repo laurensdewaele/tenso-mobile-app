@@ -13,7 +13,7 @@ final Workout basicWorkout = Workout((b) => b
   ..holdCount = 3
   ..countdownRestTimer = true
   ..board = _defaultBoard.toBuilder()
-  ..weightUnit = WeightUnit.metric
+  ..weightUnit = WeightSystem.metric
   ..holds.addAll([
     Hold((b) => b
       ..leftGrip = Grips.openHandL.toBuilder()

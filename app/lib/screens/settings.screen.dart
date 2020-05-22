@@ -139,16 +139,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   Section(
                                     title: 'weight unit',
                                     children: <Widget>[
-                                      RadioButton<WeightUnit>(
+                                      RadioButton<WeightSystem>(
                                         description: 'Metric (kg)',
-                                        value: WeightUnit.metric,
+                                        value: WeightSystem.metric,
                                         active: _viewModel.isMetricActive,
                                         handleSelected:
                                             _viewModel.setWeightUnit,
                                       ),
-                                      RadioButton<WeightUnit>(
+                                      RadioButton<WeightSystem>(
                                         description: 'Imperial (pounds)',
-                                        value: WeightUnit.imperial,
+                                        value: WeightSystem.imperial,
                                         active: _viewModel.isImperialActive,
                                         handleSelected:
                                             _viewModel.setWeightUnit,

@@ -45,7 +45,7 @@ class Landscape extends StatelessWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
   final double addedWeight;
   final String title;
 

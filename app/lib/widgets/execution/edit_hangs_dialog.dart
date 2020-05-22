@@ -27,7 +27,7 @@ class EditHangInfo {
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final int currentHang;
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
   final double addedWeight;
 
   const EditHangInfo({
@@ -142,7 +142,7 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                           'edit-hangs-dialog-added-weight-input-${_viewModel.selectedHang}'),
                       enabled: true,
                       description:
-                          '${_viewModel.selectedHangInfo.weightUnit.unitText} added weight',
+                          '${_viewModel.selectedHangInfo.weightUnit.unit} added weight',
                       handleValueChanged: _viewModel.setAddedWeight,
                       initialValue: _viewModel.selectedHangInfo.addedWeight,
                     ),

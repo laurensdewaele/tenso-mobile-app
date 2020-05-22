@@ -36,7 +36,7 @@ class SequenceEvent {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHang;
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
   final double addedWeight;
 
   const SequenceEvent({
@@ -79,7 +79,7 @@ class SequenceEvent {
     int currentSet,
     int totalHangsPerSet,
     int currentHang,
-    WeightUnit weightUnit,
+    WeightSystem weightUnit,
     double addedWeight,
   }) {
     return new SequenceEvent(

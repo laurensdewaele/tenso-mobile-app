@@ -36,7 +36,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
               const FullType(BuiltList, const [const FullType(Hold)])),
       'weightUnit',
       serializers.serialize(object.weightUnit,
-          specifiedType: const FullType(WeightUnit)),
+          specifiedType: const FullType(WeightSystem)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'label',
@@ -85,7 +85,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           break;
         case 'weightUnit':
           result.weightUnit = serializers.deserialize(value,
-              specifiedType: const FullType(WeightUnit)) as WeightUnit;
+              specifiedType: const FullType(WeightSystem)) as WeightSystem;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
@@ -116,7 +116,7 @@ class _$Workout extends Workout {
   @override
   final BuiltList<Hold> holds;
   @override
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
   @override
   final String name;
   @override
@@ -249,9 +249,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   ListBuilder<Hold> get holds => _$this._holds ??= new ListBuilder<Hold>();
   set holds(ListBuilder<Hold> holds) => _$this._holds = holds;
 
-  WeightUnit _weightUnit;
-  WeightUnit get weightUnit => _$this._weightUnit;
-  set weightUnit(WeightUnit weightUnit) => _$this._weightUnit = weightUnit;
+  WeightSystem _weightUnit;
+  WeightSystem get weightUnit => _$this._weightUnit;
+  set weightUnit(WeightSystem weightUnit) => _$this._weightUnit = weightUnit;
 
   String _name;
   String get name => _$this._name;

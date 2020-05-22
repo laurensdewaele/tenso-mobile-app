@@ -41,7 +41,7 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
           specifiedType: const FullType(int)),
       'weightUnit',
       serializers.serialize(object.weightUnit,
-          specifiedType: const FullType(WeightUnit)),
+          specifiedType: const FullType(WeightSystem)),
       'tempUnit',
       serializers.serialize(object.tempUnit,
           specifiedType: const FullType(TempUnit)),
@@ -91,7 +91,7 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
           break;
         case 'weightUnit':
           result.weightUnit = serializers.deserialize(value,
-              specifiedType: const FullType(WeightUnit)) as WeightUnit;
+              specifiedType: const FullType(WeightSystem)) as WeightSystem;
           break;
         case 'tempUnit':
           result.tempUnit = serializers.deserialize(value,
@@ -120,7 +120,7 @@ class _$Settings extends Settings {
   @override
   final int beepsBeforeRest;
   @override
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
   @override
   final TempUnit tempUnit;
 
@@ -260,9 +260,9 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
   set beepsBeforeRest(int beepsBeforeRest) =>
       _$this._beepsBeforeRest = beepsBeforeRest;
 
-  WeightUnit _weightUnit;
-  WeightUnit get weightUnit => _$this._weightUnit;
-  set weightUnit(WeightUnit weightUnit) => _$this._weightUnit = weightUnit;
+  WeightSystem _weightUnit;
+  WeightSystem get weightUnit => _$this._weightUnit;
+  set weightUnit(WeightSystem weightUnit) => _$this._weightUnit = weightUnit;
 
   TempUnit _tempUnit;
   TempUnit get tempUnit => _$this._tempUnit;

@@ -20,6 +20,6 @@ export 'package:app/models/label.model.dart';
 export 'package:app/models/settings.model.dart';
 export 'package:app/models/sound.model.dart';
 export 'package:app/models/temp_unit.model.dart';
-export 'package:app/models/weight_unit.model.dart';
+export 'package:app/models/weight_system.model.dart';
 export 'package:app/models/workout.model.dart';
 export 'package:app/models/workouts.model.dart';

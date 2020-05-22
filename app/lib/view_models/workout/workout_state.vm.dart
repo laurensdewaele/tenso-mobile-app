@@ -16,7 +16,7 @@ class WorkoutViewModelState {
   final Board board;
   final List<Hold> holds;
   final String name;
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
 
   final String extraTabButtonText;
   final bool inputsEnabled;
@@ -44,7 +44,7 @@ class WorkoutViewModelState {
   });
 
   WorkoutViewModelState.addWorkout(
-      Workout workout, WeightUnit currentWeightUnit)
+      Workout workout, WeightSystem currentWeightUnit)
       : id = workout.id,
         label = workout.label,
         sets = workout.sets,
@@ -61,7 +61,7 @@ class WorkoutViewModelState {
         title = 'New workout';
 
   WorkoutViewModelState.editWorkout(
-      Workout workout, WeightUnit currentWeightUnit)
+      Workout workout, WeightSystem currentWeightUnit)
       : id = workout.id,
         label = workout.label,
         sets = workout.sets,
@@ -78,7 +78,7 @@ class WorkoutViewModelState {
         title = 'Edit workout';
 
   WorkoutViewModelState.viewWorkout(
-      Workout workout, WeightUnit currentWeightUnit)
+      Workout workout, WeightSystem currentWeightUnit)
       : id = workout.id,
         label = workout.label,
         sets = workout.sets,
@@ -142,7 +142,7 @@ class WorkoutViewModelState {
     Board board,
     List<Hold> holds,
     String name,
-    WeightUnit weightUnit,
+    WeightSystem weightUnit,
     String extraTabButtonText,
     bool inputsEnabled,
     Color primaryColor,

@@ -14,7 +14,7 @@ class LandscapeInfo extends StatelessWidget {
       this.rightGripBoardHold});
 
   final double addedWeight;
-  final WeightUnit weightUnit;
+  final WeightSystem weightUnit;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Grip rightGrip;
@@ -91,7 +91,7 @@ class LandscapeInfo extends StatelessWidget {
                   Positioned.fill(
                     child: Center(
                       child: Text(
-                        '$_addedWeightPrefix $addedWeight ${weightUnit.unitText}',
+                        '$_addedWeightPrefix $addedWeight ${weightUnit.unit}',
                         style: styles.Staatliches.xlWhite,
                         textAlign: TextAlign.center,
                       ),

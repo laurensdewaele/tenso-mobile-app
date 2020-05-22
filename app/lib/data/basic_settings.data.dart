@@ -5,7 +5,7 @@ import 'package:app/models/models.dart';
 final Settings basicSettings = Settings((b) => b
   ..defaultBoard = beastmaker1000.toBuilder()
   ..preparationTimer = 20
-  ..weightUnit = WeightUnit.metric
+  ..weightUnit = WeightSystem.metric
   ..tempUnit = TempUnit.celsius
   ..hangSound = Sounds.thudDeep.toBuilder()
   ..restSound = Sounds.gong.toBuilder()

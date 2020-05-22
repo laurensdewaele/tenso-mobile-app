@@ -19,7 +19,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   bool get countdownRestTimer;
   Board get board;
   BuiltList<Hold> get holds;
-  WeightUnit get weightUnit;
+  WeightSystem get weightUnit;
   String get name;
   Label get label;
 

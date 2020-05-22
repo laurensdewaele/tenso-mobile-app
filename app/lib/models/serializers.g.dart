@@ -27,7 +27,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Settings.serializer)
       ..add(Sound.serializer)
       ..add(TempUnit.serializer)
-      ..add(WeightUnit.serializer)
+      ..add(WeightSystem.serializer)
       ..add(Workout.serializer)
       ..add(Workouts.serializer)
       ..addBuilderFactory(

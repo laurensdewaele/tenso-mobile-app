@@ -25,7 +25,7 @@ part 'serializers.g.dart';
   Settings,
   Sound,
   TempUnit,
-  WeightUnit,
+  WeightSystem,
   Workout,
   Workouts,
 ])

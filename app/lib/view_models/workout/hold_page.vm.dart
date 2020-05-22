@@ -72,7 +72,7 @@ class HoldPageViewModel {
       board: workoutState.board,
       currentHold: holdIndex + 1,
       totalHolds: workoutState.holds.length,
-      weightUnitDescription: workoutState.weightUnit.unitText,
+      weightUnitDescription: workoutState.weightUnit.unit,
       textPrimaryColor: workoutState.textPrimaryColor,
       currentHoldIndex: holdIndex,
       repetitionsInput: workoutState.holds[holdIndex].repetitions.toString(),
