@@ -85,19 +85,23 @@ class EditHangsDialogViewModel extends ChangeNotifier {
         _editedHangInputs.map((_EditedHangInput editedHangInput) {
       final int _duration = InputParsers.parseToInt(
           string: editedHangInput.durationInput,
-          inputField: 'Duration hang no ${editedHangInput.currentHang}');
+          inputField:
+              'Hang ${editedHangInput.currentHang}/$totalHangs\' hang time ');
 
       final bool _validDuration = Validators.biggerThanZero(
           value: _duration,
-          inputField: 'Duration hang no ${editedHangInput.currentHang}');
+          inputField:
+              'Hang ${editedHangInput.currentHang}/$totalHangs\' hang time ');
 
       final double _addedWeight = InputParsers.parseToDouble(
           string: editedHangInput.addedWeightInput,
-          inputField: 'Added weight hang no ${editedHangInput.currentHang}');
+          inputField:
+              'Hang ${editedHangInput.currentHang}/$totalHangs\' added weight ');
 
       final bool _validAddedWeight = Validators.biggerThanZero(
           value: _addedWeight,
-          inputField: 'Added weight hang no ${editedHangInput.currentHang}');
+          inputField:
+              'Hang ${editedHangInput.currentHang}/$totalHangs\' added weight');
 
       if (_validAddedWeight == false || _validDuration == false) {
         _valid = false;

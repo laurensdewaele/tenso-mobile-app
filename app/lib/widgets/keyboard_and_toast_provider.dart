@@ -1,5 +1,5 @@
 import 'package:app/services/keyboard.service.dart';
-import 'package:app/widgets/toast.dart';
+import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class KeyboardAndToastProvider extends StatelessWidget {
@@ -14,11 +14,8 @@ class KeyboardAndToastProvider extends StatelessWidget {
     final double deviceHeight = MediaQuery.of(context).size.height;
     _keyboardService.setDeviceHeight(deviceHeight, keyboardHeight);
 
-    return Stack(
-      children: <Widget>[
-        GestureDetector(onTap: _keyboardService.handleScreenTap, child: child),
-        Toast(),
-      ],
-    );
+    return GestureDetector(
+        onTap: _keyboardService.handleScreenTap,
+        child: ToastProvider(child: child));
   }
 }

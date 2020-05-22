@@ -5,38 +5,41 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
 
-class Toast extends StatefulWidget {
-  Toast();
+class ToastProvider extends StatefulWidget {
+  ToastProvider({@required this.child});
+
+  final Widget child;
 
   @override
   _ToastState createState() => _ToastState();
 }
 
-class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
-  StreamSubscription _subscription;
-
-  List<Widget> messages = [];
+class _ToastState extends State<ToastProvider>
+    with SingleTickerProviderStateMixin {
+  StreamSubscription _sub;
 
   @override
   void initState() {
     super.initState();
-    _subscription = ToastService().errorMessage$.listen((Widget message) {
-      setState(() {
-        messages.add(message);
-      });
+    OverlayState _overlayState = Overlay.of(context);
+    _sub = ToastService().errorMessage$.listen((Widget message) async {
+      OverlayEntry _entry =
+          OverlayEntry(builder: (_) => _ToastUI(message: message));
+      _overlayState.insert(_entry);
+      await Future.delayed(Duration(milliseconds: 4000));
+      _entry.remove();
     });
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _sub.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children: [...messages.map((message) => _ToastUI(message: message))]);
+    return widget.child;
   }
 }
 
@@ -92,30 +95,35 @@ class _ToastUIState extends State<_ToastUI>
       position: _animationController.drive(_offSetTween),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
-        child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: styles.Colors.bgWhite,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: styles.kBorderRadius,
-                    bottomRight: styles.kBorderRadius),
-                boxShadow: [styles.kBoxShadow]),
-            padding: EdgeInsets.symmetric(
-                vertical: styles.Measurements.m,
-                horizontal: styles.Measurements.m),
-            child: SafeArea(
-                child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: styles.Colors.bgWhite,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: styles.kBorderRadius,
+                        bottomRight: styles.kBorderRadius),
+                    boxShadow: [styles.kBoxShadow]),
+                padding: EdgeInsets.symmetric(
+                    vertical: styles.Measurements.m,
+                    horizontal: styles.Measurements.m),
+                child: SafeArea(
+                    child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Image.asset('assets/images/icons/error.png'),
-                    Divider(width: styles.Measurements.m),
-                    Expanded(child: Center(child: widget.message))
+                    Row(
+                      children: <Widget>[
+                        Image.asset('assets/images/icons/error.png'),
+                        Divider(width: styles.Measurements.m),
+                        Expanded(child: Center(child: widget.message))
+                      ],
+                    ),
                   ],
-                ),
-              ],
-            ))),
+                ))),
+          ],
+        ),
       ),
     );
   }
