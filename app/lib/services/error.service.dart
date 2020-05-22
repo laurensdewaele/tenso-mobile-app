@@ -210,4 +210,21 @@ abstract class ErrorMessages {
           TextSpan(text: 'holds in order to save.', style: styles.Lato.sBlack),
         ]),
       );
+  static Widget editPossibleOnlyOnRest() => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: 'Editing hangs is only possible on ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: 'rest ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'periods.',
+            style: styles.Lato.sBlack,
+          ),
+        ]),
+      );
 }
