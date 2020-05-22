@@ -5,6 +5,7 @@ import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
+import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart';
 
 class EditedHang {
@@ -87,113 +88,115 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    BoardWithGrips(
-                      key: ValueKey(
-                          'edit-hangs-dialog-board-${_viewModel.selectedHang}'),
-                      boardImageAssetWidth:
-                          _viewModel.selectedHangInfo.board.imageAssetWidth,
-                      boardImageAsset:
-                          _viewModel.selectedHangInfo.board.imageAsset,
-                      customBoardHoldImages: _viewModel
-                          .selectedHangInfo.board.customBoardHoldImages
-                          ?.toList(),
-                      withFixedHeight: true,
-                      handToBoardHeightRatio: _viewModel
-                          .selectedHangInfo.board.handToBoardHeightRatio,
-                      boardAspectRatio:
-                          _viewModel.selectedHangInfo.board.aspectRatio,
-                      rightGripBoardHold:
-                          _viewModel.selectedHangInfo.rightGripBoardHold,
-                      leftGripBoardHold:
-                          _viewModel.selectedHangInfo.leftGripBoardHold,
-                      leftGrip: _viewModel.selectedHangInfo.leftGrip,
-                      rightGrip: _viewModel.selectedHangInfo.rightGrip,
-                    ),
-                    Divider(
-                      height: styles.Measurements.m,
-                    ),
-                    NumberInputAndDescription<int>(
-                      key: ValueKey(
-                          'edit-hangs-dialog-duration-input-${_viewModel.selectedHang}'),
-                      enabled: true,
-                      description: 'hang time seconds',
-                      handleValueChanged: _viewModel.setHangTime,
-                      initialValue: _viewModel.selectedHangInfo.duration,
-                    ),
-                    Divider(
-                      height: styles.Measurements.m,
-                    ),
-                    NumberInputAndDescription<double>(
-                      key: ValueKey(
-                          'edit-hangs-dialog-added-weight-input-${_viewModel.selectedHang}'),
-                      enabled: true,
-                      description:
-                          '${_viewModel.selectedHangInfo.weightUnit.unit} added weight',
-                      handleValueChanged: _viewModel.setAddedWeight,
-                      initialValue: _viewModel.selectedHangInfo.addedWeight,
-                    ),
-                  ],
-                ),
-                Divider(
-                  height: styles.Measurements.l,
-                ),
-                Container(
-                  height: 1,
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: styles.Colors.lighestGray),
-                ),
-                Expanded(
-                  child: CupertinoPicker(
-                    scrollController: FixedExtentScrollController(
-                        initialItem: _viewModel.editHangInfoList
-                            .indexOf(_viewModel.selectedHangInfo)),
-                    useMagnifier: false,
-                    magnification: 1,
-                    backgroundColor: styles.Colors.bgWhite,
-                    onSelectedItemChanged: _viewModel.setSelectedHang,
-                    itemExtent: 40,
+    return ToastProvider(
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ..._viewModel.editHangInfoList
-                          .map((EditHangInfo editHangInfo) => HangRow(
-                                totalHangs: _viewModel.totalHangs,
-                                currentHang: editHangInfo.currentHang,
-                                isPastHang: _viewModel.currentHang >
-                                    editHangInfo.currentHang,
-                                isSelectedHang: _viewModel.currentHang ==
-                                    editHangInfo.currentHang,
-                              ))
+                      BoardWithGrips(
+                        key: ValueKey(
+                            'edit-hangs-dialog-board-${_viewModel.selectedHang}'),
+                        boardImageAssetWidth:
+                            _viewModel.selectedHangInfo.board.imageAssetWidth,
+                        boardImageAsset:
+                            _viewModel.selectedHangInfo.board.imageAsset,
+                        customBoardHoldImages: _viewModel
+                            .selectedHangInfo.board.customBoardHoldImages
+                            ?.toList(),
+                        withFixedHeight: true,
+                        handToBoardHeightRatio: _viewModel
+                            .selectedHangInfo.board.handToBoardHeightRatio,
+                        boardAspectRatio:
+                            _viewModel.selectedHangInfo.board.aspectRatio,
+                        rightGripBoardHold:
+                            _viewModel.selectedHangInfo.rightGripBoardHold,
+                        leftGripBoardHold:
+                            _viewModel.selectedHangInfo.leftGripBoardHold,
+                        leftGrip: _viewModel.selectedHangInfo.leftGrip,
+                        rightGrip: _viewModel.selectedHangInfo.rightGrip,
+                      ),
+                      Divider(
+                        height: styles.Measurements.m,
+                      ),
+                      NumberInputAndDescription<int>(
+                        key: ValueKey(
+                            'edit-hangs-dialog-duration-input-${_viewModel.selectedHang}'),
+                        enabled: true,
+                        description: 'hang time seconds',
+                        handleValueChanged: _viewModel.setHangTime,
+                        initialValue: _viewModel.selectedHangInfo.duration,
+                      ),
+                      Divider(
+                        height: styles.Measurements.m,
+                      ),
+                      NumberInputAndDescription<double>(
+                        key: ValueKey(
+                            'edit-hangs-dialog-added-weight-input-${_viewModel.selectedHang}'),
+                        enabled: true,
+                        description:
+                            '${_viewModel.selectedHangInfo.weightUnit.unit} added weight',
+                        handleValueChanged: _viewModel.setAddedWeight,
+                        initialValue: _viewModel.selectedHangInfo.addedWeight,
+                      ),
                     ],
                   ),
-                ),
-                Container(
-                  height: 1,
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: styles.Colors.lighestGray),
-                ),
-              ],
+                  Divider(
+                    height: styles.Measurements.l,
+                  ),
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    decoration: BoxDecoration(color: styles.Colors.lighestGray),
+                  ),
+                  Expanded(
+                    child: CupertinoPicker(
+                      scrollController: FixedExtentScrollController(
+                          initialItem: _viewModel.editHangInfoList
+                              .indexOf(_viewModel.selectedHangInfo)),
+                      useMagnifier: false,
+                      magnification: 1,
+                      backgroundColor: styles.Colors.bgWhite,
+                      onSelectedItemChanged: _viewModel.setSelectedHang,
+                      itemExtent: 40,
+                      children: <Widget>[
+                        ..._viewModel.editHangInfoList
+                            .map((EditHangInfo editHangInfo) => HangRow(
+                                  totalHangs: _viewModel.totalHangs,
+                                  currentHang: editHangInfo.currentHang,
+                                  isPastHang: _viewModel.currentHang >
+                                      editHangInfo.currentHang,
+                                  isSelectedHang: _viewModel.currentHang ==
+                                      editHangInfo.currentHang,
+                                ))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    decoration: BoxDecoration(color: styles.Colors.lighestGray),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Button(
-            handleTap: _viewModel.handleDone,
-            text: 'Done',
-            small: true,
-            displayBackground: false,
-          )
-        ],
+            Button(
+              handleTap: _viewModel.handleDone,
+              text: 'Done',
+              small: true,
+              displayBackground: false,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -11,7 +11,6 @@ import 'package:app/widgets/execution/edit_hangs_dialog.dart';
 import 'package:app/widgets/execution/landscape.dart';
 import 'package:app/widgets/execution/portrait.dart';
 import 'package:app/widgets/icons.dart' as icons;
-import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class ExecutionScreenArguments {
@@ -97,77 +96,75 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         _pause();
         return false;
       },
-      child: KeyboardAndToastProvider(
-        child: StreamBuilder<ExecutionViewModelState>(
-            initialData: _viewModel.state,
-            stream: _viewModel.state$,
-            builder: (context, snapshot) {
-              final _state = snapshot.data;
-              return GestureDetector(
-                onTap: _pause,
-                onHorizontalDragEnd: _onHorizontalDragEnd,
-                child: Stack(children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(color: styles.Colors.bgBlack),
-                  ),
-                  FractionallySizedBox(
-                      heightFactor: _state.animatedBackgroundHeightFactor,
-                      child: Container(
-                        decoration: BoxDecoration(color: _state.primaryColor),
+      child: StreamBuilder<ExecutionViewModelState>(
+          initialData: _viewModel.state,
+          stream: _viewModel.state$,
+          builder: (context, snapshot) {
+            final _state = snapshot.data;
+            return GestureDetector(
+              onTap: _pause,
+              onHorizontalDragEnd: _onHorizontalDragEnd,
+              child: Stack(children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(color: styles.Colors.bgBlack),
+                ),
+                FractionallySizedBox(
+                    heightFactor: _state.animatedBackgroundHeightFactor,
+                    child: Container(
+                      decoration: BoxDecoration(color: _state.primaryColor),
+                    )),
+                SafeArea(
+                  child: Padding(
+                      padding: const EdgeInsets.all(styles.Measurements.m),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          if (_orientation == Orientation.portrait) {
+                            return Portrait(
+                              handleReadyTap: _viewModel.handleReadyTap,
+                              isStopwatch: _state.isStopwatch,
+                              title: _state.title,
+                              weightUnit: _state.weightUnit,
+                              seconds: _state.seconds,
+                              rightGripBoardHold: _state.rightGripBoardHold,
+                              rightGrip: _state.rightGrip,
+                              leftGripBoardHold: _state.leftGripBoardHold,
+                              leftGrip: _state.leftGrip,
+                              board: _state.board,
+                              currentHang: _state.currentHang,
+                              currentSet: _state.currentSet,
+                              holdLabel: _state.holdLabel,
+                              primaryColor: _state.primaryColor,
+                              totalHangsPerSet: _state.totalHangsPerSet,
+                              totalSets: _state.totalSets,
+                              addedWeight: _state.addedWeight,
+                            );
+                          } else {
+                            return Landscape(
+                              seconds: _state.seconds,
+                              handleReadyTap: _viewModel.handleReadyTap,
+                              isStopwatch: _state.isStopwatch,
+                              title: _state.title,
+                              weightUnit: _state.weightUnit,
+                              rightGripBoardHold: _state.rightGripBoardHold,
+                              rightGrip: _state.rightGrip,
+                              leftGripBoardHold: _state.leftGripBoardHold,
+                              leftGrip: _state.leftGrip,
+                              board: _state.board,
+                              currentHang: _state.currentHang,
+                              currentSet: _state.currentSet,
+                              holdLabel: _state.holdLabel,
+                              primaryColor: _state.primaryColor,
+                              totalHangsPerSet: _state.totalHangsPerSet,
+                              totalSets: _state.totalSets,
+                              addedWeight: _state.addedWeight,
+                            );
+                          }
+                        },
                       )),
-                  SafeArea(
-                    child: Padding(
-                        padding: const EdgeInsets.all(styles.Measurements.m),
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            if (_orientation == Orientation.portrait) {
-                              return Portrait(
-                                handleReadyTap: _viewModel.handleReadyTap,
-                                isStopwatch: _state.isStopwatch,
-                                title: _state.title,
-                                weightUnit: _state.weightUnit,
-                                seconds: _state.seconds,
-                                rightGripBoardHold: _state.rightGripBoardHold,
-                                rightGrip: _state.rightGrip,
-                                leftGripBoardHold: _state.leftGripBoardHold,
-                                leftGrip: _state.leftGrip,
-                                board: _state.board,
-                                currentHang: _state.currentHang,
-                                currentSet: _state.currentSet,
-                                holdLabel: _state.holdLabel,
-                                primaryColor: _state.primaryColor,
-                                totalHangsPerSet: _state.totalHangsPerSet,
-                                totalSets: _state.totalSets,
-                                addedWeight: _state.addedWeight,
-                              );
-                            } else {
-                              return Landscape(
-                                seconds: _state.seconds,
-                                handleReadyTap: _viewModel.handleReadyTap,
-                                isStopwatch: _state.isStopwatch,
-                                title: _state.title,
-                                weightUnit: _state.weightUnit,
-                                rightGripBoardHold: _state.rightGripBoardHold,
-                                rightGrip: _state.rightGrip,
-                                leftGripBoardHold: _state.leftGripBoardHold,
-                                leftGrip: _state.leftGrip,
-                                board: _state.board,
-                                currentHang: _state.currentHang,
-                                currentSet: _state.currentSet,
-                                holdLabel: _state.holdLabel,
-                                primaryColor: _state.primaryColor,
-                                totalHangsPerSet: _state.totalHangsPerSet,
-                                totalSets: _state.totalSets,
-                                addedWeight: _state.addedWeight,
-                              );
-                            }
-                          },
-                        )),
-                  ),
-                ]),
-              );
-            }),
-      ),
+                ),
+              ]),
+            );
+          }),
     );
   }
 }
