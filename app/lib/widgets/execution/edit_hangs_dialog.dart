@@ -173,9 +173,9 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                             .map((EditHangInfo editHangInfo) => HangRow(
                                   totalHangs: _viewModel.totalHangs,
                                   currentHang: editHangInfo.currentHang,
-                                  isPastHang: _viewModel.currentHang >
+                                  isPastHang: _viewModel.nextHang >
                                       editHangInfo.currentHang,
-                                  isSelectedHang: _viewModel.currentHang ==
+                                  isSelectedHang: _viewModel.nextHang ==
                                       editHangInfo.currentHang,
                                 ))
                       ],

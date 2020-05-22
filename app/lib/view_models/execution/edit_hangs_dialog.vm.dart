@@ -35,7 +35,7 @@ class EditHangsDialogViewModel extends ChangeNotifier {
   List<EditHangInfo> get editHangInfoList => _editHangInfoList;
   List<_EditedHangInput> _editedHangInputs;
   int _nextHang;
-  int get currentHang => _nextHang;
+  int get nextHang => _nextHang;
   int _totalHangs;
   int get totalHangs => _totalHangs;
   int get selectedHang => _selectedHangInfo.currentHang;
@@ -59,7 +59,7 @@ class EditHangsDialogViewModel extends ChangeNotifier {
     _totalHangs = totalHangs;
     _nextHang = nextHang;
     _selectedHangInfo = _editHangInfoList
-        .firstWhere((EditHangInfo i) => i.currentHang == currentHang);
+        .firstWhere((EditHangInfo i) => i.currentHang == nextHang);
     notifyListeners();
   }
 
