@@ -1,5 +1,6 @@
 # TODO
 - Edit hangs.
+- Bring toast to front, also on dialogs and modals.
 
 ### Triage
 - Show history with pauses included, skip buttons etc. 
@@ -35,7 +36,6 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
-
 - Remove built value?
 - Remove gradients from screen
 - Make as much constants and WIDGETS! consts.

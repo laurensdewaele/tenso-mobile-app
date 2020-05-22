@@ -283,6 +283,8 @@ class ExecutionViewModel {
     }
   }
 
+  void handleEditedHangs(List<EditedHang> editHangs) {}
+
   void dispose() {
     Wakelock.disable();
     _animationController.removeListener(_setState);

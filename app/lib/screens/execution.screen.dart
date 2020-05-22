@@ -77,7 +77,8 @@ class _ExecutionScreenState extends State<ExecutionScreen>
           content: EditHangsDialog(
             totalHangs: _viewModel.totalHangs,
             editHangInfoList: _viewModel.editHangInfoList,
-            currentHang: _viewModel.state.currentHang,
+            nextHang: _viewModel.state.currentHang,
+            handleEditedHangs: _viewModel.handleEditedHangs,
           ),
           smallWidth: false);
     }

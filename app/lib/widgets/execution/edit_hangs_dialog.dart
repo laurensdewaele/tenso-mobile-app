@@ -7,6 +7,18 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:flutter/cupertino.dart';
 
+class EditedHang {
+  final int duration;
+  final double addedWeight;
+  final int currentHang;
+
+  const EditedHang({
+    @required this.duration,
+    @required this.addedWeight,
+    @required this.currentHang,
+  });
+}
+
 class EditHangInfo {
   final int duration;
   final Board board;
@@ -35,13 +47,15 @@ class EditHangsDialog extends StatefulWidget {
   EditHangsDialog(
       {Key key,
       @required this.editHangInfoList,
-      @required this.currentHang,
-      @required this.totalHangs})
+      @required this.nextHang,
+      @required this.totalHangs,
+      @required this.handleEditedHangs})
       : super(key: key);
 
   final List<EditHangInfo> editHangInfoList;
-  final int currentHang;
+  final int nextHang;
   final int totalHangs;
+  final void Function(List<EditedHang> editHangs) handleEditedHangs;
 
   @override
   _EditHangsDialogState createState() => _EditHangsDialogState();
@@ -54,8 +68,9 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
   void initState() {
     _viewModel = EditHangsDialogViewModel(
         editHangInfoList: widget.editHangInfoList,
-        currentHang: widget.currentHang,
-        totalHangs: widget.totalHangs);
+        nextHang: widget.nextHang,
+        totalHangs: widget.totalHangs,
+        handleEditedHangs: widget.handleEditedHangs);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }
@@ -173,7 +188,7 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
             ),
           ),
           Button(
-            handleTap: () => Navigator.of(context).pop(),
+            handleTap: _viewModel.handleDone,
             text: 'Done',
             small: true,
             displayBackground: false,
