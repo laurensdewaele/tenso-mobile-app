@@ -1,18 +1,26 @@
 # TODO
-- Edit hangs.
-- Bring toast to front, also on dialogs and modals.
+### Edit hangs.
+- Edit sequence
+- Go from completedWorkout to workout with the new values entered in the sequence.
+  When you view or copy it and edit it.
+  What do I do when skipping. Do i forgo that one as well or? 
+  I wouldn't.
+  
+- bug in skip (it goes into hang) and doesn't go to rate workout (on stopwatch)
+- History update times
 
 ### Triage
 - Show history with pauses included, skip buttons etc. 
   
 ### Large prio
 - board picker on general_tab
-- bug in skip (it goes into hang) and doesn't go to rate workout
-- History update times
+
+
 - Beeps before rest, allow 0;
 - Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
+- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 - Add open crimp, pinch grip, check if all grips available
 - Info/explanation screen
 - More beginner workouts. => Repeaters / max-hang / density 
@@ -23,7 +31,6 @@
 ### Medium prio
 - Graphs
 - Backend
-- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
   When saving data to disk/be, specify a model version no. e.g workouts.txt:

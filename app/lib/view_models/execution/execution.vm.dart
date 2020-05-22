@@ -283,7 +283,9 @@ class ExecutionViewModel {
     }
   }
 
-  void handleEditedHangs(List<EditedHang> editHangs) {}
+  void handleEditedHangs(List<EditedHang> editHangs) {
+    // Edit sequence
+  }
 
   void dispose() {
     Wakelock.disable();
