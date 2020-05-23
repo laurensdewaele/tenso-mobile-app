@@ -25,7 +25,7 @@ class Landscape extends StatelessWidget {
     @required this.totalSets,
     @required this.currentSet,
     @required this.totalHangsPerSet,
-    @required this.currentHang,
+    @required this.currentHangPerSet,
     @required this.weightUnit,
     @required this.title,
     @required this.addedWeight,
@@ -44,7 +44,7 @@ class Landscape extends StatelessWidget {
   final int totalSets;
   final int currentSet;
   final int totalHangsPerSet;
-  final int currentHang;
+  final int currentHangPerSet;
   final WeightSystem weightUnit;
   final double addedWeight;
   final String title;
@@ -115,7 +115,7 @@ class Landscape extends StatelessWidget {
                   ),
                 IndicatorTabs(
                   count: totalHangsPerSet,
-                  active: currentHang,
+                  active: currentHangPerSet,
                   primaryColor: primaryColor,
                 )
               ],

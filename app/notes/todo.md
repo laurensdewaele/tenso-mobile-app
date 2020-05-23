@@ -1,11 +1,9 @@
 # TODO
 ### Edit hangs.
 - Edit sequence
-  // recreate workout
-  // Redo completed workout model. Doesn't need to be on seperate history or?
-  // Separate logger from this viewmodel? Is getting complex
-  
 - bug in skip (it goes into hang) and doesn't go to rate workout (on stopwatch)
+
+- Look to refactor
 - History update times
 
 ### Triage

@@ -23,24 +23,16 @@ class EditedHang {
 class EditHangInfo {
   final int duration;
   final Board board;
-  final Grip leftGrip;
-  final Grip rightGrip;
-  final BoardHold leftGripBoardHold;
-  final BoardHold rightGripBoardHold;
   final int currentHang;
   final WeightSystem weightUnit;
-  final double addedWeight;
+  final Hold hold;
 
   const EditHangInfo({
     @required this.duration,
     @required this.board,
-    @required this.leftGrip,
-    @required this.rightGrip,
-    @required this.leftGripBoardHold,
-    @required this.rightGripBoardHold,
     @required this.currentHang,
     @required this.weightUnit,
-    @required this.addedWeight,
+    @required this.hold,
   });
 }
 
@@ -119,11 +111,11 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                         boardAspectRatio:
                             _viewModel.selectedHangInfo.board.aspectRatio,
                         rightGripBoardHold:
-                            _viewModel.selectedHangInfo.rightGripBoardHold,
+                            _viewModel.selectedHangInfo.hold.rightGripBoardHold,
                         leftGripBoardHold:
-                            _viewModel.selectedHangInfo.leftGripBoardHold,
-                        leftGrip: _viewModel.selectedHangInfo.leftGrip,
-                        rightGrip: _viewModel.selectedHangInfo.rightGrip,
+                            _viewModel.selectedHangInfo.hold.leftGripBoardHold,
+                        leftGrip: _viewModel.selectedHangInfo.hold.leftGrip,
+                        rightGrip: _viewModel.selectedHangInfo.hold.rightGrip,
                       ),
                       Divider(
                         height: styles.Measurements.m,
@@ -148,7 +140,8 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                         description:
                             '${_viewModel.selectedHangInfo.weightUnit.unit} added weight',
                         handleValueChanged: _viewModel.setAddedWeight,
-                        initialValue: _viewModel.selectedHangInfo.addedWeight,
+                        initialValue:
+                            _viewModel.selectedHangInfo.hold.addedWeight,
                       ),
                     ],
                   ),

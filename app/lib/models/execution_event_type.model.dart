@@ -19,6 +19,8 @@ class ExecutionEventType extends EnumClass {
   static const ExecutionEventType pauseEvent = _$pauseEvent;
   static const ExecutionEventType readyEvent = _$readyEvent;
   static const ExecutionEventType editHangsEvent = _$editHangsEvent;
+  static const ExecutionEventType editHangsTimer = _$editHangsTimer;
+  static const ExecutionEventType editHangsDoneEvent = _$editHangsDoneEvent;
 
   const ExecutionEventType._(String name) : super(name);
 

@@ -24,7 +24,7 @@ class Portrait extends StatefulWidget {
     @required this.totalSets,
     @required this.currentSet,
     @required this.totalHangsPerSet,
-    @required this.currentHang,
+    @required this.currentHangPerSet,
     @required this.weightUnit,
     @required this.title,
     @required this.addedWeight,
@@ -43,7 +43,7 @@ class Portrait extends StatefulWidget {
   final int totalSets;
   final int currentSet;
   final int totalHangsPerSet;
-  final int currentHang;
+  final int currentHangPerSet;
   final WeightSystem weightUnit;
   final double addedWeight;
   final String title;
@@ -183,7 +183,7 @@ class __PortraitContentState extends State<Portrait> {
                 ),
               IndicatorTabs(
                 count: widget.totalHangsPerSet,
-                active: widget.currentHang,
+                active: widget.currentHangPerSet,
                 primaryColor: widget.primaryColor,
               ),
             ],

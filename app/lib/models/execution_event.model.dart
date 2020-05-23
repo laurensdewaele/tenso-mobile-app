@@ -13,7 +13,6 @@ abstract class ExecutionEvent
       _$executionEventSerializer;
 
   ExecutionEventType get executionEventType;
-  int get currentHang;
   @nullable
   int get elapsedMs;
 

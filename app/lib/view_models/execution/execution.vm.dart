@@ -3,6 +3,7 @@ import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
+import 'package:app/state/workouts.state.dart';
 import 'package:app/view_models/execution/execution_sequence_builder.dart';
 import 'package:app/view_models/execution/execution_state.vm.dart';
 import 'package:app/widgets/execution/edit_hangs_dialog.dart';
@@ -11,6 +12,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {
+  WorkoutsState _workoutsState;
   AudioPlayerService _audioPlayerService;
   Workout _workout;
   AnimationController _animationController;
@@ -32,6 +34,7 @@ class ExecutionViewModel {
       {@required Workout workout,
       @required AnimationController animationController}) {
     Wakelock.enable();
+    _workoutsState = WorkoutsState();
     _audioPlayerService = AudioPlayerService();
     _workout = workout;
     _animationController = animationController;
@@ -41,8 +44,8 @@ class ExecutionViewModel {
             sequenceEvent.type == ExecutionEventType.hangTimer)
         .map((SequenceEvent sequenceEvent) => ExecutionEvent((b) => b
           ..executionEventType = ExecutionEventType.hangTimer
-          ..currentHang = sequenceEvent.currentHang
-          ..elapsedMs = sequenceEvent.duration * 1000));
+          ..elapsedMs = sequenceEvent.duration * 1000))
+        .toList();
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
     // This is only used for building the history
@@ -60,15 +63,12 @@ class ExecutionViewModel {
         .toList();
     return _hangEvents.map((SequenceEvent e) {
       return EditHangInfo(
-          duration: e.duration,
-          currentHang: e.currentHang,
-          weightUnit: e.weightUnit,
-          addedWeight: e.addedWeight,
-          board: e.board,
-          leftGripBoardHold: e.leftGripBoardHold,
-          rightGripBoardHold: e.rightGripBoardHold,
-          rightGrip: e.rightGrip,
-          leftGrip: e.leftGrip);
+        hold: e.hold,
+        duration: e.duration,
+        currentHang: e.currentHang,
+        weightUnit: e.weightUnit,
+        board: e.board,
+      );
     }).toList();
   }
 
@@ -88,6 +88,7 @@ class ExecutionViewModel {
     }
 
     return ExecutionViewModelState(
+      currentHang: _sequence[_currentSequenceIndex].currentHang,
       type: _sequence[_currentSequenceIndex].type,
       isStopwatch: _isStopwatch,
       duration: _sequence[_currentSequenceIndex].duration,
@@ -101,16 +102,18 @@ class ExecutionViewModel {
       title: _sequence[_currentSequenceIndex].title,
       holdLabel: _sequence[_currentSequenceIndex].holdLabel,
       board: _sequence[_currentSequenceIndex].board,
-      leftGrip: _sequence[_currentSequenceIndex].leftGrip,
-      rightGrip: _sequence[_currentSequenceIndex].rightGrip,
-      leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
-      rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
+      leftGrip: _sequence[_currentSequenceIndex].hold.leftGrip,
+      rightGrip: _sequence[_currentSequenceIndex].hold.rightGrip,
+      leftGripBoardHold:
+          _sequence[_currentSequenceIndex].hold.leftGripBoardHold,
+      rightGripBoardHold:
+          _sequence[_currentSequenceIndex].hold.rightGripBoardHold,
       totalSets: _sequence[_currentSequenceIndex].totalSets,
       currentSet: _sequence[_currentSequenceIndex].currentSet,
       totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
-      currentHang: _sequence[_currentSequenceIndex].currentHang,
+      currentHangPerSet: _sequence[_currentSequenceIndex].currentHangPerSet,
       weightUnit: _sequence[_currentSequenceIndex].weightUnit,
-      addedWeight: _sequence[_currentSequenceIndex].addedWeight,
+      addedWeight: _sequence[_currentSequenceIndex].hold.addedWeight,
     );
   }
 
@@ -295,6 +298,8 @@ class ExecutionViewModel {
     _eventLog.add(ExecutionEvent((b) => b
       ..executionEventType = ExecutionEventType.pauseTimer
       ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+    _eventLog.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.editHangsEvent));
     _elapsedTimer.reset();
     _elapsedTimer.start();
   }
@@ -302,60 +307,53 @@ class ExecutionViewModel {
   void handleEditedHangs(List<EditedHang> editedHangs) {
     _elapsedTimer.stop();
     _eventLog.add(ExecutionEvent((b) => b
-      ..executionEventType = ExecutionEventType.editHangsEvent
+      ..executionEventType = ExecutionEventType.editHangsTimer
       ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+    _eventLog.add(ExecutionEvent(
+        (b) => b..executionEventType = ExecutionEventType.editHangsDoneEvent));
     _elapsedTimer.reset();
     _elapsedTimer.start();
 
     _sequence = _sequence.map((SequenceEvent sequenceEvent) {
+      final _editedHang = editedHangs.firstWhere((EditedHang editedHang) =>
+          editedHang.currentHang == sequenceEvent.currentHang);
+
       if (sequenceEvent.type == ExecutionEventType.hangTimer) {
         return sequenceEvent.copyWith(
-            duration: editedHangs
-                .firstWhere((EditedHang editedHang) =>
-                    editedHang.currentHang == sequenceEvent.currentHang)
-                .duration);
+            hold: sequenceEvent.hold.rebuild((b) => b
+              ..addedWeight = _editedHang.addedWeight
+              ..hangTime = _editedHang.duration),
+            duration: _editedHang.duration);
+      } else if (sequenceEvent.type == ExecutionEventType.countdownRestTimer ||
+          sequenceEvent.type == ExecutionEventType.stopwatchRestTimer) {
+        return sequenceEvent.copyWith(
+            hold: sequenceEvent.hold
+                .rebuild((b) => b..addedWeight = _editedHang.addedWeight));
       } else {
         return sequenceEvent;
       }
-    });
+    }).toList();
 
-    _hangTimes =
-        editedHangs.map((EditedHang editedHang) => ExecutionEvent((b) => b
+    _hangTimes = editedHangs
+        .map((EditedHang editedHang) => ExecutionEvent((b) => b
           ..executionEventType = ExecutionEventType.hangTimer
-          ..elapsedMs = editedHang.duration * 1000
-          ..currentHang = editedHang.currentHang));
+          ..elapsedMs = editedHang.duration * 1000))
+        .toList();
 
     _replaceExistingWorkoutFromEditedHangs(editedHangs);
   }
 
   void _replaceExistingWorkoutFromEditedHangs(List<EditedHang> editedHangs) {
-    final List<SequenceEvent> _hangSequences = _sequence.where(
-        (SequenceEvent sequenceEvent) =>
-            sequenceEvent.type == ExecutionEventType.hangTimer);
+    final List<SequenceEvent> _hangSequences = _sequence
+        .where((SequenceEvent sequenceEvent) =>
+            sequenceEvent.type == ExecutionEventType.hangTimer)
+        .toList();
     _hangSequences.removeWhere((hangSequence) => hangSequence.currentSet > 1);
-    final List<SequenceEvent> _countdownRestSequences = _sequence.where(
-        (SequenceEvent sequenceEvent) =>
-            sequenceEvent.type == ExecutionEventType.countdownRestTimer);
-    _countdownRestSequences.removeWhere(
-        (countdownRestSequence) => countdownRestSequence.currentSet > 1);
-    final List<Hold> _allHolds = _hangSequences.map(
-        (SequenceEvent hangSequenceEvent) => Hold((b) => b
-          ..handHold = hangSequenceEvent.handHold
-          ..leftGrip = hangSequenceEvent.leftGrip.toBuilder()
-          ..rightGrip = hangSequenceEvent.rightGrip.toBuilder()
-          ..leftGripBoardHold = hangSequenceEvent.leftGripBoardHold.toBuilder()
-          ..rightGripBoardHold =
-              hangSequenceEvent.rightGripBoardHold.toBuilder()
-          ..hangTime = hangSequenceEvent.duration
-          ..repetitions = 1
-          ..addedWeight = hangSequenceEvent.addedWeight
-          ..countdownRestDuration = _workout.countdownRestTimer == true
-              ? _countdownRestSequences
-                  .firstWhere((SequenceEvent countdownRestSequenceEvent) =>
-                      hangSequenceEvent.currentHang ==
-                      countdownRestSequenceEvent.currentHang)
-                  .duration
-              : null));
+
+    final List<Hold> _allHolds = _hangSequences
+        .map((SequenceEvent sequenceEvent) =>
+            sequenceEvent.hold.rebuild((b) => b..repetitions = 1))
+        .toList();
 
     List<Hold> _nonDuplicateHolds = [];
     Hold _tempHold;
@@ -379,7 +377,10 @@ class ExecutionViewModel {
       _tempHold = hold;
     });
 
-    _workout = _workout.rebuild((b) => b.holds.replace(_nonDuplicateHolds));
+    _workout = _workout.rebuild((b) => b
+      ..holds.replace(_nonDuplicateHolds)
+      ..holdCount = _nonDuplicateHolds.length);
+    _workoutsState.editWorkout(_workout);
   }
 
   void dispose() {

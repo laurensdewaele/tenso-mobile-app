@@ -56,7 +56,7 @@ class EditHangsDialogViewModel extends ChangeNotifier {
     _editedHangInputs = _editHangInfoList
         .map((EditHangInfo editHangInfo) => _EditedHangInput(
             currentHang: editHangInfo.currentHang,
-            addedWeightInput: editHangInfo.addedWeight.toString(),
+            addedWeightInput: editHangInfo.hold.addedWeight.toString(),
             durationInput: editHangInfo.duration.toString()))
         .toList();
     _totalHangs = totalHangs;
