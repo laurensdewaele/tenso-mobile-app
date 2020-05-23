@@ -283,8 +283,27 @@ class ExecutionViewModel {
     }
   }
 
-  void handleEditedHangs(List<EditedHang> editHangs) {
+  void handleEditHangsTap() {
+    // Make new execution event, stop pause new timer, ...
+  }
+
+  void handleEditedHangs(List<EditedHang> editedHangs) {
+    // Stop edit hangs execution event, resume pause timer
+
     // Edit sequence
+    // Create effective history => log? => add edit values as log?
+    // Create history (without pause timers) with correct input value hangs
+    // 1) History can be deduced from effective history / log if past values
+    //      weren't' altered.
+    // Deduce history from effective? And for hangs just write over them?
+    // Seems good. That means we need to group split up sections. E.g. rest, pause, rest => 1 rest
+    // Search for same no. (index or whatever) and group them rest index 1, pause, rest index 1 => rest
+
+    // Redo completed workout model. Doesn't need to be on seperate history or?
+
+    // Separate logger from this viewmodel? Is getting complex
+
+    // Edit workout
   }
 
   void dispose() {

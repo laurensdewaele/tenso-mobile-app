@@ -44,6 +44,7 @@ class EditHangsDialogViewModel extends ChangeNotifier {
   EditHangInfo _selectedHangInfo;
   EditHangInfo get selectedHangInfo => _selectedHangInfo;
   void Function(List<EditedHang> editedHangs) handleEditedHangs;
+  bool get isPastHang => nextHang > selectedHang;
 
   EditHangsDialogViewModel(
       {List<EditHangInfo> editHangInfoList,
@@ -84,22 +85,22 @@ class EditHangsDialogViewModel extends ChangeNotifier {
       final int _duration = InputParsers.parseToInt(
           string: editedHangInput.durationInput,
           inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs\' hang time ');
+              'Hang ${editedHangInput.currentHang}/$totalHangs duration');
 
       final bool _validDuration = Validators.biggerThanZero(
           value: _duration,
           inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs\' hang time ');
+              'Hang ${editedHangInput.currentHang}/$totalHangs duration');
 
       final double _addedWeight = InputParsers.parseToDouble(
           string: editedHangInput.addedWeightInput,
           inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs\' added weight ');
+              'Hang ${editedHangInput.currentHang}/$totalHangs added weight');
 
       final bool _validAddedWeight = Validators.biggerThanZero(
           value: _addedWeight,
           inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs\' added weight');
+              'Hang ${editedHangInput.currentHang}/$totalHangs added weight');
 
       if (_validAddedWeight == false || _validDuration == false) {
         _valid = false;

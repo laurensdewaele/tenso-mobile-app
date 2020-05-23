@@ -132,7 +132,9 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                         key: ValueKey(
                             'edit-hangs-dialog-duration-input-${_viewModel.selectedHang}'),
                         enabled: true,
-                        description: 'hang time seconds',
+                        description: _viewModel.isPastHang
+                            ? 'effective hung seconds'
+                            : 'hang time seconds',
                         handleValueChanged: _viewModel.setHangTime,
                         initialValue: _viewModel.selectedHangInfo.duration,
                       ),

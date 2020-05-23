@@ -71,6 +71,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
     if (_viewModel.state.type == ExecutionEventType.hangTimer) {
       ToastService().add(ErrorMessages.editPossibleOnlyOnRest());
     } else {
+      _viewModel.handleEditHangsTap();
       await showAppDialog(
           context: context,
           content: EditHangsDialog(
