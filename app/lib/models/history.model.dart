@@ -11,20 +11,20 @@ part 'history.model.g.dart';
 abstract class History implements Built<History, HistoryBuilder> {
   static Serializer<History> get serializer => _$historySerializer;
 
-  BuiltList<ExecutionEvent> get history;
+  // This accounts for edited values by the user.
+  BuiltList<ExecutionEvent> get hangTimes;
+  // Do not rely on events for the hangTimes.
+  // This is a log of how the sequence went.
+  // Not accounting for edited values by the user.
+  BuiltList<ExecutionEvent> get eventLog;
   int get timeUnderTensionMs => _calculateTimeUnderTensionMs();
   int get timeUnderTensionS =>
       Duration(milliseconds: timeUnderTensionMs).inSeconds;
 
   int _calculateTimeUnderTensionMs() {
-    final List<int> _times = history
-        .toList()
-        .where((ExecutionEvent e) =>
-            e.executionEventType == ExecutionEventType.hangTimer)
+    return hangTimes
         .map((e) => e.elapsedMs)
-        .toList();
-
-    return _times.fold(0, (previous, current) => previous + current);
+        .fold(0, (previous, current) => previous + current);
   }
 
   factory History([void Function(HistoryBuilder) updates]) = _$History;

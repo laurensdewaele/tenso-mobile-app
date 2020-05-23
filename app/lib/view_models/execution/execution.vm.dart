@@ -17,12 +17,12 @@ class ExecutionViewModel {
   int _currentSequenceIndex;
   List<SequenceEvent> _sequence;
   NavigationService _navigationService;
-  List<ExecutionEvent> _events = [];
-  History get _history => History((b) => b..history.replace(_events));
+  List<ExecutionEvent> _eventLog = [];
+  List<ExecutionEvent> _hangTimes = [];
   Stopwatch _elapsedTimer;
   bool _isPaused;
   List<EditHangInfo> get editHangInfoList => _getEditHangInfoList();
-  int get totalHangs => _getTotalHangs();
+  int get totalHangs => _workout.totalHangs;
 
   BehaviorSubject<ExecutionViewModelState> _state$;
   Stream<ExecutionViewModelState> get state$ => _state$.stream;
@@ -36,6 +36,13 @@ class ExecutionViewModel {
     _workout = workout;
     _animationController = animationController;
     _sequence = sequenceBuilder(workout: workout);
+    _hangTimes = _sequence
+        .where((SequenceEvent sequenceEvent) =>
+            sequenceEvent.type == ExecutionEventType.hangTimer)
+        .map((SequenceEvent sequenceEvent) => ExecutionEvent((b) => b
+          ..executionEventType = ExecutionEventType.hangTimer
+          ..currentHang = sequenceEvent.currentHang
+          ..elapsedMs = sequenceEvent.duration * 1000));
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
     // This is only used for building the history
@@ -45,12 +52,6 @@ class ExecutionViewModel {
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
     _start();
-  }
-
-  int _getTotalHangs() {
-    return _sequence
-        .where((SequenceEvent e) => e.type == ExecutionEventType.hangTimer)
-        .length;
   }
 
   List<EditHangInfo> _getEditHangInfoList() {
@@ -132,11 +133,11 @@ class ExecutionViewModel {
       _elapsedTimer.stop();
 
       if (_isPaused == false) {
-        _events.add(ExecutionEvent((b) => b
+        _eventLog.add(ExecutionEvent((b) => b
           ..executionEventType = state.type
           ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
       } else {
-        _events.add(ExecutionEvent((b) => b
+        _eventLog.add(ExecutionEvent((b) => b
           ..executionEventType = ExecutionEventType.pauseTimer
           ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
       }
@@ -175,9 +176,10 @@ class ExecutionViewModel {
     _resetElapsedTimerAndAddToHistory();
     // settings _isPaused should be always be done after _resetElapsedTimerAndAddToHistory
     _isPaused = false;
-    _events.add(ExecutionEvent(
+    _eventLog.add(ExecutionEvent(
         (b) => b..executionEventType = ExecutionEventType.stopEvent));
 
+    History _history = _generateHistory();
     if (_history.timeUnderTensionMs == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
@@ -188,10 +190,15 @@ class ExecutionViewModel {
     dispose();
   }
 
+  History _generateHistory() {
+    return History(
+        (b) => b..eventLog.replace(_eventLog)..hangTimes.replace(_hangTimes));
+  }
+
   void handleReadyTap() {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
-    _events.add(ExecutionEvent(
+    _eventLog.add(ExecutionEvent(
         (b) => b..executionEventType = ExecutionEventType.readyEvent));
     _nextSequence();
   }
@@ -200,7 +207,7 @@ class ExecutionViewModel {
     _animationController.stop(canceled: false);
     _resetElapsedTimerAndAddToHistory();
     _isPaused = true;
-    _events.add(ExecutionEvent(
+    _eventLog.add(ExecutionEvent(
         (b) => b..executionEventType = ExecutionEventType.pauseEvent));
     _elapsedTimer.start();
   }
@@ -208,7 +215,7 @@ class ExecutionViewModel {
   void handleSkipTap() {
     _resetElapsedTimerAndAddToHistory();
     _isPaused = false;
-    _events.add(ExecutionEvent(
+    _eventLog.add(ExecutionEvent(
         (b) => b..executionEventType = ExecutionEventType.skipEvent));
 
     if (state.type == ExecutionEventType.hangTimer) {
@@ -259,7 +266,7 @@ class ExecutionViewModel {
   void handleResumeTap() {
     _resetElapsedTimerAndAddToHistory();
     _isPaused = false;
-    _events.add(ExecutionEvent(
+    _eventLog.add(ExecutionEvent(
         (b) => b..executionEventType = ExecutionEventType.resumeEvent));
     _elapsedTimer.start();
     _animationController.forward();
@@ -284,26 +291,95 @@ class ExecutionViewModel {
   }
 
   void handleEditHangsTap() {
-    // Make new execution event, stop pause new timer, ...
+    _elapsedTimer.stop();
+    _eventLog.add(ExecutionEvent((b) => b
+      ..executionEventType = ExecutionEventType.pauseTimer
+      ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+    _elapsedTimer.reset();
+    _elapsedTimer.start();
   }
 
   void handleEditedHangs(List<EditedHang> editedHangs) {
-    // Stop edit hangs execution event, resume pause timer
+    _elapsedTimer.stop();
+    _eventLog.add(ExecutionEvent((b) => b
+      ..executionEventType = ExecutionEventType.editHangsEvent
+      ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
+    _elapsedTimer.reset();
+    _elapsedTimer.start();
 
-    // Edit sequence
-    // Create effective history => log? => add edit values as log?
-    // Create history (without pause timers) with correct input value hangs
-    // 1) History can be deduced from effective history / log if past values
-    //      weren't' altered.
-    // Deduce history from effective? And for hangs just write over them?
-    // Seems good. That means we need to group split up sections. E.g. rest, pause, rest => 1 rest
-    // Search for same no. (index or whatever) and group them rest index 1, pause, rest index 1 => rest
+    _sequence = _sequence.map((SequenceEvent sequenceEvent) {
+      if (sequenceEvent.type == ExecutionEventType.hangTimer) {
+        return sequenceEvent.copyWith(
+            duration: editedHangs
+                .firstWhere((EditedHang editedHang) =>
+                    editedHang.currentHang == sequenceEvent.currentHang)
+                .duration);
+      } else {
+        return sequenceEvent;
+      }
+    });
 
-    // Redo completed workout model. Doesn't need to be on seperate history or?
+    _hangTimes =
+        editedHangs.map((EditedHang editedHang) => ExecutionEvent((b) => b
+          ..executionEventType = ExecutionEventType.hangTimer
+          ..elapsedMs = editedHang.duration * 1000
+          ..currentHang = editedHang.currentHang));
 
-    // Separate logger from this viewmodel? Is getting complex
+    _replaceExistingWorkoutFromEditedHangs(editedHangs);
+  }
 
-    // Edit workout
+  void _replaceExistingWorkoutFromEditedHangs(List<EditedHang> editedHangs) {
+    final List<SequenceEvent> _hangSequences = _sequence.where(
+        (SequenceEvent sequenceEvent) =>
+            sequenceEvent.type == ExecutionEventType.hangTimer);
+    _hangSequences.removeWhere((hangSequence) => hangSequence.currentSet > 1);
+    final List<SequenceEvent> _countdownRestSequences = _sequence.where(
+        (SequenceEvent sequenceEvent) =>
+            sequenceEvent.type == ExecutionEventType.countdownRestTimer);
+    _countdownRestSequences.removeWhere(
+        (countdownRestSequence) => countdownRestSequence.currentSet > 1);
+    final List<Hold> _allHolds = _hangSequences.map(
+        (SequenceEvent hangSequenceEvent) => Hold((b) => b
+          ..handHold = hangSequenceEvent.handHold
+          ..leftGrip = hangSequenceEvent.leftGrip.toBuilder()
+          ..rightGrip = hangSequenceEvent.rightGrip.toBuilder()
+          ..leftGripBoardHold = hangSequenceEvent.leftGripBoardHold.toBuilder()
+          ..rightGripBoardHold =
+              hangSequenceEvent.rightGripBoardHold.toBuilder()
+          ..hangTime = hangSequenceEvent.duration
+          ..repetitions = 1
+          ..addedWeight = hangSequenceEvent.addedWeight
+          ..countdownRestDuration = _workout.countdownRestTimer == true
+              ? _countdownRestSequences
+                  .firstWhere((SequenceEvent countdownRestSequenceEvent) =>
+                      hangSequenceEvent.currentHang ==
+                      countdownRestSequenceEvent.currentHang)
+                  .duration
+              : null));
+
+    List<Hold> _nonDuplicateHolds = [];
+    Hold _tempHold;
+    _allHolds.forEach((hold) {
+      if (hold.equalsWithoutRepetitions(_tempHold) == true) {
+        final Hold _existingHold = _nonDuplicateHolds.firstWhere(
+            (existingHold) => existingHold.equalsWithoutRepetitions(hold));
+        if (_existingHold != null) {
+          final int _existingHoldIndex =
+              _nonDuplicateHolds.indexOf(_existingHold);
+          final _newHolds = []..addAll(_nonDuplicateHolds);
+          _newHolds[_existingHoldIndex] = _existingHold
+              .rebuild((b) => b..repetitions = _existingHold.repetitions + 1);
+          _nonDuplicateHolds = _newHolds;
+        } else {
+          _nonDuplicateHolds.add(hold);
+        }
+      } else {
+        _nonDuplicateHolds.add(hold);
+      }
+      _tempHold = hold;
+    });
+
+    _workout = _workout.rebuild((b) => b.holds.replace(_nonDuplicateHolds));
   }
 
   void dispose() {

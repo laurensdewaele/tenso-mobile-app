@@ -23,6 +23,8 @@ const ExecutionEventType _$pauseEvent =
     const ExecutionEventType._('pauseEvent');
 const ExecutionEventType _$readyEvent =
     const ExecutionEventType._('readyEvent');
+const ExecutionEventType _$editHangsEvent =
+    const ExecutionEventType._('editHangsEvent');
 
 ExecutionEventType _$stValueOf(String name) {
   switch (name) {
@@ -46,6 +48,8 @@ ExecutionEventType _$stValueOf(String name) {
       return _$pauseEvent;
     case 'readyEvent':
       return _$readyEvent;
+    case 'editHangsEvent':
+      return _$editHangsEvent;
     default:
       throw new ArgumentError(name);
   }
@@ -63,6 +67,7 @@ final BuiltSet<ExecutionEventType> _$stValues =
   _$resumeEvent,
   _$pauseEvent,
   _$readyEvent,
+  _$editHangsEvent,
 ]);
 
 Serializer<ExecutionEventType> _$executionEventTypeSerializer =

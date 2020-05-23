@@ -31,6 +31,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   double get averageAddedWeight => _calculateAverageAddedWeight();
   int get averageHangTime => _calculateAverageHangTime();
   int get totalHangsPerSet => _calculateTotalHangsPerSet();
+  int get totalHangs => totalHangsPerSet * sets;
 
   double _calculateAverageAddedWeight() {
     final List<double> weights = holds.map((w) => w.addedWeight).toList();

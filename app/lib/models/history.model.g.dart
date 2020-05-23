@@ -18,8 +18,12 @@ class _$HistorySerializer implements StructuredSerializer<History> {
   Iterable<Object> serialize(Serializers serializers, History object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'history',
-      serializers.serialize(object.history,
+      'hangTimes',
+      serializers.serialize(object.hangTimes,
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(ExecutionEvent)])),
+      'eventLog',
+      serializers.serialize(object.eventLog,
           specifiedType: const FullType(
               BuiltList, const [const FullType(ExecutionEvent)])),
     ];
@@ -38,8 +42,14 @@ class _$HistorySerializer implements StructuredSerializer<History> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'history':
-          result.history.replace(serializers.deserialize(value,
+        case 'hangTimes':
+          result.hangTimes.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(ExecutionEvent)]))
+              as BuiltList<Object>);
+          break;
+        case 'eventLog':
+          result.eventLog.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(ExecutionEvent)]))
               as BuiltList<Object>);
@@ -53,14 +63,19 @@ class _$HistorySerializer implements StructuredSerializer<History> {
 
 class _$History extends History {
   @override
-  final BuiltList<ExecutionEvent> history;
+  final BuiltList<ExecutionEvent> hangTimes;
+  @override
+  final BuiltList<ExecutionEvent> eventLog;
 
   factory _$History([void Function(HistoryBuilder) updates]) =>
       (new HistoryBuilder()..update(updates)).build();
 
-  _$History._({this.history}) : super._() {
-    if (history == null) {
-      throw new BuiltValueNullFieldError('History', 'history');
+  _$History._({this.hangTimes, this.eventLog}) : super._() {
+    if (hangTimes == null) {
+      throw new BuiltValueNullFieldError('History', 'hangTimes');
+    }
+    if (eventLog == null) {
+      throw new BuiltValueNullFieldError('History', 'eventLog');
     }
   }
 
@@ -74,17 +89,21 @@ class _$History extends History {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is History && history == other.history;
+    return other is History &&
+        hangTimes == other.hangTimes &&
+        eventLog == other.eventLog;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, history.hashCode));
+    return $jf($jc($jc(0, hangTimes.hashCode), eventLog.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('History')..add('history', history))
+    return (newBuiltValueToStringHelper('History')
+          ..add('hangTimes', hangTimes)
+          ..add('eventLog', eventLog))
         .toString();
   }
 }
@@ -92,16 +111,24 @@ class _$History extends History {
 class HistoryBuilder implements Builder<History, HistoryBuilder> {
   _$History _$v;
 
-  ListBuilder<ExecutionEvent> _history;
-  ListBuilder<ExecutionEvent> get history =>
-      _$this._history ??= new ListBuilder<ExecutionEvent>();
-  set history(ListBuilder<ExecutionEvent> history) => _$this._history = history;
+  ListBuilder<ExecutionEvent> _hangTimes;
+  ListBuilder<ExecutionEvent> get hangTimes =>
+      _$this._hangTimes ??= new ListBuilder<ExecutionEvent>();
+  set hangTimes(ListBuilder<ExecutionEvent> hangTimes) =>
+      _$this._hangTimes = hangTimes;
+
+  ListBuilder<ExecutionEvent> _eventLog;
+  ListBuilder<ExecutionEvent> get eventLog =>
+      _$this._eventLog ??= new ListBuilder<ExecutionEvent>();
+  set eventLog(ListBuilder<ExecutionEvent> eventLog) =>
+      _$this._eventLog = eventLog;
 
   HistoryBuilder();
 
   HistoryBuilder get _$this {
     if (_$v != null) {
-      _history = _$v.history?.toBuilder();
+      _hangTimes = _$v.hangTimes?.toBuilder();
+      _eventLog = _$v.eventLog?.toBuilder();
       _$v = null;
     }
     return this;
@@ -124,12 +151,16 @@ class HistoryBuilder implements Builder<History, HistoryBuilder> {
   _$History build() {
     _$History _$result;
     try {
-      _$result = _$v ?? new _$History._(history: history.build());
+      _$result = _$v ??
+          new _$History._(
+              hangTimes: hangTimes.build(), eventLog: eventLog.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'history';
-        history.build();
+        _$failedField = 'hangTimes';
+        hangTimes.build();
+        _$failedField = 'eventLog';
+        eventLog.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'History', _$failedField, e.toString());

@@ -23,6 +23,9 @@ class _$ExecutionEventSerializer
       'executionEventType',
       serializers.serialize(object.executionEventType,
           specifiedType: const FullType(ExecutionEventType)),
+      'currentHang',
+      serializers.serialize(object.currentHang,
+          specifiedType: const FullType(int)),
     ];
     if (object.elapsedMs != null) {
       result
@@ -50,6 +53,10 @@ class _$ExecutionEventSerializer
                   specifiedType: const FullType(ExecutionEventType))
               as ExecutionEventType;
           break;
+        case 'currentHang':
+          result.currentHang = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'elapsedMs':
           result.elapsedMs = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
@@ -65,15 +72,22 @@ class _$ExecutionEvent extends ExecutionEvent {
   @override
   final ExecutionEventType executionEventType;
   @override
+  final int currentHang;
+  @override
   final int elapsedMs;
 
   factory _$ExecutionEvent([void Function(ExecutionEventBuilder) updates]) =>
       (new ExecutionEventBuilder()..update(updates)).build();
 
-  _$ExecutionEvent._({this.executionEventType, this.elapsedMs}) : super._() {
+  _$ExecutionEvent._(
+      {this.executionEventType, this.currentHang, this.elapsedMs})
+      : super._() {
     if (executionEventType == null) {
       throw new BuiltValueNullFieldError(
           'ExecutionEvent', 'executionEventType');
+    }
+    if (currentHang == null) {
+      throw new BuiltValueNullFieldError('ExecutionEvent', 'currentHang');
     }
   }
 
@@ -90,18 +104,22 @@ class _$ExecutionEvent extends ExecutionEvent {
     if (identical(other, this)) return true;
     return other is ExecutionEvent &&
         executionEventType == other.executionEventType &&
+        currentHang == other.currentHang &&
         elapsedMs == other.elapsedMs;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, executionEventType.hashCode), elapsedMs.hashCode));
+    return $jf($jc(
+        $jc($jc(0, executionEventType.hashCode), currentHang.hashCode),
+        elapsedMs.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ExecutionEvent')
           ..add('executionEventType', executionEventType)
+          ..add('currentHang', currentHang)
           ..add('elapsedMs', elapsedMs))
         .toString();
   }
@@ -116,6 +134,10 @@ class ExecutionEventBuilder
   set executionEventType(ExecutionEventType executionEventType) =>
       _$this._executionEventType = executionEventType;
 
+  int _currentHang;
+  int get currentHang => _$this._currentHang;
+  set currentHang(int currentHang) => _$this._currentHang = currentHang;
+
   int _elapsedMs;
   int get elapsedMs => _$this._elapsedMs;
   set elapsedMs(int elapsedMs) => _$this._elapsedMs = elapsedMs;
@@ -125,6 +147,7 @@ class ExecutionEventBuilder
   ExecutionEventBuilder get _$this {
     if (_$v != null) {
       _executionEventType = _$v.executionEventType;
+      _currentHang = _$v.currentHang;
       _elapsedMs = _$v.elapsedMs;
       _$v = null;
     }
@@ -148,7 +171,9 @@ class ExecutionEventBuilder
   _$ExecutionEvent build() {
     final _$result = _$v ??
         new _$ExecutionEvent._(
-            executionEventType: executionEventType, elapsedMs: elapsedMs);
+            executionEventType: executionEventType,
+            currentHang: currentHang,
+            elapsedMs: elapsedMs);
     replace(_$result);
     return _$result;
   }

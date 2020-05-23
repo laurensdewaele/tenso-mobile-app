@@ -21,6 +21,7 @@ class SequenceEvent {
   final ExecutionEventType type;
   final int duration;
 
+  final HandHold handHold;
   final Sound endSound;
   final Sound beepSound;
   final int beepsBeforeEnd;
@@ -42,6 +43,7 @@ class SequenceEvent {
   const SequenceEvent({
     @required this.type,
     @required this.duration,
+    @required this.handHold,
     @required this.endSound,
     @required this.beepSound,
     @required this.beepsBeforeEnd,
@@ -64,6 +66,7 @@ class SequenceEvent {
   SequenceEvent copyWith({
     ExecutionEventType type,
     int duration,
+    HandHold handHold,
     Sound endSound,
     Sound beepSound,
     int beepsBeforeEnd,
@@ -85,6 +88,7 @@ class SequenceEvent {
     return new SequenceEvent(
       type: type ?? this.type,
       duration: duration ?? this.duration,
+      handHold: handHold ?? this.handHold,
       endSound: endSound ?? this.endSound,
       beepSound: beepSound ?? this.beepSound,
       beepsBeforeEnd: beepsBeforeEnd ?? this.beepsBeforeEnd,
@@ -114,6 +118,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
   void _addPreparationRestSequence(
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(SequenceEvent(
+        handHold: _workout.holds[_currentHoldIndex].handHold,
         type: ExecutionEventType.preparationTimer,
         duration: _settings.preparationTimer,
         endSound: _settings.hangSound,
@@ -140,6 +145,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(
       SequenceEvent(
+          handHold: _workout.holds[_currentHoldIndex].handHold,
           type: ExecutionEventType.hangTimer,
           duration: _workout.holds[_currentHoldIndex].hangTime,
           endSound: _settings.restSound,
@@ -168,6 +174,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(
       SequenceEvent(
+          handHold: _workout.holds[_currentHoldIndex].handHold,
           type: ExecutionEventType.countdownRestTimer,
           duration: _workout.holds[_currentHoldIndex].countdownRestDuration,
           endSound: _settings.hangSound,
@@ -196,6 +203,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int _currentSet, int _currentHoldIndex, int _currentHangPerSet) {
     _sequence.add(
       SequenceEvent(
+          handHold: _workout.holds[_currentHoldIndex].handHold,
           type: ExecutionEventType.stopwatchRestTimer,
           duration: 0,
           endSound: _settings.hangSound,

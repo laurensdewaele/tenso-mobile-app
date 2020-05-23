@@ -32,6 +32,19 @@ abstract class Hold implements Built<Hold, HoldBuilder> {
   int get hangTime;
   double get addedWeight;
 
+  bool equalsWithoutRepetitions(Object other) {
+    if (identical(other, this)) return true;
+    return other is Hold &&
+        leftGrip == other.leftGrip &&
+        rightGrip == other.rightGrip &&
+        handHold == other.handHold &&
+        leftGripBoardHold == other.leftGripBoardHold &&
+        rightGripBoardHold == other.rightGripBoardHold &&
+        countdownRestDuration == other.countdownRestDuration &&
+        hangTime == other.hangTime &&
+        addedWeight == other.addedWeight;
+  }
+
   factory Hold([void Function(HoldBuilder) updates]) = _$Hold;
 
   Hold._();

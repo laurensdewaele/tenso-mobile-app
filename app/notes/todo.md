@@ -1,10 +1,9 @@
 # TODO
 ### Edit hangs.
 - Edit sequence
-- Go from completedWorkout to workout with the new values entered in the sequence.
-  When you view or copy it and edit it.
-  What do I do when skipping. Do i forgo that one as well or? 
-  I wouldn't.
+  // recreate workout
+  // Redo completed workout model. Doesn't need to be on seperate history or?
+  // Separate logger from this viewmodel? Is getting complex
   
 - bug in skip (it goes into hang) and doesn't go to rate workout (on stopwatch)
 - History update times
