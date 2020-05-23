@@ -95,6 +95,11 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Text(
+                        'Hang ${_viewModel.selectedHang}/${_viewModel.totalHangs}',
+                        style: styles.Staatliches.xlBlack,
+                      ),
+                      Divider(height: styles.Measurements.l),
                       BoardWithGrips(
                         key: ValueKey(
                             'edit-hangs-dialog-board-${_viewModel.selectedHang}'),
