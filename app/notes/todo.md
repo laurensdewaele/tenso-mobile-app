@@ -3,8 +3,6 @@
 - Edit sequence
 
 - bug in skip (it goes into hang) and doesn't go to rate workout (on stopwatch)
-- Back press, doesn't trigger validate
-- Allow for 0.0kg
 - Beastmaker's holds doesn't match. In standard position, there's a difference in depth.
 - List of custom boards in a horzontal scroll view. with edit and delete buttons under it
 - Look to refactor
