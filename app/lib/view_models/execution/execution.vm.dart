@@ -364,7 +364,7 @@ class ExecutionViewModel {
         if (_existingHold != null) {
           final int _existingHoldIndex =
               _nonDuplicateHolds.indexOf(_existingHold);
-          final _newHolds = []..addAll(_nonDuplicateHolds);
+          final List<Hold> _newHolds = []..addAll(_nonDuplicateHolds);
           _newHolds[_existingHoldIndex] = _existingHold
               .rebuild((b) => b..repetitions = _existingHold.repetitions + 1);
           _nonDuplicateHolds = _newHolds;

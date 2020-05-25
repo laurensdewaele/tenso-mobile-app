@@ -97,12 +97,7 @@ class EditHangsDialogViewModel extends ChangeNotifier {
           inputField:
               'Hang ${editedHangInput.currentHang}/$totalHangs added weight');
 
-      final bool _validAddedWeight = Validators.biggerThanZero(
-          value: _addedWeight,
-          inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs added weight');
-
-      if (_validAddedWeight == false || _validDuration == false) {
+      if (_addedWeight == null || _validDuration == false) {
         _valid = false;
       }
 

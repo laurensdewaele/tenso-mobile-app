@@ -13,9 +13,8 @@ abstract class History implements Built<History, HistoryBuilder> {
 
   // This accounts for edited values by the user.
   BuiltList<ExecutionEvent> get hangTimes;
-  // Do not rely on events for the hangTimes.
-  // This is a log of how the sequence went.
-  // Not accounting for edited values by the user.
+  // This is a log of the sequence,
+  // not accounting for edited values by the user.
   BuiltList<ExecutionEvent> get eventLog;
   int get timeUnderTensionMs => _calculateTimeUnderTensionMs();
   int get timeUnderTensionS =>
