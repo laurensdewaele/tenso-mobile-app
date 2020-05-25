@@ -57,8 +57,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
       child: KeyboardAndToastProvider(
         child: Screen(
             handleBackNavigation: _handleBackNavigation,
-            gradientStartColor: styles.Colors.bgGrayStart,
-            gradientStopColor: styles.Colors.bgGrayStop,
             child: KeyboardListView(children: [
               Column(
                 children: <Widget>[

@@ -74,8 +74,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: KeyboardAndToastProvider(
         child: Screen(
           handleBackNavigation: _handleBackNavigation,
-          gradientStartColor: styles.Colors.bgGrayStart,
-          gradientStopColor: styles.Colors.bgGrayStop,
           child: KeyboardListView(children: [
             Column(
               children: <Widget>[

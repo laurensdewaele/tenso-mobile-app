@@ -14,8 +14,7 @@ abstract class Colors {
   static const Color shadow = const Color.fromRGBO(0, 0, 0, 0.05);
   static const Color bgBlack = const Color.fromRGBO(46, 46, 46, 1);
   static const Color bgWhite = const Color.fromRGBO(253, 253, 253, 1);
-  static const Color bgGrayStart = const Color.fromRGBO(243, 243, 243, 1);
-  static const Color bgGrayStop = const Color.fromRGBO(232, 232, 232, 1);
+  static const Color bgGray = const Color.fromRGBO(238, 238, 238, 1);
   static const Color yellow = const Color.fromRGBO(241, 196, 15, 1);
   static const Color orange = const Color.fromRGBO(230, 126, 34, 1);
   static const Color blue = const Color.fromRGBO(52, 152, 219, 1);

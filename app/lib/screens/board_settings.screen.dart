@@ -58,8 +58,6 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
           handleBackNavigation: () {
             Navigator.of(context).pop();
           },
-          gradientStartColor: styles.Colors.bgGrayStart,
-          gradientStopColor: styles.Colors.bgGrayStop,
           child: KeyboardListView(children: [
             Column(
               children: <Widget>[

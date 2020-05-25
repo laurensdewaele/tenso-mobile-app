@@ -126,8 +126,6 @@ class _HomeScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: styles.Measurements.xs,
             vertical: styles.Measurements.m),
-        gradientStartColor: styles.Colors.bgGrayStart,
-        gradientStopColor: styles.Colors.bgGrayStop,
         child: child);
   }
 }

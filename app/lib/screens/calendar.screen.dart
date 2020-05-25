@@ -15,8 +15,6 @@ class CalendarScreen extends StatelessWidget {
         handleBackNavigation: () {
           Navigator.of(context).pop();
         },
-        gradientStartColor: styles.Colors.bgGrayStart,
-        gradientStopColor: styles.Colors.bgGrayStop,
         child: ListView(physics: ClampingScrollPhysics(), children: [
           Column(
             children: <Widget>[

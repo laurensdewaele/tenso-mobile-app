@@ -79,8 +79,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
             handleBackNavigation: () {
               Navigator.of(context).pop();
             },
-            gradientStartColor: styles.Colors.bgGrayStart,
-            gradientStopColor: styles.Colors.bgGrayStop,
             child: KeyboardListView(
               children: [
                 Column(

@@ -89,8 +89,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
             handleBackNavigation: () {
               Navigator.of(context).pop();
             },
-            gradientStartColor: styles.Colors.bgGrayStart,
-            gradientStopColor: styles.Colors.bgGrayStop,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,

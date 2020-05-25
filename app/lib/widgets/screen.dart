@@ -1,16 +1,15 @@
+import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 
 class Screen extends StatefulWidget {
   const Screen(
-      {@required this.gradientStartColor,
-      @required this.gradientStopColor,
+      {this.backgroundColor = styles.Colors.bgGray,
       @required this.child,
       this.handleBackNavigation,
       this.handleForwardNavigation,
       this.padding});
 
-  final Color gradientStartColor;
-  final Color gradientStopColor;
+  final Color backgroundColor;
   final Widget child;
   final EdgeInsets padding;
   final VoidCallback handleBackNavigation;
@@ -49,18 +48,12 @@ class _ScreenState extends State<Screen> {
       onHorizontalDragEnd: _onHorizontalDragEnd,
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [widget.gradientStartColor, widget.gradientStopColor]),
+          color: widget.backgroundColor,
         ),
         child: SafeArea(
             child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [widget.gradientStartColor, widget.gradientStopColor]),
+            color: widget.backgroundColor,
           ),
           padding: widget.padding,
           child: widget.child,

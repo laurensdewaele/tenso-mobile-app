@@ -188,7 +188,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   stops: [0.0005, 0.005],
-                  colors: [styles.Colors.bgGrayStop, styles.Colors.bgWhite],
+                  colors: [styles.Colors.bgGray, styles.Colors.bgWhite],
                 ),
               ),
               child: SafeArea(

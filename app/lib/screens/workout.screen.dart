@@ -82,8 +82,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     handleBackNavigation: _workoutNavigator.handleBackRequest,
                     handleForwardNavigation:
                         _workoutNavigator.handleForwardRequest,
-                    gradientStartColor: _workoutState.primaryColor,
-                    gradientStopColor: _workoutState.primaryColor,
+                    backgroundColor: _workoutState.primaryColor,
                     child: KeyboardListView(
                         scrollToTopStream:
                             _workoutNavigator.activePage$.map((page) => true),
