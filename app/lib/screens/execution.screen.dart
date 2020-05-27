@@ -186,71 +186,77 @@ class _PauseDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              'paused',
-              style: styles.Staatliches.xlBlack,
-            ),
-            Divider(
-              height: styles.Measurements.xs,
-            ),
-            Text(
-              'Progress will be saved when skipping or stopping.',
-              textAlign: TextAlign.center,
-              style: styles.Lato.xsBlack,
-            ),
-            Divider(
-              height: styles.Measurements.xxl,
-            ),
-            Button(
-              text: 'edit',
-              handleTap: handleEditHangsTap,
-              displayBackground: true,
-              backgroundColor: styles.Colors.blue,
-              leadingIcon: icons.editIconWhiteXl,
-              leadingIconTextCentered: true,
-            ),
-            Divider(
-              height: styles.Measurements.m,
-            ),
-            Button(
-              text: 'skip',
-              handleTap: handleSkipTap,
-              displayBackground: true,
-              backgroundColor: styles.Colors.gray,
-              leadingIcon: icons.skipIconWhiteXl,
-              leadingIconTextCentered: true,
-            ),
-            Divider(
-              height: styles.Measurements.m,
-            ),
-            Button(
-              text: 'stop',
-              handleTap: handleStopTap,
-              displayBackground: true,
-              backgroundColor: styles.Colors.primary,
-              leadingIcon: icons.stopIconWhiteXl,
-              leadingIconTextCentered: true,
-            ),
-            Divider(
-              height: styles.Measurements.l,
-            ),
-            Button(
-              text: 'resume',
-              handleTap: handleResumeTap,
-              displayBackground: false,
-              leadingIcon: icons.playIconBlackXl,
-              leadingIconTextCentered: true,
-            ),
-          ],
-        )
-      ],
+    return WillPopScope(
+      onWillPop: () async {
+        handleResumeTap();
+        return false;
+      },
+      child: ListView(
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'paused',
+                style: styles.Staatliches.xlBlack,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              Text(
+                'Progress will be saved when skipping or stopping.',
+                textAlign: TextAlign.center,
+                style: styles.Lato.xsBlack,
+              ),
+              Divider(
+                height: styles.Measurements.xxl,
+              ),
+              Button(
+                text: 'edit',
+                handleTap: handleEditHangsTap,
+                displayBackground: true,
+                backgroundColor: styles.Colors.blue,
+                leadingIcon: icons.editIconWhiteXl,
+                leadingIconTextCentered: true,
+              ),
+              Divider(
+                height: styles.Measurements.m,
+              ),
+              Button(
+                text: 'skip',
+                handleTap: handleSkipTap,
+                displayBackground: true,
+                backgroundColor: styles.Colors.gray,
+                leadingIcon: icons.skipIconWhiteXl,
+                leadingIconTextCentered: true,
+              ),
+              Divider(
+                height: styles.Measurements.m,
+              ),
+              Button(
+                text: 'stop',
+                handleTap: handleStopTap,
+                displayBackground: true,
+                backgroundColor: styles.Colors.primary,
+                leadingIcon: icons.stopIconWhiteXl,
+                leadingIconTextCentered: true,
+              ),
+              Divider(
+                height: styles.Measurements.l,
+              ),
+              Button(
+                text: 'resume',
+                handleTap: handleResumeTap,
+                displayBackground: false,
+                leadingIcon: icons.playIconBlackXl,
+                leadingIconTextCentered: true,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

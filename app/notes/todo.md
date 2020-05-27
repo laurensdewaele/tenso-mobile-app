@@ -3,7 +3,11 @@
 - Edit sequence
 
 - bug in skip (it goes into hang) and doesn't go to rate workout (on stopwatch)
-- Beastmaker's holds doesn't match. In standard position, there's a difference in depth.
+- rethink skip? 
+  When skipping in hang -> update history 
+  
+  
+- Info button on paused screen?
 - List of custom boards in a horzontal scroll view. with edit and delete buttons under it
 - Look to refactor
 - History update times
@@ -42,6 +46,7 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
+- edit standard board depths
 - Webapp where people can upload their own image of the board
 - Remove built value?
 - Remove gradients from screen
