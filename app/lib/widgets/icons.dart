@@ -1,14 +1,19 @@
 library icons;
 
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/icon.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 const editIconWhiteXl = Icon(
     iconData: IconData(0xf417,
         fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
     size: styles.IconMeasurements.xl,
+    color: styles.Colors.white);
+
+const editIconWhiteL = Icon(
+    iconData: IconData(0xf417,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.l,
     color: styles.Colors.white);
 
 const backIconBlack = Icon(
@@ -56,6 +61,12 @@ const playIconBlackXl = Icon(
     size: styles.IconMeasurements.xl,
     color: styles.Colors.black);
 
+const playIconBlackL = Icon(
+    iconData: IconData(0xf488,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.l,
+    color: styles.Colors.black);
+
 const plusIconWhiteXl = Icon(
     iconData: IconData(0xf489,
         fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
@@ -80,10 +91,22 @@ const stopIconWhiteXl = Icon(
     size: styles.IconMeasurements.xl,
     color: styles.Colors.white);
 
+const stopIconWhiteL = Icon(
+    iconData: IconData(0xf371,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.l,
+    color: styles.Colors.white);
+
 const skipIconWhiteXl = Icon(
     iconData: IconData(0xf4ac,
         fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
     size: styles.IconMeasurements.xl,
+    color: styles.Colors.white);
+
+const skipIconWhiteL = Icon(
+    iconData: IconData(0xf4ac,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.l,
     color: styles.Colors.white);
 
 const downCaretBlack = Icon(

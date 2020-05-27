@@ -61,6 +61,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         smallWidth: true,
         context: context,
         content: _PauseDialog(
+            duringHang: _viewModel.state.type == ExecutionEventType.hangTimer,
             handleEditHangsTap: _handleEditHangsTap,
             handleResumeTap: _viewModel.handleResumeTap,
             handleSkipTap: _viewModel.handleSkipTap,
@@ -177,8 +178,10 @@ class _PauseDialog extends StatelessWidget {
     @required this.handleSkipTap,
     @required this.handleStopTap,
     @required this.handleEditHangsTap,
+    @required this.duringHang,
   }) : super(key: key);
 
+  final bool duringHang;
   final VoidCallback handleStopTap;
   final VoidCallback handleResumeTap;
   final VoidCallback handleSkipTap;
@@ -214,43 +217,47 @@ class _PauseDialog extends StatelessWidget {
                 height: styles.Measurements.xxl,
               ),
               Button(
-                text: 'edit',
+                smallText: true,
+                text: 'edit hangs',
                 handleTap: handleEditHangsTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.blue,
-                leadingIcon: icons.editIconWhiteXl,
+                leadingIcon: icons.editIconWhiteL,
                 leadingIconTextCentered: true,
               ),
               Divider(
                 height: styles.Measurements.m,
               ),
               Button(
-                text: 'skip',
+                smallText: true,
+                text: duringHang ? 'skip hang' : 'skip next hang',
                 handleTap: handleSkipTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.gray,
-                leadingIcon: icons.skipIconWhiteXl,
+                leadingIcon: icons.skipIconWhiteL,
                 leadingIconTextCentered: true,
               ),
               Divider(
                 height: styles.Measurements.m,
               ),
               Button(
+                smallText: true,
                 text: 'stop',
                 handleTap: handleStopTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.primary,
-                leadingIcon: icons.stopIconWhiteXl,
+                leadingIcon: icons.stopIconWhiteL,
                 leadingIconTextCentered: true,
               ),
               Divider(
                 height: styles.Measurements.l,
               ),
               Button(
+                smallText: true,
                 text: 'resume',
                 handleTap: handleResumeTap,
                 displayBackground: false,
-                leadingIcon: icons.playIconBlackXl,
+                leadingIcon: icons.playIconBlackL,
                 leadingIconTextCentered: true,
               ),
             ],

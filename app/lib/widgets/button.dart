@@ -14,6 +14,7 @@ class Button extends StatelessWidget {
     this.width = double.infinity,
     this.height = styles.kStandardButtonHeight,
     this.small = false,
+    this.smallText = false,
   });
 
   final Color backgroundColor;
@@ -25,15 +26,28 @@ class Button extends StatelessWidget {
   final bool leadingIconTextCentered;
   final bool displayBackground;
   final bool small;
+  final bool smallText;
 
   @override
   Widget build(BuildContext context) {
     final bool _hasIcon = leadingIcon != null ? true : false;
     final Color _iconColor =
         displayBackground == true ? styles.Colors.white : styles.Colors.black;
-    final TextStyle _textStyle = displayBackground == true
-        ? styles.Staatliches.xlWhite
-        : styles.Staatliches.xlBlack;
+
+    TextStyle _textStyle;
+    if (displayBackground == false && smallText == false) {
+      _textStyle = styles.Staatliches.xlBlack;
+    }
+    if (displayBackground == false && smallText == true) {
+      _textStyle = styles.Staatliches.lBlack;
+    }
+    if (displayBackground == true && smallText == false) {
+      _textStyle = styles.Staatliches.xlWhite;
+    }
+    if (displayBackground == true && smallText == true) {
+      _textStyle = styles.Staatliches.lWhite;
+    }
+
     final BoxDecoration _boxDecoration = displayBackground == true
         ? BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
