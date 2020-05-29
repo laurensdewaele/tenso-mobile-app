@@ -7,20 +7,23 @@ Future<void> showAppDialog({
   @required BuildContext context,
   @required Widget content,
   @required bool smallWidth,
+  bool fullWidth = false,
 }) {
   return showCupertinoDialog(
       context: context,
-      builder: (BuildContext context) =>
-          AppDialog(content: content, smallWidth: smallWidth));
+      builder: (BuildContext context) => AppDialog(
+          content: content, smallWidth: smallWidth, fullWidth: fullWidth));
 }
 
 /// Creates an iOS-style alert dialog.
 class AppDialog extends StatelessWidget {
-  const AppDialog({Key key, @required this.content, this.smallWidth})
+  const AppDialog(
+      {Key key, @required this.content, this.smallWidth, this.fullWidth})
       : super(key: key);
 
   final Widget content;
   final bool smallWidth;
+  final bool fullWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +46,15 @@ class AppDialog extends StatelessWidget {
                   ));
             } else {
               return Container(
-                  width: smallWidth == true
-                      ? styles.kSmallDialogWidth
-                      : styles.kLandscapeDialogWidth,
+                  width: fullWidth
+                      ? double.infinity
+                      : smallWidth == true
+                          ? styles.kSmallDialogWidth
+                          : styles.kLandscapeDialogWidth,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: styles.Measurements.m),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: styles.Measurements.m),
                   child: _Dialog(
                     content: content,
                   ));

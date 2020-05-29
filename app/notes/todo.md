@@ -3,7 +3,6 @@
 ### Edit hangs.
 - Edit sequence
 
-- Info button on paused screen!
 - Edit hung values on completion, new button next to rate workout.
 - landscape edit hangs
 

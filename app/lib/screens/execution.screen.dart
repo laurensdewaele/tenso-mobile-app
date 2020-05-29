@@ -75,6 +75,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
     } else {
       _viewModel.handleEditHangsTap();
       await showAppDialog(
+          fullWidth: true,
           context: context,
           content: EditHangsDialog(
             totalHangs: _viewModel.totalHangs,
