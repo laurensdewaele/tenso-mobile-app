@@ -63,6 +63,10 @@ class ExecutionViewModel {
         .toList();
     return _hangEvents.map((SequenceEvent e) {
       return EditHangInfo(
+        totalHangsPerSet: e.totalHangsPerSet,
+        currentHangPerSet: e.currentHangPerSet,
+        currentSet: e.currentSet,
+        totalSets: e.totalSets,
         hold: e.hold,
         duration: e.duration,
         currentHang: e.currentHang,

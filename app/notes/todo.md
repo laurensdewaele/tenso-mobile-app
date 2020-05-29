@@ -3,9 +3,9 @@
 ### Edit hangs.
 - Edit sequence
 
-- Change hang 4 / 18 to 2/9 - set 1/2
 - Info button on paused screen!
 - Edit hung values on completion, new button next to rate workout.
+- landscape edit hangs
 
 - Background toast is weird.
 - List of custom boards in a horzontal scroll view. with edit and delete buttons under it

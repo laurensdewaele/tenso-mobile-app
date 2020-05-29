@@ -24,6 +24,10 @@ class EditHangInfo {
   final int duration;
   final Board board;
   final int currentHang;
+  final int currentHangPerSet;
+  final int currentSet;
+  final int totalSets;
+  final int totalHangsPerSet;
   final WeightSystem weightUnit;
   final Hold hold;
 
@@ -31,8 +35,12 @@ class EditHangInfo {
     @required this.duration,
     @required this.board,
     @required this.currentHang,
+    @required this.currentHangPerSet,
+    @required this.currentSet,
+    @required this.totalSets,
     @required this.weightUnit,
     @required this.hold,
+    @required this.totalHangsPerSet,
   });
 }
 
@@ -80,6 +88,11 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final String _hangText =
+        'hang ${_viewModel.selectedHangInfo.currentHangPerSet}/${_viewModel.selectedHangInfo.totalHangsPerSet}';
+    final String _setText =
+        'set ${_viewModel.selectedHangInfo.currentSet}/${_viewModel.selectedHangInfo.totalSets}';
+
     return WillPopScope(
       onWillPop: () async {
         _viewModel.handleDone();
@@ -100,9 +113,19 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'Hang ${_viewModel.selectedHang}/${_viewModel.totalHangs}',
-                          style: styles.Staatliches.xlBlack,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              _hangText,
+                              style: styles.Staatliches.xlBlack,
+                            ),
+                            if (_viewModel.selectedHangInfo.totalSets > 1)
+                              Text(
+                                _setText,
+                                style: styles.Staatliches.xlBlack,
+                              ),
+                          ],
                         ),
                         Divider(height: styles.Measurements.l),
                         BoardWithGrips(
@@ -177,6 +200,12 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                         children: <Widget>[
                           ..._viewModel.editHangInfoList
                               .map((EditHangInfo editHangInfo) => HangRow(
+                                    currentHangPerSet:
+                                        editHangInfo.currentHangPerSet,
+                                    totalHangsPerSet:
+                                        editHangInfo.totalHangsPerSet,
+                                    currentSet: editHangInfo.currentSet,
+                                    totalSets: editHangInfo.totalSets,
                                     totalHangs: _viewModel.totalHangs,
                                     currentHang: editHangInfo.currentHang,
                                     isPastHang: _viewModel.nextHang >
@@ -216,15 +245,26 @@ class HangRow extends StatelessWidget {
     @required this.totalHangs,
     @required this.isSelectedHang,
     @required this.isPastHang,
+    @required this.currentSet,
+    @required this.totalSets,
+    @required this.currentHangPerSet,
+    @required this.totalHangsPerSet,
   });
 
   final int currentHang;
   final int totalHangs;
   final bool isSelectedHang;
   final bool isPastHang;
+  final int currentSet;
+  final int totalSets;
+  final int totalHangsPerSet;
+  final int currentHangPerSet;
 
   @override
   Widget build(BuildContext context) {
+    final String _hangText = 'hang ${currentHangPerSet}/${totalHangsPerSet}';
+    final String _setText = 'set ${currentSet}/${totalSets}';
+
     return Container(
       height: 40,
       child: Row(
@@ -232,26 +272,61 @@ class HangRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          if (isPastHang == false)
-            _Circle(
-              active: isSelectedHang,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    if (isPastHang == false)
+                      _Circle(
+                        active: isSelectedHang,
+                      ),
+                    if (isPastHang == true)
+                      _CompletedCircle(active: isSelectedHang),
+                    Divider(
+                      width: styles.Measurements.xs,
+                    ),
+                    Text('Hang', style: styles.Staatliches.sBlack),
+                    Divider(
+                      width: styles.Measurements.xs,
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Divider(
+                          height: 5,
+                        ),
+                        Text('$currentHangPerSet/$totalHangsPerSet',
+                            style: styles.Lato.xsGray),
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  width: styles.Measurements.m,
+                ),
+                if (totalSets > 1)
+                  Row(
+                    children: <Widget>[
+                      Text('set', style: styles.Staatliches.sBlack),
+                      Divider(
+                        width: styles.Measurements.xs,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Divider(
+                            height: 5,
+                          ),
+                          Text('$currentSet/$totalSets',
+                              style: styles.Lato.xsGray),
+                        ],
+                      ),
+                    ],
+                  )
+              ],
             ),
-          if (isPastHang == true) _CompletedCircle(active: isSelectedHang),
-          Divider(
-            width: styles.Measurements.xs,
-          ),
-          Text('Hang', style: styles.Staatliches.sBlack),
-          Divider(
-            width: styles.Measurements.xs,
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Divider(
-                height: 5,
-              ),
-              Text('$currentHang/$totalHangs', style: styles.Lato.xsGray),
-            ],
           ),
         ],
       ),
