@@ -34,6 +34,26 @@ abstract class Validators {
     return _bool;
   }
 
+  static bool biggerOrEqualToZero<T>(
+      {@required T value, @required String inputField}) {
+    bool _bool = false;
+
+    if (value == null) {
+      return _bool;
+    }
+
+    if ((value as dynamic) >= 0) {
+      _bool = true;
+    } else {
+      throw ValidationException<T>(
+          validationType: 'biggerOrEqualToZero',
+          errorMessage:
+              ErrorMessages.biggerOrEqualToZero(inputField: inputField),
+          input: value);
+    }
+    return _bool;
+  }
+
   static bool betweenRange<T>(
       {@required int min,
       @required int max,

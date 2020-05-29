@@ -87,7 +87,7 @@ class EditHangsDialogViewModel extends ChangeNotifier {
           inputField:
               'Hang ${editedHangInput.currentHang}/$totalHangs duration');
 
-      final bool _validDuration = Validators.biggerThanZero(
+      final bool _validDuration = Validators.biggerOrEqualToZero(
           value: _duration,
           inputField:
               'Hang ${editedHangInput.currentHang}/$totalHangs duration');

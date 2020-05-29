@@ -1,13 +1,13 @@
 # TODO
+
 ### Edit hangs.
 - Edit sequence
 
-- bug in skip (it goes into hang) and doesn't go to rate workout (on stopwatch)
-- rethink skip? 
-  When skipping in hang -> update history 
-  
-  
-- Info button on paused screen?
+- Change hang 4 / 18 to 2/9 - set 1/2
+- Info button on paused screen!
+- Edit hung values on completion, new button next to rate workout.
+
+- Background toast is weird.
 - List of custom boards in a horzontal scroll view. with edit and delete buttons under it
 - Look to refactor
 - History update times

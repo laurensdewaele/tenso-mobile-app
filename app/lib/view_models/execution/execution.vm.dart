@@ -221,20 +221,37 @@ class ExecutionViewModel {
     _eventLog.add(ExecutionEvent(
         (b) => b..executionEventType = ExecutionEventType.skipEvent));
 
+    final SequenceEvent _current = _sequence[_currentSequenceIndex];
+    SequenceEvent _next;
+    final List<SequenceEvent> _newSequence = []..addAll(_sequence);
+
     if (state.type == ExecutionEventType.hangTimer) {
+      _newSequence[_currentSequenceIndex] =
+          _sequence[_currentSequenceIndex].copyWith(duration: state.seconds);
+      _sequence = _newSequence;
       _nextSequence();
       _navigationService.pop();
     } else {
-      final SequenceEvent _current = _sequence[_currentSequenceIndex];
-      SequenceEvent _next;
-      final List<SequenceEvent> _newSequence = []..addAll(_sequence);
+      SequenceEvent _skippedHangSequence;
+      int _skippedHangSequenceIndex;
+      _sequence.asMap().forEach((int index, SequenceEvent sequenceEvent) {
+        if (_skippedHangSequence == null &&
+            index > _currentSequenceIndex &&
+            sequenceEvent.type == ExecutionEventType.hangTimer) {
+          _skippedHangSequence = sequenceEvent;
+          _skippedHangSequenceIndex = index;
+        }
+      });
+      if (_skippedHangSequence != null) {
+        _newSequence[_skippedHangSequenceIndex] =
+            _skippedHangSequence.copyWith(duration: 0);
+      }
 
-      if (state.isStopwatch) {
-        // There's always a preparation timer after the stopwatchRestTimer.
+      if (_workout.stopwatchRestTimer == true) {
         if (_currentSequenceIndex < _sequence.length - 3) {
           _next = _sequence[_currentSequenceIndex + 3];
           _newSequence[_currentSequenceIndex + 3] =
-              _next.copyWith(type: _current.type, duration: _current.duration);
+              _next.copyWith(duration: _current.duration);
           _currentSequenceIndex = _currentSequenceIndex + 3;
         } else {
           _stop();
@@ -242,11 +259,13 @@ class ExecutionViewModel {
         }
       }
 
-      if (!state.isStopwatch) {
+      if (_workout.countdownRestTimer == true) {
         if (_currentSequenceIndex < _sequence.length - 2) {
           _next = _sequence[_currentSequenceIndex + 2];
-          _newSequence[_currentSequenceIndex + 2] =
-              _next.copyWith(type: _current.type, duration: _current.duration);
+          _newSequence[_currentSequenceIndex + 2] = _next.copyWith(
+              type: _current.type,
+              duration: _current.duration,
+              title: _current.title);
           _currentSequenceIndex = _currentSequenceIndex + 2;
         } else {
           _stop();
@@ -322,7 +341,8 @@ class ExecutionViewModel {
         return sequenceEvent.copyWith(
             hold: sequenceEvent.hold.rebuild((b) => b
               ..addedWeight = _editedHang.addedWeight
-              ..hangTime = _editedHang.duration),
+              ..hangTime =
+                  _editedHang.duration > 0 ? _editedHang.duration : b.hangTime),
             duration: _editedHang.duration);
       } else if (sequenceEvent.type == ExecutionEventType.countdownRestTimer ||
           sequenceEvent.type == ExecutionEventType.stopwatchRestTimer) {

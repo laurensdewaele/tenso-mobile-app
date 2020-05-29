@@ -78,6 +78,20 @@ abstract class ErrorMessages {
           TextSpan(text: 'bigger than 0.', style: styles.Lato.sBlackBold)
         ]),
       );
+  static Widget biggerOrEqualToZero({String inputField}) => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: '$inputField ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'input needs to be ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(text: 'bigger or equal to 0.', style: styles.Lato.sBlackBold)
+        ]),
+      );
   static Widget inputNotEmpty({String inputField}) => RichText(
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
@@ -210,11 +224,15 @@ abstract class ErrorMessages {
           TextSpan(text: 'holds in order to save.', style: styles.Lato.sBlack),
         ]),
       );
-  static Widget editPossibleOnlyOnRest() => RichText(
+  static Widget editOnlyPossibleOnRests() => RichText(
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
           TextSpan(
-            text: 'Editing hangs is only possible on ',
+            text: 'Editing ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'hangs is only possible on ',
             style: styles.Lato.sBlack,
           ),
           TextSpan(

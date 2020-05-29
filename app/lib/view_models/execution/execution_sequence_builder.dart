@@ -11,12 +11,6 @@ abstract class _ExecutionTitles {
   static const String recoveryRest = 'recovery rest';
 }
 
-abstract class _ExecutionHoldLabels {
-  static const String nextUp = 'next up';
-  // It needs to be empty, otherwise there's a shift in height across screens
-  static const String hang = '';
-}
-
 class SequenceEvent {
   final ExecutionEventType type;
   final int duration;
@@ -114,7 +108,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         weightUnit: _workout.weightUnit,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.preparation,
-        holdLabel: _ExecutionHoldLabels.nextUp,
+        holdLabel:
+            'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
         board: _workout.board,
         totalSets: _workout.sets,
         currentSet: currentSet,
@@ -139,7 +134,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           weightUnit: _workout.weightUnit,
           primaryColor: styles.Colors.primary,
           title: _ExecutionTitles.hang,
-          holdLabel: _ExecutionHoldLabels.hang,
+          holdLabel: 'hang $currentHangPerSet/${workout.totalHangsPerSet}',
           board: _workout.board,
           totalSets: _workout.sets,
           currentSet: currentSet,
@@ -165,7 +160,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           weightUnit: _workout.weightUnit,
           primaryColor: styles.Colors.blue,
           title: _ExecutionTitles.recoveryRest,
-          holdLabel: _ExecutionHoldLabels.nextUp,
+          holdLabel:
+              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
           board: _workout.board,
           totalSets: _workout.sets,
           currentSet: currentSet,
@@ -191,7 +187,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           weightUnit: _workout.weightUnit,
           primaryColor: styles.Colors.blue,
           title: _ExecutionTitles.recoveryRest,
-          holdLabel: _ExecutionHoldLabels.nextUp,
+          holdLabel:
+              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
           board: _workout.board,
           totalSets: _workout.sets,
           currentSet: currentSet,
