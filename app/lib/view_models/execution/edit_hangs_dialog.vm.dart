@@ -6,31 +6,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Hang {
-  int duration;
-  String durationInput;
-  double addedWeight;
-  String addedWeightInput;
+  final int duration;
+  final String durationInput;
+  final double addedWeight;
+  final String addedWeightInput;
+  final int totalSets;
+  final int totalHangsPerSet;
+  final int currentHangPerSet;
+  final int currentSet;
+  final int currentHang;
+  final bool isPastHang;
+  final bool isSelected;
+  final double boardAspectRatio;
+  final String imageAsset;
+  final double imageAssetWidth;
+  final List<CustomBoardHoldImage> customBoardHoldImages;
+  final double handToBoardHeightRatio;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final String weightUnit;
 
-  int totalSets;
-  int totalHangsPerSet;
-  int currentHangPerSet;
-  int currentSet;
-  int currentHang;
-
-  bool isPastHang;
-  bool isSelected;
-
-  String imageAsset;
-  double imageAssetWidth;
-  List<CustomBoardHoldImage> customBoardHoldImages;
-  double handToBoardHeightRatio;
-  BoardHold leftGripBoardHold;
-  BoardHold rightGripBoardHold;
-  Grip leftGrip;
-  Grip rightGrip;
-  String weightUnit;
-
-  Hang({
+  const Hang({
     @required this.duration,
     @required this.durationInput,
     @required this.addedWeight,
@@ -42,6 +40,7 @@ class Hang {
     @required this.currentHang,
     @required this.isPastHang,
     @required this.isSelected,
+    @required this.boardAspectRatio,
     @required this.imageAsset,
     @required this.imageAssetWidth,
     @required this.customBoardHoldImages,
@@ -65,6 +64,7 @@ class Hang {
     int currentHang,
     bool isPastHang,
     bool isSelected,
+    double boardAspectRatio,
     String imageAsset,
     double imageAssetWidth,
     List<CustomBoardHoldImage> customBoardHoldImages,
@@ -87,6 +87,7 @@ class Hang {
       currentHang: currentHang ?? this.currentHang,
       isPastHang: isPastHang ?? this.isPastHang,
       isSelected: isSelected ?? this.isSelected,
+      boardAspectRatio: boardAspectRatio ?? this.boardAspectRatio,
       imageAsset: imageAsset ?? this.imageAsset,
       imageAssetWidth: imageAssetWidth ?? this.imageAssetWidth,
       customBoardHoldImages:
@@ -114,141 +115,111 @@ class EditedHang {
   });
 }
 
-class EditHangInfo {
-  final int duration;
-  final Board board;
-  final int currentHang;
-  final int currentHangPerSet;
-  final int currentSet;
-  final int totalSets;
-  final int totalHangsPerSet;
-  final WeightSystem weightSystem;
-  final Hold hold;
-
-  const EditHangInfo({
-    @required this.duration,
-    @required this.board,
-    @required this.currentHang,
-    @required this.currentHangPerSet,
-    @required this.currentSet,
-    @required this.totalSets,
-    @required this.weightSystem,
-    @required this.hold,
-    @required this.totalHangsPerSet,
-  });
-}
-
-class _EditedHangInput {
-  final int currentHang;
-  final String durationInput;
-  final String addedWeightInput;
-
-  const _EditedHangInput({
-    @required this.currentHang,
-    @required this.durationInput,
-    @required this.addedWeightInput,
-  });
-
-  _EditedHangInput copyWith({
-    int currentHang,
-    String durationInput,
-    String addedWeightInput,
-  }) {
-    return new _EditedHangInput(
-      currentHang: currentHang ?? this.currentHang,
-      durationInput: durationInput ?? this.durationInput,
-      addedWeightInput: addedWeightInput ?? this.addedWeightInput,
-    );
-  }
-}
-
 class EditHangsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  List<EditHangInfo> _editHangInfoList;
-  List<EditHangInfo> get editHangInfoList => _editHangInfoList;
-  List<_EditedHangInput> _editedHangInputs;
-  _EditedHangInput get _affectedHangInput => _editedHangInputs
-      .firstWhere((input) => input.currentHang == selectedHang);
-  int _nextHang;
-  int get nextHang => _nextHang;
-  int _totalHangs;
-  int get totalHangs => _totalHangs;
-  int get selectedHang => _selectedHangInfo.currentHang;
-  EditHangInfo _selectedHangInfo;
-  EditHangInfo get selectedHangInfo => _selectedHangInfo;
   void Function(List<EditedHang> editedHangs) handleEditedHangs;
-  bool get isPastHang => nextHang > selectedHang;
+
+  List<Hang> _hangs;
+  List<Hang> get hangs => _hangs;
+
+  Hang get selectedHang =>
+      _hangs.firstWhere((Hang hang) => hang.isSelected == true);
+  int get _selectedHangIndex => _hangs.indexOf(selectedHang);
+
+  bool _canScroll;
+  bool get canScroll => _canScroll;
+
+  String get hangText =>
+      'Hang ${selectedHang.currentHangPerSet}/${selectedHang.totalHangsPerSet}';
+  String get setText =>
+      'set ${selectedHang.currentSet}/${selectedHang.totalSets}';
 
   EditHangsDialogViewModel(
-      {List<Hang> hangs,
-      List<EditHangInfo> editHangInfoList,
-      int nextHang,
-      int totalHangs,
-      this.handleEditedHangs}) {
+      {@required List<Hang> hangs, @required this.handleEditedHangs}) {
+    _hangs = hangs;
+    _canScroll = true;
     _navigationService = NavigationService();
-    _editHangInfoList = editHangInfoList;
-    _editedHangInputs = _editHangInfoList
-        .map((EditHangInfo editHangInfo) => _EditedHangInput(
-            currentHang: editHangInfo.currentHang,
-            addedWeightInput: editHangInfo.hold.addedWeight.toString(),
-            durationInput: editHangInfo.duration.toString()))
-        .toList();
-    _totalHangs = totalHangs;
-    _nextHang = nextHang;
-    _selectedHangInfo = _editHangInfoList
-        .firstWhere((EditHangInfo i) => i.currentHang == nextHang);
     notifyListeners();
   }
 
-  void setHangTime(String s) {
-    final _index = _editedHangInputs.indexOf(_affectedHangInput);
-    _editedHangInputs[_index] = _affectedHangInput.copyWith(durationInput: s);
+  void setSelectedHang(int index) {
+    List<Hang> _newHangs = []..addAll(_hangs);
+    _newHangs[_selectedHangIndex] = selectedHang.copyWith(isSelected: false);
+    _newHangs[index] = _newHangs[index].copyWith(isSelected: true);
+    _hangs = _newHangs;
+    notifyListeners();
   }
 
-  void setAddedWeight(String s) {
-    final _index = _editedHangInputs.indexOf(_affectedHangInput);
-    _editedHangInputs[_index] =
-        _affectedHangInput.copyWith(addedWeightInput: s);
+  void setHangTimeInput(String s) {
+    List<Hang> _newHangs = []..addAll(_hangs);
+    _newHangs[_selectedHangIndex] = selectedHang.copyWith(durationInput: s);
+    _hangs = _newHangs;
+    try {
+      final int _duration =
+          InputParsers.parseToInt(string: s, inputField: 'Duration');
+      Validators.biggerOrEqualToZero(value: _duration, inputField: 'Duration');
+      _canScroll = true;
+    } on FormatException {
+      _canScroll = false;
+    } on ParseException {
+      _canScroll = false;
+    }
+    notifyListeners();
   }
 
-  List<EditedHang> _validate() {
-    bool _valid = true;
+  void setAddedWeightInput(String s) {
+    List<Hang> _newHangs = []..addAll(_hangs);
+    _newHangs[_selectedHangIndex] = selectedHang.copyWith(addedWeightInput: s);
+    _hangs = _newHangs;
+    try {
+      InputParsers.parseToDouble(string: s, inputField: 'Added weight');
+      _canScroll = true;
+    } on FormatException {
+      _canScroll = false;
+    } on ParseException {
+      _canScroll = false;
+    }
+    notifyListeners();
+  }
 
-    final List<EditedHang> _editedHangs =
-        _editedHangInputs.map((_EditedHangInput editedHangInput) {
-      final int _duration = InputParsers.parseToInt(
-          string: editedHangInput.durationInput,
-          inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs duration');
+  bool _validate() {
+    final int _duration = InputParsers.parseToInt(
+        string: selectedHang.durationInput, inputField: 'Duration');
 
-      final bool _validDuration = Validators.biggerOrEqualToZero(
-          value: _duration,
-          inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs duration');
+    final bool _validDuration = Validators.biggerOrEqualToZero(
+        value: _duration, inputField: 'Duration');
 
-      final double _addedWeight = InputParsers.parseToDouble(
-          string: editedHangInput.addedWeightInput,
-          inputField:
-              'Hang ${editedHangInput.currentHang}/$totalHangs added weight');
+    final double _addedWeight = InputParsers.parseToDouble(
+        string: selectedHang.addedWeightInput, inputField: 'Added weight');
 
-      if (_addedWeight == null || _validDuration == false) {
-        _valid = false;
-      }
+    final bool _isValid = _addedWeight != null && _validDuration == true;
 
-      return EditedHang(
-          currentHang: editedHangInput.currentHang,
+    if (_isValid == true) {
+      List<Hang> _newHangs = []..addAll(_hangs);
+      _newHangs[_selectedHangIndex] = selectedHang.copyWith(
           duration: _duration,
-          addedWeight: _addedWeight);
-    }).toList();
+          addedWeight: _addedWeight,
+          currentHang: selectedHang.currentHang);
+      _hangs = _newHangs;
+    }
 
-    return _valid == true ? _editedHangs : null;
+    return _isValid;
+  }
+
+  Future<bool> handleScrollAttempt() {
+    return Future.sync(_validate);
   }
 
   Future<bool> handleDone() {
     return Future.sync(() {
-      final List<EditedHang> _editedHangs = _validate();
-
-      if (_editedHangs != null) {
+      final bool _isValid = _validate();
+      if (_isValid == true) {
+        final List<EditedHang> _editedHangs = _hangs
+            .map((Hang hang) => EditedHang(
+                addedWeight: hang.addedWeight,
+                currentHang: hang.currentHang,
+                duration: hang.duration))
+            .toList();
         _navigationService.pop();
         handleEditedHangs(_editedHangs);
         return true;
@@ -256,10 +227,5 @@ class EditHangsDialogViewModel extends ChangeNotifier {
         return false;
       }
     });
-  }
-
-  void setSelectedHang(int index) {
-    _selectedHangInfo = _editHangInfoList[index];
-    notifyListeners();
   }
 }

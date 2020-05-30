@@ -9,16 +9,10 @@ import 'package:flutter/cupertino.dart';
 
 class EditHangsDialog extends StatefulWidget {
   EditHangsDialog(
-      {Key key,
-      @required this.editHangInfoList,
-      @required this.nextHang,
-      @required this.totalHangs,
-      @required this.handleEditedHangs})
+      {Key key, @required this.hangs, @required this.handleEditedHangs})
       : super(key: key);
 
-  final List<EditHangInfo> editHangInfoList;
-  final int nextHang;
-  final int totalHangs;
+  final List<Hang> hangs;
   final void Function(List<EditedHang> editHangs) handleEditedHangs;
 
   @override
@@ -31,10 +25,7 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
   @override
   void initState() {
     _viewModel = EditHangsDialogViewModel(
-        editHangInfoList: widget.editHangInfoList,
-        nextHang: widget.nextHang,
-        totalHangs: widget.totalHangs,
-        handleEditedHangs: widget.handleEditedHangs);
+        hangs: widget.hangs, handleEditedHangs: widget.handleEditedHangs);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }
@@ -51,11 +42,6 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final String _hangText =
-        'hang ${_viewModel.selectedHangInfo.currentHangPerSet}/${_viewModel.selectedHangInfo.totalHangsPerSet}';
-    final String _setText =
-        'set ${_viewModel.selectedHangInfo.currentSet}/${_viewModel.selectedHangInfo.totalSets}';
-
     return WillPopScope(
       onWillPop: () async {
         _viewModel.handleDone();
@@ -86,12 +72,12 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    _hangText,
+                                    _viewModel.hangText,
                                     style: styles.Staatliches.xlBlack,
                                   ),
-                                  if (_viewModel.selectedHangInfo.totalSets > 1)
+                                  if (_viewModel.selectedHang.totalSets > 1)
                                     Text(
-                                      _setText,
+                                      _viewModel.setText,
                                       style: styles.Staatliches.xlBlack,
                                     ),
                                 ],
@@ -99,55 +85,48 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                               Divider(height: styles.Measurements.l),
                               BoardWithGrips(
                                 key: ValueKey(
-                                    'edit-hangs-dialog-board-${_viewModel.selectedHang}'),
-                                boardImageAssetWidth: _viewModel
-                                    .selectedHangInfo.board.imageAssetWidth,
-                                boardImageAsset: _viewModel
-                                    .selectedHangInfo.board.imageAsset,
+                                    'edit-hangs-dialog-board-${_viewModel.selectedHang.currentHang}'),
+                                boardImageAssetWidth:
+                                    _viewModel.selectedHang.imageAssetWidth,
+                                boardImageAsset:
+                                    _viewModel.selectedHang.imageAsset,
                                 customBoardHoldImages: _viewModel
-                                    .selectedHangInfo
-                                    .board
-                                    .customBoardHoldImages
-                                    ?.toList(),
+                                    .selectedHang.customBoardHoldImages,
                                 withFixedHeight: true,
                                 handToBoardHeightRatio: _viewModel
-                                    .selectedHangInfo
-                                    .board
-                                    .handToBoardHeightRatio,
-                                boardAspectRatio: _viewModel
-                                    .selectedHangInfo.board.aspectRatio,
-                                rightGripBoardHold: _viewModel
-                                    .selectedHangInfo.hold.rightGripBoardHold,
-                                leftGripBoardHold: _viewModel
-                                    .selectedHangInfo.hold.leftGripBoardHold,
-                                leftGrip:
-                                    _viewModel.selectedHangInfo.hold.leftGrip,
-                                rightGrip:
-                                    _viewModel.selectedHangInfo.hold.rightGrip,
+                                    .selectedHang.handToBoardHeightRatio,
+                                boardAspectRatio:
+                                    _viewModel.selectedHang.boardAspectRatio,
+                                rightGripBoardHold:
+                                    _viewModel.selectedHang.rightGripBoardHold,
+                                leftGripBoardHold:
+                                    _viewModel.selectedHang.leftGripBoardHold,
+                                leftGrip: _viewModel.selectedHang.leftGrip,
+                                rightGrip: _viewModel.selectedHang.rightGrip,
                               ),
                               NumberInputAndDescription<int>(
                                 key: ValueKey(
-                                    'edit-hangs-dialog-duration-input-${_viewModel.selectedHang}'),
+                                    'edit-hangs-dialog-duration-input-${_viewModel.selectedHang.currentHang}'),
                                 enabled: true,
-                                description: _viewModel.isPastHang
+                                description: _viewModel.selectedHang.isPastHang
                                     ? 'effective hung seconds'
                                     : 'hang time seconds',
-                                handleValueChanged: _viewModel.setHangTime,
-                                initialValue:
-                                    _viewModel.selectedHangInfo.duration,
+                                handleValueChanged: _viewModel.setHangTimeInput,
+                                initialValue: _viewModel.selectedHang.duration,
                               ),
                               Divider(
                                 height: styles.Measurements.m,
                               ),
                               NumberInputAndDescription<double>(
                                 key: ValueKey(
-                                    'edit-hangs-dialog-added-weight-input-${_viewModel.selectedHang}'),
+                                    'edit-hangs-dialog-added-weight-input-${_viewModel.selectedHang.currentHang}'),
                                 enabled: true,
                                 description:
-                                    '${_viewModel.selectedHangInfo.weightSystem.unit} added weight',
-                                handleValueChanged: _viewModel.setAddedWeight,
-                                initialValue: _viewModel
-                                    .selectedHangInfo.hold.addedWeight,
+                                    '${_viewModel.selectedHang.weightUnit} added weight',
+                                handleValueChanged:
+                                    _viewModel.setAddedWeightInput,
+                                initialValue:
+                                    _viewModel.selectedHang.addedWeight,
                               ),
                             ],
                           ),
@@ -162,19 +141,16 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                           ),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                print('tapped');
-                              },
-                              onVerticalDragEnd: (DragEndDetails details) {
-                                print('scrolling');
+                              onTap: _viewModel.handleScrollAttempt,
+                              onVerticalDragDown: (DragDownDetails _) {
+                                _viewModel.handleScrollAttempt();
                               },
                               child: AbsorbPointer(
-                                absorbing: false,
+                                absorbing: !_viewModel.canScroll,
                                 child: CupertinoPicker(
                                   scrollController: FixedExtentScrollController(
-                                      initialItem: _viewModel.editHangInfoList
-                                          .indexOf(
-                                              _viewModel.selectedHangInfo)),
+                                      initialItem: _viewModel.hangs
+                                          .indexOf(_viewModel.selectedHang)),
                                   useMagnifier: false,
                                   magnification: 1,
                                   backgroundColor: styles.Colors.bgWhite,
@@ -182,21 +158,16 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                       _viewModel.setSelectedHang,
                                   itemExtent: 40,
                                   children: <Widget>[
-                                    ..._viewModel.editHangInfoList.map(
-                                        (EditHangInfo editHangInfo) => HangRow(
-                                              currentHangPerSet: editHangInfo
-                                                  .currentHangPerSet,
-                                              totalHangsPerSet:
-                                                  editHangInfo.totalHangsPerSet,
-                                              currentSet:
-                                                  editHangInfo.currentSet,
-                                              totalSets: editHangInfo.totalSets,
-                                              isPastHang: _viewModel.nextHang >
-                                                  editHangInfo.currentHang,
-                                              isSelectedHang:
-                                                  _viewModel.nextHang ==
-                                                      editHangInfo.currentHang,
-                                            ))
+                                    ..._viewModel.hangs.map((Hang hang) =>
+                                        HangRow(
+                                            currentHangPerSet:
+                                                hang.currentHangPerSet,
+                                            totalHangsPerSet:
+                                                hang.totalHangsPerSet,
+                                            currentSet: hang.currentSet,
+                                            totalSets: hang.totalSets,
+                                            isPastHang: hang.isPastHang,
+                                            isSelectedHang: hang.isSelected))
                                   ],
                                 ),
                               ),
@@ -238,64 +209,56 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                       width: constraints.maxWidth / 1.5,
                                       child: BoardWithGrips(
                                         key: ValueKey(
-                                            'edit-hangs-dialog-board-${_viewModel.selectedHang}'),
+                                            'edit-hangs-dialog-board-${_viewModel.selectedHang.currentHang}'),
                                         boardImageAssetWidth: _viewModel
-                                            .selectedHangInfo
-                                            .board
-                                            .imageAssetWidth,
-                                        boardImageAsset: _viewModel
-                                            .selectedHangInfo.board.imageAsset,
+                                            .selectedHang.imageAssetWidth,
+                                        boardImageAsset:
+                                            _viewModel.selectedHang.imageAsset,
                                         customBoardHoldImages: _viewModel
-                                            .selectedHangInfo
-                                            .board
-                                            .customBoardHoldImages
-                                            ?.toList(),
+                                            .selectedHang.customBoardHoldImages,
                                         withFixedHeight: true,
                                         handToBoardHeightRatio: _viewModel
-                                            .selectedHangInfo
-                                            .board
+                                            .selectedHang
                                             .handToBoardHeightRatio,
                                         boardAspectRatio: _viewModel
-                                            .selectedHangInfo.board.aspectRatio,
+                                            .selectedHang.boardAspectRatio,
                                         rightGripBoardHold: _viewModel
-                                            .selectedHangInfo
-                                            .hold
-                                            .rightGripBoardHold,
+                                            .selectedHang.rightGripBoardHold,
                                         leftGripBoardHold: _viewModel
-                                            .selectedHangInfo
-                                            .hold
-                                            .leftGripBoardHold,
-                                        leftGrip: _viewModel
-                                            .selectedHangInfo.hold.leftGrip,
-                                        rightGrip: _viewModel
-                                            .selectedHangInfo.hold.rightGrip,
+                                            .selectedHang.leftGripBoardHold,
+                                        leftGrip:
+                                            _viewModel.selectedHang.leftGrip,
+                                        rightGrip:
+                                            _viewModel.selectedHang.rightGrip,
                                       ),
                                     );
                                   }),
                                   NumberInputAndDescription<int>(
                                     key: ValueKey(
-                                        'edit-hangs-dialog-duration-input-landscape-${_viewModel.selectedHang}'),
+                                        'edit-hangs-dialog-duration-input-landscape-${_viewModel.selectedHang.currentHang}'),
                                     enabled: true,
-                                    description: _viewModel.isPastHang
-                                        ? 'effective hung seconds'
-                                        : 'hang time seconds',
-                                    handleValueChanged: _viewModel.setHangTime,
+                                    description:
+                                        _viewModel.selectedHang.isPastHang
+                                            ? 'effective hung seconds'
+                                            : 'hang time seconds',
+                                    handleValueChanged:
+                                        _viewModel.setHangTimeInput,
                                     initialValue:
-                                        _viewModel.selectedHangInfo.duration,
+                                        _viewModel.selectedHang.duration,
                                   ),
                                   Divider(
                                     height: styles.Measurements.m,
                                   ),
                                   NumberInputAndDescription<double>(
                                     key: ValueKey(
-                                        'edit-hangs-dialog-added-weight-input-landscape-${_viewModel.selectedHang}'),
+                                        'edit-hangs-dialog-added-weight-input-landscape-${_viewModel.selectedHang.currentHang}'),
                                     enabled: true,
                                     description:
-                                        '${_viewModel.selectedHangInfo.weightSystem.unit} added weight',
+                                        '${_viewModel.selectedHang.weightUnit} added weight',
                                     handleValueChanged:
-                                        _viewModel.setAddedWeight,
-                                    initialValue: _viewModel
-                                        .selectedHangInfo.hold.addedWeight,
+                                        _viewModel.setAddedWeightInput,
+                                    initialValue:
+                                        _viewModel.selectedHang.addedWeight,
                                   ),
                                 ],
                               ),
@@ -310,10 +273,9 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                   child: CupertinoPicker(
                                     scrollController:
                                         FixedExtentScrollController(
-                                            initialItem: _viewModel
-                                                .editHangInfoList
-                                                .indexOf(_viewModel
-                                                    .selectedHangInfo)),
+                                            initialItem: _viewModel.hangs
+                                                .indexOf(
+                                                    _viewModel.selectedHang)),
                                     useMagnifier: false,
                                     magnification: 1,
                                     backgroundColor: styles.Colors.bgWhite,
@@ -321,24 +283,16 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                         _viewModel.setSelectedHang,
                                     itemExtent: 40,
                                     children: <Widget>[
-                                      ..._viewModel.editHangInfoList.map(
-                                          (EditHangInfo editHangInfo) =>
-                                              HangRow(
-                                                currentHangPerSet: editHangInfo
-                                                    .currentHangPerSet,
-                                                totalHangsPerSet: editHangInfo
-                                                    .totalHangsPerSet,
-                                                currentSet:
-                                                    editHangInfo.currentSet,
-                                                totalSets:
-                                                    editHangInfo.totalSets,
-                                                isPastHang: _viewModel
-                                                        .nextHang >
-                                                    editHangInfo.currentHang,
-                                                isSelectedHang: _viewModel
-                                                        .nextHang ==
-                                                    editHangInfo.currentHang,
-                                              ))
+                                      ..._viewModel.hangs.map((Hang hang) =>
+                                          HangRow(
+                                              currentHangPerSet:
+                                                  hang.currentHangPerSet,
+                                              totalHangsPerSet:
+                                                  hang.totalHangsPerSet,
+                                              currentSet: hang.currentSet,
+                                              totalSets: hang.totalSets,
+                                              isPastHang: hang.isPastHang,
+                                              isSelectedHang: hang.isSelected))
                                     ],
                                   ),
                                 )

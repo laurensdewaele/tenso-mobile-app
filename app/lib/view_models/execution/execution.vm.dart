@@ -23,7 +23,7 @@ class ExecutionViewModel {
   List<ExecutionEvent> _hangTimes = [];
   Stopwatch _elapsedTimer;
   bool _isPaused;
-  List<EditHangInfo> get editHangInfoList => _getEditHangInfoList();
+  List<Hang> get hangs => _getHangs();
   int get totalHangs => _workout.totalHangs;
 
   BehaviorSubject<ExecutionViewModelState> _state$;
@@ -57,21 +57,33 @@ class ExecutionViewModel {
     _start();
   }
 
-  List<EditHangInfo> _getEditHangInfoList() {
+  List<Hang> _getHangs() {
     final List<SequenceEvent> _hangEvents = _sequence
         .where((SequenceEvent e) => e.type == ExecutionEventType.hangTimer)
         .toList();
     return _hangEvents.map((SequenceEvent e) {
-      return EditHangInfo(
+      return Hang(
+        duration: e.duration,
+        durationInput: e.duration.toString(),
+        addedWeight: e.hold.addedWeight,
+        addedWeightInput: e.hold.addedWeight.toString(),
+        totalSets: e.totalSets,
         totalHangsPerSet: e.totalHangsPerSet,
         currentHangPerSet: e.currentHangPerSet,
         currentSet: e.currentSet,
-        totalSets: e.totalSets,
-        hold: e.hold,
-        duration: e.duration,
         currentHang: e.currentHang,
-        weightSystem: e.weightSystem,
-        board: e.board,
+        isSelected: e.currentHang == state.currentHang,
+        isPastHang: e.currentHang < state.currentHang,
+        boardAspectRatio: e.board.aspectRatio,
+        rightGrip: e.hold.rightGrip,
+        leftGrip: e.hold.leftGrip,
+        leftGripBoardHold: e.hold.leftGripBoardHold,
+        rightGripBoardHold: e.hold.rightGripBoardHold,
+        handToBoardHeightRatio: e.board.handToBoardHeightRatio,
+        customBoardHoldImages: e.board.customBoardHoldImages?.toList(),
+        imageAsset: e.board.imageAsset,
+        weightUnit: e.weightSystem.unit,
+        imageAssetWidth: e.board.imageAssetWidth,
       );
     }).toList();
   }

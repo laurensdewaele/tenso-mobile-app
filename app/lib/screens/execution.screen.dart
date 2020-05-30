@@ -78,9 +78,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
           fullWidth: true,
           context: context,
           content: EditHangsDialog(
-            totalHangs: _viewModel.totalHangs,
-            editHangInfoList: _viewModel.editHangInfoList,
-            nextHang: _viewModel.state.currentHang,
+            hangs: _viewModel.hangs,
             handleEditedHangs: _viewModel.handleEditedHangs,
           ),
           smallWidth: false);
