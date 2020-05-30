@@ -8,8 +8,8 @@ import 'package:app/widgets/icons.dart' as icons;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 
-class Portrait extends StatefulWidget {
-  Portrait({
+class ExecutionPortrait extends StatelessWidget {
+  ExecutionPortrait({
     Key key,
     @required this.handleReadyTap,
     @required this.isStopwatch,
@@ -49,32 +49,17 @@ class Portrait extends StatefulWidget {
   final String title;
 
   @override
-  __PortraitContentState createState() => __PortraitContentState();
-}
-
-class __PortraitContentState extends State<Portrait> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final String _currentSet = widget.currentSet.toString();
-    final String _totalSets = widget.totalSets.toString();
-    final String _titleText = widget.title;
-    final String _addedWeight = widget.addedWeight.toString();
-    final String _addedWeightPrefix = widget.addedWeight > 0 ? '+' : '';
+    final String _currentSet = currentSet.toString();
+    final String _totalSets = totalSets.toString();
+    final String _titleText = title;
+    final String _addedWeight = addedWeight.toString();
+    final String _addedWeightPrefix = addedWeight > 0 ? '+' : '';
 
-    final Widget _topWidget = widget.isStopwatch
+    final Widget _topWidget = isStopwatch
         ? Button(
             text: 'ready',
-            handleTap: widget.handleReadyTap,
+            handleTap: handleReadyTap,
             backgroundColor: styles.Colors.blue,
             leadingIcon: icons.playIconWhiteL)
         : Text(
@@ -96,14 +81,14 @@ class __PortraitContentState extends State<Portrait> {
               Expanded(
                 child: Center(
                   child: AutoSizeText(
-                    widget.seconds.toString(),
+                    seconds.toString(),
                     style: styles.Staatliches.countdownTimer,
                   ),
                 ),
               ),
               Column(children: [
                 Text(
-                  widget.holdLabel,
+                  holdLabel,
                   style: styles.Staatliches.mWhite,
                 ),
                 Divider(
@@ -112,9 +97,9 @@ class __PortraitContentState extends State<Portrait> {
                 LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                     final double _boardHeight =
-                        constraints.maxWidth / widget.board.aspectRatio;
+                        constraints.maxWidth / board.aspectRatio;
                     final _gripHeight =
-                        _boardHeight * widget.board.handToBoardHeightRatio;
+                        _boardHeight * board.handToBoardHeightRatio;
                     final _boardWithGripsHeight = _boardHeight + _gripHeight;
                     return Container(
                       height: _boardWithGripsHeight,
@@ -124,19 +109,18 @@ class __PortraitContentState extends State<Portrait> {
                           BoardWithGrips(
                             withFixedHeight: false,
                             handToBoardHeightRatio:
-                                widget.board.handToBoardHeightRatio,
-                            boardAspectRatio: widget.board.aspectRatio,
-                            boardImageAssetWidth: widget.board.imageAssetWidth,
+                                board.handToBoardHeightRatio,
+                            boardAspectRatio: board.aspectRatio,
+                            boardImageAssetWidth: board.imageAssetWidth,
                             customBoardHoldImages:
-                                widget.board.customBoardHoldImages?.toList(),
-                            boardImageAsset: widget.board.imageAsset,
-                            leftGripBoardHold: widget.leftGripBoardHold,
-                            rightGripBoardHold: widget.rightGripBoardHold,
-                            rightGrip: widget.rightGrip,
-                            leftGrip: widget.leftGrip,
+                                board.customBoardHoldImages?.toList(),
+                            boardImageAsset: board.imageAsset,
+                            leftGripBoardHold: leftGripBoardHold,
+                            rightGripBoardHold: rightGripBoardHold,
+                            rightGrip: rightGrip,
+                            leftGrip: leftGrip,
                           ),
-                          if (widget.addedWeight != null &&
-                              widget.addedWeight != 0.0)
+                          if (addedWeight != null && addedWeight != 0.0)
                             Container(
                               height: _boardWithGripsHeight,
                               width: double.infinity,
@@ -151,7 +135,7 @@ class __PortraitContentState extends State<Portrait> {
                                           vertical: styles.Measurements.xs,
                                           horizontal: styles.Measurements.m),
                                       child: Text(
-                                        '$_addedWeightPrefix $_addedWeight ${widget.weightSystem.unit}',
+                                        '$_addedWeightPrefix $_addedWeight ${weightSystem.unit}',
                                         style: styles.Staatliches.xlWhite,
                                         textAlign: TextAlign.center,
                                       ))),
@@ -172,19 +156,19 @@ class __PortraitContentState extends State<Portrait> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              if (widget.totalSets > 1)
+              if (totalSets > 1)
                 Text(
                   'set $_currentSet / $_totalSets',
                   style: styles.Staatliches.mWhite,
                 ),
-              if (widget.totalSets > 1)
+              if (totalSets > 1)
                 Divider(
                   height: styles.Measurements.m,
                 ),
               IndicatorTabs(
-                count: widget.totalHangsPerSet,
-                active: widget.currentHangPerSet,
-                primaryColor: widget.primaryColor,
+                count: totalHangsPerSet,
+                active: currentHangPerSet,
+                primaryColor: primaryColor,
               ),
             ],
           ),

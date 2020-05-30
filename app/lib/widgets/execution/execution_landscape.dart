@@ -9,8 +9,8 @@ import 'package:app/widgets/icons.dart' as icons;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 
-class Landscape extends StatelessWidget {
-  Landscape({
+class ExecutionLandscape extends StatelessWidget {
+  ExecutionLandscape({
     Key key,
     @required this.seconds,
     @required this.handleReadyTap,

@@ -3,6 +3,12 @@
 ### Edit hangs.
 - Refactor execution_vm! Generate list of hangs when creating workout? => await Svanhild.
 
+  -Abstract the history + hangTime history into another class.
+  -Rename SequenceEvent to SequenceTimer/ExecutionTimer?
+  -Create new class HistoryEvent.
+  -Let ExecutionViewModelState (rename to ExecutionState) extend SequenceTimer?
+  
+
 - Custom boards in horizontal scroll view.
 - History (calendar) update times.
 - Edit hung values on completion, new button next to rate workout.

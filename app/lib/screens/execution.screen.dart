@@ -8,8 +8,8 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/execution/edit_hangs_dialog.dart';
-import 'package:app/widgets/execution/landscape.dart';
-import 'package:app/widgets/execution/portrait.dart';
+import 'package:app/widgets/execution/execution_landscape.dart';
+import 'package:app/widgets/execution/execution_portrait.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -122,7 +122,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                         child: LayoutBuilder(
                           builder: (context, constraints) {
                             if (_orientation == Orientation.portrait) {
-                              return Portrait(
+                              return ExecutionPortrait(
                                 handleReadyTap: _viewModel.handleReadyTap,
                                 isStopwatch: _state.isStopwatch,
                                 title: _state.title,
@@ -142,7 +142,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                                 addedWeight: _state.addedWeight,
                               );
                             } else {
-                              return Landscape(
+                              return ExecutionLandscape(
                                 seconds: _state.seconds,
                                 handleReadyTap: _viewModel.handleReadyTap,
                                 isStopwatch: _state.isStopwatch,
