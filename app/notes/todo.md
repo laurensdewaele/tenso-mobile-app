@@ -3,13 +3,21 @@
 ### Edit hangs.
 - Edit sequence
 
+- Edit inputs don't keep state when changing.
+  Solutions: 
+  - Not scrolling
+  
+  
 - Edit hung values on completion, new button next to rate workout.
-- landscape edit hangs
 
 - Background toast is weird.
 - List of custom boards in a horzontal scroll view. with edit and delete buttons under it
-- Look to refactor
 - History update times
+
+#### Refactor
+
+Generate list of hangs when creating workout?
+Rename holds to different hang grips
 
 ### Triage
 - Show history with pauses included, skip buttons etc. 

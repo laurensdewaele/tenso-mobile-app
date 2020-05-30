@@ -27,7 +27,7 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
         ExpandedContentTile(
           title: 'body weight',
           content: Text(
-            '${completedWorkout.bodyWeight} ${completedWorkout.workout.weightUnit.unit}',
+            '${completedWorkout.bodyWeight} ${completedWorkout.workout.weightSystem.unit}',
             textAlign: TextAlign.center,
             style: styles.Lato.xsGray,
           ),

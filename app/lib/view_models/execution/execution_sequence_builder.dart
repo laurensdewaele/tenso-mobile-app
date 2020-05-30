@@ -28,7 +28,7 @@ class SequenceEvent {
   final int totalHangsPerSet;
   final int currentHangPerSet;
   final int currentHang;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
 
   const SequenceEvent({
     @required this.type,
@@ -46,7 +46,7 @@ class SequenceEvent {
     @required this.totalHangsPerSet,
     @required this.currentHangPerSet,
     @required this.currentHang,
-    @required this.weightUnit,
+    @required this.weightSystem,
   });
 
   SequenceEvent copyWith({
@@ -65,7 +65,7 @@ class SequenceEvent {
     int totalHangsPerSet,
     int currentHangPerSet,
     int currentHang,
-    WeightSystem weightUnit,
+    WeightSystem weightSystem,
   }) {
     return new SequenceEvent(
       type: type ?? this.type,
@@ -83,7 +83,7 @@ class SequenceEvent {
       totalHangsPerSet: totalHangsPerSet ?? this.totalHangsPerSet,
       currentHangPerSet: currentHangPerSet ?? this.currentHangPerSet,
       currentHang: currentHang ?? this.currentHang,
-      weightUnit: weightUnit ?? this.weightUnit,
+      weightSystem: weightSystem ?? this.weightSystem,
     );
   }
 }
@@ -105,7 +105,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         endSound: _settings.hangSound,
         beepSound: _settings.beepSound,
         beepsBeforeEnd: _settings.beepsBeforeHang,
-        weightUnit: _workout.weightUnit,
+        weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.preparation,
         holdLabel:
@@ -131,7 +131,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
-          weightUnit: _workout.weightUnit,
+          weightSystem: workout.weightSystem,
           primaryColor: styles.Colors.primary,
           title: _ExecutionTitles.hang,
           holdLabel: 'hang $currentHangPerSet/${workout.totalHangsPerSet}',
@@ -157,7 +157,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightUnit: _workout.weightUnit,
+          weightSystem: workout.weightSystem,
           primaryColor: styles.Colors.blue,
           title: _ExecutionTitles.recoveryRest,
           holdLabel:
@@ -184,7 +184,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightUnit: _workout.weightUnit,
+          weightSystem: workout.weightSystem,
           primaryColor: styles.Colors.blue,
           title: _ExecutionTitles.recoveryRest,
           holdLabel:

@@ -25,7 +25,7 @@ class ExecutionViewModelState {
   final int totalHangsPerSet;
   final int currentHangPerSet;
   final int currentHang;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   final double addedWeight;
 
   const ExecutionViewModelState({
@@ -48,7 +48,7 @@ class ExecutionViewModelState {
     @required this.totalSets,
     @required this.currentSet,
     @required this.totalHangsPerSet,
-    @required this.weightUnit,
+    @required this.weightSystem,
     @required this.addedWeight,
     @required this.currentHangPerSet,
     @required this.currentHang,
@@ -81,7 +81,7 @@ class ExecutionViewModelState {
           totalHangsPerSet == other.totalHangsPerSet &&
           currentHangPerSet == other.currentHangPerSet &&
           currentHang == other.currentHang &&
-          weightUnit == other.weightUnit &&
+          weightSystem == other.weightSystem &&
           addedWeight == other.addedWeight;
 
   @override
@@ -107,6 +107,6 @@ class ExecutionViewModelState {
       totalHangsPerSet.hashCode ^
       currentHangPerSet.hashCode ^
       currentHang.hashCode ^
-      weightUnit.hashCode ^
+      weightSystem.hashCode ^
       addedWeight.hashCode;
 }

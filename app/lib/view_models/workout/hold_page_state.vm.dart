@@ -7,7 +7,7 @@ class HoldPageState {
   final bool inputsEnabled;
   final Color primaryColor;
   final TextStyle textPrimaryColor;
-  final String weightUnitDescription;
+  final String weightUnit;
 
   final int totalHolds;
   final int currentHold;
@@ -37,7 +37,7 @@ class HoldPageState {
     @required this.inputsEnabled,
     @required this.primaryColor,
     @required this.textPrimaryColor,
-    @required this.weightUnitDescription,
+    @required this.weightUnit,
     @required this.currentHold,
     @required this.totalHolds,
     @required this.handHold,
@@ -62,7 +62,7 @@ class HoldPageState {
     bool inputsEnabled,
     Color primaryColor,
     TextStyle textPrimaryColor,
-    String weightUnitDescription,
+    String weightUnit,
     int currentHold,
     int totalHolds,
     HandHold handHold,
@@ -86,8 +86,7 @@ class HoldPageState {
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,
       primaryColor: primaryColor ?? this.primaryColor,
       textPrimaryColor: textPrimaryColor ?? this.textPrimaryColor,
-      weightUnitDescription:
-          weightUnitDescription ?? this.weightUnitDescription,
+      weightUnit: weightUnit ?? this.weightUnit,
       currentHold: currentHold ?? this.currentHold,
       totalHolds: totalHolds ?? this.totalHolds,
       handHold: handHold ?? this.handHold,

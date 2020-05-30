@@ -39,8 +39,8 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
       'beepsBeforeRest',
       serializers.serialize(object.beepsBeforeRest,
           specifiedType: const FullType(int)),
-      'weightUnit',
-      serializers.serialize(object.weightUnit,
+      'weightSystem',
+      serializers.serialize(object.weightSystem,
           specifiedType: const FullType(WeightSystem)),
       'tempUnit',
       serializers.serialize(object.tempUnit,
@@ -89,8 +89,8 @@ class _$SettingsSerializer implements StructuredSerializer<Settings> {
           result.beepsBeforeRest = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'weightUnit':
-          result.weightUnit = serializers.deserialize(value,
+        case 'weightSystem':
+          result.weightSystem = serializers.deserialize(value,
               specifiedType: const FullType(WeightSystem)) as WeightSystem;
           break;
         case 'tempUnit':
@@ -120,7 +120,7 @@ class _$Settings extends Settings {
   @override
   final int beepsBeforeRest;
   @override
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   @override
   final TempUnit tempUnit;
 
@@ -135,7 +135,7 @@ class _$Settings extends Settings {
       this.restSound,
       this.beepsBeforeHang,
       this.beepsBeforeRest,
-      this.weightUnit,
+      this.weightSystem,
       this.tempUnit})
       : super._() {
     if (defaultBoard == null) {
@@ -159,8 +159,8 @@ class _$Settings extends Settings {
     if (beepsBeforeRest == null) {
       throw new BuiltValueNullFieldError('Settings', 'beepsBeforeRest');
     }
-    if (weightUnit == null) {
-      throw new BuiltValueNullFieldError('Settings', 'weightUnit');
+    if (weightSystem == null) {
+      throw new BuiltValueNullFieldError('Settings', 'weightSystem');
     }
     if (tempUnit == null) {
       throw new BuiltValueNullFieldError('Settings', 'tempUnit');
@@ -185,7 +185,7 @@ class _$Settings extends Settings {
         restSound == other.restSound &&
         beepsBeforeHang == other.beepsBeforeHang &&
         beepsBeforeRest == other.beepsBeforeRest &&
-        weightUnit == other.weightUnit &&
+        weightSystem == other.weightSystem &&
         tempUnit == other.tempUnit;
   }
 
@@ -205,7 +205,7 @@ class _$Settings extends Settings {
                         restSound.hashCode),
                     beepsBeforeHang.hashCode),
                 beepsBeforeRest.hashCode),
-            weightUnit.hashCode),
+            weightSystem.hashCode),
         tempUnit.hashCode));
   }
 
@@ -219,7 +219,7 @@ class _$Settings extends Settings {
           ..add('restSound', restSound)
           ..add('beepsBeforeHang', beepsBeforeHang)
           ..add('beepsBeforeRest', beepsBeforeRest)
-          ..add('weightUnit', weightUnit)
+          ..add('weightSystem', weightSystem)
           ..add('tempUnit', tempUnit))
         .toString();
   }
@@ -260,9 +260,10 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
   set beepsBeforeRest(int beepsBeforeRest) =>
       _$this._beepsBeforeRest = beepsBeforeRest;
 
-  WeightSystem _weightUnit;
-  WeightSystem get weightUnit => _$this._weightUnit;
-  set weightUnit(WeightSystem weightUnit) => _$this._weightUnit = weightUnit;
+  WeightSystem _weightSystem;
+  WeightSystem get weightSystem => _$this._weightSystem;
+  set weightSystem(WeightSystem weightSystem) =>
+      _$this._weightSystem = weightSystem;
 
   TempUnit _tempUnit;
   TempUnit get tempUnit => _$this._tempUnit;
@@ -279,7 +280,7 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
       _restSound = _$v.restSound?.toBuilder();
       _beepsBeforeHang = _$v.beepsBeforeHang;
       _beepsBeforeRest = _$v.beepsBeforeRest;
-      _weightUnit = _$v.weightUnit;
+      _weightSystem = _$v.weightSystem;
       _tempUnit = _$v.tempUnit;
       _$v = null;
     }
@@ -312,7 +313,7 @@ class SettingsBuilder implements Builder<Settings, SettingsBuilder> {
               restSound: restSound.build(),
               beepsBeforeHang: beepsBeforeHang,
               beepsBeforeRest: beepsBeforeRest,
-              weightUnit: weightUnit,
+              weightSystem: weightSystem,
               tempUnit: tempUnit);
     } catch (_) {
       String _$failedField;

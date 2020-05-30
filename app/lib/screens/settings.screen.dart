@@ -142,14 +142,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         value: WeightSystem.metric,
                                         active: _viewModel.isMetricActive,
                                         handleSelected:
-                                            _viewModel.setWeightUnit,
+                                            _viewModel.setWeightSystem,
                                       ),
                                       RadioButton<WeightSystem>(
                                         description: 'Imperial (pounds)',
                                         value: WeightSystem.imperial,
                                         active: _viewModel.isImperialActive,
                                         handleSelected:
-                                            _viewModel.setWeightUnit,
+                                            _viewModel.setWeightSystem,
                                       ),
                                     ],
                                   ),

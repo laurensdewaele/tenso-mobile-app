@@ -181,7 +181,7 @@ class _HoldPageState extends State<HoldPage> {
                           'hold-page-added_weight-${_state.currentHoldIndex}'),
                       enabled: _state.inputsEnabled,
                       primaryColor: _state.primaryColor,
-                      description: _state.weightUnitDescription,
+                      description: _state.weightUnit,
                       handleValueChanged: _viewModel.setAddedWeight,
                       initialValue: _state.addedWeight,
                     ),

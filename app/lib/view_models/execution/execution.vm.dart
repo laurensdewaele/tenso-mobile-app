@@ -70,7 +70,7 @@ class ExecutionViewModel {
         hold: e.hold,
         duration: e.duration,
         currentHang: e.currentHang,
-        weightUnit: e.weightUnit,
+        weightSystem: e.weightSystem,
         board: e.board,
       );
     }).toList();
@@ -116,7 +116,7 @@ class ExecutionViewModel {
       currentSet: _sequence[_currentSequenceIndex].currentSet,
       totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
       currentHangPerSet: _sequence[_currentSequenceIndex].currentHangPerSet,
-      weightUnit: _sequence[_currentSequenceIndex].weightUnit,
+      weightSystem: _sequence[_currentSequenceIndex].weightSystem,
       addedWeight: _sequence[_currentSequenceIndex].hold.addedWeight,
     );
   }

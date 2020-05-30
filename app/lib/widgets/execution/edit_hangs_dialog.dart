@@ -28,7 +28,7 @@ class EditHangInfo {
   final int currentSet;
   final int totalSets;
   final int totalHangsPerSet;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   final Hold hold;
 
   const EditHangInfo({
@@ -38,7 +38,7 @@ class EditHangInfo {
     @required this.currentHangPerSet,
     @required this.currentSet,
     @required this.totalSets,
-    @required this.weightUnit,
+    @required this.weightSystem,
     @required this.hold,
     @required this.totalHangsPerSet,
   });
@@ -118,21 +118,6 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    _hangText,
-                                    style: styles.Staatliches.xlBlack,
-                                  ),
-                                  if (_viewModel.selectedHangInfo.totalSets > 1)
-                                    Text(
-                                      _setText,
-                                      style: styles.Staatliches.xlBlack,
-                                    ),
-                                ],
-                              ),
                               Divider(height: styles.Measurements.l),
                               BoardWithGrips(
                                 key: ValueKey(
@@ -184,7 +169,7 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                     'edit-hangs-dialog-added-weight-input-${_viewModel.selectedHang}'),
                                 enabled: true,
                                 description:
-                                    '${_viewModel.selectedHangInfo.weightUnit.unit} added weight',
+                                    '${_viewModel.selectedHangInfo.weightSystem.unit} added weight',
                                 handleValueChanged: _viewModel.setAddedWeight,
                                 initialValue: _viewModel
                                     .selectedHangInfo.hold.addedWeight,
@@ -201,32 +186,48 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                 BoxDecoration(color: styles.Colors.lighestGray),
                           ),
                           Expanded(
-                            child: CupertinoPicker(
-                              scrollController: FixedExtentScrollController(
-                                  initialItem: _viewModel.editHangInfoList
-                                      .indexOf(_viewModel.selectedHangInfo)),
-                              useMagnifier: false,
-                              magnification: 1,
-                              backgroundColor: styles.Colors.bgWhite,
-                              onSelectedItemChanged: _viewModel.setSelectedHang,
-                              itemExtent: 40,
-                              children: <Widget>[
-                                ..._viewModel.editHangInfoList
-                                    .map((EditHangInfo editHangInfo) => HangRow(
-                                          currentHangPerSet:
-                                              editHangInfo.currentHangPerSet,
-                                          totalHangsPerSet:
-                                              editHangInfo.totalHangsPerSet,
-                                          currentSet: editHangInfo.currentSet,
-                                          totalSets: editHangInfo.totalSets,
-                                          totalHangs: _viewModel.totalHangs,
-                                          currentHang: editHangInfo.currentHang,
-                                          isPastHang: _viewModel.nextHang >
-                                              editHangInfo.currentHang,
-                                          isSelectedHang: _viewModel.nextHang ==
-                                              editHangInfo.currentHang,
-                                        ))
-                              ],
+                            child: GestureDetector(
+                              onTap: () {
+                                print('tapped');
+                              },
+                              onVerticalDragEnd: (DragEndDetails details) {
+                                print('scrolling');
+                              },
+                              child: AbsorbPointer(
+                                absorbing: false,
+                                child: CupertinoPicker(
+                                  scrollController: FixedExtentScrollController(
+                                      initialItem: _viewModel.editHangInfoList
+                                          .indexOf(
+                                              _viewModel.selectedHangInfo)),
+                                  useMagnifier: false,
+                                  magnification: 1,
+                                  backgroundColor: styles.Colors.bgWhite,
+                                  onSelectedItemChanged:
+                                      _viewModel.setSelectedHang,
+                                  itemExtent: 40,
+                                  children: <Widget>[
+                                    ..._viewModel.editHangInfoList.map(
+                                        (EditHangInfo editHangInfo) => HangRow(
+                                              currentHangPerSet: editHangInfo
+                                                  .currentHangPerSet,
+                                              totalHangsPerSet:
+                                                  editHangInfo.totalHangsPerSet,
+                                              currentSet:
+                                                  editHangInfo.currentSet,
+                                              totalSets: editHangInfo.totalSets,
+                                              totalHangs: _viewModel.totalHangs,
+                                              currentHang:
+                                                  editHangInfo.currentHang,
+                                              isPastHang: _viewModel.nextHang >
+                                                  editHangInfo.currentHang,
+                                              isSelectedHang:
+                                                  _viewModel.nextHang ==
+                                                      editHangInfo.currentHang,
+                                            ))
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                           Container(
@@ -316,7 +317,7 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
                                       'edit-hangs-dialog-added-weight-input-landscape-${_viewModel.selectedHang}'),
                                   enabled: true,
                                   description:
-                                      '${_viewModel.selectedHangInfo.weightUnit.unit} added weight',
+                                      '${_viewModel.selectedHangInfo.weightSystem.unit} added weight',
                                   handleValueChanged: _viewModel.setAddedWeight,
                                   initialValue: _viewModel
                                       .selectedHangInfo.hold.addedWeight,

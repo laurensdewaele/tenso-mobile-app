@@ -65,8 +65,8 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void _setRadioButtons() {
-    isMetricActive = _settings.weightUnit == WeightSystem.metric;
-    isImperialActive = _settings.weightUnit == WeightSystem.imperial;
+    isMetricActive = _settings.weightSystem == WeightSystem.metric;
+    isImperialActive = _settings.weightSystem == WeightSystem.imperial;
     isCelsiusActive = _settings.tempUnit == TempUnit.celsius;
     isFahrenheitActive = _settings.tempUnit == TempUnit.fahrenheit;
   }
@@ -79,8 +79,8 @@ class SettingsViewModel extends ChangeNotifier {
     _settingsState.setPreparationTimer(seconds);
   }
 
-  void setWeightUnit(WeightSystem weightUnit) {
-    _settingsState.setWeightUnit(weightUnit);
+  void setWeightSystem(WeightSystem weightSystem) {
+    _settingsState.setWeightSystem(weightSystem);
   }
 
   void setTempUnit(TempUnit tempUnit) {

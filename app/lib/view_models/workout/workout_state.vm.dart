@@ -16,7 +16,7 @@ class WorkoutViewModelState {
   final Board board;
   final List<Hold> holds;
   final String name;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
 
   final String extraTabButtonText;
   final bool inputsEnabled;
@@ -35,7 +35,7 @@ class WorkoutViewModelState {
     @required this.board,
     @required this.holds,
     @required this.name,
-    @required this.weightUnit,
+    @required this.weightSystem,
     @required this.extraTabButtonText,
     @required this.inputsEnabled,
     @required this.primaryColor,
@@ -44,7 +44,7 @@ class WorkoutViewModelState {
   });
 
   WorkoutViewModelState.addWorkout(
-      Workout workout, WeightSystem currentWeightUnit)
+      Workout workout, WeightSystem currentWeightSystem)
       : id = workout.id,
         label = workout.label,
         sets = workout.sets,
@@ -53,7 +53,7 @@ class WorkoutViewModelState {
         board = workout.board,
         holds = workout.holds.toList(),
         name = workout.name,
-        weightUnit = currentWeightUnit,
+        weightSystem = currentWeightSystem,
         extraTabButtonText = 'add',
         inputsEnabled = true,
         primaryColor = styles.Colors.primary,
@@ -61,7 +61,7 @@ class WorkoutViewModelState {
         title = 'New workout';
 
   WorkoutViewModelState.editWorkout(
-      Workout workout, WeightSystem currentWeightUnit)
+      Workout workout, WeightSystem currentWeightSystem)
       : id = workout.id,
         label = workout.label,
         sets = workout.sets,
@@ -70,7 +70,7 @@ class WorkoutViewModelState {
         board = workout.board,
         holds = workout.holds.toList(),
         name = workout.name,
-        weightUnit = currentWeightUnit,
+        weightSystem = currentWeightSystem,
         extraTabButtonText = 'done',
         inputsEnabled = true,
         primaryColor = styles.Colors.blue,
@@ -78,7 +78,7 @@ class WorkoutViewModelState {
         title = 'Edit workout';
 
   WorkoutViewModelState.viewWorkout(
-      Workout workout, WeightSystem currentWeightUnit)
+      Workout workout, WeightSystem currentWeightSystem)
       : id = workout.id,
         label = workout.label,
         sets = workout.sets,
@@ -87,7 +87,7 @@ class WorkoutViewModelState {
         board = workout.board,
         holds = workout.holds.toList(),
         name = workout.name,
-        weightUnit = currentWeightUnit,
+        weightSystem = currentWeightSystem,
         extraTabButtonText = 'back',
         inputsEnabled = false,
         primaryColor = styles.Colors.gray,
@@ -107,7 +107,7 @@ class WorkoutViewModelState {
           board == other.board &&
           listEquality.equals(holds, other.holds) &&
           name == other.name &&
-          weightUnit == other.weightUnit &&
+          weightSystem == other.weightSystem &&
           extraTabButtonText == other.extraTabButtonText &&
           inputsEnabled == other.inputsEnabled &&
           primaryColor == other.primaryColor &&
@@ -125,7 +125,7 @@ class WorkoutViewModelState {
       board.hashCode ^
       holds.hashCode ^
       name.hashCode ^
-      weightUnit.hashCode ^
+      weightSystem.hashCode ^
       extraTabButtonText.hashCode ^
       inputsEnabled.hashCode ^
       primaryColor.hashCode ^
@@ -142,7 +142,7 @@ class WorkoutViewModelState {
     Board board,
     List<Hold> holds,
     String name,
-    WeightSystem weightUnit,
+    WeightSystem weightSystem,
     String extraTabButtonText,
     bool inputsEnabled,
     Color primaryColor,
@@ -158,7 +158,7 @@ class WorkoutViewModelState {
       board: board ?? this.board,
       holds: holds ?? this.holds,
       name: name ?? this.name,
-      weightUnit: weightUnit ?? this.weightUnit,
+      weightSystem: weightSystem ?? this.weightSystem,
       extraTabButtonText: extraTabButtonText ?? this.extraTabButtonText,
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,
       primaryColor: primaryColor ?? this.primaryColor,

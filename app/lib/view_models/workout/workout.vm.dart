@@ -32,19 +32,21 @@ class WorkoutViewModel {
       _keyboardService.inputComplete$
     ]).asBroadcastStream();
 
-    final _weightUnit = SettingsState().settings.weightUnit;
+    final _weightSystem = SettingsState().settings.weightSystem;
 
     WorkoutViewModelState _initialState;
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:
-        _initialState = WorkoutViewModelState.addWorkout(workout, _weightUnit);
+        _initialState =
+            WorkoutViewModelState.addWorkout(workout, _weightSystem);
         break;
       case WorkoutTypes.editWorkout:
-        _initialState = WorkoutViewModelState.editWorkout(workout, _weightUnit);
+        _initialState =
+            WorkoutViewModelState.editWorkout(workout, _weightSystem);
         break;
       case WorkoutTypes.viewWorkout:
         _initialState =
-            WorkoutViewModelState.viewWorkout(workout, workout.weightUnit);
+            WorkoutViewModelState.viewWorkout(workout, workout.weightSystem);
         break;
     }
     _state$ = BehaviorSubject.seeded(_initialState);
@@ -60,7 +62,7 @@ class WorkoutViewModel {
       ..board = state.board.toBuilder()
       ..holds = state.holds.toBuiltList().toBuilder()
       ..name = state.name
-      ..weightUnit = state.weightUnit);
+      ..weightSystem = state.weightSystem);
 
     switch (_workoutType) {
       case WorkoutTypes.newWorkout:

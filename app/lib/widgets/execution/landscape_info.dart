@@ -7,14 +7,14 @@ import 'package:flutter/cupertino.dart';
 class LandscapeInfo extends StatelessWidget {
   LandscapeInfo(
       {this.addedWeight,
-      this.weightUnit,
+      this.weightSystem,
       this.leftGrip,
       this.leftGripBoardHold,
       this.rightGrip,
       this.rightGripBoardHold});
 
   final double addedWeight;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Grip rightGrip;
@@ -91,7 +91,7 @@ class LandscapeInfo extends StatelessWidget {
                   Positioned.fill(
                     child: Center(
                       child: Text(
-                        '$_addedWeightPrefix $addedWeight ${weightUnit.unit}',
+                        '$_addedWeightPrefix $addedWeight ${weightSystem.unit}',
                         style: styles.Staatliches.xlWhite,
                         textAlign: TextAlign.center,
                       ),

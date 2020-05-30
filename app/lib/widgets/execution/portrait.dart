@@ -25,7 +25,7 @@ class Portrait extends StatefulWidget {
     @required this.currentSet,
     @required this.totalHangsPerSet,
     @required this.currentHangPerSet,
-    @required this.weightUnit,
+    @required this.weightSystem,
     @required this.title,
     @required this.addedWeight,
   }) : super(key: key);
@@ -44,7 +44,7 @@ class Portrait extends StatefulWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHangPerSet;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   final double addedWeight;
   final String title;
 
@@ -151,7 +151,7 @@ class __PortraitContentState extends State<Portrait> {
                                           vertical: styles.Measurements.xs,
                                           horizontal: styles.Measurements.m),
                                       child: Text(
-                                        '$_addedWeightPrefix $_addedWeight ${widget.weightUnit.unit}',
+                                        '$_addedWeightPrefix $_addedWeight ${widget.weightSystem.unit}',
                                         style: styles.Staatliches.xlWhite,
                                         textAlign: TextAlign.center,
                                       ))),

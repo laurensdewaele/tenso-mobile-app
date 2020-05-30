@@ -34,8 +34,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
       serializers.serialize(object.holds,
           specifiedType:
               const FullType(BuiltList, const [const FullType(Hold)])),
-      'weightUnit',
-      serializers.serialize(object.weightUnit,
+      'weightSystem',
+      serializers.serialize(object.weightSystem,
           specifiedType: const FullType(WeightSystem)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
@@ -83,8 +83,8 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
                       const FullType(BuiltList, const [const FullType(Hold)]))
               as BuiltList<Object>);
           break;
-        case 'weightUnit':
-          result.weightUnit = serializers.deserialize(value,
+        case 'weightSystem':
+          result.weightSystem = serializers.deserialize(value,
               specifiedType: const FullType(WeightSystem)) as WeightSystem;
           break;
         case 'name':
@@ -116,7 +116,7 @@ class _$Workout extends Workout {
   @override
   final BuiltList<Hold> holds;
   @override
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   @override
   final String name;
   @override
@@ -132,7 +132,7 @@ class _$Workout extends Workout {
       this.countdownRestTimer,
       this.board,
       this.holds,
-      this.weightUnit,
+      this.weightSystem,
       this.name,
       this.label})
       : super._() {
@@ -154,8 +154,8 @@ class _$Workout extends Workout {
     if (holds == null) {
       throw new BuiltValueNullFieldError('Workout', 'holds');
     }
-    if (weightUnit == null) {
-      throw new BuiltValueNullFieldError('Workout', 'weightUnit');
+    if (weightSystem == null) {
+      throw new BuiltValueNullFieldError('Workout', 'weightSystem');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('Workout', 'name');
@@ -182,7 +182,7 @@ class _$Workout extends Workout {
         countdownRestTimer == other.countdownRestTimer &&
         board == other.board &&
         holds == other.holds &&
-        weightUnit == other.weightUnit &&
+        weightSystem == other.weightSystem &&
         name == other.name &&
         label == other.label;
   }
@@ -200,7 +200,7 @@ class _$Workout extends Workout {
                             countdownRestTimer.hashCode),
                         board.hashCode),
                     holds.hashCode),
-                weightUnit.hashCode),
+                weightSystem.hashCode),
             name.hashCode),
         label.hashCode));
   }
@@ -214,7 +214,7 @@ class _$Workout extends Workout {
           ..add('countdownRestTimer', countdownRestTimer)
           ..add('board', board)
           ..add('holds', holds)
-          ..add('weightUnit', weightUnit)
+          ..add('weightSystem', weightSystem)
           ..add('name', name)
           ..add('label', label))
         .toString();
@@ -249,9 +249,10 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   ListBuilder<Hold> get holds => _$this._holds ??= new ListBuilder<Hold>();
   set holds(ListBuilder<Hold> holds) => _$this._holds = holds;
 
-  WeightSystem _weightUnit;
-  WeightSystem get weightUnit => _$this._weightUnit;
-  set weightUnit(WeightSystem weightUnit) => _$this._weightUnit = weightUnit;
+  WeightSystem _weightSystem;
+  WeightSystem get weightSystem => _$this._weightSystem;
+  set weightSystem(WeightSystem weightSystem) =>
+      _$this._weightSystem = weightSystem;
 
   String _name;
   String get name => _$this._name;
@@ -271,7 +272,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
       _countdownRestTimer = _$v.countdownRestTimer;
       _board = _$v.board?.toBuilder();
       _holds = _$v.holds?.toBuilder();
-      _weightUnit = _$v.weightUnit;
+      _weightSystem = _$v.weightSystem;
       _name = _$v.name;
       _label = _$v.label;
       _$v = null;
@@ -304,7 +305,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
               countdownRestTimer: countdownRestTimer,
               board: board.build(),
               holds: holds.build(),
-              weightUnit: weightUnit,
+              weightSystem: weightSystem,
               name: name,
               label: label);
     } catch (_) {

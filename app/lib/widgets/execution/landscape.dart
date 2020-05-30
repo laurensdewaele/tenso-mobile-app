@@ -26,7 +26,7 @@ class Landscape extends StatelessWidget {
     @required this.currentSet,
     @required this.totalHangsPerSet,
     @required this.currentHangPerSet,
-    @required this.weightUnit,
+    @required this.weightSystem,
     @required this.title,
     @required this.addedWeight,
   }) : super(key: key);
@@ -45,7 +45,7 @@ class Landscape extends StatelessWidget {
   final int currentSet;
   final int totalHangsPerSet;
   final int currentHangPerSet;
-  final WeightSystem weightUnit;
+  final WeightSystem weightSystem;
   final double addedWeight;
   final String title;
 
@@ -85,7 +85,7 @@ class Landscape extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: LandscapeInfo(
                     addedWeight: addedWeight,
-                    weightUnit: weightUnit,
+                    weightSystem: weightSystem,
                     leftGrip: leftGrip,
                     leftGripBoardHold: leftGripBoardHold,
                     rightGrip: rightGrip,

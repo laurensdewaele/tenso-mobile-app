@@ -42,9 +42,9 @@ class SettingsState {
     _saveSettings(_newSettings);
   }
 
-  void setWeightUnit(WeightSystem weightUnit) {
+  void setWeightSystem(WeightSystem weightSystem) {
     final Settings _newSettings =
-        settings.rebuild((b) => b..weightUnit = weightUnit);
+        settings.rebuild((b) => b..weightSystem = weightSystem);
     _settings$.add(_newSettings);
     _saveSettings(_newSettings);
   }
