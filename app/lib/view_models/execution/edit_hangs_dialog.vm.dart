@@ -1,9 +1,142 @@
+import 'package:app/models/models.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
-import 'package:app/widgets/execution/edit_hangs_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+class Hang {
+  int duration;
+  String durationInput;
+  double addedWeight;
+  String addedWeightInput;
+
+  int totalSets;
+  int totalHangsPerSet;
+  int currentHangPerSet;
+  int currentSet;
+  int currentHang;
+
+  bool isPastHang;
+  bool isSelected;
+
+  String imageAsset;
+  double imageAssetWidth;
+  List<CustomBoardHoldImage> customBoardHoldImages;
+  double handToBoardHeightRatio;
+  BoardHold leftGripBoardHold;
+  BoardHold rightGripBoardHold;
+  Grip leftGrip;
+  Grip rightGrip;
+  String weightUnit;
+
+  Hang({
+    @required this.duration,
+    @required this.durationInput,
+    @required this.addedWeight,
+    @required this.addedWeightInput,
+    @required this.totalSets,
+    @required this.totalHangsPerSet,
+    @required this.currentHangPerSet,
+    @required this.currentSet,
+    @required this.currentHang,
+    @required this.isPastHang,
+    @required this.isSelected,
+    @required this.imageAsset,
+    @required this.imageAssetWidth,
+    @required this.customBoardHoldImages,
+    @required this.handToBoardHeightRatio,
+    @required this.leftGripBoardHold,
+    @required this.rightGripBoardHold,
+    @required this.leftGrip,
+    @required this.rightGrip,
+    @required this.weightUnit,
+  });
+
+  Hang copyWith({
+    int duration,
+    String durationInput,
+    double addedWeight,
+    String addedWeightInput,
+    int totalSets,
+    int totalHangsPerSet,
+    int currentHangPerSet,
+    int currentSet,
+    int currentHang,
+    bool isPastHang,
+    bool isSelected,
+    String imageAsset,
+    double imageAssetWidth,
+    List<CustomBoardHoldImage> customBoardHoldImages,
+    double handToBoardHeightRatio,
+    BoardHold leftGripBoardHold,
+    BoardHold rightGripBoardHold,
+    Grip leftGrip,
+    Grip rightGrip,
+    String weightUnit,
+  }) {
+    return new Hang(
+      duration: duration ?? this.duration,
+      durationInput: durationInput ?? this.durationInput,
+      addedWeight: addedWeight ?? this.addedWeight,
+      addedWeightInput: addedWeightInput ?? this.addedWeightInput,
+      totalSets: totalSets ?? this.totalSets,
+      totalHangsPerSet: totalHangsPerSet ?? this.totalHangsPerSet,
+      currentHangPerSet: currentHangPerSet ?? this.currentHangPerSet,
+      currentSet: currentSet ?? this.currentSet,
+      currentHang: currentHang ?? this.currentHang,
+      isPastHang: isPastHang ?? this.isPastHang,
+      isSelected: isSelected ?? this.isSelected,
+      imageAsset: imageAsset ?? this.imageAsset,
+      imageAssetWidth: imageAssetWidth ?? this.imageAssetWidth,
+      customBoardHoldImages:
+          customBoardHoldImages ?? this.customBoardHoldImages,
+      handToBoardHeightRatio:
+          handToBoardHeightRatio ?? this.handToBoardHeightRatio,
+      leftGripBoardHold: leftGripBoardHold ?? this.leftGripBoardHold,
+      rightGripBoardHold: rightGripBoardHold ?? this.rightGripBoardHold,
+      leftGrip: leftGrip ?? this.leftGrip,
+      rightGrip: rightGrip ?? this.rightGrip,
+      weightUnit: weightUnit ?? this.weightUnit,
+    );
+  }
+}
+
+class EditedHang {
+  final int duration;
+  final double addedWeight;
+  final int currentHang;
+
+  const EditedHang({
+    @required this.duration,
+    @required this.addedWeight,
+    @required this.currentHang,
+  });
+}
+
+class EditHangInfo {
+  final int duration;
+  final Board board;
+  final int currentHang;
+  final int currentHangPerSet;
+  final int currentSet;
+  final int totalSets;
+  final int totalHangsPerSet;
+  final WeightSystem weightSystem;
+  final Hold hold;
+
+  const EditHangInfo({
+    @required this.duration,
+    @required this.board,
+    @required this.currentHang,
+    @required this.currentHangPerSet,
+    @required this.currentSet,
+    @required this.totalSets,
+    @required this.weightSystem,
+    @required this.hold,
+    @required this.totalHangsPerSet,
+  });
+}
 
 class _EditedHangInput {
   final int currentHang;
@@ -47,7 +180,8 @@ class EditHangsDialogViewModel extends ChangeNotifier {
   bool get isPastHang => nextHang > selectedHang;
 
   EditHangsDialogViewModel(
-      {List<EditHangInfo> editHangInfoList,
+      {List<Hang> hangs,
+      List<EditHangInfo> editHangInfoList,
       int nextHang,
       int totalHangs,
       this.handleEditedHangs}) {
