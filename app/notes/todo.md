@@ -5,8 +5,10 @@
 
   -Abstract the history + hangTime history into another class.
   -Rename SequenceEvent to SequenceTimer/ExecutionTimer?
-  -Create new class HistoryEvent.
+  -Create new class HistoryEvent or ExecutionHistory.
   -Let ExecutionViewModelState (rename to ExecutionState) extend SequenceTimer?
+  -Can i skip the execution builder?
+  
   
 
 - Custom boards in horizontal scroll view.
