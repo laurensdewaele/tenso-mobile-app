@@ -1,31 +1,15 @@
 # TODO
 
 ### Edit hangs.
-- Edit sequence
+- Refactor execution_vm! Generate list of hangs when creating workout? => await Svanhild.
 
-- Edit inputs don't keep state when changing.
-  Solutions: 
-  - Not scrolling
-  
-  
+- Custom boards in horizontal scroll view.
+- History (calendar) update times.
 - Edit hung values on completion, new button next to rate workout.
-
-- Background toast is weird.
-- List of custom boards in a horzontal scroll view. with edit and delete buttons under it
-- History update times
-
-#### Refactor
-
-Generate list of hangs when creating workout?
-Rename holds to different hang grips
-
-### Triage
-- Show history with pauses included, skip buttons etc. 
+- Rename holds to different grip positions.
   
 ### Large prio
 - board picker on general_tab
-
-
 - Beeps before rest, allow 0;
 - Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
@@ -36,7 +20,6 @@ Rename holds to different hang grips
 - More beginner workouts. => Repeaters / max-hang / density 
 - Implement a feedback button.
 - LAUNCH
-
 
 ### Medium prio
 - Graphs
@@ -53,6 +36,7 @@ Rename holds to different hang grips
 - Review app on smaller and larger screens.
 
 ### Small prio
+- Show history with pauses included, skip buttons etc. 
 - edit standard board depths
 - Webapp where people can upload their own image of the board
 - Remove built value?
