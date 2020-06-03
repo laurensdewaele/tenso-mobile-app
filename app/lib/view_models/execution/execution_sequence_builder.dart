@@ -90,7 +90,6 @@ class SequenceEvent {
 
 List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
   Settings _settings = SettingsState().settings;
-  Workout _workout = workout;
   List<SequenceEvent> _sequence = [];
 
   void _addPreparationRestSequence(
@@ -99,7 +98,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHangPerSet,
       int currentHang}) {
     _sequence.add(SequenceEvent(
-        hold: _workout.holds[currentHoldIndex],
+        hold: workout.holds[currentHoldIndex],
         type: ExecutionEventType.preparationTimer,
         duration: _settings.preparationTimer,
         endSound: _settings.hangSound,
@@ -110,8 +109,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         title: _ExecutionTitles.preparation,
         holdLabel:
             'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-        board: _workout.board,
-        totalSets: _workout.sets,
+        board: workout.board,
+        totalSets: workout.sets,
         currentSet: currentSet,
         currentHangPerSet: currentHangPerSet,
         currentHang: currentHang,
@@ -125,9 +124,9 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHang}) {
     _sequence.add(
       SequenceEvent(
-          hold: _workout.holds[currentHoldIndex],
+          hold: workout.holds[currentHoldIndex],
           type: ExecutionEventType.hangTimer,
-          duration: _workout.holds[currentHoldIndex].hangTime,
+          duration: workout.holds[currentHoldIndex].hangTime,
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
@@ -135,8 +134,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           primaryColor: styles.Colors.primary,
           title: _ExecutionTitles.hang,
           holdLabel: 'hang $currentHangPerSet/${workout.totalHangsPerSet}',
-          board: _workout.board,
-          totalSets: _workout.sets,
+          board: workout.board,
+          totalSets: workout.sets,
           currentSet: currentSet,
           currentHangPerSet: currentHangPerSet,
           currentHang: currentHang,
@@ -151,9 +150,9 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHang}) {
     _sequence.add(
       SequenceEvent(
-          hold: _workout.holds[currentHoldIndex],
+          hold: workout.holds[currentHoldIndex],
           type: ExecutionEventType.countdownRestTimer,
-          duration: _workout.holds[currentHoldIndex].countdownRestDuration,
+          duration: workout.holds[currentHoldIndex].countdownRestDuration,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
@@ -162,8 +161,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           title: _ExecutionTitles.recoveryRest,
           holdLabel:
               'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-          board: _workout.board,
-          totalSets: _workout.sets,
+          board: workout.board,
+          totalSets: workout.sets,
           currentSet: currentSet,
           currentHangPerSet: currentHangPerSet,
           currentHang: currentHang,
@@ -178,7 +177,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHang}) {
     _sequence.add(
       SequenceEvent(
-          hold: _workout.holds[currentHoldIndex],
+          hold: workout.holds[currentHoldIndex],
           type: ExecutionEventType.stopwatchRestTimer,
           duration: 0,
           endSound: _settings.hangSound,
@@ -189,8 +188,8 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
           title: _ExecutionTitles.recoveryRest,
           holdLabel:
               'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-          board: _workout.board,
-          totalSets: _workout.sets,
+          board: workout.board,
+          totalSets: workout.sets,
           currentSet: currentSet,
           currentHangPerSet: currentHangPerSet,
           currentHang: currentHang,
@@ -205,7 +204,7 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         int currentHangPerSet,
         int currentHang}) _addRestSequence;
 
-    if (_workout.stopwatchRestTimer) {
+    if (workout.stopwatchRestTimer) {
       _addRestSequence = _addStopwatchRestSequence;
     } else {
       _addRestSequence = _addCountdownRestSequence;
@@ -226,13 +225,13 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
         currentHangPerSet: _currentHangPerSet,
         currentHang: _currentHang);
 
-    while (_currentSet <= _workout.sets) {
+    while (_currentSet <= workout.sets) {
       for (var _currentHold = 1;
-          _currentHold <= _workout.holdCount;
+          _currentHold <= workout.holdCount;
           _currentHold++) {
         for (var _currentRepetitionPerHold = 1;
             _currentRepetitionPerHold <=
-                _workout.holds[_currentHold - 1].repetitions;
+                workout.holds[_currentHold - 1].repetitions;
             _currentRepetitionPerHold++) {
           if (_currentHang == 1) {
             _addHangSequence(
