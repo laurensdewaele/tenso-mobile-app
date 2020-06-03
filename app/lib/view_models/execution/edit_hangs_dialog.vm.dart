@@ -103,12 +103,12 @@ class Hang {
   }
 }
 
-class EditedHang {
+class LoggedEffectiveMetrics {
   final int duration;
   final double addedWeight;
   final int currentHang;
 
-  const EditedHang({
+  const LoggedEffectiveMetrics({
     @required this.duration,
     @required this.addedWeight,
     @required this.currentHang,
@@ -117,7 +117,8 @@ class EditedHang {
 
 class EditHangsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  void Function(List<EditedHang> editedHangs) handleEditedHangs;
+  void Function(List<LoggedEffectiveMetrics> loggedEffectiveMetrics)
+      handleLoggedEffectiveMetrics;
 
   List<Hang> _hangs;
   List<Hang> get hangs => _hangs;
@@ -135,7 +136,8 @@ class EditHangsDialogViewModel extends ChangeNotifier {
       'set ${selectedHang.currentSet}/${selectedHang.totalSets}';
 
   EditHangsDialogViewModel(
-      {@required List<Hang> hangs, @required this.handleEditedHangs}) {
+      {@required List<Hang> hangs,
+      @required this.handleLoggedEffectiveMetrics}) {
     _hangs = hangs;
     _canScroll = true;
     _navigationService = NavigationService();
@@ -214,14 +216,14 @@ class EditHangsDialogViewModel extends ChangeNotifier {
     return Future.sync(() {
       final bool _isValid = _validate();
       if (_isValid == true) {
-        final List<EditedHang> _editedHangs = _hangs
-            .map((Hang hang) => EditedHang(
+        final List<LoggedEffectiveMetrics> _loggedMetrics = _hangs
+            .map((Hang hang) => LoggedEffectiveMetrics(
                 addedWeight: hang.addedWeight,
                 currentHang: hang.currentHang,
                 duration: hang.duration))
             .toList();
         _navigationService.pop();
-        handleEditedHangs(_editedHangs);
+        handleLoggedEffectiveMetrics(_loggedMetrics);
         return true;
       } else {
         return false;

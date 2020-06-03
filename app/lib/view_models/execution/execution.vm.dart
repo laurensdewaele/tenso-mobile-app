@@ -339,7 +339,8 @@ class ExecutionViewModel {
     _elapsedTimer.start();
   }
 
-  void handleEditedHangs(List<EditedHang> editedHangs) {
+  void handleLoggedEffectiveMetrics(
+      List<LoggedEffectiveMetrics> loggedEffectiveMetrics) {
     _elapsedTimer.stop();
     _eventLog.add(ExecutionEvent((b) => b
       ..executionEventType = ExecutionEventType.editHangsTimer
@@ -350,36 +351,39 @@ class ExecutionViewModel {
     _elapsedTimer.start();
 
     _sequence = _sequence.map((SequenceEvent sequenceEvent) {
-      final _editedHang = editedHangs.firstWhere((EditedHang editedHang) =>
-          editedHang.currentHang == sequenceEvent.currentHang);
+      final _loggedMetric = loggedEffectiveMetrics.firstWhere(
+          (LoggedEffectiveMetrics loggedMetric) =>
+              loggedMetric.currentHang == sequenceEvent.currentHang);
 
       if (sequenceEvent.type == ExecutionEventType.hangTimer) {
         return sequenceEvent.copyWith(
             hold: sequenceEvent.hold.rebuild((b) => b
-              ..addedWeight = _editedHang.addedWeight
-              ..hangTime =
-                  _editedHang.duration > 0 ? _editedHang.duration : b.hangTime),
-            duration: _editedHang.duration);
+              ..addedWeight = _loggedMetric.addedWeight
+              ..hangTime = _loggedMetric.duration > 0
+                  ? _loggedMetric.duration
+                  : b.hangTime),
+            duration: _loggedMetric.duration);
       } else if (sequenceEvent.type == ExecutionEventType.countdownRestTimer ||
           sequenceEvent.type == ExecutionEventType.stopwatchRestTimer) {
         return sequenceEvent.copyWith(
             hold: sequenceEvent.hold
-                .rebuild((b) => b..addedWeight = _editedHang.addedWeight));
+                .rebuild((b) => b..addedWeight = _loggedMetric.addedWeight));
       } else {
         return sequenceEvent;
       }
     }).toList();
 
-    _hangTimes = editedHangs
-        .map((EditedHang editedHang) => ExecutionEvent((b) => b
+    _hangTimes = loggedEffectiveMetrics
+        .map((LoggedEffectiveMetrics loggedMetric) => ExecutionEvent((b) => b
           ..executionEventType = ExecutionEventType.hangTimer
-          ..elapsedMs = editedHang.duration * 1000))
+          ..elapsedMs = loggedMetric.duration * 1000))
         .toList();
 
-    _replaceExistingWorkoutFromEditedHangs(editedHangs);
+    _replaceExistingWorkoutFromLoggedEffectiveMetrics(loggedEffectiveMetrics);
   }
 
-  void _replaceExistingWorkoutFromEditedHangs(List<EditedHang> editedHangs) {
+  void _replaceExistingWorkoutFromLoggedEffectiveMetrics(
+      List<LoggedEffectiveMetrics> editedHangs) {
     final List<SequenceEvent> _hangSequences = _sequence
         .where((SequenceEvent sequenceEvent) =>
             sequenceEvent.type == ExecutionEventType.hangTimer)

@@ -6,11 +6,14 @@ import 'package:flutter/cupertino.dart';
 
 class EditHangsDialog extends StatefulWidget {
   EditHangsDialog(
-      {Key key, @required this.hangs, @required this.handleEditedHangs})
+      {Key key,
+      @required this.hangs,
+      @required this.handleLoggedEffectiveMetrics})
       : super(key: key);
 
   final List<Hang> hangs;
-  final void Function(List<EditedHang> editHangs) handleEditedHangs;
+  final void Function(List<LoggedEffectiveMetrics> loggedEffectiveMetrics)
+      handleLoggedEffectiveMetrics;
 
   @override
   _EditHangsDialogState createState() => _EditHangsDialogState();
@@ -22,7 +25,8 @@ class _EditHangsDialogState extends State<EditHangsDialog> {
   @override
   void initState() {
     _viewModel = EditHangsDialogViewModel(
-        hangs: widget.hangs, handleEditedHangs: widget.handleEditedHangs);
+        hangs: widget.hangs,
+        handleLoggedEffectiveMetrics: widget.handleLoggedEffectiveMetrics);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }

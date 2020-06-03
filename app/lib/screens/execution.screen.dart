@@ -79,7 +79,8 @@ class _ExecutionScreenState extends State<ExecutionScreen>
           context: context,
           content: EditHangsDialog(
             hangs: _viewModel.hangs,
-            handleEditedHangs: _viewModel.handleEditedHangs,
+            handleLoggedEffectiveMetrics:
+                _viewModel.handleLoggedEffectiveMetrics,
           ),
           smallWidth: false);
     }
