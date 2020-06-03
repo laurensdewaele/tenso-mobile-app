@@ -1,22 +1,22 @@
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution/edit_hangs_dialog.vm.dart';
+import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
 
-class EditHangsCupertinoPicker extends StatelessWidget {
-  const EditHangsCupertinoPicker({
+class LogMetricsCupertinoPicker extends StatelessWidget {
+  const LogMetricsCupertinoPicker({
     @required this.handleScrollAttempt,
     @required this.canScroll,
-    @required this.hangs,
-    @required this.selectedHang,
-    @required this.setSelectedHang,
+    @required this.pastHangs,
+    @required this.selectedPastHang,
+    @required this.setSelectedPastHang,
   });
 
   final VoidCallback handleScrollAttempt;
   final bool canScroll;
-  final List<Hang> hangs;
-  final Hang selectedHang;
-  final Function(int index) setSelectedHang;
+  final List<PastHang> pastHangs;
+  final PastHang selectedPastHang;
+  final Function(int index) setSelectedPastHang;
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +29,20 @@ class EditHangsCupertinoPicker extends StatelessWidget {
         absorbing: !canScroll,
         child: CupertinoPicker(
           scrollController: FixedExtentScrollController(
-              initialItem: hangs.indexOf(selectedHang)),
+              initialItem: pastHangs.indexOf(selectedPastHang)),
           useMagnifier: false,
           magnification: 1,
           backgroundColor: styles.Colors.bgWhite,
-          onSelectedItemChanged: setSelectedHang,
+          onSelectedItemChanged: setSelectedPastHang,
           itemExtent: 40,
           children: <Widget>[
-            ...hangs.map((Hang hang) => _HangRow(
-                currentHangPerSet: hang.currentHangPerSet,
-                totalHangsPerSet: hang.totalHangsPerSet,
-                currentSet: hang.currentSet,
-                totalSets: hang.totalSets,
-                isPastHang: hang.isPastHang,
-                isSelectedHang: hang.isSelected))
+            ...pastHangs.map((PastHang pastHang) => _HangRow(
+                currentHangPerSet: pastHang.currentHangPerSet,
+                totalHangsPerSet: pastHang.totalHangsPerSet,
+                currentSet: pastHang.currentSet,
+                totalSets: pastHang.totalSets,
+                isPastHang: pastHang.isPastHang,
+                isSelectedPastHang: pastHang.isSelected))
           ],
         ),
       ),
@@ -52,7 +52,7 @@ class EditHangsCupertinoPicker extends StatelessWidget {
 
 class _HangRow extends StatelessWidget {
   const _HangRow({
-    @required this.isSelectedHang,
+    @required this.isSelectedPastHang,
     @required this.isPastHang,
     @required this.currentSet,
     @required this.totalSets,
@@ -60,7 +60,7 @@ class _HangRow extends StatelessWidget {
     @required this.totalHangsPerSet,
   });
 
-  final bool isSelectedHang;
+  final bool isSelectedPastHang;
   final bool isPastHang;
   final int currentSet;
   final int totalSets;
@@ -78,9 +78,10 @@ class _HangRow extends StatelessWidget {
             children: <Widget>[
               if (isPastHang == false)
                 _Circle(
-                  active: isSelectedHang,
+                  active: isSelectedPastHang,
                 ),
-              if (isPastHang == true) _CompletedCircle(active: isSelectedHang),
+              if (isPastHang == true)
+                _CompletedCircle(active: isSelectedPastHang),
               Divider(
                 width: styles.Measurements.xs,
               ),

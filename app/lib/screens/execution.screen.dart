@@ -7,9 +7,9 @@ import 'package:app/view_models/execution/execution_state.vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/execution/edit_hangs_dialog.dart';
 import 'package:app/widgets/execution/execution_landscape.dart';
 import 'package:app/widgets/execution/execution_portrait.dart';
+import 'package:app/widgets/execution/log_metrics_dialog.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -63,24 +63,23 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         context: context,
         content: _PauseDialog(
             duringHang: _viewModel.state.type == ExecutionEventType.hangTimer,
-            handleLogEffectiveMetricsTap: _handleLogEffectiveMetricsTap,
+            handleLogMetricsTap: _handleLogMetricsTap,
             handleResumeTap: _viewModel.handleResumeTap,
             handleSkipTap: _viewModel.handleSkipTap,
             handleStopTap: _viewModel.handleStopTap));
   }
 
-  void _handleLogEffectiveMetricsTap() async {
+  void _handleLogMetricsTap() async {
     if (_viewModel.state.type == ExecutionEventType.hangTimer) {
       ToastService().add(ErrorMessages.editOnlyPossibleOnRests());
     } else {
-      _viewModel.handleLogEffectiveMetricsTap();
+      _viewModel.handleLogMetricsTap();
       await showAppDialog(
           fullWidth: true,
           context: context,
-          content: EditHangsDialog(
-            hangs: _viewModel.hangs,
-            handleLoggedEffectiveMetrics:
-                _viewModel.handleLoggedEffectiveMetrics,
+          content: LogMetricsDialog(
+            pastHangs: _viewModel.pastHangs,
+            handleLoggedMetrics: _viewModel.handleLoggedMetrics,
           ),
           smallWidth: false);
     }
@@ -180,7 +179,7 @@ class _PauseDialog extends StatelessWidget {
     @required this.handleResumeTap,
     @required this.handleSkipTap,
     @required this.handleStopTap,
-    @required this.handleLogEffectiveMetricsTap,
+    @required this.handleLogMetricsTap,
     @required this.duringHang,
   }) : super(key: key);
 
@@ -188,7 +187,7 @@ class _PauseDialog extends StatelessWidget {
   final VoidCallback handleStopTap;
   final VoidCallback handleResumeTap;
   final VoidCallback handleSkipTap;
-  final VoidCallback handleLogEffectiveMetricsTap;
+  final VoidCallback handleLogMetricsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +221,7 @@ class _PauseDialog extends StatelessWidget {
               Button(
                 smallText: true,
                 text: 'log effective metrics',
-                handleTap: handleLogEffectiveMetricsTap,
+                handleTap: handleLogMetricsTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.blue,
                 leadingIcon: icons.editIconWhiteXl,

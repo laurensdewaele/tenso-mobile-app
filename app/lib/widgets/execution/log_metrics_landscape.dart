@@ -1,28 +1,28 @@
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution/edit_hangs_dialog.vm.dart';
+import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
 import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/execution/edit_hangs_cupertino_picker.dart';
+import 'package:app/widgets/execution/log_metrics_cupertino_picker.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:flutter/cupertino.dart';
 
-class EditHangsLandScape extends StatelessWidget {
-  const EditHangsLandScape({
+class LogMetricsLandscape extends StatelessWidget {
+  const LogMetricsLandscape({
     @required this.hangText,
-    @required this.selectedHang,
+    @required this.selectedPastHang,
     @required this.setText,
     @required this.handleDone,
     @required this.setHangTimeInput,
     @required this.setAddedWeightInput,
     @required this.handleScrollAttempt,
     @required this.canScroll,
-    @required this.hangs,
-    @required this.setSelectedHang,
+    @required this.pastHangs,
+    @required this.setSelectedPastHang,
   });
 
   final String hangText;
-  final Hang selectedHang;
+  final PastHang selectedPastHang;
   final String setText;
   final VoidCallback handleDone;
   final void Function(String s) setHangTimeInput;
@@ -30,8 +30,8 @@ class EditHangsLandScape extends StatelessWidget {
 
   final VoidCallback handleScrollAttempt;
   final bool canScroll;
-  final List<Hang> hangs;
-  final Function(int index) setSelectedHang;
+  final List<PastHang> pastHangs;
+  final Function(int index) setSelectedPastHang;
 
   @override
   Widget build(BuildContext context) {
@@ -53,42 +53,46 @@ class EditHangsLandScape extends StatelessWidget {
                           width: constraints.maxWidth / 1.5,
                           child: BoardWithGrips(
                             key: ValueKey(
-                                'edit-hangs-dialog-board-${selectedHang.currentHang}'),
-                            boardImageAssetWidth: selectedHang.imageAssetWidth,
-                            boardImageAsset: selectedHang.imageAsset,
+                                'edit-hangs-dialog-board-${selectedPastHang.currentHang}'),
+                            boardImageAssetWidth:
+                                selectedPastHang.imageAssetWidth,
+                            boardImageAsset: selectedPastHang.imageAsset,
                             customBoardHoldImages:
-                                selectedHang.customBoardHoldImages,
+                                selectedPastHang.customBoardHoldImages,
                             withFixedHeight: true,
                             handToBoardHeightRatio:
-                                selectedHang.handToBoardHeightRatio,
-                            boardAspectRatio: selectedHang.boardAspectRatio,
-                            rightGripBoardHold: selectedHang.rightGripBoardHold,
-                            leftGripBoardHold: selectedHang.leftGripBoardHold,
-                            leftGrip: selectedHang.leftGrip,
-                            rightGrip: selectedHang.rightGrip,
+                                selectedPastHang.handToBoardHeightRatio,
+                            boardAspectRatio: selectedPastHang.boardAspectRatio,
+                            rightGripBoardHold:
+                                selectedPastHang.rightGripBoardHold,
+                            leftGripBoardHold:
+                                selectedPastHang.leftGripBoardHold,
+                            leftGrip: selectedPastHang.leftGrip,
+                            rightGrip: selectedPastHang.rightGrip,
                           ),
                         );
                       }),
                       NumberInputAndDescription<int>(
                         key: ValueKey(
-                            'edit-hangs-dialog-duration-input-landscape-${selectedHang.currentHang}'),
+                            'edit-hangs-dialog-duration-input-landscape-${selectedPastHang.currentHang}'),
                         enabled: true,
-                        description: selectedHang.isPastHang
+                        description: selectedPastHang.isPastHang
                             ? 'effective hung seconds'
                             : 'hang time seconds',
                         handleValueChanged: setHangTimeInput,
-                        initialValue: selectedHang.duration,
+                        initialValue: selectedPastHang.duration,
                       ),
                       Divider(
                         height: styles.Measurements.m,
                       ),
                       NumberInputAndDescription<double>(
                         key: ValueKey(
-                            'edit-hangs-dialog-added-weight-input-landscape-${selectedHang.currentHang}'),
+                            'edit-hangs-dialog-added-weight-input-landscape-${selectedPastHang.currentHang}'),
                         enabled: true,
-                        description: '${selectedHang.weightUnit} added weight',
+                        description:
+                            '${selectedPastHang.weightUnit} added weight',
                         handleValueChanged: setAddedWeightInput,
-                        initialValue: selectedHang.addedWeight,
+                        initialValue: selectedPastHang.addedWeight,
                       ),
                     ],
                   ),
@@ -100,12 +104,12 @@ class EditHangsLandScape extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
-                      child: EditHangsCupertinoPicker(
+                      child: LogMetricsCupertinoPicker(
                         canScroll: canScroll,
                         handleScrollAttempt: handleScrollAttempt,
-                        hangs: hangs,
-                        selectedHang: selectedHang,
-                        setSelectedHang: setSelectedHang,
+                        pastHangs: pastHangs,
+                        selectedPastHang: selectedPastHang,
+                        setSelectedPastHang: setSelectedPastHang,
                       ),
                     )
                   ],

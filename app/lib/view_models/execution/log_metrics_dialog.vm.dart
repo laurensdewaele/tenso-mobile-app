@@ -5,7 +5,7 @@ import 'package:app/services/validation.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Hang {
+class PastHang {
   final int duration;
   final String durationInput;
   final double addedWeight;
@@ -28,7 +28,7 @@ class Hang {
   final Grip rightGrip;
   final String weightUnit;
 
-  const Hang({
+  const PastHang({
     @required this.duration,
     @required this.durationInput,
     @required this.addedWeight,
@@ -52,7 +52,7 @@ class Hang {
     @required this.weightUnit,
   });
 
-  Hang copyWith({
+  PastHang copyWith({
     int duration,
     String durationInput,
     double addedWeight,
@@ -75,7 +75,7 @@ class Hang {
     Grip rightGrip,
     String weightUnit,
   }) {
-    return new Hang(
+    return new PastHang(
       duration: duration ?? this.duration,
       durationInput: durationInput ?? this.durationInput,
       addedWeight: addedWeight ?? this.addedWeight,
@@ -103,59 +103,60 @@ class Hang {
   }
 }
 
-class LoggedEffectiveMetrics {
+class LoggedMetric {
   final int duration;
   final double addedWeight;
   final int currentHang;
 
-  const LoggedEffectiveMetrics({
+  const LoggedMetric({
     @required this.duration,
     @required this.addedWeight,
     @required this.currentHang,
   });
 }
 
-class EditHangsDialogViewModel extends ChangeNotifier {
+class LogMetricsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  void Function(List<LoggedEffectiveMetrics> loggedEffectiveMetrics)
-      handleLoggedEffectiveMetrics;
+  void Function(List<LoggedMetric> loggedMetrics) handleLoggedMetrics;
 
-  List<Hang> _hangs;
-  List<Hang> get hangs => _hangs;
+  List<PastHang> _pastHangs;
+  List<PastHang> get pastHangs => _pastHangs;
 
-  Hang get selectedHang =>
-      _hangs.firstWhere((Hang hang) => hang.isSelected == true);
-  int get _selectedHangIndex => _hangs.indexOf(selectedHang);
+  PastHang get selectedPastHang =>
+      _pastHangs.firstWhere((PastHang pastHang) => pastHang.isSelected == true);
+  int get _selectedPastHangIndex => _pastHangs.indexOf(selectedPastHang);
 
   bool _canScroll;
   bool get canScroll => _canScroll;
 
   String get hangText =>
-      'Hang ${selectedHang.currentHangPerSet}/${selectedHang.totalHangsPerSet}';
+      'Hang ${selectedPastHang.currentHangPerSet}/${selectedPastHang.totalHangsPerSet}';
   String get setText =>
-      'set ${selectedHang.currentSet}/${selectedHang.totalSets}';
+      'set ${selectedPastHang.currentSet}/${selectedPastHang.totalSets}';
 
-  EditHangsDialogViewModel(
-      {@required List<Hang> hangs,
-      @required this.handleLoggedEffectiveMetrics}) {
-    _hangs = hangs;
+  LogMetricsDialogViewModel(
+      {@required List<PastHang> pastHangs,
+      @required this.handleLoggedMetrics}) {
+    _pastHangs = pastHangs;
     _canScroll = true;
     _navigationService = NavigationService();
     notifyListeners();
   }
 
-  void setSelectedHang(int index) {
-    List<Hang> _newHangs = []..addAll(_hangs);
-    _newHangs[_selectedHangIndex] = selectedHang.copyWith(isSelected: false);
-    _newHangs[index] = _newHangs[index].copyWith(isSelected: true);
-    _hangs = _newHangs;
+  void setSelectedPastHang(int index) {
+    List<PastHang> _newPastHangs = []..addAll(_pastHangs);
+    _newPastHangs[_selectedPastHangIndex] =
+        selectedPastHang.copyWith(isSelected: false);
+    _newPastHangs[index] = _newPastHangs[index].copyWith(isSelected: true);
+    _pastHangs = _newPastHangs;
     notifyListeners();
   }
 
   void setHangTimeInput(String s) {
-    List<Hang> _newHangs = []..addAll(_hangs);
-    _newHangs[_selectedHangIndex] = selectedHang.copyWith(durationInput: s);
-    _hangs = _newHangs;
+    List<PastHang> _newPastHangs = []..addAll(_pastHangs);
+    _newPastHangs[_selectedPastHangIndex] =
+        selectedPastHang.copyWith(durationInput: s);
+    _pastHangs = _newPastHangs;
     try {
       final int _duration =
           InputParsers.parseToInt(string: s, inputField: 'Duration');
@@ -170,9 +171,10 @@ class EditHangsDialogViewModel extends ChangeNotifier {
   }
 
   void setAddedWeightInput(String s) {
-    List<Hang> _newHangs = []..addAll(_hangs);
-    _newHangs[_selectedHangIndex] = selectedHang.copyWith(addedWeightInput: s);
-    _hangs = _newHangs;
+    List<PastHang> _newPastHangs = []..addAll(_pastHangs);
+    _newPastHangs[_selectedPastHangIndex] =
+        selectedPastHang.copyWith(addedWeightInput: s);
+    _pastHangs = _newPastHangs;
     try {
       InputParsers.parseToDouble(string: s, inputField: 'Added weight');
       _canScroll = true;
@@ -186,23 +188,23 @@ class EditHangsDialogViewModel extends ChangeNotifier {
 
   bool _validate() {
     final int _duration = InputParsers.parseToInt(
-        string: selectedHang.durationInput, inputField: 'Duration');
+        string: selectedPastHang.durationInput, inputField: 'Duration');
 
     final bool _validDuration = Validators.biggerOrEqualToZero(
         value: _duration, inputField: 'Duration');
 
     final double _addedWeight = InputParsers.parseToDouble(
-        string: selectedHang.addedWeightInput, inputField: 'Added weight');
+        string: selectedPastHang.addedWeightInput, inputField: 'Added weight');
 
     final bool _isValid = _addedWeight != null && _validDuration == true;
 
     if (_isValid == true) {
-      List<Hang> _newHangs = []..addAll(_hangs);
-      _newHangs[_selectedHangIndex] = selectedHang.copyWith(
+      List<PastHang> _newPastHangs = []..addAll(_pastHangs);
+      _newPastHangs[_selectedPastHangIndex] = selectedPastHang.copyWith(
           duration: _duration,
           addedWeight: _addedWeight,
-          currentHang: selectedHang.currentHang);
-      _hangs = _newHangs;
+          currentHang: selectedPastHang.currentHang);
+      _pastHangs = _newPastHangs;
     }
 
     return _isValid;
@@ -216,14 +218,14 @@ class EditHangsDialogViewModel extends ChangeNotifier {
     return Future.sync(() {
       final bool _isValid = _validate();
       if (_isValid == true) {
-        final List<LoggedEffectiveMetrics> _loggedMetrics = _hangs
-            .map((Hang hang) => LoggedEffectiveMetrics(
-                addedWeight: hang.addedWeight,
-                currentHang: hang.currentHang,
-                duration: hang.duration))
+        final List<LoggedMetric> _loggedMetrics = _pastHangs
+            .map((PastHang pastHang) => LoggedMetric(
+                addedWeight: pastHang.addedWeight,
+                currentHang: pastHang.currentHang,
+                duration: pastHang.duration))
             .toList();
         _navigationService.pop();
-        handleLoggedEffectiveMetrics(_loggedMetrics);
+        handleLoggedMetrics(_loggedMetrics);
         return true;
       } else {
         return false;

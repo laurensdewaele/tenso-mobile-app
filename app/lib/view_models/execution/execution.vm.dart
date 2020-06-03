@@ -4,9 +4,9 @@ import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/state/workouts.state.dart';
-import 'package:app/view_models/execution/edit_hangs_dialog.vm.dart';
 import 'package:app/view_models/execution/execution_sequence_builder.dart';
 import 'package:app/view_models/execution/execution_state.vm.dart';
+import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wakelock/wakelock.dart';
@@ -23,7 +23,7 @@ class ExecutionViewModel {
   List<ExecutionEvent> _hangTimes = [];
   Stopwatch _elapsedTimer;
   bool _isPaused;
-  List<Hang> get hangs => _getHangs();
+  List<PastHang> get pastHangs => _getPastHangs();
   int get totalHangs => _workout.totalHangs;
 
   BehaviorSubject<ExecutionViewModelState> _state$;
@@ -57,12 +57,12 @@ class ExecutionViewModel {
     _start();
   }
 
-  List<Hang> _getHangs() {
+  List<PastHang> _getPastHangs() {
     final List<SequenceEvent> _hangEvents = _sequence
         .where((SequenceEvent e) => e.type == ExecutionEventType.hangTimer)
         .toList();
     return _hangEvents.map((SequenceEvent e) {
-      return Hang(
+      return PastHang(
         duration: e.duration,
         durationInput: e.duration.toString(),
         addedWeight: e.hold.addedWeight,
@@ -328,7 +328,7 @@ class ExecutionViewModel {
     }
   }
 
-  void handleLogEffectiveMetricsTap() {
+  void handleLogMetricsTap() {
     _elapsedTimer.stop();
     _eventLog.add(ExecutionEvent((b) => b
       ..executionEventType = ExecutionEventType.pauseTimer
@@ -339,8 +339,7 @@ class ExecutionViewModel {
     _elapsedTimer.start();
   }
 
-  void handleLoggedEffectiveMetrics(
-      List<LoggedEffectiveMetrics> loggedEffectiveMetrics) {
+  void handleLoggedMetrics(List<LoggedMetric> loggedMetrics) {
     _elapsedTimer.stop();
     _eventLog.add(ExecutionEvent((b) => b
       ..executionEventType = ExecutionEventType.editHangsTimer
@@ -351,8 +350,8 @@ class ExecutionViewModel {
     _elapsedTimer.start();
 
     _sequence = _sequence.map((SequenceEvent sequenceEvent) {
-      final _loggedMetric = loggedEffectiveMetrics.firstWhere(
-          (LoggedEffectiveMetrics loggedMetric) =>
+      final _loggedMetric = loggedMetrics.firstWhere(
+          (LoggedMetric loggedMetric) =>
               loggedMetric.currentHang == sequenceEvent.currentHang);
 
       if (sequenceEvent.type == ExecutionEventType.hangTimer) {
@@ -373,17 +372,17 @@ class ExecutionViewModel {
       }
     }).toList();
 
-    _hangTimes = loggedEffectiveMetrics
-        .map((LoggedEffectiveMetrics loggedMetric) => ExecutionEvent((b) => b
+    _hangTimes = loggedMetrics
+        .map((LoggedMetric loggedMetric) => ExecutionEvent((b) => b
           ..executionEventType = ExecutionEventType.hangTimer
           ..elapsedMs = loggedMetric.duration * 1000))
         .toList();
 
-    _replaceExistingWorkoutFromLoggedEffectiveMetrics(loggedEffectiveMetrics);
+    _replaceExistingWorkoutFromLoggedMetrics(loggedMetrics);
   }
 
-  void _replaceExistingWorkoutFromLoggedEffectiveMetrics(
-      List<LoggedEffectiveMetrics> editedHangs) {
+  void _replaceExistingWorkoutFromLoggedMetrics(
+      List<LoggedMetric> editedHangs) {
     final List<SequenceEvent> _hangSequences = _sequence
         .where((SequenceEvent sequenceEvent) =>
             sequenceEvent.type == ExecutionEventType.hangTimer)
