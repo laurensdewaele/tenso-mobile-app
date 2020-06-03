@@ -63,17 +63,17 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         context: context,
         content: _PauseDialog(
             duringHang: _viewModel.state.type == ExecutionEventType.hangTimer,
-            handleEditHangsTap: _handleEditHangsTap,
+            handleLogEffectiveMetricsTap: _handleLogEffectiveMetricsTap,
             handleResumeTap: _viewModel.handleResumeTap,
             handleSkipTap: _viewModel.handleSkipTap,
             handleStopTap: _viewModel.handleStopTap));
   }
 
-  void _handleEditHangsTap() async {
+  void _handleLogEffectiveMetricsTap() async {
     if (_viewModel.state.type == ExecutionEventType.hangTimer) {
       ToastService().add(ErrorMessages.editOnlyPossibleOnRests());
     } else {
-      _viewModel.handleEditHangsTap();
+      _viewModel.handleLogEffectiveMetricsTap();
       await showAppDialog(
           fullWidth: true,
           context: context,
@@ -180,7 +180,7 @@ class _PauseDialog extends StatelessWidget {
     @required this.handleResumeTap,
     @required this.handleSkipTap,
     @required this.handleStopTap,
-    @required this.handleEditHangsTap,
+    @required this.handleLogEffectiveMetricsTap,
     @required this.duringHang,
   }) : super(key: key);
 
@@ -188,7 +188,7 @@ class _PauseDialog extends StatelessWidget {
   final VoidCallback handleStopTap;
   final VoidCallback handleResumeTap;
   final VoidCallback handleSkipTap;
-  final VoidCallback handleEditHangsTap;
+  final VoidCallback handleLogEffectiveMetricsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +222,7 @@ class _PauseDialog extends StatelessWidget {
               Button(
                 smallText: true,
                 text: 'log effective metrics',
-                handleTap: handleEditHangsTap,
+                handleTap: handleLogEffectiveMetricsTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.blue,
                 leadingIcon: icons.editIconWhiteXl,

@@ -328,7 +328,7 @@ class ExecutionViewModel {
     }
   }
 
-  void handleEditHangsTap() {
+  void handleLogEffectiveMetricsTap() {
     _elapsedTimer.stop();
     _eventLog.add(ExecutionEvent((b) => b
       ..executionEventType = ExecutionEventType.pauseTimer
