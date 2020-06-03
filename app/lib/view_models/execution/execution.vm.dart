@@ -3,7 +3,6 @@ import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
-import 'package:app/state/workouts.state.dart';
 import 'package:app/view_models/execution/execution_sequence_builder.dart';
 import 'package:app/view_models/execution/execution_state.vm.dart';
 import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
@@ -12,7 +11,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {
-  WorkoutsState _workoutsState;
   AudioPlayerService _audioPlayerService;
   Workout _workout;
   AnimationController _animationController;
@@ -20,7 +18,7 @@ class ExecutionViewModel {
   List<SequenceEvent> _sequence;
   NavigationService _navigationService;
   List<ExecutionEvent> _eventLog = [];
-  List<ExecutionEvent> _hangTimes = [];
+  List<LoggedMetrics> _loggedMetricsList = [];
   Stopwatch _elapsedTimer;
   bool _isPaused;
   List<PastHang> get pastHangs => _getPastHangs();
@@ -34,17 +32,17 @@ class ExecutionViewModel {
       {@required Workout workout,
       @required AnimationController animationController}) {
     Wakelock.enable();
-    _workoutsState = WorkoutsState();
     _audioPlayerService = AudioPlayerService();
     _workout = workout;
     _animationController = animationController;
     _sequence = sequenceBuilder(workout: workout);
-    _hangTimes = _sequence
+    _loggedMetricsList = _sequence
         .where((SequenceEvent sequenceEvent) =>
             sequenceEvent.type == ExecutionEventType.hangTimer)
-        .map((SequenceEvent sequenceEvent) => ExecutionEvent((b) => b
-          ..executionEventType = ExecutionEventType.hangTimer
-          ..elapsedMs = sequenceEvent.duration * 1000))
+        .map((SequenceEvent sequenceEvent) => LoggedMetrics((b) => b
+          ..addedWeight = sequenceEvent.hold.addedWeight
+          ..currentHang = sequenceEvent.currentHang
+          ..duration = sequenceEvent.duration))
         .toList();
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
@@ -199,7 +197,7 @@ class ExecutionViewModel {
         (b) => b..executionEventType = ExecutionEventType.stopEvent));
 
     History _history = _generateHistory();
-    if (_history.timeUnderTensionMs == 0) {
+    if (_history.timeUnderTensionS == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
       _navigationService.pushNamed(Routes.congratulationsScreen,
@@ -210,8 +208,9 @@ class ExecutionViewModel {
   }
 
   History _generateHistory() {
-    return History(
-        (b) => b..eventLog.replace(_eventLog)..hangTimes.replace(_hangTimes));
+    return History((b) => b
+      ..eventLog.replace(_eventLog)
+      ..loggedMetricsList.replace(_loggedMetricsList));
   }
 
   void handleReadyTap() {
@@ -339,7 +338,8 @@ class ExecutionViewModel {
     _elapsedTimer.start();
   }
 
-  void handleLoggedMetrics(List<LoggedMetric> loggedMetrics) {
+  void handleEditedLoggedMetricsList(
+      List<LoggedMetrics> editedLoggedMetricsList) {
     _elapsedTimer.stop();
     _eventLog.add(ExecutionEvent((b) => b
       ..executionEventType = ExecutionEventType.editHangsTimer
@@ -349,77 +349,16 @@ class ExecutionViewModel {
     _elapsedTimer.reset();
     _elapsedTimer.start();
 
-    _sequence = _sequence.map((SequenceEvent sequenceEvent) {
-      final _loggedMetric = loggedMetrics.firstWhere(
-          (LoggedMetric loggedMetric) =>
-              loggedMetric.currentHang == sequenceEvent.currentHang);
-
-      if (sequenceEvent.type == ExecutionEventType.hangTimer) {
-        return sequenceEvent.copyWith(
-            hold: sequenceEvent.hold.rebuild((b) => b
-              ..addedWeight = _loggedMetric.addedWeight
-              ..hangTime = _loggedMetric.duration > 0
-                  ? _loggedMetric.duration
-                  : b.hangTime),
-            duration: _loggedMetric.duration);
-      } else if (sequenceEvent.type == ExecutionEventType.countdownRestTimer ||
-          sequenceEvent.type == ExecutionEventType.stopwatchRestTimer) {
-        return sequenceEvent.copyWith(
-            hold: sequenceEvent.hold
-                .rebuild((b) => b..addedWeight = _loggedMetric.addedWeight));
+    _loggedMetricsList = _loggedMetricsList.map((LoggedMetrics loggedMetrics) {
+      final _editedLoggedMetric = editedLoggedMetricsList.firstWhere(
+          (LoggedMetrics editedLoggedMetrics) =>
+              editedLoggedMetrics.currentHang == loggedMetrics.currentHang);
+      if (_editedLoggedMetric != null) {
+        return _editedLoggedMetric;
       } else {
-        return sequenceEvent;
+        return loggedMetrics;
       }
     }).toList();
-
-    _hangTimes = loggedMetrics
-        .map((LoggedMetric loggedMetric) => ExecutionEvent((b) => b
-          ..executionEventType = ExecutionEventType.hangTimer
-          ..elapsedMs = loggedMetric.duration * 1000))
-        .toList();
-
-    _replaceExistingWorkoutFromLoggedMetrics(loggedMetrics);
-  }
-
-  void _replaceExistingWorkoutFromLoggedMetrics(
-      List<LoggedMetric> editedHangs) {
-    final List<SequenceEvent> _hangSequences = _sequence
-        .where((SequenceEvent sequenceEvent) =>
-            sequenceEvent.type == ExecutionEventType.hangTimer)
-        .toList();
-    _hangSequences.removeWhere((hangSequence) => hangSequence.currentSet > 1);
-
-    final List<Hold> _allHolds = _hangSequences
-        .map((SequenceEvent sequenceEvent) =>
-            sequenceEvent.hold.rebuild((b) => b..repetitions = 1))
-        .toList();
-
-    List<Hold> _nonDuplicateHolds = [];
-    Hold _tempHold;
-    _allHolds.forEach((hold) {
-      if (hold.equalsWithoutRepetitions(_tempHold) == true) {
-        final Hold _existingHold = _nonDuplicateHolds.firstWhere(
-            (existingHold) => existingHold.equalsWithoutRepetitions(hold));
-        if (_existingHold != null) {
-          final int _existingHoldIndex =
-              _nonDuplicateHolds.indexOf(_existingHold);
-          final List<Hold> _newHolds = []..addAll(_nonDuplicateHolds);
-          _newHolds[_existingHoldIndex] = _existingHold
-              .rebuild((b) => b..repetitions = _existingHold.repetitions + 1);
-          _nonDuplicateHolds = _newHolds;
-        } else {
-          _nonDuplicateHolds.add(hold);
-        }
-      } else {
-        _nonDuplicateHolds.add(hold);
-      }
-      _tempHold = hold;
-    });
-
-    _workout = _workout.rebuild((b) => b
-      ..holds.replace(_nonDuplicateHolds)
-      ..holdCount = _nonDuplicateHolds.length);
-    _workoutsState.editWorkout(_workout);
   }
 
   void dispose() {

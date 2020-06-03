@@ -79,7 +79,8 @@ class _ExecutionScreenState extends State<ExecutionScreen>
           context: context,
           content: LogMetricsDialog(
             pastHangs: _viewModel.pastHangs,
-            handleLoggedMetrics: _viewModel.handleLoggedMetrics,
+            handleEditedLoggedMetricsList:
+                _viewModel.handleEditedLoggedMetricsList,
           ),
           smallWidth: false);
     }

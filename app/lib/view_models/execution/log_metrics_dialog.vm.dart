@@ -3,7 +3,6 @@ import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class PastHang {
   final int duration;
@@ -103,21 +102,10 @@ class PastHang {
   }
 }
 
-class LoggedMetric {
-  final int duration;
-  final double addedWeight;
-  final int currentHang;
-
-  const LoggedMetric({
-    @required this.duration,
-    @required this.addedWeight,
-    @required this.currentHang,
-  });
-}
-
 class LogMetricsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  void Function(List<LoggedMetric> loggedMetrics) handleLoggedMetrics;
+  void Function(List<LoggedMetrics> loggedMetricsList)
+      handleEditedLoggedMetricsList;
 
   List<PastHang> _pastHangs;
   List<PastHang> get pastHangs => _pastHangs;
@@ -136,7 +124,7 @@ class LogMetricsDialogViewModel extends ChangeNotifier {
 
   LogMetricsDialogViewModel(
       {@required List<PastHang> pastHangs,
-      @required this.handleLoggedMetrics}) {
+      @required this.handleEditedLoggedMetricsList}) {
     _pastHangs = pastHangs;
     _canScroll = true;
     _navigationService = NavigationService();
@@ -218,14 +206,14 @@ class LogMetricsDialogViewModel extends ChangeNotifier {
     return Future.sync(() {
       final bool _isValid = _validate();
       if (_isValid == true) {
-        final List<LoggedMetric> _loggedMetrics = _pastHangs
-            .map((PastHang pastHang) => LoggedMetric(
-                addedWeight: pastHang.addedWeight,
-                currentHang: pastHang.currentHang,
-                duration: pastHang.duration))
+        final List<LoggedMetrics> _editedLoggedMetricsList = _pastHangs
+            .map((PastHang pastHang) => LoggedMetrics((b) => b
+              ..addedWeight = pastHang.addedWeight
+              ..currentHang = pastHang.currentHang
+              ..duration = pastHang.duration))
             .toList();
         _navigationService.pop();
-        handleLoggedMetrics(_loggedMetrics);
+        handleEditedLoggedMetricsList(_editedLoggedMetricsList);
         return true;
       } else {
         return false;

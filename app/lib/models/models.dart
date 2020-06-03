@@ -17,6 +17,7 @@ export 'package:app/models/history.model.dart';
 export 'package:app/models/hold.model.dart';
 export 'package:app/models/hold_type.model.dart';
 export 'package:app/models/label.model.dart';
+export 'package:app/models/logged_metrics.model.dart';
 export 'package:app/models/settings.model.dart';
 export 'package:app/models/sound.model.dart';
 export 'package:app/models/temp_unit.model.dart';

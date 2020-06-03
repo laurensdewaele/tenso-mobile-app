@@ -1,3 +1,4 @@
+import 'package:app/models/models.dart';
 import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
 import 'package:app/widgets/execution/log_metrics_landscape.dart';
 import 'package:app/widgets/execution/log_metrics_portrait.dart';
@@ -6,11 +7,14 @@ import 'package:flutter/cupertino.dart';
 
 class LogMetricsDialog extends StatefulWidget {
   LogMetricsDialog(
-      {Key key, @required this.pastHangs, @required this.handleLoggedMetrics})
+      {Key key,
+      @required this.pastHangs,
+      @required this.handleEditedLoggedMetricsList})
       : super(key: key);
 
   final List<PastHang> pastHangs;
-  final void Function(List<LoggedMetric> loggedMetrics) handleLoggedMetrics;
+  final void Function(List<LoggedMetrics> loggedMetricsList)
+      handleEditedLoggedMetricsList;
 
   @override
   _EditHangsDialogState createState() => _EditHangsDialogState();
@@ -23,7 +27,7 @@ class _EditHangsDialogState extends State<LogMetricsDialog> {
   void initState() {
     _viewModel = LogMetricsDialogViewModel(
         pastHangs: widget.pastHangs,
-        handleLoggedMetrics: widget.handleLoggedMetrics);
+        handleEditedLoggedMetricsList: widget.handleEditedLoggedMetricsList);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }

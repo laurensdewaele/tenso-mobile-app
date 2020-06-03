@@ -22,6 +22,7 @@ part 'serializers.g.dart';
   Hold,
   HoldType,
   Label,
+  LoggedMetrics,
   Settings,
   Sound,
   TempUnit,
