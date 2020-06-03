@@ -1,22 +1,36 @@
 # TODO
 
-### Edit hangs.
-- Refactor execution_vm! Generate list of hangs when creating workout? => await Svanhild.
-
+  Refact execution_vm:
   -Abstract the history + hangTime history into another class.
   -Rename SequenceEvent to SequenceTimer/ExecutionTimer?
   -Create new class HistoryEvent or ExecutionHistory.
   -Let ExecutionViewModelState (rename to ExecutionState) extend SequenceTimer?
   -Can i skip the execution builder?
   
-  
-
 - Custom boards in horizontal scroll view.
 - History (calendar) update times.
 - Edit hung values on completion, new button next to rate workout.
 - Rename holds to different grip positions.
-  
+
+
+
+### Triage:
+
+
+- Skip editing hangs during workout?
+  Reasoning:
+  - Most users don't use it the way I do.
+  - It doesn't make sense for repeaters anyways.
+  - If you only do it for grouped, it gets weird.
+- Have an 'on the fly workout'? 
+  Where you can specify how much you've hung, with added weight.
+  Just rep per rep, or set per set.
+- Read up on repeaters.
+- Have them note specific hang times in logger/history (instead of edit hangs)?
+
+
 ### Large prio
+- Repeaters
 - board picker on general_tab
 - Beeps before rest, allow 0;
 - Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
@@ -30,6 +44,7 @@
 - LAUNCH
 
 ### Medium prio
+- Make videos to explain beginners how to use this app.
 - Graphs
 - Backend
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
@@ -44,6 +59,7 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
+- Have a timer section, without specifying holds etc.
 - Show history with pauses included, skip buttons etc. 
 - edit standard board depths
 - Webapp where people can upload their own image of the board
