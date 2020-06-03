@@ -228,11 +228,11 @@ abstract class ErrorMessages {
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
           TextSpan(
-            text: 'Editing ',
+            text: 'Logging ',
             style: styles.Lato.sBlackBold,
           ),
           TextSpan(
-            text: 'hangs is only possible on ',
+            text: 'effective metrics is only possible on ',
             style: styles.Lato.sBlack,
           ),
           TextSpan(

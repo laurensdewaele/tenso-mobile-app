@@ -59,7 +59,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
   void _pause() {
     _viewModel.handlePauseTap();
     showAppDialog(
-        smallWidth: true,
+        smallWidth: false,
         context: context,
         content: _PauseDialog(
             duringHang: _viewModel.state.type == ExecutionEventType.hangTimer,
@@ -220,11 +220,11 @@ class _PauseDialog extends StatelessWidget {
               ),
               Button(
                 smallText: true,
-                text: 'edit hangs',
+                text: 'log effective metrics',
                 handleTap: handleEditHangsTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.blue,
-                leadingIcon: icons.editIconWhiteL,
+                leadingIcon: icons.editIconWhiteXl,
                 leadingIconTextCentered: true,
               ),
               Divider(
@@ -236,7 +236,7 @@ class _PauseDialog extends StatelessWidget {
                 handleTap: handleSkipTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.gray,
-                leadingIcon: icons.skipIconWhiteL,
+                leadingIcon: icons.skipIconWhiteXl,
                 leadingIconTextCentered: true,
               ),
               Divider(
@@ -248,7 +248,7 @@ class _PauseDialog extends StatelessWidget {
                 handleTap: handleStopTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.primary,
-                leadingIcon: icons.stopIconWhiteL,
+                leadingIcon: icons.stopIconWhiteXl,
                 leadingIconTextCentered: true,
               ),
               Divider(
@@ -259,7 +259,7 @@ class _PauseDialog extends StatelessWidget {
                 text: 'resume',
                 handleTap: handleResumeTap,
                 displayBackground: false,
-                leadingIcon: icons.playIconBlackL,
+                leadingIcon: icons.playIconBlackXl,
                 leadingIconTextCentered: true,
               ),
             ],
