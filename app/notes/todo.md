@@ -7,6 +7,11 @@
   -Let ExecutionViewModelState (rename to ExecutionState) extend SequenceTimer?
   -Can i skip the execution builder?
   
+- get rid of sets
+- rename to grips / sets
+- implement design svanhild
+
+  
 - Custom boards in horizontal scroll view.
 - History (calendar) update times.
 - Edit hung values on completion, new button next to rate workout.
