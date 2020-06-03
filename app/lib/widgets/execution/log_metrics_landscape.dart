@@ -76,9 +76,7 @@ class LogMetricsLandscape extends StatelessWidget {
                         key: ValueKey(
                             'edit-hangs-dialog-duration-input-landscape-${selectedPastHang.currentHang}'),
                         enabled: true,
-                        description: selectedPastHang.isPastHang
-                            ? 'effective hung seconds'
-                            : 'hang time seconds',
+                        description: 'effective hung seconds',
                         handleValueChanged: setHangTimeInput,
                         initialValue: selectedPastHang.duration,
                       ),

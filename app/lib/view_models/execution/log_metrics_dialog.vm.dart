@@ -14,7 +14,6 @@ class PastHang {
   final int currentHangPerSet;
   final int currentSet;
   final int currentHang;
-  final bool isPastHang;
   final bool isSelected;
   final double boardAspectRatio;
   final String imageAsset;
@@ -37,7 +36,6 @@ class PastHang {
     @required this.currentHangPerSet,
     @required this.currentSet,
     @required this.currentHang,
-    @required this.isPastHang,
     @required this.isSelected,
     @required this.boardAspectRatio,
     @required this.imageAsset,
@@ -61,7 +59,6 @@ class PastHang {
     int currentHangPerSet,
     int currentSet,
     int currentHang,
-    bool isPastHang,
     bool isSelected,
     double boardAspectRatio,
     String imageAsset,
@@ -84,7 +81,6 @@ class PastHang {
       currentHangPerSet: currentHangPerSet ?? this.currentHangPerSet,
       currentSet: currentSet ?? this.currentSet,
       currentHang: currentHang ?? this.currentHang,
-      isPastHang: isPastHang ?? this.isPastHang,
       isSelected: isSelected ?? this.isSelected,
       boardAspectRatio: boardAspectRatio ?? this.boardAspectRatio,
       imageAsset: imageAsset ?? this.imageAsset,

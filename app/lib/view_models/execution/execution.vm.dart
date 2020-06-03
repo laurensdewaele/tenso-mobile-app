@@ -56,10 +56,12 @@ class ExecutionViewModel {
   }
 
   List<PastHang> _getPastHangs() {
-    final List<SequenceEvent> _hangEvents = _sequence
-        .where((SequenceEvent e) => e.type == ExecutionEventType.hangTimer)
+    final List<SequenceEvent> _pastHangEvents = _sequence
+        .where((SequenceEvent e) =>
+            e.type == ExecutionEventType.hangTimer &&
+            e.currentHang < state.currentHang)
         .toList();
-    return _hangEvents.map((SequenceEvent e) {
+    return _pastHangEvents.map((SequenceEvent e) {
       return PastHang(
         duration: e.duration,
         durationInput: e.duration.toString(),
@@ -71,7 +73,6 @@ class ExecutionViewModel {
         currentSet: e.currentSet,
         currentHang: e.currentHang,
         isSelected: e.currentHang == state.currentHang,
-        isPastHang: e.currentHang < state.currentHang,
         boardAspectRatio: e.board.aspectRatio,
         rightGrip: e.hold.rightGrip,
         leftGrip: e.hold.leftGrip,

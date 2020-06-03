@@ -41,7 +41,6 @@ class LogMetricsCupertinoPicker extends StatelessWidget {
                 totalHangsPerSet: pastHang.totalHangsPerSet,
                 currentSet: pastHang.currentSet,
                 totalSets: pastHang.totalSets,
-                isPastHang: pastHang.isPastHang,
                 isSelectedPastHang: pastHang.isSelected))
           ],
         ),
@@ -53,7 +52,6 @@ class LogMetricsCupertinoPicker extends StatelessWidget {
 class _HangRow extends StatelessWidget {
   const _HangRow({
     @required this.isSelectedPastHang,
-    @required this.isPastHang,
     @required this.currentSet,
     @required this.totalSets,
     @required this.currentHangPerSet,
@@ -61,7 +59,6 @@ class _HangRow extends StatelessWidget {
   });
 
   final bool isSelectedPastHang;
-  final bool isPastHang;
   final int currentSet;
   final int totalSets;
   final int totalHangsPerSet;
@@ -76,12 +73,7 @@ class _HangRow extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              if (isPastHang == false)
-                _Circle(
-                  active: isSelectedPastHang,
-                ),
-              if (isPastHang == true)
-                _CompletedCircle(active: isSelectedPastHang),
+              _CompletedCircle(active: isSelectedPastHang),
               Divider(
                 width: styles.Measurements.xs,
               ),
@@ -123,28 +115,6 @@ class _HangRow extends StatelessWidget {
               ],
             )
         ],
-      ),
-    );
-  }
-}
-
-class _Circle extends StatelessWidget {
-  const _Circle({
-    @required this.active,
-  });
-
-  final bool active;
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: active ? 1.5 : 1,
-      child: Container(
-        height: styles.Measurements.xs,
-        width: styles.Measurements.xs,
-        decoration: BoxDecoration(
-            border: Border.all(width: 1, color: styles.Colors.primary),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
       ),
     );
   }
