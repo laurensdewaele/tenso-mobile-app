@@ -204,32 +204,57 @@ class ExecutionViewModel {
   }
 
   void handleSkipTap() {
-    if (state.type == SequenceTimerType.hangTimer) {
+    _setDuration() {
       _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
           .copyWith(duration: state.seconds, skipped: true);
+    }
+
+    if (state.type == SequenceTimerType.hangTimer) {
+      _setDuration();
       _nextSequence();
       _navigationService.pop();
       return;
     }
 
+    final int _currentIndex = _sequence[_currentSequenceIndex].index;
+    final int _nextIndex = _workout.stopwatchRestTimer
+        ? _sequence[_currentSequenceIndex].index + 3
+        : _sequence[_currentSequenceIndex].index + 2;
+
+    final _nextHang = _sequence.firstWhere(
+        (SequenceTimer t) =>
+            t.index > _nextIndex && t.type == SequenceTimerType.hangTimer,
+        orElse: () => null);
+
+    if (_nextHang == null) {
+      _setDuration();
+      _stop();
+      _navigationService.pop();
+      return;
+    }
+
     _sequence = _sequence.map((SequenceTimer t) {
-      if (_workout.stopwatchRestTimer == true) {
-        if (t.index > _currentSequenceIndex &&
-            t.index <= _currentSequenceIndex + 3) {
-          return t.copyWith(duration: 0, skipped: true);
-        } else {
-          return t;
-        }
+      if (t.index > _currentIndex && t.index <= _nextIndex) {
+        return t.copyWith(duration: 0, skipped: true);
       } else {
-        if (t.index > _currentSequenceIndex &&
-            t.index <= _currentSequenceIndex + 2) {
-          return t.copyWith(duration: 0, skipped: true);
-        } else {
-          return t;
-        }
+        return t;
       }
     }).toList();
 
+    _sequence[_currentSequenceIndex] =
+        _sequence[_currentSequenceIndex].copyWith(
+      index: _nextIndex,
+      skipped: true,
+      hold: _nextHang.hold,
+      holdLabel: _nextHang.holdLabel,
+      board: _nextHang.board,
+      currentSet: _nextHang.currentSet,
+      currentHangPerSet: _nextHang.currentHangPerSet,
+      currentHang: _nextHang.currentHang,
+    );
+
+    _setState();
+    _animationController.forward();
     _navigationService.pop();
   }
 
