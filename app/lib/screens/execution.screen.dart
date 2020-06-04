@@ -76,7 +76,6 @@ class _ExecutionScreenState extends State<ExecutionScreen>
       ToastService()
           .add(ErrorMessages.loggingNotPossibleWhenNoCompletedHangs());
     } else {
-      _viewModel.handleLogHangsTap();
       await showAppDialog(
           fullWidth: true,
           context: context,

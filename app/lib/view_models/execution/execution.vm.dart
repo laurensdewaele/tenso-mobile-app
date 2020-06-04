@@ -138,6 +138,9 @@ class ExecutionViewModel {
       _stop();
     } else {
       _currentSequenceIndex++;
+      if (_sequence[_currentSequenceIndex].skipped == true) {
+        _nextSequence();
+      }
       _setState();
       _start();
     }
@@ -201,65 +204,33 @@ class ExecutionViewModel {
   }
 
   void handleSkipTap() {
-    // TODO
-    final SequenceTimer _current = _sequence[_currentSequenceIndex];
-    SequenceTimer _next;
-    final List<SequenceTimer> _newSequence = []..addAll(_sequence);
-
     if (state.type == SequenceTimerType.hangTimer) {
-      _newSequence[_currentSequenceIndex] =
-          _sequence[_currentSequenceIndex].copyWith(duration: state.seconds);
-      _sequence = _newSequence;
+      _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
+          .copyWith(duration: state.seconds, skipped: true);
       _nextSequence();
       _navigationService.pop();
-    } else {
-      // TODO: Firstwhere?
-      SequenceTimer _skippedHangSequence;
-      int _skippedHangSequenceIndex;
-      _sequence.asMap().forEach((int index, SequenceTimer sequenceEvent) {
-        if (_skippedHangSequence == null &&
-            index > _currentSequenceIndex &&
-            sequenceEvent.type == SequenceTimerType.hangTimer) {
-          _skippedHangSequence = sequenceEvent;
-          _skippedHangSequenceIndex = index;
-        }
-      });
-      if (_skippedHangSequence != null) {
-        _newSequence[_skippedHangSequenceIndex] =
-            _skippedHangSequence.copyWith(duration: 0);
-      }
-
-      if (_workout.stopwatchRestTimer == true) {
-        if (_currentSequenceIndex < _sequence.length - 3) {
-          _next = _sequence[_currentSequenceIndex + 3];
-          _newSequence[_currentSequenceIndex + 3] =
-              _next.copyWith(duration: _current.duration);
-          _currentSequenceIndex = _currentSequenceIndex + 3;
-        } else {
-          _stop();
-          return;
-        }
-      }
-
-      if (_workout.countdownRestTimer == true) {
-        if (_currentSequenceIndex < _sequence.length - 2) {
-          _next = _sequence[_currentSequenceIndex + 2];
-          _newSequence[_currentSequenceIndex + 2] = _next.copyWith(
-              type: _current.type,
-              duration: _current.duration,
-              title: _current.title);
-          _currentSequenceIndex = _currentSequenceIndex + 2;
-        } else {
-          _stop();
-          return;
-        }
-      }
-
-      _sequence = _newSequence;
-      _setState();
-      _animationController.forward();
-      _navigationService.pop();
+      return;
     }
+
+    _sequence = _sequence.map((SequenceTimer t) {
+      if (_workout.stopwatchRestTimer == true) {
+        if (t.index > _currentSequenceIndex &&
+            t.index <= _currentSequenceIndex + 3) {
+          return t.copyWith(duration: 0, skipped: true);
+        } else {
+          return t;
+        }
+      } else {
+        if (t.index > _currentSequenceIndex &&
+            t.index <= _currentSequenceIndex + 2) {
+          return t.copyWith(duration: 0, skipped: true);
+        } else {
+          return t;
+        }
+      }
+    }).toList();
+
+    _navigationService.pop();
   }
 
   void handleStopTap() {
@@ -287,8 +258,6 @@ class ExecutionViewModel {
           .ceil();
     }
   }
-
-  void handleLogHangsTap() {}
 
   void handleLoggedHangs(List<LoggedHangs> loggedHangs) {}
 
