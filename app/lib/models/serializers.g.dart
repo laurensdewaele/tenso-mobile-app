@@ -14,8 +14,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CompletedWorkouts.serializer)
       ..add(CustomBoardHoldImage.serializer)
       ..add(DeviceInfo.serializer)
-      ..add(ExecutionEvent.serializer)
-      ..add(ExecutionEventType.serializer)
       ..add(Fingers.serializer)
       ..add(Grip.serializer)
       ..add(HandHold.serializer)
@@ -24,7 +22,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Hold.serializer)
       ..add(HoldType.serializer)
       ..add(Label.serializer)
-      ..add(LoggedMetrics.serializer)
+      ..add(SequenceTimerLog.serializer)
+      ..add(SequenceTimerType.serializer)
       ..add(Settings.serializer)
       ..add(Sound.serializer)
       ..add(TempUnit.serializer)
@@ -48,11 +47,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(Hold)]),
           () => new ListBuilder<Hold>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(LoggedMetrics)]),
-          () => new ListBuilder<LoggedMetrics>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(ExecutionEvent)]),
-          () => new ListBuilder<ExecutionEvent>())
+          const FullType(BuiltList, const [const FullType(SequenceTimerLog)]),
+          () => new ListBuilder<SequenceTimerLog>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Workout)]),
           () => new ListBuilder<Workout>())

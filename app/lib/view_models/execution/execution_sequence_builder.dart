@@ -11,10 +11,11 @@ abstract class _ExecutionTitles {
   static const String recoveryRest = 'recovery rest';
 }
 
-class SequenceEvent {
-  final ExecutionEventType type;
+class SequenceTimer {
+  final int index;
+  final SequenceTimerType type;
   final int duration;
-
+  final bool skipped;
   final Hold hold;
   final Sound endSound;
   final Sound beepSound;
@@ -30,9 +31,11 @@ class SequenceEvent {
   final int currentHang;
   final WeightSystem weightSystem;
 
-  const SequenceEvent({
+  const SequenceTimer({
+    this.index,
     @required this.type,
     @required this.duration,
+    @required this.skipped,
     @required this.hold,
     @required this.endSound,
     @required this.beepSound,
@@ -49,9 +52,11 @@ class SequenceEvent {
     @required this.weightSystem,
   });
 
-  SequenceEvent copyWith({
-    ExecutionEventType type,
+  SequenceTimer copyWith({
+    int index,
+    SequenceTimerType type,
     int duration,
+    bool skipped,
     Hold hold,
     Sound endSound,
     Sound beepSound,
@@ -67,9 +72,11 @@ class SequenceEvent {
     int currentHang,
     WeightSystem weightSystem,
   }) {
-    return new SequenceEvent(
+    return new SequenceTimer(
+      index: index ?? this.index,
       type: type ?? this.type,
       duration: duration ?? this.duration,
+      skipped: skipped ?? this.skipped,
       hold: hold ?? this.hold,
       endSound: endSound ?? this.endSound,
       beepSound: beepSound ?? this.beepSound,
@@ -88,18 +95,19 @@ class SequenceEvent {
   }
 }
 
-List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
+List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
   Settings _settings = SettingsState().settings;
-  List<SequenceEvent> _sequence = [];
+  List<SequenceTimer> _sequence = [];
 
   void _addPreparationRestSequence(
       {int currentSet,
       int currentHoldIndex,
       int currentHangPerSet,
       int currentHang}) {
-    _sequence.add(SequenceEvent(
+    _sequence.add(SequenceTimer(
+        skipped: false,
         hold: workout.holds[currentHoldIndex],
-        type: ExecutionEventType.preparationTimer,
+        type: SequenceTimerType.preparationTimer,
         duration: _settings.preparationTimer,
         endSound: _settings.hangSound,
         beepSound: _settings.beepSound,
@@ -123,9 +131,10 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHangPerSet,
       int currentHang}) {
     _sequence.add(
-      SequenceEvent(
+      SequenceTimer(
+          skipped: false,
           hold: workout.holds[currentHoldIndex],
-          type: ExecutionEventType.hangTimer,
+          type: SequenceTimerType.hangTimer,
           duration: workout.holds[currentHoldIndex].hangTime,
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
@@ -149,9 +158,10 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHangPerSet,
       int currentHang}) {
     _sequence.add(
-      SequenceEvent(
+      SequenceTimer(
+          skipped: false,
           hold: workout.holds[currentHoldIndex],
-          type: ExecutionEventType.countdownRestTimer,
+          type: SequenceTimerType.countdownRestTimer,
           duration: workout.holds[currentHoldIndex].countdownRestDuration,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
@@ -176,9 +186,10 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
       int currentHangPerSet,
       int currentHang}) {
     _sequence.add(
-      SequenceEvent(
+      SequenceTimer(
+          skipped: false,
           hold: workout.holds[currentHoldIndex],
-          type: ExecutionEventType.stopwatchRestTimer,
+          type: SequenceTimerType.stopwatchRestTimer,
           duration: 0,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
@@ -268,5 +279,11 @@ List<SequenceEvent> sequenceBuilder({@required Workout workout}) {
 
   _generate();
 
-  return _sequence;
+  return _sequence
+      .asMap()
+      .map((int index, SequenceTimer t) {
+        return MapEntry(index, t.copyWith(index: index));
+      })
+      .values
+      .toList();
 }

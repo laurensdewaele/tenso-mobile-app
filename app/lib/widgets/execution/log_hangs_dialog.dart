@@ -1,33 +1,41 @@
-import 'package:app/models/models.dart';
-import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
-import 'package:app/widgets/execution/log_metrics_landscape.dart';
-import 'package:app/widgets/execution/log_metrics_portrait.dart';
+import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:app/widgets/execution/log_hangs_landscape.dart';
+import 'package:app/widgets/execution/log_hangs_portrait.dart';
 import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart';
 
-class LogMetricsDialog extends StatefulWidget {
-  LogMetricsDialog(
-      {Key key,
-      @required this.pastHangs,
-      @required this.handleEditedLoggedMetricsList})
+class LoggedHangs {
+  final int currentHang;
+  final double addedWeight;
+  final int duration;
+
+  const LoggedHangs({
+    @required this.currentHang,
+    @required this.addedWeight,
+    @required this.duration,
+  });
+}
+
+class LogHangsDialog extends StatefulWidget {
+  LogHangsDialog(
+      {Key key, @required this.pastHangs, @required this.handleLoggedHangs})
       : super(key: key);
 
   final List<PastHang> pastHangs;
-  final void Function(List<LoggedMetrics> loggedMetricsList)
-      handleEditedLoggedMetricsList;
+  final void Function(List<LoggedHangs> loggedHangs) handleLoggedHangs;
 
   @override
-  _EditHangsDialogState createState() => _EditHangsDialogState();
+  _LogHangsDialogState createState() => _LogHangsDialogState();
 }
 
-class _EditHangsDialogState extends State<LogMetricsDialog> {
-  LogMetricsDialogViewModel _viewModel;
+class _LogHangsDialogState extends State<LogHangsDialog> {
+  LogHangsDialogViewModel _viewModel;
 
   @override
   void initState() {
-    _viewModel = LogMetricsDialogViewModel(
+    _viewModel = LogHangsDialogViewModel(
         pastHangs: widget.pastHangs,
-        handleEditedLoggedMetricsList: widget.handleEditedLoggedMetricsList);
+        handleLoggedHangs: widget.handleLoggedHangs);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }
@@ -57,7 +65,7 @@ class _EditHangsDialogState extends State<LogMetricsDialog> {
               final Orientation _orientation =
                   MediaQuery.of(context).orientation;
               if (_orientation == Orientation.portrait) {
-                return LogMetricsPortrait(
+                return LogHangsPortrait(
                   setSelectedPastHang: _viewModel.setSelectedPastHang,
                   selectedPastHang: _viewModel.selectedPastHang,
                   pastHangs: _viewModel.pastHangs,
@@ -70,7 +78,7 @@ class _EditHangsDialogState extends State<LogMetricsDialog> {
                   setHangTimeInput: _viewModel.setHangTimeInput,
                 );
               } else {
-                return LogMetricsLandscape(
+                return LogHangsLandscape(
                   setSelectedPastHang: _viewModel.setSelectedPastHang,
                   selectedPastHang: _viewModel.selectedPastHang,
                   pastHangs: _viewModel.pastHangs,

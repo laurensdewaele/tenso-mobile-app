@@ -1,14 +1,14 @@
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
+import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
 import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/execution/log_metrics_cupertino_picker.dart';
+import 'package:app/widgets/execution/log_hangs_cupertino_picker.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:flutter/cupertino.dart';
 
-class LogMetricsPortrait extends StatelessWidget {
-  const LogMetricsPortrait({
+class LogHangsPortrait extends StatelessWidget {
+  const LogHangsPortrait({
     @required this.hangText,
     @required this.selectedPastHang,
     @required this.setText,
@@ -108,7 +108,7 @@ class LogMetricsPortrait extends StatelessWidget {
                 decoration: BoxDecoration(color: styles.Colors.lighestGray),
               ),
               Expanded(
-                child: LogMetricsCupertinoPicker(
+                child: LogHangsCupertinoPicker(
                   canScroll: canScroll,
                   handleScrollAttempt: handleScrollAttempt,
                   pastHangs: pastHangs,

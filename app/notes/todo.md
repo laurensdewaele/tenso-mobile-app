@@ -1,40 +1,26 @@
 # TODO
 
   Refact execution_vm:
-  -Abstract the history + hangTime history into another class.
+  -Abstract the history + hangTime history into another class. => remove it
   -Rename SequenceEvent to SequenceTimer/ExecutionTimer?
-  -Create new class HistoryEvent or ExecutionHistory.
   -Let ExecutionViewModelState (rename to ExecutionState) extend SequenceTimer?
   -Can i skip the execution builder?
-  
+
+
+### Triage:
+- Have an 'on the fly workout'? 
+  Where you can specify how much you've hung, with added weight.
+  Just rep per rep, or set per set.
+
+
+### Large prio
 - get rid of sets
 - rename to grips / sets
 - implement design svanhild
-
-  
 - Custom boards in horizontal scroll view.
 - History (calendar) update times.
 - Edit hung values on completion, new button next to rate workout.
 - Rename holds to different grip positions.
-
-
-
-### Triage:
-
-
-- Skip editing hangs during workout?
-  Reasoning:
-  - Most users don't use it the way I do.
-  - It doesn't make sense for repeaters anyways.
-  - If you only do it for grouped, it gets weird.
-- Have an 'on the fly workout'? 
-  Where you can specify how much you've hung, with added weight.
-  Just rep per rep, or set per set.
-- Read up on repeaters.
-- Have them note specific hang times in logger/history (instead of edit hangs)?
-
-
-### Large prio
 - Repeaters
 - board picker on general_tab
 - Beeps before rest, allow 0;

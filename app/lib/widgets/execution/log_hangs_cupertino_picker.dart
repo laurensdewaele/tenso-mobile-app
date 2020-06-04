@@ -1,10 +1,10 @@
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
+import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
 
-class LogMetricsCupertinoPicker extends StatelessWidget {
-  const LogMetricsCupertinoPicker({
+class LogHangsCupertinoPicker extends StatelessWidget {
+  const LogHangsCupertinoPicker({
     @required this.handleScrollAttempt,
     @required this.canScroll,
     @required this.pastHangs,

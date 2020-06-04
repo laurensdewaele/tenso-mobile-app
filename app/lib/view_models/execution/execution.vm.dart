@@ -5,7 +5,8 @@ import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/view_models/execution/execution_sequence_builder.dart';
 import 'package:app/view_models/execution/execution_state.vm.dart';
-import 'package:app/view_models/execution/log_metrics_dialog.vm.dart';
+import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wakelock/wakelock.dart';
@@ -15,18 +16,14 @@ class ExecutionViewModel {
   Workout _workout;
   AnimationController _animationController;
   int _currentSequenceIndex;
-  List<SequenceEvent> _sequence;
+  List<SequenceTimer> _sequence;
   NavigationService _navigationService;
-  List<ExecutionEvent> _eventLog = [];
-  List<LoggedMetrics> _loggedMetricsList = [];
-  Stopwatch _elapsedTimer;
-  bool _isPaused;
   List<PastHang> get pastHangs => _getPastHangs();
   int get totalHangs => _workout.totalHangs;
 
-  BehaviorSubject<ExecutionViewModelState> _state$;
-  Stream<ExecutionViewModelState> get state$ => _state$.stream;
-  ExecutionViewModelState get state => _state$.value;
+  BehaviorSubject<ExecutionState> _state$;
+  Stream<ExecutionState> get state$ => _state$.stream;
+  ExecutionState get state => _state$.value;
 
   ExecutionViewModel(
       {@required Workout workout,
@@ -36,19 +33,8 @@ class ExecutionViewModel {
     _workout = workout;
     _animationController = animationController;
     _sequence = sequenceBuilder(workout: workout);
-    _loggedMetricsList = _sequence
-        .where((SequenceEvent sequenceEvent) =>
-            sequenceEvent.type == ExecutionEventType.hangTimer)
-        .map((SequenceEvent sequenceEvent) => LoggedMetrics((b) => b
-          ..addedWeight = sequenceEvent.hold.addedWeight
-          ..currentHang = sequenceEvent.currentHang
-          ..duration = sequenceEvent.duration))
-        .toList();
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
-    // This is only used for building the history
-    _elapsedTimer = Stopwatch();
-    _isPaused = false;
     _state$ = BehaviorSubject.seeded(_buildStateAndPlayBeepSound());
     _animationController.addListener(_setState);
     _animationController.addStatusListener(_animationStatusListener);
@@ -56,42 +42,43 @@ class ExecutionViewModel {
   }
 
   List<PastHang> _getPastHangs() {
-    final List<SequenceEvent> _pastHangEvents = _sequence
-        .where((SequenceEvent e) =>
-            e.type == ExecutionEventType.hangTimer &&
-            e.currentHang < state.currentHang)
+    final List<SequenceTimer> _pastHangEvents = _sequence
+        .where((SequenceTimer t) =>
+            t.type == SequenceTimerType.hangTimer &&
+            t.currentHang < state.currentHang)
         .toList();
-    return _pastHangEvents.map((SequenceEvent e) {
+    return _pastHangEvents.map((SequenceTimer t) {
       return PastHang(
-        duration: e.duration,
-        durationInput: e.duration.toString(),
-        addedWeight: e.hold.addedWeight,
-        addedWeightInput: e.hold.addedWeight.toString(),
-        totalSets: e.totalSets,
-        totalHangsPerSet: e.totalHangsPerSet,
-        currentHangPerSet: e.currentHangPerSet,
-        currentSet: e.currentSet,
-        currentHang: e.currentHang,
-        isSelected: e.currentHang == state.currentHang,
-        boardAspectRatio: e.board.aspectRatio,
-        rightGrip: e.hold.rightGrip,
-        leftGrip: e.hold.leftGrip,
-        leftGripBoardHold: e.hold.leftGripBoardHold,
-        rightGripBoardHold: e.hold.rightGripBoardHold,
-        handToBoardHeightRatio: e.board.handToBoardHeightRatio,
-        customBoardHoldImages: e.board.customBoardHoldImages?.toList(),
-        imageAsset: e.board.imageAsset,
-        weightUnit: e.weightSystem.unit,
-        imageAssetWidth: e.board.imageAssetWidth,
+        skipped: t.skipped,
+        duration: t.duration,
+        durationInput: t.duration.toString(),
+        addedWeight: t.hold.addedWeight,
+        addedWeightInput: t.hold.addedWeight.toString(),
+        totalSets: t.totalSets,
+        totalHangsPerSet: t.totalHangsPerSet,
+        currentHangPerSet: t.currentHangPerSet,
+        currentSet: t.currentSet,
+        currentHang: t.currentHang,
+        isSelected: t.currentHang == state.currentHang - 1,
+        boardAspectRatio: t.board.aspectRatio,
+        rightGrip: t.hold.rightGrip,
+        leftGrip: t.hold.leftGrip,
+        leftGripBoardHold: t.hold.leftGripBoardHold,
+        rightGripBoardHold: t.hold.rightGripBoardHold,
+        handToBoardHeightRatio: t.board.handToBoardHeightRatio,
+        customBoardHoldImages: t.board.customBoardHoldImages?.toList(),
+        imageAsset: t.board.imageAsset,
+        weightUnit: t.weightSystem.unit,
+        imageAssetWidth: t.board.imageAssetWidth,
       );
     }).toList();
   }
 
-  ExecutionViewModelState _buildStateAndPlayBeepSound() {
+  ExecutionState _buildStateAndPlayBeepSound() {
     final int _seconds = _getDisplaySeconds();
     // Can't use state.type here because it's possible state has not been initialized yet.
     final bool _isStopwatch = _sequence[_currentSequenceIndex].type ==
-        ExecutionEventType.stopwatchRestTimer;
+        SequenceTimerType.stopwatchRestTimer;
     final bool _isCountdown = !_isStopwatch;
     if (_state$ != null &&
         _isCountdown == true &&
@@ -102,7 +89,7 @@ class ExecutionViewModel {
       _audioPlayerService.play(state.beepSound.filename);
     }
 
-    return ExecutionViewModelState(
+    return ExecutionState(
       currentHang: _sequence[_currentSequenceIndex].currentHang,
       type: _sequence[_currentSequenceIndex].type,
       isStopwatch: _isStopwatch,
@@ -141,26 +128,7 @@ class ExecutionViewModel {
       if (state.endSound.muted == false) {
         _audioPlayerService.play(state.endSound.filename);
       }
-      _resetElapsedTimerAndAddToHistory();
       _nextSequence();
-    }
-  }
-
-  void _resetElapsedTimerAndAddToHistory() {
-    if (_elapsedTimer.isRunning) {
-      _elapsedTimer.stop();
-
-      if (_isPaused == false) {
-        _eventLog.add(ExecutionEvent((b) => b
-          ..executionEventType = state.type
-          ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
-      } else {
-        _eventLog.add(ExecutionEvent((b) => b
-          ..executionEventType = ExecutionEventType.pauseTimer
-          ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
-      }
-
-      _elapsedTimer.reset();
     }
   }
 
@@ -186,19 +154,23 @@ class ExecutionViewModel {
       _animationController.reset();
       _animationController.forward();
     }
-    _elapsedTimer.start();
   }
 
   void _stop() {
     _animationController.stop(canceled: true);
-    _resetElapsedTimerAndAddToHistory();
-    // settings _isPaused should be always be done after _resetElapsedTimerAndAddToHistory
-    _isPaused = false;
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.stopEvent));
+
+    _sequence = _sequence.map((SequenceTimer t) {
+      if (_currentSequenceIndex == t.index) {
+        return t.copyWith(duration: state.seconds);
+      } else if (_currentSequenceIndex < t.index) {
+        return t.copyWith(skipped: true);
+      } else {
+        return t;
+      }
+    }).toList();
 
     History _history = _generateHistory();
-    if (_history.timeUnderTensionS == 0) {
+    if (_history.timerUnderTensionS == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
       _navigationService.pushNamed(Routes.congratulationsScreen,
@@ -209,51 +181,45 @@ class ExecutionViewModel {
   }
 
   History _generateHistory() {
-    return History((b) => b
-      ..eventLog.replace(_eventLog)
-      ..loggedMetricsList.replace(_loggedMetricsList));
+    final List<SequenceTimerLog> _logs = _sequence
+        .map((SequenceTimer t) => SequenceTimerLog((b) => b
+          ..duration = t.duration
+          ..type = t.type
+          ..skipped = t.skipped))
+        .toList();
+
+    return History((b) => b..sequenceTimerLogs.addAll(_logs));
   }
 
   void handleReadyTap() {
     _animationController.stop(canceled: false);
-    _resetElapsedTimerAndAddToHistory();
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.readyEvent));
     _nextSequence();
   }
 
   void handlePauseTap() {
     _animationController.stop(canceled: false);
-    _resetElapsedTimerAndAddToHistory();
-    _isPaused = true;
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.pauseEvent));
-    _elapsedTimer.start();
   }
 
   void handleSkipTap() {
-    _resetElapsedTimerAndAddToHistory();
-    _isPaused = false;
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.skipEvent));
+    // TODO
+    final SequenceTimer _current = _sequence[_currentSequenceIndex];
+    SequenceTimer _next;
+    final List<SequenceTimer> _newSequence = []..addAll(_sequence);
 
-    final SequenceEvent _current = _sequence[_currentSequenceIndex];
-    SequenceEvent _next;
-    final List<SequenceEvent> _newSequence = []..addAll(_sequence);
-
-    if (state.type == ExecutionEventType.hangTimer) {
+    if (state.type == SequenceTimerType.hangTimer) {
       _newSequence[_currentSequenceIndex] =
           _sequence[_currentSequenceIndex].copyWith(duration: state.seconds);
       _sequence = _newSequence;
       _nextSequence();
       _navigationService.pop();
     } else {
-      SequenceEvent _skippedHangSequence;
+      // TODO: Firstwhere?
+      SequenceTimer _skippedHangSequence;
       int _skippedHangSequenceIndex;
-      _sequence.asMap().forEach((int index, SequenceEvent sequenceEvent) {
+      _sequence.asMap().forEach((int index, SequenceTimer sequenceEvent) {
         if (_skippedHangSequence == null &&
             index > _currentSequenceIndex &&
-            sequenceEvent.type == ExecutionEventType.hangTimer) {
+            sequenceEvent.type == SequenceTimerType.hangTimer) {
           _skippedHangSequence = sequenceEvent;
           _skippedHangSequenceIndex = index;
         }
@@ -291,7 +257,6 @@ class ExecutionViewModel {
 
       _sequence = _newSequence;
       _setState();
-      _elapsedTimer.start();
       _animationController.forward();
       _navigationService.pop();
     }
@@ -302,11 +267,6 @@ class ExecutionViewModel {
   }
 
   void handleResumeTap() {
-    _resetElapsedTimerAndAddToHistory();
-    _isPaused = false;
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.resumeEvent));
-    _elapsedTimer.start();
     _animationController.forward();
     _navigationService.pop();
   }
@@ -328,46 +288,15 @@ class ExecutionViewModel {
     }
   }
 
-  void handleLogMetricsTap() {
-    _elapsedTimer.stop();
-    _eventLog.add(ExecutionEvent((b) => b
-      ..executionEventType = ExecutionEventType.pauseTimer
-      ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.editHangsEvent));
-    _elapsedTimer.reset();
-    _elapsedTimer.start();
-  }
+  void handleLogHangsTap() {}
 
-  void handleEditedLoggedMetricsList(
-      List<LoggedMetrics> editedLoggedMetricsList) {
-    _elapsedTimer.stop();
-    _eventLog.add(ExecutionEvent((b) => b
-      ..executionEventType = ExecutionEventType.editHangsTimer
-      ..elapsedMs = _elapsedTimer.elapsed.inMilliseconds));
-    _eventLog.add(ExecutionEvent(
-        (b) => b..executionEventType = ExecutionEventType.editHangsDoneEvent));
-    _elapsedTimer.reset();
-    _elapsedTimer.start();
-
-    _loggedMetricsList = _loggedMetricsList.map((LoggedMetrics loggedMetrics) {
-      final _editedLoggedMetric = editedLoggedMetricsList.firstWhere(
-          (LoggedMetrics editedLoggedMetrics) =>
-              editedLoggedMetrics.currentHang == loggedMetrics.currentHang);
-      if (_editedLoggedMetric != null) {
-        return _editedLoggedMetric;
-      } else {
-        return loggedMetrics;
-      }
-    }).toList();
-  }
+  void handleLoggedHangs(List<LoggedHangs> loggedHangs) {}
 
   void dispose() {
     Wakelock.disable();
     _animationController.removeListener(_setState);
     _animationController.removeStatusListener(_animationStatusListener);
     _animationController.dispose();
-    _elapsedTimer.stop();
     _state$.close();
   }
 }

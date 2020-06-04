@@ -2,9 +2,11 @@ import 'package:app/models/models.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
+import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
 class PastHang {
+  final bool skipped;
   final int duration;
   final String durationInput;
   final double addedWeight;
@@ -27,6 +29,7 @@ class PastHang {
   final String weightUnit;
 
   const PastHang({
+    @required this.skipped,
     @required this.duration,
     @required this.durationInput,
     @required this.addedWeight,
@@ -50,6 +53,7 @@ class PastHang {
   });
 
   PastHang copyWith({
+    bool skipped,
     int duration,
     String durationInput,
     double addedWeight,
@@ -72,6 +76,7 @@ class PastHang {
     String weightUnit,
   }) {
     return new PastHang(
+      skipped: skipped ?? this.skipped,
       duration: duration ?? this.duration,
       durationInput: durationInput ?? this.durationInput,
       addedWeight: addedWeight ?? this.addedWeight,
@@ -98,10 +103,9 @@ class PastHang {
   }
 }
 
-class LogMetricsDialogViewModel extends ChangeNotifier {
+class LogHangsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  void Function(List<LoggedMetrics> loggedMetricsList)
-      handleEditedLoggedMetricsList;
+  void Function(List<LoggedHangs> loggedHangs) handleLoggedHangs;
 
   List<PastHang> _pastHangs;
   List<PastHang> get pastHangs => _pastHangs;
@@ -118,9 +122,8 @@ class LogMetricsDialogViewModel extends ChangeNotifier {
   String get setText =>
       'set ${selectedPastHang.currentSet}/${selectedPastHang.totalSets}';
 
-  LogMetricsDialogViewModel(
-      {@required List<PastHang> pastHangs,
-      @required this.handleEditedLoggedMetricsList}) {
+  LogHangsDialogViewModel(
+      {@required List<PastHang> pastHangs, @required this.handleLoggedHangs}) {
     _pastHangs = pastHangs;
     _canScroll = true;
     _navigationService = NavigationService();
@@ -202,14 +205,14 @@ class LogMetricsDialogViewModel extends ChangeNotifier {
     return Future.sync(() {
       final bool _isValid = _validate();
       if (_isValid == true) {
-        final List<LoggedMetrics> _editedLoggedMetricsList = _pastHangs
-            .map((PastHang pastHang) => LoggedMetrics((b) => b
-              ..addedWeight = pastHang.addedWeight
-              ..currentHang = pastHang.currentHang
-              ..duration = pastHang.duration))
+        final List<LoggedHangs> _loggedHangs = _pastHangs
+            .map((PastHang pastHang) => LoggedHangs(
+                addedWeight: pastHang.addedWeight,
+                currentHang: pastHang.currentHang,
+                duration: pastHang.duration))
             .toList();
         _navigationService.pop();
-        handleEditedLoggedMetricsList(_editedLoggedMetricsList);
+        handleLoggedHangs(_loggedHangs);
         return true;
       } else {
         return false;

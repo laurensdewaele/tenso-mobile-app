@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:app/models/models.dart';
 import 'package:flutter/widgets.dart';
 
-class ExecutionViewModelState {
-  final ExecutionEventType type;
+class ExecutionState {
+  final SequenceTimerType type;
   final bool isStopwatch;
   final int duration;
   final int seconds;
@@ -28,7 +28,7 @@ class ExecutionViewModelState {
   final WeightSystem weightSystem;
   final double addedWeight;
 
-  const ExecutionViewModelState({
+  const ExecutionState({
     @required this.isStopwatch,
     @required this.type,
     @required this.duration,
@@ -57,7 +57,7 @@ class ExecutionViewModelState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ExecutionViewModelState &&
+      other is ExecutionState &&
           runtimeType == other.runtimeType &&
           type == other.type &&
           isStopwatch == other.isStopwatch &&

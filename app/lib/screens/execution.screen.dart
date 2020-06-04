@@ -9,7 +9,7 @@ import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/execution/execution_landscape.dart';
 import 'package:app/widgets/execution/execution_portrait.dart';
-import 'package:app/widgets/execution/log_metrics_dialog.dart';
+import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -62,25 +62,27 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         smallWidth: false,
         context: context,
         content: _PauseDialog(
-            duringHang: _viewModel.state.type == ExecutionEventType.hangTimer,
-            handleLogMetricsTap: _handleLogMetricsTap,
+            duringHang: _viewModel.state.type == SequenceTimerType.hangTimer,
+            handleLogHangsTap: _handleLogHangsTap,
             handleResumeTap: _viewModel.handleResumeTap,
             handleSkipTap: _viewModel.handleSkipTap,
             handleStopTap: _viewModel.handleStopTap));
   }
 
-  void _handleLogMetricsTap() async {
-    if (_viewModel.state.type == ExecutionEventType.hangTimer) {
-      ToastService().add(ErrorMessages.editOnlyPossibleOnRests());
+  void _handleLogHangsTap() async {
+    if (_viewModel.state.type == SequenceTimerType.hangTimer) {
+      ToastService().add(ErrorMessages.loggingOnlyPossibleOnRests());
+    } else if (_viewModel.pastHangs.length == 0) {
+      ToastService()
+          .add(ErrorMessages.loggingNotPossibleWhenNoCompletedHangs());
     } else {
-      _viewModel.handleLogMetricsTap();
+      _viewModel.handleLogHangsTap();
       await showAppDialog(
           fullWidth: true,
           context: context,
-          content: LogMetricsDialog(
+          content: LogHangsDialog(
             pastHangs: _viewModel.pastHangs,
-            handleEditedLoggedMetricsList:
-                _viewModel.handleEditedLoggedMetricsList,
+            handleLoggedHangs: _viewModel.handleLoggedHangs,
           ),
           smallWidth: false);
     }
@@ -100,7 +102,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         return false;
       },
       child: ToastProvider(
-        child: StreamBuilder<ExecutionViewModelState>(
+        child: StreamBuilder<ExecutionState>(
             initialData: _viewModel.state,
             stream: _viewModel.state$,
             builder: (context, snapshot) {
@@ -180,7 +182,7 @@ class _PauseDialog extends StatelessWidget {
     @required this.handleResumeTap,
     @required this.handleSkipTap,
     @required this.handleStopTap,
-    @required this.handleLogMetricsTap,
+    @required this.handleLogHangsTap,
     @required this.duringHang,
   }) : super(key: key);
 
@@ -188,7 +190,7 @@ class _PauseDialog extends StatelessWidget {
   final VoidCallback handleStopTap;
   final VoidCallback handleResumeTap;
   final VoidCallback handleSkipTap;
-  final VoidCallback handleLogMetricsTap;
+  final VoidCallback handleLogHangsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -221,8 +223,8 @@ class _PauseDialog extends StatelessWidget {
               ),
               Button(
                 smallText: true,
-                text: 'log effective metrics',
-                handleTap: handleLogMetricsTap,
+                text: 'log hangs',
+                handleTap: handleLogHangsTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.blue,
                 leadingIcon: icons.editIconWhiteXl,

@@ -224,7 +224,7 @@ abstract class ErrorMessages {
           TextSpan(text: 'holds in order to save.', style: styles.Lato.sBlack),
         ]),
       );
-  static Widget editOnlyPossibleOnRests() => RichText(
+  static Widget loggingOnlyPossibleOnRests() => RichText(
         textAlign: TextAlign.center,
         text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
           TextSpan(
@@ -232,7 +232,7 @@ abstract class ErrorMessages {
             style: styles.Lato.sBlackBold,
           ),
           TextSpan(
-            text: 'effective metrics is only possible on ',
+            text: 'hangs is only possible on ',
             style: styles.Lato.sBlack,
           ),
           TextSpan(
@@ -241,6 +241,27 @@ abstract class ErrorMessages {
           ),
           TextSpan(
             text: 'periods.',
+            style: styles.Lato.sBlack,
+          ),
+        ]),
+      );
+  static Widget loggingNotPossibleWhenNoCompletedHangs() => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: 'Logging ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'is not possible when there are ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: 'no completed ',
+            style: styles.Lato.sBlackBold,
+          ),
+          TextSpan(
+            text: 'hangs.',
             style: styles.Lato.sBlack,
           ),
         ]),

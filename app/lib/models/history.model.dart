@@ -11,14 +11,19 @@ part 'history.model.g.dart';
 abstract class History implements Built<History, HistoryBuilder> {
   static Serializer<History> get serializer => _$historySerializer;
 
-  BuiltList<LoggedMetrics> get loggedMetricsList;
-  BuiltList<ExecutionEvent> get eventLog;
-  int get timeUnderTensionS => _calculateTimeUnderTensionS();
+  BuiltList<SequenceTimerLog> get sequenceTimerLogs;
+  int get timerUnderTensionS => _calculateTimeUnderTensionS();
 
   int _calculateTimeUnderTensionS() {
-    return loggedMetricsList
-        .map((e) => e.duration)
+    final _hangSequences = sequenceTimerLogs
+        .toList()
+        .where((SequenceTimerLog t) => t.type == SequenceTimerType.hangTimer);
+
+    final int _timeUnderTensionS = _hangSequences
+        .map((SequenceTimerLog t) => t.duration)
         .fold(0, (previous, current) => previous + current);
+
+    return _timeUnderTensionS;
   }
 
   factory History([void Function(HistoryBuilder) updates]) = _$History;
