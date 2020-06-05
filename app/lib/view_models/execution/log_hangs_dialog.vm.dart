@@ -7,8 +7,8 @@ import 'package:flutter/cupertino.dart';
 
 class PastHang {
   final bool skipped;
-  final int duration;
-  final String durationInput;
+  final double effectiveDurationS;
+  final String effectiveDurationSInput;
   final double addedWeight;
   final String addedWeightInput;
   final int totalSets;
@@ -30,8 +30,8 @@ class PastHang {
 
   const PastHang({
     @required this.skipped,
-    @required this.duration,
-    @required this.durationInput,
+    @required this.effectiveDurationS,
+    @required this.effectiveDurationSInput,
     @required this.addedWeight,
     @required this.addedWeightInput,
     @required this.totalSets,
@@ -54,8 +54,8 @@ class PastHang {
 
   PastHang copyWith({
     bool skipped,
-    int duration,
-    String durationInput,
+    double effectiveDurationS,
+    String effectiveDurationSInput,
     double addedWeight,
     String addedWeightInput,
     int totalSets,
@@ -77,8 +77,9 @@ class PastHang {
   }) {
     return new PastHang(
       skipped: skipped ?? this.skipped,
-      duration: duration ?? this.duration,
-      durationInput: durationInput ?? this.durationInput,
+      effectiveDurationS: effectiveDurationS ?? this.effectiveDurationS,
+      effectiveDurationSInput:
+          effectiveDurationSInput ?? this.effectiveDurationSInput,
       addedWeight: addedWeight ?? this.addedWeight,
       addedWeightInput: addedWeightInput ?? this.addedWeightInput,
       totalSets: totalSets ?? this.totalSets,
@@ -105,7 +106,7 @@ class PastHang {
 
 class LogHangsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  void Function(List<LoggedHangs> loggedHangs) handleLoggedHangs;
+  void Function(List<LoggedHang> loggedHangs) handleLoggedHangs;
 
   List<PastHang> _pastHangs;
   List<PastHang> get pastHangs => _pastHangs;
@@ -142,12 +143,13 @@ class LogHangsDialogViewModel extends ChangeNotifier {
   void setHangTimeInput(String s) {
     List<PastHang> _newPastHangs = []..addAll(_pastHangs);
     _newPastHangs[_selectedPastHangIndex] =
-        selectedPastHang.copyWith(durationInput: s);
+        selectedPastHang.copyWith(effectiveDurationSInput: s);
     _pastHangs = _newPastHangs;
     try {
-      final int _duration =
+      final int _effectiveDurationS =
           InputParsers.parseToInt(string: s, inputField: 'Duration');
-      Validators.biggerOrEqualToZero(value: _duration, inputField: 'Duration');
+      Validators.biggerOrEqualToZero(
+          value: _effectiveDurationS, inputField: 'Duration');
       _canScroll = true;
     } on FormatException {
       _canScroll = false;
@@ -174,11 +176,12 @@ class LogHangsDialogViewModel extends ChangeNotifier {
   }
 
   bool _validate() {
-    final int _duration = InputParsers.parseToInt(
-        string: selectedPastHang.durationInput, inputField: 'Duration');
+    final double _effectiveDurationS = InputParsers.parseToDouble(
+        string: selectedPastHang.effectiveDurationSInput,
+        inputField: 'Duration');
 
     final bool _validDuration = Validators.biggerOrEqualToZero(
-        value: _duration, inputField: 'Duration');
+        value: _effectiveDurationS, inputField: 'Duration');
 
     final double _addedWeight = InputParsers.parseToDouble(
         string: selectedPastHang.addedWeightInput, inputField: 'Added weight');
@@ -188,7 +191,7 @@ class LogHangsDialogViewModel extends ChangeNotifier {
     if (_isValid == true) {
       List<PastHang> _newPastHangs = []..addAll(_pastHangs);
       _newPastHangs[_selectedPastHangIndex] = selectedPastHang.copyWith(
-          duration: _duration,
+          effectiveDurationS: _effectiveDurationS,
           addedWeight: _addedWeight,
           currentHang: selectedPastHang.currentHang);
       _pastHangs = _newPastHangs;
@@ -205,11 +208,11 @@ class LogHangsDialogViewModel extends ChangeNotifier {
     return Future.sync(() {
       final bool _isValid = _validate();
       if (_isValid == true) {
-        final List<LoggedHangs> _loggedHangs = _pastHangs
-            .map((PastHang pastHang) => LoggedHangs(
+        final List<LoggedHang> _loggedHangs = _pastHangs
+            .map((PastHang pastHang) => LoggedHang(
                 addedWeight: pastHang.addedWeight,
                 currentHang: pastHang.currentHang,
-                duration: pastHang.duration))
+                effectiveDurationS: pastHang.effectiveDurationS))
             .toList();
         _navigationService.pop();
         handleLoggedHangs(_loggedHangs);

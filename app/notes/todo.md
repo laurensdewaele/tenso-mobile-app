@@ -1,30 +1,5 @@
 # TODO
 
-  Refact execution_vm:
-  -Abstract the history + hangTime history into another class. => remove it
-  -Rename SequenceEvent to SequenceTimer/ExecutionTimer?
-  -Let ExecutionViewModelState (rename to ExecutionState) extend SequenceTimer?
-  -Can i skip the execution builder?
-  
-  
-Wat wil ik eigenlijk?
-
-Sequence verloopt zoals het hoort.
-Je wilt zien wat er effectief gedaan werd vs wat er voorop gesteld werd.
-
-Het rare is dat je de index aanpast van een SequenceTimer.
-Dit omdat je meerdere malen kan skippen tijdens dezelfde sequence.
-
-Vroeger ging ik effectief naar de andere sequence, met gekopieerde waardes.
-=> Veel logischer wat er aan de hand is.
-
-
-Is het nodig om de rest te blijven zien? 
-Mss is het toch beter gewoon te navigeren naar een nieuwe rust periode?
-In het geval van Countdown suckt dit wel.
- 
-
-
 ### Triage:
 - Have an 'on the fly workout'? 
   Where you can specify how much you've hung, with added weight.

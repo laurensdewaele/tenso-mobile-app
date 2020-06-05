@@ -4,15 +4,15 @@ import 'package:app/widgets/execution/log_hangs_portrait.dart';
 import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart';
 
-class LoggedHangs {
+class LoggedHang {
   final int currentHang;
   final double addedWeight;
-  final int duration;
+  final double effectiveDurationS;
 
-  const LoggedHangs({
+  const LoggedHang({
     @required this.currentHang,
     @required this.addedWeight,
-    @required this.duration,
+    @required this.effectiveDurationS,
   });
 }
 
@@ -22,7 +22,7 @@ class LogHangsDialog extends StatefulWidget {
       : super(key: key);
 
   final List<PastHang> pastHangs;
-  final void Function(List<LoggedHangs> loggedHangs) handleLoggedHangs;
+  final void Function(List<LoggedHang> loggedHangs) handleLoggedHangs;
 
   @override
   _LogHangsDialogState createState() => _LogHangsDialogState();

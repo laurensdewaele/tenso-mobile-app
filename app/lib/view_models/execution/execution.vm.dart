@@ -50,10 +50,12 @@ class ExecutionViewModel {
             t.currentHang < state.currentHang)
         .toList();
     return _pastHangEvents.map((SequenceTimer t) {
+      final double _effectiveDurationS =
+          double.parse((t.effectiveDurationMs / 1000).toStringAsFixed(1));
       return PastHang(
         skipped: t.skipped,
-        duration: t.duration,
-        durationInput: t.duration.toString(),
+        effectiveDurationS: _effectiveDurationS,
+        effectiveDurationSInput: _effectiveDurationS.toString(),
         addedWeight: t.hold.addedWeight,
         addedWeightInput: t.hold.addedWeight.toString(),
         totalSets: t.totalSets,
@@ -294,7 +296,22 @@ class ExecutionViewModel {
         _animationController.value);
   }
 
-  void handleLoggedHangs(List<LoggedHangs> loggedHangs) {}
+  void handleLoggedHangs(List<LoggedHang> loggedHangs) {
+    _sequence = _sequence.map((SequenceTimer t) {
+      final _relevantLoggedHang = loggedHangs.firstWhere(
+          (LoggedHang loggedHang) => t.currentHang == loggedHang.currentHang,
+          orElse: () => null);
+
+      if (t.type == SequenceTimerType.hangTimer &&
+          _relevantLoggedHang != null) {
+        // TODO: Addedweight after refactor
+        return t.copyWith(
+            effectiveDurationMs: _relevantLoggedHang.effectiveDurationS * 1000);
+      }
+
+      return t;
+    }).toList();
+  }
 
   void dispose() {
     Wakelock.disable();

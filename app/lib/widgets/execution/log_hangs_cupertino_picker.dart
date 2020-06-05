@@ -37,6 +37,7 @@ class LogHangsCupertinoPicker extends StatelessWidget {
           itemExtent: 40,
           children: <Widget>[
             ...pastHangs.map((PastHang pastHang) => _HangRow(
+                skipped: pastHang.skipped,
                 currentHangPerSet: pastHang.currentHangPerSet,
                 totalHangsPerSet: pastHang.totalHangsPerSet,
                 currentSet: pastHang.currentSet,
@@ -51,6 +52,7 @@ class LogHangsCupertinoPicker extends StatelessWidget {
 
 class _HangRow extends StatelessWidget {
   const _HangRow({
+    @required this.skipped,
     @required this.isSelectedPastHang,
     @required this.currentSet,
     @required this.totalSets,
@@ -58,6 +60,7 @@ class _HangRow extends StatelessWidget {
     @required this.totalHangsPerSet,
   });
 
+  final bool skipped;
   final bool isSelectedPastHang;
   final int currentSet;
   final int totalSets;
@@ -113,7 +116,21 @@ class _HangRow extends StatelessWidget {
                   ],
                 ),
               ],
-            )
+            ),
+          if (skipped)
+            Divider(
+              width: styles.Measurements.m,
+            ),
+          if (skipped)
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Divider(
+                  height: 5,
+                ),
+                Text('skipped', style: styles.Lato.xsGray),
+              ],
+            ),
         ],
       ),
     );

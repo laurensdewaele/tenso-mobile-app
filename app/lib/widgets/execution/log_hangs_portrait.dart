@@ -78,13 +78,13 @@ class LogHangsPortrait extends StatelessWidget {
                     leftGrip: selectedPastHang.leftGrip,
                     rightGrip: selectedPastHang.rightGrip,
                   ),
-                  NumberInputAndDescription<int>(
+                  NumberInputAndDescription<double>(
                     key: ValueKey(
                         'edit-hangs-dialog-duration-input-${selectedPastHang.currentHang}'),
                     enabled: true,
                     description: 'effective hung seconds',
                     handleValueChanged: setHangTimeInput,
-                    initialValue: selectedPastHang.duration,
+                    initialValue: selectedPastHang.effectiveDurationS,
                   ),
                   Divider(
                     height: styles.Measurements.m,
