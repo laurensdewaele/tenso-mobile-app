@@ -18,7 +18,11 @@ class SequenceTimer {
   final double effectiveDurationMs;
   final bool skipped;
   final bool stopped;
-  final Hold hold;
+  final BoardHold leftGripBoardHold;
+  final BoardHold rightGripBoardHold;
+  final Grip leftGrip;
+  final Grip rightGrip;
+  final double addedWeight;
   final Sound endSound;
   final Sound beepSound;
   final int beepsBeforeEnd;
@@ -40,7 +44,11 @@ class SequenceTimer {
     @required this.effectiveDurationMs,
     @required this.skipped,
     @required this.stopped,
-    @required this.hold,
+    @required this.leftGripBoardHold,
+    @required this.rightGripBoardHold,
+    @required this.leftGrip,
+    @required this.rightGrip,
+    @required this.addedWeight,
     @required this.endSound,
     @required this.beepSound,
     @required this.beepsBeforeEnd,
@@ -63,7 +71,11 @@ class SequenceTimer {
     double effectiveDurationMs,
     bool skipped,
     bool stopped,
-    Hold hold,
+    BoardHold leftGripBoardHold,
+    BoardHold rightGripBoardHold,
+    Grip leftGrip,
+    Grip rightGrip,
+    double addedWeight,
     Sound endSound,
     Sound beepSound,
     int beepsBeforeEnd,
@@ -85,7 +97,11 @@ class SequenceTimer {
       effectiveDurationMs: effectiveDurationMs ?? this.effectiveDurationMs,
       skipped: skipped ?? this.skipped,
       stopped: stopped ?? this.stopped,
-      hold: hold ?? this.hold,
+      leftGripBoardHold: leftGripBoardHold ?? this.leftGripBoardHold,
+      rightGripBoardHold: rightGripBoardHold ?? this.rightGripBoardHold,
+      leftGrip: leftGrip ?? this.leftGrip,
+      rightGrip: rightGrip ?? this.rightGrip,
+      addedWeight: addedWeight ?? this.addedWeight,
       endSound: endSound ?? this.endSound,
       beepSound: beepSound ?? this.beepSound,
       beepsBeforeEnd: beepsBeforeEnd ?? this.beepsBeforeEnd,
@@ -115,7 +131,11 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
     _sequence.add(SequenceTimer(
         stopped: false,
         skipped: false,
-        hold: workout.holds[currentHoldIndex],
+        addedWeight: workout.holds[currentHoldIndex].addedWeight,
+        leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+        rightGripBoardHold: workout.holds[currentHoldIndex].rightGripBoardHold,
+        leftGrip: workout.holds[currentHoldIndex].leftGrip,
+        rightGrip: workout.holds[currentHoldIndex].rightGrip,
         type: SequenceTimerType.preparationTimer,
         duration: _settings.preparationTimer,
         effectiveDurationMs: (_settings.preparationTimer * 1000).toDouble(),
@@ -144,7 +164,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       SequenceTimer(
           stopped: false,
           skipped: false,
-          hold: workout.holds[currentHoldIndex],
+          addedWeight: workout.holds[currentHoldIndex].addedWeight,
+          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+          rightGripBoardHold:
+              workout.holds[currentHoldIndex].rightGripBoardHold,
+          leftGrip: workout.holds[currentHoldIndex].leftGrip,
+          rightGrip: workout.holds[currentHoldIndex].rightGrip,
           type: SequenceTimerType.hangTimer,
           duration: workout.holds[currentHoldIndex].hangTime,
           effectiveDurationMs:
@@ -174,7 +199,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       SequenceTimer(
           skipped: false,
           stopped: false,
-          hold: workout.holds[currentHoldIndex],
+          addedWeight: workout.holds[currentHoldIndex].addedWeight,
+          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+          rightGripBoardHold:
+              workout.holds[currentHoldIndex].rightGripBoardHold,
+          leftGrip: workout.holds[currentHoldIndex].leftGrip,
+          rightGrip: workout.holds[currentHoldIndex].rightGrip,
           type: SequenceTimerType.countdownRestTimer,
           duration: workout.holds[currentHoldIndex].countdownRestDuration,
           effectiveDurationMs:
@@ -206,7 +236,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       SequenceTimer(
           stopped: false,
           skipped: false,
-          hold: workout.holds[currentHoldIndex],
+          addedWeight: workout.holds[currentHoldIndex].addedWeight,
+          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+          rightGripBoardHold:
+              workout.holds[currentHoldIndex].rightGripBoardHold,
+          leftGrip: workout.holds[currentHoldIndex].leftGrip,
+          rightGrip: workout.holds[currentHoldIndex].rightGrip,
           type: SequenceTimerType.stopwatchRestTimer,
           duration: 0,
           effectiveDurationMs: 0,

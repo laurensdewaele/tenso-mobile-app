@@ -56,8 +56,8 @@ class ExecutionViewModel {
         skipped: t.skipped,
         effectiveDurationS: _effectiveDurationS,
         effectiveDurationSInput: _effectiveDurationS.toString(),
-        addedWeight: t.hold.addedWeight,
-        addedWeightInput: t.hold.addedWeight.toString(),
+        addedWeight: t.addedWeight,
+        addedWeightInput: t.addedWeight.toString(),
         totalSets: t.totalSets,
         totalHangsPerSet: t.totalHangsPerSet,
         currentHangPerSet: t.currentHangPerSet,
@@ -65,10 +65,10 @@ class ExecutionViewModel {
         currentHang: t.currentHang,
         isSelected: t.currentHang == state.currentHang - 1,
         boardAspectRatio: t.board.aspectRatio,
-        rightGrip: t.hold.rightGrip,
-        leftGrip: t.hold.leftGrip,
-        leftGripBoardHold: t.hold.leftGripBoardHold,
-        rightGripBoardHold: t.hold.rightGripBoardHold,
+        rightGrip: t.rightGrip,
+        leftGrip: t.leftGrip,
+        leftGripBoardHold: t.leftGripBoardHold,
+        rightGripBoardHold: t.rightGripBoardHold,
         handToBoardHeightRatio: t.board.handToBoardHeightRatio,
         customBoardHoldImages: t.board.customBoardHoldImages?.toList(),
         imageAsset: t.board.imageAsset,
@@ -107,18 +107,16 @@ class ExecutionViewModel {
       title: _sequence[_currentSequenceIndex].title,
       holdLabel: _sequence[_currentSequenceIndex].holdLabel,
       board: _sequence[_currentSequenceIndex].board,
-      leftGrip: _sequence[_currentSequenceIndex].hold.leftGrip,
-      rightGrip: _sequence[_currentSequenceIndex].hold.rightGrip,
-      leftGripBoardHold:
-          _sequence[_currentSequenceIndex].hold.leftGripBoardHold,
-      rightGripBoardHold:
-          _sequence[_currentSequenceIndex].hold.rightGripBoardHold,
+      leftGrip: _sequence[_currentSequenceIndex].leftGrip,
+      rightGrip: _sequence[_currentSequenceIndex].rightGrip,
+      leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
+      rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
       totalSets: _sequence[_currentSequenceIndex].totalSets,
       currentSet: _sequence[_currentSequenceIndex].currentSet,
       totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
       currentHangPerSet: _sequence[_currentSequenceIndex].currentHangPerSet,
       weightSystem: _sequence[_currentSequenceIndex].weightSystem,
-      addedWeight: _sequence[_currentSequenceIndex].hold.addedWeight,
+      addedWeight: _sequence[_currentSequenceIndex].addedWeight,
     );
   }
 
@@ -235,7 +233,11 @@ class ExecutionViewModel {
 
     _sequence[_currentSequenceIndex] =
         _sequence[_currentSequenceIndex].copyWith(
-      hold: _nextHang.hold,
+      addedWeight: _nextHang.addedWeight,
+      leftGripBoardHold: _nextHang.leftGripBoardHold,
+      rightGripBoardHold: _nextHang.rightGripBoardHold,
+      leftGrip: _nextHang.leftGrip,
+      rightGrip: _nextHang.rightGrip,
       holdLabel: _nextHang.holdLabel,
       board: _nextHang.board,
       currentSet: _nextHang.currentSet,
@@ -304,9 +306,9 @@ class ExecutionViewModel {
 
       if (t.type == SequenceTimerType.hangTimer &&
           _relevantLoggedHang != null) {
-        // TODO: Addedweight after refactor
         return t.copyWith(
-            effectiveDurationMs: _relevantLoggedHang.effectiveDurationS * 1000);
+            effectiveDurationMs: _relevantLoggedHang.effectiveDurationS * 1000,
+            addedWeight: _relevantLoggedHang.addedWeight);
       }
 
       return t;
