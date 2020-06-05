@@ -163,10 +163,8 @@ class ExecutionViewModel {
     _animationController.stop(canceled: true);
 
     _sequence = _sequence.map((SequenceTimer t) {
-      if (_currentSequenceIndex == t.index) {
-        return t.copyWith(duration: state.seconds);
-      } else if (_currentSequenceIndex < t.index) {
-        return t.copyWith(skipped: true);
+      if (_sequence[_currentSequenceIndex].index < t.index) {
+        return t.copyWith(skipped: true, duration: 0);
       } else {
         return t;
       }
@@ -196,6 +194,8 @@ class ExecutionViewModel {
 
   void handleReadyTap() {
     _animationController.stop(canceled: false);
+    _sequence[_currentSequenceIndex] =
+        _sequence[_currentSequenceIndex].copyWith(duration: state.seconds);
     _nextSequence();
   }
 
@@ -204,15 +204,10 @@ class ExecutionViewModel {
   }
 
   void handleSkipTap() {
-    _setDuration() {
+    if (state.type == SequenceTimerType.hangTimer) {
       _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
           .copyWith(duration: state.seconds, skipped: true);
-    }
-
-    if (state.type == SequenceTimerType.hangTimer) {
-      _setDuration();
       _nextSequence();
-      _navigationService.pop();
       return;
     }
 
@@ -227,9 +222,9 @@ class ExecutionViewModel {
         orElse: () => null);
 
     if (_nextHang == null) {
-      _setDuration();
+      _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
+          .copyWith(duration: state.seconds, skipped: true);
       _stop();
-      _navigationService.pop();
       return;
     }
 
@@ -244,7 +239,7 @@ class ExecutionViewModel {
     _sequence[_currentSequenceIndex] =
         _sequence[_currentSequenceIndex].copyWith(
       index: _nextIndex,
-      skipped: true,
+      skipped: false,
       hold: _nextHang.hold,
       holdLabel: _nextHang.holdLabel,
       board: _nextHang.board,
