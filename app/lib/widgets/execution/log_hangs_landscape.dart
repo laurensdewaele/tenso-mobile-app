@@ -53,7 +53,7 @@ class LogHangsLandscape extends StatelessWidget {
                           width: constraints.maxWidth / 1.5,
                           child: BoardWithGrips(
                             key: ValueKey(
-                                'edit-hangs-dialog-board-${selectedPastHang.currentHang}'),
+                                'log-hangs-dialog-board-${selectedPastHang.currentHang}'),
                             boardImageAssetWidth:
                                 selectedPastHang.imageAssetWidth,
                             boardImageAsset: selectedPastHang.imageAsset,
@@ -74,7 +74,7 @@ class LogHangsLandscape extends StatelessWidget {
                       }),
                       NumberInputAndDescription<double>(
                         key: ValueKey(
-                            'edit-hangs-dialog-duration-input-landscape-${selectedPastHang.currentHang}'),
+                            'log-hangs-dialog-duration-input-landscape-${selectedPastHang.currentHang}'),
                         enabled: true,
                         description: 'effective hung seconds',
                         handleValueChanged: setHangTimeInput,
@@ -85,7 +85,7 @@ class LogHangsLandscape extends StatelessWidget {
                       ),
                       NumberInputAndDescription<double>(
                         key: ValueKey(
-                            'edit-hangs-dialog-added-weight-input-landscape-${selectedPastHang.currentHang}'),
+                            'log-hangs-dialog-added-weight-input-landscape-${selectedPastHang.currentHang}'),
                         enabled: true,
                         description:
                             '${selectedPastHang.weightUnit} added weight',

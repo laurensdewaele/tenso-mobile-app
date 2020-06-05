@@ -146,8 +146,8 @@ class LogHangsDialogViewModel extends ChangeNotifier {
         selectedPastHang.copyWith(effectiveDurationSInput: s);
     _pastHangs = _newPastHangs;
     try {
-      final int _effectiveDurationS =
-          InputParsers.parseToInt(string: s, inputField: 'Duration');
+      final double _effectiveDurationS =
+          InputParsers.parseToDouble(string: s, inputField: 'Duration');
       Validators.biggerOrEqualToZero(
           value: _effectiveDurationS, inputField: 'Duration');
       _canScroll = true;

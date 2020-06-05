@@ -64,7 +64,7 @@ class LogHangsPortrait extends StatelessWidget {
                   Divider(height: styles.Measurements.l),
                   BoardWithGrips(
                     key: ValueKey(
-                        'edit-hangs-dialog-board-${selectedPastHang.currentHang}'),
+                        'log-hangs-dialog-board-${selectedPastHang.currentHang}'),
                     boardImageAssetWidth: selectedPastHang.imageAssetWidth,
                     boardImageAsset: selectedPastHang.imageAsset,
                     customBoardHoldImages:
@@ -80,7 +80,7 @@ class LogHangsPortrait extends StatelessWidget {
                   ),
                   NumberInputAndDescription<double>(
                     key: ValueKey(
-                        'edit-hangs-dialog-duration-input-${selectedPastHang.currentHang}'),
+                        'log-hangs-dialog-duration-input-${selectedPastHang.currentHang}'),
                     enabled: true,
                     description: 'effective hung seconds',
                     handleValueChanged: setHangTimeInput,
@@ -91,7 +91,7 @@ class LogHangsPortrait extends StatelessWidget {
                   ),
                   NumberInputAndDescription<double>(
                     key: ValueKey(
-                        'edit-hangs-dialog-added-weight-input-${selectedPastHang.currentHang}'),
+                        'log-hangs-dialog-added-weight-input-${selectedPastHang.currentHang}'),
                     enabled: true,
                     description: '${selectedPastHang.weightUnit} added weight',
                     handleValueChanged: setAddedWeightInput,
