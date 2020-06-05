@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 class ExecutionLandscape extends StatelessWidget {
   ExecutionLandscape({
     Key key,
-    @required this.seconds,
+    @required this.displaySeconds,
     @required this.handleReadyTap,
     @required this.isStopwatch,
     @required this.primaryColor,
@@ -31,7 +31,7 @@ class ExecutionLandscape extends StatelessWidget {
     @required this.addedWeight,
   }) : super(key: key);
 
-  final int seconds;
+  final int displaySeconds;
   final VoidCallback handleReadyTap;
   final bool isStopwatch;
   final Color primaryColor;
@@ -124,7 +124,7 @@ class ExecutionLandscape extends StatelessWidget {
         ),
         Center(
           child: AutoSizeText(
-            seconds.toString(),
+            displaySeconds.toString(),
             style: styles.Staatliches.countdownTimerTranslucent,
           ),
         ),

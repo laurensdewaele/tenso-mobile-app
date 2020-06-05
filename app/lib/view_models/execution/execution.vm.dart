@@ -20,6 +20,8 @@ class ExecutionViewModel {
   NavigationService _navigationService;
   List<PastHang> get pastHangs => _getPastHangs();
   int get totalHangs => _workout.totalHangs;
+  int get _effectiveDuration => _getEffectiveDuration();
+  int get _displaySeconds => _getDisplaySeconds();
 
   BehaviorSubject<ExecutionState> _state$;
   Stream<ExecutionState> get state$ => _state$.stream;
@@ -75,7 +77,6 @@ class ExecutionViewModel {
   }
 
   ExecutionState _buildStateAndPlayBeepSound() {
-    final int _seconds = _getDisplaySeconds();
     // Can't use state.type here because it's possible state has not been initialized yet.
     final bool _isStopwatch = _sequence[_currentSequenceIndex].type ==
         SequenceTimerType.stopwatchRestTimer;
@@ -83,9 +84,9 @@ class ExecutionViewModel {
     if (_state$ != null &&
         _isCountdown == true &&
         state.beepSound.muted == false &&
-        _seconds != state.seconds &&
-        _seconds != 0 &&
-        _seconds <= state.beepsBeforeEnd) {
+        _displaySeconds != state.displaySeconds &&
+        _displaySeconds != 0 &&
+        _displaySeconds <= state.beepsBeforeEnd) {
       _audioPlayerService.play(state.beepSound.filename);
     }
 
@@ -94,7 +95,7 @@ class ExecutionViewModel {
       type: _sequence[_currentSequenceIndex].type,
       isStopwatch: _isStopwatch,
       duration: _sequence[_currentSequenceIndex].duration,
-      seconds: _seconds,
+      displaySeconds: _displaySeconds,
       animatedBackgroundHeightFactor:
           _isStopwatch == false ? _animationController.value : 0,
       endSound: _sequence[_currentSequenceIndex].endSound,
@@ -148,7 +149,8 @@ class ExecutionViewModel {
 
   void _start() {
     if (state.isStopwatch == true) {
-      _animationController.duration = Duration(minutes: 30);
+      final int _kMaxStopwatchDuration = 10;
+      _animationController.duration = Duration(minutes: _kMaxStopwatchDuration);
       _animationController.reset();
       _animationController.forward();
     } else {
@@ -164,9 +166,9 @@ class ExecutionViewModel {
 
     _sequence = _sequence.map((SequenceTimer t) {
       if (_currentSequenceIndex == t.index) {
-        return t.copyWith(stopped: true, effectiveDuration: state.duration);
+        return t.copyWith(stopped: true, effectiveDuration: _effectiveDuration);
       }
-      if (_currentSequenceIndex < t.index) {
+      if (t.index > _currentSequenceIndex) {
         return t.copyWith(stopped: true, effectiveDuration: 0);
       }
       return t;
@@ -199,7 +201,7 @@ class ExecutionViewModel {
   void handleReadyTap() {
     _animationController.stop(canceled: false);
     _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-        .copyWith(effectiveDuration: state.seconds);
+        .copyWith(effectiveDuration: _effectiveDuration);
     _nextSequence();
   }
 
@@ -210,7 +212,8 @@ class ExecutionViewModel {
   void handleSkipTap() {
     if (state.type == SequenceTimerType.hangTimer) {
       _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-          .copyWith(effectiveDuration: state.seconds, skipped: true);
+          .copyWith(effectiveDuration: _effectiveDuration, skipped: true);
+      _navigationService.pop();
       _nextSequence();
       return;
     }
@@ -218,7 +221,7 @@ class ExecutionViewModel {
     final _nextHang = _sequence.firstWhere(
         (SequenceTimer t) =>
             t.skipped != true &&
-            t.currentHang != state.currentHang &&
+            t.currentHang > state.currentHang &&
             t.type == SequenceTimerType.hangTimer,
         orElse: () => null);
 
@@ -274,6 +277,12 @@ class ExecutionViewModel {
                   _animationController.value)
           .ceil();
     }
+  }
+
+  int _getEffectiveDuration() {
+    return (_animationController.duration.inSeconds *
+            _animationController.value)
+        .ceil();
   }
 
   void handleLoggedHangs(List<LoggedHangs> loggedHangs) {}

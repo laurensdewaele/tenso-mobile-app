@@ -7,7 +7,7 @@ class ExecutionState {
   final SequenceTimerType type;
   final bool isStopwatch;
   final int duration;
-  final int seconds;
+  final int displaySeconds;
   final double animatedBackgroundHeightFactor;
   final Sound endSound;
   final Sound beepSound;
@@ -32,7 +32,7 @@ class ExecutionState {
     @required this.isStopwatch,
     @required this.type,
     @required this.duration,
-    @required this.seconds,
+    @required this.displaySeconds,
     @required this.animatedBackgroundHeightFactor,
     @required this.endSound,
     @required this.beepSound,
@@ -62,7 +62,7 @@ class ExecutionState {
           type == other.type &&
           isStopwatch == other.isStopwatch &&
           duration == other.duration &&
-          seconds == other.seconds &&
+          displaySeconds == other.displaySeconds &&
           animatedBackgroundHeightFactor ==
               other.animatedBackgroundHeightFactor &&
           endSound == other.endSound &&
@@ -89,7 +89,7 @@ class ExecutionState {
       type.hashCode ^
       isStopwatch.hashCode ^
       duration.hashCode ^
-      seconds.hashCode ^
+      displaySeconds.hashCode ^
       animatedBackgroundHeightFactor.hashCode ^
       endSound.hashCode ^
       beepSound.hashCode ^

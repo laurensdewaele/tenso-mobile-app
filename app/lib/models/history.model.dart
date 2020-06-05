@@ -20,7 +20,7 @@ abstract class History implements Built<History, HistoryBuilder> {
         .where((SequenceTimerLog t) => t.type == SequenceTimerType.hangTimer);
 
     final int _timeUnderTensionS = _hangSequences
-        .map((SequenceTimerLog t) => t.duration)
+        .map((SequenceTimerLog t) => t.effectiveDuration)
         .fold(0, (previous, current) => previous + current);
 
     return _timeUnderTensionS;

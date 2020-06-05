@@ -14,7 +14,7 @@ class ExecutionPortrait extends StatelessWidget {
     @required this.handleReadyTap,
     @required this.isStopwatch,
     @required this.primaryColor,
-    @required this.seconds,
+    @required this.displaySeconds,
     @required this.holdLabel,
     @required this.board,
     @required this.leftGrip,
@@ -33,7 +33,7 @@ class ExecutionPortrait extends StatelessWidget {
   final VoidCallback handleReadyTap;
   final bool isStopwatch;
   final Color primaryColor;
-  final int seconds;
+  final int displaySeconds;
   final String holdLabel;
   final Board board;
   final Grip leftGrip;
@@ -81,7 +81,7 @@ class ExecutionPortrait extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: AutoSizeText(
-                    seconds.toString(),
+                    displaySeconds.toString(),
                     style: styles.Staatliches.countdownTimer,
                   ),
                 ),

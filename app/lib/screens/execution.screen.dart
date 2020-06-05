@@ -129,7 +129,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                                 isStopwatch: _state.isStopwatch,
                                 title: _state.title,
                                 weightSystem: _state.weightSystem,
-                                seconds: _state.seconds,
+                                displaySeconds: _state.displaySeconds,
                                 rightGripBoardHold: _state.rightGripBoardHold,
                                 rightGrip: _state.rightGrip,
                                 leftGripBoardHold: _state.leftGripBoardHold,
@@ -145,7 +145,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                               );
                             } else {
                               return ExecutionLandscape(
-                                seconds: _state.seconds,
+                                displaySeconds: _state.displaySeconds,
                                 handleReadyTap: _viewModel.handleReadyTap,
                                 isStopwatch: _state.isStopwatch,
                                 title: _state.title,
