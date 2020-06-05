@@ -14,7 +14,7 @@ abstract class SequenceTimerLog
 
   SequenceTimerType get type;
   int get duration;
-  int get effectiveDuration;
+  double get effectiveDurationMs;
   bool get skipped;
   bool get stopped;
 

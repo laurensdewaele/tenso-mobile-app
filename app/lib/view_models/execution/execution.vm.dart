@@ -20,7 +20,7 @@ class ExecutionViewModel {
   NavigationService _navigationService;
   List<PastHang> get pastHangs => _getPastHangs();
   int get totalHangs => _workout.totalHangs;
-  int get _effectiveDuration => _getEffectiveDuration();
+  double get _effectiveDurationMs => _getEffectiveDurationMs();
   int get _displaySeconds => _getDisplaySeconds();
 
   BehaviorSubject<ExecutionState> _state$;
@@ -166,16 +166,17 @@ class ExecutionViewModel {
 
     _sequence = _sequence.map((SequenceTimer t) {
       if (_currentSequenceIndex == t.index) {
-        return t.copyWith(stopped: true, effectiveDuration: _effectiveDuration);
+        return t.copyWith(
+            stopped: true, effectiveDurationMs: _effectiveDurationMs);
       }
       if (t.index > _currentSequenceIndex) {
-        return t.copyWith(stopped: true, effectiveDuration: 0);
+        return t.copyWith(stopped: true, effectiveDurationMs: 0);
       }
       return t;
     }).toList();
 
     History _history = _generateHistory();
-    if (_history.timerUnderTensionS == 0) {
+    if (_history.timerUnderTensionMs == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
       _navigationService.pushNamed(Routes.congratulationsScreen,
@@ -188,7 +189,7 @@ class ExecutionViewModel {
   History _generateHistory() {
     final List<SequenceTimerLog> _logs = _sequence
         .map((SequenceTimer t) => SequenceTimerLog((b) => b
-          ..effectiveDuration = t.effectiveDuration
+          ..effectiveDurationMs = t.effectiveDurationMs
           ..duration = t.duration
           ..type = t.type
           ..skipped = t.skipped
@@ -201,7 +202,7 @@ class ExecutionViewModel {
   void handleReadyTap() {
     _animationController.stop(canceled: false);
     _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-        .copyWith(effectiveDuration: _effectiveDuration);
+        .copyWith(effectiveDurationMs: _effectiveDurationMs);
     _nextSequence();
   }
 
@@ -212,7 +213,7 @@ class ExecutionViewModel {
   void handleSkipTap() {
     if (state.type == SequenceTimerType.hangTimer) {
       _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-          .copyWith(effectiveDuration: _effectiveDuration, skipped: true);
+          .copyWith(effectiveDurationMs: _effectiveDurationMs, skipped: true);
       _navigationService.pop();
       _nextSequence();
       return;
@@ -247,12 +248,12 @@ class ExecutionViewModel {
       if (state.isStopwatch == true &&
           t.index > _currentSequenceIndex &&
           t.index < _nextHang.index - 1) {
-        return t.copyWith(effectiveDuration: 0, skipped: true);
+        return t.copyWith(effectiveDurationMs: 0, skipped: true);
       }
       if (state.isStopwatch == false &&
           t.index > _currentSequenceIndex &&
           t.index < _nextHang.index) {
-        return t.copyWith(effectiveDuration: 0, skipped: true);
+        return t.copyWith(effectiveDurationMs: 0, skipped: true);
       }
       return t;
     }).toList();
@@ -288,10 +289,9 @@ class ExecutionViewModel {
     }
   }
 
-  int _getEffectiveDuration() {
-    return (_animationController.duration.inSeconds *
-            _animationController.value)
-        .floor();
+  double _getEffectiveDurationMs() {
+    return (_animationController.duration.inMilliseconds *
+        _animationController.value);
   }
 
   void handleLoggedHangs(List<LoggedHangs> loggedHangs) {}

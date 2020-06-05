@@ -26,9 +26,9 @@ class _$SequenceTimerLogSerializer
       'duration',
       serializers.serialize(object.duration,
           specifiedType: const FullType(int)),
-      'effectiveDuration',
-      serializers.serialize(object.effectiveDuration,
-          specifiedType: const FullType(int)),
+      'effectiveDurationMs',
+      serializers.serialize(object.effectiveDurationMs,
+          specifiedType: const FullType(double)),
       'skipped',
       serializers.serialize(object.skipped,
           specifiedType: const FullType(bool)),
@@ -61,9 +61,9 @@ class _$SequenceTimerLogSerializer
           result.duration = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'effectiveDuration':
-          result.effectiveDuration = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+        case 'effectiveDurationMs':
+          result.effectiveDurationMs = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
           break;
         case 'skipped':
           result.skipped = serializers.deserialize(value,
@@ -86,7 +86,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
   @override
   final int duration;
   @override
-  final int effectiveDuration;
+  final double effectiveDurationMs;
   @override
   final bool skipped;
   @override
@@ -99,7 +99,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
   _$SequenceTimerLog._(
       {this.type,
       this.duration,
-      this.effectiveDuration,
+      this.effectiveDurationMs,
       this.skipped,
       this.stopped})
       : super._() {
@@ -109,9 +109,9 @@ class _$SequenceTimerLog extends SequenceTimerLog {
     if (duration == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'duration');
     }
-    if (effectiveDuration == null) {
+    if (effectiveDurationMs == null) {
       throw new BuiltValueNullFieldError(
-          'SequenceTimerLog', 'effectiveDuration');
+          'SequenceTimerLog', 'effectiveDurationMs');
     }
     if (skipped == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'skipped');
@@ -135,7 +135,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
     return other is SequenceTimerLog &&
         type == other.type &&
         duration == other.duration &&
-        effectiveDuration == other.effectiveDuration &&
+        effectiveDurationMs == other.effectiveDurationMs &&
         skipped == other.skipped &&
         stopped == other.stopped;
   }
@@ -145,7 +145,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
     return $jf($jc(
         $jc(
             $jc($jc($jc(0, type.hashCode), duration.hashCode),
-                effectiveDuration.hashCode),
+                effectiveDurationMs.hashCode),
             skipped.hashCode),
         stopped.hashCode));
   }
@@ -155,7 +155,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
     return (newBuiltValueToStringHelper('SequenceTimerLog')
           ..add('type', type)
           ..add('duration', duration)
-          ..add('effectiveDuration', effectiveDuration)
+          ..add('effectiveDurationMs', effectiveDurationMs)
           ..add('skipped', skipped)
           ..add('stopped', stopped))
         .toString();
@@ -174,10 +174,10 @@ class SequenceTimerLogBuilder
   int get duration => _$this._duration;
   set duration(int duration) => _$this._duration = duration;
 
-  int _effectiveDuration;
-  int get effectiveDuration => _$this._effectiveDuration;
-  set effectiveDuration(int effectiveDuration) =>
-      _$this._effectiveDuration = effectiveDuration;
+  double _effectiveDurationMs;
+  double get effectiveDurationMs => _$this._effectiveDurationMs;
+  set effectiveDurationMs(double effectiveDurationMs) =>
+      _$this._effectiveDurationMs = effectiveDurationMs;
 
   bool _skipped;
   bool get skipped => _$this._skipped;
@@ -193,7 +193,7 @@ class SequenceTimerLogBuilder
     if (_$v != null) {
       _type = _$v.type;
       _duration = _$v.duration;
-      _effectiveDuration = _$v.effectiveDuration;
+      _effectiveDurationMs = _$v.effectiveDurationMs;
       _skipped = _$v.skipped;
       _stopped = _$v.stopped;
       _$v = null;
@@ -220,7 +220,7 @@ class SequenceTimerLogBuilder
         new _$SequenceTimerLog._(
             type: type,
             duration: duration,
-            effectiveDuration: effectiveDuration,
+            effectiveDurationMs: effectiveDurationMs,
             skipped: skipped,
             stopped: stopped);
     replace(_$result);

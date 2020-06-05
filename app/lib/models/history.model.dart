@@ -12,18 +12,16 @@ abstract class History implements Built<History, HistoryBuilder> {
   static Serializer<History> get serializer => _$historySerializer;
 
   BuiltList<SequenceTimerLog> get sequenceTimerLogs;
-  int get timerUnderTensionS => _calculateTimeUnderTensionS();
+  double get timerUnderTensionMs => _calculateTimeUnderTensionMs();
 
-  int _calculateTimeUnderTensionS() {
+  double _calculateTimeUnderTensionMs() {
     final _hangSequences = sequenceTimerLogs
         .toList()
         .where((SequenceTimerLog t) => t.type == SequenceTimerType.hangTimer);
 
-    final int _timeUnderTensionS = _hangSequences
-        .map((SequenceTimerLog t) => t.effectiveDuration)
+    return _hangSequences
+        .map((SequenceTimerLog t) => t.effectiveDurationMs)
         .fold(0, (previous, current) => previous + current);
-
-    return _timeUnderTensionS;
   }
 
   factory History([void Function(HistoryBuilder) updates]) = _$History;
