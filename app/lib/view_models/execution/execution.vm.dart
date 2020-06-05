@@ -241,11 +241,20 @@ class ExecutionViewModel {
     );
 
     _sequence = _sequence.map((SequenceTimer t) {
-      if (t.index > _currentSequenceIndex && t.index < _nextHang.index) {
+      // If we're currently on the stopwatch rest timer,
+      // we still need the preparation sequence before
+      // the next hang.
+      if (state.isStopwatch == true &&
+          t.index > _currentSequenceIndex &&
+          t.index < _nextHang.index - 1) {
         return t.copyWith(effectiveDuration: 0, skipped: true);
-      } else {
-        return t;
       }
+      if (state.isStopwatch == false &&
+          t.index > _currentSequenceIndex &&
+          t.index < _nextHang.index) {
+        return t.copyWith(effectiveDuration: 0, skipped: true);
+      }
+      return t;
     }).toList();
 
     _setState();
@@ -282,7 +291,7 @@ class ExecutionViewModel {
   int _getEffectiveDuration() {
     return (_animationController.duration.inSeconds *
             _animationController.value)
-        .ceil();
+        .floor();
   }
 
   void handleLoggedHangs(List<LoggedHangs> loggedHangs) {}
