@@ -14,7 +14,9 @@ abstract class SequenceTimerLog
 
   SequenceTimerType get type;
   int get duration;
+  int get effectiveDuration;
   bool get skipped;
+  bool get stopped;
 
   factory SequenceTimerLog([void Function(SequenceTimerLogBuilder) updates]) =
       _$SequenceTimerLog;

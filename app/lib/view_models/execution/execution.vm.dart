@@ -163,11 +163,13 @@ class ExecutionViewModel {
     _animationController.stop(canceled: true);
 
     _sequence = _sequence.map((SequenceTimer t) {
-      if (_sequence[_currentSequenceIndex].index < t.index) {
-        return t.copyWith(skipped: true, duration: 0);
-      } else {
-        return t;
+      if (_currentSequenceIndex == t.index) {
+        return t.copyWith(stopped: true, effectiveDuration: state.duration);
       }
+      if (_currentSequenceIndex < t.index) {
+        return t.copyWith(stopped: true, effectiveDuration: 0);
+      }
+      return t;
     }).toList();
 
     History _history = _generateHistory();
@@ -184,9 +186,11 @@ class ExecutionViewModel {
   History _generateHistory() {
     final List<SequenceTimerLog> _logs = _sequence
         .map((SequenceTimer t) => SequenceTimerLog((b) => b
+          ..effectiveDuration = t.effectiveDuration
           ..duration = t.duration
           ..type = t.type
-          ..skipped = t.skipped))
+          ..skipped = t.skipped
+          ..stopped = t.stopped))
         .toList();
 
     return History((b) => b..sequenceTimerLogs.addAll(_logs));
@@ -194,8 +198,8 @@ class ExecutionViewModel {
 
   void handleReadyTap() {
     _animationController.stop(canceled: false);
-    _sequence[_currentSequenceIndex] =
-        _sequence[_currentSequenceIndex].copyWith(duration: state.seconds);
+    _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
+        .copyWith(effectiveDuration: state.seconds);
     _nextSequence();
   }
 
@@ -206,40 +210,25 @@ class ExecutionViewModel {
   void handleSkipTap() {
     if (state.type == SequenceTimerType.hangTimer) {
       _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-          .copyWith(duration: state.seconds, skipped: true);
+          .copyWith(effectiveDuration: state.seconds, skipped: true);
       _nextSequence();
       return;
     }
 
-    final int _currentIndex = _sequence[_currentSequenceIndex].index;
-    final int _nextIndex = _workout.stopwatchRestTimer
-        ? _sequence[_currentSequenceIndex].index + 3
-        : _sequence[_currentSequenceIndex].index + 2;
-
     final _nextHang = _sequence.firstWhere(
         (SequenceTimer t) =>
-            t.index > _nextIndex && t.type == SequenceTimerType.hangTimer,
+            t.skipped != true &&
+            t.currentHang != state.currentHang &&
+            t.type == SequenceTimerType.hangTimer,
         orElse: () => null);
 
     if (_nextHang == null) {
-      _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-          .copyWith(duration: state.seconds, skipped: true);
       _stop();
       return;
     }
 
-    _sequence = _sequence.map((SequenceTimer t) {
-      if (t.index > _currentIndex && t.index <= _nextIndex) {
-        return t.copyWith(duration: 0, skipped: true);
-      } else {
-        return t;
-      }
-    }).toList();
-
     _sequence[_currentSequenceIndex] =
         _sequence[_currentSequenceIndex].copyWith(
-      index: _nextIndex,
-      skipped: false,
       hold: _nextHang.hold,
       holdLabel: _nextHang.holdLabel,
       board: _nextHang.board,
@@ -247,6 +236,14 @@ class ExecutionViewModel {
       currentHangPerSet: _nextHang.currentHangPerSet,
       currentHang: _nextHang.currentHang,
     );
+
+    _sequence = _sequence.map((SequenceTimer t) {
+      if (t.index > _currentSequenceIndex && t.index < _nextHang.index) {
+        return t.copyWith(effectiveDuration: 0, skipped: true);
+      } else {
+        return t;
+      }
+    }).toList();
 
     _setState();
     _animationController.forward();

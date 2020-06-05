@@ -15,7 +15,9 @@ class SequenceTimer {
   final int index;
   final SequenceTimerType type;
   final int duration;
+  final int effectiveDuration;
   final bool skipped;
+  final bool stopped;
   final Hold hold;
   final Sound endSound;
   final Sound beepSound;
@@ -35,7 +37,9 @@ class SequenceTimer {
     this.index,
     @required this.type,
     @required this.duration,
+    @required this.effectiveDuration,
     @required this.skipped,
+    @required this.stopped,
     @required this.hold,
     @required this.endSound,
     @required this.beepSound,
@@ -56,7 +60,9 @@ class SequenceTimer {
     int index,
     SequenceTimerType type,
     int duration,
+    int effectiveDuration,
     bool skipped,
+    bool stopped,
     Hold hold,
     Sound endSound,
     Sound beepSound,
@@ -76,7 +82,9 @@ class SequenceTimer {
       index: index ?? this.index,
       type: type ?? this.type,
       duration: duration ?? this.duration,
+      effectiveDuration: effectiveDuration ?? this.effectiveDuration,
       skipped: skipped ?? this.skipped,
+      stopped: stopped ?? this.stopped,
       hold: hold ?? this.hold,
       endSound: endSound ?? this.endSound,
       beepSound: beepSound ?? this.beepSound,
@@ -105,10 +113,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHangPerSet,
       int currentHang}) {
     _sequence.add(SequenceTimer(
+        stopped: false,
         skipped: false,
         hold: workout.holds[currentHoldIndex],
         type: SequenceTimerType.preparationTimer,
         duration: _settings.preparationTimer,
+        effectiveDuration: _settings.preparationTimer,
         endSound: _settings.hangSound,
         beepSound: _settings.beepSound,
         beepsBeforeEnd: _settings.beepsBeforeHang,
@@ -132,10 +142,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHang}) {
     _sequence.add(
       SequenceTimer(
+          stopped: false,
           skipped: false,
           hold: workout.holds[currentHoldIndex],
           type: SequenceTimerType.hangTimer,
           duration: workout.holds[currentHoldIndex].hangTime,
+          effectiveDuration: workout.holds[currentHoldIndex].hangTime,
           endSound: _settings.restSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeRest,
@@ -160,9 +172,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
     _sequence.add(
       SequenceTimer(
           skipped: false,
+          stopped: false,
           hold: workout.holds[currentHoldIndex],
           type: SequenceTimerType.countdownRestTimer,
           duration: workout.holds[currentHoldIndex].countdownRestDuration,
+          effectiveDuration:
+              workout.holds[currentHoldIndex].countdownRestDuration,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
@@ -187,10 +202,12 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHang}) {
     _sequence.add(
       SequenceTimer(
+          stopped: false,
           skipped: false,
           hold: workout.holds[currentHoldIndex],
           type: SequenceTimerType.stopwatchRestTimer,
           duration: 0,
+          effectiveDuration: 0,
           endSound: _settings.hangSound,
           beepSound: _settings.beepSound,
           beepsBeforeEnd: _settings.beepsBeforeHang,
