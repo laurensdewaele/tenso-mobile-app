@@ -1,26 +1,29 @@
 # TODO
 
+- implement new design + board picker on add grip page (accordion).
+
+
 ### Triage:
 - Have an 'on the fly workout'? 
   Where you can specify how much you've hung, with added weight.
   Just rep per rep, or set per set.
-
+- Preview workout.
+- Instead of counting down, counting up is probably better.
+  Settings?
+  
+ 
 
 ### Large prio
-- get rid of sets
-- rename to grips / sets
-- implement design svanhild
 - Custom boards in horizontal scroll view.
-- History (calendar) update times.
 - Edit hung values on completion, new button next to rate workout.
-- Rename holds to different grip positions.
-- Repeaters
-- board picker on general_tab
-- Beeps before rest, allow 0;
 - Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
 - Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
+
+- History (calendar) update times.
+
+- Beeps before rest, allow 0;
 - Add open crimp, pinch grip, check if all grips available
 - Info/explanation screen
 - More beginner workouts. => Repeaters / max-hang / density 
