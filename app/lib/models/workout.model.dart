@@ -13,6 +13,7 @@ part 'workout.model.g.dart';
 abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
+  // TODO: Nullable for now, delete in future.
   String get id;
   @nullable
   int get sets;
