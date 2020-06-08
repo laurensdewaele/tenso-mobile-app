@@ -52,7 +52,9 @@ class _ExtraPageState extends State<ExtraPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Divider(height: 14),
+          Divider(
+              height:
+                  styles.Measurements.l - styles.Measurements.kInfoIconSurplus),
           SectionWithInfoIcon(
             title: 'color label',
             appDialogContent: _ColorLabelInfo(),

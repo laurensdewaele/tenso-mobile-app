@@ -16,6 +16,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(DeviceInfo.serializer)
       ..add(Fingers.serializer)
       ..add(Grip.serializer)
+      ..add(Group.serializer)
       ..add(HandHold.serializer)
       ..add(HandType.serializer)
       ..add(History.serializer)
@@ -46,6 +47,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Hold)]),
           () => new ListBuilder<Hold>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Group)]),
+          () => new ListBuilder<Group>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(SequenceTimerLog)]),
           () => new ListBuilder<SequenceTimerLog>())

@@ -6,13 +6,15 @@ import 'package:app/widgets/icons.dart' as icons;
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class SectionWithInfoIcon extends StatelessWidget {
-  SectionWithInfoIcon(
-      {Key key,
-      @required this.title,
-      @required this.appDialogContent,
-      @required this.children})
-      : super(key: key);
+  SectionWithInfoIcon({
+    Key key,
+    @required this.title,
+    @required this.appDialogContent,
+    @required this.children,
+    this.nextSectionHasInfoIcon = false,
+  }) : super(key: key);
 
+  final bool nextSectionHasInfoIcon;
   final String title;
   final Widget appDialogContent;
   final List<Widget> children;
@@ -41,12 +43,13 @@ class SectionWithInfoIcon extends StatelessWidget {
           ],
         ),
         Divider(
-          height: 14,
+          height: styles.Measurements.l - styles.Measurements.kInfoIconSurplus,
         ),
         ...children,
         Divider(
-          height: styles.Measurements.xxl,
-        ),
+            height: nextSectionHasInfoIcon == true
+                ? styles.Measurements.xxl - styles.Measurements.kInfoIconSurplus
+                : styles.Measurements.xxl),
       ],
     );
   }

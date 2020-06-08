@@ -55,6 +55,19 @@ class ErrorService {
 class AppException {}
 
 abstract class ErrorMessages {
+  static Widget groupsEmpty() => RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+          TextSpan(
+            text: 'You need to input at least ',
+            style: styles.Lato.sBlack,
+          ),
+          TextSpan(
+            text: '1 group.',
+            style: styles.Lato.sBlackBold,
+          ),
+        ]),
+      );
   static Widget exceedsSupportedFingers({int max}) => Text(
         'This hold only has room for $max fingers.',
         textAlign: TextAlign.center,

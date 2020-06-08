@@ -14,6 +14,7 @@ part 'serializers.g.dart';
   DeviceInfo,
   Fingers,
   Grip,
+  Group,
   HandHold,
   HandType,
   History,

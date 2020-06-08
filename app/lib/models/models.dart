@@ -9,6 +9,7 @@ export 'package:app/models/custom_board_hold_image.model.dart';
 export 'package:app/models/device_info.model.dart';
 export 'package:app/models/fingers.model.dart';
 export 'package:app/models/grip.model.dart';
+export 'package:app/models/group.model.dart';
 export 'package:app/models/hand_hold.model.dart';
 export 'package:app/models/hand_type.model.dart';
 export 'package:app/models/history.model.dart';

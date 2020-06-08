@@ -7,7 +7,7 @@ import 'package:app/screens/rate_workout.screen.dart';
 import 'package:app/screens/save_custom_board.screen.dart';
 import 'package:app/screens/settings.screen.dart';
 import 'package:app/screens/sound_settings.screen.dart';
-import 'package:app/screens/workout.screen.dart';
+import 'package:app/screens/workout_2.screen.dart';
 import 'package:app/screens/workout_overview.screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -31,7 +31,7 @@ abstract class Routes {
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
     Routes.home: (context) => WorkoutOverviewScreen(),
-    Routes.workoutScreen: (context) => WorkoutScreen(),
+    Routes.workoutScreen: (context) => WorkoutScreen2(),
     Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),

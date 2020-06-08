@@ -7,6 +7,9 @@ const int basicCountdownRestDuration = 3 * 60;
 final Board _defaultBoard = beastmaker1000;
 
 final Workout basicWorkout = Workout((b) => b
+  ..restBetweenGroupsFixed = true
+  ..restBetweenGroupsS = 180
+  ..groups.addAll([])
   ..id = '1'
   ..label = Label.blue
   ..sets = 1
@@ -50,7 +53,7 @@ final Workout basicWorkout = Workout((b) => b
       ..hangTime = 7
       ..addedWeight = 0)
   ])
-  ..name = 'Example workout');
+  ..name = '');
 
 final Workouts basicWorkouts =
     Workouts((b) => b..workouts.addAll([basicWorkout]));

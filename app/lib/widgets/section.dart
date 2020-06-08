@@ -1,13 +1,16 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
+import 'package:flutter/cupertino.dart';
 
 class Section extends StatelessWidget {
-  Section({@required this.title, @required this.children});
+  Section(
+      {@required this.title,
+      @required this.children,
+      this.nextSectionHasInfoIcon = false});
 
   final String title;
   final List<Widget> children;
+  final bool nextSectionHasInfoIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,10 @@ class Section extends StatelessWidget {
         ),
         Divider(height: styles.Measurements.l),
         ...children,
-        Divider(height: styles.Measurements.xxl),
+        Divider(
+            height: nextSectionHasInfoIcon == true
+                ? styles.Measurements.xxl - styles.Measurements.kInfoIconSurplus
+                : styles.Measurements.xxl),
       ],
     );
   }

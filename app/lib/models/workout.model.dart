@@ -14,12 +14,21 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
   String get id;
+  @nullable
   int get sets;
+  @nullable
   int get holdCount;
+  @nullable
   bool get countdownRestTimer;
+  @nullable
   Board get board;
+  @nullable
   BuiltList<Hold> get holds;
+  BuiltList<Group> get groups;
   WeightSystem get weightSystem;
+  @nullable
+  int get restBetweenGroupsS;
+  bool get restBetweenGroupsFixed;
   String get name;
   Label get label;
 

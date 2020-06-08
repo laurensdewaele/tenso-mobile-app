@@ -5,6 +5,7 @@ abstract class Measurements {
   static const double l = 30.0;
   static const double xl = 40.0;
   static const double xxl = 50.0;
+  static const double kInfoIconSurplus = 15.0;
 }
 
 abstract class IconMeasurements {

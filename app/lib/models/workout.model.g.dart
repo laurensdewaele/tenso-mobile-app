@@ -20,29 +20,58 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'sets',
-      serializers.serialize(object.sets, specifiedType: const FullType(int)),
-      'holdCount',
-      serializers.serialize(object.holdCount,
-          specifiedType: const FullType(int)),
-      'countdownRestTimer',
-      serializers.serialize(object.countdownRestTimer,
-          specifiedType: const FullType(bool)),
-      'board',
-      serializers.serialize(object.board, specifiedType: const FullType(Board)),
-      'holds',
-      serializers.serialize(object.holds,
+      'groups',
+      serializers.serialize(object.groups,
           specifiedType:
-              const FullType(BuiltList, const [const FullType(Hold)])),
+              const FullType(BuiltList, const [const FullType(Group)])),
       'weightSystem',
       serializers.serialize(object.weightSystem,
           specifiedType: const FullType(WeightSystem)),
+      'restBetweenGroupsFixed',
+      serializers.serialize(object.restBetweenGroupsFixed,
+          specifiedType: const FullType(bool)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'label',
       serializers.serialize(object.label, specifiedType: const FullType(Label)),
     ];
-
+    if (object.sets != null) {
+      result
+        ..add('sets')
+        ..add(serializers.serialize(object.sets,
+            specifiedType: const FullType(int)));
+    }
+    if (object.holdCount != null) {
+      result
+        ..add('holdCount')
+        ..add(serializers.serialize(object.holdCount,
+            specifiedType: const FullType(int)));
+    }
+    if (object.countdownRestTimer != null) {
+      result
+        ..add('countdownRestTimer')
+        ..add(serializers.serialize(object.countdownRestTimer,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.board != null) {
+      result
+        ..add('board')
+        ..add(serializers.serialize(object.board,
+            specifiedType: const FullType(Board)));
+    }
+    if (object.holds != null) {
+      result
+        ..add('holds')
+        ..add(serializers.serialize(object.holds,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Hold)])));
+    }
+    if (object.restBetweenGroupsS != null) {
+      result
+        ..add('restBetweenGroupsS')
+        ..add(serializers.serialize(object.restBetweenGroupsS,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -83,9 +112,23 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
                       const FullType(BuiltList, const [const FullType(Hold)]))
               as BuiltList<Object>);
           break;
+        case 'groups':
+          result.groups.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Group)]))
+              as BuiltList<Object>);
+          break;
         case 'weightSystem':
           result.weightSystem = serializers.deserialize(value,
               specifiedType: const FullType(WeightSystem)) as WeightSystem;
+          break;
+        case 'restBetweenGroupsS':
+          result.restBetweenGroupsS = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'restBetweenGroupsFixed':
+          result.restBetweenGroupsFixed = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
@@ -116,7 +159,13 @@ class _$Workout extends Workout {
   @override
   final BuiltList<Hold> holds;
   @override
+  final BuiltList<Group> groups;
+  @override
   final WeightSystem weightSystem;
+  @override
+  final int restBetweenGroupsS;
+  @override
+  final bool restBetweenGroupsFixed;
   @override
   final String name;
   @override
@@ -132,30 +181,24 @@ class _$Workout extends Workout {
       this.countdownRestTimer,
       this.board,
       this.holds,
+      this.groups,
       this.weightSystem,
+      this.restBetweenGroupsS,
+      this.restBetweenGroupsFixed,
       this.name,
       this.label})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Workout', 'id');
     }
-    if (sets == null) {
-      throw new BuiltValueNullFieldError('Workout', 'sets');
-    }
-    if (holdCount == null) {
-      throw new BuiltValueNullFieldError('Workout', 'holdCount');
-    }
-    if (countdownRestTimer == null) {
-      throw new BuiltValueNullFieldError('Workout', 'countdownRestTimer');
-    }
-    if (board == null) {
-      throw new BuiltValueNullFieldError('Workout', 'board');
-    }
-    if (holds == null) {
-      throw new BuiltValueNullFieldError('Workout', 'holds');
+    if (groups == null) {
+      throw new BuiltValueNullFieldError('Workout', 'groups');
     }
     if (weightSystem == null) {
       throw new BuiltValueNullFieldError('Workout', 'weightSystem');
+    }
+    if (restBetweenGroupsFixed == null) {
+      throw new BuiltValueNullFieldError('Workout', 'restBetweenGroupsFixed');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('Workout', 'name');
@@ -182,7 +225,10 @@ class _$Workout extends Workout {
         countdownRestTimer == other.countdownRestTimer &&
         board == other.board &&
         holds == other.holds &&
+        groups == other.groups &&
         weightSystem == other.weightSystem &&
+        restBetweenGroupsS == other.restBetweenGroupsS &&
+        restBetweenGroupsFixed == other.restBetweenGroupsFixed &&
         name == other.name &&
         label == other.label;
   }
@@ -195,12 +241,20 @@ class _$Workout extends Workout {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), sets.hashCode),
-                                holdCount.hashCode),
-                            countdownRestTimer.hashCode),
-                        board.hashCode),
-                    holds.hashCode),
-                weightSystem.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, id.hashCode),
+                                                sets.hashCode),
+                                            holdCount.hashCode),
+                                        countdownRestTimer.hashCode),
+                                    board.hashCode),
+                                holds.hashCode),
+                            groups.hashCode),
+                        weightSystem.hashCode),
+                    restBetweenGroupsS.hashCode),
+                restBetweenGroupsFixed.hashCode),
             name.hashCode),
         label.hashCode));
   }
@@ -214,7 +268,10 @@ class _$Workout extends Workout {
           ..add('countdownRestTimer', countdownRestTimer)
           ..add('board', board)
           ..add('holds', holds)
+          ..add('groups', groups)
           ..add('weightSystem', weightSystem)
+          ..add('restBetweenGroupsS', restBetweenGroupsS)
+          ..add('restBetweenGroupsFixed', restBetweenGroupsFixed)
           ..add('name', name)
           ..add('label', label))
         .toString();
@@ -249,10 +306,24 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   ListBuilder<Hold> get holds => _$this._holds ??= new ListBuilder<Hold>();
   set holds(ListBuilder<Hold> holds) => _$this._holds = holds;
 
+  ListBuilder<Group> _groups;
+  ListBuilder<Group> get groups => _$this._groups ??= new ListBuilder<Group>();
+  set groups(ListBuilder<Group> groups) => _$this._groups = groups;
+
   WeightSystem _weightSystem;
   WeightSystem get weightSystem => _$this._weightSystem;
   set weightSystem(WeightSystem weightSystem) =>
       _$this._weightSystem = weightSystem;
+
+  int _restBetweenGroupsS;
+  int get restBetweenGroupsS => _$this._restBetweenGroupsS;
+  set restBetweenGroupsS(int restBetweenGroupsS) =>
+      _$this._restBetweenGroupsS = restBetweenGroupsS;
+
+  bool _restBetweenGroupsFixed;
+  bool get restBetweenGroupsFixed => _$this._restBetweenGroupsFixed;
+  set restBetweenGroupsFixed(bool restBetweenGroupsFixed) =>
+      _$this._restBetweenGroupsFixed = restBetweenGroupsFixed;
 
   String _name;
   String get name => _$this._name;
@@ -272,7 +343,10 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
       _countdownRestTimer = _$v.countdownRestTimer;
       _board = _$v.board?.toBuilder();
       _holds = _$v.holds?.toBuilder();
+      _groups = _$v.groups?.toBuilder();
       _weightSystem = _$v.weightSystem;
+      _restBetweenGroupsS = _$v.restBetweenGroupsS;
+      _restBetweenGroupsFixed = _$v.restBetweenGroupsFixed;
       _name = _$v.name;
       _label = _$v.label;
       _$v = null;
@@ -303,18 +377,23 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
               sets: sets,
               holdCount: holdCount,
               countdownRestTimer: countdownRestTimer,
-              board: board.build(),
-              holds: holds.build(),
+              board: _board?.build(),
+              holds: _holds?.build(),
+              groups: groups.build(),
               weightSystem: weightSystem,
+              restBetweenGroupsS: restBetweenGroupsS,
+              restBetweenGroupsFixed: restBetweenGroupsFixed,
               name: name,
               label: label);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'board';
-        board.build();
+        _board?.build();
         _$failedField = 'holds';
-        holds.build();
+        _holds?.build();
+        _$failedField = 'groups';
+        groups.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Workout', _$failedField, e.toString());
