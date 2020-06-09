@@ -15,6 +15,7 @@ import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
 import 'package:app/widgets/workout/fixed_variable_timer_info.dart';
+import 'package:app/widgets/workout/groups.dart';
 import 'package:app/widgets/workout/label_picker.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
@@ -114,6 +115,19 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                                   styles.Measurements.kInfoIconSurplus),
                           SectionWithInfoIcon(
                             nextSectionHasInfoIcon: true,
+                            title: 'Groups',
+                            appDialogContent: _GroupInfo(),
+                            children: <Widget>[
+                              Groups(
+                                groups: _viewModel.state.groups,
+                                isNewWorkout: _viewModel.workoutType ==
+                                    WorkoutTypes.newWorkout,
+                                handleAddGroupTap: _viewModel.handleAddGroupTap,
+                              ),
+                            ],
+                          ),
+                          SectionWithInfoIcon(
+                            nextSectionHasInfoIcon: true,
                             title: 'rest between groups',
                             appDialogContent: FixedVariableTimerInfo(),
                             children: <Widget>[
@@ -205,6 +219,39 @@ class _ColorLabelInfo extends StatelessWidget {
         Text(
           'By giving your workout a color label, it will become easier to distuingish between workouts on the calendar overview.',
           style: styles.Lato.xsBlack,
+        ),
+        Divider(height: styles.Measurements.l),
+        Center(
+          child: Button(
+              small: true,
+              displayBackground: false,
+              text: 'Ok',
+              handleTap: () {
+                Navigator.of(context).pop();
+              }),
+        )
+      ],
+    );
+  }
+}
+
+class _GroupInfo extends StatelessWidget {
+  _GroupInfo({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        RichText(
+          text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
+            TextSpan(text: 'A ', style: styles.Lato.xsBlack),
+            TextSpan(text: 'group ', style: styles.Lato.xsBlackBold),
+            TextSpan(
+                text:
+                    'is a collection of multiple hangs of the same type (the same grip and holds).',
+                style: styles.Lato.xsBlack),
+          ]),
         ),
         Divider(height: styles.Measurements.l),
         Center(

@@ -6,6 +6,23 @@ const int basicCountdownRestDuration = 3 * 60;
 
 final Board _defaultBoard = beastmaker1000;
 
+final Group basicGroup = Group((b) => b
+  ..board = _defaultBoard.toBuilder()
+  ..handHold = HandHold.twoHanded
+  ..leftGrip = Grips.openHandL.toBuilder()
+  ..rightGrip = Grips.openHandR.toBuilder()
+  ..leftGripBoardHold = _defaultBoard.defaultLeftGripHold.toBuilder()
+  ..rightGripBoardHold = _defaultBoard.defaultRightGripHold.toBuilder()
+  ..repeaters = false
+  ..repetitions = 1
+  ..hangTimeS = 7
+  ..restBetweenRepsFixed = true
+  ..restBetweenRepsS = 180
+  ..sets = 1
+  ..restBetweenSetsFixed = true
+  ..restBetweenSetsS = 180
+  ..addedWeight = 0);
+
 final Workout basicWorkout = Workout((b) => b
   ..restBetweenGroupsFixed = true
   ..restBetweenGroupsS = 180

@@ -236,8 +236,22 @@ class GroupViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleRepeaters() {
-    _state = state.copyWith(repeaters: !state.repeaters);
+  void toggleRepeaters(bool active) {
+    if (active == true) {
+      _state = state.copyWith(
+        repeaters: true,
+        restBetweenRepsFixed: true,
+        restBetweenRepsS: 3,
+        restBetweenRepsSInput: '3',
+      );
+    } else {
+      _state = state.copyWith(
+        repeaters: false,
+        restBetweenRepsFixed: true,
+        restBetweenRepsS: 180,
+        restBetweenRepsSInput: '180',
+      );
+    }
     notifyListeners();
   }
 

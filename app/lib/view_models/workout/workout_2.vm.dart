@@ -1,4 +1,7 @@
+import 'package:app/data/basic_workout.data.dart';
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/screens/group.screen.dart';
 import 'package:app/services/error.service.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
@@ -13,6 +16,7 @@ import 'package:flutter/foundation.dart';
 class WorkoutViewModel2 extends ChangeNotifier {
   Workout _workout;
   WorkoutTypes _workoutType;
+  WorkoutTypes get workoutType => _workoutType;
 
   WorkoutViewModelState2 _state;
   WorkoutViewModelState2 get state => _state;
@@ -49,6 +53,14 @@ class WorkoutViewModel2 extends ChangeNotifier {
         break;
     }
     _state = _initialState;
+  }
+
+  void handleAddGroupTap() {
+    _navigationService.pushNamed(Routes.groupScreen,
+        arguments: GroupScreenArguments(
+            group: basicGroup,
+            weightSystem: _settingsState.settings.weightSystem,
+            workoutType: workoutType));
   }
 
   void addGroup(Group group) {}

@@ -11,8 +11,10 @@ import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/number_input_and_description.dart';
 import 'package:app/widgets/screen.dart';
 import 'package:app/widgets/section.dart';
+import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/top_navigation.dart';
+import 'package:app/widgets/workout/fixed_variable_timer_info.dart';
 import 'package:app/widgets/workout/grip_picker_container.dart';
 import 'package:app/widgets/workout/selected_grips_and_holds.dart';
 import 'package:flutter/cupertino.dart';
@@ -187,8 +189,26 @@ class _GroupScreenState extends State<GroupScreen> {
                                   ),
                                 Section(
                                   title: 'basics',
+                                  nextSectionHasInfoIcon: true,
                                   children: <Widget>[
-                                    // TODO: Repeaters toggler
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text('Repeaters',
+                                            style: styles.Lato.xsGray),
+                                        CupertinoSwitch(
+                                          onChanged: _viewModel.toggleRepeaters,
+                                          value: _viewModel.state.repeaters,
+                                          activeColor:
+                                              _viewModel.state.primaryColor,
+                                          trackColor: styles.Colors.lightGray,
+                                        )
+                                      ],
+                                    ),
+                                    Divider(
+                                      height: styles.Measurements.m,
+                                    ),
                                     NumberInputAndDescription<int>(
                                       enabled: _viewModel.state.inputsEnabled,
                                       primaryColor:
@@ -213,6 +233,10 @@ class _GroupScreenState extends State<GroupScreen> {
                                     ),
                                     if (_viewModel.state.repeaters == true)
                                       Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Divider(
                                             height: styles.Measurements.m,
@@ -222,7 +246,8 @@ class _GroupScreenState extends State<GroupScreen> {
                                                 _viewModel.state.inputsEnabled,
                                             primaryColor:
                                                 _viewModel.state.primaryColor,
-                                            description: 'rest between reps',
+                                            description:
+                                                'rest seconds between repetitions',
                                             handleValueChanged:
                                                 _viewModel.setRestBetweenRepsS,
                                             initialValue: _viewModel
@@ -246,8 +271,9 @@ class _GroupScreenState extends State<GroupScreen> {
                                   ],
                                 ),
                                 if (_viewModel.state.repeaters == true)
-                                  Section(
-                                    title: 'Rest between sets',
+                                  SectionWithInfoIcon(
+                                    appDialogContent: FixedVariableTimerInfo(),
+                                    title: 'Set rest',
                                     children: <Widget>[
                                       Tabs(
                                         leftText: 'Fixed',
@@ -267,28 +293,34 @@ class _GroupScreenState extends State<GroupScreen> {
                                         textPrimaryColor:
                                             _viewModel.state.textPrimaryColor,
                                       ),
-                                      Divider(
-                                        height: styles.Measurements.m,
-                                      ),
-                                      NumberInputAndDescription<int>(
-                                        enabled: _viewModel.state.inputsEnabled,
-                                        primaryColor:
-                                            _viewModel.state.primaryColor,
-                                        description:
-                                            'rest seconds between sets',
-                                        handleValueChanged:
-                                            _viewModel.setRestBetweenSetsS,
-                                        initialValue:
-                                            _viewModel.state.restBetweenSetsS,
-                                      ),
-                                      Divider(
-                                        height: styles.Measurements.m,
-                                      ),
+                                      if (_viewModel
+                                              .state.restBetweenSetsFixed ==
+                                          true)
+                                        Column(
+                                          children: <Widget>[
+                                            Divider(
+                                              height: styles.Measurements.m,
+                                            ),
+                                            NumberInputAndDescription<int>(
+                                              enabled: _viewModel
+                                                  .state.inputsEnabled,
+                                              primaryColor:
+                                                  _viewModel.state.primaryColor,
+                                              description:
+                                                  'rest seconds between sets',
+                                              handleValueChanged: _viewModel
+                                                  .setRestBetweenSetsS,
+                                              initialValue: _viewModel
+                                                  .state.restBetweenSetsS,
+                                            ),
+                                          ],
+                                        )
                                     ],
                                   ),
                                 if (_viewModel.state.repeaters == false)
-                                  Section(
-                                    title: 'Rest between repetitions',
+                                  SectionWithInfoIcon(
+                                    appDialogContent: FixedVariableTimerInfo(),
+                                    title: 'Repetition rest',
                                     children: <Widget>[
                                       Tabs(
                                         leftText: 'Fixed',
@@ -308,23 +340,26 @@ class _GroupScreenState extends State<GroupScreen> {
                                         textPrimaryColor:
                                             _viewModel.state.textPrimaryColor,
                                       ),
-                                      Divider(
-                                        height: styles.Measurements.m,
-                                      ),
-                                      NumberInputAndDescription<int>(
-                                        enabled: _viewModel.state.inputsEnabled,
-                                        primaryColor:
-                                            _viewModel.state.primaryColor,
-                                        description:
-                                            'rest seconds between repetitions',
-                                        handleValueChanged:
-                                            _viewModel.setRestBetweenRepsS,
-                                        initialValue:
-                                            _viewModel.state.restBetweenRepsS,
-                                      ),
-                                      Divider(
-                                        height: styles.Measurements.m,
-                                      ),
+                                      if (_viewModel.state.restBetweenRepsFixed)
+                                        Column(
+                                          children: <Widget>[
+                                            Divider(
+                                              height: styles.Measurements.m,
+                                            ),
+                                            NumberInputAndDescription<int>(
+                                              enabled: _viewModel
+                                                  .state.inputsEnabled,
+                                              primaryColor:
+                                                  _viewModel.state.primaryColor,
+                                              description:
+                                                  'rest seconds between repetitions',
+                                              handleValueChanged: _viewModel
+                                                  .setRestBetweenRepsS,
+                                              initialValue: _viewModel
+                                                  .state.restBetweenRepsS,
+                                            ),
+                                          ],
+                                        )
                                     ],
                                   ),
                                 Section(
