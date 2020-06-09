@@ -10,6 +10,7 @@
 - Preview workout.
 - Instead of counting down, counting up is probably better.
   Settings?
+- Scale pull measurements (Jan)? 
   
  
 

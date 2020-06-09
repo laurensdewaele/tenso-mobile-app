@@ -9,8 +9,6 @@ class SelectedGripsAndHolds extends StatelessWidget {
   SelectedGripsAndHolds({
     Key key,
     @required this.board,
-    @required this.currentHold,
-    @required this.totalHolds,
     @required this.leftGrip,
     @required this.leftGripBoardHold,
     @required this.rightGrip,
@@ -18,8 +16,6 @@ class SelectedGripsAndHolds extends StatelessWidget {
   }) : super(key: key);
 
   final Board board;
-  final int currentHold;
-  final int totalHolds;
   final Grip leftGrip;
   final BoardHold leftGripBoardHold;
   final Grip rightGrip;
@@ -30,10 +26,6 @@ class SelectedGripsAndHolds extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Hold $currentHold / $totalHolds',
-          style: styles.Staatliches.xlBlack,
-        ),
         Divider(height: styles.Measurements.l),
         BoardWithGrips(
           withFixedHeight: true,
