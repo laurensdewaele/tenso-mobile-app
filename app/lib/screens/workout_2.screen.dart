@@ -14,7 +14,7 @@ import 'package:app/widgets/section_with_info_icon.dart';
 import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
-import 'package:app/widgets/workout/fixed_variable_info.dart';
+import 'package:app/widgets/workout/fixed_variable_timer_info.dart';
 import 'package:app/widgets/workout/label_picker.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
@@ -115,7 +115,7 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                           SectionWithInfoIcon(
                             nextSectionHasInfoIcon: true,
                             title: 'rest between groups',
-                            appDialogContent: FixedVariableInfo(),
+                            appDialogContent: FixedVariableTimerInfo(),
                             children: <Widget>[
                               Tabs(
                                 leftText: 'Fixed',

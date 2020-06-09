@@ -13,12 +13,14 @@ import 'package:flutter/foundation.dart';
 class WorkoutViewModel2 extends ChangeNotifier {
   Workout _workout;
   WorkoutTypes _workoutType;
-  WorkoutsState _workoutsState;
-  ToastService _toastService;
-  NavigationService _navigationService;
 
   WorkoutViewModelState2 _state;
   WorkoutViewModelState2 get state => _state;
+
+  NavigationService _navigationService;
+  ToastService _toastService;
+  SettingsState _settingsState;
+  WorkoutsState _workoutsState;
 
   WorkoutViewModel2(
       {@required WorkoutTypes workoutType, @required Workout workout}) {
@@ -27,8 +29,9 @@ class WorkoutViewModel2 extends ChangeNotifier {
     _workoutType = workoutType;
     _toastService = ToastService();
     _navigationService = NavigationService();
+    _settingsState = SettingsState();
 
-    final _weightSystem = SettingsState().settings.weightSystem;
+    final _weightSystem = _settingsState.settings.weightSystem;
 
     WorkoutViewModelState2 _initialState;
     switch (_workoutType) {
@@ -67,10 +70,7 @@ class WorkoutViewModel2 extends ChangeNotifier {
   }
 
   void setRestBetweenGroupsVariable() {
-    _state = state.copyWith(
-        restBetweenGroupsFixed: false,
-        restBetweenGroupsSInput: null,
-        restBetweenGroupsS: null);
+    _state = state.copyWith(restBetweenGroupsFixed: false);
     notifyListeners();
   }
 
@@ -89,7 +89,9 @@ class WorkoutViewModel2 extends ChangeNotifier {
   void setWorkout() async {
     Workout _newWorkout = _workout.rebuild((b) => b
       ..label = state.label
-      ..sets = state.sets
+      ..restBetweenGroupsFixed = state.restBetweenGroupsFixed
+      ..restBetweenGroupsS =
+          state.restBetweenGroupsFixed == true ? state.restBetweenGroupsS : null
       ..groups.replace(state.groups)
       ..name = state.name
       ..weightSystem = state.weightSystem);

@@ -2,14 +2,12 @@ import 'dart:ui';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 @immutable
 class WorkoutViewModelState2 {
   final Label label;
-  final int sets;
   final List<Group> groups;
   final int restBetweenGroupsS;
   final String restBetweenGroupsSInput;
@@ -25,8 +23,6 @@ class WorkoutViewModelState2 {
   final TextStyle textPrimaryColor;
   final String title;
 
-  final listEquality = const ListEquality<Group>();
-
   WorkoutViewModelState2.addWorkout(
       Workout workout, WeightSystem currentWeightSystem)
       : label = workout.label,
@@ -34,7 +30,6 @@ class WorkoutViewModelState2 {
         restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
         restBetweenGroupsS = workout.restBetweenGroupsS,
         restBetweenGroupsSInput = workout.restBetweenGroupsS.toString(),
-        sets = workout.sets,
         name = workout.name,
         nameInput = workout.name,
         weightSystem = currentWeightSystem,
@@ -47,7 +42,6 @@ class WorkoutViewModelState2 {
   WorkoutViewModelState2.editWorkout(
       Workout workout, WeightSystem currentWeightSystem)
       : label = workout.label,
-        sets = workout.sets,
         groups = workout.groups.toList(),
         restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
         restBetweenGroupsS = workout.restBetweenGroupsS,
@@ -64,7 +58,6 @@ class WorkoutViewModelState2 {
   WorkoutViewModelState2.viewWorkout(
       Workout workout, WeightSystem currentWeightSystem)
       : label = workout.label,
-        sets = workout.sets,
         groups = workout.groups.toList(),
         restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
         restBetweenGroupsS = workout.restBetweenGroupsS,
@@ -80,7 +73,6 @@ class WorkoutViewModelState2 {
 
   const WorkoutViewModelState2({
     @required this.label,
-    @required this.sets,
     @required this.groups,
     @required this.restBetweenGroupsS,
     @required this.restBetweenGroupsSInput,
@@ -97,7 +89,6 @@ class WorkoutViewModelState2 {
 
   WorkoutViewModelState2 copyWith({
     Label label,
-    int sets,
     List<Group> groups,
     int restBetweenGroupsS,
     String restBetweenGroupsSInput,
@@ -113,7 +104,6 @@ class WorkoutViewModelState2 {
   }) {
     return new WorkoutViewModelState2(
       label: label ?? this.label,
-      sets: sets ?? this.sets,
       groups: groups ?? this.groups,
       restBetweenGroupsS: restBetweenGroupsS ?? this.restBetweenGroupsS,
       restBetweenGroupsSInput:

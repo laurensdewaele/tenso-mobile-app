@@ -3,8 +3,8 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
 
-class FixedVariableInfo extends StatelessWidget {
-  FixedVariableInfo({Key key}) : super(key: key);
+class FixedVariableTimerInfo extends StatelessWidget {
+  FixedVariableTimerInfo({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
