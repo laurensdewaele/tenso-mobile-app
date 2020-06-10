@@ -1,7 +1,6 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/group.vm.dart';
-import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/widgets/board/board_hold_info.dart';
 import 'package:app/widgets/board/board_hold_picker.dart';
 import 'package:app/widgets/button.dart';
@@ -23,12 +22,12 @@ import 'package:flutter/cupertino.dart' hide Icon;
 
 class GroupScreenArguments {
   final Group group;
-  final WorkoutTypes workoutType;
+  final GroupActions groupAction;
   final WeightSystem weightSystem;
 
   const GroupScreenArguments(
       {@required this.group,
-      @required this.workoutType,
+      @required this.groupAction,
       @required this.weightSystem});
 }
 
@@ -50,7 +49,7 @@ class _GroupScreenState extends State<GroupScreen> {
           ModalRoute.of(context).settings.arguments;
       _viewModel = GroupViewModel(
           group: _arguments.group,
-          workoutType: _arguments.workoutType,
+          groupAction: _arguments.groupAction,
           weightSystem: _arguments.weightSystem);
       _viewModel.addListener(_viewModelListener);
     }
@@ -278,18 +277,18 @@ class _GroupScreenState extends State<GroupScreen> {
                                     title: 'Set rest timer',
                                     children: <Widget>[
                                       Tabs(
-                                        leftText: 'Fixed',
-                                        rightText: 'Variable',
-                                        handleLeftTap:
-                                            _viewModel.setRestBetweenSetsFixed,
-                                        handleRightTap: _viewModel
+                                        leftText: 'Variable',
+                                        rightText: 'Fixed',
+                                        handleLeftTap: _viewModel
                                             .setRestBetweenSetsVariable,
+                                        handleRightTap:
+                                            _viewModel.setRestBetweenSetsFixed,
                                         isLeftSelected: _viewModel
                                                 .state.restBetweenSetsFixed ==
-                                            true,
+                                            false,
                                         isRightSelected: _viewModel
                                                 .state.restBetweenSetsFixed ==
-                                            false,
+                                            true,
                                         primaryColor:
                                             _viewModel.state.primaryColor,
                                         textPrimaryColor:
@@ -325,18 +324,18 @@ class _GroupScreenState extends State<GroupScreen> {
                                     title: 'Rest timer',
                                     children: <Widget>[
                                       Tabs(
-                                        leftText: 'Fixed',
-                                        rightText: 'Variable',
-                                        handleLeftTap:
-                                            _viewModel.setRestBetweenRepsFixed,
-                                        handleRightTap: _viewModel
+                                        leftText: 'Variable',
+                                        rightText: 'Fixed',
+                                        handleLeftTap: _viewModel
                                             .setRestBetweenRepsVariable,
+                                        handleRightTap:
+                                            _viewModel.setRestBetweenRepsFixed,
                                         isLeftSelected: _viewModel
                                                 .state.restBetweenRepsFixed ==
-                                            true,
+                                            false,
                                         isRightSelected: _viewModel
                                                 .state.restBetweenRepsFixed ==
-                                            false,
+                                            true,
                                         primaryColor:
                                             _viewModel.state.primaryColor,
                                         textPrimaryColor:
@@ -383,11 +382,16 @@ class _GroupScreenState extends State<GroupScreen> {
                                   ],
                                 ),
                                 Button(
-                                    text: 'Add group',
+                                    text: _viewModel.state.saveButtonText,
                                     smallText: true,
+                                    backgroundColor:
+                                        _viewModel.state.primaryColor,
                                     height: styles.kSmallButtonHeight,
                                     handleTap: _viewModel.addGroup,
-                                    leadingIcon: icons.plusIconWhiteS),
+                                    leadingIcon: _viewModel.state.groupAction ==
+                                            GroupActions.addGroup
+                                        ? icons.plusIconWhiteS
+                                        : null),
                                 Divider(
                                   height: styles.Measurements.xxl,
                                 ),

@@ -18,11 +18,11 @@
 //
 //@immutable
 //class WorkoutScreenArguments {
-//  final WorkoutTypes workoutType;
+//  final WorkoutActions workoutAction;
 //  final Workout workout;
 //
 //  WorkoutScreenArguments({
-//    @required this.workoutType,
+//    @required this.workoutAction,
 //    @required this.workout,
 //  });
 //}
@@ -45,7 +45,7 @@
 //      final WorkoutScreenArguments _arguments =
 //          ModalRoute.of(context).settings.arguments;
 //      _workoutViewModel = WorkoutViewModel(
-//          workout: _arguments.workout, workoutType: _arguments.workoutType);
+//          workout: _arguments.workout, workoutAction: _arguments.workoutAction);
 //      _workoutNavigator = WorkoutNavigator(workoutViewModel: _workoutViewModel);
 //    }
 //  }

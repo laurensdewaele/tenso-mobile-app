@@ -21,11 +21,11 @@ import 'package:app/widgets/workout/label_picker.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class WorkoutScreenArguments {
-  final WorkoutTypes workoutType;
+  final WorkoutActions workoutAction;
   final Workout workout;
 
   const WorkoutScreenArguments({
-    @required this.workoutType,
+    @required this.workoutAction,
     @required this.workout,
   });
 }
@@ -48,7 +48,7 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
 
     if (_viewModel == null) {
       _viewModel = WorkoutViewModel2(
-          workout: _arguments.workout, workoutType: _arguments.workoutType);
+          workout: _arguments.workout, workoutAction: _arguments.workoutAction);
       _viewModel.addListener(_viewModelListener);
     }
   }
@@ -107,15 +107,27 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                             children: <Widget>[
                               GroupPicker(
                                 groups: _viewModel.state.groups,
+                                handleEditGroup: _viewModel.handleEditGroup,
+                                handleDeleteGroup: _viewModel.handleDeleteGroup,
+                                weightUnit: _viewModel.state.weightSystem.unit,
                               ),
-                              if (_viewModel.workoutType !=
-                                  WorkoutTypes.viewWorkout)
-                                Button(
-                                    smallText: true,
-                                    height: styles.kSmallButtonHeight,
-                                    text: 'Add group',
-                                    handleTap: _viewModel.handleAddGroupTap,
-                                    leadingIcon: icons.plusIconWhiteS)
+                              if (_viewModel.workoutAction !=
+                                  WorkoutActions.viewWorkout)
+                                Column(
+                                  children: <Widget>[
+                                    Divider(
+                                      height: styles.Measurements.l,
+                                    ),
+                                    Button(
+                                        smallText: true,
+                                        height: styles.kSmallButtonHeight,
+                                        text: 'Add group',
+                                        backgroundColor:
+                                            _viewModel.state.primaryColor,
+                                        handleTap: _viewModel.handleAddGroupTap,
+                                        leadingIcon: icons.plusIconWhiteS)
+                                  ],
+                                )
                             ],
                           ),
                           SectionWithInfoIcon(
@@ -124,18 +136,18 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                             appDialogContent: FixedVariableTimerInfo(),
                             children: <Widget>[
                               Tabs(
-                                leftText: 'Fixed',
-                                rightText: 'Variable',
+                                leftText: 'Variable',
+                                rightText: 'Fixed',
                                 handleLeftTap:
-                                    _viewModel.setRestBetweenGroupsFixed,
-                                handleRightTap:
                                     _viewModel.setRestBetweenGroupsVariable,
+                                handleRightTap:
+                                    _viewModel.setRestBetweenGroupsFixed,
                                 isLeftSelected:
                                     _viewModel.state.restBetweenGroupsFixed ==
-                                        true,
+                                        false,
                                 isRightSelected:
                                     _viewModel.state.restBetweenGroupsFixed ==
-                                        false,
+                                        true,
                                 primaryColor: _viewModel.state.primaryColor,
                                 textPrimaryColor:
                                     _viewModel.state.textPrimaryColor,

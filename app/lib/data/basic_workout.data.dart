@@ -16,15 +16,15 @@ final Group basicGroup = Group((b) => b
   ..repeaters = false
   ..repetitions = 1
   ..hangTimeS = 7
-  ..restBetweenRepsFixed = true
+  ..restBetweenRepsFixed = false
   ..restBetweenRepsS = 180
   ..sets = 1
-  ..restBetweenSetsFixed = true
+  ..restBetweenSetsFixed = false
   ..restBetweenSetsS = 180
   ..addedWeight = 0);
 
 final Workout basicWorkout = Workout((b) => b
-  ..restBetweenGroupsFixed = true
+  ..restBetweenGroupsFixed = false
   ..restBetweenGroupsS = 180
   ..groups.addAll([])
   ..id = '1'

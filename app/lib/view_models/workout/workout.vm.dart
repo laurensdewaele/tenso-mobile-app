@@ -10,7 +10,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
-enum WorkoutTypes { newWorkout, editWorkout, viewWorkout }
+enum WorkoutActions { newWorkout, editWorkout, viewWorkout }
 
 class WorkoutViewModel {
   BehaviorSubject<WorkoutViewModelState> _state$;
@@ -20,13 +20,13 @@ class WorkoutViewModel {
   WorkoutsState _workoutsState;
   KeyboardService _keyboardService;
 
-  WorkoutTypes _workoutType;
+  WorkoutActions _workoutType;
 
   WorkoutViewModel(
-      {@required WorkoutTypes workoutType, @required Workout workout}) {
+      {@required WorkoutActions workoutAction, @required Workout workout}) {
     _workoutsState = WorkoutsState();
     _keyboardService = KeyboardService();
-    _workoutType = workoutType;
+    _workoutType = workoutAction;
     shouldValidate$ = MergeStream<bool>([
       _keyboardService.shouldLoseFocus$,
       _keyboardService.inputComplete$
@@ -36,15 +36,15 @@ class WorkoutViewModel {
 
     WorkoutViewModelState _initialState;
     switch (_workoutType) {
-      case WorkoutTypes.newWorkout:
+      case WorkoutActions.newWorkout:
         _initialState =
             WorkoutViewModelState.addWorkout(workout, _weightSystem);
         break;
-      case WorkoutTypes.editWorkout:
+      case WorkoutActions.editWorkout:
         _initialState =
             WorkoutViewModelState.editWorkout(workout, _weightSystem);
         break;
-      case WorkoutTypes.viewWorkout:
+      case WorkoutActions.viewWorkout:
         _initialState =
             WorkoutViewModelState.viewWorkout(workout, workout.weightSystem);
         break;
@@ -65,13 +65,13 @@ class WorkoutViewModel {
       ..weightSystem = state.weightSystem);
 
     switch (_workoutType) {
-      case WorkoutTypes.newWorkout:
+      case WorkoutActions.newWorkout:
         _workoutsState.addWorkout(_workout);
         break;
-      case WorkoutTypes.editWorkout:
+      case WorkoutActions.editWorkout:
         _workoutsState.editWorkout(_workout);
         break;
-      case WorkoutTypes.viewWorkout:
+      case WorkoutActions.viewWorkout:
         break;
     }
   }

@@ -1,14 +1,18 @@
+import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 
-import 'package:app/styles/styles.dart' as styles;
-
 class Card extends StatelessWidget {
-  const Card({@required this.child, this.padding, this.border = false});
+  const Card(
+      {@required this.child,
+      this.padding,
+      this.border = false,
+      this.bgColor = styles.Colors.bgWhite});
 
   final Widget child;
   // Padding is variable. Different for WorkoutOverview and NewWorkout.
   final EdgeInsets padding;
   final bool border;
+  final Color bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +20,11 @@ class Card extends StatelessWidget {
         ? BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
             border: Border.all(color: styles.Colors.black),
-            color: styles.Colors.bgWhite,
+            color: bgColor,
             boxShadow: [styles.kBoxShadow])
         : BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
-            color: styles.Colors.bgWhite,
+            color: bgColor,
             boxShadow: [styles.kBoxShadow]);
 
     return Container(

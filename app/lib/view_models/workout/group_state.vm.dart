@@ -1,15 +1,18 @@
 import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/view_models/workout/group.vm.dart';
 import 'package:flutter/cupertino.dart';
 
 @immutable
 class GroupState {
+  final GroupActions groupAction;
   final bool inputsEnabled;
   final Color primaryColor;
   final TextStyle textPrimaryColor;
   final String weightUnit;
   final String title;
+  final String saveButtonText;
 
   final Board board;
 
@@ -43,9 +46,11 @@ class GroupState {
 
   GroupState.addGroup(Group group, WeightSystem currentWeightSystem)
       : inputsEnabled = true,
+        groupAction = GroupActions.addGroup,
         primaryColor = styles.Colors.primary,
         textPrimaryColor = styles.Lato.xsPrimary,
         title = 'Add group',
+        saveButtonText = 'Add group',
         weightUnit = currentWeightSystem.unit,
         board = group.board,
         handHold = group.handHold,
@@ -71,6 +76,8 @@ class GroupState {
 
   GroupState.editGroup(Group group, WeightSystem currentWeightSystem)
       : inputsEnabled = true,
+        groupAction = GroupActions.editGroup,
+        saveButtonText = 'Save',
         primaryColor = styles.Colors.blue,
         textPrimaryColor = styles.Lato.xsBlue,
         title = 'Edit group',
@@ -97,35 +104,9 @@ class GroupState {
         addedWeight = group.addedWeight,
         addedWeightInput = group.addedWeight.toString();
 
-  GroupState.viewGroup(Group group, WeightSystem workoutWeightSystem)
-      : inputsEnabled = false,
-        primaryColor = styles.Colors.gray,
-        textPrimaryColor = styles.Lato.xsGray,
-        title = 'View group',
-        weightUnit = workoutWeightSystem.unit,
-        board = group.board,
-        handHold = group.handHold,
-        leftGrip = group.leftGrip,
-        rightGrip = group.rightGrip,
-        leftGripBoardHold = group.leftGripBoardHold,
-        rightGripBoardHold = group.rightGripBoardHold,
-        repeaters = group.repeaters,
-        repetitions = group.repetitions,
-        repetitionsInput = group.repetitions.toString(),
-        hangTimeS = group.hangTimeS,
-        hangTimeSInput = group.hangTimeS.toString(),
-        restBetweenRepsFixed = group.restBetweenSetsFixed,
-        restBetweenRepsS = group.restBetweenRepsS,
-        restBetweenRepsSInput = group.restBetweenRepsS.toString(),
-        sets = group.sets,
-        setsInput = group.sets.toString(),
-        restBetweenSetsFixed = group.restBetweenSetsFixed,
-        restBetweenSetsS = group.restBetweenSetsS,
-        restBetweenSetsSInput = group.restBetweenSetsS.toString(),
-        addedWeight = group.addedWeight,
-        addedWeightInput = group.addedWeight.toString();
-
   const GroupState({
+    @required this.saveButtonText,
+    @required this.groupAction,
     @required this.title,
     @required this.inputsEnabled,
     @required this.primaryColor,
@@ -155,6 +136,8 @@ class GroupState {
   });
 
   GroupState copyWith({
+    String saveButtonText,
+    GroupActions groupAction,
     String title,
     bool inputsEnabled,
     Color primaryColor,
@@ -183,6 +166,8 @@ class GroupState {
     String addedWeightInput,
   }) {
     return new GroupState(
+      saveButtonText: saveButtonText ?? this.saveButtonText,
+      groupAction: groupAction ?? this.groupAction,
       title: title ?? this.title,
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,
       primaryColor: primaryColor ?? this.primaryColor,

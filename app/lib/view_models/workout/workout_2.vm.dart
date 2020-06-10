@@ -9,14 +9,15 @@ import 'package:app/services/toast.service.dart';
 import 'package:app/services/validation.service.dart';
 import 'package:app/state/settings.state.dart';
 import 'package:app/state/workouts.state.dart';
+import 'package:app/view_models/workout/group.vm.dart';
 import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/view_models/workout/workout_state_2.vm.dart';
 import 'package:flutter/foundation.dart';
 
 class WorkoutViewModel2 extends ChangeNotifier {
   Workout _workout;
-  WorkoutTypes _workoutType;
-  WorkoutTypes get workoutType => _workoutType;
+  WorkoutActions _workoutType;
+  WorkoutActions get workoutAction => _workoutType;
 
   WorkoutViewModelState2 _state;
   WorkoutViewModelState2 get state => _state;
@@ -27,10 +28,10 @@ class WorkoutViewModel2 extends ChangeNotifier {
   WorkoutsState _workoutsState;
 
   WorkoutViewModel2(
-      {@required WorkoutTypes workoutType, @required Workout workout}) {
+      {@required WorkoutActions workoutAction, @required Workout workout}) {
     _workout = workout;
     _workoutsState = WorkoutsState();
-    _workoutType = workoutType;
+    _workoutType = workoutAction;
     _toastService = ToastService();
     _navigationService = NavigationService();
     _settingsState = SettingsState();
@@ -39,15 +40,15 @@ class WorkoutViewModel2 extends ChangeNotifier {
 
     WorkoutViewModelState2 _initialState;
     switch (_workoutType) {
-      case WorkoutTypes.newWorkout:
+      case WorkoutActions.newWorkout:
         _initialState =
             WorkoutViewModelState2.addWorkout(workout, _weightSystem);
         break;
-      case WorkoutTypes.editWorkout:
+      case WorkoutActions.editWorkout:
         _initialState =
             WorkoutViewModelState2.editWorkout(workout, _weightSystem);
         break;
-      case WorkoutTypes.viewWorkout:
+      case WorkoutActions.viewWorkout:
         _initialState =
             WorkoutViewModelState2.viewWorkout(workout, workout.weightSystem);
         break;
@@ -61,19 +62,42 @@ class WorkoutViewModel2 extends ChangeNotifier {
       _group = state.groups[state.groups.length - 1];
     }
 
+    _launchGroupScreenAndSetState(_group, GroupActions.addGroup);
+  }
+
+  void handleEditGroup(Group group, int groupIndex) {
+    _launchGroupScreenAndSetState(group, GroupActions.editGroup, groupIndex);
+  }
+
+  void handleDeleteGroup(Group group, int groupIndex) {
+    final List<Group> _newGroups = []..addAll(state.groups);
+    _newGroups.removeAt(groupIndex);
+    _state = state.copyWith(groups: _newGroups);
+    notifyListeners();
+  }
+
+  void _launchGroupScreenAndSetState(Group group, GroupActions groupAction,
+      [int editGroupIndex]) async {
     final _newGroup = await _navigationService.pushNamed(Routes.groupScreen,
         arguments: GroupScreenArguments(
-            group: _group,
+            group: group,
             weightSystem: _settingsState.settings.weightSystem,
-            workoutType: workoutType));
+            groupAction: groupAction));
 
-    if (_newGroup != null) {
+    if (_newGroup != null && groupAction == GroupActions.addGroup) {
       _state = state.copyWith(groups: state.groups..add((_newGroup as Group)));
       notifyListeners();
     }
-  }
 
-  void addGroup(Group group) {}
+    if (_newGroup != null &&
+        groupAction == GroupActions.editGroup &&
+        editGroupIndex != null) {
+      final List<Group> _newGroups = []..addAll(state.groups);
+      _newGroups[editGroupIndex] = _newGroup;
+      _state = state.copyWith(groups: _newGroups);
+      notifyListeners();
+    }
+  }
 
   Future<bool> handleSaveTap() {
     return Future.sync(() {
@@ -119,13 +143,13 @@ class WorkoutViewModel2 extends ChangeNotifier {
       ..weightSystem = state.weightSystem);
 
     switch (_workoutType) {
-      case WorkoutTypes.newWorkout:
+      case WorkoutActions.newWorkout:
         _workoutsState.addWorkout(_newWorkout);
         break;
-      case WorkoutTypes.editWorkout:
+      case WorkoutActions.editWorkout:
         _workoutsState.editWorkout(_newWorkout);
         break;
-      case WorkoutTypes.viewWorkout:
+      case WorkoutActions.viewWorkout:
         break;
     }
   }

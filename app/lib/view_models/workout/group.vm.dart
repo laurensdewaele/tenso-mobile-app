@@ -5,8 +5,9 @@ import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
 import 'package:app/view_models/workout/group_state.vm.dart';
-import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:flutter/cupertino.dart';
+
+enum GroupActions { addGroup, editGroup }
 
 class GroupViewModel extends ChangeNotifier {
   Group _group;
@@ -17,20 +18,17 @@ class GroupViewModel extends ChangeNotifier {
   GroupState get state => _state;
 
   GroupViewModel(
-      {Group group, WorkoutTypes workoutType, WeightSystem weightSystem}) {
+      {Group group, GroupActions groupAction, WeightSystem weightSystem}) {
     _group = group;
     _navigationService = NavigationService();
 
     GroupState _initialState;
-    switch (workoutType) {
-      case WorkoutTypes.newWorkout:
+    switch (groupAction) {
+      case GroupActions.addGroup:
         _initialState = GroupState.addGroup(group, weightSystem);
         break;
-      case WorkoutTypes.editWorkout:
+      case GroupActions.editGroup:
         _initialState = GroupState.editGroup(group, weightSystem);
-        break;
-      case WorkoutTypes.viewWorkout:
-        _initialState = GroupState.viewGroup(group, weightSystem);
         break;
     }
     _state = _initialState;
@@ -43,10 +41,10 @@ class GroupViewModel extends ChangeNotifier {
         _navigationService.pop<Group>(_group.rebuild((b) => b
           ..board = state.board.toBuilder()
           ..handHold = state.handHold
-          ..leftGrip = state.leftGrip.toBuilder()
-          ..rightGrip = state.rightGrip.toBuilder()
-          ..leftGripBoardHold = state.leftGripBoardHold.toBuilder()
-          ..rightGripBoardHold = state.rightGripBoardHold.toBuilder()
+          ..leftGrip = state.leftGrip?.toBuilder()
+          ..rightGrip = state.rightGrip?.toBuilder()
+          ..leftGripBoardHold = state.leftGripBoardHold?.toBuilder()
+          ..rightGripBoardHold = state.rightGripBoardHold?.toBuilder()
           ..repeaters = state.repeaters
           ..repetitions = state.repetitions
           ..hangTimeS = state.hangTimeS
