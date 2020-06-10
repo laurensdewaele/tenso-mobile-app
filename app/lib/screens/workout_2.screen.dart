@@ -245,6 +245,17 @@ class _GroupInfo extends StatelessWidget {
                 style: styles.Lato.xsBlack),
           ]),
         ),
+        Divider(
+          height: styles.Measurements.m,
+        ),
+        RichText(
+          text: TextSpan(text: '', style: styles.Lato.xsBlack, children: [
+            TextSpan(
+                text:
+                    'On the group page you can specify all the details of the group.',
+                style: styles.Lato.xsBlack),
+          ]),
+        ),
         Divider(height: styles.Measurements.l),
         Center(
           child: Button(
