@@ -189,6 +189,9 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                                   handleValueChanged: _viewModel.setName)
                             ],
                           ),
+                          Divider(
+                            height: styles.Measurements.l,
+                          ),
                           Center(
                             child: Button(
                               backgroundColor: _viewModel.state.primaryColor,

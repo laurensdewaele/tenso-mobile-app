@@ -241,7 +241,7 @@ class GroupViewModel extends ChangeNotifier {
     } else {
       _state = state.copyWith(
         repeaters: false,
-        restBetweenRepsFixed: true,
+        restBetweenRepsFixed: false,
         restBetweenRepsS: 180,
         restBetweenRepsSInput: '180',
       );
