@@ -4,8 +4,10 @@ import 'package:app/view_models/workout/group.vm.dart';
 import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/widgets/board/board_hold_info.dart';
 import 'package:app/widgets/board/board_hold_picker.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/number_input_and_description.dart';
@@ -17,7 +19,7 @@ import 'package:app/widgets/top_navigation.dart';
 import 'package:app/widgets/workout/fixed_variable_timer_info.dart';
 import 'package:app/widgets/workout/grip_picker_container.dart';
 import 'package:app/widgets/workout/selected_grips_and_holds.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class GroupScreenArguments {
   final Group group;
@@ -103,7 +105,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                   Column(
                                     children: <Widget>[
                                       Section(
-                                        title: 'Grip',
+                                        title: 'Grips',
                                         children: <Widget>[
                                           GripPickerContainer(
                                             textPrimaryColor: _viewModel
@@ -130,7 +132,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                         ],
                                       ),
                                       Section(
-                                        title: 'drag to choose',
+                                        title: 'Choose holds',
                                         children: <Widget>[
                                           BoardHoldPicker(
                                             handToBoardHeightRatio: _viewModel
@@ -273,7 +275,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                 if (_viewModel.state.repeaters == true)
                                   SectionWithInfoIcon(
                                     appDialogContent: FixedVariableTimerInfo(),
-                                    title: 'Set rest',
+                                    title: 'Set rest timer',
                                     children: <Widget>[
                                       Tabs(
                                         leftText: 'Fixed',
@@ -320,7 +322,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                 if (_viewModel.state.repeaters == false)
                                   SectionWithInfoIcon(
                                     appDialogContent: FixedVariableTimerInfo(),
-                                    title: 'Repetition rest',
+                                    title: 'Rest timer',
                                     children: <Widget>[
                                       Tabs(
                                         leftText: 'Fixed',
@@ -376,10 +378,16 @@ class _GroupScreenState extends State<GroupScreen> {
                                           _viewModel.state.addedWeight,
                                     ),
                                     Divider(
-                                      height: styles.Measurements.m,
+                                      height: styles.Measurements.xxl,
                                     ),
                                   ],
                                 ),
+                                Button(
+                                    text: 'Add group',
+                                    smallText: true,
+                                    height: styles.kSmallButtonHeight,
+                                    handleTap: _viewModel.addGroup,
+                                    leadingIcon: icons.plusIconWhiteS),
                                 Divider(
                                   height: styles.Measurements.xxl,
                                 ),

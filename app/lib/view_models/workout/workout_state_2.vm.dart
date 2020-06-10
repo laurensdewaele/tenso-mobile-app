@@ -33,7 +33,7 @@ class WorkoutViewModelState2 {
         name = workout.name,
         nameInput = workout.name,
         weightSystem = currentWeightSystem,
-        saveButtonText = 'add',
+        saveButtonText = 'save',
         inputsEnabled = true,
         primaryColor = styles.Colors.primary,
         textPrimaryColor = styles.Lato.xsPrimary,

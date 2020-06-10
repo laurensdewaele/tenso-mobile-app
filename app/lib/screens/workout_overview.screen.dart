@@ -43,7 +43,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
 
   void _handleWorkoutAddTap() {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenInitArguments(
+        arguments: WorkoutScreenArguments(
           workoutType: WorkoutTypes.newWorkout,
           workout: basicWorkout,
         ));
@@ -51,7 +51,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
 
   void _handleWorkoutEditTap(Workout workout) {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenInitArguments(
+        arguments: WorkoutScreenArguments(
             workoutType: WorkoutTypes.editWorkout, workout: workout));
   }
 

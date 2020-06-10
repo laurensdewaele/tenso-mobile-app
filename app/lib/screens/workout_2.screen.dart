@@ -5,6 +5,7 @@ import 'package:app/view_models/workout/workout_2.vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/number_input_and_description.dart';
@@ -15,23 +16,15 @@ import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
 import 'package:app/widgets/workout/fixed_variable_timer_info.dart';
-import 'package:app/widgets/workout/groups.dart';
+import 'package:app/widgets/workout/group_picker.dart';
 import 'package:app/widgets/workout/label_picker.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
-class WorkoutScreenGroupArguments {
-  final Group group;
-
-  const WorkoutScreenGroupArguments({
-    @required this.group,
-  });
-}
-
-class WorkoutScreenInitArguments {
+class WorkoutScreenArguments {
   final WorkoutTypes workoutType;
   final Workout workout;
 
-  const WorkoutScreenInitArguments({
+  const WorkoutScreenArguments({
     @required this.workoutType,
     @required this.workout,
   });
@@ -50,19 +43,13 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final _arguments = ModalRoute.of(context).settings.arguments;
+    final WorkoutScreenArguments _arguments =
+        ModalRoute.of(context).settings.arguments;
 
-    if (_viewModel == null &&
-        _arguments.runtimeType == WorkoutScreenInitArguments) {
+    if (_viewModel == null) {
       _viewModel = WorkoutViewModel2(
-          workout: (_arguments as WorkoutScreenInitArguments).workout,
-          workoutType: (_arguments as WorkoutScreenInitArguments).workoutType);
+          workout: _arguments.workout, workoutType: _arguments.workoutType);
       _viewModel.addListener(_viewModelListener);
-    }
-
-    if (_viewModel != null &&
-        _arguments.runtimeType == WorkoutScreenGroupArguments) {
-      _viewModel.addGroup((_arguments as WorkoutScreenGroupArguments).group);
     }
   }
 
@@ -118,12 +105,17 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                             title: 'Groups',
                             appDialogContent: _GroupInfo(),
                             children: <Widget>[
-                              Groups(
+                              GroupPicker(
                                 groups: _viewModel.state.groups,
-                                isNewWorkout: _viewModel.workoutType ==
-                                    WorkoutTypes.newWorkout,
-                                handleAddGroupTap: _viewModel.handleAddGroupTap,
                               ),
+                              if (_viewModel.workoutType !=
+                                  WorkoutTypes.viewWorkout)
+                                Button(
+                                    smallText: true,
+                                    height: styles.kSmallButtonHeight,
+                                    text: 'Add group',
+                                    handleTap: _viewModel.handleAddGroupTap,
+                                    leadingIcon: icons.plusIconWhiteS)
                             ],
                           ),
                           SectionWithInfoIcon(

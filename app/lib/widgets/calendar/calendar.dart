@@ -50,7 +50,7 @@ class _CalendarState extends State<Calendar> {
 
   void _handleViewTap(Workout workout) {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenInitArguments(
+        arguments: WorkoutScreenArguments(
             workout: workout, workoutType: WorkoutTypes.viewWorkout));
   }
 

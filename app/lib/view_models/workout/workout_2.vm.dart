@@ -55,12 +55,22 @@ class WorkoutViewModel2 extends ChangeNotifier {
     _state = _initialState;
   }
 
-  void handleAddGroupTap() {
-    _navigationService.pushNamed(Routes.groupScreen,
+  void handleAddGroupTap() async {
+    Group _group = basicGroup;
+    if (state.groups.length > 0) {
+      _group = state.groups[state.groups.length - 1];
+    }
+
+    final _newGroup = await _navigationService.pushNamed(Routes.groupScreen,
         arguments: GroupScreenArguments(
-            group: basicGroup,
+            group: _group,
             weightSystem: _settingsState.settings.weightSystem,
             workoutType: workoutType));
+
+    if (_newGroup != null) {
+      _state = state.copyWith(groups: state.groups..add((_newGroup as Group)));
+      notifyListeners();
+    }
   }
 
   void addGroup(Group group) {}

@@ -1,8 +1,6 @@
 import 'package:app/data/grips.data.dart';
 import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/workout_2.screen.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
@@ -38,28 +36,26 @@ class GroupViewModel extends ChangeNotifier {
     _state = _initialState;
   }
 
-  Future<bool> _validateAndNavigate() {
+  Future<bool> addGroup() {
     return Future.sync(() {
       final _isValid = _validate();
       if (_isValid == true) {
-        _navigationService.pushNamed(Routes.workoutScreen,
-            arguments: WorkoutScreenGroupArguments(
-                group: _group.rebuild((b) => b
-                  ..board = state.board.toBuilder()
-                  ..handHold = state.handHold
-                  ..leftGrip = state.leftGrip.toBuilder()
-                  ..rightGrip = state.rightGrip.toBuilder()
-                  ..leftGripBoardHold = state.leftGripBoardHold.toBuilder()
-                  ..rightGripBoardHold = state.rightGripBoardHold.toBuilder()
-                  ..repeaters = state.repeaters
-                  ..repetitions = state.repetitions
-                  ..hangTimeS = state.hangTimeS
-                  ..restBetweenRepsFixed = state.restBetweenRepsFixed
-                  ..restBetweenRepsS = state.restBetweenRepsS
-                  ..sets = state.sets
-                  ..restBetweenSetsFixed = state.restBetweenSetsFixed
-                  ..restBetweenSetsS = state.restBetweenSetsS
-                  ..addedWeight = state.addedWeight)));
+        _navigationService.pop<Group>(_group.rebuild((b) => b
+          ..board = state.board.toBuilder()
+          ..handHold = state.handHold
+          ..leftGrip = state.leftGrip.toBuilder()
+          ..rightGrip = state.rightGrip.toBuilder()
+          ..leftGripBoardHold = state.leftGripBoardHold.toBuilder()
+          ..rightGripBoardHold = state.rightGripBoardHold.toBuilder()
+          ..repeaters = state.repeaters
+          ..repetitions = state.repetitions
+          ..hangTimeS = state.hangTimeS
+          ..restBetweenRepsFixed = state.restBetweenRepsFixed
+          ..restBetweenRepsS = state.restBetweenRepsS
+          ..sets = state.sets
+          ..restBetweenSetsFixed = state.restBetweenSetsFixed
+          ..restBetweenSetsS = state.restBetweenSetsS
+          ..addedWeight = state.addedWeight));
       }
       return _isValid;
     });

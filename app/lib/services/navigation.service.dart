@@ -16,7 +16,7 @@ class NavigationService {
         .pushNamed<T>(routeName, arguments: arguments);
   }
 
-  void pop() {
-    return navigatorKey.currentState.pop();
+  void pop<T extends Object>([T result]) {
+    return navigatorKey.currentState.pop(result);
   }
 }
