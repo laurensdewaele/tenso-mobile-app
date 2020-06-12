@@ -1,6 +1,9 @@
 # TODO
 
 - implement new design + board picker on add grip page (accordion).
+- board picker
+- make countdown work again.
+
 
 
 ### Triage:
