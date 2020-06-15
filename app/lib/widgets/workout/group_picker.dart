@@ -27,6 +27,8 @@ class GroupPicker extends StatefulWidget {
 }
 
 class _GroupPickerState extends State<GroupPicker> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -39,28 +41,40 @@ class _GroupPickerState extends State<GroupPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ...widget.groups
-            .asMap()
-            .map((int index, Group group) => MapEntry(
-                index,
-                Transform.scale(
-                  scale: 1,
-                  child: _GroupCard(
-                    context: context,
-                    currentGroupIndex: index,
-                    weightUnit: widget.weightUnit,
-                    group: group,
-                    handleDeleteGroup: widget.handleDeleteGroup,
-                    handleEditGroup: widget.handleEditGroup,
-                    totalGroups: widget.groups.length,
-                  ),
-                )))
-            .values
-            .toList()
-      ],
-    );
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Container(
+        height: 500,
+        child: ListView(
+          physics: ClampingScrollPhysics(),
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            ...widget.groups
+                .asMap()
+                .map((int index, Group group) => MapEntry(
+                    index,
+                    Transform.scale(
+                      scale: .8,
+                      child: Container(
+                        width: constraints.maxWidth * .8,
+                        child: _GroupCard(
+                          context: context,
+                          currentGroupIndex: index,
+                          weightUnit: widget.weightUnit,
+                          group: group,
+                          handleDeleteGroup: widget.handleDeleteGroup,
+                          handleEditGroup: widget.handleEditGroup,
+                          totalGroups: widget.groups.length,
+                        ),
+                      ),
+                    )))
+                .values
+                .toList()
+          ],
+        ),
+      );
+    });
   }
 }
 
