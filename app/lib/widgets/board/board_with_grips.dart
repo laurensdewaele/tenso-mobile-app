@@ -51,7 +51,7 @@ class BoardWithGrips extends StatelessWidget {
         leftGrip: leftGrip,
       );
 
-      return withFixedHeight
+      return withFixedHeight == true
           ? Container(height: _boardWithGripsHeight, child: _content)
           : _content;
     });
