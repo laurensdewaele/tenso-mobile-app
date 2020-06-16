@@ -57,80 +57,72 @@ class _GroupOverviewState extends State<GroupOverview> {
                   'X${group.repetitions} ${group.sets > 1 ? 'X${group.sets}' : ''}';
               return MapEntry(
                   index,
-                  Column(
-                    children: <Widget>[
-                      Stack(
+                  SlidingCard(
+                    divider: widget.groups.length > 1 &&
+                        index != widget.groups.length - 1,
+                    dividerHeight: styles.Measurements.m,
+                    leftAction: EditAction(),
+                    rightAction: DeleteAction(),
+                    content: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: styles.Colors.gray),
+                        borderRadius: styles.kBorderRadiusAll,
+                        color: styles.Colors.bgWhite,
+                      ),
+                      padding: EdgeInsets.only(
+                          left: 0,
+                          top: styles.Measurements.s,
+                          right: 0,
+                          bottom: styles.Measurements.s),
+                      child: Row(
                         children: <Widget>[
-                          Positioned.fill(
-                              child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: styles.kBorderRadiusAll,
-                                boxShadow: [styles.kBoxShadow]),
-                          )),
-                          SlidingCard(
-                            leftAction: EditAction(),
-                            rightAction: DeleteAction(),
-                            content: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: styles.Colors.gray),
-                                borderRadius: styles.kBorderRadiusAll,
-                                color: styles.Colors.bgWhite,
-                              ),
-                              padding: EdgeInsets.all(styles.Measurements.m),
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 3,
-                                    child: BoardWithGrips(
-                                      rightGrip: group.rightGrip,
-                                      leftGrip: group.leftGrip,
-                                      rightGripBoardHold:
-                                          group.rightGripBoardHold,
-                                      leftGripBoardHold:
-                                          group.leftGripBoardHold,
-                                      boardAspectRatio: group.board.aspectRatio,
-                                      customBoardHoldImages: group
-                                          .board.customBoardHoldImages
-                                          ?.toList(),
-                                      handToBoardHeightRatio:
-                                          group.board.handToBoardHeightRatio,
-                                      withFixedHeight: false,
-                                      boardImageAsset: group.board.imageAsset,
-                                      boardImageAssetWidth:
-                                          group.board.imageAssetWidth,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        _gripCount,
-                                        style: styles.Staatliches.xlBlack,
-                                      ),
-                                    ),
-                                    flex: 1,
-                                  ),
-                                ],
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: styles.Measurements.s),
+                              child: BoardWithGrips(
+                                rightGrip: group.rightGrip,
+                                leftGrip: group.leftGrip,
+                                rightGripBoardHold: group.rightGripBoardHold,
+                                leftGripBoardHold: group.leftGripBoardHold,
+                                boardAspectRatio: group.board.aspectRatio,
+                                customBoardHoldImages:
+                                    group.board.customBoardHoldImages?.toList(),
+                                handToBoardHeightRatio:
+                                    group.board.handToBoardHeightRatio,
+                                withFixedHeight: false,
+                                boardImageAsset: group.board.imageAsset,
+                                boardImageAssetWidth:
+                                    group.board.imageAssetWidth,
                               ),
                             ),
-                            border: false,
-                            handleLeftActionTap: () {
-                              _handleEditTap(index);
-                            },
-                            handleLongPress: () {
-                              _handleLongPress(index);
-                            },
-                            handleRightActionTap: () {
-                              _handleDeleteTap(index);
-                            },
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.s),
+                              child: Text(
+                                _gripCount,
+                                style: styles.Staatliches.xlBlack,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            flex: 1,
                           ),
                         ],
                       ),
-                      if (widget.groups.length > 1 &&
-                          index < widget.groups.length - 1)
-                        Divider(
-                          height: styles.Measurements.m,
-                        )
-                    ],
+                    ),
+                    border: false,
+                    handleLeftActionTap: () {
+                      _handleEditTap(index);
+                    },
+                    handleLongPress: () {
+                      _handleLongPress(index);
+                    },
+                    handleRightActionTap: () {
+                      _handleDeleteTap(index);
+                    },
                   ));
             })
             .values

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 enum _SlideDirection { left, right }
@@ -13,19 +15,22 @@ class SlidingCard extends StatefulWidget {
   final VoidCallback handleLongPress;
   final VoidCallback handleLeftActionTap;
   final VoidCallback handleRightActionTap;
+  final bool divider;
+  final double dividerHeight;
 
   @override
   _SlidingCardState createState() => _SlidingCardState();
 
-  const SlidingCard({
-    @required this.leftAction,
-    @required this.rightAction,
-    @required this.content,
-    @required this.border,
-    @required this.handleLongPress,
-    @required this.handleLeftActionTap,
-    @required this.handleRightActionTap,
-  });
+  const SlidingCard(
+      {@required this.leftAction,
+      @required this.rightAction,
+      @required this.content,
+      @required this.border,
+      @required this.handleLongPress,
+      @required this.handleLeftActionTap,
+      @required this.handleRightActionTap,
+      @required this.divider,
+      @required this.dividerHeight});
 }
 
 class _SlidingCardState extends State<SlidingCard>
@@ -69,6 +74,7 @@ class _SlidingCardState extends State<SlidingCard>
   }
 
   void _handleRightAction() {
+    _sizeController.forward();
     _close();
     widget.handleRightActionTap();
   }
@@ -166,51 +172,71 @@ class _SlidingCardState extends State<SlidingCard>
   Widget build(BuildContext context) {
     return SizeTransition(
       sizeFactor: _sizeAnimation,
-      child: Card(
-        border: widget.border,
-        child: Stack(
-          overflow: Overflow.visible,
-          children: <Widget>[
-            Positioned.fill(
-              child: Transform.scale(
-                scale: .99,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: _handleLeftAction,
-                        child: widget.leftAction,
-                      ),
-                      flex: 102,
+      child: Column(
+        children: <Widget>[
+          Stack(
+            overflow: Overflow.clip,
+            children: <Widget>[
+              Positioned.fill(
+                  child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: styles.kBorderRadiusAll,
+                    boxShadow: [styles.kBoxShadow]),
+              )),
+              Stack(
+                children: <Widget>[
+                  Card(
+                    border: widget.border,
+                    child: Stack(
+                      overflow: Overflow.clip,
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Transform.scale(
+                            scale: .99,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: _handleLeftAction,
+                                    child: widget.leftAction,
+                                  ),
+                                  flex: 102,
+                                ),
+                                Expanded(
+                                  child: SizedBox(),
+                                  flex: 196,
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: _handleRightAction,
+                                    child: widget.rightAction,
+                                  ),
+                                  flex: 102,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                            onHorizontalDragStart: _handleDragStart,
+                            onHorizontalDragUpdate: _handleDragUpdate,
+                            onHorizontalDragEnd: _handleDragEnd,
+                            onLongPress: _handleLongPress,
+                            child: SlideTransition(
+                                position: _slideAnimation,
+                                child: GestureDetector(
+                                  onTap: _handleContentTap,
+                                  child: widget.content,
+                                ))),
+                      ],
                     ),
-                    Expanded(
-                      child: SizedBox(),
-                      flex: 196,
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: _handleRightAction,
-                        child: widget.rightAction,
-                      ),
-                      flex: 102,
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-            GestureDetector(
-                onHorizontalDragStart: _handleDragStart,
-                onHorizontalDragUpdate: _handleDragUpdate,
-                onHorizontalDragEnd: _handleDragEnd,
-                onLongPress: _handleLongPress,
-                child: SlideTransition(
-                    position: _slideAnimation,
-                    child: GestureDetector(
-                      onTap: _handleContentTap,
-                      child: widget.content,
-                    ))),
-          ],
-        ),
+            ],
+          ),
+          if (widget.divider == true) Divider(height: widget.dividerHeight)
+        ],
       ),
     );
   }

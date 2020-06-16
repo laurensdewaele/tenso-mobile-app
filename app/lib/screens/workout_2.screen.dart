@@ -115,9 +115,10 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                                   WorkoutActions.viewWorkout)
                                 Column(
                                   children: <Widget>[
-                                    Divider(
-                                      height: styles.Measurements.l,
-                                    ),
+                                    if (_viewModel.state.groups.length > 0)
+                                      Divider(
+                                        height: styles.Measurements.l,
+                                      ),
                                     Button(
                                         smallText: true,
                                         height: styles.kSmallButtonHeight,
