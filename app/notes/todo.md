@@ -1,6 +1,10 @@
 # TODO
 
 - implement new design + board picker on add grip page (accordion).
+
+- Eerst slider implemteren.
+- Dan de pagina's terug halen, zoals vroeger met indicator.
+
 - board picker
 - make countdown work again.
 

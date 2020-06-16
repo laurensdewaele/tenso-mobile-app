@@ -16,7 +16,7 @@ import 'package:app/widgets/tabs.dart';
 import 'package:app/widgets/text_input.dart';
 import 'package:app/widgets/top_navigation.dart';
 import 'package:app/widgets/workout/fixed_variable_timer_info.dart';
-import 'package:app/widgets/workout/group_picker.dart';
+import 'package:app/widgets/workout/group_overview.dart';
 import 'package:app/widgets/workout/label_picker.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
@@ -105,7 +105,7 @@ class _WorkoutScreenState extends State<WorkoutScreen2> {
                             title: 'Groups',
                             appDialogContent: _GroupInfo(),
                             children: <Widget>[
-                              GroupPicker(
+                              GroupOverview(
                                 groups: _viewModel.state.groups,
                                 handleEditGroup: _viewModel.handleEditGroup,
                                 handleDeleteGroup: _viewModel.handleDeleteGroup,

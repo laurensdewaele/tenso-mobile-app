@@ -6,10 +6,13 @@ import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icons.dart' as icons;
+import 'package:app/widgets/sliding_card.dart';
+import 'package:app/widgets/workout_overview/delete_action.dart';
+import 'package:app/widgets/workout_overview/edit_action.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
-class GroupPicker extends StatefulWidget {
-  GroupPicker(
+class GroupOverview extends StatefulWidget {
+  GroupOverview(
       {Key key,
       @required this.groups,
       @required this.weightUnit,
@@ -23,10 +26,10 @@ class GroupPicker extends StatefulWidget {
   final void Function(Group group, int groupIndex) handleDeleteGroup;
 
   @override
-  _GroupPickerState createState() => _GroupPickerState();
+  _GroupOverviewState createState() => _GroupOverviewState();
 }
 
-class _GroupPickerState extends State<GroupPicker> {
+class _GroupOverviewState extends State<GroupOverview> {
   @override
   void initState() {
     super.initState();
@@ -37,26 +40,99 @@ class _GroupPickerState extends State<GroupPicker> {
     super.dispose();
   }
 
+  void _handleEditTap(int index) {}
+
+  void _handleDeleteTap(int index) {}
+
+  void _handleLongPress(int index) {}
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ...widget.groups
             .asMap()
-            .map((int index, Group group) => MapEntry(
-                index,
-                Transform.scale(
-                  scale: 1,
-                  child: _GroupCard(
-                    context: context,
-                    currentGroupIndex: index,
-                    weightUnit: widget.weightUnit,
-                    group: group,
-                    handleDeleteGroup: widget.handleDeleteGroup,
-                    handleEditGroup: widget.handleEditGroup,
-                    totalGroups: widget.groups.length,
-                  ),
-                )))
+            .map((int index, Group group) {
+              final _gripCount =
+                  'X${group.repetitions} ${group.sets > 1 ? 'X${group.sets}' : ''}';
+              return MapEntry(
+                  index,
+                  Column(
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                              child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: styles.kBorderRadiusAll,
+                                boxShadow: [styles.kBoxShadow]),
+                          )),
+                          SlidingCard(
+                            leftAction: EditAction(),
+                            rightAction: DeleteAction(),
+                            content: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: styles.Colors.gray),
+                                borderRadius: styles.kBorderRadiusAll,
+                                color: styles.Colors.bgWhite,
+                              ),
+                              padding: EdgeInsets.all(styles.Measurements.m),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 3,
+                                    child: BoardWithGrips(
+                                      rightGrip: group.rightGrip,
+                                      leftGrip: group.leftGrip,
+                                      rightGripBoardHold:
+                                          group.rightGripBoardHold,
+                                      leftGripBoardHold:
+                                          group.leftGripBoardHold,
+                                      boardAspectRatio: group.board.aspectRatio,
+                                      customBoardHoldImages: group
+                                          .board.customBoardHoldImages
+                                          ?.toList(),
+                                      handToBoardHeightRatio:
+                                          group.board.handToBoardHeightRatio,
+                                      withFixedHeight: false,
+                                      boardImageAsset: group.board.imageAsset,
+                                      boardImageAssetWidth:
+                                          group.board.imageAssetWidth,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        _gripCount,
+                                        style: styles.Staatliches.xlBlack,
+                                      ),
+                                    ),
+                                    flex: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            border: false,
+                            handleLeftActionTap: () {
+                              _handleEditTap(index);
+                            },
+                            handleLongPress: () {
+                              _handleLongPress(index);
+                            },
+                            handleRightActionTap: () {
+                              _handleDeleteTap(index);
+                            },
+                          ),
+                        ],
+                      ),
+                      if (widget.groups.length > 1 &&
+                          index < widget.groups.length - 1)
+                        Divider(
+                          height: styles.Measurements.m,
+                        )
+                    ],
+                  ));
+            })
             .values
             .toList()
       ],
