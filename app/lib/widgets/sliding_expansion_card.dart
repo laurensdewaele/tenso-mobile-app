@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class SlidingExpansionCard extends StatefulWidget {
   const SlidingExpansionCard({
+    Key key,
     @required this.topLeftSection,
     @required this.topRightSection,
     @required this.topRightSectionWidth,

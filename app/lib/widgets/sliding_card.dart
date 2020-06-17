@@ -21,7 +21,8 @@ class SlidingCard extends StatefulWidget {
   _SlidingCardState createState() => _SlidingCardState();
 
   const SlidingCard(
-      {@required this.leftAction,
+      {Key key,
+      @required this.leftAction,
       @required this.rightAction,
       @required this.content,
       @required this.border,
@@ -72,9 +73,9 @@ class _SlidingCardState extends State<SlidingCard>
     widget.handleLeftActionTap();
   }
 
-  void _handleRightAction() {
-    _sizeController.forward();
+  void _handleRightAction() async {
     _close();
+    await _sizeController.forward();
     widget.handleRightActionTap();
   }
 

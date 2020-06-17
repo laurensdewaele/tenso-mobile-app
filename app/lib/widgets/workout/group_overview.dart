@@ -11,7 +11,7 @@ import 'package:app/widgets/workout_overview/delete_action.dart';
 import 'package:app/widgets/workout_overview/edit_action.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
-class GroupOverview extends StatefulWidget {
+class GroupOverview extends StatelessWidget {
   GroupOverview(
       {Key key,
       @required this.groups,
@@ -22,119 +22,91 @@ class GroupOverview extends StatefulWidget {
 
   final List<Group> groups;
   final String weightUnit;
-  final void Function(Group group, int groupIndex) handleEditGroup;
-  final void Function(Group group, int groupIndex) handleDeleteGroup;
+  final void Function(int index) handleEditGroup;
+  final void Function(int index) handleDeleteGroup;
 
-  @override
-  _GroupOverviewState createState() => _GroupOverviewState();
-}
-
-class _GroupOverviewState extends State<GroupOverview> {
-  @override
-  void initState() {
-    super.initState();
+  void _handleLongPress(BuildContext context, int index) {
+    showAppDialog(
+        context: context,
+        content: _EditDeleteDialog(
+          title: 'group ${index + 1}/${groups.length}',
+          handleBackTap: () => Navigator.of(context).pop(),
+          handleEditTap: () => handleEditGroup(index),
+          handleDeleteTap: () => handleDeleteGroup(index),
+        ),
+        smallWidth: null);
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _handleEditTap(int index) {}
-
-  void _handleDeleteTap(int index) {}
-
-  void _handleLongPress(int index) {}
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
+        key: ValueKey(groups.hashCode),
         builder: (BuildContext context, BoxConstraints constraints) {
-      return Column(
-        children: <Widget>[
-          ...widget.groups
-              .asMap()
-              .map((int index, Group group) {
+          return ListView.builder(
+              shrinkWrap: true,
+              itemCount: groups.length,
+              physics: ClampingScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                final Group _group = groups[index];
                 final double _setRepHeaderWidth = 90;
                 final _cardPadding = styles.Measurements.s;
                 final _boardWidth = constraints.maxWidth -
                     _setRepHeaderWidth -
                     _cardPadding * 2;
                 final _boardClippedPadding = styles.Measurements.s;
-                final _boardHeight = _boardWidth / group.board.aspectRatio;
+                final _boardHeight = _boardWidth / _group.board.aspectRatio;
                 final _boardWithGripsHeight =
                     _boardHeight + _boardClippedPadding;
-                return MapEntry(
-                    index,
-                    SlidingCard(
-                      divider: widget.groups.length > 1 &&
-                          index != widget.groups.length - 1,
-                      dividerHeight: styles.Measurements.m,
-                      leftAction: EditAction(),
-                      rightAction: DeleteAction(),
-                      content: SlidingExpansionCard(
-                        topLeftSection: BoardWithGrips(
-                          clipped: true,
-                          rightGrip: group.rightGrip,
-                          leftGrip: group.leftGrip,
-                          rightGripBoardHold: group.rightGripBoardHold,
-                          leftGripBoardHold: group.leftGripBoardHold,
-                          boardAspectRatio: group.board.aspectRatio,
-                          customBoardHoldImages:
-                              group.board.customBoardHoldImages?.toList(),
-                          handToBoardHeightRatio:
-                              group.board.handToBoardHeightRatio,
-                          withFixedHeight: false,
-                          boardImageAsset: group.board.imageAsset,
-                          boardImageAssetWidth: group.board.imageAssetWidth,
-                        ),
-                        topRightSection: Container(
-                          width: _setRepHeaderWidth,
-                          height: _boardWithGripsHeight,
-                          child: RepSetHeader(
-                            sets: group.sets,
-                            repetitions: group.repetitions,
-                          ),
-                        ),
-                        topRightSectionWidth: _setRepHeaderWidth,
-                        handleTap: () {},
-                        content: _GroupInfo(
-                          weightUnit: widget.weightUnit,
-                          group: group,
-                        ),
-                        handleLongPress: () {},
+                return SlidingCard(
+                  key: UniqueKey(),
+                  border: true,
+                  divider: groups.length > 1 && index != groups.length - 1,
+                  dividerHeight: styles.Measurements.m,
+                  handleLeftActionTap: () => handleEditGroup(index),
+                  handleRightActionTap: () => handleDeleteGroup(index),
+                  leftAction: EditAction(),
+                  rightAction: DeleteAction(),
+                  handleLongPress: () => _handleLongPress(context, index),
+                  content: SlidingExpansionCard(
+                    topLeftSection: BoardWithGrips(
+                      clipped: true,
+                      rightGrip: _group.rightGrip,
+                      leftGrip: _group.leftGrip,
+                      rightGripBoardHold: _group.rightGripBoardHold,
+                      leftGripBoardHold: _group.leftGripBoardHold,
+                      boardAspectRatio: _group.board.aspectRatio,
+                      customBoardHoldImages:
+                          _group.board.customBoardHoldImages?.toList(),
+                      handToBoardHeightRatio:
+                          _group.board.handToBoardHeightRatio,
+                      withFixedHeight: false,
+                      boardImageAsset: _group.board.imageAsset,
+                      boardImageAssetWidth: _group.board.imageAssetWidth,
+                    ),
+                    topRightSection: Container(
+                      width: _setRepHeaderWidth,
+                      height: _boardWithGripsHeight,
+                      child: _RepSetHeader(
+                        sets: _group.sets,
+                        repetitions: _group.repetitions,
                       ),
-                      border: true,
-                      handleLeftActionTap: () {
-                        _handleEditTap(index);
-                      },
-                      handleLongPress: () {
-                        showAppDialog(
-                            context: context,
-                            content: _EditDeleteDialog(
-                              title: 'test',
-                              handleBackTap: () {},
-                              handleEditTap: () {},
-                              handleDeleteTap: () {},
-                            ),
-                            smallWidth: null);
-                        _handleLongPress(index);
-                      },
-                      handleRightActionTap: () {
-                        _handleDeleteTap(index);
-                      },
-                    ));
-              })
-              .values
-              .toList()
-        ],
-      );
-    });
+                    ),
+                    topRightSectionWidth: _setRepHeaderWidth,
+                    handleTap: () {},
+                    content: _GroupInfo(
+                      weightUnit: weightUnit,
+                      group: _group,
+                    ),
+                    handleLongPress: () => _handleLongPress(context, index),
+                  ),
+                );
+              });
+        });
   }
 }
 
-class RepSetHeader extends StatelessWidget {
-  const RepSetHeader({
+class _RepSetHeader extends StatelessWidget {
+  const _RepSetHeader({
     @required this.repetitions,
     @required this.sets,
   });
@@ -150,7 +122,7 @@ class RepSetHeader extends StatelessWidget {
       textAlign: TextAlign.center,
     );
 
-    if (sets > 1) {
+    if (sets != null && sets > 1) {
       _text = Text(
         'X$repetitions X$sets',
         style: styles.Staatliches.groupRepSetHeaderSmall,

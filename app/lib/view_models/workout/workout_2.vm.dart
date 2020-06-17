@@ -65,11 +65,12 @@ class WorkoutViewModel2 extends ChangeNotifier {
     _launchGroupScreenAndSetState(_group, GroupActions.addGroup);
   }
 
-  void handleEditGroup(Group group, int groupIndex) {
-    _launchGroupScreenAndSetState(group, GroupActions.editGroup, groupIndex);
+  void handleEditGroup(int groupIndex) {
+    final Group _group = state.groups[groupIndex];
+    _launchGroupScreenAndSetState(_group, GroupActions.editGroup, groupIndex);
   }
 
-  void handleDeleteGroup(Group group, int groupIndex) {
+  void handleDeleteGroup(int groupIndex) {
     final List<Group> _newGroups = []..addAll(state.groups);
     _newGroups.removeAt(groupIndex);
     _state = state.copyWith(groups: _newGroups);
