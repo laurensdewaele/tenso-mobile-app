@@ -70,6 +70,7 @@ class ExecutionLandscape extends StatelessWidget {
               overflow: Overflow.clip,
               children: <Widget>[
                 BoardWithGrips(
+                  clipped: false,
                   withFixedHeight: false,
                   handToBoardHeightRatio: board.handToBoardHeightRatio,
                   boardAspectRatio: board.aspectRatio,

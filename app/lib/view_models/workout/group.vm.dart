@@ -78,7 +78,7 @@ class GroupViewModel extends ChangeNotifier {
           inputField: 'Rest between repetitions');
       _validations.add(Validators.biggerThanZero<int>(
           value: _restBetweenRepsS, inputField: 'Rest between repetitions'));
-      _state = state.copyWith(restBetweenRepsS: _restBetweenRepsS);
+      _state = state.copyWith(restBetweenRepsS: Nullable(_restBetweenRepsS));
     }
 
     if (state.repeaters == true) {
@@ -86,7 +86,7 @@ class GroupViewModel extends ChangeNotifier {
           InputParsers.parseToInt(string: state.setsInput, inputField: 'Sets');
       _validations.add(
           Validators.biggerThanZero<int>(value: _sets, inputField: 'Sets'));
-      _state = state.copyWith(sets: _sets);
+      _state = state.copyWith(sets: Nullable(_sets));
     }
 
     if (state.repeaters == true && state.restBetweenSetsFixed == true) {
@@ -94,7 +94,7 @@ class GroupViewModel extends ChangeNotifier {
           string: state.restBetweenSetsSInput, inputField: 'Rest between sets');
       _validations.add(Validators.biggerThanZero<int>(
           value: _restBetweenSetsS, inputField: 'Rest between sets'));
-      _state = state.copyWith(restBetweenSetsS: _restBetweenSetsS);
+      _state = state.copyWith(restBetweenSetsS: Nullable(_restBetweenSetsS));
     }
 
     final double _addedWeight = InputParsers.parseToDouble(
@@ -235,15 +235,23 @@ class GroupViewModel extends ChangeNotifier {
       _state = state.copyWith(
         repeaters: true,
         restBetweenRepsFixed: true,
-        restBetweenRepsS: 3,
-        restBetweenRepsSInput: '3',
+        restBetweenRepsS: Nullable(3),
+        restBetweenRepsSInput: Nullable('3'),
+        sets: Nullable(1),
+        restBetweenSetsS: Nullable(180),
+        restBetweenSetsFixed: Nullable(false),
+        restBetweenSetsSInput: Nullable('180'),
       );
     } else {
       _state = state.copyWith(
         repeaters: false,
         restBetweenRepsFixed: false,
-        restBetweenRepsS: 180,
-        restBetweenRepsSInput: '180',
+        restBetweenRepsS: Nullable(180),
+        restBetweenRepsSInput: Nullable('180'),
+        sets: Nullable(null),
+        restBetweenSetsS: Nullable(null),
+        restBetweenSetsFixed: Nullable(null),
+        restBetweenSetsSInput: Nullable(null),
       );
     }
     notifyListeners();
@@ -268,25 +276,27 @@ class GroupViewModel extends ChangeNotifier {
   }
 
   void setRestBetweenRepsS(String restBetweenRepsSInput) {
-    _state = state.copyWith(restBetweenRepsSInput: restBetweenRepsSInput);
+    _state =
+        state.copyWith(restBetweenRepsSInput: Nullable(restBetweenRepsSInput));
   }
 
   void setSets(String setsInput) {
-    _state = state.copyWith(setsInput: setsInput);
+    _state = state.copyWith(setsInput: Nullable(setsInput));
   }
 
   void setRestBetweenSetsFixed() {
-    _state = state.copyWith(restBetweenSetsFixed: true);
+    _state = state.copyWith(restBetweenSetsFixed: Nullable(true));
     notifyListeners();
   }
 
   void setRestBetweenSetsVariable() {
-    _state = state.copyWith(restBetweenSetsFixed: false);
+    _state = state.copyWith(restBetweenSetsFixed: Nullable(false));
     notifyListeners();
   }
 
   void setRestBetweenSetsS(String restBetweenSetsSInput) {
-    _state = state.copyWith(restBetweenSetsSInput: restBetweenSetsSInput);
+    _state =
+        state.copyWith(restBetweenSetsSInput: Nullable(restBetweenSetsSInput));
   }
 
   void setAddedWeight(String addedWeightInput) {

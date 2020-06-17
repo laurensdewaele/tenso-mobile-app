@@ -19,13 +19,13 @@ class Card extends StatelessWidget {
     final BoxDecoration _boxDecoration = border == true
         ? BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
-            border: Border.all(color: styles.Colors.black),
+            border: Border.all(color: styles.Colors.gray),
             color: bgColor,
-            boxShadow: [styles.kBoxShadow])
+          )
         : BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
             color: bgColor,
-            boxShadow: [styles.kBoxShadow]);
+          );
 
     return Container(
       decoration: _boxDecoration,

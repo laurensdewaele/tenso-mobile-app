@@ -2,11 +2,11 @@ import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
-import 'package:app/widgets/card.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/sliding_card.dart';
+import 'package:app/widgets/sliding_expansion_card.dart';
 import 'package:app/widgets/workout_overview/delete_action.dart';
 import 'package:app/widgets/workout_overview/edit_action.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -48,170 +48,118 @@ class _GroupOverviewState extends State<GroupOverview> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ...widget.groups
-            .asMap()
-            .map((int index, Group group) {
-              final _gripCount =
-                  'X${group.repetitions} ${group.sets > 1 ? 'X${group.sets}' : ''}';
-              return MapEntry(
-                  index,
-                  SlidingCard(
-                    divider: widget.groups.length > 1 &&
-                        index != widget.groups.length - 1,
-                    dividerHeight: styles.Measurements.m,
-                    leftAction: EditAction(),
-                    rightAction: DeleteAction(),
-                    content: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: styles.Colors.gray),
-                        borderRadius: styles.kBorderRadiusAll,
-                        color: styles.Colors.bgWhite,
-                      ),
-                      padding: EdgeInsets.only(
-                          left: 0,
-                          top: styles.Measurements.s,
-                          right: 0,
-                          bottom: styles.Measurements.s),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: styles.Measurements.s),
-                              child: BoardWithGrips(
-                                rightGrip: group.rightGrip,
-                                leftGrip: group.leftGrip,
-                                rightGripBoardHold: group.rightGripBoardHold,
-                                leftGripBoardHold: group.leftGripBoardHold,
-                                boardAspectRatio: group.board.aspectRatio,
-                                customBoardHoldImages:
-                                    group.board.customBoardHoldImages?.toList(),
-                                handToBoardHeightRatio:
-                                    group.board.handToBoardHeightRatio,
-                                withFixedHeight: false,
-                                boardImageAsset: group.board.imageAsset,
-                                boardImageAssetWidth:
-                                    group.board.imageAssetWidth,
-                              ),
-                            ),
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Column(
+        children: <Widget>[
+          ...widget.groups
+              .asMap()
+              .map((int index, Group group) {
+                final double _setRepHeaderWidth = 90;
+                final _cardPadding = styles.Measurements.s;
+                final _boardWidth = constraints.maxWidth -
+                    _setRepHeaderWidth -
+                    _cardPadding * 2;
+                final _boardClippedPadding = styles.Measurements.s;
+                final _boardHeight = _boardWidth / group.board.aspectRatio;
+                final _boardWithGripsHeight =
+                    _boardHeight + _boardClippedPadding;
+                return MapEntry(
+                    index,
+                    SlidingCard(
+                      divider: widget.groups.length > 1 &&
+                          index != widget.groups.length - 1,
+                      dividerHeight: styles.Measurements.m,
+                      leftAction: EditAction(),
+                      rightAction: DeleteAction(),
+                      content: SlidingExpansionCard(
+                        topLeftSection: BoardWithGrips(
+                          clipped: true,
+                          rightGrip: group.rightGrip,
+                          leftGrip: group.leftGrip,
+                          rightGripBoardHold: group.rightGripBoardHold,
+                          leftGripBoardHold: group.leftGripBoardHold,
+                          boardAspectRatio: group.board.aspectRatio,
+                          customBoardHoldImages:
+                              group.board.customBoardHoldImages?.toList(),
+                          handToBoardHeightRatio:
+                              group.board.handToBoardHeightRatio,
+                          withFixedHeight: false,
+                          boardImageAsset: group.board.imageAsset,
+                          boardImageAssetWidth: group.board.imageAssetWidth,
+                        ),
+                        topRightSection: Container(
+                          width: _setRepHeaderWidth,
+                          height: _boardWithGripsHeight,
+                          child: RepSetHeader(
+                            sets: group.sets,
+                            repetitions: group.repetitions,
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: styles.Measurements.s),
-                              child: Text(
-                                _gripCount,
-                                style: styles.Staatliches.xlBlack,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            flex: 1,
-                          ),
-                        ],
+                        ),
+                        topRightSectionWidth: _setRepHeaderWidth,
+                        handleTap: () {},
+                        content: _GroupInfo(
+                          weightUnit: widget.weightUnit,
+                          group: group,
+                        ),
+                        handleLongPress: () {},
                       ),
-                    ),
-                    border: false,
-                    handleLeftActionTap: () {
-                      _handleEditTap(index);
-                    },
-                    handleLongPress: () {
-                      _handleLongPress(index);
-                    },
-                    handleRightActionTap: () {
-                      _handleDeleteTap(index);
-                    },
-                  ));
-            })
-            .values
-            .toList()
-      ],
-    );
+                      border: true,
+                      handleLeftActionTap: () {
+                        _handleEditTap(index);
+                      },
+                      handleLongPress: () {
+                        showAppDialog(
+                            context: context,
+                            content: _EditDeleteDialog(
+                              title: 'test',
+                              handleBackTap: () {},
+                              handleEditTap: () {},
+                              handleDeleteTap: () {},
+                            ),
+                            smallWidth: null);
+                        _handleLongPress(index);
+                      },
+                      handleRightActionTap: () {
+                        _handleDeleteTap(index);
+                      },
+                    ));
+              })
+              .values
+              .toList()
+        ],
+      );
+    });
   }
 }
 
-class _GroupCard extends StatelessWidget {
-  const _GroupCard({
-    @required this.group,
-    @required this.currentGroupIndex,
-    @required this.totalGroups,
-    @required this.handleEditGroup,
-    @required this.handleDeleteGroup,
-    @required this.weightUnit,
-    @required this.context,
+class RepSetHeader extends StatelessWidget {
+  const RepSetHeader({
+    @required this.repetitions,
+    @required this.sets,
   });
 
-  final Group group;
-  final int currentGroupIndex;
-  final int totalGroups;
-  final void Function(Group group, int groupIndex) handleEditGroup;
-  final void Function(Group group, int groupIndex) handleDeleteGroup;
-  final String weightUnit;
-  final BuildContext context;
-
-  void _handleEditTap() {
-    Navigator.of(context).pop();
-    handleEditGroup(group, currentGroupIndex);
-  }
-
-  void _handleDeleteTap() {
-    Navigator.of(context).pop();
-    handleDeleteGroup(group, currentGroupIndex);
-  }
-
-  void _handleBackTap() {
-    Navigator.of(context).pop();
-  }
-
-  void _handleInteraction() async {
-    await showAppDialog(
-        smallWidth: true,
-        context: context,
-        content: _EditDeleteDialog(
-          title: 'group ${currentGroupIndex + 1}/$totalGroups',
-          handleEditTap: _handleEditTap,
-          handleDeleteTap: _handleDeleteTap,
-          handleBackTap: _handleBackTap,
-        ));
-  }
+  final int repetitions;
+  final int sets;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: _handleInteraction,
-      onTap: _handleInteraction,
-      child: Card(
-        bgColor: styles.Colors.white,
-        padding: EdgeInsets.all(styles.Measurements.m),
-        child: Column(
-          children: <Widget>[
-            Text(
-              'group ${currentGroupIndex + 1}/$totalGroups',
-              style: styles.Staatliches.lBlack,
-            ),
-            Divider(height: styles.Measurements.xs),
-            BoardWithGrips(
-              rightGrip: group.rightGrip,
-              leftGrip: group.leftGrip,
-              rightGripBoardHold: group.rightGripBoardHold,
-              leftGripBoardHold: group.leftGripBoardHold,
-              boardAspectRatio: group.board.aspectRatio,
-              customBoardHoldImages:
-                  group.board.customBoardHoldImages?.toList(),
-              handToBoardHeightRatio: group.board.handToBoardHeightRatio,
-              withFixedHeight: true,
-              boardImageAsset: group.board.imageAsset,
-              boardImageAssetWidth: group.board.imageAssetWidth,
-            ),
-            _GroupInfo(
-              weightUnit: weightUnit,
-              group: group,
-            )
-          ],
-        ),
-      ),
+    Widget _text = Text(
+      'X$repetitions',
+      style: styles.Staatliches.groupRepSetHeaderLarge,
+      textAlign: TextAlign.center,
+    );
+
+    if (sets > 1) {
+      _text = Text(
+        'X$repetitions X$sets',
+        style: styles.Staatliches.groupRepSetHeaderSmall,
+        textAlign: TextAlign.center,
+      );
+    }
+
+    return Center(
+      child: _text,
     );
   }
 }
@@ -224,70 +172,107 @@ class _GroupInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double _rowHeight = 25;
-    const double _maxHeight = _rowHeight * 5;
-
-    return Container(
-      width: double.infinity,
-      height: _maxHeight,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          if (group.repeaters == true)
+    return Padding(
+      padding: const EdgeInsets.only(top: styles.Measurements.s),
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
             RichText(
               text: TextSpan(
-                  text: 'Type: ',
-                  style: styles.Staatliches.xsBlack,
-                  children: [
-                    TextSpan(text: 'repeaters', style: styles.Lato.xsGray),
-                  ]),
-            ),
-          RichText(
-            text: TextSpan(
-                text: 'Repetitions: ',
-                style: styles.Staatliches.xsBlack,
-                children: [
-                  TextSpan(
-                      text: group.repetitions.toString(),
-                      style: styles.Lato.xsGray),
-                ]),
-          ),
-          RichText(
-            text: TextSpan(
-                text: 'Hang time: ',
-                style: styles.Staatliches.xsBlack,
-                children: [
-                  TextSpan(
-                      text: '${group.hangTimeS.toString()}s',
-                      style: styles.Lato.xsGray),
-                ]),
-          ),
-          if (group.repeaters == true)
-            RichText(
-              textAlign: TextAlign.right,
-              text: TextSpan(
-                  text: 'sets: ',
+                  text: 'Repetitions: ',
                   style: styles.Staatliches.xsBlack,
                   children: [
                     TextSpan(
-                        text: group.sets.toString(), style: styles.Lato.xsGray),
-                  ]),
-            ),
-          if (group.addedWeight != null && group.addedWeight != 0.0)
-            RichText(
-              textAlign: TextAlign.right,
-              text: TextSpan(
-                  text: 'added weight: ',
-                  style: styles.Staatliches.xsBlack,
-                  children: [
-                    TextSpan(
-                        text: '${group.addedWeight.toString()} $weightUnit',
+                        text: group.repetitions.toString(),
                         style: styles.Lato.xsGray),
                   ]),
             ),
-        ],
+            RichText(
+              text: TextSpan(
+                  text: 'Hang time: ',
+                  style: styles.Staatliches.xsBlack,
+                  children: [
+                    TextSpan(
+                        text: '${group.hangTimeS.toString()}s',
+                        style: styles.Lato.xsGray),
+                  ]),
+            ),
+            if (group.restBetweenRepsFixed == true)
+              RichText(
+                text: TextSpan(
+                    text: 'Rest between repetitions: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: '${group.restBetweenRepsS.toString()}s',
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.restBetweenRepsFixed == false)
+              RichText(
+                text: TextSpan(
+                    text: 'Rest between repetitions: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(text: 'variable', style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.sets != null && group.sets > 1)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'sets: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: group.sets.toString(),
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.sets != null &&
+                group.sets > 1 &&
+                group.restBetweenSetsFixed == true)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'rest between sets: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: '${group.restBetweenSetsS}s',
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.sets != null &&
+                group.sets > 1 &&
+                group.restBetweenSetsFixed == false)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'rest between sets: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(text: 'variable', style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.addedWeight != null && group.addedWeight != 0.0)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'added weight: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: '${group.addedWeight.toString()} $weightUnit',
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+          ],
+        ),
       ),
     );
   }

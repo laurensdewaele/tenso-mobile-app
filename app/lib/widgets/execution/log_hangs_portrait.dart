@@ -63,6 +63,7 @@ class LogHangsPortrait extends StatelessWidget {
                   ),
                   Divider(height: styles.Measurements.l),
                   BoardWithGrips(
+                    clipped: false,
                     key: ValueKey(
                         'log-hangs-dialog-board-${selectedPastHang.currentHang}'),
                     boardImageAssetWidth: selectedPastHang.imageAssetWidth,

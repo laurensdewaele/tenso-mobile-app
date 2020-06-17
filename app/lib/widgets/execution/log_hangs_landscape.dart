@@ -52,6 +52,7 @@ class LogHangsLandscape extends StatelessWidget {
                         return Container(
                           width: constraints.maxWidth / 1.5,
                           child: BoardWithGrips(
+                            clipped: false,
                             key: ValueKey(
                                 'log-hangs-dialog-board-${selectedPastHang.currentHang}'),
                             boardImageAssetWidth:

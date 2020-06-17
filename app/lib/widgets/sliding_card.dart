@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -177,12 +176,6 @@ class _SlidingCardState extends State<SlidingCard>
           Stack(
             overflow: Overflow.clip,
             children: <Widget>[
-              Positioned.fill(
-                  child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: styles.kBorderRadiusAll,
-                    boxShadow: [styles.kBoxShadow]),
-              )),
               Stack(
                 children: <Widget>[
                   Card(
@@ -192,7 +185,7 @@ class _SlidingCardState extends State<SlidingCard>
                       children: <Widget>[
                         Positioned.fill(
                           child: Transform.scale(
-                            scale: .99,
+                            scale: 1,
                             child: Row(
                               children: <Widget>[
                                 Expanded(
@@ -200,18 +193,18 @@ class _SlidingCardState extends State<SlidingCard>
                                     onTap: _handleLeftAction,
                                     child: widget.leftAction,
                                   ),
-                                  flex: 102,
+                                  flex: 1,
                                 ),
                                 Expanded(
                                   child: SizedBox(),
-                                  flex: 196,
+                                  flex: 2,
                                 ),
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: _handleRightAction,
                                     child: widget.rightAction,
                                   ),
-                                  flex: 102,
+                                  flex: 1,
                                 )
                               ],
                             ),

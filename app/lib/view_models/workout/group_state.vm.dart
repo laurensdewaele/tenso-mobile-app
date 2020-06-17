@@ -155,13 +155,13 @@ class GroupState {
     int hangTimeS,
     String hangTimeSInput,
     bool restBetweenRepsFixed,
-    int restBetweenRepsS,
-    String restBetweenRepsSInput,
-    int sets,
-    String setsInput,
-    bool restBetweenSetsFixed,
-    int restBetweenSetsS,
-    String restBetweenSetsSInput,
+    Nullable<int> restBetweenRepsS,
+    Nullable<String> restBetweenRepsSInput,
+    Nullable<int> sets,
+    Nullable<String> setsInput,
+    Nullable<bool> restBetweenSetsFixed,
+    Nullable<int> restBetweenSetsS,
+    Nullable<String> restBetweenSetsSInput,
     double addedWeight,
     String addedWeightInput,
   }) {
@@ -189,15 +189,23 @@ class GroupState {
       hangTimeS: hangTimeS ?? this.hangTimeS,
       hangTimeSInput: hangTimeSInput ?? this.hangTimeSInput,
       restBetweenRepsFixed: restBetweenRepsFixed ?? this.restBetweenRepsFixed,
-      restBetweenRepsS: restBetweenRepsS ?? this.restBetweenRepsS,
-      restBetweenRepsSInput:
-          restBetweenRepsSInput ?? this.restBetweenRepsSInput,
-      sets: sets ?? this.sets,
-      setsInput: setsInput ?? this.setsInput,
-      restBetweenSetsFixed: restBetweenSetsFixed ?? this.restBetweenSetsFixed,
-      restBetweenSetsS: restBetweenSetsS ?? this.restBetweenSetsS,
-      restBetweenSetsSInput:
-          restBetweenSetsSInput ?? this.restBetweenSetsSInput,
+      restBetweenRepsS: restBetweenRepsS == null
+          ? this.restBetweenRepsS
+          : restBetweenRepsS.value,
+      restBetweenRepsSInput: restBetweenRepsSInput == null
+          ? this.restBetweenRepsSInput
+          : restBetweenRepsSInput.value,
+      sets: sets == null ? this.sets : sets.value,
+      setsInput: setsInput == null ? this.setsInput : setsInput.value,
+      restBetweenSetsFixed: restBetweenSetsFixed == null
+          ? this.restBetweenSetsFixed
+          : restBetweenSetsFixed.value,
+      restBetweenSetsS: restBetweenSetsS == null
+          ? this.restBetweenSetsS
+          : restBetweenSetsS.value,
+      restBetweenSetsSInput: restBetweenSetsSInput == null
+          ? this.restBetweenSetsSInput
+          : restBetweenSetsSInput.value,
       addedWeight: addedWeight ?? this.addedWeight,
       addedWeightInput: addedWeightInput ?? this.addedWeightInput,
     );

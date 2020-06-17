@@ -1,51 +1,19 @@
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 
-class SlidingExpansionCard extends StatelessWidget {
-  final Widget topLeftSection;
-  final Widget topRightSection;
-  final Widget content;
-  final VoidCallback handleTap;
-  final VoidCallback handleLongPress;
-
+class SlidingExpansionCard extends StatefulWidget {
   const SlidingExpansionCard({
     @required this.topLeftSection,
     @required this.topRightSection,
+    @required this.topRightSectionWidth,
     @required this.content,
     @required this.handleTap,
     @required this.handleLongPress,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return _SlidingExpansionCard(
-          handleLongPress: handleLongPress,
-          content: content,
-          handleTap: handleTap,
-          maxWidth: constraints.maxWidth,
-          topLeftSection: topLeftSection,
-          topRightSection: topRightSection,
-        );
-      },
-    );
-  }
-}
-
-class _SlidingExpansionCard extends StatefulWidget {
-  const _SlidingExpansionCard({
-    @required this.topLeftSection,
-    @required this.topRightSection,
-    @required this.content,
-    @required this.handleTap,
-    @required this.handleLongPress,
-    @required this.maxWidth,
-  });
-
-  final double maxWidth;
   final Widget topLeftSection;
   final Widget topRightSection;
+  final double topRightSectionWidth;
   final Widget content;
   final VoidCallback handleTap;
   final VoidCallback handleLongPress;
@@ -54,7 +22,7 @@ class _SlidingExpansionCard extends StatefulWidget {
   _SlidingExpansionCardState createState() => _SlidingExpansionCardState();
 }
 
-class _SlidingExpansionCardState extends State<_SlidingExpansionCard>
+class _SlidingExpansionCardState extends State<SlidingExpansionCard>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Animatable<double> _easeInOutTween;
   Animatable<double> _topLeftSectionAlignmentTween;
@@ -86,11 +54,10 @@ class _SlidingExpansionCardState extends State<_SlidingExpansionCard>
     _topLeftSectionAlignment =
         _controller.drive(_topLeftSectionAlignmentTween.chain(_easeInOutTween));
 
-    final _topRightSectionWidth = widget.maxWidth / 4;
     _topRightSectionAlignmentTween =
-        Tween(begin: 0, end: -(_topRightSectionWidth));
+        Tween(begin: 0, end: -widget.topRightSectionWidth);
     _topRightSectionWidthTween =
-        Tween(begin: _topRightSectionWidth + styles.Measurements.m, end: 0);
+        Tween(begin: widget.topRightSectionWidth, end: 0);
     _topRightSectionAlignment = _controller
         .drive(_topRightSectionAlignmentTween.chain(_easeInOutTween));
     _topRightSectionWidthAnimation =
@@ -133,8 +100,8 @@ class _SlidingExpansionCardState extends State<_SlidingExpansionCard>
     return GestureDetector(
         onTap: _handleTap,
         child: Container(
+            padding: EdgeInsets.all(styles.Measurements.s),
             decoration: BoxDecoration(
-              border: Border.all(color: styles.Colors.gray),
               borderRadius: styles.kBorderRadiusAll,
               color: styles.Colors.bgWhite,
             ),
@@ -151,13 +118,12 @@ class _SlidingExpansionCardState extends State<_SlidingExpansionCard>
                       ),
                       SizedBox(
                         width: _topRightSectionWidthAnimation.value,
-                        child: widget.topRightSection,
                       ),
                     ],
                   ),
                   Positioned(
                       right: _topRightSectionAlignment.value,
-                      child: widget.topRightSection),
+                      child: widget.topRightSection)
                 ]),
                 ClipRect(
                     child:

@@ -107,6 +107,7 @@ class ExecutionPortrait extends StatelessWidget {
                         overflow: Overflow.visible,
                         children: <Widget>[
                           BoardWithGrips(
+                            clipped: false,
                             withFixedHeight: false,
                             handToBoardHeightRatio:
                                 board.handToBoardHeightRatio,

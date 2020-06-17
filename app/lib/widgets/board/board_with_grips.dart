@@ -16,9 +16,11 @@ class BoardWithGrips extends StatelessWidget {
       @required this.leftGrip,
       @required this.rightGrip,
       @required this.customBoardHoldImages,
-      @required this.withFixedHeight})
+      @required this.withFixedHeight,
+      @required this.clipped})
       : super(key: key);
 
+  final bool clipped;
   final List<CustomBoardHoldImage> customBoardHoldImages;
   final String boardImageAsset;
   final BoardHold leftGripBoardHold;
@@ -40,6 +42,7 @@ class BoardWithGrips extends StatelessWidget {
       final _boardWithGripsHeight = _boardSize.height + _gripHeight;
 
       final Widget _content = _BoardWithGrips(
+        clipped: clipped,
         boardImageAssetWidth: boardImageAssetWidth,
         customBoardHoldImages: customBoardHoldImages,
         boardSize: _boardSize,
@@ -51,9 +54,11 @@ class BoardWithGrips extends StatelessWidget {
         leftGrip: leftGrip,
       );
 
-      return withFixedHeight == true
-          ? Container(height: _boardWithGripsHeight, child: _content)
-          : _content;
+      if (withFixedHeight == true) {
+        return Container(height: _boardWithGripsHeight, child: _content);
+      }
+
+      return _content;
     });
   }
 }
@@ -69,9 +74,11 @@ class _BoardWithGrips extends StatefulWidget {
       @required this.rightGrip,
       @required this.boardSize,
       @required this.gripHeight,
-      @required this.customBoardHoldImages})
+      @required this.customBoardHoldImages,
+      @required this.clipped})
       : super(key: key);
 
+  final bool clipped;
   final List<CustomBoardHoldImage> customBoardHoldImages;
   final Size boardSize;
   final double gripHeight;
@@ -139,7 +146,7 @@ class _BoardWithGripsState extends State<_BoardWithGrips> {
     return Column(
       children: <Widget>[
         Stack(
-          overflow: Overflow.visible,
+          overflow: widget.clipped ? Overflow.clip : Overflow.visible,
           children: <Widget>[
             HangBoard(
               boardImageAssetWidth: widget.boardImageAssetWidth,
@@ -147,6 +154,10 @@ class _BoardWithGripsState extends State<_BoardWithGrips> {
               boardSize: widget.boardSize,
               boardImageAsset: widget.boardImageAsset,
             ),
+            if (widget.clipped == true)
+              Container(
+                height: widget.boardSize.height + styles.Measurements.s,
+              ),
             if (widget.leftGrip != null && _leftHandOffset != null)
               Positioned(
                 left: _leftHandOffset.dx,

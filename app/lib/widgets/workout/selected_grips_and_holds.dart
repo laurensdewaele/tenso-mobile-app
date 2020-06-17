@@ -28,6 +28,7 @@ class SelectedGripsAndHolds extends StatelessWidget {
       children: <Widget>[
         Divider(height: styles.Measurements.l),
         BoardWithGrips(
+          clipped: false,
           withFixedHeight: true,
           boardImageAssetWidth: board.imageAssetWidth,
           customBoardHoldImages: board.customBoardHoldImages?.toList(),

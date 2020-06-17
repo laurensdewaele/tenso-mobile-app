@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
 
 abstract class Staatliches {
   static const TextStyle countdownTimer = TextStyle(
@@ -13,6 +12,10 @@ abstract class Staatliches {
       fontFamily: 'Staatliches', fontSize: 26, color: styles.Colors.white);
   static const TextStyle textDivider = TextStyle(
       fontFamily: 'Staatliches', fontSize: 4, color: styles.Colors.black);
+  static const TextStyle groupRepSetHeaderLarge = TextStyle(
+      fontFamily: 'Staatliches', fontSize: 34, color: styles.Colors.black);
+  static const TextStyle groupRepSetHeaderSmall = TextStyle(
+      fontFamily: 'Staatliches', fontSize: 26, color: styles.Colors.black);
 
   static const TextStyle xlWhite = TextStyle(
       fontFamily: 'Staatliches', fontSize: 28, color: styles.Colors.white);
