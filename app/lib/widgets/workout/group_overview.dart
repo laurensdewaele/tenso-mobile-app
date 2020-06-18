@@ -156,6 +156,84 @@ class _GroupInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            if (group.leftGrip != null)
+              RichText(
+                text: TextSpan(
+                    text: 'left grip: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: group.leftGrip.description,
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.leftGripBoardHold.holdType == HoldType.pocket ||
+                group.leftGripBoardHold.holdType == HoldType.edge)
+              RichText(
+                text: TextSpan(
+                    text: 'depth: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: group.leftGripBoardHold.depth.toString(),
+                          style: styles.Lato.xsGray),
+                      TextSpan(text: ' mm', style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.leftGripBoardHold.holdType == HoldType.sloper)
+              RichText(
+                text: TextSpan(
+                    text: 'degrees: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text:
+                              group.leftGripBoardHold.sloperDegrees.toString(),
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.rightGrip != null)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'right grip: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: group.rightGrip.description,
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.rightGripBoardHold.holdType == HoldType.sloper)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'degrees: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text:
+                              group.rightGripBoardHold.sloperDegrees.toString(),
+                          style: styles.Lato.xsGray),
+                    ]),
+              ),
+            if (group.rightGripBoardHold.holdType == HoldType.pocket ||
+                group.rightGripBoardHold.holdType == HoldType.edge)
+              RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                    text: 'depth: ',
+                    style: styles.Staatliches.xsBlack,
+                    children: [
+                      TextSpan(
+                          text: group.rightGripBoardHold.depth.toString(),
+                          style: styles.Lato.xsGray),
+                      TextSpan(text: ' mm', style: styles.Lato.xsGray),
+                    ]),
+              ),
+            Divider(
+              height: styles.Measurements.xs,
+            ),
             RichText(
               text: TextSpan(
                   text: 'Repetitions: ',
@@ -179,7 +257,7 @@ class _GroupInfo extends StatelessWidget {
             if (group.restBetweenRepsFixed == true)
               RichText(
                 text: TextSpan(
-                    text: 'Rest between repetitions: ',
+                    text: 'Rep rest: ',
                     style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(
@@ -190,7 +268,7 @@ class _GroupInfo extends StatelessWidget {
             if (group.restBetweenRepsFixed == false)
               RichText(
                 text: TextSpan(
-                    text: 'Rest between repetitions: ',
+                    text: 'Rep rest: ',
                     style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(text: 'variable', style: styles.Lato.xsGray),
@@ -214,7 +292,7 @@ class _GroupInfo extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
-                    text: 'rest between sets: ',
+                    text: 'Set rest: ',
                     style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(
@@ -228,7 +306,7 @@ class _GroupInfo extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
-                    text: 'rest between sets: ',
+                    text: 'Set rest: ',
                     style: styles.Staatliches.xsBlack,
                     children: [
                       TextSpan(text: 'variable', style: styles.Lato.xsGray),

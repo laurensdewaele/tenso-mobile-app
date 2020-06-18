@@ -74,10 +74,9 @@ class GroupViewModel extends ChangeNotifier {
 
     if (state.restBetweenRepsFixed == true) {
       final int _restBetweenRepsS = InputParsers.parseToInt(
-          string: state.restBetweenRepsSInput,
-          inputField: 'Rest between repetitions');
+          string: state.restBetweenRepsSInput, inputField: 'Rep rest');
       _validations.add(Validators.biggerThanZero<int>(
-          value: _restBetweenRepsS, inputField: 'Rest between repetitions'));
+          value: _restBetweenRepsS, inputField: 'Rep rest'));
       _state = state.copyWith(restBetweenRepsS: Nullable(_restBetweenRepsS));
     }
 
@@ -91,9 +90,9 @@ class GroupViewModel extends ChangeNotifier {
 
     if (state.repeaters == true && state.restBetweenSetsFixed == true) {
       final int _restBetweenSetsS = InputParsers.parseToInt(
-          string: state.restBetweenSetsSInput, inputField: 'Rest between sets');
+          string: state.restBetweenSetsSInput, inputField: 'Set rest');
       _validations.add(Validators.biggerThanZero<int>(
-          value: _restBetweenSetsS, inputField: 'Rest between sets'));
+          value: _restBetweenSetsS, inputField: 'Set rest'));
       _state = state.copyWith(restBetweenSetsS: Nullable(_restBetweenSetsS));
     }
 

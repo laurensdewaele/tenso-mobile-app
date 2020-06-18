@@ -176,12 +176,11 @@ class WorkoutViewModel extends ChangeNotifier {
 
     if (state.restBetweenGroupsFixed == true) {
       final int _restBetweenGroupsS = InputParsers.parseToInt(
-          string: state.restBetweenGroupsSInput,
-          inputField: 'Rest between groups');
+          string: state.restBetweenGroupsSInput, inputField: 'Group rest');
       _state =
           state.copyWith(restBetweenGroupsS: Nullable(_restBetweenGroupsS));
       _isRestBetweenGroupsSValid = Validators.biggerThanZero(
-          value: _restBetweenGroupsS, inputField: 'Rest between groups');
+          value: _restBetweenGroupsS, inputField: 'Group rest');
     } else {
       _isRestBetweenGroupsSValid = true;
     }
