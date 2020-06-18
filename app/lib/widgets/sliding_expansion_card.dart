@@ -56,7 +56,7 @@ class _SlidingExpansionCardState extends State<SlidingExpansionCard>
         _controller.drive(_topLeftSectionAlignmentTween.chain(_easeInOutTween));
 
     _topRightSectionAlignmentTween =
-        Tween(begin: 0, end: -widget.topRightSectionWidth);
+        Tween(begin: 0, end: -widget.topRightSectionWidth - 1);
     _topRightSectionWidthTween =
         Tween(begin: widget.topRightSectionWidth, end: 0);
     _topRightSectionAlignment = _controller

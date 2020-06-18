@@ -71,57 +71,55 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                 horizontal: styles.Measurements.xs,
                 vertical: styles.Measurements.m),
             child: ListView(
+              key: ValueKey(_viewModel.workoutList.hashCode),
               physics: ClampingScrollPhysics(),
               children: <Widget>[
-                ListView.builder(
-                  key: ValueKey(_viewModel.workoutList.hashCode),
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemCount: _viewModel.workoutList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Workout _workout = _viewModel.workoutList[index];
-                    return SlidingCard(
-                      disabled: false,
-                      key: ValueKey(_workout.id),
-                      border: false,
-                      divider: _viewModel.workoutList.length > 1 &&
-                          index != _viewModel.workoutList.length - 1,
-                      dividerHeight: styles.Measurements.m,
-                      leftAction: EditAction(),
-                      handleLeftActionTap: () =>
-                          _viewModel.editWorkout(_workout),
-                      rightAction: DeleteAction(),
-                      handleRightActionTap: () =>
-                          _viewModel.deleteWorkout(_workout),
-                      handleLongPress: () => _handleLongPress(_workout),
-                      content: SlidingExpansionCard(
-                        topLeftSection: Container(
-                          height: styles.Measurements.xxl,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(_workout.name,
-                                  style: styles.Staatliches.xlBlack,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
+                ..._viewModel.workoutList
+                    .asMap()
+                    .map((int index, Workout workout) => MapEntry(
+                        index,
+                        SlidingCard(
+                          disabled: false,
+                          key: ValueKey(workout.id),
+                          border: false,
+                          divider: _viewModel.workoutList.length > 1 &&
+                              index != _viewModel.workoutList.length - 1,
+                          dividerHeight: styles.Measurements.m,
+                          leftAction: EditAction(),
+                          handleLeftActionTap: () =>
+                              _viewModel.editWorkout(workout),
+                          rightAction: DeleteAction(),
+                          handleRightActionTap: () =>
+                              _viewModel.deleteWorkout(workout),
+                          handleLongPress: () => _handleLongPress(workout),
+                          content: SlidingExpansionCard(
+                            topLeftSection: Container(
+                              height: styles.Measurements.xxl,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(workout.name,
+                                      style: styles.Staatliches.xlBlack,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                            topRightSection: ColorSquare(
+                              color: workout.labelColor,
+                              width: styles.Measurements.xxl,
+                              height: styles.Measurements.xxl,
+                            ),
+                            topRightSectionWidth: styles.Measurements.xxl,
+                            handleTap: () {},
+                            content: WorkoutExpandedContent(
+                              workout: workout,
+                              handleStart: () => _viewModel.start(workout),
+                            ),
+                            handleLongPress: () => _handleLongPress(workout),
                           ),
-                        ),
-                        topRightSection: ColorSquare(
-                          color: _workout.labelColor,
-                          width: styles.Measurements.xxl,
-                          height: styles.Measurements.xxl,
-                        ),
-                        topRightSectionWidth: styles.Measurements.xxl,
-                        handleTap: () {},
-                        content: WorkoutExpandedContent(
-                          workout: _workout,
-                          handleStart: () => _viewModel.start(_workout),
-                        ),
-                        handleLongPress: () => _handleLongPress(_workout),
-                      ),
-                    );
-                  },
-                ),
+                        )))
+                    .values
+                    .toList(),
                 if (_viewModel.workoutList.length > 0)
                   Divider(height: styles.Measurements.l),
                 Button(
