@@ -1,4 +1,5 @@
 import 'package:app/data/basic_workout.data.dart';
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/group.screen.dart';
@@ -115,7 +116,10 @@ class WorkoutViewModel extends ChangeNotifier {
     if (state.inputsEnabled == false) {
       return;
     }
-    _state = state.copyWith(restBetweenGroupsFixed: true);
+    _state = state.copyWith(
+        restBetweenGroupsFixed: true,
+        restBetweenGroupsSInput: Nullable('180'),
+        restBetweenGroupsS: Nullable(180));
     notifyListeners();
   }
 
@@ -123,12 +127,16 @@ class WorkoutViewModel extends ChangeNotifier {
     if (state.inputsEnabled == false) {
       return;
     }
-    _state = state.copyWith(restBetweenGroupsFixed: false);
+    _state = state.copyWith(
+        restBetweenGroupsFixed: false,
+        restBetweenGroupsS: Nullable(null),
+        restBetweenGroupsSInput: Nullable(null));
     notifyListeners();
   }
 
   void setRestBetweenGroupsS(String restBetweenGroupsS) {
-    _state = state.copyWith(restBetweenGroupsSInput: restBetweenGroupsS);
+    _state =
+        state.copyWith(restBetweenGroupsSInput: Nullable(restBetweenGroupsS));
   }
 
   void setLabel(Label label) {
@@ -170,7 +178,8 @@ class WorkoutViewModel extends ChangeNotifier {
       final int _restBetweenGroupsS = InputParsers.parseToInt(
           string: state.restBetweenGroupsSInput,
           inputField: 'Rest between groups');
-      _state = state.copyWith(restBetweenGroupsS: _restBetweenGroupsS);
+      _state =
+          state.copyWith(restBetweenGroupsS: Nullable(_restBetweenGroupsS));
       _isRestBetweenGroupsSValid = Validators.biggerThanZero(
           value: _restBetweenGroupsS, inputField: 'Rest between groups');
     } else {

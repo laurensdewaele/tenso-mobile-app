@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/foundation.dart';
@@ -90,8 +91,8 @@ class WorkoutViewModelState {
   WorkoutViewModelState copyWith({
     Label label,
     List<Group> groups,
-    int restBetweenGroupsS,
-    String restBetweenGroupsSInput,
+    Nullable<int> restBetweenGroupsS,
+    Nullable<String> restBetweenGroupsSInput,
     bool restBetweenGroupsFixed,
     String name,
     String nameInput,
@@ -105,9 +106,12 @@ class WorkoutViewModelState {
     return new WorkoutViewModelState(
       label: label ?? this.label,
       groups: groups ?? this.groups,
-      restBetweenGroupsS: restBetweenGroupsS ?? this.restBetweenGroupsS,
-      restBetweenGroupsSInput:
-          restBetweenGroupsSInput ?? this.restBetweenGroupsSInput,
+      restBetweenGroupsS: restBetweenGroupsS == null
+          ? this.restBetweenGroupsS
+          : restBetweenGroupsS.value,
+      restBetweenGroupsSInput: restBetweenGroupsSInput == null
+          ? this.restBetweenGroupsSInput
+          : restBetweenGroupsSInput.value,
       restBetweenGroupsFixed:
           restBetweenGroupsFixed ?? this.restBetweenGroupsFixed,
       name: name ?? this.name,

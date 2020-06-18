@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/services/navigation.service.dart';
 import 'package:app/state/completed_workouts.state.dart';
 import 'package:app/state/workouts.state.dart';
 import 'package:app/widgets/calendar/table.dart';
@@ -25,7 +27,10 @@ class CalendarViewModel extends ChangeNotifier {
   List<DateTime> _calendarDatePickerMonths;
   List<DateTime> get calendarDatePickerMonths => _calendarDatePickerMonths;
 
+  NavigationService _navigationService;
+
   CalendarViewModel() {
+    _navigationService = NavigationService();
     _completedWorkoutsState = CompletedWorkoutsState();
     _completedWorkoutList = _completedWorkoutsState.completedWorkoutList;
     _sub = _completedWorkoutsState.completedWorkoutList$.listen((c) {
@@ -122,6 +127,7 @@ class CalendarViewModel extends ChangeNotifier {
 
   void copyCompletedWorkout(CompletedWorkout completedWorkout) {
     _workoutsState.copyWorkout(completedWorkout.workout);
+    _navigationService.pushNamed(Routes.workoutOverviewScreen);
   }
 
   void dispose() {
