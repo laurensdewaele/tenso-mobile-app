@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/inner_box_shadow.dart';
+import 'package:flutter/cupertino.dart';
 
-class WorkoutOverviewViewAction extends StatelessWidget {
-  WorkoutOverviewViewAction({this.handleTap});
+class ViewAction extends StatelessWidget {
+  ViewAction({this.handleTap});
 
   final VoidCallback handleTap;
 

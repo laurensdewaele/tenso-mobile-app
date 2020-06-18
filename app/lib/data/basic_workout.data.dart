@@ -41,9 +41,9 @@ final Workout basicWorkout = Workout((b) => b
       ..handHold = HandHold.twoHanded
       ..leftGripBoardHold = _defaultBoard.defaultLeftGripHold.toBuilder()
       ..rightGripBoardHold = _defaultBoard.defaultRightGripHold.toBuilder()
-      ..repetitions = 3
+      ..repetitions = 1
       ..countdownRestDuration = basicCountdownRestDuration
-      ..hangTime = 10
+      ..hangTime = 2
       ..addedWeight = 0),
     Hold((b) => b
       ..leftGrip = Grips.halfCrimpL.toBuilder()
@@ -55,9 +55,9 @@ final Workout basicWorkout = Workout((b) => b
       ..rightGripBoardHold = boardHolds
           .singleWhere((boardHold) => boardHold.position == 23)
           .toBuilder()
-      ..repetitions = 3
+      ..repetitions = 1
       ..countdownRestDuration = basicCountdownRestDuration
-      ..hangTime = 7
+      ..hangTime = 2
       ..addedWeight = 0),
     Hold((b) => b
       ..leftGrip = Grips.frontThreeL.toBuilder()
@@ -65,12 +65,12 @@ final Workout basicWorkout = Workout((b) => b
       ..handHold = HandHold.twoHanded
       ..leftGripBoardHold = _defaultBoard.defaultLeftGripHold.toBuilder()
       ..rightGripBoardHold = _defaultBoard.defaultRightGripHold.toBuilder()
-      ..repetitions = 3
+      ..repetitions = 1
       ..countdownRestDuration = basicCountdownRestDuration
-      ..hangTime = 7
+      ..hangTime = 2
       ..addedWeight = 0)
   ])
-  ..name = '');
+  ..name = 'Testing2');
 
 final Workouts basicWorkouts =
     Workouts((b) => b..workouts.addAll([basicWorkout]));

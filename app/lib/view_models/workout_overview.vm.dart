@@ -1,8 +1,14 @@
 import 'dart:async';
 
+import 'package:app/data/basic_workout.data.dart';
 import 'package:app/models/models.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/screens/execution.screen.dart';
+import 'package:app/screens/workout.screen.dart';
+import 'package:app/services/navigation.service.dart';
 import 'package:app/state/user.state.dart';
 import 'package:app/state/workouts.state.dart';
+import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:flutter/cupertino.dart';
 
 class WorkoutOverviewViewModel extends ChangeNotifier {
@@ -12,8 +18,11 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
   WorkoutsState _workoutsState;
   StreamSubscription _sub;
 
+  NavigationService _navigationService;
+
   WorkoutOverviewViewModel() {
     startOpen = UserState().deviceInfo.firstLaunch;
+    _navigationService = NavigationService();
     _workoutsState = WorkoutsState();
     _workoutList = _workoutsState.workoutList;
     _sub = _workoutsState.workoutList$.listen((List<Workout> workoutList) {
@@ -28,6 +37,25 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
 
   void copyWorkout(Workout workout) {
     _workoutsState.copyWorkout(workout);
+  }
+
+  void addWorkout() {
+    _navigationService.pushNamed(Routes.workoutScreen,
+        arguments: WorkoutScreenArguments(
+          workoutAction: WorkoutActions.newWorkout,
+          workout: basicWorkout,
+        ));
+  }
+
+  void editWorkout(Workout workout) {
+    _navigationService.pushNamed(Routes.workoutScreen,
+        arguments: WorkoutScreenArguments(
+            workoutAction: WorkoutActions.editWorkout, workout: workout));
+  }
+
+  void start(Workout workout) {
+    _navigationService.pushNamed(Routes.executionScreen,
+        arguments: ExecutionScreenArguments(workout: workout));
   }
 
   void dispose() {

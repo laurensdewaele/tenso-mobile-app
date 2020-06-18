@@ -1,41 +1,45 @@
-import 'dart:async';
-
 import 'package:app/data/basic_workout.data.dart';
 import 'package:app/models/models.dart';
-import 'package:app/services/keyboard.service.dart';
+import 'package:app/routes/routes.dart';
+import 'package:app/screens/group.screen.dart';
+import 'package:app/services/error.service.dart';
+import 'package:app/services/navigation.service.dart';
+import 'package:app/services/parser.service.dart';
+import 'package:app/services/toast.service.dart';
+import 'package:app/services/validation.service.dart';
 import 'package:app/state/settings.state.dart';
 import 'package:app/state/workouts.state.dart';
+import 'package:app/view_models/workout/group.vm.dart';
 import 'package:app/view_models/workout/workout_state.vm.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rxdart/rxdart.dart';
 
 enum WorkoutActions { newWorkout, editWorkout, viewWorkout }
 
-class WorkoutViewModel {
-  BehaviorSubject<WorkoutViewModelState> _state$;
-  WorkoutViewModelState get state => _state$.value;
-  Stream<WorkoutViewModelState> get state$ => _state$.stream;
-  Stream<bool> shouldValidate$;
-  WorkoutsState _workoutsState;
-  KeyboardService _keyboardService;
+class WorkoutViewModel extends ChangeNotifier {
+  Workout _workout;
+  WorkoutActions _workoutAction;
 
-  WorkoutActions _workoutType;
+  WorkoutViewModelState _state;
+  WorkoutViewModelState get state => _state;
+
+  NavigationService _navigationService;
+  ToastService _toastService;
+  SettingsState _settingsState;
+  WorkoutsState _workoutsState;
 
   WorkoutViewModel(
       {@required WorkoutActions workoutAction, @required Workout workout}) {
+    _workout = workout;
     _workoutsState = WorkoutsState();
-    _keyboardService = KeyboardService();
-    _workoutType = workoutAction;
-    shouldValidate$ = MergeStream<bool>([
-      _keyboardService.shouldLoseFocus$,
-      _keyboardService.inputComplete$
-    ]).asBroadcastStream();
+    _workoutAction = workoutAction;
+    _toastService = ToastService();
+    _navigationService = NavigationService();
+    _settingsState = SettingsState();
 
-    final _weightSystem = SettingsState().settings.weightSystem;
+    final _weightSystem = _settingsState.settings.weightSystem;
 
     WorkoutViewModelState _initialState;
-    switch (_workoutType) {
+    switch (_workoutAction) {
       case WorkoutActions.newWorkout:
         _initialState =
             WorkoutViewModelState.addWorkout(workout, _weightSystem);
@@ -49,120 +53,144 @@ class WorkoutViewModel {
             WorkoutViewModelState.viewWorkout(workout, workout.weightSystem);
         break;
     }
-    _state$ = BehaviorSubject.seeded(_initialState);
+    _state = _initialState;
   }
 
-  void setWorkout() async {
-    Workout _workout = Workout((b) => b
-      ..countdownRestTimer = state.countdownRestTimer
-      ..id = state.id
+  void handleAddGroupTap() async {
+    Group _group = basicGroup;
+    if (state.groups.length > 0) {
+      _group = state.groups[state.groups.length - 1];
+    }
+
+    _launchGroupScreenAndSetState(_group, GroupActions.addGroup);
+  }
+
+  void handleEditGroup(int groupIndex) {
+    final Group _group = state.groups[groupIndex];
+    _launchGroupScreenAndSetState(_group, GroupActions.editGroup, groupIndex);
+  }
+
+  void handleDeleteGroup(int groupIndex) {
+    final List<Group> _newGroups = []..addAll(state.groups);
+    _newGroups.removeAt(groupIndex);
+    _state = state.copyWith(groups: _newGroups);
+    notifyListeners();
+  }
+
+  void _launchGroupScreenAndSetState(Group group, GroupActions groupAction,
+      [int editGroupIndex]) async {
+    final _newGroup = await _navigationService.pushNamed(Routes.groupScreen,
+        arguments: GroupScreenArguments(
+            group: group,
+            weightSystem: _settingsState.settings.weightSystem,
+            groupAction: groupAction));
+
+    if (_newGroup != null && groupAction == GroupActions.addGroup) {
+      _state = state.copyWith(groups: state.groups..add((_newGroup as Group)));
+      notifyListeners();
+    }
+
+    if (_newGroup != null &&
+        groupAction == GroupActions.editGroup &&
+        editGroupIndex != null) {
+      final List<Group> _newGroups = []..addAll(state.groups);
+      _newGroups[editGroupIndex] = _newGroup;
+      _state = state.copyWith(groups: _newGroups);
+      notifyListeners();
+    }
+  }
+
+  Future<bool> handleSaveTap() {
+    return Future.sync(() {
+      final bool _isValid = _validate();
+      if (_isValid == true) {
+        _saveWorkout();
+        _navigationService.pop();
+      }
+      return _isValid;
+    });
+  }
+
+  void setRestBetweenGroupsFixed() {
+    if (state.inputsEnabled == false) {
+      return;
+    }
+    _state = state.copyWith(restBetweenGroupsFixed: true);
+    notifyListeners();
+  }
+
+  void setRestBetweenGroupsVariable() {
+    if (state.inputsEnabled == false) {
+      return;
+    }
+    _state = state.copyWith(restBetweenGroupsFixed: false);
+    notifyListeners();
+  }
+
+  void setRestBetweenGroupsS(String restBetweenGroupsS) {
+    _state = state.copyWith(restBetweenGroupsSInput: restBetweenGroupsS);
+  }
+
+  void setLabel(Label label) {
+    _state = state.copyWith(label: label);
+  }
+
+  void setName(String nameInput) {
+    _state = state.copyWith(nameInput: nameInput);
+  }
+
+  void _saveWorkout() async {
+    Workout _newWorkout = _workout.rebuild((b) => b
       ..label = state.label
-      ..sets = state.sets
-      ..holdCount = state.holdCount
-      ..board = state.board.toBuilder()
-      ..holds = state.holds.toBuiltList().toBuilder()
+      ..restBetweenGroupsFixed = state.restBetweenGroupsFixed
+      ..restBetweenGroupsS =
+          state.restBetweenGroupsFixed == true ? state.restBetweenGroupsS : null
+      ..groups.replace(state.groups)
       ..name = state.name
       ..weightSystem = state.weightSystem);
 
-    switch (_workoutType) {
+    switch (_workoutAction) {
       case WorkoutActions.newWorkout:
-        _workoutsState.addWorkout(_workout);
+        _workoutsState.addWorkout(_newWorkout);
         break;
       case WorkoutActions.editWorkout:
-        _workoutsState.editWorkout(_workout);
+        _workoutsState.editWorkout(_newWorkout);
         break;
       case WorkoutActions.viewWorkout:
         break;
     }
   }
 
+  bool _validate() {
+    bool _isNameValid = false;
+    bool _isRestBetweenGroupsSValid = false;
+    bool _isGroupsValid = false;
+
+    if (state.restBetweenGroupsFixed == true) {
+      final int _restBetweenGroupsS = InputParsers.parseToInt(
+          string: state.restBetweenGroupsSInput,
+          inputField: 'Rest between groups');
+      _state = state.copyWith(restBetweenGroupsS: _restBetweenGroupsS);
+      _isRestBetweenGroupsSValid = Validators.biggerThanZero(
+          value: _restBetweenGroupsS, inputField: 'Rest between groups');
+    } else {
+      _isRestBetweenGroupsSValid = true;
+    }
+
+    final String _name = InputParsers.parseString(string: state.nameInput);
+    _state = state.copyWith(name: _name);
+    _isNameValid = Validators.stringNotEmpty(string: _name, inputField: 'Name');
+
+    _isGroupsValid = state.groups.length > 0;
+    if (_isGroupsValid == false) {
+      _toastService.add(ErrorMessages.groupsEmpty());
+    }
+
+    return [_isNameValid, _isRestBetweenGroupsSValid, _isGroupsValid]
+        .fold(true, (a, b) => a && b);
+  }
+
   void dispose() {
-    _state$.close();
-  }
-
-  void setGeneralVariables(
-      {@required int holdCount,
-      @required int sets,
-      @required bool countdownRestTimer,
-      @required Board board}) {
-    _state$.add(state.copyWith(
-        holdCount: holdCount,
-        sets: sets,
-        countdownRestTimer: countdownRestTimer,
-        board: board,
-        holds: _setCountdownRestDuration(
-            holds: _generateHoldsFromHoldCount(holdCount),
-            countdownRestTimer: countdownRestTimer)));
-  }
-
-  void setHoldVariables(
-      {@required Grip leftGrip,
-      @required Grip rightGrip,
-      @required BoardHold leftGripBoardHold,
-      @required BoardHold rightGripBoardHold,
-      @required int repetitions,
-      @required int hangTime,
-      @required int countdownRestDuration,
-      @required double addedWeight,
-      @required HandHold handHold,
-      @required int holdIndex}) {
-    if (holdIndex != null) {
-      final Hold _newHold = Hold((b) => b
-        ..leftGrip = leftGrip?.toBuilder() ?? null
-        ..rightGrip = rightGrip?.toBuilder() ?? null
-        ..leftGripBoardHold = leftGripBoardHold?.toBuilder() ?? null
-        ..rightGripBoardHold = rightGripBoardHold?.toBuilder() ?? null
-        ..repetitions = repetitions
-        ..hangTime = hangTime
-        ..countdownRestDuration = countdownRestDuration
-        ..addedWeight = addedWeight
-        ..handHold = handHold);
-
-      final List<Hold> _newHolds = []..addAll(state.holds);
-      _newHolds[holdIndex] = _newHold;
-      _state$.add(state.copyWith(holds: _newHolds));
-    }
-  }
-
-  void setExtraVariables({@required Label label, @required String name}) {
-    _state$.add(state.copyWith(label: label, name: name));
-  }
-
-  List<Hold> _generateHoldsFromHoldCount(int count) {
-    if (count == state.holdCount) {
-      return state.holds;
-    }
-
-    List<Hold> _holds;
-    if (count < state.holdCount) {
-      _holds = state.holds.take(count).toList();
-    }
-    if (count > state.holdCount) {
-      final Hold defaultHold = state.holds[0];
-      final int difference = count - state.holdCount;
-      _holds = [
-        ...state.holds,
-        ...List.generate(difference, (i) => defaultHold)
-      ];
-    }
-    return _holds;
-  }
-
-  List<Hold> _setCountdownRestDuration(
-      {List<Hold> holds, bool countdownRestTimer}) {
-    List<Hold> _newHolds = []..addAll(holds);
-    if (countdownRestTimer == false) {
-      _newHolds = holds
-          .map((h) => h.rebuild((b) => b..countdownRestDuration = null))
-          .toList();
-    }
-    if (countdownRestTimer == true) {
-      _newHolds = holds
-          .map((h) => h.rebuild((b) => b
-            ..countdownRestDuration =
-                h.countdownRestDuration ?? basicCountdownRestDuration))
-          .toList();
-    }
-    return _newHolds;
+    super.dispose();
   }
 }

@@ -1,17 +1,21 @@
-import 'package:app/data/basic_workout.data.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/workout_2.screen.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/view_models/workout_overview.vm.dart';
 import 'package:app/widgets/bottom_menu_drawer.dart';
 import 'package:app/widgets/button.dart';
+import 'package:app/widgets/color_square.dart';
+import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
+import 'package:app/widgets/sliding_card.dart';
+import 'package:app/widgets/sliding_expansion_card.dart';
+import 'package:app/widgets/workout_overview/delete_action.dart';
+import 'package:app/widgets/workout_overview/edit_action.dart';
+import 'package:app/widgets/workout_overview/workout_expanded_content.dart';
+import 'package:app/widgets/workout_overview/workout_long_press_dialog.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class WorkoutOverviewScreen extends StatefulWidget {
@@ -41,18 +45,16 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     super.dispose();
   }
 
-  void _handleWorkoutAddTap() {
-    Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenArguments(
-          workoutAction: WorkoutActions.newWorkout,
-          workout: basicWorkout,
-        ));
-  }
-
-  void _handleWorkoutEditTap(Workout workout) {
-    Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenArguments(
-            workoutAction: WorkoutActions.editWorkout, workout: workout));
+  void _handleLongPress(Workout workout) async {
+    await showAppDialog(
+        smallWidth: true,
+        context: context,
+        content: WorkoutLongPressDialog(
+            isCompletedWorkout: false,
+            name: workout.name,
+            handleDeleteTap: () => _viewModel.deleteWorkout(workout),
+            handleCopyTap: () => _viewModel.copyWorkout(workout),
+            handleEditTap: () => _viewModel.editWorkout(workout)));
   }
 
   @override
@@ -60,48 +62,77 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final double viewHeight =
         MediaQuery.of(context).size.height - padding.top - padding.bottom;
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Stack(
         children: <Widget>[
-          if (_viewModel.workoutList != null)
-            _HomeScreen(
-              child: ListView.separated(
-                physics: ClampingScrollPhysics(),
-                itemCount: _viewModel.workoutList.length + 2,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index < _viewModel.workoutList.length) {
-                    return WorkoutOverviewStack(
-                      key: ValueKey(
-                          'workout_overview_stack-${_viewModel.workoutList[index]}'),
-                      workout: _viewModel.workoutList[index],
-                      handleWorkoutDeleteTap: _viewModel.deleteWorkout,
-                      handleWorkoutEditTap: _handleWorkoutEditTap,
-                      handleWorkoutCopyTap: _viewModel.copyWorkout,
-                    );
-                  } else if (index == _viewModel.workoutList.length) {
-                    return _AddWorkoutButton(
-                      handleTap: _handleWorkoutAddTap,
-                    );
-                  } else {
-                    return Divider(
-                        height: viewHeight / 2 - styles.Measurements.m);
-                  }
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    Divider(height: styles.Measurements.m),
-              ),
-            ),
-          if (_viewModel.workoutList == null)
-            _HomeScreen(
-                child: Column(
+          Screen(
+            padding: EdgeInsets.symmetric(
+                horizontal: styles.Measurements.xs,
+                vertical: styles.Measurements.m),
+            child: ListView(
+              physics: ClampingScrollPhysics(),
               children: <Widget>[
-                _AddWorkoutButton(
-                  handleTap: _handleWorkoutAddTap,
+                ListView.builder(
+                  key: ValueKey(_viewModel.workoutList.hashCode),
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: _viewModel.workoutList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final Workout _workout = _viewModel.workoutList[index];
+                    return SlidingCard(
+                      disabled: false,
+                      key: ValueKey(_workout.id),
+                      border: false,
+                      divider: _viewModel.workoutList.length > 1 &&
+                          index != _viewModel.workoutList.length - 1,
+                      dividerHeight: styles.Measurements.m,
+                      leftAction: EditAction(),
+                      handleLeftActionTap: () =>
+                          _viewModel.editWorkout(_workout),
+                      rightAction: DeleteAction(),
+                      handleRightActionTap: () =>
+                          _viewModel.deleteWorkout(_workout),
+                      handleLongPress: () => _handleLongPress(_workout),
+                      content: SlidingExpansionCard(
+                        topLeftSection: Container(
+                          height: styles.Measurements.xxl,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(_workout.name,
+                                  style: styles.Staatliches.xlBlack,
+                                  overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
+                        ),
+                        topRightSection: ColorSquare(
+                          color: _workout.labelColor,
+                          width: styles.Measurements.xxl,
+                          height: styles.Measurements.xxl,
+                        ),
+                        topRightSectionWidth: styles.Measurements.xxl,
+                        handleTap: () {},
+                        content: WorkoutExpandedContent(
+                          workout: _workout,
+                          handleStart: () => _viewModel.start(_workout),
+                        ),
+                        handleLongPress: () => _handleLongPress(_workout),
+                      ),
+                    );
+                  },
                 ),
+                if (_viewModel.workoutList.length > 0)
+                  Divider(height: styles.Measurements.l),
+                Button(
+                    text: 'Add workout',
+                    handleTap: _viewModel.addWorkout,
+                    leadingIcon: icons.plusIconWhiteXl),
+                // When scrolling down, the start button will be centered on the screen.
+                Divider(height: viewHeight / 2 - styles.Measurements.m)
               ],
-            )),
+            ),
+          ),
           BottomMenuDrawer(
             startOpen: _viewModel.startOpen,
             menuItems: _menuItems,
@@ -112,35 +143,6 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         ],
       ),
     );
-  }
-}
-
-class _HomeScreen extends StatelessWidget {
-  _HomeScreen({Key key, this.child}) : super(key: key);
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Screen(
-        padding: EdgeInsets.symmetric(
-            horizontal: styles.Measurements.xs,
-            vertical: styles.Measurements.m),
-        child: child);
-  }
-}
-
-class _AddWorkoutButton extends StatelessWidget {
-  _AddWorkoutButton({Key key, this.handleTap}) : super(key: key);
-
-  final VoidCallback handleTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Button(
-        text: 'Add workout',
-        handleTap: handleTap,
-        leadingIcon: icons.plusIconWhiteXl);
   }
 }
 

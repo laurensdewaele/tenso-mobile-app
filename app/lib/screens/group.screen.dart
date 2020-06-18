@@ -274,7 +274,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                 if (_viewModel.state.repeaters == true)
                                   SectionWithInfoIcon(
                                     appDialogContent: FixedVariableTimerInfo(),
-                                    title: 'Set rest timer',
+                                    title: 'Set rest',
                                     children: <Widget>[
                                       Tabs(
                                         leftText: 'Variable',
@@ -321,7 +321,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                 if (_viewModel.state.repeaters == false)
                                   SectionWithInfoIcon(
                                     appDialogContent: FixedVariableTimerInfo(),
-                                    title: 'Rest timer',
+                                    title: 'rep rest',
                                     children: <Widget>[
                                       Tabs(
                                         leftText: 'Variable',

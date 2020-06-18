@@ -2,59 +2,38 @@ import 'dart:ui';
 
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 @immutable
 class WorkoutViewModelState {
-  final String id;
   final Label label;
-  final int sets;
-  final int holdCount;
-  final bool countdownRestTimer;
-  final Board board;
-  final List<Hold> holds;
+  final List<Group> groups;
+  final int restBetweenGroupsS;
+  final String restBetweenGroupsSInput;
+  final bool restBetweenGroupsFixed;
+
   final String name;
+  final String nameInput;
   final WeightSystem weightSystem;
 
-  final String extraTabButtonText;
+  final String saveButtonText;
   final bool inputsEnabled;
   final Color primaryColor;
   final TextStyle textPrimaryColor;
   final String title;
 
-  final listEquality = const ListEquality<Hold>();
-
-  const WorkoutViewModelState({
-    @required this.id,
-    @required this.label,
-    @required this.sets,
-    @required this.holdCount,
-    @required this.countdownRestTimer,
-    @required this.board,
-    @required this.holds,
-    @required this.name,
-    @required this.weightSystem,
-    @required this.extraTabButtonText,
-    @required this.inputsEnabled,
-    @required this.primaryColor,
-    @required this.textPrimaryColor,
-    @required this.title,
-  });
-
   WorkoutViewModelState.addWorkout(
       Workout workout, WeightSystem currentWeightSystem)
-      : id = workout.id,
-        label = workout.label,
-        sets = workout.sets,
-        holdCount = workout.holdCount,
-        countdownRestTimer = workout.countdownRestTimer,
-        board = workout.board,
-        holds = workout.holds.toList(),
+      : label = workout.label,
+        groups = workout.groups.toList(),
+        restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
+        restBetweenGroupsS = workout.restBetweenGroupsS,
+        restBetweenGroupsSInput = workout.restBetweenGroupsS.toString(),
         name = workout.name,
+        nameInput = workout.name,
         weightSystem = currentWeightSystem,
-        extraTabButtonText = 'add',
+        saveButtonText = 'save',
         inputsEnabled = true,
         primaryColor = styles.Colors.primary,
         textPrimaryColor = styles.Lato.xsPrimary,
@@ -62,16 +41,15 @@ class WorkoutViewModelState {
 
   WorkoutViewModelState.editWorkout(
       Workout workout, WeightSystem currentWeightSystem)
-      : id = workout.id,
-        label = workout.label,
-        sets = workout.sets,
-        holdCount = workout.holdCount,
-        countdownRestTimer = workout.countdownRestTimer,
-        board = workout.board,
-        holds = workout.holds.toList(),
+      : label = workout.label,
+        groups = workout.groups.toList(),
+        restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
+        restBetweenGroupsS = workout.restBetweenGroupsS,
+        restBetweenGroupsSInput = workout.restBetweenGroupsS.toString(),
         name = workout.name,
+        nameInput = workout.name,
         weightSystem = currentWeightSystem,
-        extraTabButtonText = 'done',
+        saveButtonText = 'save',
         inputsEnabled = true,
         primaryColor = styles.Colors.blue,
         textPrimaryColor = styles.Lato.xsBlue,
@@ -79,87 +57,63 @@ class WorkoutViewModelState {
 
   WorkoutViewModelState.viewWorkout(
       Workout workout, WeightSystem currentWeightSystem)
-      : id = workout.id,
-        label = workout.label,
-        sets = workout.sets,
-        holdCount = workout.holdCount,
-        countdownRestTimer = workout.countdownRestTimer,
-        board = workout.board,
-        holds = workout.holds.toList(),
+      : label = workout.label,
+        groups = workout.groups.toList(),
+        restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
+        restBetweenGroupsS = workout.restBetweenGroupsS,
+        restBetweenGroupsSInput = workout.restBetweenGroupsS.toString(),
         name = workout.name,
+        nameInput = workout.name,
         weightSystem = currentWeightSystem,
-        extraTabButtonText = 'back',
+        saveButtonText = 'back',
         inputsEnabled = false,
         primaryColor = styles.Colors.gray,
         textPrimaryColor = styles.Lato.xsGray,
         title = 'View workout';
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is WorkoutViewModelState &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          label == other.label &&
-          sets == other.sets &&
-          holdCount == other.holdCount &&
-          countdownRestTimer == other.countdownRestTimer &&
-          board == other.board &&
-          listEquality.equals(holds, other.holds) &&
-          name == other.name &&
-          weightSystem == other.weightSystem &&
-          extraTabButtonText == other.extraTabButtonText &&
-          inputsEnabled == other.inputsEnabled &&
-          primaryColor == other.primaryColor &&
-          textPrimaryColor == other.textPrimaryColor &&
-          title == other.title &&
-          listEquality == other.listEquality;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      label.hashCode ^
-      sets.hashCode ^
-      holdCount.hashCode ^
-      countdownRestTimer.hashCode ^
-      board.hashCode ^
-      holds.hashCode ^
-      name.hashCode ^
-      weightSystem.hashCode ^
-      extraTabButtonText.hashCode ^
-      inputsEnabled.hashCode ^
-      primaryColor.hashCode ^
-      textPrimaryColor.hashCode ^
-      title.hashCode ^
-      listEquality.hashCode;
+  const WorkoutViewModelState({
+    @required this.label,
+    @required this.groups,
+    @required this.restBetweenGroupsS,
+    @required this.restBetweenGroupsSInput,
+    @required this.restBetweenGroupsFixed,
+    @required this.name,
+    @required this.nameInput,
+    @required this.weightSystem,
+    @required this.saveButtonText,
+    @required this.inputsEnabled,
+    @required this.primaryColor,
+    @required this.textPrimaryColor,
+    @required this.title,
+  });
 
   WorkoutViewModelState copyWith({
-    String id,
     Label label,
-    int sets,
-    int holdCount,
-    bool countdownRestTimer,
-    Board board,
-    List<Hold> holds,
+    List<Group> groups,
+    int restBetweenGroupsS,
+    String restBetweenGroupsSInput,
+    bool restBetweenGroupsFixed,
     String name,
+    String nameInput,
     WeightSystem weightSystem,
-    String extraTabButtonText,
+    String saveButtonText,
     bool inputsEnabled,
     Color primaryColor,
     TextStyle textPrimaryColor,
     String title,
   }) {
     return new WorkoutViewModelState(
-      id: id ?? this.id,
       label: label ?? this.label,
-      sets: sets ?? this.sets,
-      holdCount: holdCount ?? this.holdCount,
-      countdownRestTimer: countdownRestTimer ?? this.countdownRestTimer,
-      board: board ?? this.board,
-      holds: holds ?? this.holds,
+      groups: groups ?? this.groups,
+      restBetweenGroupsS: restBetweenGroupsS ?? this.restBetweenGroupsS,
+      restBetweenGroupsSInput:
+          restBetweenGroupsSInput ?? this.restBetweenGroupsSInput,
+      restBetweenGroupsFixed:
+          restBetweenGroupsFixed ?? this.restBetweenGroupsFixed,
       name: name ?? this.name,
+      nameInput: nameInput ?? this.nameInput,
       weightSystem: weightSystem ?? this.weightSystem,
-      extraTabButtonText: extraTabButtonText ?? this.extraTabButtonText,
+      saveButtonText: saveButtonText ?? this.saveButtonText,
       inputsEnabled: inputsEnabled ?? this.inputsEnabled,
       primaryColor: primaryColor ?? this.primaryColor,
       textPrimaryColor: textPrimaryColor ?? this.textPrimaryColor,

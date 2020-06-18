@@ -1,25 +1,46 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/constants.dart';
+import 'package:app/widgets/color_square.dart';
+import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/workout_overview/workout_overview_stack.dart';
+import 'package:app/widgets/sliding_card.dart';
+import 'package:app/widgets/sliding_expansion_card.dart';
+import 'package:app/widgets/workout_overview/completed_expanded_content.dart';
+import 'package:app/widgets/workout_overview/delete_action.dart';
+import 'package:app/widgets/workout_overview/view_action.dart';
+import 'package:app/widgets/workout_overview/workout_long_press_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
 class CompletedWorkoutsOverview extends StatelessWidget {
   CompletedWorkoutsOverview(
       {Key key,
       @required this.selectedDay,
-      @required this.completedWorkoutsForSelectedDay,
+      @required this.completedWorkoutList,
       @required this.handleDeleteTap,
       @required this.handleCopyTap,
       @required this.handleViewTap})
       : super(key: key);
 
   final DateTime selectedDay;
-  final List<CompletedWorkout> completedWorkoutsForSelectedDay;
+  final List<CompletedWorkout> completedWorkoutList;
   final void Function(CompletedWorkout completedWorkout) handleDeleteTap;
   final void Function(CompletedWorkout completedWorkout) handleCopyTap;
-  final void Function(Workout workout) handleViewTap;
+  final void Function(CompletedWorkout completedWorkout) handleViewTap;
+
+  void _handleLongPress(
+      BuildContext context, CompletedWorkout completedWorkout) async {
+    await showAppDialog(
+        smallWidth: true,
+        context: context,
+        content: WorkoutLongPressDialog(
+          isCompletedWorkout: true,
+          name: completedWorkout.workout.name,
+          handleDeleteTap: () => handleDeleteTap(completedWorkout),
+          handleViewTap: () => handleViewTap(completedWorkout),
+          handleCopyTap: () => handleCopyTap(completedWorkout),
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,28 +62,52 @@ class CompletedWorkoutsOverview extends StatelessWidget {
           Divider(
             height: styles.Measurements.l,
           ),
-          ...completedWorkoutsForSelectedDay
+          ...completedWorkoutList
               .asMap()
-              .map((int i, completedWorkout) => MapEntry(
-                  i,
-                  Column(
-                    children: [
-                      WorkoutOverviewStack(
-                        key: UniqueKey(),
-                        completedWorkout: completedWorkout,
-                        handleCompletedWorkoutDeleteTap: handleDeleteTap,
-                        handleCompletedWorkoutViewTap: handleViewTap,
-                        handleCompletedWorkoutCopyTap: handleCopyTap,
+              .map((int index, completedWorkout) => MapEntry(
+                  index,
+                  SlidingCard(
+                    disabled: false,
+                    key: ValueKey(completedWorkout.id),
+                    border: true,
+                    divider: completedWorkoutList.length > 1 &&
+                        index != completedWorkoutList.length - 1,
+                    dividerHeight: styles.Measurements.m,
+                    leftAction: ViewAction(),
+                    handleLeftActionTap: () => handleViewTap(completedWorkout),
+                    rightAction: DeleteAction(),
+                    handleRightActionTap: () =>
+                        handleDeleteTap(completedWorkout),
+                    handleLongPress: () =>
+                        _handleLongPress(context, completedWorkout),
+                    content: SlidingExpansionCard(
+                      topLeftSection: Container(
+                        height: styles.Measurements.xxl,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(completedWorkout.workout.name,
+                                style: styles.Staatliches.xlBlack,
+                                overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
                       ),
-                      if (i < completedWorkoutsForSelectedDay.length - 1)
-                        Divider(
-                          height: styles.Measurements.m,
-                        )
-                    ],
+                      topRightSection: ColorSquare(
+                        color: completedWorkout.workout.labelColor,
+                        width: styles.Measurements.xxl,
+                        height: styles.Measurements.xxl,
+                      ),
+                      topRightSectionWidth: styles.Measurements.xxl,
+                      handleTap: () {},
+                      content: CompletedExpandedWorkoutContent(
+                          completedWorkout: completedWorkout),
+                      handleLongPress: () =>
+                          _handleLongPress(context, completedWorkout),
+                    ),
                   )))
               .values
               .toList(),
-          if (completedWorkoutsForSelectedDay.length == 0)
+          if (completedWorkoutList.length == 0)
             Text('There are no completed workouts for this day.',
                 style: styles.Lato.sBlack)
         ],

@@ -16,21 +16,24 @@ class SlidingCard extends StatefulWidget {
   final VoidCallback handleRightActionTap;
   final bool divider;
   final double dividerHeight;
+  final bool disabled;
 
   @override
   _SlidingCardState createState() => _SlidingCardState();
 
-  const SlidingCard(
-      {Key key,
-      @required this.leftAction,
-      @required this.rightAction,
-      @required this.content,
-      @required this.border,
-      @required this.handleLongPress,
-      @required this.handleLeftActionTap,
-      @required this.handleRightActionTap,
-      @required this.divider,
-      @required this.dividerHeight});
+  const SlidingCard({
+    Key key,
+    @required this.leftAction,
+    @required this.rightAction,
+    @required this.content,
+    @required this.border,
+    @required this.handleLongPress,
+    @required this.handleLeftActionTap,
+    @required this.handleRightActionTap,
+    @required this.divider,
+    @required this.dividerHeight,
+    @required this.disabled,
+  });
 }
 
 class _SlidingCardState extends State<SlidingCard>
@@ -184,44 +187,51 @@ class _SlidingCardState extends State<SlidingCard>
                     child: Stack(
                       overflow: Overflow.clip,
                       children: <Widget>[
-                        Positioned.fill(
-                          child: Transform.scale(
-                            scale: 1,
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: _handleLeftAction,
-                                    child: widget.leftAction,
+                        if (widget.disabled == false)
+                          Positioned.fill(
+                            child: Transform.scale(
+                              scale: 1,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: _handleLeftAction,
+                                      child: widget.leftAction,
+                                    ),
+                                    flex: 1,
                                   ),
-                                  flex: 1,
-                                ),
-                                Expanded(
-                                  child: SizedBox(),
-                                  flex: 2,
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: _handleRightAction,
-                                    child: widget.rightAction,
+                                  Expanded(
+                                    child: SizedBox(),
+                                    flex: 2,
                                   ),
-                                  flex: 1,
-                                )
-                              ],
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: _handleRightAction,
+                                      child: widget.rightAction,
+                                    ),
+                                    flex: 1,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                            onHorizontalDragStart: _handleDragStart,
-                            onHorizontalDragUpdate: _handleDragUpdate,
-                            onHorizontalDragEnd: _handleDragEnd,
-                            onLongPress: _handleLongPress,
-                            child: SlideTransition(
-                                position: _slideAnimation,
-                                child: GestureDetector(
-                                  onTap: _handleContentTap,
-                                  child: widget.content,
-                                ))),
+                        if (widget.disabled == false)
+                          GestureDetector(
+                              onHorizontalDragStart: _handleDragStart,
+                              onHorizontalDragUpdate: _handleDragUpdate,
+                              onHorizontalDragEnd: _handleDragEnd,
+                              onLongPress: _handleLongPress,
+                              child: SlideTransition(
+                                  position: _slideAnimation,
+                                  child: GestureDetector(
+                                    onTap: _handleContentTap,
+                                    child: widget.content,
+                                  ))),
+                        if (widget.disabled == true)
+                          GestureDetector(
+                            onTap: _handleContentTap,
+                            child: widget.content,
+                          ),
                       ],
                     ),
                   ),

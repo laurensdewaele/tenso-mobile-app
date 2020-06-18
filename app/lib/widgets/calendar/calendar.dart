@@ -1,6 +1,6 @@
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/workout_2.screen.dart';
+import 'package:app/screens/workout.screen.dart';
 import 'package:app/view_models/calendar.vm.dart';
 import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
@@ -48,10 +48,11 @@ class _CalendarState extends State<Calendar> {
         ));
   }
 
-  void _handleViewTap(Workout workout) {
+  void _handleViewTap(CompletedWorkout completedWorkout) {
     Navigator.of(context).pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
-            workout: workout, workoutAction: WorkoutActions.viewWorkout));
+            workout: completedWorkout.workout,
+            workoutAction: WorkoutActions.viewWorkout));
   }
 
   @override
@@ -72,8 +73,7 @@ class _CalendarState extends State<Calendar> {
             handleDeleteTap: _viewModel.deleteCompletedWorkout,
             handleCopyTap: _viewModel.copyCompletedWorkout,
             selectedDay: _viewModel.selectedDay,
-            completedWorkoutsForSelectedDay:
-                _viewModel.completedWorkoutsForSelectedDay)
+            completedWorkoutList: _viewModel.completedWorkoutsForSelectedDay)
       ],
     );
   }

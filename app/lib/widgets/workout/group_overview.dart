@@ -14,12 +14,14 @@ import 'package:flutter/cupertino.dart' hide Icon;
 class GroupOverview extends StatelessWidget {
   GroupOverview(
       {Key key,
+      @required this.disabled,
       @required this.groups,
       @required this.weightUnit,
       @required this.handleEditGroup,
       @required this.handleDeleteGroup})
       : super(key: key);
 
+  final bool disabled;
   final List<Group> groups;
   final String weightUnit;
   final void Function(int index) handleEditGroup;
@@ -58,6 +60,7 @@ class GroupOverview extends StatelessWidget {
                 final _boardWithGripsHeight =
                     _boardHeight + _boardClippedPadding;
                 return SlidingCard(
+                  disabled: disabled,
                   key: UniqueKey(),
                   border: true,
                   divider: groups.length > 1 && index != groups.length - 1,
