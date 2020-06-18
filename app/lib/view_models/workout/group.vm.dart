@@ -4,6 +4,7 @@ import 'package:app/models/models.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
 import 'package:app/services/validation.service.dart';
+import 'package:app/state/boards.state.dart';
 import 'package:app/view_models/workout/group_state.vm.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,14 +22,15 @@ class GroupViewModel extends ChangeNotifier {
       {Group group, GroupActions groupAction, WeightSystem weightSystem}) {
     _group = group;
     _navigationService = NavigationService();
+    List<Board> _boards = BoardsState().boards.boards.toList();
 
     GroupState _initialState;
     switch (groupAction) {
       case GroupActions.addGroup:
-        _initialState = GroupState.addGroup(group, weightSystem);
+        _initialState = GroupState.addGroup(group, weightSystem, _boards);
         break;
       case GroupActions.editGroup:
-        _initialState = GroupState.editGroup(group, weightSystem);
+        _initialState = GroupState.editGroup(group, weightSystem, _boards);
         break;
     }
     _state = _initialState;
@@ -109,7 +111,15 @@ class GroupViewModel extends ChangeNotifier {
   }
 
   void setBoard(Board board) {
-    _state = state.copyWith(board: board);
+    _state = state.copyWith(
+      board: board,
+      leftGripBoardHold: Nullable(board.defaultLeftGripHold),
+      rightGripBoardHold: Nullable(board.defaultRightGripHold),
+      leftGrip: Nullable(Grips.matchSupportedFingersL(
+          board.defaultLeftGripHold.supportedFingers ?? 5)),
+      rightGrip: Nullable(Grips.matchSupportedFingersR(
+          board.defaultRightGripHold.supportedFingers ?? 5)),
+    );
     notifyListeners();
   }
 
@@ -234,23 +244,23 @@ class GroupViewModel extends ChangeNotifier {
       _state = state.copyWith(
         repeaters: true,
         restBetweenRepsFixed: true,
-        restBetweenRepsS: Nullable(3),
-        restBetweenRepsSInput: Nullable('3'),
-        sets: Nullable(1),
-        restBetweenSetsS: Nullable(180),
-        restBetweenSetsFixed: Nullable(false),
-        restBetweenSetsSInput: Nullable('180'),
+        restBetweenRepsS: Nullable<int>(3),
+        restBetweenRepsSInput: Nullable<String>('3'),
+        sets: Nullable<int>(1),
+        setsInput: Nullable<String>('1'),
+        restBetweenSetsS: Nullable<int>(180),
+        restBetweenSetsFixed: Nullable<bool>(false),
+        restBetweenSetsSInput: Nullable<String>('180'),
       );
     } else {
       _state = state.copyWith(
         repeaters: false,
         restBetweenRepsFixed: false,
-        restBetweenRepsS: Nullable(180),
-        restBetweenRepsSInput: Nullable('180'),
-        sets: Nullable(null),
-        restBetweenSetsS: Nullable(null),
-        restBetweenSetsFixed: Nullable(null),
-        restBetweenSetsSInput: Nullable(null),
+        sets: Nullable<int>(null),
+        setsInput: Nullable<String>(null),
+        restBetweenSetsS: Nullable<int>(null),
+        restBetweenSetsFixed: Nullable<bool>(null),
+        restBetweenSetsSInput: Nullable<String>(null),
       );
     }
     notifyListeners();
@@ -265,12 +275,18 @@ class GroupViewModel extends ChangeNotifier {
   }
 
   void setRestBetweenRepsFixed() {
-    _state = state.copyWith(restBetweenRepsFixed: true);
+    _state = state.copyWith(
+        restBetweenRepsFixed: true,
+        restBetweenRepsS: Nullable<int>(180),
+        restBetweenRepsSInput: Nullable<String>('180'));
     notifyListeners();
   }
 
   void setRestBetweenRepsVariable() {
-    _state = state.copyWith(restBetweenRepsFixed: false);
+    _state = state.copyWith(
+        restBetweenRepsFixed: false,
+        restBetweenRepsS: Nullable<int>(null),
+        restBetweenRepsSInput: Nullable<String>(null));
     notifyListeners();
   }
 

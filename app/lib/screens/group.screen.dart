@@ -3,9 +3,11 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/group.vm.dart';
 import 'package:app/widgets/board/board_hold_info.dart';
 import 'package:app/widgets/board/board_hold_picker.dart';
+import 'package:app/widgets/board/board_picker.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
+import 'package:app/widgets/expanded_section.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/keyboard_and_toast_provider.dart';
 import 'package:app/widgets/keyboard_list_view.dart';
@@ -100,6 +102,20 @@ class _GroupScreenState extends State<GroupScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
+                                ExpandedSection(
+                                  title: 'Board',
+                                  children: <Widget>[
+                                    BoardPicker(
+                                      primaryColor: styles.Colors.primary,
+                                      selectedBoard: _viewModel.state.board,
+                                      handleBoardChanged: _viewModel.setBoard,
+                                      boards: _viewModel.state.boards,
+                                    ),
+                                    Divider(
+                                      height: styles.Measurements.xxl,
+                                    )
+                                  ],
+                                ),
                                 if (_viewModel.state.inputsEnabled == true)
                                   Column(
                                     children: <Widget>[
@@ -131,7 +147,7 @@ class _GroupScreenState extends State<GroupScreen> {
                                         ],
                                       ),
                                       Section(
-                                        title: 'Choose holds',
+                                        title: 'Holds',
                                         children: <Widget>[
                                           BoardHoldPicker(
                                             handToBoardHeightRatio: _viewModel
@@ -341,7 +357,9 @@ class _GroupScreenState extends State<GroupScreen> {
                                         textPrimaryColor:
                                             _viewModel.state.textPrimaryColor,
                                       ),
-                                      if (_viewModel.state.restBetweenRepsFixed)
+                                      if (_viewModel
+                                              .state.restBetweenRepsFixed ==
+                                          true)
                                         Column(
                                           children: <Widget>[
                                             Divider(

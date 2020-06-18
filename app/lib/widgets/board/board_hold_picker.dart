@@ -8,7 +8,8 @@ import 'package:flutter/scheduler.dart';
 
 class BoardHoldPicker extends StatelessWidget {
   const BoardHoldPicker(
-      {@required this.leftGripBoardHold,
+      {Key key,
+      @required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
       @required this.leftGrip,
       @required this.rightGrip,
@@ -66,7 +67,8 @@ class BoardHoldPicker extends StatelessWidget {
 
 class _BoardHoldPicker extends StatefulWidget {
   const _BoardHoldPicker(
-      {@required this.leftGripBoardHold,
+      {Key key,
+      @required this.leftGripBoardHold,
       @required this.rightGripBoardHold,
       @required this.boardSize,
       @required this.leftGrip,
@@ -112,7 +114,8 @@ class _BoardHoldPickerState extends State<_BoardHoldPicker> {
   @override
   void didUpdateWidget(_BoardHoldPicker oldWidget) {
     if ((oldWidget.leftGrip != widget.leftGrip) ||
-        (oldWidget.rightGrip != widget.rightGrip)) {
+        (oldWidget.rightGrip != widget.rightGrip) ||
+        (oldWidget.boardImageAsset != widget.boardImageAsset)) {
       _checkAndSetHandOffsets();
     }
     super.didUpdateWidget(oldWidget);

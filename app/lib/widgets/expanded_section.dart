@@ -1,15 +1,11 @@
-import 'package:flutter/cupertino.dart' hide Icon;
-
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/icons.dart' as icons;
+import 'package:flutter/cupertino.dart' hide Icon;
 
 class ExpandedSection extends StatefulWidget {
   ExpandedSection(
-      {Key key,
-      @required this.title,
-      @required this.children,
-      @required this.handleOpen})
+      {Key key, @required this.title, @required this.children, this.handleOpen})
       : super(key: key);
 
   final String title;
@@ -50,7 +46,7 @@ class _ExpandedSectionState extends State<ExpandedSection>
       _isExpanded = !_isExpanded;
       if (_isExpanded) {
         _controller.forward().then<void>((_) {
-          widget.handleOpen();
+          if (widget.handleOpen != null) widget.handleOpen();
         });
       } else {
         _controller.reverse().then<void>((void value) {

@@ -15,6 +15,7 @@ class GroupState {
   final String saveButtonText;
 
   final Board board;
+  final List<Board> boards;
 
   final HandHold handHold;
   final Grip leftGrip;
@@ -44,8 +45,10 @@ class GroupState {
   final double addedWeight;
   final String addedWeightInput;
 
-  GroupState.addGroup(Group group, WeightSystem currentWeightSystem)
+  GroupState.addGroup(
+      Group group, WeightSystem currentWeightSystem, List<Board> boards)
       : inputsEnabled = true,
+        boards = boards,
         groupAction = GroupActions.addGroup,
         primaryColor = styles.Colors.primary,
         textPrimaryColor = styles.Lato.xsPrimary,
@@ -63,7 +66,7 @@ class GroupState {
         repetitionsInput = group.repetitions.toString(),
         hangTimeS = group.hangTimeS,
         hangTimeSInput = group.hangTimeS.toString(),
-        restBetweenRepsFixed = group.restBetweenSetsFixed,
+        restBetweenRepsFixed = group.restBetweenRepsFixed,
         restBetweenRepsS = group.restBetweenRepsS,
         restBetweenRepsSInput = group.restBetweenRepsS.toString(),
         sets = group.sets,
@@ -74,8 +77,10 @@ class GroupState {
         addedWeight = group.addedWeight,
         addedWeightInput = group.addedWeight.toString();
 
-  GroupState.editGroup(Group group, WeightSystem currentWeightSystem)
+  GroupState.editGroup(
+      Group group, WeightSystem currentWeightSystem, List<Board> boards)
       : inputsEnabled = true,
+        boards = boards,
         groupAction = GroupActions.editGroup,
         saveButtonText = 'Save',
         primaryColor = styles.Colors.blue,
@@ -93,7 +98,7 @@ class GroupState {
         repetitionsInput = group.repetitions.toString(),
         hangTimeS = group.hangTimeS,
         hangTimeSInput = group.hangTimeS.toString(),
-        restBetweenRepsFixed = group.restBetweenSetsFixed,
+        restBetweenRepsFixed = group.restBetweenRepsFixed,
         restBetweenRepsS = group.restBetweenRepsS,
         restBetweenRepsSInput = group.restBetweenRepsS.toString(),
         sets = group.sets,
@@ -105,6 +110,7 @@ class GroupState {
         addedWeightInput = group.addedWeight.toString();
 
   const GroupState({
+    @required this.boards,
     @required this.saveButtonText,
     @required this.groupAction,
     @required this.title,
@@ -136,6 +142,7 @@ class GroupState {
   });
 
   GroupState copyWith({
+    List<Board> boards,
     String saveButtonText,
     GroupActions groupAction,
     String title,
@@ -166,6 +173,7 @@ class GroupState {
     String addedWeightInput,
   }) {
     return new GroupState(
+      boards: boards ?? this.boards,
       saveButtonText: saveButtonText ?? this.saveButtonText,
       groupAction: groupAction ?? this.groupAction,
       title: title ?? this.title,

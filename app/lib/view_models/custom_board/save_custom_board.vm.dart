@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:app/data/custom_board.data.dart';
 import 'package:app/data/grips.data.dart';
+import 'package:app/helpers/min_supported_fingers.dart';
 import 'package:app/helpers/unique_id.dart';
 import 'package:app/models/custom_board_hold_image.model.dart';
 import 'package:app/models/models.dart';
@@ -58,14 +57,8 @@ class SaveCustomBoardViewModel extends ChangeNotifier {
     _sorted.sort((a, b) => a.position.compareTo(b.position));
     _leftGripBoardHold = _sorted[0];
     _rightGripBoardHold = _sorted[_sorted.length - 1];
-    final List<int> _supportedFingers = _boardHolds
-        .map((BoardHold boardHold) => boardHold.supportedFingers)
-        .toList();
-    _supportedFingers.removeWhere((f) => f == null);
-    final int _minSupportedFingers =
-        _supportedFingers != null && _supportedFingers.length > 0
-            ? _supportedFingers.reduce(min)
-            : 5;
+
+    final int _minSupportedFingers = calculateMinSupportedFingers(_boardHolds);
 
     _leftGrip = Grips.matchSupportedFingersL(_minSupportedFingers);
     _rightGrip = Grips.matchSupportedFingersR(_minSupportedFingers);

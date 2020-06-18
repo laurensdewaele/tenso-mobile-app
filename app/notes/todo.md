@@ -12,7 +12,6 @@
   Settings?
 - Scale pull measurements (Jan)? 
   
- 
 
 ### Large prio
 - Custom boards in horizontal scroll view.
