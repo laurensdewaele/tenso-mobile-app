@@ -1,4 +1,5 @@
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 
 class SlidingExpansionCard extends StatefulWidget {
@@ -27,8 +28,6 @@ class _SlidingExpansionCardState extends State<SlidingExpansionCard>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Animatable<double> _easeInOutTween;
   Animatable<double> _topLeftSectionAlignmentTween;
-  // Moves the label off screen to the right.
-  // It is being clipped, therefore invisible.
   Animatable<double> _topRightSectionAlignmentTween;
   Animatable<double> _topRightSectionWidthTween;
 
@@ -82,17 +81,11 @@ class _SlidingExpansionCardState extends State<SlidingExpansionCard>
     });
 
     if (_isExpanded) {
-      try {
-        await _controller.forward().orCancel;
-      } catch (_) {}
+      await _controller.forward().orCancel;
     } else {
-      try {
-        await _controller.reverse().orCancel;
-      } catch (_) {}
+      await _controller.reverse().orCancel;
       if (!mounted) return;
-      setState(() {
-        // Rebuild without widget.children.
-      });
+      setState(() {});
     }
     PageStorage.of(context)?.writeState(context, _isExpanded);
   }
@@ -100,12 +93,8 @@ class _SlidingExpansionCardState extends State<SlidingExpansionCard>
   Widget _buildChildren(BuildContext context, Widget child) {
     return GestureDetector(
         onTap: _handleTap,
-        child: Container(
+        child: Card(
             padding: EdgeInsets.all(styles.Measurements.s),
-            decoration: BoxDecoration(
-              borderRadius: styles.kBorderRadiusAll,
-              color: styles.Colors.bgWhite,
-            ),
             child: Column(
               children: <Widget>[
                 Stack(overflow: Overflow.clip, children: <Widget>[
