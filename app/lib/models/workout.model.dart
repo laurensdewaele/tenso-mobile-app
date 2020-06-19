@@ -15,16 +15,6 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
 
   // TODO: Nullable for now, delete in future.
   String get id;
-  @nullable
-  int get sets;
-  @nullable
-  int get holdCount;
-  @nullable
-  bool get countdownRestTimer;
-  @nullable
-  Board get board;
-  @nullable
-  BuiltList<Hold> get holds;
   BuiltList<Group> get groups;
   WeightSystem get weightSystem;
   @nullable
@@ -33,67 +23,62 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   String get name;
   Label get label;
 
-  bool get stopwatchRestTimer => !countdownRestTimer;
   // Color class cannot be serialized by built value
   Color get labelColor => styles.labelColors[label];
   int get timeUnderTension => _calculateTimeUnderTension();
   int get totalRestTime => _calculateTotalRestTime();
-  double get averageAddedWeight => _calculateAverageAddedWeight();
-  int get averageHangTime => _calculateAverageHangTime();
-  int get totalHangsPerSet => _calculateTotalHangsPerSet();
-  int get totalHangs => totalHangsPerSet * sets;
-
-  double _calculateAverageAddedWeight() {
-    final List<double> weights = holds.map((w) => w.addedWeight).toList();
-    final double total = weights.fold(0, (a, b) => a + b);
-    final double average = total / weights.length;
-    return double.parse(average.toStringAsFixed(1));
-  }
-
-  int _calculateAverageHangTime() {
-    final List<int> hangSeconds = holds.map((w) => w.hangTime).toList();
-    final double total = hangSeconds.fold(0, (a, b) => a + b);
-    return total ~/ hangSeconds.length;
-  }
+  int get totalHangs => _calculateTotalHangs();
 
   int _calculateTimeUnderTension() {
     int _total = 0;
-    holds.forEach((hold) {
-      _total += hold.hangTime * hold.repetitions;
+    groups.forEach((Group group) {
+      int _groupTotal = group.hangTimeS * group.repetitions;
+      if (group.sets != null) {
+        _groupTotal += _groupTotal * group.sets;
+      }
+      _total += _groupTotal;
     });
-    return _total * sets;
+    return _total;
   }
 
   int _calculateTotalRestTime() {
-    if (countdownRestTimer == false) {
-      return 0;
-    }
+    bool _canBeMeasured = true;
+
+    groups.forEach((Group group) {
+      if (group.restBetweenRepsFixed == false) {
+        _canBeMeasured = false;
+      }
+
+      if (group.sets != null && group.restBetweenSetsFixed == false) {
+        _canBeMeasured = false;
+      }
+    });
+
+    if (_canBeMeasured == false) return null;
 
     int _total = 0;
-    int _currentHang = 1;
-    int _currentSet = 1;
-    final int _totalHangs = totalHangsPerSet * sets;
-    while (_currentSet <= sets) {
-      holds.forEach((hold) {
-        int _currentRep = 1;
-        while (_currentRep <= hold.repetitions) {
-          if (_currentHang < _totalHangs) {
-            _total += hold.countdownRestDuration;
-            _currentHang++;
-          }
-          _currentRep++;
-        }
-      });
-      _currentSet++;
-    }
+
+    groups.forEach((Group group) {
+      int _groupTotal = 0;
+      _groupTotal += group.repetitions * group.restBetweenRepsS;
+      if (group.sets != null) {
+        _groupTotal += _groupTotal * group.sets;
+      }
+      return _groupTotal;
+    });
 
     return _total;
   }
 
-  int _calculateTotalHangsPerSet() {
-    int total = 0;
-    holds.forEach((hold) => {total += hold.repetitions});
-    return total;
+  int _calculateTotalHangs() {
+    int _total = 0;
+    groups.forEach((Group group) {
+      _total += group.repetitions;
+      if (group.sets != null) {
+        _total += _total * group.sets;
+      }
+    });
+    return _total;
   }
 
   factory Workout([void Function(WorkoutBuilder) updates]) = _$Workout;

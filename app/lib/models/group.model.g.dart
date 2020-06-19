@@ -35,9 +35,6 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
       'restBetweenRepsFixed',
       serializers.serialize(object.restBetweenRepsFixed,
           specifiedType: const FullType(bool)),
-      'restBetweenRepsS',
-      serializers.serialize(object.restBetweenRepsS,
-          specifiedType: const FullType(int)),
       'addedWeight',
       serializers.serialize(object.addedWeight,
           specifiedType: const FullType(double)),
@@ -65,6 +62,12 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
         ..add('rightGripBoardHold')
         ..add(serializers.serialize(object.rightGripBoardHold,
             specifiedType: const FullType(BoardHold)));
+    }
+    if (object.restBetweenRepsS != null) {
+      result
+        ..add('restBetweenRepsS')
+        ..add(serializers.serialize(object.restBetweenRepsS,
+            specifiedType: const FullType(int)));
     }
     if (object.sets != null) {
       result
@@ -234,9 +237,6 @@ class _$Group extends Group {
     }
     if (restBetweenRepsFixed == null) {
       throw new BuiltValueNullFieldError('Group', 'restBetweenRepsFixed');
-    }
-    if (restBetweenRepsS == null) {
-      throw new BuiltValueNullFieldError('Group', 'restBetweenRepsS');
     }
     if (addedWeight == null) {
       throw new BuiltValueNullFieldError('Group', 'addedWeight');
