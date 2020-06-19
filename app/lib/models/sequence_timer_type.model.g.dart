@@ -6,20 +6,20 @@ part of 'sequence_timer_type.model.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const SequenceTimerType _$stopwatchRestTimer =
-    const SequenceTimerType._('stopwatchRestTimer');
-const SequenceTimerType _$countdownRestTimer =
-    const SequenceTimerType._('countdownRestTimer');
+const SequenceTimerType _$variableRestTimer =
+    const SequenceTimerType._('variableRestTimer');
+const SequenceTimerType _$fixedRestTimer =
+    const SequenceTimerType._('fixedRestTimer');
 const SequenceTimerType _$preparationTimer =
     const SequenceTimerType._('preparationTimer');
 const SequenceTimerType _$hangTimer = const SequenceTimerType._('hangTimer');
 
 SequenceTimerType _$stValueOf(String name) {
   switch (name) {
-    case 'stopwatchRestTimer':
-      return _$stopwatchRestTimer;
-    case 'countdownRestTimer':
-      return _$countdownRestTimer;
+    case 'variableRestTimer':
+      return _$variableRestTimer;
+    case 'fixedRestTimer':
+      return _$fixedRestTimer;
     case 'preparationTimer':
       return _$preparationTimer;
     case 'hangTimer':
@@ -31,8 +31,8 @@ SequenceTimerType _$stValueOf(String name) {
 
 final BuiltSet<SequenceTimerType> _$stValues =
     new BuiltSet<SequenceTimerType>(const <SequenceTimerType>[
-  _$stopwatchRestTimer,
-  _$countdownRestTimer,
+  _$variableRestTimer,
+  _$fixedRestTimer,
   _$preparationTimer,
   _$hangTimer,
 ]);

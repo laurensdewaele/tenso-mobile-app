@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:app/models/models.dart';
 import 'package:app/state/settings.state.dart';
+import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/foundation.dart';
 
 abstract class _ExecutionTitles {
@@ -29,11 +30,12 @@ class SequenceTimer {
   final String title;
   final String holdLabel;
   final Board board;
+  final int totalGroups;
+  final int currentGroup;
   final int totalSets;
   final int currentSet;
-  final int totalHangsPerSet;
-  final int currentHangPerSet;
-  final int currentHang;
+  final int totalReps;
+  final int currentRep;
   final WeightSystem weightSystem;
 
   const SequenceTimer({
@@ -55,11 +57,12 @@ class SequenceTimer {
     @required this.title,
     @required this.holdLabel,
     @required this.board,
+    @required this.totalGroups,
+    @required this.currentGroup,
     @required this.totalSets,
     @required this.currentSet,
-    @required this.totalHangsPerSet,
-    @required this.currentHangPerSet,
-    @required this.currentHang,
+    @required this.totalReps,
+    @required this.currentRep,
     @required this.weightSystem,
   });
 
@@ -82,11 +85,12 @@ class SequenceTimer {
     String title,
     String holdLabel,
     Board board,
+    int totalGroups,
+    int currentGroup,
     int totalSets,
     int currentSet,
-    int totalHangsPerSet,
-    int currentHangPerSet,
-    int currentHang,
+    int totalReps,
+    int currentRep,
     WeightSystem weightSystem,
   }) {
     return new SequenceTimer(
@@ -108,11 +112,12 @@ class SequenceTimer {
       title: title ?? this.title,
       holdLabel: holdLabel ?? this.holdLabel,
       board: board ?? this.board,
+      totalGroups: totalGroups ?? this.totalGroups,
+      currentGroup: currentGroup ?? this.currentGroup,
       totalSets: totalSets ?? this.totalSets,
       currentSet: currentSet ?? this.currentSet,
-      totalHangsPerSet: totalHangsPerSet ?? this.totalHangsPerSet,
-      currentHangPerSet: currentHangPerSet ?? this.currentHangPerSet,
-      currentHang: currentHang ?? this.currentHang,
+      totalReps: totalReps ?? this.totalReps,
+      currentRep: currentRep ?? this.currentRep,
       weightSystem: weightSystem ?? this.weightSystem,
     );
   }
@@ -122,213 +127,270 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
   Settings _settings = SettingsState().settings;
   List<SequenceTimer> _sequence = [];
 
-  void _addPreparationRestSequence(
-      {int currentSet,
-      int currentHoldIndex,
-      int currentHangPerSet,
-      int currentHang}) {
-//    _sequence.add(SequenceTimer(
-//        stopped: false,
-//        skipped: false,
-//        addedWeight: workout.holds[currentHoldIndex].addedWeight,
-//        leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-//        rightGripBoardHold: workout.holds[currentHoldIndex].rightGripBoardHold,
-//        leftGrip: workout.holds[currentHoldIndex].leftGrip,
-//        rightGrip: workout.holds[currentHoldIndex].rightGrip,
-//        type: SequenceTimerType.preparationTimer,
-//        duration: _settings.preparationTimer,
-//        effectiveDurationMs: (_settings.preparationTimer * 1000).toDouble(),
-//        endSound: _settings.hangSound,
-//        beepSound: _settings.beepSound,
-//        beepsBeforeEnd: _settings.beepsBeforeHang,
-//        weightSystem: workout.weightSystem,
-//        primaryColor: styles.Colors.blue,
-//        title: _ExecutionTitles.preparation,
-//        holdLabel:
-//            'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-//        board: workout.board,
-//        totalSets: workout.sets,
-//        currentSet: currentSet,
-//        currentHangPerSet: currentHangPerSet,
-//        currentHang: currentHang,
-//        totalHangsPerSet: workout.totalHangsPerSet)
-//    );
+  String _holdLabelText(
+      {int currentRep, int totalReps, int currentSet, int totalSets}) {
+    return 'next up: hang $currentRep/$totalReps ${totalSets != null && totalSets > 1 ? '$currentSet/$totalSets' : ''}';
   }
 
-  void _addHangSequence(
-      {int currentSet,
-      int currentHoldIndex,
-      int currentHangPerSet,
-      int currentHang}) {
-//    _sequence.add(
-//      SequenceTimer(
-//          stopped: false,
-//          skipped: false,
-//          addedWeight: workout.holds[currentHoldIndex].addedWeight,
-//          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-//          rightGripBoardHold:
-//              workout.holds[currentHoldIndex].rightGripBoardHold,
-//          leftGrip: workout.holds[currentHoldIndex].leftGrip,
-//          rightGrip: workout.holds[currentHoldIndex].rightGrip,
-//          type: SequenceTimerType.hangTimer,
-//          duration: workout.holds[currentHoldIndex].hangTime,
-//          effectiveDurationMs:
-//              (workout.holds[currentHoldIndex].hangTime * 1000).toDouble(),
-//          endSound: _settings.restSound,
-//          beepSound: _settings.beepSound,
-//          beepsBeforeEnd: _settings.beepsBeforeRest,
-//          weightSystem: workout.weightSystem,
-//          primaryColor: styles.Colors.primary,
-//          title: _ExecutionTitles.hang,
-//          holdLabel: 'hang $currentHangPerSet/${workout.totalHangsPerSet}',
-//          board: workout.board,
-//          totalSets: workout.sets,
-//          currentSet: currentSet,
-//          currentHangPerSet: currentHangPerSet,
-//          currentHang: currentHang,
-//          totalHangsPerSet: workout.totalHangsPerSet),
-//    );
+  SequenceTimer _createPreparationTimer(
+      {@required Group group,
+      @required int currentGroup,
+      @required int currentSet,
+      @required int currentRep}) {
+    return SequenceTimer(
+        stopped: false,
+        skipped: false,
+        addedWeight: group.addedWeight,
+        leftGripBoardHold: group.leftGripBoardHold,
+        rightGripBoardHold: group.rightGripBoardHold,
+        leftGrip: group.leftGrip,
+        rightGrip: group.rightGrip,
+        type: SequenceTimerType.preparationTimer,
+        duration: _settings.preparationTimer,
+        effectiveDurationMs: (_settings.preparationTimer * 1000).toDouble(),
+        endSound: _settings.hangSound,
+        beepSound: _settings.beepSound,
+        beepsBeforeEnd: _settings.beepsBeforeHang,
+        weightSystem: workout.weightSystem,
+        primaryColor: styles.Colors.blue,
+        title: _ExecutionTitles.preparation,
+        holdLabel: _holdLabelText(
+            currentRep: currentRep,
+            totalReps: group.repetitions,
+            currentSet: currentSet,
+            totalSets: group.sets),
+        board: group.board,
+        totalSets: group.sets,
+        currentSet: currentSet,
+        totalReps: group.repetitions,
+        currentRep: currentRep,
+        currentGroup: currentGroup,
+        totalGroups: workout.groups.length);
   }
 
-  void _addCountdownRestSequence(
-      {int currentSet,
-      int currentHoldIndex,
-      int currentHangPerSet,
-      int currentHang}) {
-//    _sequence.add(
-//      SequenceTimer(
-//          skipped: false,
-//          stopped: false,
-//          addedWeight: workout.holds[currentHoldIndex].addedWeight,
-//          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-//          rightGripBoardHold:
-//              workout.holds[currentHoldIndex].rightGripBoardHold,
-//          leftGrip: workout.holds[currentHoldIndex].leftGrip,
-//          rightGrip: workout.holds[currentHoldIndex].rightGrip,
-//          type: SequenceTimerType.countdownRestTimer,
-//          duration: workout.holds[currentHoldIndex].countdownRestDuration,
-//          effectiveDurationMs:
-//              (workout.holds[currentHoldIndex].countdownRestDuration * 1000)
-//                  .toDouble(),
-//          endSound: _settings.hangSound,
-//          beepSound: _settings.beepSound,
-//          beepsBeforeEnd: _settings.beepsBeforeHang,
-//          weightSystem: workout.weightSystem,
-//          primaryColor: styles.Colors.blue,
-//          title: _ExecutionTitles.recoveryRest,
-//          holdLabel:
-//              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-//          board: workout.board,
-//          totalSets: workout.sets,
-//          currentSet: currentSet,
-//          currentHangPerSet: currentHangPerSet,
-//          currentHang: currentHang,
-//          totalHangsPerSet: workout.totalHangsPerSet),
-//    );
+  SequenceTimer _createHangTimer(
+      {@required Group group,
+      @required int currentGroup,
+      @required int currentSet,
+      @required int currentRep}) {
+    return SequenceTimer(
+        stopped: false,
+        skipped: false,
+        addedWeight: group.addedWeight,
+        leftGripBoardHold: group.leftGripBoardHold,
+        rightGripBoardHold: group.rightGripBoardHold,
+        leftGrip: group.leftGrip,
+        rightGrip: group.rightGrip,
+        type: SequenceTimerType.hangTimer,
+        duration: group.hangTimeS,
+        effectiveDurationMs: (group.hangTimeS * 1000).toDouble(),
+        endSound: _settings.restSound,
+        beepSound: _settings.beepSound,
+        beepsBeforeEnd: _settings.beepsBeforeRest,
+        weightSystem: workout.weightSystem,
+        primaryColor: styles.Colors.primary,
+        title: _ExecutionTitles.hang,
+        holdLabel: _holdLabelText(
+            currentRep: currentRep,
+            totalReps: group.repetitions,
+            totalSets: group.sets,
+            currentSet: currentSet),
+        board: group.board,
+        totalSets: group.sets,
+        currentSet: currentSet,
+        totalReps: group.repetitions,
+        currentRep: currentRep,
+        currentGroup: currentGroup,
+        totalGroups: workout.groups.length);
   }
 
-  void _addStopwatchRestSequence(
-      {int currentSet,
-      int currentHoldIndex,
-      int currentHangPerSet,
-      int currentHang}) {
-//    _sequence.add(
-//      SequenceTimer(
-//          stopped: false,
-//          skipped: false,
-//          addedWeight: workout.holds[currentHoldIndex].addedWeight,
-//          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-//          rightGripBoardHold:
-//              workout.holds[currentHoldIndex].rightGripBoardHold,
-//          leftGrip: workout.holds[currentHoldIndex].leftGrip,
-//          rightGrip: workout.holds[currentHoldIndex].rightGrip,
-//          type: SequenceTimerType.stopwatchRestTimer,
-//          duration: 0,
-//          effectiveDurationMs: 0,
-//          endSound: _settings.hangSound,
-//          beepSound: _settings.beepSound,
-//          beepsBeforeEnd: _settings.beepsBeforeHang,
-//          weightSystem: workout.weightSystem,
-//          primaryColor: styles.Colors.blue,
-//          title: _ExecutionTitles.recoveryRest,
-//          holdLabel:
-//              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-//          board: workout.board,
-//          totalSets: workout.sets,
-//          currentSet: currentSet,
-//          currentHangPerSet: currentHangPerSet,
-//          currentHang: currentHang,
-//          totalHangsPerSet: workout.totalHangsPerSet),
-//    );
+  SequenceTimer _createFixedRestTimer(
+      {@required Group group,
+      @required int currentGroup,
+      @required int currentSet,
+      @required int currentRep,
+      @required int duration}) {
+    return SequenceTimer(
+        skipped: false,
+        stopped: false,
+        addedWeight: group.addedWeight,
+        leftGripBoardHold: group.leftGripBoardHold,
+        rightGripBoardHold: group.rightGripBoardHold,
+        leftGrip: group.leftGrip,
+        rightGrip: group.rightGrip,
+        type: SequenceTimerType.fixedRestTimer,
+        duration: duration,
+        effectiveDurationMs: (duration * 1000).toDouble(),
+        endSound: _settings.hangSound,
+        beepSound: _settings.beepSound,
+        beepsBeforeEnd: _settings.beepsBeforeHang,
+        weightSystem: workout.weightSystem,
+        primaryColor: styles.Colors.blue,
+        title: _ExecutionTitles.recoveryRest,
+        holdLabel: _holdLabelText(
+            currentRep: currentRep,
+            totalReps: group.repetitions,
+            totalSets: group.sets,
+            currentSet: currentSet),
+        board: group.board,
+        totalSets: group.sets,
+        currentSet: currentSet,
+        totalReps: group.repetitions,
+        currentRep: currentRep,
+        currentGroup: currentGroup,
+        totalGroups: workout.groups.length);
+  }
+
+  SequenceTimer _createVariableRestTimer(
+      {@required Group group,
+      @required int currentGroup,
+      @required int currentSet,
+      @required int currentRep}) {
+    return SequenceTimer(
+        stopped: false,
+        skipped: false,
+        addedWeight: group.addedWeight,
+        leftGripBoardHold: group.leftGripBoardHold,
+        rightGripBoardHold: group.rightGripBoardHold,
+        leftGrip: group.leftGrip,
+        rightGrip: group.rightGrip,
+        type: SequenceTimerType.variableRestTimer,
+        duration: 0,
+        effectiveDurationMs: 0,
+        endSound: _settings.hangSound,
+        beepSound: _settings.beepSound,
+        beepsBeforeEnd: _settings.beepsBeforeHang,
+        weightSystem: workout.weightSystem,
+        primaryColor: styles.Colors.blue,
+        title: _ExecutionTitles.recoveryRest,
+        holdLabel: _holdLabelText(
+            currentRep: currentRep,
+            totalReps: group.repetitions,
+            totalSets: group.sets,
+            currentSet: currentSet),
+        board: group.board,
+        totalSets: group.sets,
+        currentSet: currentSet,
+        totalReps: group.repetitions,
+        currentRep: currentRep,
+        currentGroup: currentGroup,
+        totalGroups: workout.groups.length);
   }
 
   void _generate() {
-    void Function(
-        {int currentSet,
-        int currentHoldIndex,
-        int currentHangPerSet,
-        int currentHang}) _addRestSequence;
+    List<SequenceTimer> _createRestTimer(
+        {@required bool fixed,
+        @required Group group,
+        @required int duration,
+        @required int currentSet,
+        @required int currentRep,
+        @required int currentGroup}) {
+      if (fixed == true) {
+        return [
+          _createFixedRestTimer(
+              group: group,
+              duration: duration,
+              currentSet: currentSet,
+              currentRep: currentRep,
+              currentGroup: currentGroup)
+        ];
+      }
+      return [
+        _createVariableRestTimer(
+            group: group,
+            currentGroup: currentGroup,
+            currentSet: currentSet,
+            currentRep: currentRep),
+        _createPreparationTimer(
+            group: group,
+            currentGroup: currentGroup,
+            currentSet: currentSet,
+            currentRep: currentRep)
+      ];
+    }
 
-//    if (workout.stopwatchRestTimer) {
-//      _addRestSequence = _addStopwatchRestSequence;
-//    } else {
-//      _addRestSequence = _addCountdownRestSequence;
-//    }
-//
-//    int _currentHang = 1;
-//    int _currentHangPerSet = 1;
-//    int _currentSet = 1;
-//
-//    void _incrementSet() {
-//      _currentSet++;
-//      _currentHangPerSet = 1;
-//    }
-//
-//    _addPreparationRestSequence(
-//        currentSet: _currentSet,
-//        currentHoldIndex: 0,
-//        currentHangPerSet: _currentHangPerSet,
-//        currentHang: _currentHang);
-//
-//    while (_currentSet <= workout.sets) {
-//      for (var _currentHold = 1;
-//          _currentHold <= workout.holdCount;
-//          _currentHold++) {
-//        for (var _currentRepetitionPerHold = 1;
-//            _currentRepetitionPerHold <=
-//                workout.holds[_currentHold - 1].repetitions;
-//            _currentRepetitionPerHold++) {
-//          if (_currentHang == 1) {
-//            _addHangSequence(
-//                currentSet: _currentSet,
-//                currentHoldIndex: _currentHold - 1,
-//                currentHangPerSet: _currentHangPerSet,
-//                currentHang: _currentHang);
-//          } else {
-//            _addRestSequence(
-//                currentSet: _currentSet,
-//                currentHoldIndex: _currentHold - 1,
-//                currentHangPerSet: _currentHangPerSet,
-//                currentHang: _currentHang);
-//            if (workout.stopwatchRestTimer) {
-//              _addPreparationRestSequence(
-//                  currentSet: _currentSet,
-//                  currentHoldIndex: _currentHold - 1,
-//                  currentHangPerSet: _currentHangPerSet,
-//                  currentHang: _currentHang);
-//            }
-//            _addHangSequence(
-//                currentSet: _currentSet,
-//                currentHoldIndex: _currentHold - 1,
-//                currentHangPerSet: _currentHangPerSet,
-//                currentHang: _currentHang);
-//          }
-//          _currentHang++;
-//          _currentHangPerSet++;
-//        }
-//      }
-//      _incrementSet();
-//    }
+    List<SequenceTimer> _createSetSequence({
+      @required Group group,
+      @required int currentSet,
+      @required int currentGroup,
+    }) {
+      List<List<SequenceTimer>> _setSequence = [];
+
+      List.generate(group.repetitions, (i) => i).forEach((i) {
+        _setSequence.add([
+          _createHangTimer(
+              group: group,
+              currentRep: i + 1,
+              currentSet: currentSet,
+              currentGroup: currentGroup)
+        ]);
+        if (i != group.repetitions - 1) {
+          _setSequence.add(_createRestTimer(
+              fixed: group.restBetweenRepsFixed,
+              duration: group.restBetweenRepsS,
+              currentSet: currentSet,
+              currentRep: i + 1,
+              group: group,
+              currentGroup: currentGroup));
+        }
+      });
+
+      return _setSequence.expand((e) => e).toList();
+    }
+
+    List<SequenceTimer> _createGroupSequence(
+        {@required Group group, @required int currentGroup}) {
+      List<List<SequenceTimer>> _groupSequence = [];
+
+      List.generate(group.sets ?? 1, (i) => i).forEach((i) {
+        _groupSequence.add(_createSetSequence(
+            currentGroup: currentGroup, group: group, currentSet: i + 1));
+        if (group.sets != null && i != group.sets - 1) {
+          _groupSequence.add(_createRestTimer(
+              group: group,
+              currentGroup: currentGroup,
+              currentSet: i + 1,
+              currentRep: 1,
+              fixed: group.restBetweenSetsFixed,
+              duration: group.restBetweenSetsS));
+        }
+      });
+
+      return _groupSequence.expand((e) => e).toList();
+    }
+
+    List<SequenceTimer> createWorkoutSequence(Workout workout) {
+      List<List<SequenceTimer>> _workoutSequence = [];
+
+      _workoutSequence.add([
+        _createPreparationTimer(
+            group: workout.groups[0],
+            currentGroup: 1,
+            currentSet:
+                workout.groups[0].sets != null && workout.groups[0].sets > 1
+                    ? 1
+                    : 0,
+            currentRep: 1)
+      ]);
+
+      workout.groups.asMap().forEach((index, group) {
+        _workoutSequence
+            .add(_createGroupSequence(group: group, currentGroup: index + 1));
+        if (index != workout.groups.length - 1) {
+          _workoutSequence.add(_createRestTimer(
+              currentRep: 1,
+              currentSet: group.sets != null && group.sets > 1 ? 1 : 0,
+              fixed: workout.restBetweenGroupsFixed,
+              currentGroup: index + 1,
+              group: group,
+              duration: workout.restBetweenGroupsS));
+        }
+      });
+
+      return _workoutSequence.expand((e) => e).toList();
+    }
+
+    _sequence = createWorkoutSequence(workout);
   }
 
   _generate();

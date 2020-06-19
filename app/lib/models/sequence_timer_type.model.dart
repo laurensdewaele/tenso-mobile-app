@@ -8,8 +8,8 @@ class SequenceTimerType extends EnumClass {
   static Serializer<SequenceTimerType> get serializer =>
       _$sequenceTimerTypeSerializer;
 
-  static const SequenceTimerType stopwatchRestTimer = _$stopwatchRestTimer;
-  static const SequenceTimerType countdownRestTimer = _$countdownRestTimer;
+  static const SequenceTimerType variableRestTimer = _$variableRestTimer;
+  static const SequenceTimerType fixedRestTimer = _$fixedRestTimer;
   static const SequenceTimerType preparationTimer = _$preparationTimer;
   static const SequenceTimerType hangTimer = _$hangTimer;
 

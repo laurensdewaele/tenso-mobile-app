@@ -81,7 +81,7 @@ class ExecutionViewModel {
   ExecutionState _buildStateAndPlayBeepSound() {
     // Can't use state.type here because it's possible state has not been initialized yet.
     final bool _isStopwatch = _sequence[_currentSequenceIndex].type ==
-        SequenceTimerType.stopwatchRestTimer;
+        SequenceTimerType.variableRestTimer;
     final bool _isCountdown = !_isStopwatch;
     if (_state$ != null &&
         _isCountdown == true &&

@@ -18,9 +18,9 @@ final Group basicGroup = Group((b) => b
   ..hangTimeS = 7
   ..restBetweenRepsFixed = false
   ..restBetweenRepsS = 180
-  ..sets = 1
-  ..restBetweenSetsFixed = false
-  ..restBetweenSetsS = 180
+  ..sets = null
+  ..restBetweenSetsFixed = null
+  ..restBetweenSetsS = null
   ..addedWeight = 0);
 
 final Workout basicWorkout = Workout((b) => b
