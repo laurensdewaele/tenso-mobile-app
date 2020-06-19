@@ -71,6 +71,7 @@ class GroupOverview extends StatelessWidget {
                   rightAction: DeleteAction(),
                   handleLongPress: () => _handleLongPress(context, index),
                   content: SlidingExpansionCard(
+                    padding: EdgeInsets.all(styles.Measurements.s),
                     topLeftSection: BoardWithGrips(
                       clipped: true,
                       rightGrip: _group.rightGrip,

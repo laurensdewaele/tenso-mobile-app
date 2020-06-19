@@ -93,7 +93,11 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                               _viewModel.deleteWorkout(workout),
                           handleLongPress: () => _handleLongPress(workout),
                           content: SlidingExpansionCard(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: styles.Measurements.s),
                             topLeftSection: Container(
+                              padding:
+                                  EdgeInsets.only(left: styles.Measurements.s),
                               height: styles.Measurements.xxl,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -104,12 +108,17 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                                 ],
                               ),
                             ),
-                            topRightSection: ColorSquare(
-                              color: workout.labelColor,
-                              width: styles.Measurements.xxl,
-                              height: styles.Measurements.xxl,
+                            topRightSection: Padding(
+                              padding: const EdgeInsets.only(
+                                  right: styles.Measurements.s),
+                              child: ColorSquare(
+                                color: workout.labelColor,
+                                width: styles.Measurements.xxl,
+                                height: styles.Measurements.xxl,
+                              ),
                             ),
-                            topRightSectionWidth: styles.Measurements.xxl,
+                            topRightSectionWidth:
+                                styles.Measurements.xxl + styles.Measurements.s,
                             handleTap: () {},
                             content: WorkoutExpandedContent(
                               workout: workout,

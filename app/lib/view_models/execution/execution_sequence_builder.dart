@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:app/models/models.dart';
 import 'package:app/state/settings.state.dart';
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/foundation.dart';
 
 abstract class _ExecutionTitles {
@@ -128,31 +127,32 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHoldIndex,
       int currentHangPerSet,
       int currentHang}) {
-    _sequence.add(SequenceTimer(
-        stopped: false,
-        skipped: false,
-        addedWeight: workout.holds[currentHoldIndex].addedWeight,
-        leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-        rightGripBoardHold: workout.holds[currentHoldIndex].rightGripBoardHold,
-        leftGrip: workout.holds[currentHoldIndex].leftGrip,
-        rightGrip: workout.holds[currentHoldIndex].rightGrip,
-        type: SequenceTimerType.preparationTimer,
-        duration: _settings.preparationTimer,
-        effectiveDurationMs: (_settings.preparationTimer * 1000).toDouble(),
-        endSound: _settings.hangSound,
-        beepSound: _settings.beepSound,
-        beepsBeforeEnd: _settings.beepsBeforeHang,
-        weightSystem: workout.weightSystem,
-        primaryColor: styles.Colors.blue,
-        title: _ExecutionTitles.preparation,
-        holdLabel:
-            'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-        board: workout.board,
-        totalSets: workout.sets,
-        currentSet: currentSet,
-        currentHangPerSet: currentHangPerSet,
-        currentHang: currentHang,
-        totalHangsPerSet: workout.totalHangsPerSet));
+//    _sequence.add(SequenceTimer(
+//        stopped: false,
+//        skipped: false,
+//        addedWeight: workout.holds[currentHoldIndex].addedWeight,
+//        leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+//        rightGripBoardHold: workout.holds[currentHoldIndex].rightGripBoardHold,
+//        leftGrip: workout.holds[currentHoldIndex].leftGrip,
+//        rightGrip: workout.holds[currentHoldIndex].rightGrip,
+//        type: SequenceTimerType.preparationTimer,
+//        duration: _settings.preparationTimer,
+//        effectiveDurationMs: (_settings.preparationTimer * 1000).toDouble(),
+//        endSound: _settings.hangSound,
+//        beepSound: _settings.beepSound,
+//        beepsBeforeEnd: _settings.beepsBeforeHang,
+//        weightSystem: workout.weightSystem,
+//        primaryColor: styles.Colors.blue,
+//        title: _ExecutionTitles.preparation,
+//        holdLabel:
+//            'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
+//        board: workout.board,
+//        totalSets: workout.sets,
+//        currentSet: currentSet,
+//        currentHangPerSet: currentHangPerSet,
+//        currentHang: currentHang,
+//        totalHangsPerSet: workout.totalHangsPerSet)
+//    );
   }
 
   void _addHangSequence(
@@ -160,34 +160,34 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHoldIndex,
       int currentHangPerSet,
       int currentHang}) {
-    _sequence.add(
-      SequenceTimer(
-          stopped: false,
-          skipped: false,
-          addedWeight: workout.holds[currentHoldIndex].addedWeight,
-          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-          rightGripBoardHold:
-              workout.holds[currentHoldIndex].rightGripBoardHold,
-          leftGrip: workout.holds[currentHoldIndex].leftGrip,
-          rightGrip: workout.holds[currentHoldIndex].rightGrip,
-          type: SequenceTimerType.hangTimer,
-          duration: workout.holds[currentHoldIndex].hangTime,
-          effectiveDurationMs:
-              (workout.holds[currentHoldIndex].hangTime * 1000).toDouble(),
-          endSound: _settings.restSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeRest,
-          weightSystem: workout.weightSystem,
-          primaryColor: styles.Colors.primary,
-          title: _ExecutionTitles.hang,
-          holdLabel: 'hang $currentHangPerSet/${workout.totalHangsPerSet}',
-          board: workout.board,
-          totalSets: workout.sets,
-          currentSet: currentSet,
-          currentHangPerSet: currentHangPerSet,
-          currentHang: currentHang,
-          totalHangsPerSet: workout.totalHangsPerSet),
-    );
+//    _sequence.add(
+//      SequenceTimer(
+//          stopped: false,
+//          skipped: false,
+//          addedWeight: workout.holds[currentHoldIndex].addedWeight,
+//          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+//          rightGripBoardHold:
+//              workout.holds[currentHoldIndex].rightGripBoardHold,
+//          leftGrip: workout.holds[currentHoldIndex].leftGrip,
+//          rightGrip: workout.holds[currentHoldIndex].rightGrip,
+//          type: SequenceTimerType.hangTimer,
+//          duration: workout.holds[currentHoldIndex].hangTime,
+//          effectiveDurationMs:
+//              (workout.holds[currentHoldIndex].hangTime * 1000).toDouble(),
+//          endSound: _settings.restSound,
+//          beepSound: _settings.beepSound,
+//          beepsBeforeEnd: _settings.beepsBeforeRest,
+//          weightSystem: workout.weightSystem,
+//          primaryColor: styles.Colors.primary,
+//          title: _ExecutionTitles.hang,
+//          holdLabel: 'hang $currentHangPerSet/${workout.totalHangsPerSet}',
+//          board: workout.board,
+//          totalSets: workout.sets,
+//          currentSet: currentSet,
+//          currentHangPerSet: currentHangPerSet,
+//          currentHang: currentHang,
+//          totalHangsPerSet: workout.totalHangsPerSet),
+//    );
   }
 
   void _addCountdownRestSequence(
@@ -195,36 +195,36 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHoldIndex,
       int currentHangPerSet,
       int currentHang}) {
-    _sequence.add(
-      SequenceTimer(
-          skipped: false,
-          stopped: false,
-          addedWeight: workout.holds[currentHoldIndex].addedWeight,
-          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-          rightGripBoardHold:
-              workout.holds[currentHoldIndex].rightGripBoardHold,
-          leftGrip: workout.holds[currentHoldIndex].leftGrip,
-          rightGrip: workout.holds[currentHoldIndex].rightGrip,
-          type: SequenceTimerType.countdownRestTimer,
-          duration: workout.holds[currentHoldIndex].countdownRestDuration,
-          effectiveDurationMs:
-              (workout.holds[currentHoldIndex].countdownRestDuration * 1000)
-                  .toDouble(),
-          endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightSystem: workout.weightSystem,
-          primaryColor: styles.Colors.blue,
-          title: _ExecutionTitles.recoveryRest,
-          holdLabel:
-              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-          board: workout.board,
-          totalSets: workout.sets,
-          currentSet: currentSet,
-          currentHangPerSet: currentHangPerSet,
-          currentHang: currentHang,
-          totalHangsPerSet: workout.totalHangsPerSet),
-    );
+//    _sequence.add(
+//      SequenceTimer(
+//          skipped: false,
+//          stopped: false,
+//          addedWeight: workout.holds[currentHoldIndex].addedWeight,
+//          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+//          rightGripBoardHold:
+//              workout.holds[currentHoldIndex].rightGripBoardHold,
+//          leftGrip: workout.holds[currentHoldIndex].leftGrip,
+//          rightGrip: workout.holds[currentHoldIndex].rightGrip,
+//          type: SequenceTimerType.countdownRestTimer,
+//          duration: workout.holds[currentHoldIndex].countdownRestDuration,
+//          effectiveDurationMs:
+//              (workout.holds[currentHoldIndex].countdownRestDuration * 1000)
+//                  .toDouble(),
+//          endSound: _settings.hangSound,
+//          beepSound: _settings.beepSound,
+//          beepsBeforeEnd: _settings.beepsBeforeHang,
+//          weightSystem: workout.weightSystem,
+//          primaryColor: styles.Colors.blue,
+//          title: _ExecutionTitles.recoveryRest,
+//          holdLabel:
+//              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
+//          board: workout.board,
+//          totalSets: workout.sets,
+//          currentSet: currentSet,
+//          currentHangPerSet: currentHangPerSet,
+//          currentHang: currentHang,
+//          totalHangsPerSet: workout.totalHangsPerSet),
+//    );
   }
 
   void _addStopwatchRestSequence(
@@ -232,34 +232,34 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
       int currentHoldIndex,
       int currentHangPerSet,
       int currentHang}) {
-    _sequence.add(
-      SequenceTimer(
-          stopped: false,
-          skipped: false,
-          addedWeight: workout.holds[currentHoldIndex].addedWeight,
-          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
-          rightGripBoardHold:
-              workout.holds[currentHoldIndex].rightGripBoardHold,
-          leftGrip: workout.holds[currentHoldIndex].leftGrip,
-          rightGrip: workout.holds[currentHoldIndex].rightGrip,
-          type: SequenceTimerType.stopwatchRestTimer,
-          duration: 0,
-          effectiveDurationMs: 0,
-          endSound: _settings.hangSound,
-          beepSound: _settings.beepSound,
-          beepsBeforeEnd: _settings.beepsBeforeHang,
-          weightSystem: workout.weightSystem,
-          primaryColor: styles.Colors.blue,
-          title: _ExecutionTitles.recoveryRest,
-          holdLabel:
-              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
-          board: workout.board,
-          totalSets: workout.sets,
-          currentSet: currentSet,
-          currentHangPerSet: currentHangPerSet,
-          currentHang: currentHang,
-          totalHangsPerSet: workout.totalHangsPerSet),
-    );
+//    _sequence.add(
+//      SequenceTimer(
+//          stopped: false,
+//          skipped: false,
+//          addedWeight: workout.holds[currentHoldIndex].addedWeight,
+//          leftGripBoardHold: workout.holds[currentHoldIndex].leftGripBoardHold,
+//          rightGripBoardHold:
+//              workout.holds[currentHoldIndex].rightGripBoardHold,
+//          leftGrip: workout.holds[currentHoldIndex].leftGrip,
+//          rightGrip: workout.holds[currentHoldIndex].rightGrip,
+//          type: SequenceTimerType.stopwatchRestTimer,
+//          duration: 0,
+//          effectiveDurationMs: 0,
+//          endSound: _settings.hangSound,
+//          beepSound: _settings.beepSound,
+//          beepsBeforeEnd: _settings.beepsBeforeHang,
+//          weightSystem: workout.weightSystem,
+//          primaryColor: styles.Colors.blue,
+//          title: _ExecutionTitles.recoveryRest,
+//          holdLabel:
+//              'next up: hang $currentHangPerSet/${workout.totalHangsPerSet}',
+//          board: workout.board,
+//          totalSets: workout.sets,
+//          currentSet: currentSet,
+//          currentHangPerSet: currentHangPerSet,
+//          currentHang: currentHang,
+//          totalHangsPerSet: workout.totalHangsPerSet),
+//    );
   }
 
   void _generate() {
@@ -269,66 +269,66 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
         int currentHangPerSet,
         int currentHang}) _addRestSequence;
 
-    if (workout.stopwatchRestTimer) {
-      _addRestSequence = _addStopwatchRestSequence;
-    } else {
-      _addRestSequence = _addCountdownRestSequence;
-    }
-
-    int _currentHang = 1;
-    int _currentHangPerSet = 1;
-    int _currentSet = 1;
-
-    void _incrementSet() {
-      _currentSet++;
-      _currentHangPerSet = 1;
-    }
-
-    _addPreparationRestSequence(
-        currentSet: _currentSet,
-        currentHoldIndex: 0,
-        currentHangPerSet: _currentHangPerSet,
-        currentHang: _currentHang);
-
-    while (_currentSet <= workout.sets) {
-      for (var _currentHold = 1;
-          _currentHold <= workout.holdCount;
-          _currentHold++) {
-        for (var _currentRepetitionPerHold = 1;
-            _currentRepetitionPerHold <=
-                workout.holds[_currentHold - 1].repetitions;
-            _currentRepetitionPerHold++) {
-          if (_currentHang == 1) {
-            _addHangSequence(
-                currentSet: _currentSet,
-                currentHoldIndex: _currentHold - 1,
-                currentHangPerSet: _currentHangPerSet,
-                currentHang: _currentHang);
-          } else {
-            _addRestSequence(
-                currentSet: _currentSet,
-                currentHoldIndex: _currentHold - 1,
-                currentHangPerSet: _currentHangPerSet,
-                currentHang: _currentHang);
-            if (workout.stopwatchRestTimer) {
-              _addPreparationRestSequence(
-                  currentSet: _currentSet,
-                  currentHoldIndex: _currentHold - 1,
-                  currentHangPerSet: _currentHangPerSet,
-                  currentHang: _currentHang);
-            }
-            _addHangSequence(
-                currentSet: _currentSet,
-                currentHoldIndex: _currentHold - 1,
-                currentHangPerSet: _currentHangPerSet,
-                currentHang: _currentHang);
-          }
-          _currentHang++;
-          _currentHangPerSet++;
-        }
-      }
-      _incrementSet();
-    }
+//    if (workout.stopwatchRestTimer) {
+//      _addRestSequence = _addStopwatchRestSequence;
+//    } else {
+//      _addRestSequence = _addCountdownRestSequence;
+//    }
+//
+//    int _currentHang = 1;
+//    int _currentHangPerSet = 1;
+//    int _currentSet = 1;
+//
+//    void _incrementSet() {
+//      _currentSet++;
+//      _currentHangPerSet = 1;
+//    }
+//
+//    _addPreparationRestSequence(
+//        currentSet: _currentSet,
+//        currentHoldIndex: 0,
+//        currentHangPerSet: _currentHangPerSet,
+//        currentHang: _currentHang);
+//
+//    while (_currentSet <= workout.sets) {
+//      for (var _currentHold = 1;
+//          _currentHold <= workout.holdCount;
+//          _currentHold++) {
+//        for (var _currentRepetitionPerHold = 1;
+//            _currentRepetitionPerHold <=
+//                workout.holds[_currentHold - 1].repetitions;
+//            _currentRepetitionPerHold++) {
+//          if (_currentHang == 1) {
+//            _addHangSequence(
+//                currentSet: _currentSet,
+//                currentHoldIndex: _currentHold - 1,
+//                currentHangPerSet: _currentHangPerSet,
+//                currentHang: _currentHang);
+//          } else {
+//            _addRestSequence(
+//                currentSet: _currentSet,
+//                currentHoldIndex: _currentHold - 1,
+//                currentHangPerSet: _currentHangPerSet,
+//                currentHang: _currentHang);
+//            if (workout.stopwatchRestTimer) {
+//              _addPreparationRestSequence(
+//                  currentSet: _currentSet,
+//                  currentHoldIndex: _currentHold - 1,
+//                  currentHangPerSet: _currentHangPerSet,
+//                  currentHang: _currentHang);
+//            }
+//            _addHangSequence(
+//                currentSet: _currentSet,
+//                currentHoldIndex: _currentHold - 1,
+//                currentHangPerSet: _currentHangPerSet,
+//                currentHang: _currentHang);
+//          }
+//          _currentHang++;
+//          _currentHangPerSet++;
+//        }
+//      }
+//      _incrementSet();
+//    }
   }
 
   _generate();

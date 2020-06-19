@@ -4,6 +4,7 @@ import 'package:app/widgets/button.dart';
 import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icons.dart' as icons;
+import 'package:app/widgets/workout/horizonal_group_overview_with_indicator.dart';
 import 'package:app/widgets/workout_overview/display_duration_seconds.dart';
 import 'package:app/widgets/workout_overview/expanded_content_tile.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -38,56 +39,28 @@ class WorkoutExpandedContent extends StatelessWidget {
                   DisplayDurationSeconds(seconds: workout.timeUnderTension),
               contentContainerHeight: styles.Measurements.xl,
             ),
-          ],
-        ),
-        Divider(height: styles.Measurements.m),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            if (workout.countdownRestTimer == true)
+            if (workout.totalRestTime != null)
               ExpandedContentTile(
-                title: 'total rest time',
+                title: 'total rest',
                 content: DisplayDurationSeconds(seconds: workout.totalRestTime),
+                contentContainerHeight: styles.Measurements.xl,
               ),
-            if (workout.countdownRestTimer == false)
+            if (workout.totalRestTime == null)
               ExpandedContentTile(
-                title: 'total rest time',
-                content: Text(
-                  'variable',
-                  textAlign: TextAlign.center,
-                  style: styles.Lato.xsGray,
+                title: 'total rest',
+                content: Center(
+                  child: Text(
+                    'variable',
+                    textAlign: TextAlign.center,
+                    style: styles.Lato.xsGray,
+                  ),
                 ),
+                contentContainerHeight: styles.Measurements.xl,
               ),
-            ExpandedContentTile(
-                title: 'av. added weight',
-                content: Text(
-                  '${workout.averageAddedWeight} ${workout.weightSystem.unit}',
-                  textAlign: TextAlign.center,
-                  style: styles.Lato.xsGray,
-                )),
           ],
         ),
         Divider(height: styles.Measurements.m),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            ExpandedContentTile(
-              title: 'holds',
-              content: Text(
-                workout.holdCount.toString(),
-                textAlign: TextAlign.center,
-                style: styles.Lato.xsGray,
-              ),
-            ),
-            ExpandedContentTile(
-                title: 'sets',
-                content: Text(
-                  workout.sets.toString(),
-                  textAlign: TextAlign.center,
-                  style: styles.Lato.xsGray,
-                )),
-          ],
-        ),
+        HorizontalGroupOverviewWithIndicator(groups: workout.groups.toList()),
         Divider(height: styles.Measurements.m),
         Container(
             width: 175.0,

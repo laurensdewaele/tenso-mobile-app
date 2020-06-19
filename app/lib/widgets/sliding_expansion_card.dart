@@ -1,18 +1,18 @@
-import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 
 class SlidingExpansionCard extends StatefulWidget {
-  const SlidingExpansionCard({
-    Key key,
-    @required this.topLeftSection,
-    @required this.topRightSection,
-    @required this.topRightSectionWidth,
-    @required this.content,
-    @required this.handleTap,
-    @required this.handleLongPress,
-  });
+  const SlidingExpansionCard(
+      {Key key,
+      @required this.topLeftSection,
+      @required this.topRightSection,
+      @required this.topRightSectionWidth,
+      @required this.content,
+      @required this.handleTap,
+      @required this.handleLongPress,
+      @required this.padding});
 
+  final EdgeInsets padding;
   final Widget topLeftSection;
   final Widget topRightSection;
   final double topRightSectionWidth;
@@ -94,7 +94,7 @@ class _SlidingExpansionCardState extends State<SlidingExpansionCard>
     return GestureDetector(
         onTap: _handleTap,
         child: Card(
-            padding: EdgeInsets.all(styles.Measurements.s),
+            padding: widget.padding,
             child: Column(
               children: <Widget>[
                 Stack(overflow: Overflow.clip, children: <Widget>[

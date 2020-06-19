@@ -81,6 +81,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                     handleLongPress: () =>
                         _handleLongPress(context, completedWorkout),
                     content: SlidingExpansionCard(
+                      padding: EdgeInsets.all(styles.Measurements.s),
                       topLeftSection: Container(
                         height: styles.Measurements.xxl,
                         child: Column(
