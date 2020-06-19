@@ -59,9 +59,9 @@ class WorkoutExpandedContent extends StatelessWidget {
               ),
           ],
         ),
-        Divider(height: styles.Measurements.m),
+        Divider(height: styles.Measurements.l),
         HorizontalGroupOverviewWithIndicator(groups: workout.groups.toList()),
-        Divider(height: styles.Measurements.m),
+        Divider(height: styles.Measurements.l),
         Container(
             width: 175.0,
             child: Button(
@@ -69,7 +69,6 @@ class WorkoutExpandedContent extends StatelessWidget {
               handleTap: handleStart,
               leadingIcon: icons.playIconWhiteL,
             )),
-        Divider(height: styles.Measurements.m),
       ],
     );
   }

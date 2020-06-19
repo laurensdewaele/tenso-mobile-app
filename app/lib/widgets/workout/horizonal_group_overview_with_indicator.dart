@@ -1,6 +1,6 @@
 import 'package:app/models/group.model.dart';
 import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/execution/indicator_tabs.dart';
+import 'package:app/widgets/workout/group_navigation_indicator.dart';
 import 'package:app/widgets/workout/horizontal_group_overview.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -44,10 +44,10 @@ class _HorizontalGroupOverviewWithIndicatorState
           groups: widget.groups,
           reportVisibleBoardIndex: _setVisibleBoardIndex,
         ),
-        IndicatorTabs(
+        GroupNavigationIndicator(
           primaryColor: styles.Colors.primary,
           count: widget.groups.length,
-          active: _visibleBoardIndex + 1,
+          activeIndex: _visibleBoardIndex,
         )
       ],
     );
