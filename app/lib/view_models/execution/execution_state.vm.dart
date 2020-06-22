@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class ExecutionState {
   final SequenceTimerType type;
-  final bool isStopwatch;
+  final bool isVariableRestTimer;
   final int duration;
   final int displaySeconds;
   final double animatedBackgroundHeightFactor;
@@ -20,17 +20,18 @@ class ExecutionState {
   final Grip rightGrip;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
-  final int totalSets;
-  final int currentSet;
-  final int totalHangsPerSet;
-  final int currentHangPerSet;
-  final int currentHang;
   final WeightSystem weightSystem;
   final double addedWeight;
+  final int totalGroups;
+  final int currentGroup;
+  final int totalSets;
+  final int currentSet;
+  final int totalReps;
+  final int currentRep;
 
   const ExecutionState({
-    @required this.isStopwatch,
     @required this.type,
+    @required this.isVariableRestTimer,
     @required this.duration,
     @required this.displaySeconds,
     @required this.animatedBackgroundHeightFactor,
@@ -45,13 +46,14 @@ class ExecutionState {
     @required this.rightGrip,
     @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
-    @required this.totalSets,
-    @required this.currentSet,
-    @required this.totalHangsPerSet,
     @required this.weightSystem,
     @required this.addedWeight,
-    @required this.currentHangPerSet,
-    @required this.currentHang,
+    @required this.totalGroups,
+    @required this.currentGroup,
+    @required this.totalSets,
+    @required this.currentSet,
+    @required this.totalReps,
+    @required this.currentRep,
   });
 
   @override
@@ -60,7 +62,7 @@ class ExecutionState {
       other is ExecutionState &&
           runtimeType == other.runtimeType &&
           type == other.type &&
-          isStopwatch == other.isStopwatch &&
+          isVariableRestTimer == other.isVariableRestTimer &&
           duration == other.duration &&
           displaySeconds == other.displaySeconds &&
           animatedBackgroundHeightFactor ==
@@ -76,18 +78,19 @@ class ExecutionState {
           rightGrip == other.rightGrip &&
           leftGripBoardHold == other.leftGripBoardHold &&
           rightGripBoardHold == other.rightGripBoardHold &&
+          weightSystem == other.weightSystem &&
+          addedWeight == other.addedWeight &&
+          totalGroups == other.totalGroups &&
+          currentGroup == other.currentGroup &&
           totalSets == other.totalSets &&
           currentSet == other.currentSet &&
-          totalHangsPerSet == other.totalHangsPerSet &&
-          currentHangPerSet == other.currentHangPerSet &&
-          currentHang == other.currentHang &&
-          weightSystem == other.weightSystem &&
-          addedWeight == other.addedWeight;
+          totalReps == other.totalReps &&
+          currentRep == other.currentRep;
 
   @override
   int get hashCode =>
       type.hashCode ^
-      isStopwatch.hashCode ^
+      isVariableRestTimer.hashCode ^
       duration.hashCode ^
       displaySeconds.hashCode ^
       animatedBackgroundHeightFactor.hashCode ^
@@ -102,11 +105,12 @@ class ExecutionState {
       rightGrip.hashCode ^
       leftGripBoardHold.hashCode ^
       rightGripBoardHold.hashCode ^
+      weightSystem.hashCode ^
+      addedWeight.hashCode ^
+      totalGroups.hashCode ^
+      currentGroup.hashCode ^
       totalSets.hashCode ^
       currentSet.hashCode ^
-      totalHangsPerSet.hashCode ^
-      currentHangPerSet.hashCode ^
-      currentHang.hashCode ^
-      weightSystem.hashCode ^
-      addedWeight.hashCode;
+      totalReps.hashCode ^
+      currentRep.hashCode;
 }

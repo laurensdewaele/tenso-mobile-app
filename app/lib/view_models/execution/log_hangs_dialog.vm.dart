@@ -6,16 +6,12 @@ import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
 class PastHang {
+  final int sequenceTimerIndex;
   final bool skipped;
   final double effectiveDurationS;
   final String effectiveDurationSInput;
   final double addedWeight;
   final String addedWeightInput;
-  final int totalSets;
-  final int totalHangsPerSet;
-  final int currentHangPerSet;
-  final int currentSet;
-  final int currentHang;
   final bool isSelected;
   final double boardAspectRatio;
   final String imageAsset;
@@ -27,18 +23,20 @@ class PastHang {
   final Grip leftGrip;
   final Grip rightGrip;
   final String weightUnit;
+  final int totalGroups;
+  final int currentGroup;
+  final int totalSets;
+  final int currentSet;
+  final int totalReps;
+  final int currentRep;
 
   const PastHang({
+    @required this.sequenceTimerIndex,
     @required this.skipped,
     @required this.effectiveDurationS,
     @required this.effectiveDurationSInput,
     @required this.addedWeight,
     @required this.addedWeightInput,
-    @required this.totalSets,
-    @required this.totalHangsPerSet,
-    @required this.currentHangPerSet,
-    @required this.currentSet,
-    @required this.currentHang,
     @required this.isSelected,
     @required this.boardAspectRatio,
     @required this.imageAsset,
@@ -50,19 +48,21 @@ class PastHang {
     @required this.leftGrip,
     @required this.rightGrip,
     @required this.weightUnit,
+    @required this.totalGroups,
+    @required this.currentGroup,
+    @required this.totalSets,
+    @required this.currentSet,
+    @required this.totalReps,
+    @required this.currentRep,
   });
 
   PastHang copyWith({
+    int sequenceTimerIndex,
     bool skipped,
     double effectiveDurationS,
     String effectiveDurationSInput,
     double addedWeight,
     String addedWeightInput,
-    int totalSets,
-    int totalHangsPerSet,
-    int currentHangPerSet,
-    int currentSet,
-    int currentHang,
     bool isSelected,
     double boardAspectRatio,
     String imageAsset,
@@ -74,19 +74,21 @@ class PastHang {
     Grip leftGrip,
     Grip rightGrip,
     String weightUnit,
+    int totalGroups,
+    int currentGroup,
+    int totalSets,
+    int currentSet,
+    int totalReps,
+    int currentRep,
   }) {
     return new PastHang(
+      sequenceTimerIndex: sequenceTimerIndex ?? this.sequenceTimerIndex,
       skipped: skipped ?? this.skipped,
       effectiveDurationS: effectiveDurationS ?? this.effectiveDurationS,
       effectiveDurationSInput:
           effectiveDurationSInput ?? this.effectiveDurationSInput,
       addedWeight: addedWeight ?? this.addedWeight,
       addedWeightInput: addedWeightInput ?? this.addedWeightInput,
-      totalSets: totalSets ?? this.totalSets,
-      totalHangsPerSet: totalHangsPerSet ?? this.totalHangsPerSet,
-      currentHangPerSet: currentHangPerSet ?? this.currentHangPerSet,
-      currentSet: currentSet ?? this.currentSet,
-      currentHang: currentHang ?? this.currentHang,
       isSelected: isSelected ?? this.isSelected,
       boardAspectRatio: boardAspectRatio ?? this.boardAspectRatio,
       imageAsset: imageAsset ?? this.imageAsset,
@@ -100,6 +102,12 @@ class PastHang {
       leftGrip: leftGrip ?? this.leftGrip,
       rightGrip: rightGrip ?? this.rightGrip,
       weightUnit: weightUnit ?? this.weightUnit,
+      totalGroups: totalGroups ?? this.totalGroups,
+      currentGroup: currentGroup ?? this.currentGroup,
+      totalSets: totalSets ?? this.totalSets,
+      currentSet: currentSet ?? this.currentSet,
+      totalReps: totalReps ?? this.totalReps,
+      currentRep: currentRep ?? this.currentRep,
     );
   }
 }
@@ -119,9 +127,11 @@ class LogHangsDialogViewModel extends ChangeNotifier {
   bool get canScroll => _canScroll;
 
   String get hangText =>
-      'Hang ${selectedPastHang.currentHangPerSet}/${selectedPastHang.totalHangsPerSet}';
+      'Hang ${selectedPastHang.currentRep}/${selectedPastHang.totalReps}';
   String get setText =>
       'set ${selectedPastHang.currentSet}/${selectedPastHang.totalSets}';
+  String get groupText =>
+      'group ${selectedPastHang.currentGroup}/${selectedPastHang.totalGroups}';
 
   LogHangsDialogViewModel(
       {@required List<PastHang> pastHangs, @required this.handleLoggedHangs}) {
@@ -191,9 +201,9 @@ class LogHangsDialogViewModel extends ChangeNotifier {
     if (_isValid == true) {
       List<PastHang> _newPastHangs = []..addAll(_pastHangs);
       _newPastHangs[_selectedPastHangIndex] = selectedPastHang.copyWith(
-          effectiveDurationS: _effectiveDurationS,
-          addedWeight: _addedWeight,
-          currentHang: selectedPastHang.currentHang);
+        effectiveDurationS: _effectiveDurationS,
+        addedWeight: _addedWeight,
+      );
       _pastHangs = _newPastHangs;
     }
 
@@ -210,8 +220,8 @@ class LogHangsDialogViewModel extends ChangeNotifier {
       if (_isValid == true) {
         final List<LoggedHang> _loggedHangs = _pastHangs
             .map((PastHang pastHang) => LoggedHang(
+                sequenceTimerIndex: pastHang.sequenceTimerIndex,
                 addedWeight: pastHang.addedWeight,
-                currentHang: pastHang.currentHang,
                 effectiveDurationS: pastHang.effectiveDurationS))
             .toList();
         _navigationService.pop();

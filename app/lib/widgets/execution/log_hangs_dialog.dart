@@ -5,12 +5,12 @@ import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart';
 
 class LoggedHang {
-  final int currentHang;
+  final int sequenceTimerIndex;
   final double addedWeight;
   final double effectiveDurationS;
 
   const LoggedHang({
-    @required this.currentHang,
+    @required this.sequenceTimerIndex,
     @required this.addedWeight,
     @required this.effectiveDurationS,
   });

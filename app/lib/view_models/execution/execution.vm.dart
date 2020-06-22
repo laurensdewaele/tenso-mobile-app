@@ -17,6 +17,7 @@ class ExecutionViewModel {
   AnimationController _animationController;
   int _currentSequenceIndex;
   List<SequenceTimer> _sequence;
+  SequenceTimer get _currentSequence => _sequence[_currentSequenceIndex];
   NavigationService _navigationService;
   List<PastHang> get pastHangs => _getPastHangs();
   int get totalHangs => _workout.totalHangs;
@@ -47,23 +48,26 @@ class ExecutionViewModel {
     final List<SequenceTimer> _pastHangEvents = _sequence
         .where((SequenceTimer t) =>
             t.type == SequenceTimerType.hangTimer &&
-            t.currentHang < state.currentHang)
+            t.index < _currentSequenceIndex)
         .toList();
     return _pastHangEvents.map((SequenceTimer t) {
       final double _effectiveDurationS =
           double.parse((t.effectiveDurationMs / 1000).toStringAsFixed(1));
       return PastHang(
+        sequenceTimerIndex: t.index,
+        currentGroup: t.currentGroup,
+        currentRep: t.currentRep,
+        totalGroups: t.totalGroups,
+        totalReps: t.totalReps,
         skipped: t.skipped,
+        totalSets: t.totalSets,
+        currentSet: t.currentSet,
         effectiveDurationS: _effectiveDurationS,
         effectiveDurationSInput: _effectiveDurationS.toString(),
         addedWeight: t.addedWeight,
         addedWeightInput: t.addedWeight.toString(),
-        totalSets: t.totalSets,
-        totalHangsPerSet: t.totalHangsPerSet,
-        currentHangPerSet: t.currentHangPerSet,
-        currentSet: t.currentSet,
-        currentHang: t.currentHang,
-        isSelected: t.currentHang == state.currentHang - 1,
+        isSelected:
+            t.index == _pastHangEvents[_pastHangEvents.length - 1].index,
         boardAspectRatio: t.board.aspectRatio,
         rightGrip: t.rightGrip,
         leftGrip: t.leftGrip,
@@ -80,8 +84,8 @@ class ExecutionViewModel {
 
   ExecutionState _buildStateAndPlayBeepSound() {
     // Can't use state.type here because it's possible state has not been initialized yet.
-    final bool _isStopwatch = _sequence[_currentSequenceIndex].type ==
-        SequenceTimerType.variableRestTimer;
+    final bool _isStopwatch =
+        _currentSequence.type == SequenceTimerType.variableRestTimer;
     final bool _isCountdown = !_isStopwatch;
     if (_state$ != null &&
         _isCountdown == true &&
@@ -93,30 +97,31 @@ class ExecutionViewModel {
     }
 
     return ExecutionState(
-      currentHang: _sequence[_currentSequenceIndex].currentHang,
-      type: _sequence[_currentSequenceIndex].type,
-      isStopwatch: _isStopwatch,
-      duration: _sequence[_currentSequenceIndex].duration,
+      totalReps: _currentSequence.totalReps,
+      totalGroups: _currentSequence.totalGroups,
+      currentRep: _currentSequence.currentRep,
+      currentGroup: _currentSequence.currentGroup,
+      type: _currentSequence.type,
+      isVariableRestTimer: _isStopwatch,
+      duration: _currentSequence.duration,
       displaySeconds: _displaySeconds,
       animatedBackgroundHeightFactor:
           _isStopwatch == false ? _animationController.value : 0,
-      endSound: _sequence[_currentSequenceIndex].endSound,
-      beepSound: _sequence[_currentSequenceIndex].beepSound,
-      beepsBeforeEnd: _sequence[_currentSequenceIndex].beepsBeforeEnd,
-      primaryColor: _sequence[_currentSequenceIndex].primaryColor,
-      title: _sequence[_currentSequenceIndex].title,
-      holdLabel: _sequence[_currentSequenceIndex].holdLabel,
-      board: _sequence[_currentSequenceIndex].board,
-      leftGrip: _sequence[_currentSequenceIndex].leftGrip,
-      rightGrip: _sequence[_currentSequenceIndex].rightGrip,
-      leftGripBoardHold: _sequence[_currentSequenceIndex].leftGripBoardHold,
-      rightGripBoardHold: _sequence[_currentSequenceIndex].rightGripBoardHold,
-      totalSets: _sequence[_currentSequenceIndex].totalSets,
-      currentSet: _sequence[_currentSequenceIndex].currentSet,
-      totalHangsPerSet: _sequence[_currentSequenceIndex].totalHangsPerSet,
-      currentHangPerSet: _sequence[_currentSequenceIndex].currentHangPerSet,
-      weightSystem: _sequence[_currentSequenceIndex].weightSystem,
-      addedWeight: _sequence[_currentSequenceIndex].addedWeight,
+      endSound: _currentSequence.endSound,
+      beepSound: _currentSequence.beepSound,
+      beepsBeforeEnd: _currentSequence.beepsBeforeEnd,
+      primaryColor: _currentSequence.primaryColor,
+      title: _currentSequence.title,
+      holdLabel: _currentSequence.holdLabel,
+      board: _currentSequence.board,
+      leftGrip: _currentSequence.leftGrip,
+      rightGrip: _currentSequence.rightGrip,
+      leftGripBoardHold: _currentSequence.leftGripBoardHold,
+      rightGripBoardHold: _currentSequence.rightGripBoardHold,
+      totalSets: _currentSequence.totalSets,
+      currentSet: _currentSequence.currentSet,
+      weightSystem: _currentSequence.weightSystem,
+      addedWeight: _currentSequence.addedWeight,
     );
   }
 
@@ -139,7 +144,7 @@ class ExecutionViewModel {
       _stop();
     } else {
       _currentSequenceIndex++;
-      if (_sequence[_currentSequenceIndex].skipped == true) {
+      if (_currentSequence.skipped == true) {
         _nextSequence();
       }
       _setState();
@@ -148,7 +153,7 @@ class ExecutionViewModel {
   }
 
   void _start() {
-    if (state.isStopwatch == true) {
+    if (state.isVariableRestTimer == true) {
       final int _kMaxStopwatchDuration = 10;
       _animationController.duration = Duration(minutes: _kMaxStopwatchDuration);
       _animationController.reset();
@@ -201,8 +206,8 @@ class ExecutionViewModel {
 
   void handleReadyTap() {
     _animationController.stop(canceled: false);
-    _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-        .copyWith(effectiveDurationMs: _effectiveDurationMs);
+    _sequence[_currentSequenceIndex] =
+        _currentSequence.copyWith(effectiveDurationMs: _effectiveDurationMs);
     _nextSequence();
   }
 
@@ -212,8 +217,8 @@ class ExecutionViewModel {
 
   void handleSkipTap() {
     if (state.type == SequenceTimerType.hangTimer) {
-      _sequence[_currentSequenceIndex] = _sequence[_currentSequenceIndex]
-          .copyWith(effectiveDurationMs: _effectiveDurationMs, skipped: true);
+      _sequence[_currentSequenceIndex] = _currentSequence.copyWith(
+          effectiveDurationMs: _effectiveDurationMs, skipped: true);
       _navigationService.pop();
       _nextSequence();
       return;
@@ -222,7 +227,7 @@ class ExecutionViewModel {
     final _nextHang = _sequence.firstWhere(
         (SequenceTimer t) =>
             t.skipped != true &&
-            t.currentHang > state.currentHang &&
+            t.index > _currentSequenceIndex &&
             t.type == SequenceTimerType.hangTimer,
         orElse: () => null);
 
@@ -231,30 +236,31 @@ class ExecutionViewModel {
       return;
     }
 
-    _sequence[_currentSequenceIndex] =
-        _sequence[_currentSequenceIndex].copyWith(
-      addedWeight: _nextHang.addedWeight,
-      leftGripBoardHold: _nextHang.leftGripBoardHold,
-      rightGripBoardHold: _nextHang.rightGripBoardHold,
-      leftGrip: _nextHang.leftGrip,
-      rightGrip: _nextHang.rightGrip,
-      holdLabel: _nextHang.holdLabel,
-      board: _nextHang.board,
-      currentSet: _nextHang.currentSet,
-      currentHangPerSet: _nextHang.currentHangPerSet,
-      currentHang: _nextHang.currentHang,
-    );
+    _sequence[_currentSequenceIndex] = _currentSequence.copyWith(
+        addedWeight: _nextHang.addedWeight,
+        leftGripBoardHold: _nextHang.leftGripBoardHold,
+        rightGripBoardHold: _nextHang.rightGripBoardHold,
+        leftGrip: _nextHang.leftGrip,
+        rightGrip: _nextHang.rightGrip,
+        holdLabel: _nextHang.holdLabel,
+        board: _nextHang.board,
+        totalGroups: _nextHang.totalGroups,
+        currentGroup: _nextHang.currentGroup,
+        totalSets: _nextHang.totalSets,
+        currentSet: _nextHang.currentSet,
+        totalReps: _nextHang.totalReps,
+        currentRep: _nextHang.currentRep);
 
     _sequence = _sequence.map((SequenceTimer t) {
       // If we're currently on the stopwatch rest timer,
       // we still need the preparation sequence before
       // the next hang.
-      if (state.isStopwatch == true &&
+      if (state.isVariableRestTimer == true &&
           t.index > _currentSequenceIndex &&
           t.index < _nextHang.index - 1) {
         return t.copyWith(effectiveDurationMs: 0, skipped: true);
       }
-      if (state.isStopwatch == false &&
+      if (state.isVariableRestTimer == false &&
           t.index > _currentSequenceIndex &&
           t.index < _nextHang.index) {
         return t.copyWith(effectiveDurationMs: 0, skipped: true);
@@ -278,10 +284,10 @@ class ExecutionViewModel {
 
   int _getDisplaySeconds() {
     if (_state$ == null) {
-      return _sequence[_currentSequenceIndex].duration;
+      return _currentSequence.duration;
     }
 
-    if (state.isStopwatch == true) {
+    if (state.isVariableRestTimer == true) {
       return (_animationController.duration.inSeconds *
               _animationController.value)
           .ceil();
@@ -301,7 +307,7 @@ class ExecutionViewModel {
   void handleLoggedHangs(List<LoggedHang> loggedHangs) {
     _sequence = _sequence.map((SequenceTimer t) {
       final _relevantLoggedHang = loggedHangs.firstWhere(
-          (LoggedHang loggedHang) => t.currentHang == loggedHang.currentHang,
+          (LoggedHang loggedHang) => t.index == loggedHang.sequenceTimerIndex,
           orElse: () => null);
 
       if (t.type == SequenceTimerType.hangTimer &&
