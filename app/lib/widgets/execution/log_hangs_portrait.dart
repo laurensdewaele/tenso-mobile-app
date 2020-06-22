@@ -8,19 +8,20 @@ import 'package:app/widgets/number_input_and_description.dart';
 import 'package:flutter/cupertino.dart';
 
 class LogHangsPortrait extends StatelessWidget {
-  const LogHangsPortrait({
-    @required this.repText,
-    @required this.selectedPastHang,
-    @required this.setText,
-    @required this.handleDone,
-    @required this.setHangTimeInput,
-    @required this.setAddedWeightInput,
-    @required this.handleScrollAttempt,
-    @required this.canScroll,
-    @required this.pastHangs,
-    @required this.setSelectedPastHang,
-  });
+  const LogHangsPortrait(
+      {@required this.repText,
+      @required this.selectedPastHang,
+      @required this.setText,
+      @required this.handleDone,
+      @required this.setHangTimeInput,
+      @required this.setAddedWeightInput,
+      @required this.handleScrollAttempt,
+      @required this.canScroll,
+      @required this.pastHangs,
+      @required this.setSelectedPastHang,
+      @required this.groupText});
 
+  final String groupText;
   final String repText;
   final PastHang selectedPastHang;
   final String setText;
@@ -51,15 +52,9 @@ class LogHangsPortrait extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        repText,
+                        groupText,
                         style: styles.Staatliches.xlBlack,
                       ),
-                      if (selectedPastHang.totalSets != null &&
-                          selectedPastHang.totalSets > 1)
-                        Text(
-                          setText,
-                          style: styles.Staatliches.xlBlack,
-                        ),
                     ],
                   ),
                   Divider(height: styles.Measurements.l),

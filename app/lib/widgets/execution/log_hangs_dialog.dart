@@ -66,6 +66,7 @@ class _LogHangsDialogState extends State<LogHangsDialog> {
                   MediaQuery.of(context).orientation;
               if (_orientation == Orientation.portrait) {
                 return LogHangsPortrait(
+                  groupText: _viewModel.groupText,
                   setSelectedPastHang: _viewModel.setSelectedPastHang,
                   selectedPastHang: _viewModel.selectedPastHang,
                   pastHangs: _viewModel.pastHangs,
