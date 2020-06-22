@@ -3,7 +3,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/execution/indicator_tabs.dart';
+import 'package:app/widgets/execution/execution_indicator.dart';
 import 'package:app/widgets/execution/landscape_info.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -24,6 +24,10 @@ class ExecutionLandscape extends StatelessWidget {
     @required this.weightSystem,
     @required this.addedWeight,
     @required this.title,
+    @required this.totalReps,
+    @required this.currentRep,
+    @required this.currentSet,
+    @required this.totalSets,
     @required this.currentGroup,
     @required this.totalGroups,
   });
@@ -41,6 +45,10 @@ class ExecutionLandscape extends StatelessWidget {
   final WeightSystem weightSystem;
   final double addedWeight;
   final String title;
+  final int totalReps;
+  final int currentRep;
+  final int currentSet;
+  final int totalSets;
   final int currentGroup;
   final int totalGroups;
 
@@ -93,19 +101,15 @@ class ExecutionLandscape extends StatelessWidget {
             Divider(
               height: styles.Measurements.m,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Divider(
-                  height: styles.Measurements.m,
-                ),
-                IndicatorTabs(
-                  count: totalGroups,
-                  active: currentGroup,
-                  primaryColor: primaryColor,
-                )
-              ],
+            ExecutionIndicator(
+              orientation: Orientation.landscape,
+              primaryColor: primaryColor,
+              currentGroup: currentGroup,
+              totalGroups: totalGroups,
+              currentRep: currentRep,
+              totalReps: totalReps,
+              currentSet: currentSet,
+              totalSets: totalSets,
             )
           ],
         ),

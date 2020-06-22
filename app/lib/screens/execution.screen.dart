@@ -140,6 +140,10 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                                 holdLabel: _state.holdLabel,
                                 primaryColor: _state.primaryColor,
                                 addedWeight: _state.addedWeight,
+                                totalSets: _state.totalSets,
+                                currentSet: _state.currentSet,
+                                totalReps: _state.totalReps,
+                                currentRep: _state.currentRep,
                               );
                             } else {
                               return ExecutionLandscape(
@@ -158,6 +162,10 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                                 addedWeight: _state.addedWeight,
                                 currentGroup: _state.currentGroup,
                                 totalGroups: _state.totalGroups,
+                                currentRep: _state.currentRep,
+                                totalReps: _state.totalReps,
+                                currentSet: _state.currentSet,
+                                totalSets: _state.totalSets,
                               );
                             }
                           },

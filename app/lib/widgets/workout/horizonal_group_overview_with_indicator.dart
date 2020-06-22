@@ -44,11 +44,12 @@ class _HorizontalGroupOverviewWithIndicatorState
           groups: widget.groups,
           reportVisibleBoardIndex: _setVisibleBoardIndex,
         ),
-        GroupNavigationIndicator(
-          primaryColor: styles.Colors.primary,
-          count: widget.groups.length,
-          activeIndex: _visibleBoardIndex,
-        )
+        if (widget.groups.length > 1)
+          GroupNavigationIndicator(
+            primaryColor: styles.Colors.primary,
+            count: widget.groups.length,
+            activeIndex: _visibleBoardIndex,
+          )
       ],
     );
   }

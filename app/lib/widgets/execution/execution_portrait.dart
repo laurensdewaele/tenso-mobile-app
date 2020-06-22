@@ -3,7 +3,7 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board/board_with_grips.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/execution/indicator_tabs.dart';
+import 'package:app/widgets/execution/execution_indicator.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +23,10 @@ class ExecutionPortrait extends StatelessWidget {
     @required this.weightSystem,
     @required this.addedWeight,
     @required this.title,
+    @required this.totalReps,
+    @required this.currentRep,
+    @required this.currentSet,
+    @required this.totalSets,
     @required this.currentGroup,
     @required this.totalGroups,
   });
@@ -40,6 +44,10 @@ class ExecutionPortrait extends StatelessWidget {
   final WeightSystem weightSystem;
   final double addedWeight;
   final String title;
+  final int totalReps;
+  final int currentRep;
+  final int currentSet;
+  final int totalSets;
   final int currentGroup;
   final int totalGroups;
 
@@ -149,9 +157,14 @@ class ExecutionPortrait extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              IndicatorTabs(
-                count: totalGroups,
-                active: currentGroup,
+              ExecutionIndicator(
+                orientation: Orientation.portrait,
+                currentRep: currentRep,
+                totalReps: totalReps,
+                currentSet: currentSet,
+                totalSets: totalSets,
+                currentGroup: currentGroup,
+                totalGroups: totalGroups,
                 primaryColor: primaryColor,
               ),
             ],

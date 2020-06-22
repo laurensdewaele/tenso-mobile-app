@@ -124,10 +124,7 @@ class SequenceTimer {
 
 List<SequenceTimer> sequenceBuilder(
     {@required Workout workout, @required Settings settings}) {
-  String _holdLabelText(
-      {int currentRep, int totalReps, int currentSet, int totalSets}) {
-    return 'next up: rep $currentRep/$totalReps ${totalSets != null && totalSets > 1 ? '$currentSet/$totalSets' : ''}';
-  }
+  final String _restHoldLabel = 'next up';
 
   SequenceTimer _createPreparationTimer(
       {@required Group group,
@@ -151,11 +148,7 @@ List<SequenceTimer> sequenceBuilder(
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.preparation,
-        holdLabel: _holdLabelText(
-            currentRep: currentRep,
-            totalReps: group.reps,
-            currentSet: currentSet,
-            totalSets: group.sets),
+        holdLabel: _restHoldLabel,
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
@@ -187,11 +180,7 @@ List<SequenceTimer> sequenceBuilder(
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.primary,
         title: _ExecutionTitles.hang,
-        holdLabel: _holdLabelText(
-            currentRep: currentRep,
-            totalReps: group.reps,
-            totalSets: group.sets,
-            currentSet: currentSet),
+        holdLabel: '',
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
@@ -224,11 +213,7 @@ List<SequenceTimer> sequenceBuilder(
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.recoveryRest,
-        holdLabel: _holdLabelText(
-            currentRep: currentRep,
-            totalReps: group.reps,
-            totalSets: group.sets,
-            currentSet: currentSet),
+        holdLabel: _restHoldLabel,
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
@@ -260,11 +245,7 @@ List<SequenceTimer> sequenceBuilder(
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.recoveryRest,
-        holdLabel: _holdLabelText(
-            currentRep: currentRep,
-            totalReps: group.reps,
-            totalSets: group.sets,
-            currentSet: currentSet),
+        holdLabel: _restHoldLabel,
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
@@ -326,7 +307,7 @@ List<SequenceTimer> sequenceBuilder(
               fixed: group.restBetweenRepsFixed,
               duration: group.restBetweenRepsS,
               currentSet: currentSet,
-              currentRep: i + 1,
+              currentRep: i + 2,
               group: group,
               currentGroup: currentGroup));
         }
@@ -346,7 +327,7 @@ List<SequenceTimer> sequenceBuilder(
           _groupSequence.add(_createRestTimer(
               group: group,
               currentGroup: currentGroup,
-              currentSet: i + 1,
+              currentSet: i + 2,
               currentRep: 1,
               fixed: group.restBetweenSetsFixed,
               duration: group.restBetweenSetsS));
@@ -378,8 +359,8 @@ List<SequenceTimer> sequenceBuilder(
               currentRep: 1,
               currentSet: group.sets != null && group.sets > 1 ? 1 : null,
               fixed: workout.restBetweenGroupsFixed,
-              currentGroup: index + 1,
-              group: group,
+              currentGroup: index + 2,
+              group: workout.groups[index + 1],
               duration: workout.restBetweenGroupsS));
         }
       });
