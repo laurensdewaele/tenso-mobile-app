@@ -44,12 +44,13 @@ class ExecutionViewModel {
   }
 
   List<PastHang> _getPastHangs() {
-    final List<SequenceTimer> _pastHangEvents = _sequence
+    final List<SequenceTimer> _pastHangSequences = _sequence
         .where((SequenceTimer t) =>
             t.type == SequenceTimerType.hangTimer &&
             t.index < _currentSequenceIndex)
         .toList();
-    return _pastHangEvents.map((SequenceTimer t) {
+
+    return _pastHangSequences.map((SequenceTimer t) {
       final double _effectiveDurationS =
           double.parse((t.effectiveDurationMs / 1000).toStringAsFixed(1));
       return PastHang(
@@ -66,7 +67,7 @@ class ExecutionViewModel {
         addedWeight: t.addedWeight,
         addedWeightInput: t.addedWeight.toString(),
         isSelected:
-            t.index == _pastHangEvents[_pastHangEvents.length - 1].index,
+            t.index == _pastHangSequences[_pastHangSequences.length - 1].index,
         boardAspectRatio: t.board.aspectRatio,
         rightGrip: t.rightGrip,
         leftGrip: t.leftGrip,
