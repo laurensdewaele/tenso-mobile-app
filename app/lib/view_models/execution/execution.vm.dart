@@ -3,6 +3,7 @@ import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
+import 'package:app/state/settings.state.dart';
 import 'package:app/view_models/execution/execution_sequence_builder.dart';
 import 'package:app/view_models/execution/execution_state.vm.dart';
 import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
@@ -34,7 +35,8 @@ class ExecutionViewModel {
     _audioPlayerService = AudioPlayerService();
     _workout = workout;
     _animationController = animationController;
-    _sequence = sequenceBuilder(workout: workout);
+    _sequence =
+        sequenceBuilder(workout: workout, settings: SettingsState().settings);
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
     _state$ = BehaviorSubject.seeded(_buildStateAndPlayBeepSound());

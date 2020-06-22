@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:app/models/models.dart';
-import 'package:app/state/settings.state.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/foundation.dart';
 
@@ -123,8 +122,8 @@ class SequenceTimer {
   }
 }
 
-List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
-  Settings _settings = SettingsState().settings;
+List<SequenceTimer> sequenceBuilder(
+    {@required Workout workout, @required Settings settings}) {
   List<SequenceTimer> _sequence = [];
 
   String _holdLabelText(
@@ -146,11 +145,11 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
         leftGrip: group.leftGrip,
         rightGrip: group.rightGrip,
         type: SequenceTimerType.preparationTimer,
-        duration: _settings.preparationTimer,
-        effectiveDurationMs: (_settings.preparationTimer * 1000).toDouble(),
-        endSound: _settings.hangSound,
-        beepSound: _settings.beepSound,
-        beepsBeforeEnd: _settings.beepsBeforeHang,
+        duration: settings.preparationTimer,
+        effectiveDurationMs: (settings.preparationTimer * 1000).toDouble(),
+        endSound: settings.hangSound,
+        beepSound: settings.beepSound,
+        beepsBeforeEnd: settings.beepsBeforeHang,
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.preparation,
@@ -184,9 +183,9 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
         type: SequenceTimerType.hangTimer,
         duration: group.hangTimeS,
         effectiveDurationMs: (group.hangTimeS * 1000).toDouble(),
-        endSound: _settings.restSound,
-        beepSound: _settings.beepSound,
-        beepsBeforeEnd: _settings.beepsBeforeRest,
+        endSound: settings.restSound,
+        beepSound: settings.beepSound,
+        beepsBeforeEnd: settings.beepsBeforeRest,
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.primary,
         title: _ExecutionTitles.hang,
@@ -221,9 +220,9 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
         type: SequenceTimerType.fixedRestTimer,
         duration: duration,
         effectiveDurationMs: (duration * 1000).toDouble(),
-        endSound: _settings.hangSound,
-        beepSound: _settings.beepSound,
-        beepsBeforeEnd: _settings.beepsBeforeHang,
+        endSound: settings.hangSound,
+        beepSound: settings.beepSound,
+        beepsBeforeEnd: settings.beepsBeforeHang,
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.recoveryRest,
@@ -257,9 +256,9 @@ List<SequenceTimer> sequenceBuilder({@required Workout workout}) {
         type: SequenceTimerType.variableRestTimer,
         duration: 0,
         effectiveDurationMs: 0,
-        endSound: _settings.hangSound,
-        beepSound: _settings.beepSound,
-        beepsBeforeEnd: _settings.beepsBeforeHang,
+        endSound: settings.hangSound,
+        beepSound: settings.beepSound,
+        beepsBeforeEnd: settings.beepsBeforeHang,
         weightSystem: workout.weightSystem,
         primaryColor: styles.Colors.blue,
         title: _ExecutionTitles.recoveryRest,

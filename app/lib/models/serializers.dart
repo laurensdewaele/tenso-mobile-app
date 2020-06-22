@@ -18,7 +18,6 @@ part 'serializers.g.dart';
   HandHold,
   HandType,
   History,
-  Hold,
   HoldType,
   Label,
   Settings,

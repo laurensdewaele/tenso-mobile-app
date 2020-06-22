@@ -13,7 +13,6 @@ export 'package:app/models/group.model.dart';
 export 'package:app/models/hand_hold.model.dart';
 export 'package:app/models/hand_type.model.dart';
 export 'package:app/models/history.model.dart';
-export 'package:app/models/hold.model.dart';
 export 'package:app/models/hold_type.model.dart';
 export 'package:app/models/label.model.dart';
 export 'package:app/models/sequence_timer_log.model.dart';
