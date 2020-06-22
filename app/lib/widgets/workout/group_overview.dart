@@ -92,7 +92,7 @@ class GroupOverview extends StatelessWidget {
                       height: _boardWithGripsHeight,
                       child: _RepSetHeader(
                         sets: _group.sets,
-                        repetitions: _group.repetitions,
+                        reps: _group.reps,
                       ),
                     ),
                     topRightSectionWidth: _setRepHeaderWidth,
@@ -111,24 +111,24 @@ class GroupOverview extends StatelessWidget {
 
 class _RepSetHeader extends StatelessWidget {
   const _RepSetHeader({
-    @required this.repetitions,
+    @required this.reps,
     @required this.sets,
   });
 
-  final int repetitions;
+  final int reps;
   final int sets;
 
   @override
   Widget build(BuildContext context) {
     Widget _text = Text(
-      'X$repetitions',
+      'X$reps',
       style: styles.Staatliches.groupRepSetHeaderLarge,
       textAlign: TextAlign.center,
     );
 
     if (sets != null && sets > 1) {
       _text = Text(
-        'X$repetitions X$sets',
+        'X$reps X$sets',
         style: styles.Staatliches.groupRepSetHeaderSmall,
         textAlign: TextAlign.center,
       );
@@ -241,8 +241,7 @@ class _GroupInfo extends StatelessWidget {
                   style: styles.Staatliches.xsBlack,
                   children: [
                     TextSpan(
-                        text: group.repetitions.toString(),
-                        style: styles.Lato.xsGray),
+                        text: group.reps.toString(), style: styles.Lato.xsGray),
                   ]),
             ),
             RichText(

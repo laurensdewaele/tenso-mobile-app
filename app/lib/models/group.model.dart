@@ -24,7 +24,7 @@ abstract class Group implements Built<Group, GroupBuilder> {
 
   bool get repeaters;
 
-  int get repetitions;
+  int get reps;
   int get hangTimeS;
 
   bool get restBetweenRepsFixed;

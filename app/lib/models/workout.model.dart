@@ -30,7 +30,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   int _calculateTimeUnderTension() {
     int _total = 0;
     groups.forEach((Group group) {
-      int _groupTotal = group.hangTimeS * group.repetitions;
+      int _groupTotal = group.hangTimeS * group.reps;
       if (group.sets != null && group.sets > 0) {
         _groupTotal += _groupTotal * group.sets;
       }
@@ -59,7 +59,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
 
     groups.forEach((Group group) {
       int _groupTotal = 0;
-      _groupTotal += (group.repetitions - 1) * group.restBetweenRepsS;
+      _groupTotal += (group.reps - 1) * group.restBetweenRepsS;
       if (group.restBetweenSetsS != null &&
           group.restBetweenSetsS > 0 &&
           group.sets != null &&

@@ -14,7 +14,7 @@ final Group basicGroup = Group((b) => b
   ..leftGripBoardHold = _defaultBoard.defaultLeftGripHold.toBuilder()
   ..rightGripBoardHold = _defaultBoard.defaultRightGripHold.toBuilder()
   ..repeaters = false
-  ..repetitions = 1
+  ..reps = 1
   ..hangTimeS = 7
   ..restBetweenRepsFixed = false
   ..restBetweenRepsS = null

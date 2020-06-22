@@ -25,8 +25,8 @@ class GroupState {
 
   final bool repeaters;
 
-  final int repetitions;
-  final String repetitionsInput;
+  final int reps;
+  final String repsInput;
 
   final int hangTimeS;
   final String hangTimeSInput;
@@ -62,8 +62,8 @@ class GroupState {
         leftGripBoardHold = group.leftGripBoardHold,
         rightGripBoardHold = group.rightGripBoardHold,
         repeaters = group.repeaters,
-        repetitions = group.repetitions,
-        repetitionsInput = group.repetitions.toString(),
+        reps = group.reps,
+        repsInput = group.reps.toString(),
         hangTimeS = group.hangTimeS,
         hangTimeSInput = group.hangTimeS.toString(),
         restBetweenRepsFixed = group.restBetweenRepsFixed,
@@ -94,8 +94,8 @@ class GroupState {
         leftGripBoardHold = group.leftGripBoardHold,
         rightGripBoardHold = group.rightGripBoardHold,
         repeaters = group.repeaters,
-        repetitions = group.repetitions,
-        repetitionsInput = group.repetitions.toString(),
+        reps = group.reps,
+        repsInput = group.reps.toString(),
         hangTimeS = group.hangTimeS,
         hangTimeSInput = group.hangTimeS.toString(),
         restBetweenRepsFixed = group.restBetweenRepsFixed,
@@ -125,8 +125,8 @@ class GroupState {
     @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
     @required this.repeaters,
-    @required this.repetitions,
-    @required this.repetitionsInput,
+    @required this.reps,
+    @required this.repsInput,
     @required this.hangTimeS,
     @required this.hangTimeSInput,
     @required this.restBetweenRepsFixed,
@@ -157,8 +157,8 @@ class GroupState {
     Nullable<BoardHold> leftGripBoardHold,
     Nullable<BoardHold> rightGripBoardHold,
     bool repeaters,
-    int repetitions,
-    String repetitionsInput,
+    int reps,
+    String repsInput,
     int hangTimeS,
     String hangTimeSInput,
     bool restBetweenRepsFixed,
@@ -192,8 +192,8 @@ class GroupState {
           ? this.rightGripBoardHold
           : rightGripBoardHold.value,
       repeaters: repeaters ?? this.repeaters,
-      repetitions: repetitions ?? this.repetitions,
-      repetitionsInput: repetitionsInput ?? this.repetitionsInput,
+      reps: reps ?? this.reps,
+      repsInput: repsInput ?? this.repsInput,
       hangTimeS: hangTimeS ?? this.hangTimeS,
       hangTimeSInput: hangTimeSInput ?? this.hangTimeSInput,
       restBetweenRepsFixed: restBetweenRepsFixed ?? this.restBetweenRepsFixed,

@@ -48,7 +48,7 @@ class GroupViewModel extends ChangeNotifier {
           ..leftGripBoardHold = state.leftGripBoardHold?.toBuilder()
           ..rightGripBoardHold = state.rightGripBoardHold?.toBuilder()
           ..repeaters = state.repeaters
-          ..repetitions = state.repetitions
+          ..reps = state.reps
           ..hangTimeS = state.hangTimeS
           ..restBetweenRepsFixed = state.restBetweenRepsFixed
           ..restBetweenRepsS = state.restBetweenRepsS
@@ -69,10 +69,10 @@ class GroupViewModel extends ChangeNotifier {
     _validations.add(Validators.biggerThanZero<int>(
         value: _hangTimeS, inputField: 'Hang time'));
 
-    final int _repetitions = InputParsers.parseToInt(
-        string: state.repetitionsInput, inputField: 'Repetitions');
+    final int _reps = InputParsers.parseToInt(
+        string: state.repsInput, inputField: 'Repetitions');
     _validations.add(Validators.biggerThanZero<int>(
-        value: _repetitions, inputField: 'Repetitions'));
+        value: _reps, inputField: 'Repetitions'));
 
     if (state.restBetweenRepsFixed == true) {
       final int _restBetweenRepsS = InputParsers.parseToInt(
@@ -103,9 +103,7 @@ class GroupViewModel extends ChangeNotifier {
     _validations.add(_addedWeight != null);
 
     _state = state.copyWith(
-        hangTimeS: _hangTimeS,
-        repetitions: _repetitions,
-        addedWeight: _addedWeight);
+        hangTimeS: _hangTimeS, reps: _reps, addedWeight: _addedWeight);
 
     return _validations.fold(true, (a, b) => a && b);
   }
@@ -266,8 +264,8 @@ class GroupViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setRepetitions(String repetitionsInput) {
-    _state = state.copyWith(repetitionsInput: repetitionsInput);
+  void setReps(String repsInput) {
+    _state = state.copyWith(repsInput: repsInput);
   }
 
   void setHangTimeS(String hangTimeSInput) {

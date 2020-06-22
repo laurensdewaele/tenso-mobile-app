@@ -26,9 +26,8 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
       'repeaters',
       serializers.serialize(object.repeaters,
           specifiedType: const FullType(bool)),
-      'repetitions',
-      serializers.serialize(object.repetitions,
-          specifiedType: const FullType(int)),
+      'reps',
+      serializers.serialize(object.reps, specifiedType: const FullType(int)),
       'hangTimeS',
       serializers.serialize(object.hangTimeS,
           specifiedType: const FullType(int)),
@@ -129,8 +128,8 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
           result.repeaters = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
-        case 'repetitions':
-          result.repetitions = serializers.deserialize(value,
+        case 'reps':
+          result.reps = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
         case 'hangTimeS':
@@ -184,7 +183,7 @@ class _$Group extends Group {
   @override
   final bool repeaters;
   @override
-  final int repetitions;
+  final int reps;
   @override
   final int hangTimeS;
   @override
@@ -211,7 +210,7 @@ class _$Group extends Group {
       this.leftGripBoardHold,
       this.rightGripBoardHold,
       this.repeaters,
-      this.repetitions,
+      this.reps,
       this.hangTimeS,
       this.restBetweenRepsFixed,
       this.restBetweenRepsS,
@@ -229,8 +228,8 @@ class _$Group extends Group {
     if (repeaters == null) {
       throw new BuiltValueNullFieldError('Group', 'repeaters');
     }
-    if (repetitions == null) {
-      throw new BuiltValueNullFieldError('Group', 'repetitions');
+    if (reps == null) {
+      throw new BuiltValueNullFieldError('Group', 'reps');
     }
     if (hangTimeS == null) {
       throw new BuiltValueNullFieldError('Group', 'hangTimeS');
@@ -261,7 +260,7 @@ class _$Group extends Group {
         leftGripBoardHold == other.leftGripBoardHold &&
         rightGripBoardHold == other.rightGripBoardHold &&
         repeaters == other.repeaters &&
-        repetitions == other.repetitions &&
+        reps == other.reps &&
         hangTimeS == other.hangTimeS &&
         restBetweenRepsFixed == other.restBetweenRepsFixed &&
         restBetweenRepsS == other.restBetweenRepsS &&
@@ -295,7 +294,7 @@ class _$Group extends Group {
                                                 leftGripBoardHold.hashCode),
                                             rightGripBoardHold.hashCode),
                                         repeaters.hashCode),
-                                    repetitions.hashCode),
+                                    reps.hashCode),
                                 hangTimeS.hashCode),
                             restBetweenRepsFixed.hashCode),
                         restBetweenRepsS.hashCode),
@@ -315,7 +314,7 @@ class _$Group extends Group {
           ..add('leftGripBoardHold', leftGripBoardHold)
           ..add('rightGripBoardHold', rightGripBoardHold)
           ..add('repeaters', repeaters)
-          ..add('repetitions', repetitions)
+          ..add('reps', reps)
           ..add('hangTimeS', hangTimeS)
           ..add('restBetweenRepsFixed', restBetweenRepsFixed)
           ..add('restBetweenRepsS', restBetweenRepsS)
@@ -362,9 +361,9 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
   bool get repeaters => _$this._repeaters;
   set repeaters(bool repeaters) => _$this._repeaters = repeaters;
 
-  int _repetitions;
-  int get repetitions => _$this._repetitions;
-  set repetitions(int repetitions) => _$this._repetitions = repetitions;
+  int _reps;
+  int get reps => _$this._reps;
+  set reps(int reps) => _$this._reps = reps;
 
   int _hangTimeS;
   int get hangTimeS => _$this._hangTimeS;
@@ -409,7 +408,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
       _leftGripBoardHold = _$v.leftGripBoardHold?.toBuilder();
       _rightGripBoardHold = _$v.rightGripBoardHold?.toBuilder();
       _repeaters = _$v.repeaters;
-      _repetitions = _$v.repetitions;
+      _reps = _$v.reps;
       _hangTimeS = _$v.hangTimeS;
       _restBetweenRepsFixed = _$v.restBetweenRepsFixed;
       _restBetweenRepsS = _$v.restBetweenRepsS;
@@ -448,7 +447,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
               leftGripBoardHold: _leftGripBoardHold?.build(),
               rightGripBoardHold: _rightGripBoardHold?.build(),
               repeaters: repeaters,
-              repetitions: repetitions,
+              reps: reps,
               hangTimeS: hangTimeS,
               restBetweenRepsFixed: restBetweenRepsFixed,
               restBetweenRepsS: restBetweenRepsS,

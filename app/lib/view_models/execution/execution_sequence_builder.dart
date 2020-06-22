@@ -153,13 +153,13 @@ List<SequenceTimer> sequenceBuilder(
         title: _ExecutionTitles.preparation,
         holdLabel: _holdLabelText(
             currentRep: currentRep,
-            totalReps: group.repetitions,
+            totalReps: group.reps,
             currentSet: currentSet,
             totalSets: group.sets),
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
-        totalReps: group.repetitions,
+        totalReps: group.reps,
         currentRep: currentRep,
         currentGroup: currentGroup,
         totalGroups: workout.groups.length);
@@ -189,13 +189,13 @@ List<SequenceTimer> sequenceBuilder(
         title: _ExecutionTitles.hang,
         holdLabel: _holdLabelText(
             currentRep: currentRep,
-            totalReps: group.repetitions,
+            totalReps: group.reps,
             totalSets: group.sets,
             currentSet: currentSet),
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
-        totalReps: group.repetitions,
+        totalReps: group.reps,
         currentRep: currentRep,
         currentGroup: currentGroup,
         totalGroups: workout.groups.length);
@@ -226,13 +226,13 @@ List<SequenceTimer> sequenceBuilder(
         title: _ExecutionTitles.recoveryRest,
         holdLabel: _holdLabelText(
             currentRep: currentRep,
-            totalReps: group.repetitions,
+            totalReps: group.reps,
             totalSets: group.sets,
             currentSet: currentSet),
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
-        totalReps: group.repetitions,
+        totalReps: group.reps,
         currentRep: currentRep,
         currentGroup: currentGroup,
         totalGroups: workout.groups.length);
@@ -262,13 +262,13 @@ List<SequenceTimer> sequenceBuilder(
         title: _ExecutionTitles.recoveryRest,
         holdLabel: _holdLabelText(
             currentRep: currentRep,
-            totalReps: group.repetitions,
+            totalReps: group.reps,
             totalSets: group.sets,
             currentSet: currentSet),
         board: group.board,
         totalSets: group.sets,
         currentSet: currentSet,
-        totalReps: group.repetitions,
+        totalReps: group.reps,
         currentRep: currentRep,
         currentGroup: currentGroup,
         totalGroups: workout.groups.length);
@@ -313,7 +313,7 @@ List<SequenceTimer> sequenceBuilder(
     }) {
       List<List<SequenceTimer>> _setSequence = [];
 
-      List.generate(group.repetitions, (i) => i).forEach((i) {
+      List.generate(group.reps, (i) => i).forEach((i) {
         _setSequence.add([
           _createHangTimer(
               group: group,
@@ -321,7 +321,7 @@ List<SequenceTimer> sequenceBuilder(
               currentSet: currentSet,
               currentGroup: currentGroup)
         ]);
-        if (i != group.repetitions - 1) {
+        if (i != group.reps - 1) {
           _setSequence.add(_createRestTimer(
               fixed: group.restBetweenRepsFixed,
               duration: group.restBetweenRepsS,

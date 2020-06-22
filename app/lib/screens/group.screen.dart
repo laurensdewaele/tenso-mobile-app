@@ -231,10 +231,8 @@ class _GroupScreenState extends State<GroupScreen> {
                                       primaryColor:
                                           _viewModel.state.primaryColor,
                                       description: 'repetitions',
-                                      handleValueChanged:
-                                          _viewModel.setRepetitions,
-                                      initialValue:
-                                          _viewModel.state.repetitions,
+                                      handleValueChanged: _viewModel.setReps,
+                                      initialValue: _viewModel.state.reps,
                                     ),
                                     Divider(
                                       height: styles.Measurements.m,
