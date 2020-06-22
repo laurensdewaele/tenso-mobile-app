@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/execution/indicator_tabs.dart';
@@ -25,26 +27,31 @@ class ExecutionIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int _maxTotal = [totalReps, totalSets ?? 0, totalGroups].reduce(max);
+
     final List<Widget> _rows = [
       _Row(
-        title: 'rep',
-        current: currentRep,
-        total: totalReps,
-        primaryColor: primaryColor,
-      ),
+          orientation: orientation,
+          title: 'rep',
+          current: currentRep,
+          total: totalReps,
+          primaryColor: primaryColor,
+          maxTotal: _maxTotal),
       if (totalSets != null && totalSets > 1)
         _Row(
-          title: 'set',
-          current: currentSet,
-          total: totalSets,
-          primaryColor: primaryColor,
-        ),
+            orientation: orientation,
+            title: 'set',
+            current: currentSet,
+            total: totalSets,
+            primaryColor: primaryColor,
+            maxTotal: _maxTotal),
       _Row(
-        title: 'group',
-        current: currentGroup,
-        total: totalGroups,
-        primaryColor: primaryColor,
-      ),
+          orientation: orientation,
+          title: 'group',
+          current: currentGroup,
+          total: totalGroups,
+          primaryColor: primaryColor,
+          maxTotal: _maxTotal),
     ];
 
     if (orientation == Orientation.portrait) {
@@ -64,6 +71,8 @@ class _Row extends StatelessWidget {
   final int current;
   final int total;
   final Color primaryColor;
+  final int maxTotal;
+  final Orientation orientation;
 
   @override
   Widget build(BuildContext context) {
@@ -81,19 +90,40 @@ class _Row extends StatelessWidget {
         Divider(
           width: styles.Measurements.xs,
         ),
-        IndicatorTabs(
-          active: current,
-          count: total,
-          primaryColor: primaryColor,
-        )
+        if (orientation == Orientation.portrait)
+          Container(
+            width: maxTotal.toDouble() * 25,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                IndicatorTabs(
+                  active: current,
+                  count: total,
+                  primaryColor: primaryColor,
+                ),
+              ],
+            ),
+          ),
+        if (orientation == Orientation.landscape)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              IndicatorTabs(
+                active: current,
+                count: total,
+                primaryColor: primaryColor,
+              ),
+            ],
+          )
       ],
     );
   }
 
-  const _Row({
-    @required this.title,
-    @required this.current,
-    @required this.total,
-    @required this.primaryColor,
-  });
+  const _Row(
+      {@required this.title,
+      @required this.current,
+      @required this.total,
+      @required this.primaryColor,
+      @required this.orientation,
+      @required this.maxTotal});
 }

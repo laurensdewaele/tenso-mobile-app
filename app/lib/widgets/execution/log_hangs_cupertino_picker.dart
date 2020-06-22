@@ -98,7 +98,7 @@ class _HangRow extends StatelessWidget {
           Divider(
             width: styles.Measurements.m,
           ),
-          if (totalSets > 1)
+          if (totalSets != null && totalSets > 1)
             Row(
               children: <Widget>[
                 Text('set', style: styles.Staatliches.sBlack),

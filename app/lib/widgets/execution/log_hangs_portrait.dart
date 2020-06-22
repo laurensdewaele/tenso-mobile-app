@@ -54,7 +54,8 @@ class LogHangsPortrait extends StatelessWidget {
                         repText,
                         style: styles.Staatliches.xlBlack,
                       ),
-                      if (selectedPastHang.totalSets > 1)
+                      if (selectedPastHang.totalSets != null &&
+                          selectedPastHang.totalSets > 1)
                         Text(
                           setText,
                           style: styles.Staatliches.xlBlack,
