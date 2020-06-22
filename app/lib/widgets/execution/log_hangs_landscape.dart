@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 
 class LogHangsLandscape extends StatelessWidget {
   const LogHangsLandscape({
-    @required this.hangText,
+    @required this.repText,
     @required this.selectedPastHang,
     @required this.setText,
     @required this.handleDone,
@@ -21,7 +21,7 @@ class LogHangsLandscape extends StatelessWidget {
     @required this.setSelectedPastHang,
   });
 
-  final String hangText;
+  final String repText;
   final PastHang selectedPastHang;
   final String setText;
   final VoidCallback handleDone;

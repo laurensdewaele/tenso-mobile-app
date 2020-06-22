@@ -126,8 +126,8 @@ class LogHangsDialogViewModel extends ChangeNotifier {
   bool _canScroll;
   bool get canScroll => _canScroll;
 
-  String get hangText =>
-      'Hang ${selectedPastHang.currentRep}/${selectedPastHang.totalReps}';
+  String get repText =>
+      'Rep ${selectedPastHang.currentRep}/${selectedPastHang.totalReps}';
   String get setText =>
       'set ${selectedPastHang.currentSet}/${selectedPastHang.totalSets}';
   String get groupText =>

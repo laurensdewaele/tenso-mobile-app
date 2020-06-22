@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 
 class LogHangsPortrait extends StatelessWidget {
   const LogHangsPortrait({
-    @required this.hangText,
+    @required this.repText,
     @required this.selectedPastHang,
     @required this.setText,
     @required this.handleDone,
@@ -21,7 +21,7 @@ class LogHangsPortrait extends StatelessWidget {
     @required this.setSelectedPastHang,
   });
 
-  final String hangText;
+  final String repText;
   final PastHang selectedPastHang;
   final String setText;
   final VoidCallback handleDone;
@@ -51,7 +51,7 @@ class LogHangsPortrait extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        hangText,
+                        repText,
                         style: styles.Staatliches.xlBlack,
                       ),
                       if (selectedPastHang.totalSets > 1)
