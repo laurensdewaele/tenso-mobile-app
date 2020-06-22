@@ -38,11 +38,11 @@ class _HorizontalGroupOverview extends StatefulWidget {
   final void Function(int visisbleBoard) reportVisibleBoardIndex;
 
   @override
-  __HorizontalGroupOverviewState createState() =>
-      __HorizontalGroupOverviewState();
+  _HorizontalGroupOverviewState createState() =>
+      _HorizontalGroupOverviewState();
 }
 
-class __HorizontalGroupOverviewState extends State<_HorizontalGroupOverview> {
+class _HorizontalGroupOverviewState extends State<_HorizontalGroupOverview> {
   ScrollController _controller;
 
   @override
