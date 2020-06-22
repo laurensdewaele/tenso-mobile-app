@@ -26,10 +26,6 @@ class ExecutionLandscape extends StatelessWidget {
     @required this.title,
     @required this.currentGroup,
     @required this.totalGroups,
-    @required this.currentRep,
-    @required this.totalReps,
-    @required this.currentSet,
-    @required this.totalSets,
   });
 
   final int displaySeconds;
@@ -47,10 +43,6 @@ class ExecutionLandscape extends StatelessWidget {
   final String title;
   final int currentGroup;
   final int totalGroups;
-  final int currentRep;
-  final int totalReps;
-  final int currentSet;
-  final int totalSets;
 
   @override
   Widget build(BuildContext context) {

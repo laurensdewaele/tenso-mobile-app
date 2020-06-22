@@ -376,7 +376,7 @@ List<SequenceTimer> sequenceBuilder(
         if (index != workout.groups.length - 1) {
           _workoutSequence.add(_createRestTimer(
               currentRep: 1,
-              currentSet: group.sets != null && group.sets > 1 ? 1 : 0,
+              currentSet: group.sets != null && group.sets > 1 ? 1 : null,
               fixed: workout.restBetweenGroupsFixed,
               currentGroup: index + 1,
               group: group,

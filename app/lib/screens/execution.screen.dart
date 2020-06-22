@@ -137,10 +137,6 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                                 board: _state.board,
                                 currentGroup: _state.currentGroup,
                                 totalGroups: _state.totalGroups,
-                                currentRep: _state.currentRep,
-                                totalReps: _state.totalReps,
-                                currentSet: _state.currentSet,
-                                totalSets: _state.totalSets,
                                 holdLabel: _state.holdLabel,
                                 primaryColor: _state.primaryColor,
                                 addedWeight: _state.addedWeight,
@@ -162,10 +158,6 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                                 addedWeight: _state.addedWeight,
                                 currentGroup: _state.currentGroup,
                                 totalGroups: _state.totalGroups,
-                                currentRep: _state.currentRep,
-                                totalReps: _state.totalReps,
-                                currentSet: _state.currentSet,
-                                totalSets: _state.totalSets,
                               );
                             }
                           },
