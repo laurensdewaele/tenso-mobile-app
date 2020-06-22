@@ -21,7 +21,7 @@ class FixedVariableTimerInfo extends StatelessWidget {
                 TextSpan(text: 'Variable ', style: styles.Lato.xsBlackBold),
                 TextSpan(
                     text:
-                        'will display a stopwatch, so you can decide on the fly how much rest you need.',
+                        'will display a stopwatch timer, so you can decide on the fly how much rest you need.',
                     style: styles.Lato.xsBlack),
               ]),
             ),

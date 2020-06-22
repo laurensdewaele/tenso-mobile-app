@@ -83,9 +83,9 @@ class ExecutionViewModel {
 
   ExecutionState _buildStateAndPlayBeepSound() {
     // Can't use state.type here because it's possible state has not been initialized yet.
-    final bool _isStopwatch =
+    final bool _isVariableRestTimer =
         _currentSequence.type == SequenceTimerType.variableRestTimer;
-    final bool _isCountdown = !_isStopwatch;
+    final bool _isCountdown = !_isVariableRestTimer;
     if (_state$ != null &&
         _isCountdown == true &&
         state.beepSound.muted == false &&
@@ -101,11 +101,11 @@ class ExecutionViewModel {
       currentRep: _currentSequence.currentRep,
       currentGroup: _currentSequence.currentGroup,
       type: _currentSequence.type,
-      isVariableRestTimer: _isStopwatch,
+      isVariableRestTimer: _isVariableRestTimer,
       duration: _currentSequence.duration,
       displaySeconds: _displaySeconds,
       animatedBackgroundHeightFactor:
-          _isStopwatch == false ? _animationController.value : 0,
+          _isVariableRestTimer == false ? _animationController.value : 0,
       endSound: _currentSequence.endSound,
       beepSound: _currentSequence.beepSound,
       beepsBeforeEnd: _currentSequence.beepsBeforeEnd,
@@ -153,8 +153,9 @@ class ExecutionViewModel {
 
   void _start() {
     if (state.isVariableRestTimer == true) {
-      final int _kMaxStopwatchDuration = 10;
-      _animationController.duration = Duration(minutes: _kMaxStopwatchDuration);
+      final int _kMaxVariableTimerDuration = 10;
+      _animationController.duration =
+          Duration(minutes: _kMaxVariableTimerDuration);
       _animationController.reset();
       _animationController.forward();
     } else {
@@ -251,7 +252,7 @@ class ExecutionViewModel {
         currentRep: _nextHang.currentRep);
 
     _sequence = _sequence.map((SequenceTimer t) {
-      // If we're currently on the stopwatch rest timer,
+      // If we're currently on the variable rest timer,
       // we still need the preparation sequence before
       // the next hang.
       if (state.isVariableRestTimer == true &&
