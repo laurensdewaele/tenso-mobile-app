@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/foundation.dart';
@@ -72,10 +73,10 @@ class SequenceTimer {
     double effectiveDurationMs,
     bool skipped,
     bool stopped,
-    BoardHold leftGripBoardHold,
-    BoardHold rightGripBoardHold,
-    Grip leftGrip,
-    Grip rightGrip,
+    Nullable<BoardHold> leftGripBoardHold,
+    Nullable<BoardHold> rightGripBoardHold,
+    Nullable<Grip> leftGrip,
+    Nullable<Grip> rightGrip,
     double addedWeight,
     Sound endSound,
     Sound beepSound,
@@ -99,10 +100,14 @@ class SequenceTimer {
       effectiveDurationMs: effectiveDurationMs ?? this.effectiveDurationMs,
       skipped: skipped ?? this.skipped,
       stopped: stopped ?? this.stopped,
-      leftGripBoardHold: leftGripBoardHold ?? this.leftGripBoardHold,
-      rightGripBoardHold: rightGripBoardHold ?? this.rightGripBoardHold,
-      leftGrip: leftGrip ?? this.leftGrip,
-      rightGrip: rightGrip ?? this.rightGrip,
+      leftGripBoardHold: leftGripBoardHold == null
+          ? this.leftGripBoardHold
+          : leftGripBoardHold.value,
+      rightGripBoardHold: rightGripBoardHold == null
+          ? this.rightGripBoardHold
+          : rightGripBoardHold.value,
+      leftGrip: leftGrip == null ? this.leftGrip : leftGrip.value,
+      rightGrip: rightGrip == null ? this.rightGrip : rightGrip.value,
       addedWeight: addedWeight ?? this.addedWeight,
       endSound: endSound ?? this.endSound,
       beepSound: beepSound ?? this.beepSound,

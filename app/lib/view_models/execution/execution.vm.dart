@@ -1,3 +1,4 @@
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/congratulations.screen.dart';
@@ -227,32 +228,39 @@ class ExecutionViewModel {
       return;
     }
 
-    final _nextHang = _sequence.firstWhere(
+    final _skippedHang = _sequence.firstWhere(
         (SequenceTimer t) =>
             t.skipped != true &&
             t.index > _currentSequenceIndex &&
             t.type == SequenceTimerType.hangTimer,
         orElse: () => null);
 
-    if (_nextHang == null) {
+    final _hangAfterSkippedHang = _sequence.firstWhere(
+        (SequenceTimer t) =>
+            t.skipped != true &&
+            t.index > _skippedHang.index &&
+            t.type == SequenceTimerType.hangTimer,
+        orElse: () => null);
+
+    if (_hangAfterSkippedHang == null) {
       _stop();
       return;
     }
 
     _sequence[_currentSequenceIndex] = _currentSequence.copyWith(
-        addedWeight: _nextHang.addedWeight,
-        leftGripBoardHold: _nextHang.leftGripBoardHold,
-        rightGripBoardHold: _nextHang.rightGripBoardHold,
-        leftGrip: _nextHang.leftGrip,
-        rightGrip: _nextHang.rightGrip,
-        holdLabel: _nextHang.holdLabel,
-        board: _nextHang.board,
-        totalGroups: _nextHang.totalGroups,
-        currentGroup: _nextHang.currentGroup,
-        totalSets: _nextHang.totalSets,
-        currentSet: _nextHang.currentSet,
-        totalReps: _nextHang.totalReps,
-        currentRep: _nextHang.currentRep);
+        addedWeight: _hangAfterSkippedHang.addedWeight,
+        leftGripBoardHold: Nullable(_hangAfterSkippedHang.leftGripBoardHold),
+        rightGripBoardHold: Nullable(_hangAfterSkippedHang.rightGripBoardHold),
+        leftGrip: Nullable(_hangAfterSkippedHang.leftGrip),
+        rightGrip: Nullable(_hangAfterSkippedHang.rightGrip),
+        holdLabel: _hangAfterSkippedHang.holdLabel,
+        board: _hangAfterSkippedHang.board,
+        totalGroups: _hangAfterSkippedHang.totalGroups,
+        currentGroup: _hangAfterSkippedHang.currentGroup,
+        totalSets: _hangAfterSkippedHang.totalSets,
+        currentSet: _hangAfterSkippedHang.currentSet,
+        totalReps: _hangAfterSkippedHang.totalReps,
+        currentRep: _hangAfterSkippedHang.currentRep);
 
     _sequence = _sequence.map((SequenceTimer t) {
       // If we're currently on the variable rest timer,
@@ -260,12 +268,12 @@ class ExecutionViewModel {
       // the next hang.
       if (state.isVariableRestTimer == true &&
           t.index > _currentSequenceIndex &&
-          t.index < _nextHang.index - 1) {
+          t.index < _hangAfterSkippedHang.index - 1) {
         return t.copyWith(effectiveDurationMs: 0, skipped: true);
       }
       if (state.isVariableRestTimer == false &&
           t.index > _currentSequenceIndex &&
-          t.index < _nextHang.index) {
+          t.index < _hangAfterSkippedHang.index) {
         return t.copyWith(effectiveDurationMs: 0, skipped: true);
       }
       return t;

@@ -168,8 +168,8 @@ class _GroupInfo extends StatelessWidget {
                           style: styles.Lato.xsGray),
                     ]),
               ),
-            if (group.leftGripBoardHold.holdType == HoldType.pocket ||
-                group.leftGripBoardHold.holdType == HoldType.edge)
+            if (group.leftGripBoardHold?.holdType == HoldType.pocket ||
+                group.leftGripBoardHold?.holdType == HoldType.edge)
               RichText(
                 text: TextSpan(
                     text: 'depth: ',
@@ -181,7 +181,7 @@ class _GroupInfo extends StatelessWidget {
                       TextSpan(text: ' mm', style: styles.Lato.xsGray),
                     ]),
               ),
-            if (group.leftGripBoardHold.holdType == HoldType.sloper)
+            if (group.leftGripBoardHold?.holdType == HoldType.sloper)
               RichText(
                 text: TextSpan(
                     text: 'degrees: ',
@@ -205,7 +205,7 @@ class _GroupInfo extends StatelessWidget {
                           style: styles.Lato.xsGray),
                     ]),
               ),
-            if (group.rightGripBoardHold.holdType == HoldType.sloper)
+            if (group.rightGripBoardHold?.holdType == HoldType.sloper)
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
@@ -218,8 +218,8 @@ class _GroupInfo extends StatelessWidget {
                           style: styles.Lato.xsGray),
                     ]),
               ),
-            if (group.rightGripBoardHold.holdType == HoldType.pocket ||
-                group.rightGripBoardHold.holdType == HoldType.edge)
+            if (group.rightGripBoardHold?.holdType == HoldType.pocket ||
+                group.rightGripBoardHold?.holdType == HoldType.edge)
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
