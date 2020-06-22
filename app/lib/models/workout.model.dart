@@ -13,7 +13,6 @@ part 'workout.model.g.dart';
 abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
-  // TODO: Nullable for now, delete in future.
   String get id;
   BuiltList<Group> get groups;
   WeightSystem get weightSystem;
@@ -27,13 +26,12 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   Color get labelColor => styles.labelColors[label];
   int get timeUnderTension => _calculateTimeUnderTension();
   int get totalRestTime => _calculateTotalRestTime();
-  int get totalHangs => _calculateTotalHangs();
 
   int _calculateTimeUnderTension() {
     int _total = 0;
     groups.forEach((Group group) {
       int _groupTotal = group.hangTimeS * group.repetitions;
-      if (group.sets != null) {
+      if (group.sets != null && group.sets > 0) {
         _groupTotal += _groupTotal * group.sets;
       }
       _total += _groupTotal;
@@ -49,7 +47,8 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
         _canBeMeasured = false;
       }
 
-      if (group.sets != null && group.restBetweenSetsFixed == false) {
+      if (group.restBetweenSetsFixed != null &&
+          group.restBetweenSetsFixed == false) {
         _canBeMeasured = false;
       }
     });
@@ -60,24 +59,20 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
 
     groups.forEach((Group group) {
       int _groupTotal = 0;
-      _groupTotal += group.repetitions * group.restBetweenRepsS;
-      if (group.sets != null) {
-        _groupTotal += _groupTotal * group.sets;
+      _groupTotal += (group.repetitions - 1) * group.restBetweenRepsS;
+      if (group.restBetweenSetsS != null &&
+          group.restBetweenSetsS > 0 &&
+          group.sets != null &&
+          group.sets > 1) {
+        _groupTotal += (group.sets - 1) * group.restBetweenSetsS;
       }
-      return _groupTotal;
+      _total += _groupTotal;
     });
 
-    return _total;
-  }
+    if (restBetweenGroupsFixed == true && restBetweenGroupsS > 0) {
+      _total += (groups.length - 1) * restBetweenGroupsS;
+    }
 
-  int _calculateTotalHangs() {
-    int _total = 0;
-    groups.forEach((Group group) {
-      _total += group.repetitions;
-      if (group.sets != null) {
-        _total += _total * group.sets;
-      }
-    });
     return _total;
   }
 

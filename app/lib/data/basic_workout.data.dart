@@ -17,7 +17,7 @@ final Group basicGroup = Group((b) => b
   ..repetitions = 1
   ..hangTimeS = 7
   ..restBetweenRepsFixed = false
-  ..restBetweenRepsS = 180
+  ..restBetweenRepsS = null
   ..sets = null
   ..restBetweenSetsFixed = null
   ..restBetweenSetsS = null

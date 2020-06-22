@@ -20,7 +20,6 @@ class ExecutionViewModel {
   SequenceTimer get _currentSequence => _sequence[_currentSequenceIndex];
   NavigationService _navigationService;
   List<PastHang> get pastHangs => _getPastHangs();
-  int get totalHangs => _workout.totalHangs;
   double get _effectiveDurationMs => _getEffectiveDurationMs();
   int get _displaySeconds => _getDisplaySeconds();
 
