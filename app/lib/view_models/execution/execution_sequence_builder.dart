@@ -124,11 +124,9 @@ class SequenceTimer {
 
 List<SequenceTimer> sequenceBuilder(
     {@required Workout workout, @required Settings settings}) {
-  List<SequenceTimer> _sequence = [];
-
   String _holdLabelText(
       {int currentRep, int totalReps, int currentSet, int totalSets}) {
-    return 'next up: hang $currentRep/$totalReps ${totalSets != null && totalSets > 1 ? '$currentSet/$totalSets' : ''}';
+    return 'next up: rep $currentRep/$totalReps ${totalSets != null && totalSets > 1 ? '$currentSet/$totalSets' : ''}';
   }
 
   SequenceTimer _createPreparationTimer(
@@ -276,7 +274,7 @@ List<SequenceTimer> sequenceBuilder(
         totalGroups: workout.groups.length);
   }
 
-  void _generate() {
+  List<SequenceTimer> _createSequenceWithoutIndexes() {
     List<SequenceTimer> _createRestTimer(
         {@required bool fixed,
         @required Group group,
@@ -389,12 +387,10 @@ List<SequenceTimer> sequenceBuilder(
       return _workoutSequence.expand((e) => e).toList();
     }
 
-    _sequence = createWorkoutSequence(workout);
+    return createWorkoutSequence(workout);
   }
 
-  _generate();
-
-  return _sequence
+  return _createSequenceWithoutIndexes()
       .asMap()
       .map((int index, SequenceTimer t) {
         return MapEntry(index, t.copyWith(index: index));
