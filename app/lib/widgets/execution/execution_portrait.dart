@@ -9,29 +9,30 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class ExecutionPortrait extends StatelessWidget {
-  ExecutionPortrait({
-    Key key,
+  const ExecutionPortrait({
     @required this.handleReadyTap,
-    @required this.isStopwatch,
+    @required this.isVariableRestTimer,
     @required this.primaryColor,
     @required this.displaySeconds,
     @required this.holdLabel,
     @required this.board,
     @required this.leftGrip,
-    @required this.leftGripBoardHold,
     @required this.rightGrip,
+    @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
-    @required this.totalSets,
-    @required this.currentSet,
-    @required this.totalHangsPerSet,
-    @required this.currentHangPerSet,
     @required this.weightSystem,
-    @required this.title,
     @required this.addedWeight,
-  }) : super(key: key);
+    @required this.title,
+    @required this.currentGroup,
+    @required this.totalGroups,
+    @required this.currentRep,
+    @required this.totalReps,
+    @required this.currentSet,
+    @required this.totalSets,
+  });
 
   final VoidCallback handleReadyTap;
-  final bool isStopwatch;
+  final bool isVariableRestTimer;
   final Color primaryColor;
   final int displaySeconds;
   final String holdLabel;
@@ -40,30 +41,29 @@ class ExecutionPortrait extends StatelessWidget {
   final Grip rightGrip;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
-  final int totalSets;
-  final int currentSet;
-  final int totalHangsPerSet;
-  final int currentHangPerSet;
   final WeightSystem weightSystem;
   final double addedWeight;
   final String title;
+  final int currentGroup;
+  final int totalGroups;
+  final int currentRep;
+  final int totalReps;
+  final int currentSet;
+  final int totalSets;
 
   @override
   Widget build(BuildContext context) {
-    final String _currentSet = currentSet.toString();
-    final String _totalSets = totalSets.toString();
-    final String _titleText = title;
     final String _addedWeight = addedWeight.toString();
     final String _addedWeightPrefix = addedWeight > 0 ? '+' : '';
 
-    final Widget _topWidget = isStopwatch
+    final Widget _topWidget = isVariableRestTimer
         ? Button(
             text: 'ready',
             handleTap: handleReadyTap,
             backgroundColor: styles.Colors.blue,
             leadingIcon: icons.playIconWhiteL)
         : Text(
-            _titleText,
+            title,
             style: styles.Staatliches.mWhite,
           );
 
@@ -157,18 +157,9 @@ class ExecutionPortrait extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              if (totalSets > 1)
-                Text(
-                  'set $_currentSet / $_totalSets',
-                  style: styles.Staatliches.mWhite,
-                ),
-              if (totalSets > 1)
-                Divider(
-                  height: styles.Measurements.m,
-                ),
               IndicatorTabs(
-                count: totalHangsPerSet,
-                active: currentHangPerSet,
+                count: totalGroups,
+                active: currentGroup,
                 primaryColor: primaryColor,
               ),
             ],

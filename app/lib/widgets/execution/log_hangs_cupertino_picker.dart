@@ -38,8 +38,8 @@ class LogHangsCupertinoPicker extends StatelessWidget {
           children: <Widget>[
             ...pastHangs.map((PastHang pastHang) => _HangRow(
                 skipped: pastHang.skipped,
-                currentHangPerSet: pastHang.currentHangPerSet,
-                totalHangsPerSet: pastHang.totalHangsPerSet,
+                currentRep: pastHang.currentRep,
+                totalReps: pastHang.totalReps,
                 currentSet: pastHang.currentSet,
                 totalSets: pastHang.totalSets,
                 isSelectedPastHang: pastHang.isSelected))
@@ -54,18 +54,18 @@ class _HangRow extends StatelessWidget {
   const _HangRow({
     @required this.skipped,
     @required this.isSelectedPastHang,
+    @required this.currentRep,
+    @required this.totalReps,
     @required this.currentSet,
     @required this.totalSets,
-    @required this.currentHangPerSet,
-    @required this.totalHangsPerSet,
   });
 
   final bool skipped;
   final bool isSelectedPastHang;
+  final int currentRep;
+  final int totalReps;
   final int currentSet;
   final int totalSets;
-  final int totalHangsPerSet;
-  final int currentHangPerSet;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class _HangRow extends StatelessWidget {
               Divider(
                 width: styles.Measurements.xs,
               ),
-              Text('Hang', style: styles.Staatliches.sBlack),
+              Text('Rep', style: styles.Staatliches.sBlack),
               Divider(
                 width: styles.Measurements.xs,
               ),
@@ -90,8 +90,7 @@ class _HangRow extends StatelessWidget {
                   Divider(
                     height: 5,
                   ),
-                  Text('$currentHangPerSet/$totalHangsPerSet',
-                      style: styles.Lato.xsGray),
+                  Text('$currentRep/$totalReps', style: styles.Lato.xsGray),
                 ],
               ),
             ],

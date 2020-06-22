@@ -10,30 +10,31 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class ExecutionLandscape extends StatelessWidget {
-  ExecutionLandscape({
-    Key key,
+  const ExecutionLandscape({
     @required this.displaySeconds,
     @required this.handleReadyTap,
-    @required this.isStopwatch,
+    @required this.isVariableRestTimer,
     @required this.primaryColor,
     @required this.holdLabel,
     @required this.board,
     @required this.leftGrip,
-    @required this.leftGripBoardHold,
     @required this.rightGrip,
+    @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
-    @required this.totalSets,
-    @required this.currentSet,
-    @required this.totalHangsPerSet,
-    @required this.currentHangPerSet,
     @required this.weightSystem,
-    @required this.title,
     @required this.addedWeight,
-  }) : super(key: key);
+    @required this.title,
+    @required this.currentGroup,
+    @required this.totalGroups,
+    @required this.currentRep,
+    @required this.totalReps,
+    @required this.currentSet,
+    @required this.totalSets,
+  });
 
   final int displaySeconds;
   final VoidCallback handleReadyTap;
-  final bool isStopwatch;
+  final bool isVariableRestTimer;
   final Color primaryColor;
   final String holdLabel;
   final Board board;
@@ -41,13 +42,15 @@ class ExecutionLandscape extends StatelessWidget {
   final Grip rightGrip;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
-  final int totalSets;
-  final int currentSet;
-  final int totalHangsPerSet;
-  final int currentHangPerSet;
   final WeightSystem weightSystem;
   final double addedWeight;
   final String title;
+  final int currentGroup;
+  final int totalGroups;
+  final int currentRep;
+  final int totalReps;
+  final int currentSet;
+  final int totalSets;
 
   @override
   Widget build(BuildContext context) {
@@ -105,18 +108,9 @@ class ExecutionLandscape extends StatelessWidget {
                 Divider(
                   height: styles.Measurements.m,
                 ),
-                if (totalSets > 1)
-                  Text(
-                    'set $currentSet / $totalSets',
-                    style: styles.Staatliches.mWhite,
-                  ),
-                if (totalSets > 1)
-                  Divider(
-                    width: styles.Measurements.m,
-                  ),
                 IndicatorTabs(
-                  count: totalHangsPerSet,
-                  active: currentHangPerSet,
+                  count: totalGroups,
+                  active: currentGroup,
                   primaryColor: primaryColor,
                 )
               ],
@@ -129,7 +123,7 @@ class ExecutionLandscape extends StatelessWidget {
             style: styles.Staatliches.countdownTimerTranslucent,
           ),
         ),
-        if (isStopwatch == true)
+        if (isVariableRestTimer == true)
           Align(
             alignment: Alignment.topCenter,
             child: Button(
