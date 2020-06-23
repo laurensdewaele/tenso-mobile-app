@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
@@ -7,9 +5,8 @@ import 'package:app/view_models/rate_workout.vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
 import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/keyboard_and_toast_provider.dart';
-import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/rate_workout/rate_workout_content.dart';
+import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 
@@ -28,10 +25,6 @@ class RateWorkoutScreen extends StatefulWidget {
 }
 
 class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
-  final StreamController<bool> _scrollToBottomStreamController =
-      StreamController<bool>.broadcast();
-  Stream get _scrollToBottomStream => _scrollToBottomStreamController.stream;
-
   RateWorkoutViewModel _viewModel;
   Workout _workout;
   History _history;
@@ -53,7 +46,6 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
   @override
   void dispose() {
-    _scrollToBottomStreamController.close();
     super.dispose();
   }
 
@@ -63,10 +55,6 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
       return;
     }
     Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
-  }
-
-  void _handleOpen() {
-    _scrollToBottomStreamController.sink.add(true);
   }
 
   @override
@@ -79,64 +67,57 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
     return WillPopScope(
       onWillPop: () async => false,
-      child: KeyboardAndToastProvider(
+      child: ToastProvider(
         child: Container(
           decoration: BoxDecoration(color: styles.Colors.bgBlack),
           child: SafeArea(
-            child: KeyboardListView(
-              children: [
-                Column(
-                  children: <Widget>[
-                    if (_orientation == Orientation.portrait)
-                      _PortraitContainer(
-                        scrollToBottomStream: _scrollToBottomStream,
-                        handleCompleteTap: _handleCompleteTap,
-                        maxContainerHeight: _maxContainerHeight,
-                        content: RateWorkoutContent(
-                          tempUnit: _viewModel.tempUnit,
-                          handleOpen: _handleOpen,
-                          handleCompleteTap: _handleCompleteTap,
-                          handlePerceivedExertionChanged:
-                              _viewModel.setPerceivedExertion,
-                          handleBodyWeightChanged: _viewModel.setBodyWeight,
-                          handleTemperatureChanged: _viewModel.setTemperature,
-                          handleHumidityChanged: _viewModel.setHumidity,
-                          handleCommentsChanged: _viewModel.setComments,
-                        ),
-                      ),
-                    if (_orientation == Orientation.landscape)
-                      _LandscapeContainer(
-                        content: Container(
-                          child: Column(
-                            children: <Widget>[
-                              RateWorkoutContent(
-                                handleOpen: _handleOpen,
-                                handleCompleteTap: _handleCompleteTap,
-                                handlePerceivedExertionChanged:
-                                    _viewModel.setPerceivedExertion,
-                                handleBodyWeightChanged:
-                                    _viewModel.setBodyWeight,
-                                handleTemperatureChanged:
-                                    _viewModel.setTemperature,
-                                handleHumidityChanged: _viewModel.setHumidity,
-                                handleCommentsChanged: _viewModel.setComments,
-                                tempUnit: _viewModel.tempUnit,
-                              ),
-                              Divider(
-                                height: styles.Measurements.m,
-                              ),
-                              Button(
-                                backgroundColor: styles.Colors.turquoise,
-                                width: double.infinity,
-                                text: 'done',
-                                handleTap: _handleCompleteTap,
-                              ),
-                            ],
+            child: Column(
+              children: <Widget>[
+                if (_orientation == Orientation.portrait)
+                  _PortraitContainer(
+                    handleCompleteTap: _handleCompleteTap,
+                    maxContainerHeight: _maxContainerHeight,
+                    content: RateWorkoutContent(
+                      handleOpen: () {},
+                      tempUnit: _viewModel.tempUnit,
+                      handleCompleteTap: _handleCompleteTap,
+                      handlePerceivedExertionChanged:
+                          _viewModel.setPerceivedExertion,
+                      handleBodyWeightChanged: _viewModel.setBodyWeight,
+                      handleTemperatureChanged: _viewModel.setTemperature,
+                      handleHumidityChanged: _viewModel.setHumidity,
+                      handleCommentsChanged: _viewModel.setComments,
+                    ),
+                  ),
+                if (_orientation == Orientation.landscape)
+                  _LandscapeContainer(
+                    content: Container(
+                      child: Column(
+                        children: <Widget>[
+                          RateWorkoutContent(
+                            handleOpen: () {},
+                            handleCompleteTap: _handleCompleteTap,
+                            handlePerceivedExertionChanged:
+                                _viewModel.setPerceivedExertion,
+                            handleBodyWeightChanged: _viewModel.setBodyWeight,
+                            handleTemperatureChanged: _viewModel.setTemperature,
+                            handleHumidityChanged: _viewModel.setHumidity,
+                            handleCommentsChanged: _viewModel.setComments,
+                            tempUnit: _viewModel.tempUnit,
                           ),
-                        ),
+                          Divider(
+                            height: styles.Measurements.m,
+                          ),
+                          Button(
+                            backgroundColor: styles.Colors.turquoise,
+                            width: double.infinity,
+                            text: 'done',
+                            handleTap: _handleCompleteTap,
+                          ),
+                        ],
                       ),
-                  ],
-                )
+                    ),
+                  ),
               ],
             ),
           ),
@@ -146,50 +127,22 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 }
 
-class _PortraitContainer extends StatefulWidget {
-  _PortraitContainer(
-      {Key key,
-      @required this.content,
-      @required this.maxContainerHeight,
-      @required this.handleCompleteTap,
-      @required this.scrollToBottomStream})
-      : super(key: key);
+class _PortraitContainer extends StatelessWidget {
+  _PortraitContainer({
+    Key key,
+    @required this.content,
+    @required this.maxContainerHeight,
+    @required this.handleCompleteTap,
+  }) : super(key: key);
 
   final Widget content;
   final double maxContainerHeight;
   final VoidCallback handleCompleteTap;
-  final Stream scrollToBottomStream;
-
-  @override
-  __PortraitContainerState createState() => __PortraitContainerState();
-}
-
-class __PortraitContainerState extends State<_PortraitContainer> {
-  StreamSubscription _sub;
-  ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _sub = widget.scrollToBottomStream.listen((_) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 100), curve: Curves.easeIn);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _sub.cancel();
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.maxContainerHeight,
+      height: maxContainerHeight,
       child: Padding(
         padding: EdgeInsets.all(styles.Measurements.m),
         child: Card(
@@ -206,9 +159,8 @@ class __PortraitContainerState extends State<_PortraitContainer> {
                   children: <Widget>[
                     Expanded(
                       child: ListView(
-                          controller: _scrollController,
                           physics: ClampingScrollPhysics(),
-                          children: [widget.content]),
+                          children: [content]),
                     ),
                   ],
                 ),
@@ -220,7 +172,7 @@ class __PortraitContainerState extends State<_PortraitContainer> {
                 backgroundColor: styles.Colors.turquoise,
                 width: double.infinity,
                 text: 'done',
-                handleTap: widget.handleCompleteTap,
+                handleTap: handleCompleteTap,
               ),
             ],
           ),

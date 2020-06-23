@@ -87,6 +87,8 @@ class _TextInputState extends State<TextInput> {
       child: Listener(
         onPointerDown: _onPointerDown,
         child: CupertinoTextField(
+          enableSuggestions: widget.multiLine ? true : false,
+          enableInteractiveSelection: widget.multiLine ? true : false,
           minLines: null,
           maxLines: widget.multiLine ? null : 1,
           expands: widget.multiLine ? true : false,

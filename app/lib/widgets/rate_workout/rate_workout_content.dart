@@ -38,12 +38,25 @@ class RateWorkoutContent extends StatelessWidget {
         Divider(
           height: 14,
         ),
-        SectionWithInfoIcon(
-          title: 'perceived exertion *',
-          appDialogContent: _PerceivedExertionInfo(),
+        ExpandedSection(
+          handleOpen: handleOpen,
+          title: 'comments',
           children: <Widget>[
-            _CupertinoPicker(
-              setPerceivedExertion: handlePerceivedExertionChanged,
+            Divider(
+              height: styles.Measurements.l,
+            ),
+            Container(
+              height: 300,
+              child: TextInput(
+                  multiLine: true,
+                  enabled: true,
+                  primaryColor: styles.Colors.turquoise,
+                  initialValue: '',
+                  handleValueChanged: handleCommentsChanged),
+            ),
+            Divider(
+              height: styles.Measurements.xxl -
+                  styles.Measurements.kInfoIconSurplus,
             ),
           ],
         ),
@@ -76,26 +89,18 @@ class RateWorkoutContent extends StatelessWidget {
               handleValueChanged: handleHumidityChanged,
             ),
             Divider(
-              height: styles.Measurements.xl,
+              height: styles.Measurements.xxl -
+                  styles.Measurements.kInfoIconSurplus,
             ),
           ],
         ),
-        ExpandedSection(
-          handleOpen: handleOpen,
-          title: 'comments',
+        SectionWithInfoIcon(
+          title: 'perceived exertion *',
+          appDialogContent: _PerceivedExertionInfo(),
           children: <Widget>[
-            Divider(
-              height: styles.Measurements.l,
+            _CupertinoPicker(
+              setPerceivedExertion: handlePerceivedExertionChanged,
             ),
-            Container(
-              height: 100,
-              child: TextInput(
-                  multiLine: true,
-                  enabled: true,
-                  primaryColor: styles.Colors.turquoise,
-                  initialValue: '',
-                  handleValueChanged: handleCommentsChanged),
-            )
           ],
         ),
       ],

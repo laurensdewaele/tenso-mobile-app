@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app/data/basic_workout.data.dart';
+import 'package:app/data/empty_workout.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/screens/execution.screen.dart';
@@ -43,7 +43,7 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
     _navigationService.pushNamed(Routes.workoutScreen,
         arguments: WorkoutScreenArguments(
           workoutAction: WorkoutActions.newWorkout,
-          workout: basicWorkout,
+          workout: emptyWorkout,
         ));
   }
 

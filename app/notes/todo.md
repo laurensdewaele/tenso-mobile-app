@@ -1,10 +1,5 @@
 # TODO
 
-- Edit hung values on completion, new button next to rate workout.
-- Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
-  Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
-  Rating is also a bit tricky, you can just leave it without actually entering anything.
-
 ### Triage:
 - Have an 'on the fly workout'? 
   Where you can specify how much you've hung, with added weight.
