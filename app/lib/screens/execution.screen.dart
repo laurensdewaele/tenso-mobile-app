@@ -94,6 +94,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
   @override
   Widget build(BuildContext context) {
     final Orientation _orientation = MediaQuery.of(context).orientation;
+    _viewModel.setContext(context);
 
     return WillPopScope(
       onWillPop: () async {
@@ -106,6 +107,11 @@ class _ExecutionScreenState extends State<ExecutionScreen>
             stream: _viewModel.state$,
             builder: (context, snapshot) {
               final _state = snapshot.data;
+              if (_state.displayEndScreen == true) {
+                return Container(
+                  decoration: BoxDecoration(color: styles.Colors.bgBlack),
+                );
+              }
               return GestureDetector(
                 onTap: _pause,
                 onHorizontalDragEnd: _onHorizontalDragEnd,

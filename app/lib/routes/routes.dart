@@ -1,6 +1,5 @@
 import 'package:app/screens/board_settings.screen.dart';
 import 'package:app/screens/calendar.screen.dart';
-import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/screens/custom_board.screen.dart';
 import 'package:app/screens/execution.screen.dart';
 import 'package:app/screens/group.screen.dart';
@@ -24,7 +23,6 @@ abstract class Routes {
   static const String executionScreen = '/executionScreen';
   static const String calendarScreen = '/calendarScreen';
   static const String feedbackScreen = '/feedbackScreen';
-  static const String congratulationsScreen = '/congratulationsScreen';
   static const String rateWorkoutScreen = '/rateWorkoutScreen';
   static const String customBoardScreen = '/customBoardScreen';
   static const String saveCustomBoardScreen = '/saveCustomBoardScreen';
@@ -40,7 +38,6 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
     Routes.executionScreen: (context) => ExecutionScreen(),
     Routes.calendarScreen: (context) => CalendarScreen(),
-    Routes.congratulationsScreen: (context) => CongratulationsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
     Routes.boardSettingsScreen: (context) => BoardSettingsScreen(),
     Routes.customBoardScreen: (context) => CustomBoardScreen(),

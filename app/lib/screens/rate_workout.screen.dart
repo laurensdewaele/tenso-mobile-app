@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/congratulations.screen.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/rate_workout.vm.dart';
 import 'package:app/widgets/button.dart';
@@ -13,6 +12,13 @@ import 'package:app/widgets/keyboard_list_view.dart';
 import 'package:app/widgets/rate_workout/rate_workout_content.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
+
+class RateWorkoutArguments {
+  RateWorkoutArguments({@required this.workout, @required this.history});
+
+  final Workout workout;
+  final History history;
+}
 
 class RateWorkoutScreen extends StatefulWidget {
   RateWorkoutScreen({Key key}) : super(key: key);

@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:flutter/widgets.dart';
 
 class ExecutionState {
+  final bool displayEndScreen;
   final SequenceTimerType type;
   final bool isVariableRestTimer;
   final int duration;
@@ -30,6 +32,7 @@ class ExecutionState {
   final int currentRep;
 
   const ExecutionState({
+    @required this.displayEndScreen,
     @required this.type,
     @required this.isVariableRestTimer,
     @required this.duration,
@@ -60,6 +63,7 @@ class ExecutionState {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ExecutionState &&
+          displayEndScreen == other.displayEndScreen &&
           runtimeType == other.runtimeType &&
           type == other.type &&
           isVariableRestTimer == other.isVariableRestTimer &&
@@ -89,6 +93,7 @@ class ExecutionState {
 
   @override
   int get hashCode =>
+      displayEndScreen.hashCode ^
       type.hashCode ^
       isVariableRestTimer.hashCode ^
       duration.hashCode ^
@@ -113,4 +118,65 @@ class ExecutionState {
       currentSet.hashCode ^
       totalReps.hashCode ^
       currentRep.hashCode;
+
+  ExecutionState copyWith({
+    bool displayEndScreen,
+    SequenceTimerType type,
+    bool isVariableRestTimer,
+    int duration,
+    int displaySeconds,
+    double animatedBackgroundHeightFactor,
+    Sound endSound,
+    Sound beepSound,
+    int beepsBeforeEnd,
+    Color primaryColor,
+    String title,
+    String holdLabel,
+    Board board,
+    Nullable<Grip> leftGrip,
+    Nullable<Grip> rightGrip,
+    Nullable<BoardHold> leftGripBoardHold,
+    Nullable<BoardHold> rightGripBoardHold,
+    WeightSystem weightSystem,
+    double addedWeight,
+    int totalGroups,
+    int currentGroup,
+    Nullable<int> totalSets,
+    Nullable<int> currentSet,
+    int totalReps,
+    int currentRep,
+  }) {
+    return new ExecutionState(
+      displayEndScreen: displayEndScreen ?? this.displayEndScreen,
+      type: type ?? this.type,
+      isVariableRestTimer: isVariableRestTimer ?? this.isVariableRestTimer,
+      duration: duration ?? this.duration,
+      displaySeconds: displaySeconds ?? this.displaySeconds,
+      animatedBackgroundHeightFactor:
+          animatedBackgroundHeightFactor ?? this.animatedBackgroundHeightFactor,
+      endSound: endSound ?? this.endSound,
+      beepSound: beepSound ?? this.beepSound,
+      beepsBeforeEnd: beepsBeforeEnd ?? this.beepsBeforeEnd,
+      primaryColor: primaryColor ?? this.primaryColor,
+      title: title ?? this.title,
+      holdLabel: holdLabel ?? this.holdLabel,
+      board: board ?? this.board,
+      leftGrip: leftGrip == null ? this.leftGrip : leftGrip,
+      rightGrip: rightGrip == null ? this.rightGrip : rightGrip,
+      leftGripBoardHold: leftGripBoardHold == null
+          ? this.leftGripBoardHold
+          : leftGripBoardHold,
+      rightGripBoardHold: rightGripBoardHold == null
+          ? this.rightGripBoardHold
+          : rightGripBoardHold,
+      weightSystem: weightSystem ?? this.weightSystem,
+      addedWeight: addedWeight ?? this.addedWeight,
+      totalGroups: totalGroups ?? this.totalGroups,
+      currentGroup: currentGroup ?? this.currentGroup,
+      totalSets: totalSets == null ? this.totalSets : totalSets,
+      currentSet: currentSet == null ? this.currentSet : currentSet,
+      totalReps: totalReps ?? this.totalReps,
+      currentRep: currentRep ?? this.currentRep,
+    );
+  }
 }

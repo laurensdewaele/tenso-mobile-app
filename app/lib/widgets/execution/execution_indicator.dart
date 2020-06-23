@@ -45,13 +45,14 @@ class ExecutionIndicator extends StatelessWidget {
             total: totalSets,
             primaryColor: primaryColor,
             maxTotal: _maxTotal),
-      _Row(
-          orientation: orientation,
-          title: 'group',
-          current: currentGroup,
-          total: totalGroups,
-          primaryColor: primaryColor,
-          maxTotal: _maxTotal),
+      if (totalGroups > 1)
+        _Row(
+            orientation: orientation,
+            title: 'group',
+            current: currentGroup,
+            total: totalGroups,
+            primaryColor: primaryColor,
+            maxTotal: _maxTotal),
     ];
 
     if (orientation == Orientation.portrait) {

@@ -1,19 +1,22 @@
 import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/congratulations.screen.dart';
+import 'package:app/screens/rate_workout.screen.dart';
 import 'package:app/services/audio_player.service.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/state/settings.state.dart';
 import 'package:app/view_models/execution/execution_sequence_builder.dart';
 import 'package:app/view_models/execution/execution_state.vm.dart';
 import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:app/widgets/dialog.dart';
+import 'package:app/widgets/execution/congratulations_content.dart';
 import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {
+  BuildContext _context;
   AudioPlayerService _audioPlayerService;
   Workout _workout;
   AnimationController _animationController;
@@ -50,7 +53,7 @@ class ExecutionViewModel {
     final List<SequenceTimer> _pastHangSequences = _sequence
         .where((SequenceTimer t) =>
             t.type == SequenceTimerType.hangTimer &&
-            t.index < _currentSequenceIndex)
+            t.index <= _currentSequenceIndex)
         .toList();
 
     return _pastHangSequences.map((SequenceTimer t) {
@@ -100,6 +103,7 @@ class ExecutionViewModel {
     }
 
     return ExecutionState(
+      displayEndScreen: false,
       totalReps: _currentSequence.totalReps,
       totalGroups: _currentSequence.totalGroups,
       currentRep: _currentSequence.currentRep,
@@ -170,8 +174,13 @@ class ExecutionViewModel {
     }
   }
 
-  void _stop() {
+  void _displayEndScreen() {
+    _state$.add(state.copyWith(displayEndScreen: true));
+  }
+
+  void _stop() async {
     _animationController.stop(canceled: true);
+    _displayEndScreen();
 
     _sequence = _sequence.map((SequenceTimer t) {
       if (_currentSequenceIndex == t.index) {
@@ -188,11 +197,37 @@ class ExecutionViewModel {
     if (_history.timerUnderTensionMs == 0) {
       _navigationService.pushNamed(Routes.workoutOverviewScreen);
     } else {
-      _navigationService.pushNamed(Routes.congratulationsScreen,
-          arguments:
-              RateWorkoutArguments(workout: _workout, history: _history));
+      showAppDialog(
+          fullWidth: true,
+          context: _context,
+          content: CongratulationsContent(
+            handleLogHangsTap: _handleLogHangsTap,
+            handleRateWorkoutTap: _handleRateWorkoutTap,
+          ),
+          smallWidth: false);
     }
     dispose();
+  }
+
+  void _handleRateWorkoutTap() {
+    History _history = _generateHistory();
+    _navigationService.pushNamed(Routes.rateWorkoutScreen,
+        arguments: RateWorkoutArguments(workout: _workout, history: _history));
+  }
+
+  void _handleLogHangsTap() {
+    showAppDialog(
+        fullWidth: true,
+        context: _context,
+        content: LogHangsDialog(
+          pastHangs: pastHangs,
+          handleLoggedHangs: handleLoggedHangs,
+        ),
+        smallWidth: false);
+  }
+
+  void setContext(BuildContext context) {
+    _context = context;
   }
 
   History _generateHistory() {

@@ -4,7 +4,6 @@
 - Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
   Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
   Rating is also a bit tricky, you can just leave it without actually entering anything.
-- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 
 ### Triage:
 - Have an 'on the fly workout'? 
