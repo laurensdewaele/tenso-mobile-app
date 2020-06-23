@@ -81,7 +81,7 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
             ExpandedContentTile(
                 title: 'completion',
                 content: Text(
-                  '90 %',
+                  '${completedWorkout.history.completedPercentage}%',
                   textAlign: TextAlign.center,
                   style: styles.Lato.xsGray,
                 )),
@@ -94,7 +94,8 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
             ExpandedContentTile(
               title: 'effective time hung',
               content: DisplayDurationSeconds(
-                seconds: 240,
+                seconds: (completedWorkout.history.timerUnderTensionMs / 1000)
+                    .round(),
               ),
             ),
             if (_possibleNullContent.length > 0) _possibleNullContent[0]

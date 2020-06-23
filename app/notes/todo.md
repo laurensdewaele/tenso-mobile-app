@@ -1,6 +1,14 @@
 # TODO
 
+- Beeps before rest, allow 0;
+- Add open crimp, pinch grip, check if all grips available
+- Info/explanation screen
+- More beginner workouts. => Repeaters / max-hang / density 
+- Implement a feedback button.
+- LAUNCH
+
 ### Triage:
+- Have an overview of the things you specifically did, hang times, and skipped etc...
 - Have an 'on the fly workout'? 
   Where you can specify how much you've hung, with added weight.
   Just rep per rep, or set per set.
@@ -11,13 +19,6 @@
   
 
 ### Large prio
-- History (calendar) update times.
-- Beeps before rest, allow 0;
-- Add open crimp, pinch grip, check if all grips available
-- Info/explanation screen
-- More beginner workouts. => Repeaters / max-hang / density 
-- Implement a feedback button.
-- LAUNCH
 
 ### Medium prio
 - Make videos to explain beginners how to use this app.
@@ -49,7 +50,6 @@
 - Edit completed workout.
 - Audioplayer service play sound takes a while when not already initted;
 - keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
-- When deleting a workout => let the divider fade out as well (no janky feel).
 - Adjust sounds of countdown / female/male voice that counts down.
 - Set reminder for workout.
 - Add info button on most elements
