@@ -111,74 +111,77 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                 return Container(
                   decoration: BoxDecoration(color: styles.Colors.bgBlack),
                 );
-              }
-              return GestureDetector(
-                onTap: _pause,
-                onHorizontalDragEnd: _onHorizontalDragEnd,
-                child: Stack(children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(color: styles.Colors.bgBlack),
-                  ),
-                  FractionallySizedBox(
-                      heightFactor: _state.animatedBackgroundHeightFactor,
-                      child: Container(
-                        decoration: BoxDecoration(color: _state.primaryColor),
-                      )),
-                  SafeArea(
-                    child: Padding(
-                        padding: const EdgeInsets.all(styles.Measurements.m),
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            if (_orientation == Orientation.portrait) {
-                              return ExecutionPortrait(
-                                handleReadyTap: _viewModel.handleReadyTap,
-                                isVariableRestTimer: _state.isVariableRestTimer,
-                                title: _state.title,
-                                weightSystem: _state.weightSystem,
-                                displaySeconds: _state.displaySeconds,
-                                rightGripBoardHold: _state.rightGripBoardHold,
-                                rightGrip: _state.rightGrip,
-                                leftGripBoardHold: _state.leftGripBoardHold,
-                                leftGrip: _state.leftGrip,
-                                board: _state.board,
-                                currentGroup: _state.currentGroup,
-                                totalGroups: _state.totalGroups,
-                                holdLabel: _state.holdLabel,
-                                primaryColor: _state.primaryColor,
-                                addedWeight: _state.addedWeight,
-                                totalSets: _state.totalSets,
-                                currentSet: _state.currentSet,
-                                totalReps: _state.totalReps,
-                                currentRep: _state.currentRep,
-                              );
-                            } else {
-                              return ExecutionLandscape(
-                                displaySeconds: _state.displaySeconds,
-                                handleReadyTap: _viewModel.handleReadyTap,
-                                isVariableRestTimer: _state.isVariableRestTimer,
-                                title: _state.title,
-                                weightSystem: _state.weightSystem,
-                                rightGripBoardHold: _state.rightGripBoardHold,
-                                rightGrip: _state.rightGrip,
-                                leftGripBoardHold: _state.leftGripBoardHold,
-                                leftGrip: _state.leftGrip,
-                                board: _state.board,
-                                holdLabel: _state.holdLabel,
-                                primaryColor: _state.primaryColor,
-                                addedWeight: _state.addedWeight,
-                                currentGroup: _state.currentGroup,
-                                totalGroups: _state.totalGroups,
-                                currentRep: _state.currentRep,
-                                totalReps: _state.totalReps,
-                                currentSet: _state.currentSet,
-                                totalSets: _state.totalSets,
-                              );
-                            }
-                          },
+              } else {
+                return GestureDetector(
+                  onTap: _pause,
+                  onHorizontalDragEnd: _onHorizontalDragEnd,
+                  child: Stack(children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(color: styles.Colors.bgBlack),
+                    ),
+                    FractionallySizedBox(
+                        heightFactor: _state.animatedBackgroundHeightFactor,
+                        child: Container(
+                          decoration: BoxDecoration(color: _state.primaryColor),
                         )),
-                  ),
-                ]),
-              );
+                    SafeArea(
+                      child: Padding(
+                          padding: const EdgeInsets.all(styles.Measurements.m),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (_orientation == Orientation.portrait) {
+                                return ExecutionPortrait(
+                                  handleReadyTap: _viewModel.handleReadyTap,
+                                  isVariableRestTimer:
+                                      _state.isVariableRestTimer,
+                                  title: _state.title,
+                                  weightSystem: _state.weightSystem,
+                                  displaySeconds: _state.displaySeconds,
+                                  rightGripBoardHold: _state.rightGripBoardHold,
+                                  rightGrip: _state.rightGrip,
+                                  leftGripBoardHold: _state.leftGripBoardHold,
+                                  leftGrip: _state.leftGrip,
+                                  board: _state.board,
+                                  currentGroup: _state.currentGroup,
+                                  totalGroups: _state.totalGroups,
+                                  holdLabel: _state.holdLabel,
+                                  primaryColor: _state.primaryColor,
+                                  addedWeight: _state.addedWeight,
+                                  totalSets: _state.totalSets,
+                                  currentSet: _state.currentSet,
+                                  totalReps: _state.totalReps,
+                                  currentRep: _state.currentRep,
+                                );
+                              } else {
+                                return ExecutionLandscape(
+                                  displaySeconds: _state.displaySeconds,
+                                  handleReadyTap: _viewModel.handleReadyTap,
+                                  isVariableRestTimer:
+                                      _state.isVariableRestTimer,
+                                  title: _state.title,
+                                  weightSystem: _state.weightSystem,
+                                  rightGripBoardHold: _state.rightGripBoardHold,
+                                  rightGrip: _state.rightGrip,
+                                  leftGripBoardHold: _state.leftGripBoardHold,
+                                  leftGrip: _state.leftGrip,
+                                  board: _state.board,
+                                  holdLabel: _state.holdLabel,
+                                  primaryColor: _state.primaryColor,
+                                  addedWeight: _state.addedWeight,
+                                  currentGroup: _state.currentGroup,
+                                  totalGroups: _state.totalGroups,
+                                  currentRep: _state.currentRep,
+                                  totalReps: _state.totalReps,
+                                  currentSet: _state.currentSet,
+                                  totalSets: _state.totalSets,
+                                );
+                              }
+                            },
+                          )),
+                    ),
+                  ]),
+                );
+              }
             }),
       ),
     );
