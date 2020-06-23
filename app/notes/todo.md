@@ -1,6 +1,10 @@
 # TODO
 
-- Link everything up, remove holds from workout + redo sequence builder.
+- Edit hung values on completion, new button next to rate workout.
+- Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
+  Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
+  Rating is also a bit tricky, you can just leave it without actually entering anything.
+- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
 
 ### Triage:
 - Have an 'on the fly workout'? 
@@ -13,13 +17,6 @@
   
 
 ### Large prio
-- Edit hung values on completion, new button next to rate workout.
-- Redesign rate workout + refactor. Comments screen needs to be way bigger. With this keyboard thing not working, it's bad.
-  Maybe just like create and edit with next. 1: rate, 2: comments: 3: stats.
-  Rating is also a bit tricky, you can just leave it without actually entering anything.
-- Rate workout redesign (1 page, loose the fist? Or make it an easter egg).
-
-
 - History (calendar) update times.
 - Beeps before rest, allow 0;
 - Add open crimp, pinch grip, check if all grips available
