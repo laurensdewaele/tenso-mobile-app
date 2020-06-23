@@ -1,6 +1,7 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/board/board_with_grips.dart';
+import 'package:app/widgets/workout/rep_set_header_info.dart';
 import 'package:flutter/cupertino.dart';
 
 class HorizontalGroupOverview extends StatelessWidget {
@@ -85,10 +86,12 @@ class _HorizontalGroupOverviewState extends State<_HorizontalGroupOverview> {
   double _calculateMaxBoardHeight() {
     double _maxHeight = 0;
     double _clippedHeight = styles.Measurements.s;
+    double _padding = styles.Measurements.m * 2;
 
     widget.groups.forEach((Group group) {
-      double _height =
-          (widget.maxWidth / group.board.aspectRatio) + _clippedHeight;
+      double _height = ((widget.maxWidth - _padding - kRepSetHeaderWidth) /
+              group.board.aspectRatio) +
+          _clippedHeight;
       if (_height > _maxHeight) {
         _maxHeight = _height;
       }
@@ -107,31 +110,64 @@ class _HorizontalGroupOverviewState extends State<_HorizontalGroupOverview> {
         physics: ClampingScrollPhysics(),
         children: <Widget>[
           ...widget.groups
-              .map((Group group) => Container(
-                    height: _calculateMaxBoardHeight(),
-                    width: widget.maxWidth,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: styles.Measurements.m),
-                        child: BoardWithGrips(
-                          clipped: true,
-                          boardImageAssetWidth: group.board.imageAssetWidth,
-                          boardImageAsset: group.board.imageAsset,
-                          withFixedHeight: false,
-                          handToBoardHeightRatio:
-                              group.board.handToBoardHeightRatio,
-                          customBoardHoldImages:
-                              group.board.customBoardHoldImages?.toList(),
-                          boardAspectRatio: group.board.aspectRatio,
-                          leftGripBoardHold: group.leftGripBoardHold,
-                          rightGripBoardHold: group.rightGripBoardHold,
-                          leftGrip: group.leftGrip,
-                          rightGrip: group.rightGrip,
+              .asMap()
+              .map((int index, Group group) => MapEntry(
+                    index,
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: _calculateMaxBoardHeight(),
+                          width: widget.maxWidth,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: styles.Measurements.m),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Center(
+                                      child: BoardWithGrips(
+                                        clipped: true,
+                                        boardImageAssetWidth:
+                                            group.board.imageAssetWidth,
+                                        boardImageAsset: group.board.imageAsset,
+                                        withFixedHeight: false,
+                                        handToBoardHeightRatio:
+                                            group.board.handToBoardHeightRatio,
+                                        customBoardHoldImages: group
+                                            .board.customBoardHoldImages
+                                            ?.toList(),
+                                        boardAspectRatio:
+                                            group.board.aspectRatio,
+                                        leftGripBoardHold:
+                                            group.leftGripBoardHold,
+                                        rightGripBoardHold:
+                                            group.rightGripBoardHold,
+                                        leftGrip: group.leftGrip,
+                                        rightGrip: group.rightGrip,
+                                      ),
+                                    ),
+                                  ),
+                                  RepSetHeaderInfo(
+                                    sets: group.sets,
+                                    reps: group.reps,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        if (index != widget.groups.length - 1)
+                          Container(
+                            width: 1,
+                            decoration:
+                                BoxDecoration(color: styles.Colors.lightGray),
+                          )
+                      ],
                     ),
                   ))
+              .values
               .toList()
         ],
       ),

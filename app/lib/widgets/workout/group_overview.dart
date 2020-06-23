@@ -7,6 +7,7 @@ import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icons.dart' as icons;
 import 'package:app/widgets/sliding_card.dart';
 import 'package:app/widgets/sliding_expansion_card.dart';
+import 'package:app/widgets/workout/rep_set_header_info.dart';
 import 'package:app/widgets/workout_overview/delete_action.dart';
 import 'package:app/widgets/workout_overview/edit_action.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
@@ -88,9 +89,8 @@ class GroupOverview extends StatelessWidget {
                       boardImageAssetWidth: _group.board.imageAssetWidth,
                     ),
                     topRightSection: Container(
-                      width: _setRepHeaderWidth,
                       height: _boardWithGripsHeight,
-                      child: _RepSetHeader(
+                      child: RepSetHeaderInfo(
                         sets: _group.sets,
                         reps: _group.reps,
                       ),
@@ -106,37 +106,6 @@ class GroupOverview extends StatelessWidget {
                 );
               });
         });
-  }
-}
-
-class _RepSetHeader extends StatelessWidget {
-  const _RepSetHeader({
-    @required this.reps,
-    @required this.sets,
-  });
-
-  final int reps;
-  final int sets;
-
-  @override
-  Widget build(BuildContext context) {
-    Widget _text = Text(
-      'X$reps',
-      style: styles.Staatliches.groupRepSetHeaderLarge,
-      textAlign: TextAlign.center,
-    );
-
-    if (sets != null && sets > 1) {
-      _text = Text(
-        'X$reps X$sets',
-        style: styles.Staatliches.groupRepSetHeaderSmall,
-        textAlign: TextAlign.center,
-      );
-    }
-
-    return Center(
-      child: _text,
-    );
   }
 }
 

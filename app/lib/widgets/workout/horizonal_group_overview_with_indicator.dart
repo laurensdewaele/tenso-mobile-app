@@ -1,5 +1,6 @@
 import 'package:app/models/group.model.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout/group_navigation_indicator.dart';
 import 'package:app/widgets/workout/horizontal_group_overview.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,6 +45,7 @@ class _HorizontalGroupOverviewWithIndicatorState
           groups: widget.groups,
           reportVisibleBoardIndex: _setVisibleBoardIndex,
         ),
+        if (widget.groups.length > 1) Divider(height: styles.Measurements.m),
         if (widget.groups.length > 1)
           GroupNavigationIndicator(
             primaryColor: styles.Colors.primary,
