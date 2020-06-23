@@ -110,9 +110,9 @@ class SoundSettingsViewModel extends ChangeNotifier {
         string: _beepsBeforeHangInput, inputField: 'Beeps before hang');
     _beepsBeforeRest = InputParsers.parseToInt(
         string: _beepsBeforeRestInput, inputField: 'Beeps before rest');
-    final bool _isBeepsBeforeHangValid = Validators.biggerThanZero(
+    final bool _isBeepsBeforeHangValid = Validators.biggerOrEqualToZero(
         value: _beepsBeforeHang, inputField: 'Beeps before hang');
-    final bool _isBeepsBeforeRestValid = Validators.biggerThanZero(
+    final bool _isBeepsBeforeRestValid = Validators.biggerOrEqualToZero(
         value: _beepsBeforeRest, inputField: 'Beeps before rest');
 
     final _isValid = [

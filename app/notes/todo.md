@@ -1,6 +1,5 @@
 # TODO
 
-- Beeps before rest, allow 0;
 - Add open crimp, pinch grip, check if all grips available
 - Info/explanation screen
 - More beginner workouts. => Repeaters / max-hang / density 
