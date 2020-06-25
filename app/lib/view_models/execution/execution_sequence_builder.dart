@@ -14,15 +14,16 @@ abstract class _ExecutionTitles {
 class SequenceTimer {
   final int index;
   final SequenceTimerType type;
-  final int duration;
+  final int originalDurationS;
   final double effectiveDurationMs;
+  final double originalAddedWeight;
+  final double effectiveAddedWeight;
   final bool skipped;
   final bool stopped;
   final BoardHold leftGripBoardHold;
   final BoardHold rightGripBoardHold;
   final Grip leftGrip;
   final Grip rightGrip;
-  final double addedWeight;
   final Sound endSound;
   final Sound beepSound;
   final int beepsBeforeEnd;
@@ -41,15 +42,16 @@ class SequenceTimer {
   const SequenceTimer({
     this.index,
     @required this.type,
-    @required this.duration,
+    @required this.originalDurationS,
     @required this.effectiveDurationMs,
+    @required this.originalAddedWeight,
+    @required this.effectiveAddedWeight,
     @required this.skipped,
     @required this.stopped,
     @required this.leftGripBoardHold,
     @required this.rightGripBoardHold,
     @required this.leftGrip,
     @required this.rightGrip,
-    @required this.addedWeight,
     @required this.endSound,
     @required this.beepSound,
     @required this.beepsBeforeEnd,
@@ -69,15 +71,16 @@ class SequenceTimer {
   SequenceTimer copyWith({
     int index,
     SequenceTimerType type,
-    int duration,
+    int originalDurationS,
     double effectiveDurationMs,
+    double originalAddedWeight,
+    double effectiveAddedWeight,
     bool skipped,
     bool stopped,
     Nullable<BoardHold> leftGripBoardHold,
     Nullable<BoardHold> rightGripBoardHold,
     Nullable<Grip> leftGrip,
     Nullable<Grip> rightGrip,
-    double addedWeight,
     Sound endSound,
     Sound beepSound,
     int beepsBeforeEnd,
@@ -96,8 +99,10 @@ class SequenceTimer {
     return new SequenceTimer(
       index: index ?? this.index,
       type: type ?? this.type,
-      duration: duration ?? this.duration,
+      originalDurationS: originalDurationS ?? this.originalDurationS,
       effectiveDurationMs: effectiveDurationMs ?? this.effectiveDurationMs,
+      originalAddedWeight: originalAddedWeight ?? this.originalAddedWeight,
+      effectiveAddedWeight: effectiveAddedWeight ?? this.effectiveAddedWeight,
       skipped: skipped ?? this.skipped,
       stopped: stopped ?? this.stopped,
       leftGripBoardHold: leftGripBoardHold == null
@@ -108,7 +113,6 @@ class SequenceTimer {
           : rightGripBoardHold.value,
       leftGrip: leftGrip == null ? this.leftGrip : leftGrip.value,
       rightGrip: rightGrip == null ? this.rightGrip : rightGrip.value,
-      addedWeight: addedWeight ?? this.addedWeight,
       endSound: endSound ?? this.endSound,
       beepSound: beepSound ?? this.beepSound,
       beepsBeforeEnd: beepsBeforeEnd ?? this.beepsBeforeEnd,
@@ -139,13 +143,14 @@ List<SequenceTimer> sequenceBuilder(
     return SequenceTimer(
         stopped: false,
         skipped: false,
-        addedWeight: group.addedWeight,
+        originalAddedWeight: group.addedWeight,
+        effectiveAddedWeight: group.addedWeight,
         leftGripBoardHold: group.leftGripBoardHold,
         rightGripBoardHold: group.rightGripBoardHold,
         leftGrip: group.leftGrip,
         rightGrip: group.rightGrip,
         type: SequenceTimerType.preparationTimer,
-        duration: settings.preparationTimer,
+        originalDurationS: settings.preparationTimer,
         effectiveDurationMs: (settings.preparationTimer * 1000).toDouble(),
         endSound: settings.hangSound,
         beepSound: settings.beepSound,
@@ -171,13 +176,14 @@ List<SequenceTimer> sequenceBuilder(
     return SequenceTimer(
         stopped: false,
         skipped: false,
-        addedWeight: group.addedWeight,
+        originalAddedWeight: group.addedWeight,
+        effectiveAddedWeight: group.addedWeight,
         leftGripBoardHold: group.leftGripBoardHold,
         rightGripBoardHold: group.rightGripBoardHold,
         leftGrip: group.leftGrip,
         rightGrip: group.rightGrip,
         type: SequenceTimerType.hangTimer,
-        duration: group.hangTimeS,
+        originalDurationS: group.hangTimeS,
         effectiveDurationMs: (group.hangTimeS * 1000).toDouble(),
         endSound: settings.restSound,
         beepSound: settings.beepSound,
@@ -204,13 +210,14 @@ List<SequenceTimer> sequenceBuilder(
     return SequenceTimer(
         skipped: false,
         stopped: false,
-        addedWeight: group.addedWeight,
+        originalAddedWeight: group.addedWeight,
+        effectiveAddedWeight: group.addedWeight,
         leftGripBoardHold: group.leftGripBoardHold,
         rightGripBoardHold: group.rightGripBoardHold,
         leftGrip: group.leftGrip,
         rightGrip: group.rightGrip,
         type: SequenceTimerType.fixedRestTimer,
-        duration: duration,
+        originalDurationS: duration,
         effectiveDurationMs: (duration * 1000).toDouble(),
         endSound: settings.hangSound,
         beepSound: settings.beepSound,
@@ -236,13 +243,14 @@ List<SequenceTimer> sequenceBuilder(
     return SequenceTimer(
         stopped: false,
         skipped: false,
-        addedWeight: group.addedWeight,
+        originalAddedWeight: group.addedWeight,
+        effectiveAddedWeight: group.addedWeight,
         leftGripBoardHold: group.leftGripBoardHold,
         rightGripBoardHold: group.rightGripBoardHold,
         leftGrip: group.leftGrip,
         rightGrip: group.rightGrip,
         type: SequenceTimerType.variableRestTimer,
-        duration: 0,
+        originalDurationS: 0,
         effectiveDurationMs: 0,
         endSound: settings.hangSound,
         beepSound: settings.beepSound,

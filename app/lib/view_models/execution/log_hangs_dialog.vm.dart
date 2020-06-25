@@ -1,3 +1,4 @@
+import 'package:app/helpers/nullable.dart';
 import 'package:app/models/models.dart';
 import 'package:app/services/navigation.service.dart';
 import 'package:app/services/parser.service.dart';
@@ -10,8 +11,8 @@ class PastHang {
   final bool skipped;
   final double effectiveDurationS;
   final String effectiveDurationSInput;
-  final double addedWeight;
-  final String addedWeightInput;
+  final double effectiveAddedWeight;
+  final String effectiveAddedWeightInput;
   final bool isSelected;
   final double boardAspectRatio;
   final String imageAsset;
@@ -35,8 +36,8 @@ class PastHang {
     @required this.skipped,
     @required this.effectiveDurationS,
     @required this.effectiveDurationSInput,
-    @required this.addedWeight,
-    @required this.addedWeightInput,
+    @required this.effectiveAddedWeight,
+    @required this.effectiveAddedWeightInput,
     @required this.isSelected,
     @required this.boardAspectRatio,
     @required this.imageAsset,
@@ -61,18 +62,18 @@ class PastHang {
     bool skipped,
     double effectiveDurationS,
     String effectiveDurationSInput,
-    double addedWeight,
-    String addedWeightInput,
+    double effectiveAddedWeight,
+    String effectiveAddedWeightInput,
     bool isSelected,
     double boardAspectRatio,
     String imageAsset,
     double imageAssetWidth,
     List<CustomBoardHoldImage> customBoardHoldImages,
     double handToBoardHeightRatio,
-    BoardHold leftGripBoardHold,
-    BoardHold rightGripBoardHold,
-    Grip leftGrip,
-    Grip rightGrip,
+    Nullable<BoardHold> leftGripBoardHold,
+    Nullable<BoardHold> rightGripBoardHold,
+    Nullable<Grip> leftGrip,
+    Nullable<Grip> rightGrip,
     String weightUnit,
     int totalGroups,
     int currentGroup,
@@ -87,8 +88,9 @@ class PastHang {
       effectiveDurationS: effectiveDurationS ?? this.effectiveDurationS,
       effectiveDurationSInput:
           effectiveDurationSInput ?? this.effectiveDurationSInput,
-      addedWeight: addedWeight ?? this.addedWeight,
-      addedWeightInput: addedWeightInput ?? this.addedWeightInput,
+      effectiveAddedWeight: effectiveAddedWeight ?? this.effectiveAddedWeight,
+      effectiveAddedWeightInput:
+          effectiveAddedWeightInput ?? this.effectiveAddedWeightInput,
       isSelected: isSelected ?? this.isSelected,
       boardAspectRatio: boardAspectRatio ?? this.boardAspectRatio,
       imageAsset: imageAsset ?? this.imageAsset,
@@ -97,10 +99,14 @@ class PastHang {
           customBoardHoldImages ?? this.customBoardHoldImages,
       handToBoardHeightRatio:
           handToBoardHeightRatio ?? this.handToBoardHeightRatio,
-      leftGripBoardHold: leftGripBoardHold ?? this.leftGripBoardHold,
-      rightGripBoardHold: rightGripBoardHold ?? this.rightGripBoardHold,
-      leftGrip: leftGrip ?? this.leftGrip,
-      rightGrip: rightGrip ?? this.rightGrip,
+      leftGripBoardHold: leftGripBoardHold == null
+          ? this.leftGripBoardHold
+          : leftGripBoardHold.value,
+      rightGripBoardHold: rightGripBoardHold == null
+          ? this.rightGripBoardHold
+          : rightGripBoardHold.value,
+      leftGrip: leftGrip == null ? this.leftGrip : leftGrip.value,
+      rightGrip: rightGrip == null ? this.rightGrip : rightGrip.value,
       weightUnit: weightUnit ?? this.weightUnit,
       totalGroups: totalGroups ?? this.totalGroups,
       currentGroup: currentGroup ?? this.currentGroup,
@@ -172,7 +178,7 @@ class LogHangsDialogViewModel extends ChangeNotifier {
   void setAddedWeightInput(String s) {
     List<PastHang> _newPastHangs = []..addAll(_pastHangs);
     _newPastHangs[_selectedPastHangIndex] =
-        selectedPastHang.copyWith(addedWeightInput: s);
+        selectedPastHang.copyWith(effectiveAddedWeightInput: s);
     _pastHangs = _newPastHangs;
     try {
       InputParsers.parseToDouble(string: s, inputField: 'Added weight');
@@ -193,16 +199,18 @@ class LogHangsDialogViewModel extends ChangeNotifier {
     final bool _validDuration = Validators.biggerOrEqualToZero(
         value: _effectiveDurationS, inputField: 'Duration');
 
-    final double _addedWeight = InputParsers.parseToDouble(
-        string: selectedPastHang.addedWeightInput, inputField: 'Added weight');
+    final double _effectiveAddedWeight = InputParsers.parseToDouble(
+        string: selectedPastHang.effectiveAddedWeightInput,
+        inputField: 'Added weight');
 
-    final bool _isValid = _addedWeight != null && _validDuration == true;
+    final bool _isValid =
+        _effectiveAddedWeight != null && _validDuration == true;
 
     if (_isValid == true) {
       List<PastHang> _newPastHangs = []..addAll(_pastHangs);
       _newPastHangs[_selectedPastHangIndex] = selectedPastHang.copyWith(
         effectiveDurationS: _effectiveDurationS,
-        addedWeight: _addedWeight,
+        effectiveAddedWeight: _effectiveAddedWeight,
       );
       _pastHangs = _newPastHangs;
     }
@@ -221,7 +229,7 @@ class LogHangsDialogViewModel extends ChangeNotifier {
         final List<LoggedHang> _loggedHangs = _pastHangs
             .map((PastHang pastHang) => LoggedHang(
                 sequenceTimerIndex: pastHang.sequenceTimerIndex,
-                addedWeight: pastHang.addedWeight,
+                effectiveAddedWeight: pastHang.effectiveAddedWeight,
                 effectiveDurationS: pastHang.effectiveDurationS))
             .toList();
         _navigationService.pop();

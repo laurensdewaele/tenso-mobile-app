@@ -6,12 +6,12 @@ import 'package:flutter/cupertino.dart';
 
 class LoggedHang {
   final int sequenceTimerIndex;
-  final double addedWeight;
+  final double effectiveAddedWeight;
   final double effectiveDurationS;
 
   const LoggedHang({
     @required this.sequenceTimerIndex,
-    @required this.addedWeight,
+    @required this.effectiveAddedWeight,
     @required this.effectiveDurationS,
   });
 }

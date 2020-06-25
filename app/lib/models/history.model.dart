@@ -20,15 +20,15 @@ abstract class History implements Built<History, HistoryBuilder> {
         .toList()
         .where((SequenceTimerLog t) => t.type == SequenceTimerType.hangTimer);
 
-    final double _totalDurationS = _hangSequences
-        .map((SequenceTimerLog t) => t.duration)
+    final double _totalOriginalDurationS = _hangSequences
+        .map((SequenceTimerLog t) => t.originalDurationS)
         .fold(0, (previous, current) => previous + current);
 
     final double _effectiveDurationS = _hangSequences
         .map((SequenceTimerLog t) => t.effectiveDurationMs / 1000)
         .fold(0, (previous, current) => previous + current);
 
-    return (_effectiveDurationS / _totalDurationS * 100).round();
+    return (_effectiveDurationS / _totalOriginalDurationS * 100).round();
   }
 
   double _calculateTimeUnderTensionMs() {

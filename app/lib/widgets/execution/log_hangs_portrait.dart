@@ -92,7 +92,7 @@ class LogHangsPortrait extends StatelessWidget {
                     enabled: true,
                     description: '${selectedPastHang.weightUnit} added weight',
                     handleValueChanged: setAddedWeightInput,
-                    initialValue: selectedPastHang.addedWeight,
+                    initialValue: selectedPastHang.effectiveAddedWeight,
                   ),
                 ],
               ),

@@ -13,10 +13,16 @@ abstract class SequenceTimerLog
       _$sequenceTimerLogSerializer;
 
   SequenceTimerType get type;
-  int get duration;
+  int get originalDurationS;
   double get effectiveDurationMs;
+  @nullable
+  double get originalAddedWeight;
+  @nullable
+  double get effectiveAddedWeight;
+  WeightSystem get weightSystem;
   bool get skipped;
   bool get stopped;
+  int get groupIndex;
 
   factory SequenceTimerLog([void Function(SequenceTimerLogBuilder) updates]) =
       _$SequenceTimerLog;

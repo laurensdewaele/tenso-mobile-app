@@ -70,8 +70,8 @@ class ExecutionViewModel {
         currentSet: t.currentSet,
         effectiveDurationS: _effectiveDurationS,
         effectiveDurationSInput: _effectiveDurationS.toString(),
-        addedWeight: t.addedWeight,
-        addedWeightInput: t.addedWeight.toString(),
+        effectiveAddedWeight: t.originalAddedWeight,
+        effectiveAddedWeightInput: t.originalAddedWeight.toString(),
         isSelected:
             t.index == _pastHangSequences[_pastHangSequences.length - 1].index,
         boardAspectRatio: t.board.aspectRatio,
@@ -110,7 +110,7 @@ class ExecutionViewModel {
       currentGroup: _currentSequence.currentGroup,
       type: _currentSequence.type,
       isVariableRestTimer: _isVariableRestTimer,
-      duration: _currentSequence.duration,
+      duration: _currentSequence.originalDurationS,
       displaySeconds: _displaySeconds,
       animatedBackgroundHeightFactor:
           _isVariableRestTimer == false ? _animationController.value : 0,
@@ -128,7 +128,7 @@ class ExecutionViewModel {
       totalSets: _currentSequence.totalSets,
       currentSet: _currentSequence.currentSet,
       weightSystem: _currentSequence.weightSystem,
-      addedWeight: _currentSequence.addedWeight,
+      addedWeight: _currentSequence.originalAddedWeight,
     );
   }
 
@@ -233,11 +233,14 @@ class ExecutionViewModel {
   History _generateHistory() {
     final List<SequenceTimerLog> _logs = _sequence
         .map((SequenceTimer t) => SequenceTimerLog((b) => b
+          ..originalDurationS = t.originalDurationS
           ..effectiveDurationMs = t.effectiveDurationMs
-          ..duration = t.duration
+          ..originalAddedWeight = t.originalAddedWeight
+          ..effectiveAddedWeight = t.effectiveAddedWeight
           ..type = t.type
           ..skipped = t.skipped
-          ..stopped = t.stopped))
+          ..stopped = t.stopped
+          ..groupIndex = t.currentGroup - 1))
         .toList();
 
     return History((b) => b..sequenceTimerLogs.addAll(_logs));
@@ -283,7 +286,8 @@ class ExecutionViewModel {
     }
 
     _sequence[_currentSequenceIndex] = _currentSequence.copyWith(
-        addedWeight: _hangAfterSkippedHang.addedWeight,
+        originalAddedWeight: _hangAfterSkippedHang.originalAddedWeight,
+        effectiveAddedWeight: _hangAfterSkippedHang.effectiveAddedWeight,
         leftGripBoardHold: Nullable(_hangAfterSkippedHang.leftGripBoardHold),
         rightGripBoardHold: Nullable(_hangAfterSkippedHang.rightGripBoardHold),
         leftGrip: Nullable(_hangAfterSkippedHang.leftGrip),
@@ -330,7 +334,7 @@ class ExecutionViewModel {
 
   int _getDisplaySeconds() {
     if (_state$ == null) {
-      return _currentSequence.duration;
+      return _currentSequence.originalDurationS;
     }
 
     if (state.isVariableRestTimer == true) {
@@ -360,7 +364,7 @@ class ExecutionViewModel {
           _relevantLoggedHang != null) {
         return t.copyWith(
             effectiveDurationMs: _relevantLoggedHang.effectiveDurationS * 1000,
-            addedWeight: _relevantLoggedHang.addedWeight);
+            effectiveAddedWeight: _relevantLoggedHang.effectiveAddedWeight);
       }
 
       return t;

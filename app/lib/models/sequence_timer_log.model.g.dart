@@ -23,20 +23,37 @@ class _$SequenceTimerLogSerializer
       'type',
       serializers.serialize(object.type,
           specifiedType: const FullType(SequenceTimerType)),
-      'duration',
-      serializers.serialize(object.duration,
+      'originalDurationS',
+      serializers.serialize(object.originalDurationS,
           specifiedType: const FullType(int)),
       'effectiveDurationMs',
       serializers.serialize(object.effectiveDurationMs,
           specifiedType: const FullType(double)),
+      'weightSystem',
+      serializers.serialize(object.weightSystem,
+          specifiedType: const FullType(WeightSystem)),
       'skipped',
       serializers.serialize(object.skipped,
           specifiedType: const FullType(bool)),
       'stopped',
       serializers.serialize(object.stopped,
           specifiedType: const FullType(bool)),
+      'groupIndex',
+      serializers.serialize(object.groupIndex,
+          specifiedType: const FullType(int)),
     ];
-
+    if (object.originalAddedWeight != null) {
+      result
+        ..add('originalAddedWeight')
+        ..add(serializers.serialize(object.originalAddedWeight,
+            specifiedType: const FullType(double)));
+    }
+    if (object.effectiveAddedWeight != null) {
+      result
+        ..add('effectiveAddedWeight')
+        ..add(serializers.serialize(object.effectiveAddedWeight,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -57,13 +74,25 @@ class _$SequenceTimerLogSerializer
                   specifiedType: const FullType(SequenceTimerType))
               as SequenceTimerType;
           break;
-        case 'duration':
-          result.duration = serializers.deserialize(value,
+        case 'originalDurationS':
+          result.originalDurationS = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
         case 'effectiveDurationMs':
           result.effectiveDurationMs = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
+          break;
+        case 'originalAddedWeight':
+          result.originalAddedWeight = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'effectiveAddedWeight':
+          result.effectiveAddedWeight = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'weightSystem':
+          result.weightSystem = serializers.deserialize(value,
+              specifiedType: const FullType(WeightSystem)) as WeightSystem;
           break;
         case 'skipped':
           result.skipped = serializers.deserialize(value,
@@ -72,6 +101,10 @@ class _$SequenceTimerLogSerializer
         case 'stopped':
           result.stopped = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'groupIndex':
+          result.groupIndex = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -84,13 +117,21 @@ class _$SequenceTimerLog extends SequenceTimerLog {
   @override
   final SequenceTimerType type;
   @override
-  final int duration;
+  final int originalDurationS;
   @override
   final double effectiveDurationMs;
+  @override
+  final double originalAddedWeight;
+  @override
+  final double effectiveAddedWeight;
+  @override
+  final WeightSystem weightSystem;
   @override
   final bool skipped;
   @override
   final bool stopped;
+  @override
+  final int groupIndex;
 
   factory _$SequenceTimerLog(
           [void Function(SequenceTimerLogBuilder) updates]) =>
@@ -98,26 +139,37 @@ class _$SequenceTimerLog extends SequenceTimerLog {
 
   _$SequenceTimerLog._(
       {this.type,
-      this.duration,
+      this.originalDurationS,
       this.effectiveDurationMs,
+      this.originalAddedWeight,
+      this.effectiveAddedWeight,
+      this.weightSystem,
       this.skipped,
-      this.stopped})
+      this.stopped,
+      this.groupIndex})
       : super._() {
     if (type == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'type');
     }
-    if (duration == null) {
-      throw new BuiltValueNullFieldError('SequenceTimerLog', 'duration');
+    if (originalDurationS == null) {
+      throw new BuiltValueNullFieldError(
+          'SequenceTimerLog', 'originalDurationS');
     }
     if (effectiveDurationMs == null) {
       throw new BuiltValueNullFieldError(
           'SequenceTimerLog', 'effectiveDurationMs');
+    }
+    if (weightSystem == null) {
+      throw new BuiltValueNullFieldError('SequenceTimerLog', 'weightSystem');
     }
     if (skipped == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'skipped');
     }
     if (stopped == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'stopped');
+    }
+    if (groupIndex == null) {
+      throw new BuiltValueNullFieldError('SequenceTimerLog', 'groupIndex');
     }
   }
 
@@ -134,30 +186,48 @@ class _$SequenceTimerLog extends SequenceTimerLog {
     if (identical(other, this)) return true;
     return other is SequenceTimerLog &&
         type == other.type &&
-        duration == other.duration &&
+        originalDurationS == other.originalDurationS &&
         effectiveDurationMs == other.effectiveDurationMs &&
+        originalAddedWeight == other.originalAddedWeight &&
+        effectiveAddedWeight == other.effectiveAddedWeight &&
+        weightSystem == other.weightSystem &&
         skipped == other.skipped &&
-        stopped == other.stopped;
+        stopped == other.stopped &&
+        groupIndex == other.groupIndex;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, type.hashCode), duration.hashCode),
-                effectiveDurationMs.hashCode),
-            skipped.hashCode),
-        stopped.hashCode));
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc($jc(0, type.hashCode),
+                                    originalDurationS.hashCode),
+                                effectiveDurationMs.hashCode),
+                            originalAddedWeight.hashCode),
+                        effectiveAddedWeight.hashCode),
+                    weightSystem.hashCode),
+                skipped.hashCode),
+            stopped.hashCode),
+        groupIndex.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('SequenceTimerLog')
           ..add('type', type)
-          ..add('duration', duration)
+          ..add('originalDurationS', originalDurationS)
           ..add('effectiveDurationMs', effectiveDurationMs)
+          ..add('originalAddedWeight', originalAddedWeight)
+          ..add('effectiveAddedWeight', effectiveAddedWeight)
+          ..add('weightSystem', weightSystem)
           ..add('skipped', skipped)
-          ..add('stopped', stopped))
+          ..add('stopped', stopped)
+          ..add('groupIndex', groupIndex))
         .toString();
   }
 }
@@ -170,14 +240,30 @@ class SequenceTimerLogBuilder
   SequenceTimerType get type => _$this._type;
   set type(SequenceTimerType type) => _$this._type = type;
 
-  int _duration;
-  int get duration => _$this._duration;
-  set duration(int duration) => _$this._duration = duration;
+  int _originalDurationS;
+  int get originalDurationS => _$this._originalDurationS;
+  set originalDurationS(int originalDurationS) =>
+      _$this._originalDurationS = originalDurationS;
 
   double _effectiveDurationMs;
   double get effectiveDurationMs => _$this._effectiveDurationMs;
   set effectiveDurationMs(double effectiveDurationMs) =>
       _$this._effectiveDurationMs = effectiveDurationMs;
+
+  double _originalAddedWeight;
+  double get originalAddedWeight => _$this._originalAddedWeight;
+  set originalAddedWeight(double originalAddedWeight) =>
+      _$this._originalAddedWeight = originalAddedWeight;
+
+  double _effectiveAddedWeight;
+  double get effectiveAddedWeight => _$this._effectiveAddedWeight;
+  set effectiveAddedWeight(double effectiveAddedWeight) =>
+      _$this._effectiveAddedWeight = effectiveAddedWeight;
+
+  WeightSystem _weightSystem;
+  WeightSystem get weightSystem => _$this._weightSystem;
+  set weightSystem(WeightSystem weightSystem) =>
+      _$this._weightSystem = weightSystem;
 
   bool _skipped;
   bool get skipped => _$this._skipped;
@@ -187,15 +273,23 @@ class SequenceTimerLogBuilder
   bool get stopped => _$this._stopped;
   set stopped(bool stopped) => _$this._stopped = stopped;
 
+  int _groupIndex;
+  int get groupIndex => _$this._groupIndex;
+  set groupIndex(int groupIndex) => _$this._groupIndex = groupIndex;
+
   SequenceTimerLogBuilder();
 
   SequenceTimerLogBuilder get _$this {
     if (_$v != null) {
       _type = _$v.type;
-      _duration = _$v.duration;
+      _originalDurationS = _$v.originalDurationS;
       _effectiveDurationMs = _$v.effectiveDurationMs;
+      _originalAddedWeight = _$v.originalAddedWeight;
+      _effectiveAddedWeight = _$v.effectiveAddedWeight;
+      _weightSystem = _$v.weightSystem;
       _skipped = _$v.skipped;
       _stopped = _$v.stopped;
+      _groupIndex = _$v.groupIndex;
       _$v = null;
     }
     return this;
@@ -219,10 +313,14 @@ class SequenceTimerLogBuilder
     final _$result = _$v ??
         new _$SequenceTimerLog._(
             type: type,
-            duration: duration,
+            originalDurationS: originalDurationS,
             effectiveDurationMs: effectiveDurationMs,
+            originalAddedWeight: originalAddedWeight,
+            effectiveAddedWeight: effectiveAddedWeight,
+            weightSystem: weightSystem,
             skipped: skipped,
-            stopped: stopped);
+            stopped: stopped,
+            groupIndex: groupIndex);
     replace(_$result);
     return _$result;
   }
