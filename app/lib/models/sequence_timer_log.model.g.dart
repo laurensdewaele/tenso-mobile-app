@@ -29,6 +29,12 @@ class _$SequenceTimerLogSerializer
       'effectiveDurationMs',
       serializers.serialize(object.effectiveDurationMs,
           specifiedType: const FullType(double)),
+      'originalAddedWeight',
+      serializers.serialize(object.originalAddedWeight,
+          specifiedType: const FullType(double)),
+      'effectiveAddedWeight',
+      serializers.serialize(object.effectiveAddedWeight,
+          specifiedType: const FullType(double)),
       'weightSystem',
       serializers.serialize(object.weightSystem,
           specifiedType: const FullType(WeightSystem)),
@@ -42,18 +48,7 @@ class _$SequenceTimerLogSerializer
       serializers.serialize(object.groupIndex,
           specifiedType: const FullType(int)),
     ];
-    if (object.originalAddedWeight != null) {
-      result
-        ..add('originalAddedWeight')
-        ..add(serializers.serialize(object.originalAddedWeight,
-            specifiedType: const FullType(double)));
-    }
-    if (object.effectiveAddedWeight != null) {
-      result
-        ..add('effectiveAddedWeight')
-        ..add(serializers.serialize(object.effectiveAddedWeight,
-            specifiedType: const FullType(double)));
-    }
+
     return result;
   }
 
@@ -158,6 +153,14 @@ class _$SequenceTimerLog extends SequenceTimerLog {
     if (effectiveDurationMs == null) {
       throw new BuiltValueNullFieldError(
           'SequenceTimerLog', 'effectiveDurationMs');
+    }
+    if (originalAddedWeight == null) {
+      throw new BuiltValueNullFieldError(
+          'SequenceTimerLog', 'originalAddedWeight');
+    }
+    if (effectiveAddedWeight == null) {
+      throw new BuiltValueNullFieldError(
+          'SequenceTimerLog', 'effectiveAddedWeight');
     }
     if (weightSystem == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'weightSystem');

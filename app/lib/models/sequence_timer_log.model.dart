@@ -15,9 +15,7 @@ abstract class SequenceTimerLog
   SequenceTimerType get type;
   int get originalDurationS;
   double get effectiveDurationMs;
-  @nullable
   double get originalAddedWeight;
-  @nullable
   double get effectiveAddedWeight;
   WeightSystem get weightSystem;
   bool get skipped;

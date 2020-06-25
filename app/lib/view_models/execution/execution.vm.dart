@@ -233,6 +233,7 @@ class ExecutionViewModel {
   History _generateHistory() {
     final List<SequenceTimerLog> _logs = _sequence
         .map((SequenceTimer t) => SequenceTimerLog((b) => b
+          ..weightSystem = t.weightSystem
           ..originalDurationS = t.originalDurationS
           ..effectiveDurationMs = t.effectiveDurationMs
           ..originalAddedWeight = t.originalAddedWeight
