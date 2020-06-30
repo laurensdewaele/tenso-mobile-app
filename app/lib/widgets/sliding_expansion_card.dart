@@ -81,9 +81,9 @@ class _SlidingExpansionCardState extends State<SlidingExpansionCard>
     });
 
     if (_isExpanded) {
-      await _controller.forward().orCancel;
+      await _controller.forward();
     } else {
-      await _controller.reverse().orCancel;
+      await _controller.reverse();
       if (!mounted) return;
       setState(() {});
     }

@@ -98,9 +98,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 
   void _forward() async {
-    try {
-      await _slideController.forward().orCancel;
-    } catch (_) {}
+    await _slideController.forward();
     _dy = 0;
     setState(() {
       _position = SliderPositions.end;
@@ -108,9 +106,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   }
 
   void _reverse() async {
-    try {
-      await _slideController.reverse().orCancel;
-    } catch (_) {}
+    await _slideController.reverse();
     _dy = 0;
     setState(() {
       _position = SliderPositions.begin;
