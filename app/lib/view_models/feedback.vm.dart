@@ -36,11 +36,9 @@ class FeedbackViewModel extends ChangeNotifier {
       if (_isValid == true) {
         _awaitingResponse = true;
         notifyListeners();
-        await Future.delayed(const Duration(seconds: 1));
+        // TODO: Send to backend.
         _awaitingResponse = false;
         notifyListeners();
-        // TODO: Foresee an anti-spam method.
-        // TODO: Send to backend.
       }
       return _isValid;
     });
