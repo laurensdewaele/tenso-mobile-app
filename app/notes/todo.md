@@ -1,7 +1,5 @@
 # TODO
 
-- Overview on completed workout to show what you were able to hang.
-
 ### Triage:
 - Have an overview of the things you specifically did, hang times, and skipped etc...
 - Have an 'on the fly workout'? 
@@ -13,14 +11,14 @@
 - Scale pull measurements (Jan)? 
 
 ### Large prio
-- Add open crimp, pinch grip, check if all grips available
 - Implement a feedback button.
+- Add open crimp, pinch grip, check if all grips available
+- Info/explanation screen
 - LAUNCH
 
 ### Medium prio
 - Info on group and rep rest needs to say stuff about group and rest, not just 
   variable and fixed.
-- Info/explanation screen
 - More beginner workouts. => Repeaters / max-hang / density 
 - Make videos to explain beginners how to use this app.
 - Graphs
