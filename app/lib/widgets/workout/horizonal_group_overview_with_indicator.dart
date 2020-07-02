@@ -6,10 +6,12 @@ import 'package:app/widgets/workout/horizontal_group_overview.dart';
 import 'package:flutter/cupertino.dart';
 
 class HorizontalGroupOverviewWithIndicator extends StatefulWidget {
-  HorizontalGroupOverviewWithIndicator({Key key, @required this.groups})
+  HorizontalGroupOverviewWithIndicator(
+      {Key key, @required this.groups, this.handleVisibleGroupIndex})
       : super(key: key);
 
   final List<Group> groups;
+  final void Function(int index) handleVisibleGroupIndex;
 
   @override
   _HorizontalGroupOverviewWithIndicatorState createState() =>
@@ -18,7 +20,7 @@ class HorizontalGroupOverviewWithIndicator extends StatefulWidget {
 
 class _HorizontalGroupOverviewWithIndicatorState
     extends State<HorizontalGroupOverviewWithIndicator> {
-  int _visibleBoardIndex = 0;
+  int _visibleGroupIndex = 0;
 
   @override
   void initState() {
@@ -30,10 +32,17 @@ class _HorizontalGroupOverviewWithIndicatorState
     super.dispose();
   }
 
-  _setVisibleBoardIndex(int index) {
+  _setVisibleGroupIndex(int index) {
     setState(() {
-      _visibleBoardIndex = index;
+      _visibleGroupIndex = index;
     });
+  }
+
+  _handleVisibleGroupIndex(int index) {
+    _setVisibleGroupIndex(index);
+    if (widget.handleVisibleGroupIndex != null) {
+      widget.handleVisibleGroupIndex(index);
+    }
   }
 
   @override
@@ -43,14 +52,14 @@ class _HorizontalGroupOverviewWithIndicatorState
       children: <Widget>[
         HorizontalGroupOverview(
           groups: widget.groups,
-          reportVisibleBoardIndex: _setVisibleBoardIndex,
+          handleVisibleGroupIndex: _handleVisibleGroupIndex,
         ),
         if (widget.groups.length > 1) Divider(height: styles.Measurements.m),
         if (widget.groups.length > 1)
           GroupNavigationIndicator(
             primaryColor: styles.Colors.primary,
             count: widget.groups.length,
-            activeIndex: _visibleBoardIndex,
+            activeIndex: _visibleGroupIndex,
           )
       ],
     );

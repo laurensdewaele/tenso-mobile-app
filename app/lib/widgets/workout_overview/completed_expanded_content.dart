@@ -1,5 +1,6 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
+import 'package:app/widgets/calendar/logs_overview.dart';
 import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/workout_overview/display_duration_seconds.dart';
@@ -128,6 +129,11 @@ class CompletedExpandedWorkoutContent extends StatelessWidget {
             ],
           ),
         Divider(height: styles.Measurements.m),
+        LogsOverview(
+          weightUnit: completedWorkout.workout.weightSystem.unit,
+          groups: completedWorkout.workout.groups.toList(),
+          logs: completedWorkout.history.sequenceTimerLogs.toList(),
+        )
       ],
     );
   }

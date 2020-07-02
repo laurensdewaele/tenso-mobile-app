@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 
 class HorizontalGroupOverview extends StatelessWidget {
   HorizontalGroupOverview(
-      {Key key, @required this.groups, @required this.reportVisibleBoardIndex})
+      {Key key, @required this.groups, @required this.handleVisibleGroupIndex})
       : super(key: key);
 
   final List<Group> groups;
-  final void Function(int visisbleBoard) reportVisibleBoardIndex;
+  final void Function(int visisbleBoard) handleVisibleGroupIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HorizontalGroupOverview extends StatelessWidget {
         return _HorizontalGroupOverview(
           groups: groups,
           maxWidth: constraints.maxWidth,
-          reportVisibleBoardIndex: reportVisibleBoardIndex,
+          handleVisibleGroupIndex: handleVisibleGroupIndex,
         );
       },
     );
@@ -31,12 +31,12 @@ class _HorizontalGroupOverview extends StatefulWidget {
       {Key key,
       @required this.groups,
       @required this.maxWidth,
-      @required this.reportVisibleBoardIndex})
+      @required this.handleVisibleGroupIndex})
       : super(key: key);
 
   final List<Group> groups;
   final double maxWidth;
-  final void Function(int visisbleBoard) reportVisibleBoardIndex;
+  final void Function(int visisbleBoard) handleVisibleGroupIndex;
 
   @override
   _HorizontalGroupOverviewState createState() =>
@@ -72,15 +72,15 @@ class _HorizontalGroupOverviewState extends State<_HorizontalGroupOverview> {
         (int boardIndex, Group group) =>
             MapEntry(boardIndex, _calculateTippingPoint(boardIndex)));
 
-    int _visibleBoardIndex;
+    int _visibleGroupIndex;
 
     _tippingPoints.forEach((boardIndex, tippingPoint) {
-      if (_visibleBoardIndex == null && _controller.offset < tippingPoint) {
-        _visibleBoardIndex = boardIndex;
+      if (_visibleGroupIndex == null && _controller.offset < tippingPoint) {
+        _visibleGroupIndex = boardIndex;
       }
     });
 
-    widget.reportVisibleBoardIndex(_visibleBoardIndex);
+    widget.handleVisibleGroupIndex(_visibleGroupIndex);
   }
 
   double _calculateMaxBoardHeight() {

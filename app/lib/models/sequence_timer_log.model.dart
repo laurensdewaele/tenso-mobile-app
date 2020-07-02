@@ -12,6 +12,7 @@ abstract class SequenceTimerLog
   static Serializer<SequenceTimerLog> get serializer =>
       _$sequenceTimerLogSerializer;
 
+  int get index;
   SequenceTimerType get type;
   int get originalDurationS;
   double get effectiveDurationMs;

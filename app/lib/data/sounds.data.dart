@@ -31,11 +31,6 @@ abstract class Sounds {
     ..filename = 'hang.m4a'
     ..muted = false);
 
-  static Sound femaleHangAggressive = Sound((b) => b
-    ..name = 'Female hang aggresive'
-    ..filename = 'hang_aggro.m4a'
-    ..muted = false);
-
   static Sound femaleRelax = Sound((b) => b
     ..name = 'Female relax'
     ..filename = 'relax.m4a'

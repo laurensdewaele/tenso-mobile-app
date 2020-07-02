@@ -15,6 +15,22 @@ class SequenceTimerType extends EnumClass {
 
   const SequenceTimerType._(String name) : super(name);
 
+  @override
+  String toString() {
+    switch (name) {
+      case 'variableRestTimer':
+        return 'variable rest timer';
+      case 'fixedRestTimer':
+        return 'fixed rest timer';
+      case 'preparationTimer':
+        return 'preparation timer';
+      case 'hangTimer':
+        return 'hang timer';
+      default:
+        throw new ArgumentError(name);
+    }
+  }
+
   static BuiltSet<SequenceTimerType> get values => _$stValues;
   static SequenceTimerType valueOf(String name) => _$stValueOf(name);
 }

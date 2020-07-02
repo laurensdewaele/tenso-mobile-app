@@ -20,6 +20,8 @@ class _$SequenceTimerLogSerializer
   Iterable<Object> serialize(Serializers serializers, SequenceTimerLog object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'index',
+      serializers.serialize(object.index, specifiedType: const FullType(int)),
       'type',
       serializers.serialize(object.type,
           specifiedType: const FullType(SequenceTimerType)),
@@ -64,6 +66,10 @@ class _$SequenceTimerLogSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'index':
+          result.index = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'type':
           result.type = serializers.deserialize(value,
                   specifiedType: const FullType(SequenceTimerType))
@@ -110,6 +116,8 @@ class _$SequenceTimerLogSerializer
 
 class _$SequenceTimerLog extends SequenceTimerLog {
   @override
+  final int index;
+  @override
   final SequenceTimerType type;
   @override
   final int originalDurationS;
@@ -133,7 +141,8 @@ class _$SequenceTimerLog extends SequenceTimerLog {
       (new SequenceTimerLogBuilder()..update(updates)).build();
 
   _$SequenceTimerLog._(
-      {this.type,
+      {this.index,
+      this.type,
       this.originalDurationS,
       this.effectiveDurationMs,
       this.originalAddedWeight,
@@ -143,6 +152,9 @@ class _$SequenceTimerLog extends SequenceTimerLog {
       this.stopped,
       this.groupIndex})
       : super._() {
+    if (index == null) {
+      throw new BuiltValueNullFieldError('SequenceTimerLog', 'index');
+    }
     if (type == null) {
       throw new BuiltValueNullFieldError('SequenceTimerLog', 'type');
     }
@@ -188,6 +200,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SequenceTimerLog &&
+        index == other.index &&
         type == other.type &&
         originalDurationS == other.originalDurationS &&
         effectiveDurationMs == other.effectiveDurationMs &&
@@ -208,7 +221,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, type.hashCode),
+                                $jc($jc($jc(0, index.hashCode), type.hashCode),
                                     originalDurationS.hashCode),
                                 effectiveDurationMs.hashCode),
                             originalAddedWeight.hashCode),
@@ -222,6 +235,7 @@ class _$SequenceTimerLog extends SequenceTimerLog {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('SequenceTimerLog')
+          ..add('index', index)
           ..add('type', type)
           ..add('originalDurationS', originalDurationS)
           ..add('effectiveDurationMs', effectiveDurationMs)
@@ -238,6 +252,10 @@ class _$SequenceTimerLog extends SequenceTimerLog {
 class SequenceTimerLogBuilder
     implements Builder<SequenceTimerLog, SequenceTimerLogBuilder> {
   _$SequenceTimerLog _$v;
+
+  int _index;
+  int get index => _$this._index;
+  set index(int index) => _$this._index = index;
 
   SequenceTimerType _type;
   SequenceTimerType get type => _$this._type;
@@ -284,6 +302,7 @@ class SequenceTimerLogBuilder
 
   SequenceTimerLogBuilder get _$this {
     if (_$v != null) {
+      _index = _$v.index;
       _type = _$v.type;
       _originalDurationS = _$v.originalDurationS;
       _effectiveDurationMs = _$v.effectiveDurationMs;
@@ -315,6 +334,7 @@ class SequenceTimerLogBuilder
   _$SequenceTimerLog build() {
     final _$result = _$v ??
         new _$SequenceTimerLog._(
+            index: index,
             type: type,
             originalDurationS: originalDurationS,
             effectiveDurationMs: effectiveDurationMs,

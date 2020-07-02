@@ -136,15 +136,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                                               _viewModel.setAndPlayHangSound,
                                         ),
                                         RadioButton<Sound>(
-                                          description:
-                                              Sounds.femaleHangAggressive.name,
-                                          value: Sounds.femaleHangAggressive,
-                                          active: _viewModel
-                                              .isWomanHangAggressiveActive,
-                                          handleSelected:
-                                              _viewModel.setAndPlayHangSound,
-                                        ),
-                                        RadioButton<Sound>(
                                           description: Sounds.off.name,
                                           value: Sounds.off,
                                           active:

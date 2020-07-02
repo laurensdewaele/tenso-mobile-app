@@ -34,7 +34,6 @@ class SoundSettingsViewModel extends ChangeNotifier {
   bool isThudDeepActive;
   bool isHangSoundOffActive;
   bool isWomanHangActive;
-  bool isWomanHangAggressiveActive;
   // Rest sound
   bool isMetalHitSmallActive;
   bool isMetalHitLargeActive;
@@ -64,8 +63,6 @@ class SoundSettingsViewModel extends ChangeNotifier {
     isThudDeepActive = _settings.hangSound == Sounds.thudDeep;
     isHangSoundOffActive = _settings.hangSound == Sounds.off;
     isWomanHangActive = _settings.hangSound == Sounds.femaleHang;
-    isWomanHangAggressiveActive =
-        _settings.hangSound == Sounds.femaleHangAggressive;
     isGongActive = _settings.restSound == Sounds.gong;
     isRestSoundOffActive = _settings.restSound == Sounds.off;
     isWomanRelaxActive = _settings.restSound == Sounds.femaleRelax;
