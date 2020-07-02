@@ -1,6 +1,7 @@
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon.dart';
+import 'package:app/widgets/loading_indicator.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class Button extends StatelessWidget {
@@ -15,6 +16,7 @@ class Button extends StatelessWidget {
     this.height = styles.kStandardButtonHeight,
     this.small = false,
     this.smallText = false,
+    this.loading = false,
   });
 
   final Color backgroundColor;
@@ -27,6 +29,7 @@ class Button extends StatelessWidget {
   final bool displayBackground;
   final bool small;
   final bool smallText;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,11 @@ class Button extends StatelessWidget {
     return Transform.scale(
       scale: small ? 0.8 : 1,
       child: GestureDetector(
-          onTap: handleTap,
+          onTap: () {
+            if (loading == false) {
+              handleTap();
+            }
+          },
           child: Container(
               width: width,
               height: height,
@@ -83,11 +90,16 @@ class Button extends StatelessWidget {
               child: _hasIcon
                   ? iconRow
                   : Center(
-                      child: Text(
-                        text,
-                        style: _textStyle,
-                        textAlign: TextAlign.center,
-                      ),
+                      child: loading == false
+                          ? Text(
+                              text,
+                              style: _textStyle,
+                              textAlign: TextAlign.center,
+                            )
+                          : LoadingIndicator(
+                              animating: true,
+                              radius: 15,
+                            ),
                     ))),
     );
   }

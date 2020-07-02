@@ -116,8 +116,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         ),
                         Button(
                           text: 'send',
-                          handleTap: _viewModel.validate,
-                        )
+                          loading: _viewModel.awaitingResponse,
+                          handleTap: _viewModel.sendMessage,
+                        ),
                       ],
                     ),
                   ),

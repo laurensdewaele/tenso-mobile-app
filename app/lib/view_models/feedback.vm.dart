@@ -12,6 +12,8 @@ final List<String> feedbackTypes = [
 class FeedbackViewModel extends ChangeNotifier {
   String _messageInput;
   String _type = feedbackTypes[0];
+  bool _awaitingResponse = false;
+  bool get awaitingResponse => _awaitingResponse;
 
   void setMessage(String message) {
     _messageInput = message;
@@ -25,13 +27,22 @@ class FeedbackViewModel extends ChangeNotifier {
     final String _message = InputParsers.parseString(string: _messageInput);
     final bool _valid =
         Validators.stringNotEmpty(string: _message, inputField: 'message');
-    if (_valid == true) {
-      //TODO: Send to backend
-    }
     return _valid;
   }
 
-  Future<bool> validate() {
-    return Future.sync(_validate);
+  Future<bool> sendMessage() {
+    return Future.sync(() async {
+      final _isValid = _validate();
+      if (_isValid == true) {
+        _awaitingResponse = true;
+        notifyListeners();
+        await Future.delayed(const Duration(seconds: 1));
+        _awaitingResponse = false;
+        notifyListeners();
+        // TODO: Foresee an anti-spam method.
+        // TODO: Send to backend.
+      }
+      return _isValid;
+    });
   }
 }
