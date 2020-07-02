@@ -2,6 +2,7 @@ import 'package:app/screens/board_settings.screen.dart';
 import 'package:app/screens/calendar.screen.dart';
 import 'package:app/screens/custom_board.screen.dart';
 import 'package:app/screens/execution.screen.dart';
+import 'package:app/screens/feedback.screen.dart';
 import 'package:app/screens/group.screen.dart';
 import 'package:app/screens/rate_workout.screen.dart';
 import 'package:app/screens/save_custom_board.screen.dart';
@@ -41,6 +42,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
     Routes.boardSettingsScreen: (context) => BoardSettingsScreen(),
     Routes.customBoardScreen: (context) => CustomBoardScreen(),
-    Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen()
+    Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
+    Routes.feedbackScreen: (context) => FeedbackScreen()
   };
 }

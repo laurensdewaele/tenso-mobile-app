@@ -28,9 +28,12 @@ class CalendarScreen extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: styles.Measurements.m,
-                        vertical: styles.Measurements.l),
+                    padding: const EdgeInsets.only(
+                      left: styles.Measurements.m,
+                      right: styles.Measurements.m,
+                      top: styles.Measurements.m,
+                      bottom: styles.Measurements.l,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [Calendar()],
