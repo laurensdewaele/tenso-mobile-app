@@ -1,12 +1,11 @@
 import 'package:app/models/models.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/widgets/calendar/constants.dart';
+import 'package:app/widgets/card.dart';
 import 'package:app/widgets/color_square.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/sliding_card.dart';
-import 'package:app/widgets/sliding_expansion_card.dart';
-import 'package:app/widgets/workout_overview/completed_expanded_content.dart';
 import 'package:app/widgets/workout_overview/delete_action.dart';
 import 'package:app/widgets/workout_overview/view_action.dart';
 import 'package:app/widgets/workout_overview/workout_long_press_dialog.dart';
@@ -34,7 +33,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
         smallWidth: true,
         context: context,
         content: WorkoutLongPressDialog(
-          isCompletedWorkout: true,
+          onCompletedWorkoutsOverviewScreen: true,
           name: completedWorkout.workout.name,
           handleDeleteTap: () => handleDeleteTap(completedWorkout),
           handleViewTap: () => handleViewTap(completedWorkout),
@@ -80,30 +79,10 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                         handleDeleteTap(completedWorkout),
                     handleLongPress: () =>
                         _handleLongPress(context, completedWorkout),
-                    content: SlidingExpansionCard(
-                      padding: EdgeInsets.all(styles.Measurements.s),
-                      topLeftSection: Container(
-                        height: styles.Measurements.xxl,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(completedWorkout.workout.name,
-                                style: styles.Staatliches.xlBlack,
-                                overflow: TextOverflow.ellipsis),
-                          ],
-                        ),
-                      ),
-                      topRightSection: ColorSquare(
-                        color: completedWorkout.workout.labelColor,
-                        width: styles.Measurements.xxl,
-                        height: styles.Measurements.xxl,
-                      ),
-                      topRightSectionWidth: styles.Measurements.xxl,
-                      handleTap: () {},
-                      content: CompletedExpandedWorkoutContent(
-                          completedWorkout: completedWorkout),
-                      handleLongPress: () =>
-                          _handleLongPress(context, completedWorkout),
+                    content: _SlidingCardContent(
+                      handleTap: () => handleViewTap(completedWorkout),
+                      labelColor: completedWorkout.workout.labelColor,
+                      name: completedWorkout.workout.name,
                     ),
                   )))
               .values
@@ -114,5 +93,52 @@ class CompletedWorkoutsOverview extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _SlidingCardContent extends StatelessWidget {
+  const _SlidingCardContent({
+    @required this.name,
+    @required this.labelColor,
+    @required this.handleTap,
+  });
+
+  final String name;
+  final Color labelColor;
+  final VoidCallback handleTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: handleTap,
+        child: Card(
+            padding: EdgeInsets.all(styles.Measurements.s),
+            child: Column(
+              children: <Widget>[
+                Stack(overflow: Overflow.clip, children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        height: styles.Measurements.xxl,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(name,
+                                style: styles.Staatliches.xlBlack,
+                                overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
+                      ),
+                      ColorSquare(
+                        color: labelColor,
+                        width: styles.Measurements.xxl,
+                        height: styles.Measurements.xxl,
+                      )
+                    ],
+                  ),
+                ]),
+              ],
+            )));
   }
 }

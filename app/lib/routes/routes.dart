@@ -1,5 +1,6 @@
 import 'package:app/screens/board_settings.screen.dart';
 import 'package:app/screens/calendar.screen.dart';
+import 'package:app/screens/completed_workout.screen.dart';
 import 'package:app/screens/custom_board.screen.dart';
 import 'package:app/screens/execution.screen.dart';
 import 'package:app/screens/feedback.screen.dart';
@@ -27,6 +28,7 @@ abstract class Routes {
   static const String rateWorkoutScreen = '/rateWorkoutScreen';
   static const String customBoardScreen = '/customBoardScreen';
   static const String saveCustomBoardScreen = '/saveCustomBoardScreen';
+  static const String completedWorkoutScreen = '/completedWorkoutScreen';
 }
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
@@ -43,6 +45,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.boardSettingsScreen: (context) => BoardSettingsScreen(),
     Routes.customBoardScreen: (context) => CustomBoardScreen(),
     Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
-    Routes.feedbackScreen: (context) => FeedbackScreen()
+    Routes.feedbackScreen: (context) => FeedbackScreen(),
+    Routes.completedWorkoutScreen: (context) => CompletedWorkoutScreen()
   };
 }

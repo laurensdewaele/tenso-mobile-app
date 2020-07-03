@@ -1,8 +1,7 @@
 import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
-import 'package:app/screens/workout.screen.dart';
+import 'package:app/screens/completed_workout.screen.dart';
 import 'package:app/view_models/calendar.vm.dart';
-import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/widgets/calendar/completed_workouts_overview.dart';
 import 'package:app/widgets/calendar/date_picker.dart';
 import 'package:app/widgets/calendar/header.dart';
@@ -49,10 +48,10 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _handleViewTap(CompletedWorkout completedWorkout) {
-    Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenArguments(
-            workout: completedWorkout.workout,
-            workoutAction: WorkoutActions.viewWorkout));
+    Navigator.of(context).pushNamed(Routes.completedWorkoutScreen,
+        arguments: CompletedWorkoutScreenArguments(
+          completedWorkout: completedWorkout,
+        ));
   }
 
   @override

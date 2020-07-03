@@ -50,7 +50,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         smallWidth: true,
         context: context,
         content: WorkoutLongPressDialog(
-            isCompletedWorkout: false,
+            onWorkoutOverviewScreen: true,
             name: workout.name,
             handleDeleteTap: () => _viewModel.deleteWorkout(workout),
             handleCopyTap: () => _viewModel.copyWorkout(workout),

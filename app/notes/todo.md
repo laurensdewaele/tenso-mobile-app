@@ -1,6 +1,5 @@
 # TODO
 
-- Perceived exertion not visible
 - Total rest time + total time on overview.
   Redesign workout overview?
 

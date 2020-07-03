@@ -12,12 +12,16 @@ class WorkoutLongPressDialog extends StatelessWidget {
       @required this.handleCopyTap,
       @required this.handleDeleteTap,
       @required this.name,
-      @required this.isCompletedWorkout,
+      this.onWorkoutOverviewScreen = false,
+      this.onCompletedWorkoutsOverviewScreen = false,
+      this.onCompletedWorkoutScreen = false,
       this.handleEditTap,
       this.handleViewTap})
       : super(key: key);
 
-  final bool isCompletedWorkout;
+  final bool onCompletedWorkoutsOverviewScreen;
+  final bool onWorkoutOverviewScreen;
+  final bool onCompletedWorkoutScreen;
   final String name;
   final VoidCallback handleEditTap;
   final VoidCallback handleDeleteTap;
@@ -34,15 +38,29 @@ class WorkoutLongPressDialog extends StatelessWidget {
           style: styles.Staatliches.lBlack,
         ),
         Divider(height: styles.Measurements.l),
-        if (isCompletedWorkout == true)
+        if (onCompletedWorkoutsOverviewScreen == true)
           Button(
               text: 'View',
               backgroundColor: styles.Colors.gray,
               displayBackground: true,
               leadingIcon: icons.searchIconWhiteXl,
-              handleTap: handleViewTap,
+              handleTap: () {
+                Navigator.of(context).pop();
+                handleViewTap();
+              },
               leadingIconTextCentered: true),
-        if (isCompletedWorkout == false)
+        if (onCompletedWorkoutScreen == true)
+          Button(
+              text: 'View params',
+              backgroundColor: styles.Colors.gray,
+              displayBackground: true,
+              leadingIcon: icons.searchIconWhiteXl,
+              handleTap: () {
+                Navigator.of(context).pop();
+                handleViewTap();
+              },
+              leadingIconTextCentered: true),
+        if (onWorkoutOverviewScreen == true)
           Button(
               text: 'Edit',
               backgroundColor: styles.Colors.blue,
