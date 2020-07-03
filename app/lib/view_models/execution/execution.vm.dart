@@ -148,7 +148,7 @@ class ExecutionViewModel {
   void _nextSequence() {
     final bool _lastSequence = _currentSequenceIndex == _sequence.length - 1;
     if (_lastSequence == true) {
-      _stop();
+      _stop(manual: false);
     } else {
       _currentSequenceIndex++;
       if (_currentSequence.skipped == true) {
@@ -178,20 +178,26 @@ class ExecutionViewModel {
     _state$.add(state.copyWith(displayEndScreen: true));
   }
 
-  void _stop() async {
+  void _stop({@required bool manual}) async {
     _animationController.stop(canceled: true);
     _displayEndScreen();
 
-    _sequence = _sequence.map((SequenceTimer t) {
-      if (_currentSequenceIndex == t.index) {
-        return t.copyWith(
-            stopped: true, effectiveDurationMs: _effectiveDurationMs);
-      }
-      if (t.index > _currentSequenceIndex) {
-        return t.copyWith(stopped: true, effectiveDurationMs: 0);
-      }
-      return t;
-    }).toList();
+    // Only if the sequence is stopped manually, we need to adjust
+    // this sequence and the sequences after that.
+    // Otherwise, _stop() occurs on the last sequence, and adjusting
+    // isn't necessary.
+    if (manual == true) {
+      _sequence = _sequence.map((SequenceTimer t) {
+        if (_currentSequenceIndex == t.index) {
+          return t.copyWith(
+              stopped: true, effectiveDurationMs: _effectiveDurationMs);
+        }
+        if (t.index > _currentSequenceIndex) {
+          return t.copyWith(stopped: true, effectiveDurationMs: 0);
+        }
+        return t;
+      }).toList();
+    }
 
     History _history = _generateHistory();
     if (_history.timerUnderTensionMs == 0) {
@@ -283,7 +289,7 @@ class ExecutionViewModel {
         orElse: () => null);
 
     if (_hangAfterSkippedHang == null) {
-      _stop();
+      _stop(manual: true);
       return;
     }
 
@@ -326,7 +332,7 @@ class ExecutionViewModel {
   }
 
   void handleStopTap() {
-    _stop();
+    _stop(manual: true);
   }
 
   void handleResumeTap() {

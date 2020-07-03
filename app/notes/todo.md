@@ -1,5 +1,11 @@
 # TODO
 
+- Last sequence shows up as stopped when i didn't press stop. 
+  When stopping automatically, don't register stop
+- Perceived exertion not visible
+- Total rest time + total time on overview.
+  Redesign workout overview?
+
 ### Triage:
 - Have an overview of the things you specifically did, hang times, and skipped etc...
 - Have an 'on the fly workout'? 
