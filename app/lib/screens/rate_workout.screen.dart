@@ -2,13 +2,10 @@ import 'package:app/models/models.dart';
 import 'package:app/routes/routes.dart';
 import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/rate_workout.vm.dart';
-import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
-import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/rate_workout/rate_workout_content.dart';
 import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
-import 'package:flutter/scheduler.dart';
 
 class RateWorkoutArguments {
   RateWorkoutArguments({@required this.workout, @required this.history});
@@ -68,59 +65,50 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     return WillPopScope(
       onWillPop: () async => false,
       child: ToastProvider(
-        child: Container(
-          decoration: BoxDecoration(color: styles.Colors.bgBlack),
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                if (_orientation == Orientation.portrait)
-                  _PortraitContainer(
-                    handleCompleteTap: _handleCompleteTap,
-                    maxContainerHeight: _maxContainerHeight,
-                    content: RateWorkoutContent(
-                      handleOpen: () {},
-                      tempUnit: _viewModel.tempUnit,
-                      handleCompleteTap: _handleCompleteTap,
-                      handlePerceivedExertionChanged:
-                          _viewModel.setPerceivedExertion,
-                      handleBodyWeightChanged: _viewModel.setBodyWeight,
-                      handleTemperatureChanged: _viewModel.setTemperature,
-                      handleHumidityChanged: _viewModel.setHumidity,
-                      handleCommentsChanged: _viewModel.setComments,
-                    ),
-                  ),
-                if (_orientation == Orientation.landscape)
-                  _LandscapeContainer(
-                    content: Container(
-                      child: Column(
-                        children: <Widget>[
-                          RateWorkoutContent(
-                            handleOpen: () {},
-                            handleCompleteTap: _handleCompleteTap,
-                            handlePerceivedExertionChanged:
-                                _viewModel.setPerceivedExertion,
-                            handleBodyWeightChanged: _viewModel.setBodyWeight,
-                            handleTemperatureChanged: _viewModel.setTemperature,
-                            handleHumidityChanged: _viewModel.setHumidity,
-                            handleCommentsChanged: _viewModel.setComments,
-                            tempUnit: _viewModel.tempUnit,
-                          ),
-                          Divider(
-                            height: styles.Measurements.m,
-                          ),
-                          Button(
-                            backgroundColor: styles.Colors.turquoise,
-                            width: double.infinity,
-                            text: 'done',
-                            handleTap: _handleCompleteTap,
-                          ),
-                        ],
+        child: ListView(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          children: [
+            Container(
+              decoration: BoxDecoration(color: styles.Colors.bgBlack),
+              child: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    if (_orientation == Orientation.portrait)
+                      _PortraitContainer(
+                        maxContainerHeight: _maxContainerHeight,
+                        content: RateWorkoutContent(
+                          maxContainerHeight: _maxContainerHeight,
+                          handleOpen: () {},
+                          tempUnit: _viewModel.tempUnit,
+                          handleCompleteTap: _handleCompleteTap,
+                          handlePerceivedExertionChanged:
+                              _viewModel.setPerceivedExertion,
+                          handleBodyWeightChanged: _viewModel.setBodyWeight,
+                          handleTemperatureChanged: _viewModel.setTemperature,
+                          handleHumidityChanged: _viewModel.setHumidity,
+                          handleCommentsChanged: _viewModel.setComments,
+                        ),
                       ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
+                    if (_orientation == Orientation.landscape)
+                      _LandscapeContainer(
+                        content: RateWorkoutContent(
+                          handleOpen: () {},
+                          handleCompleteTap: _handleCompleteTap,
+                          handlePerceivedExertionChanged:
+                              _viewModel.setPerceivedExertion,
+                          handleBodyWeightChanged: _viewModel.setBodyWeight,
+                          handleTemperatureChanged: _viewModel.setTemperature,
+                          handleHumidityChanged: _viewModel.setHumidity,
+                          handleCommentsChanged: _viewModel.setComments,
+                          tempUnit: _viewModel.tempUnit,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -132,12 +120,10 @@ class _PortraitContainer extends StatelessWidget {
     Key key,
     @required this.content,
     @required this.maxContainerHeight,
-    @required this.handleCompleteTap,
   }) : super(key: key);
 
   final Widget content;
   final double maxContainerHeight;
-  final VoidCallback handleCompleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -155,24 +141,8 @@ class _PortraitContainer extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: ListView(
-                          physics: ClampingScrollPhysics(),
-                          children: [content]),
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                height: styles.Measurements.xxl,
-              ),
-              Button(
-                backgroundColor: styles.Colors.turquoise,
-                width: double.infinity,
-                text: 'done',
-                handleTap: handleCompleteTap,
+                child: ListView(
+                    physics: ClampingScrollPhysics(), children: [content]),
               ),
             ],
           ),

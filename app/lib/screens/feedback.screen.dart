@@ -107,6 +107,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                             Container(
                               height: 200,
                               child: TextInput(
+                                primaryColor: styles.Colors.turquoise,
                                 multiLine: true,
                                 handleValueChanged: _viewModel.setMessage,
                                 initialValue: '',
@@ -115,6 +116,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                           ],
                         ),
                         Button(
+                          backgroundColor: styles.Colors.turquoise,
                           text: 'send',
                           loading: _viewModel.awaitingResponse,
                           handleTap: _viewModel.sendMessage,

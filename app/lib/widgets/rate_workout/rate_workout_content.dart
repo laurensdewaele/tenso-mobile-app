@@ -9,23 +9,25 @@ import 'package:app/widgets/text_input.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 
 class RateWorkoutContent extends StatelessWidget {
-  RateWorkoutContent(
-      {Key key,
-      @required this.handleCompleteTap,
-      @required this.handlePerceivedExertionChanged,
-      @required this.handleOpen,
-      @required this.handleBodyWeightChanged,
-      @required this.handleCommentsChanged,
-      @required this.handleHumidityChanged,
-      @required this.handleTemperatureChanged,
-      @required this.tempUnit})
-      : super(key: key);
+  RateWorkoutContent({
+    Key key,
+    @required this.handleCompleteTap,
+    @required this.handlePerceivedExertionChanged,
+    @required this.handleOpen,
+    @required this.handleBodyWeightChanged,
+    @required this.handleCommentsChanged,
+    @required this.handleHumidityChanged,
+    @required this.handleTemperatureChanged,
+    @required this.tempUnit,
+    this.maxContainerHeight,
+  }) : super(key: key);
 
   final void Function(int v) handlePerceivedExertionChanged;
   final void Function(String s) handleBodyWeightChanged;
   final void Function(String s) handleTemperatureChanged;
   final void Function(String s) handleHumidityChanged;
   final void Function(String s) handleCommentsChanged;
+  final double maxContainerHeight;
   final VoidCallback handleCompleteTap;
   final VoidCallback handleOpen;
   final TempUnit tempUnit;
@@ -102,6 +104,16 @@ class RateWorkoutContent extends StatelessWidget {
               setPerceivedExertion: handlePerceivedExertionChanged,
             ),
           ],
+        ),
+        if (maxContainerHeight != null)
+          Divider(height: maxContainerHeight - 552),
+        if (maxContainerHeight == null)
+          Divider(height: styles.Measurements.xxl),
+        Button(
+          backgroundColor: styles.Colors.turquoise,
+          width: double.infinity,
+          text: 'done',
+          handleTap: handleCompleteTap,
         ),
       ],
     );
