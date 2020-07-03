@@ -7,6 +7,8 @@ import 'package:app/styles/styles.dart' as styles;
 import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/card.dart';
+import 'package:app/widgets/completed_workout/logs_overview.dart';
+import 'package:app/widgets/completed_workout/stats.dart';
 import 'package:app/widgets/dialog.dart';
 import 'package:app/widgets/divider.dart';
 import 'package:app/widgets/icon_button.dart';
@@ -128,15 +130,38 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                       ),
                       Section(
                         title: 'stats',
-                        children: <Widget>[],
+                        children: <Widget>[
+                          Stats(
+                            completedWorkout: _completedWorkout,
+                          )
+                        ],
                       ),
-                      Section(
-                        title: 'comments',
-                        children: <Widget>[],
-                      ),
-                      Section(
-                        title: 'overview',
-                        children: <Widget>[],
+                      if (_completedWorkout.comments != null)
+                        Section(
+                          title: 'comments',
+                          children: <Widget>[
+                            Text(
+                              _completedWorkout.comments,
+                              textAlign: TextAlign.center,
+                              style: styles.Lato.xsGray,
+                            )
+                          ],
+                        ),
+                      GestureDetector(
+                        onHorizontalDragEnd: (_) {},
+                        behavior: HitTestBehavior.opaque,
+                        child: Section(
+                          title: 'overview',
+                          children: <Widget>[
+                            LogsOverview(
+                              weightUnit:
+                                  _completedWorkout.workout.weightSystem.unit,
+                              groups: _completedWorkout.workout.groups.toList(),
+                              logs: _completedWorkout.history.sequenceTimerLogs
+                                  .toList(),
+                            )
+                          ],
+                        ),
                       ),
                       Row(
                         children: [

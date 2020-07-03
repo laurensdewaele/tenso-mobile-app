@@ -42,31 +42,24 @@ class _LogsOverviewState extends State<LogsOverview> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'overview',
-          style: styles.Staatliches.xsBlack,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            HorizontalGroupOverviewWithIndicator(
+              groups: widget.groups,
+              handleVisibleGroupIndex: _viewModel.setActiveGroupIndex,
+            ),
+            _OverviewDivider(),
+            _GroupLogOverview(
+              selectedLog: _viewModel.selectedLog,
+              groupLogs: _viewModel.selectedGroupLogs,
+              handleSelectedLog: _viewModel.setSelectedLog,
+            ),
+            _OverviewDivider(),
+          ],
         ),
-        Divider(height: styles.Measurements.xs),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {},
-          child: Column(
-            children: <Widget>[
-              HorizontalGroupOverviewWithIndicator(
-                groups: widget.groups,
-                handleVisibleGroupIndex: _viewModel.setActiveGroupIndex,
-              ),
-              Divider(height: styles.Measurements.xs),
-              _GroupLogOverview(
-                selectedLog: _viewModel.selectedLog,
-                groupLogs: _viewModel.selectedGroupLogs,
-                handleSelectedLog: _viewModel.setSelectedLog,
-              ),
-            ],
-          ),
-        ),
-        Divider(height: styles.Measurements.xs),
         _LogOverview(
           selectedLog: _viewModel.selectedLog,
           weightUnit: widget.weightUnit,
@@ -186,7 +179,7 @@ class _LogOverview extends StatelessWidget {
 
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         RichText(
@@ -285,6 +278,24 @@ class _LogOverview extends StatelessWidget {
                       style: styles.Lato.xsBlack)
                 ]),
           ),
+      ],
+    );
+  }
+}
+
+class _OverviewDivider extends StatelessWidget {
+  _OverviewDivider({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Divider(height: styles.Measurements.s),
+        Container(
+          height: 1,
+          decoration: BoxDecoration(color: styles.Colors.lightGray),
+        ),
+        Divider(height: styles.Measurements.s),
       ],
     );
   }

@@ -13,6 +13,7 @@ abstract class History implements Built<History, HistoryBuilder> {
 
   BuiltList<SequenceTimerLog> get sequenceTimerLogs;
   double get timerUnderTensionMs => _calculateTimeUnderTensionMs();
+  double get totalRestTimeMs => _calculateRestTimeMs();
   int get completedPercentage => _calculateCompletedPercentage();
 
   int _calculateCompletedPercentage() {
@@ -37,6 +38,16 @@ abstract class History implements Built<History, HistoryBuilder> {
         .where((SequenceTimerLog t) => t.type == SequenceTimerType.hangTimer);
 
     return _hangSequences
+        .map((SequenceTimerLog t) => t.effectiveDurationMs)
+        .fold(0, (previous, current) => previous + current);
+  }
+
+  double _calculateRestTimeMs() {
+    final _restSequences = sequenceTimerLogs
+        .toList()
+        .where((SequenceTimerLog t) => t.type != SequenceTimerType.hangTimer);
+
+    return _restSequences
         .map((SequenceTimerLog t) => t.effectiveDurationMs)
         .fold(0, (previous, current) => previous + current);
   }
