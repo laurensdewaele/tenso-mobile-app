@@ -1,7 +1,6 @@
 # TODO
 
-- Total rest time + total time on overview.
-  Redesign workout overview?
+- Implement a feedback section.
 
 ### Triage:
 - Have an overview of the things you specifically did, hang times, and skipped etc...
@@ -14,7 +13,6 @@
 - Scale pull measurements (Jan)? 
 
 ### Large prio
-- Implement a feedback button.
 - Add open crimp, pinch grip, check if all grips available
 - Info/explanation screen
 - LAUNCH
