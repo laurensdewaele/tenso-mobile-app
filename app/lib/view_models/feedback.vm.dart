@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 final List<String> feedbackTypes = [
   'appreciation',
   'board request',
+  'bug',
   'feature request',
   'other'
 ];
