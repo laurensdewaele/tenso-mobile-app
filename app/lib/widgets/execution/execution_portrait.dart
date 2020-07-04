@@ -57,11 +57,23 @@ class ExecutionPortrait extends StatelessWidget {
     final String _addedWeightPrefix = addedWeight > 0 ? '+' : '';
 
     final Widget _topWidget = isVariableRestTimer
-        ? Button(
-            text: 'ready',
-            handleTap: handleReadyTap,
-            backgroundColor: styles.Colors.blue,
-            leadingIcon: icons.playIconWhiteL)
+        ? Column(
+            children: <Widget>[
+              Button(
+                  text: 'ready',
+                  handleTap: handleReadyTap,
+                  backgroundColor: styles.Colors.blue,
+                  leadingIcon: icons.playIconWhiteL),
+              GestureDetector(
+                onTap: handleReadyTap,
+                child: Container(
+                  height: 20,
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: styles.Colors.translucent),
+                ),
+              )
+            ],
+          )
         : Text(
             title,
             style: styles.Staatliches.mWhite,
@@ -70,10 +82,7 @@ class ExecutionPortrait extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        Container(
-          height: 55,
-          child: Center(child: _topWidget),
-        ),
+        _topWidget,
         Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -92,7 +101,7 @@ class ExecutionPortrait extends StatelessWidget {
                   style: styles.Staatliches.mWhite,
                 ),
                 Divider(
-                  height: styles.Measurements.m,
+                  height: styles.Measurements.xs,
                 ),
                 LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
@@ -151,7 +160,7 @@ class ExecutionPortrait extends StatelessWidget {
           ),
         ),
         Divider(
-          height: styles.Measurements.xxl,
+          height: styles.Measurements.m,
         ),
         Container(
           child: Column(

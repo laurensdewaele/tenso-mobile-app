@@ -122,12 +122,25 @@ class ExecutionLandscape extends StatelessWidget {
         if (isVariableRestTimer == true)
           Align(
             alignment: Alignment.topCenter,
-            child: Button(
-                width: styles.Measurements.xxl * 5,
-                text: 'ready',
-                handleTap: handleReadyTap,
-                backgroundColor: styles.Colors.blue,
-                leadingIcon: icons.playIconWhiteL),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: <Widget>[
+                Button(
+                    width: styles.Measurements.xxl * 5,
+                    text: 'ready',
+                    handleTap: handleReadyTap,
+                    backgroundColor: styles.Colors.blue,
+                    leadingIcon: icons.playIconWhiteL),
+                GestureDetector(
+                  onTap: handleReadyTap,
+                  child: Container(
+                    height: 70,
+                    width: styles.Measurements.xxl * 6,
+                    decoration: BoxDecoration(color: styles.Colors.translucent),
+                  ),
+                )
+              ],
+            ),
           )
       ],
     );
