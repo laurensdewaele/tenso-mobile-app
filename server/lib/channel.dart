@@ -1,3 +1,5 @@
+import 'package:server/controllers/feedback.controller.dart';
+
 import 'server.dart';
 
 /// This type initializes an application.
@@ -13,7 +15,8 @@ class ServerChannel extends ApplicationChannel {
   /// This method is invoked prior to [entryPoint] being accessed.
   @override
   Future prepare() async {
-    logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+    logger.onRecord.listen(
+        (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
   }
 
   /// Construct the request channel.
@@ -28,11 +31,7 @@ class ServerChannel extends ApplicationChannel {
 
     // Prefer to use `link` instead of `linkFunction`.
     // See: https://aqueduct.io/docs/http/request_controller/
-    router
-      .route("/example")
-      .linkFunction((request) async {
-        return Response.ok({"key": "value"});
-      });
+    router.route("/feedback").link(() => FeedbackController());
 
     return router;
   }
