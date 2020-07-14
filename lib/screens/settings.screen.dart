@@ -1,21 +1,21 @@
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/settings.vm.dart';
-import 'package:app/widgets/card.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icon_button.dart';
-import 'package:app/widgets/icons.dart' as icons;
-import 'package:app/widgets/keyboard_and_toast_provider.dart';
-import 'package:app/widgets/keyboard_list_view.dart';
-import 'package:app/widgets/number_input_and_description.dart';
-import 'package:app/widgets/radio_button.dart';
-import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/section.dart';
-import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/view_models/settings.vm.dart';
+import 'package:tenso_app/widgets/card.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/icon_button.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/widgets/keyboard_list_view.dart';
+import 'package:tenso_app/widgets/number_input_and_description.dart';
+import 'package:tenso_app/widgets/radio_button.dart';
+import 'package:tenso_app/widgets/screen.dart';
+import 'package:tenso_app/widgets/section.dart';
+import 'package:tenso_app/widgets/top_navigation.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);

@@ -1,7 +1,7 @@
-import 'package:app/data/basic_boards.dart';
-import 'package:app/models/models.dart';
-import 'package:app/services/persistence.service.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tenso_app/data/basic_boards.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/persistence.service.dart';
 
 class BoardsState {
   BoardsState._();

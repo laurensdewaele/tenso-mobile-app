@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 class LandscapeInfo extends StatelessWidget {
   LandscapeInfo(

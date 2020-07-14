@@ -1,6 +1,6 @@
-import 'package:app/routes/routes.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/styles/styles.dart' as styles;
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 
 class App extends StatelessWidget {

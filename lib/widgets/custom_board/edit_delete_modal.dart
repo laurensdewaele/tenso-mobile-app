@@ -1,9 +1,9 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/button.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/modal_popup.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/button.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/modal_popup.dart';
 
 class EditDeleteModal extends StatelessWidget {
   EditDeleteModal(

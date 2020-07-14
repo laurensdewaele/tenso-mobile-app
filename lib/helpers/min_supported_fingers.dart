@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:app/models/models.dart';
+import 'package:tenso_app/models/models.dart';
 
 int calculateMinSupportedFingers(List<BoardHold> boardHolds) {
   final List<int> _supportedFingers = boardHolds

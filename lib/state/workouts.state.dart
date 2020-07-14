@@ -1,8 +1,8 @@
-import 'package:app/data/basic_workout.data.dart';
-import 'package:app/helpers/unique_id.dart';
-import 'package:app/models/models.dart';
-import 'package:app/services/persistence.service.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tenso_app/data/basic_workout.data.dart';
+import 'package:tenso_app/helpers/unique_id.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/persistence.service.dart';
 
 class WorkoutsState {
   WorkoutsState._();

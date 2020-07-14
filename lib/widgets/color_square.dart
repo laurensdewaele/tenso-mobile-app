@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-
-import 'package:app/styles/styles.dart' as styles;
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 class ColorSquare extends StatelessWidget {
   const ColorSquare({

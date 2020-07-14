@@ -1,11 +1,11 @@
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/rate_workout.vm.dart';
-import 'package:app/widgets/card.dart';
-import 'package:app/widgets/rate_workout/rate_workout_content.dart';
-import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/view_models/rate_workout.vm.dart';
+import 'package:tenso_app/widgets/card.dart';
+import 'package:tenso_app/widgets/rate_workout/rate_workout_content.dart';
+import 'package:tenso_app/widgets/toast_provider.dart';
 
 class RateWorkoutArguments {
   RateWorkoutArguments({@required this.workout, @required this.history});

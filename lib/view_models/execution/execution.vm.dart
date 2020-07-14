@@ -1,18 +1,18 @@
-import 'package:app/helpers/nullable.dart';
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/rate_workout.screen.dart';
-import 'package:app/services/audio_player.service.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/state/settings.state.dart';
-import 'package:app/view_models/execution/execution_sequence_builder.dart';
-import 'package:app/view_models/execution/execution_state.vm.dart';
-import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
-import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/execution/congratulations_content.dart';
-import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tenso_app/helpers/nullable.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/screens/rate_workout.screen.dart';
+import 'package:tenso_app/services/audio_player.service.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/state/settings.state.dart';
+import 'package:tenso_app/view_models/execution/execution_sequence_builder.dart';
+import 'package:tenso_app/view_models/execution/execution_state.vm.dart';
+import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:tenso_app/widgets/dialog.dart';
+import 'package:tenso_app/widgets/execution/congratulations_content.dart';
+import 'package:tenso_app/widgets/execution/log_hangs_dialog.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {

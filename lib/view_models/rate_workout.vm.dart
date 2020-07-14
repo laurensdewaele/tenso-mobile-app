@@ -1,10 +1,10 @@
-import 'package:app/helpers/unique_id.dart';
-import 'package:app/models/models.dart';
-import 'package:app/services/error.service.dart';
-import 'package:app/services/toast.service.dart';
-import 'package:app/state/completed_workouts.state.dart';
-import 'package:app/state/settings.state.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tenso_app/helpers/unique_id.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/error.service.dart';
+import 'package:tenso_app/services/toast.service.dart';
+import 'package:tenso_app/state/completed_workouts.state.dart';
+import 'package:tenso_app/state/settings.state.dart';
 
 class RateWorkoutViewModel {
   RateWorkoutViewModel() {

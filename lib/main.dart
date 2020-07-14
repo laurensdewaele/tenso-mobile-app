@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:app/app.dart';
-import 'package:app/services/error.service.dart';
-import 'package:app/state/boards.state.dart';
-import 'package:app/state/completed_workouts.state.dart';
-import 'package:app/state/settings.state.dart';
-import 'package:app/state/user.state.dart';
-import 'package:app/state/workouts.state.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/app.dart';
+import 'package:tenso_app/services/error.service.dart';
+import 'package:tenso_app/state/boards.state.dart';
+import 'package:tenso_app/state/completed_workouts.state.dart';
+import 'package:tenso_app/state/settings.state.dart';
+import 'package:tenso_app/state/user.state.dart';
+import 'package:tenso_app/state/workouts.state.dart';
 
 Future<Null> main() async {
   ErrorService _errorService = ErrorService();

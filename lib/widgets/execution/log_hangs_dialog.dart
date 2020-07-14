@@ -1,8 +1,8 @@
-import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
-import 'package:app/widgets/execution/log_hangs_landscape.dart';
-import 'package:app/widgets/execution/log_hangs_portrait.dart';
-import 'package:app/widgets/toast_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:tenso_app/widgets/execution/log_hangs_landscape.dart';
+import 'package:tenso_app/widgets/execution/log_hangs_portrait.dart';
+import 'package:tenso_app/widgets/toast_provider.dart';
 
 class LoggedHang {
   final int sequenceTimerIndex;

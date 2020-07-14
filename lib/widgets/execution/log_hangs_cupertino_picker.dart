@@ -1,7 +1,7 @@
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/execution/log_hangs_dialog.vm.dart';
-import 'package:app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:tenso_app/widgets/divider.dart';
 
 class LogHangsCupertinoPicker extends StatelessWidget {
   const LogHangsCupertinoPicker({

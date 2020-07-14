@@ -1,5 +1,5 @@
-import 'package:app/models/models.dart';
-import 'package:app/services/persistence.service.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/persistence.service.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CompletedWorkoutsState {

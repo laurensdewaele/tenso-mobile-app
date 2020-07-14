@@ -1,7 +1,7 @@
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/icon_button.dart';
-import 'package:app/widgets/icons.dart' as icons;
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/icon_button.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
 
 class ExpandedSection extends StatefulWidget {
   ExpandedSection(

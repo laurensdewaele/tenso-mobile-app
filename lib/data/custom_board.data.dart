@@ -1,4 +1,4 @@
-import 'package:app/styles/styles.dart' as styles;
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 const int kRows = 4;
 const int kColumns = 4;

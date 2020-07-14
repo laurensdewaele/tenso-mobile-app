@@ -1,5 +1,5 @@
-import 'package:app/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/widgets/card.dart';
 
 class SlidingExpansionCard extends StatefulWidget {
   const SlidingExpansionCard(

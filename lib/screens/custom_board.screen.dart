@@ -1,19 +1,19 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/custom_board/custom_board.vm.dart';
-import 'package:app/widgets/bottom_menu_drawer.dart';
-import 'package:app/widgets/button.dart';
-import 'package:app/widgets/custom_board/add_hold_modal.dart';
-import 'package:app/widgets/custom_board/custom_board.dart';
-import 'package:app/widgets/custom_board/edit_delete_modal.dart';
-import 'package:app/widgets/custom_board/hold_input_modal.dart';
-import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/keyboard_and_toast_provider.dart';
-import 'package:app/widgets/modal_popup.dart';
-import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/view_models/custom_board/custom_board.vm.dart';
+import 'package:tenso_app/widgets/bottom_menu_drawer.dart';
+import 'package:tenso_app/widgets/button.dart';
+import 'package:tenso_app/widgets/custom_board/add_hold_modal.dart';
+import 'package:tenso_app/widgets/custom_board/custom_board.dart';
+import 'package:tenso_app/widgets/custom_board/edit_delete_modal.dart';
+import 'package:tenso_app/widgets/custom_board/hold_input_modal.dart';
+import 'package:tenso_app/widgets/dialog.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/widgets/modal_popup.dart';
+import 'package:tenso_app/widgets/screen.dart';
+import 'package:tenso_app/widgets/top_navigation.dart';
 
 class CustomBoardScreenArguments {
   final Board boardToEdit;

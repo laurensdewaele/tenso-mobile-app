@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/state/completed_workouts.state.dart';
-import 'package:app/state/workouts.state.dart';
-import 'package:app/widgets/calendar/table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/state/completed_workouts.state.dart';
+import 'package:tenso_app/state/workouts.state.dart';
+import 'package:tenso_app/widgets/calendar/table.dart';
 
 class CalendarViewModel extends ChangeNotifier {
   CompletedWorkoutsState _completedWorkoutsState;

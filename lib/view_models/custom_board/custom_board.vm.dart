@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:app/data/custom_board.data.dart';
-import 'package:app/models/custom_board_hold_image.model.dart';
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/save_custom_board.screen.dart';
-import 'package:app/services/error.service.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/services/toast.service.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/data/custom_board.data.dart';
+import 'package:tenso_app/models/custom_board_hold_image.model.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/screens/save_custom_board.screen.dart';
+import 'package:tenso_app/services/error.service.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/toast.service.dart';
 
 enum BoxVisibility { selected, deselected, hidden }
 

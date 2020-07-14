@@ -1,5 +1,5 @@
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/validation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
 import 'package:flutter/cupertino.dart';
 
 final List<String> feedbackTypes = [

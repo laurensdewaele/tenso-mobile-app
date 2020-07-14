@@ -1,10 +1,10 @@
-import 'package:app/models/models.dart';
-import 'package:app/services/toast.service.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/board/board_drag_targets.dart';
-import 'package:app/widgets/grip_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/toast.service.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/board/board_drag_targets.dart';
+import 'package:tenso_app/widgets/grip_image.dart';
 
 class BoardHoldPicker extends StatelessWidget {
   const BoardHoldPicker(

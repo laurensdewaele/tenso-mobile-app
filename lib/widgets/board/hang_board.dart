@@ -1,6 +1,6 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/custom_board/positioned_image.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/custom_board/positioned_image.dart';
 import 'package:flutter/cupertino.dart';
 
 class HangBoard extends StatelessWidget {

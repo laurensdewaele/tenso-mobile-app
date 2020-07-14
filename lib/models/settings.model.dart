@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:app/models/models.dart';
-import 'package:app/models/serializers.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/models/serializers.dart';
 
 part 'settings.model.g.dart';
 

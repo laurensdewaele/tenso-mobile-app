@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:app/models/models.dart';
-import 'package:app/models/serializers.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/models/serializers.dart';
 
 part 'custom_board_hold_image.model.g.dart';
 

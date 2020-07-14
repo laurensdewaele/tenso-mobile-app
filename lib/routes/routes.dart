@@ -1,17 +1,17 @@
-import 'package:app/screens/board_settings.screen.dart';
-import 'package:app/screens/calendar.screen.dart';
-import 'package:app/screens/completed_workout.screen.dart';
-import 'package:app/screens/custom_board.screen.dart';
-import 'package:app/screens/execution.screen.dart';
-import 'package:app/screens/feedback.screen.dart';
-import 'package:app/screens/group.screen.dart';
-import 'package:app/screens/rate_workout.screen.dart';
-import 'package:app/screens/save_custom_board.screen.dart';
-import 'package:app/screens/settings.screen.dart';
-import 'package:app/screens/sound_settings.screen.dart';
-import 'package:app/screens/workout.screen.dart';
-import 'package:app/screens/workout_overview.screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/screens/board_settings.screen.dart';
+import 'package:tenso_app/screens/calendar.screen.dart';
+import 'package:tenso_app/screens/completed_workout.screen.dart';
+import 'package:tenso_app/screens/custom_board.screen.dart';
+import 'package:tenso_app/screens/execution.screen.dart';
+import 'package:tenso_app/screens/feedback.screen.dart';
+import 'package:tenso_app/screens/group.screen.dart';
+import 'package:tenso_app/screens/rate_workout.screen.dart';
+import 'package:tenso_app/screens/save_custom_board.screen.dart';
+import 'package:tenso_app/screens/settings.screen.dart';
+import 'package:tenso_app/screens/sound_settings.screen.dart';
+import 'package:tenso_app/screens/workout.screen.dart';
+import 'package:tenso_app/screens/workout_overview.screen.dart';
 
 abstract class Routes {
   static const String home = '/';

@@ -1,10 +1,10 @@
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/calendar/calendar.dart';
-import 'package:app/widgets/card.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/calendar/calendar.dart';
+import 'package:tenso_app/widgets/card.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/screen.dart';
+import 'package:tenso_app/widgets/top_navigation.dart';
 
 class CalendarScreen extends StatelessWidget {
   CalendarScreen({Key key}) : super(key: key);

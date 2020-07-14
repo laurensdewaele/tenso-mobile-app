@@ -1,16 +1,16 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/board/board_with_grips.dart';
-import 'package:app/widgets/button.dart';
-import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icons.dart' as icons;
-import 'package:app/widgets/sliding_card.dart';
-import 'package:app/widgets/sliding_expansion_card.dart';
-import 'package:app/widgets/workout/rep_set_header_info.dart';
-import 'package:app/widgets/workout_overview/delete_action.dart';
-import 'package:app/widgets/workout_overview/edit_action.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/board/board_with_grips.dart';
+import 'package:tenso_app/widgets/button.dart';
+import 'package:tenso_app/widgets/dialog.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/sliding_card.dart';
+import 'package:tenso_app/widgets/sliding_expansion_card.dart';
+import 'package:tenso_app/widgets/workout/rep_set_header_info.dart';
+import 'package:tenso_app/widgets/workout_overview/delete_action.dart';
+import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
 
 class GroupOverview extends StatelessWidget {
   GroupOverview(

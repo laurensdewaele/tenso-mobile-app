@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/toast.service.dart';
-import 'package:app/services/validation.service.dart';
-import 'package:app/styles/styles.dart' as styles;
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/toast.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:flutter/widgets.dart';
 
 bool get isInDebugMode {

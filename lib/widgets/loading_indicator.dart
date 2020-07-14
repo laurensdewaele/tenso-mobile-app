@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 const double _kDefaultIndicatorRadius = 10.0;
 

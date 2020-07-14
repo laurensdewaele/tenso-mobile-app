@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/custom_board.screen.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/state/boards.state.dart';
-import 'package:app/state/settings.state.dart';
-import 'package:app/view_models/board_settings_state.vm.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/screens/custom_board.screen.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/state/boards.state.dart';
+import 'package:tenso_app/state/settings.state.dart';
+import 'package:tenso_app/view_models/board_settings_state.vm.dart';
 
 class BoardSettingsViewModel {
   SettingsState _settingsState;

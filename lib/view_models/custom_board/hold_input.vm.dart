@@ -1,8 +1,8 @@
-import 'package:app/models/hold_type.model.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/validation.service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/hold_type.model.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
 
 enum InputPageInputTypes {
   sloperDegrees,

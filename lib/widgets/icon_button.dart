@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
-
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/icon.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/icon.dart';
 
 // Built this in order the make the hit boxes bigger.
 // Not a perfect solution, but apparently it cannot be done.

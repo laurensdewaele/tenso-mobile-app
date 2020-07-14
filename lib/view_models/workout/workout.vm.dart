@@ -1,18 +1,18 @@
-import 'package:app/data/basic_workout.data.dart';
-import 'package:app/helpers/nullable.dart';
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/group.screen.dart';
-import 'package:app/services/error.service.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/toast.service.dart';
-import 'package:app/services/validation.service.dart';
-import 'package:app/state/settings.state.dart';
-import 'package:app/state/workouts.state.dart';
-import 'package:app/view_models/workout/group.vm.dart';
-import 'package:app/view_models/workout/workout_state.vm.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tenso_app/data/basic_workout.data.dart';
+import 'package:tenso_app/helpers/nullable.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/screens/group.screen.dart';
+import 'package:tenso_app/services/error.service.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/toast.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
+import 'package:tenso_app/state/settings.state.dart';
+import 'package:tenso_app/state/workouts.state.dart';
+import 'package:tenso_app/view_models/workout/group.vm.dart';
+import 'package:tenso_app/view_models/workout/workout_state.vm.dart';
 
 enum WorkoutActions { newWorkout, editWorkout, viewWorkout }
 

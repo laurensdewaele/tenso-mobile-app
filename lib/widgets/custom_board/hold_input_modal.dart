@@ -1,11 +1,11 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/custom_board/hold_input.vm.dart';
-import 'package:app/widgets/icon_button.dart';
-import 'package:app/widgets/icons.dart' as icons;
-import 'package:app/widgets/number_input_and_description.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/view_models/custom_board/hold_input.vm.dart';
+import 'package:tenso_app/widgets/icon_button.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/number_input_and_description.dart';
 
 class HoldInputModal extends StatefulWidget {
   const HoldInputModal(

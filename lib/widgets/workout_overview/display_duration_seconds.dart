@@ -1,5 +1,5 @@
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 class DisplayDurationSeconds extends StatelessWidget {
   DisplayDurationSeconds({Key key, @required this.seconds}) : super(key: key);

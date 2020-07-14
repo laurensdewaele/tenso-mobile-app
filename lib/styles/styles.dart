@@ -1,12 +1,12 @@
 library styles;
 
-import 'package:app/styles/colors.dart';
-import 'package:app/styles/measurements.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/styles/colors.dart';
+import 'package:tenso_app/styles/measurements.dart';
 
-export 'package:app/styles/colors.dart';
-export 'package:app/styles/measurements.dart';
-export 'package:app/styles/typography.dart';
+export 'package:tenso_app/styles/colors.dart';
+export 'package:tenso_app/styles/measurements.dart';
+export 'package:tenso_app/styles/typography.dart';
 
 const double kStandardButtonHeight = 55;
 const double kSmallButtonHeight = 40;

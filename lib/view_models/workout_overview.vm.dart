@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:app/data/empty_workout.dart';
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/screens/execution.screen.dart';
-import 'package:app/screens/workout.screen.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/state/user.state.dart';
-import 'package:app/state/workouts.state.dart';
-import 'package:app/view_models/workout/workout.vm.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/data/empty_workout.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/screens/execution.screen.dart';
+import 'package:tenso_app/screens/workout.screen.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/state/user.state.dart';
+import 'package:tenso_app/state/workouts.state.dart';
+import 'package:tenso_app/view_models/workout/workout.vm.dart';
 
 class WorkoutOverviewViewModel extends ChangeNotifier {
   List<Workout> _workoutList;

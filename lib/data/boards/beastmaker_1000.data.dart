@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:app/models/models.dart';
+import 'package:tenso_app/models/models.dart';
 
 // There's a small mistake.
 // The beastmaker_1000.png doesn't have these measurements.

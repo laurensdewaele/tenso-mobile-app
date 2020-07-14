@@ -1,4 +1,4 @@
-import 'package:app/models/models.dart';
+import 'package:tenso_app/models/models.dart';
 
 final Workout emptyWorkout = Workout((b) => b
   ..restBetweenGroupsFixed = false

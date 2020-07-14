@@ -1,15 +1,15 @@
-import 'package:app/data/custom_board.data.dart';
-import 'package:app/data/grips.data.dart';
-import 'package:app/helpers/min_supported_fingers.dart';
-import 'package:app/helpers/unique_id.dart';
-import 'package:app/models/custom_board_hold_image.model.dart';
-import 'package:app/models/models.dart';
-import 'package:app/routes/routes.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/validation.service.dart';
-import 'package:app/state/boards.state.dart';
-import 'package:app/state/settings.state.dart';
+import 'package:tenso_app/data/custom_board.data.dart';
+import 'package:tenso_app/data/grips.data.dart';
+import 'package:tenso_app/helpers/min_supported_fingers.dart';
+import 'package:tenso_app/helpers/unique_id.dart';
+import 'package:tenso_app/models/custom_board_hold_image.model.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
+import 'package:tenso_app/state/boards.state.dart';
+import 'package:tenso_app/state/settings.state.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCustomBoardViewModel extends ChangeNotifier {

@@ -1,20 +1,20 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/view_models/board_settings.vm.dart';
-import 'package:app/view_models/board_settings_state.vm.dart';
-import 'package:app/widgets/board/board_picker.dart';
-import 'package:app/widgets/board/hang_board.dart';
-import 'package:app/widgets/button.dart';
-import 'package:app/widgets/card.dart';
-import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icons.dart' as icons;
-import 'package:app/widgets/keyboard_and_toast_provider.dart';
-import 'package:app/widgets/keyboard_list_view.dart';
-import 'package:app/widgets/screen.dart';
-import 'package:app/widgets/section.dart';
-import 'package:app/widgets/top_navigation.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/view_models/board_settings.vm.dart';
+import 'package:tenso_app/view_models/board_settings_state.vm.dart';
+import 'package:tenso_app/widgets/board/board_picker.dart';
+import 'package:tenso_app/widgets/board/hang_board.dart';
+import 'package:tenso_app/widgets/button.dart';
+import 'package:tenso_app/widgets/card.dart';
+import 'package:tenso_app/widgets/dialog.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/widgets/keyboard_list_view.dart';
+import 'package:tenso_app/widgets/screen.dart';
+import 'package:tenso_app/widgets/section.dart';
+import 'package:tenso_app/widgets/top_navigation.dart';
 
 class BoardSettingsScreen extends StatefulWidget {
   BoardSettingsScreen({Key key}) : super(key: key);

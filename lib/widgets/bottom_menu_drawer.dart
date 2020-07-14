@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/icon.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/icon.dart';
 
 class MenuItem {
   final String name;

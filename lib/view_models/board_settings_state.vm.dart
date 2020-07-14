@@ -1,5 +1,5 @@
-import 'package:app/models/models.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
 
 class BoardSettingsViewModelState {
   final List<Board> boards;

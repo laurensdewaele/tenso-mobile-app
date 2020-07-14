@@ -1,12 +1,12 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/button.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/empty_input_and_description.dart';
-import 'package:app/widgets/expanded_section.dart';
-import 'package:app/widgets/section_with_info_icon.dart';
-import 'package:app/widgets/text_input.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/button.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/empty_input_and_description.dart';
+import 'package:tenso_app/widgets/expanded_section.dart';
+import 'package:tenso_app/widgets/section_with_info_icon.dart';
+import 'package:tenso_app/widgets/text_input.dart';
 
 class RateWorkoutContent extends StatelessWidget {
   RateWorkoutContent({

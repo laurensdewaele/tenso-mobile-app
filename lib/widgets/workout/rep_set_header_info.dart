@@ -1,4 +1,4 @@
-import 'package:app/styles/styles.dart' as styles;
+import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
 
 final double kRepSetHeaderWidth = 90;

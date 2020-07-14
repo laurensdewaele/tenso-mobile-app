@@ -1,5 +1,5 @@
-import 'package:app/services/error.service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tenso_app/services/error.service.dart';
 
 class ParseException extends AppException {
   final String input;

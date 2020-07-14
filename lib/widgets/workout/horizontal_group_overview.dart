@@ -1,8 +1,8 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/board/board_with_grips.dart';
-import 'package:app/widgets/workout/rep_set_header_info.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/board/board_with_grips.dart';
+import 'package:tenso_app/widgets/workout/rep_set_header_info.dart';
 
 class HorizontalGroupOverview extends StatelessWidget {
   HorizontalGroupOverview(

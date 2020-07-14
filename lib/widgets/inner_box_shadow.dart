@@ -1,6 +1,5 @@
- import 'package:flutter/cupertino.dart';
-
-import 'package:app/styles/styles.dart' as styles;
+import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 enum InnerBoxShadowRadiusPosition { left, right }
 

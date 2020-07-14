@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:app/services/keyboard.service.dart';
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/services/keyboard.service.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 // For inputs without an initial value
 class EmptyInput extends StatefulWidget {

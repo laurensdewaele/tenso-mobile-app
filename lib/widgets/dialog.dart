@@ -1,7 +1,7 @@
 import 'dart:ui' show ImageFilter;
 
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 Future<void> showAppDialog({
   @required BuildContext context,

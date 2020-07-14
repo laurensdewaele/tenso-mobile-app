@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:app/helpers/nullable.dart';
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/foundation.dart';
+import 'package:tenso_app/helpers/nullable.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 abstract class _ExecutionTitles {
   static const String preparation = 'preparation';

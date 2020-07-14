@@ -1,15 +1,15 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/calendar/constants.dart';
-import 'package:app/widgets/card.dart';
-import 'package:app/widgets/color_square.dart';
-import 'package:app/widgets/dialog.dart';
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/sliding_card.dart';
-import 'package:app/widgets/workout_overview/delete_action.dart';
-import 'package:app/widgets/workout_overview/view_action.dart';
-import 'package:app/widgets/workout_overview/workout_long_press_dialog.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/calendar/constants.dart';
+import 'package:tenso_app/widgets/card.dart';
+import 'package:tenso_app/widgets/color_square.dart';
+import 'package:tenso_app/widgets/dialog.dart';
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/sliding_card.dart';
+import 'package:tenso_app/widgets/workout_overview/delete_action.dart';
+import 'package:tenso_app/widgets/workout_overview/view_action.dart';
+import 'package:tenso_app/widgets/workout_overview/workout_long_press_dialog.dart';
 
 class CompletedWorkoutsOverview extends StatelessWidget {
   CompletedWorkoutsOverview(

@@ -1,10 +1,10 @@
-import 'package:app/helpers/nullable.dart';
-import 'package:app/models/models.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/validation.service.dart';
-import 'package:app/widgets/execution/log_hangs_dialog.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/helpers/nullable.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
+import 'package:tenso_app/widgets/execution/log_hangs_dialog.dart';
 
 class PastHang {
   final int sequenceTimerIndex;

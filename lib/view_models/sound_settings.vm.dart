@@ -1,10 +1,10 @@
-import 'package:app/data/sounds.data.dart';
-import 'package:app/models/models.dart';
-import 'package:app/services/audio_player.service.dart';
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/validation.service.dart';
-import 'package:app/state/settings.state.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/data/sounds.data.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/audio_player.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
+import 'package:tenso_app/state/settings.state.dart';
 
 class SoundSettingsViewModel extends ChangeNotifier {
   AudioPlayerService _audioPlayerService;

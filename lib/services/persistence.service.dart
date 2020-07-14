@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:app/models/models.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tenso_app/models/models.dart';
 
 class PersistenceService {
   PersistenceService._();

@@ -1,5 +1,5 @@
-import 'package:app/styles/styles.dart' as styles;
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 class Screen extends StatefulWidget {
   const Screen(

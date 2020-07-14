@@ -1,12 +1,12 @@
-import 'package:app/data/grips.data.dart';
-import 'package:app/helpers/nullable.dart';
-import 'package:app/models/models.dart';
-import 'package:app/services/navigation.service.dart';
-import 'package:app/services/parser.service.dart';
-import 'package:app/services/validation.service.dart';
-import 'package:app/state/boards.state.dart';
-import 'package:app/view_models/workout/group_state.vm.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/data/grips.data.dart';
+import 'package:tenso_app/helpers/nullable.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
+import 'package:tenso_app/state/boards.state.dart';
+import 'package:tenso_app/view_models/workout/group_state.vm.dart';
 
 enum GroupActions { addGroup, editGroup }
 

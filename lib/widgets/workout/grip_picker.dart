@@ -1,8 +1,8 @@
-import 'package:app/models/models.dart';
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/divider.dart';
-import 'package:app/widgets/grip_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/grip_image.dart';
 
 final double _kGripPickerHeight = 100;
 final double _kGripWidth = 80;

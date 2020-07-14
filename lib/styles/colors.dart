@@ -1,5 +1,5 @@
-import 'package:app/models/models.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/models/models.dart';
 
 abstract class Colors {
   static const Color primary = const Color.fromRGBO(220, 88, 88, 1);

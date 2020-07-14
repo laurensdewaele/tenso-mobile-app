@@ -1,6 +1,6 @@
-import 'package:app/models/models.dart';
-import 'package:app/services/error.service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/error.service.dart';
 
 class ValidationException<T> extends AppException {
   final String validationType;

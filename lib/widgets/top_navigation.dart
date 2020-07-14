@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Icon;
-
-import 'package:app/styles/styles.dart' as styles;
-import 'package:app/widgets/icon_button.dart';
-import 'package:app/widgets/icons.dart' as icons;
+import 'package:tenso_app/styles/styles.dart' as styles;
+import 'package:tenso_app/widgets/icon_button.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
 
 class TopNavigation extends StatelessWidget {
   TopNavigation({this.title, this.dark = false, this.handleBackNavigation});
