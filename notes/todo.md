@@ -1,6 +1,9 @@
 # TODO
 
 - Implement a feedback section.
+
+=> Created date on backend
+
 - Take new photo's of all grips.
 
 ### Triage:
