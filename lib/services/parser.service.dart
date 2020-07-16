@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tenso_app/services/error.service.dart';
+import 'package:tenso_app/widgets/toast_message.dart';
 
 class ParseException extends AppException {
   final String input;
@@ -34,7 +35,7 @@ abstract class InputParsers {
           exception: exception,
           parseType: 'parseToDouble',
           stackTrace: stackTrace,
-          errorMessage: ErrorMessages.inputNotANumber(inputField: inputField));
+          errorMessage: ToastMessages.inputNotANumber(inputField: inputField));
     }
     return value;
   }
@@ -55,7 +56,7 @@ abstract class InputParsers {
           exception: exception,
           parseType: 'parseToInt',
           stackTrace: stackTrace,
-          errorMessage: ErrorMessages.inputNotANumber(inputField: inputField));
+          errorMessage: ToastMessages.inputNotANumber(inputField: inputField));
     }
     return value;
   }

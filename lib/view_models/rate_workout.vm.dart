@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:tenso_app/helpers/unique_id.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/services/error.service.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/state/settings.state.dart';
+import 'package:tenso_app/widgets/toast_message.dart';
 
 class RateWorkoutViewModel {
   RateWorkoutViewModel() {
@@ -168,16 +168,16 @@ class RateWorkoutViewModel {
   }
 
   void _formatException(String variable) {
-    _toastService.add(ErrorMessages.inputNotANumber());
+    _toastService.add(ToastMessages.inputNotANumber());
   }
 
   void _smallerThanZeroException(String inputField) {
     _toastService
-        .add(ErrorMessages.inputSmallerThanZero(inputField: inputField));
+        .add(ToastMessages.inputSmallerThanZero(inputField: inputField));
   }
 
   void _largerThanException(int max, String inputField) {
     _toastService
-        .add(ErrorMessages.inputLargerThan(max: max, inputField: inputField));
+        .add(ToastMessages.inputLargerThan(max: max, inputField: inputField));
   }
 }

@@ -1,8 +1,7 @@
 # TODO
 
 - Implement a feedback section.
-
-=> Created date on backend
+=> Connect to db.
 
 - Take new photo's of all grips.
 

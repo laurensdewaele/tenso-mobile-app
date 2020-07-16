@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/error.service.dart';
+import 'package:tenso_app/widgets/toast_message.dart';
 
 class ValidationException<T> extends AppException {
   final String validationType;
@@ -28,7 +29,7 @@ abstract class Validators {
     } else {
       throw ValidationException<T>(
           validationType: 'biggerThanZero',
-          errorMessage: ErrorMessages.biggerThanZero(inputField: inputField),
+          errorMessage: ToastMessages.biggerThanZero(inputField: inputField),
           input: value);
     }
     return _bool;
@@ -48,7 +49,7 @@ abstract class Validators {
       throw ValidationException<T>(
           validationType: 'biggerOrEqualToZero',
           errorMessage:
-              ErrorMessages.biggerOrEqualToZero(inputField: inputField),
+              ToastMessages.biggerOrEqualToZero(inputField: inputField),
           input: value);
     }
     return _bool;
@@ -69,7 +70,7 @@ abstract class Validators {
     } else {
       throw ValidationException<T>(
           validationType: 'betweenRange',
-          errorMessage: ErrorMessages.betweenRange(
+          errorMessage: ToastMessages.betweenRange(
               min: min, max: max, inputField: inputField),
           input: value);
     }
@@ -83,7 +84,7 @@ abstract class Validators {
     if (string == null || string.length == 0) {
       throw ValidationException<String>(
           validationType: 'stringNotEmpty',
-          errorMessage: ErrorMessages.inputNotEmpty(inputField: inputField),
+          errorMessage: ToastMessages.inputNotEmpty(inputField: inputField),
           input: string);
     } else {
       _bool = true;
@@ -104,7 +105,7 @@ abstract class Validators {
     } else {
       throw ValidationException<BoardHold>(
           input: boardHold,
-          errorMessage: ErrorMessages.exceedsSupportedFingers(
+          errorMessage: ToastMessages.exceedsSupportedFingers(
               max: boardHold.supportedFingers),
           validationType: 'gripCompatibility');
     }

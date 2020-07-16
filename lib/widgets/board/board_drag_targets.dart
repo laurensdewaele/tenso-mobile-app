@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/services/error.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/board/hang_board.dart';
+import 'package:tenso_app/widgets/toast_message.dart';
 
 class BoardDragTargets extends StatelessWidget {
   BoardDragTargets(
@@ -67,14 +67,14 @@ class BoardDragTargets extends StatelessWidget {
                 },
                 onWillAccept: (Grip grip) {
                   if (activeBoardHolds.contains(boardHold)) {
-                    setErrorMessage(ErrorMessages.holdAlreadyTaken());
+                    setErrorMessage(ToastMessages.holdAlreadyTaken());
                     return false;
                   }
 
                   if (boardHold.checkGripCompatibility(grip) == true) {
                     return true;
                   } else {
-                    setErrorMessage(ErrorMessages.exceedsSupportedFingers(
+                    setErrorMessage(ToastMessages.exceedsSupportedFingers(
                         max: boardHold.supportedFingers));
                     return false;
                   }

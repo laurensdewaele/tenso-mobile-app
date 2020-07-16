@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/services/error.service.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/execution/execution.vm.dart';
@@ -12,6 +11,7 @@ import 'package:tenso_app/widgets/execution/execution_landscape.dart';
 import 'package:tenso_app/widgets/execution/execution_portrait.dart';
 import 'package:tenso_app/widgets/execution/log_hangs_dialog.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/toast_message.dart';
 import 'package:tenso_app/widgets/toast_provider.dart';
 
 class ExecutionScreenArguments {
@@ -71,10 +71,10 @@ class _ExecutionScreenState extends State<ExecutionScreen>
 
   void _handleLogHangsTap() async {
     if (_viewModel.state.type == SequenceTimerType.hangTimer) {
-      ToastService().add(ErrorMessages.loggingOnlyPossibleOnRests());
+      ToastService().add(ToastMessages.loggingOnlyPossibleOnRests());
     } else if (_viewModel.pastHangs.length == 0) {
       ToastService()
-          .add(ErrorMessages.loggingNotPossibleWhenNoCompletedHangs());
+          .add(ToastMessages.loggingNotPossibleWhenNoCompletedHangs());
     } else {
       await showAppDialog(
           fullWidth: true,

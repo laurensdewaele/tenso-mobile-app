@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class ToastProvider extends StatefulWidget {
   ToastProvider({@required this.child});
@@ -109,19 +108,7 @@ class _ToastUIState extends State<_ToastUI>
                 padding: EdgeInsets.symmetric(
                     vertical: styles.Measurements.m,
                     horizontal: styles.Measurements.m),
-                child: SafeArea(
-                    child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Image.asset('assets/images/icons/error.png'),
-                        Divider(width: styles.Measurements.m),
-                        Expanded(child: Center(child: widget.message))
-                      ],
-                    ),
-                  ],
-                ))),
+                child: SafeArea(child: widget.message)),
           ],
         ),
       ),

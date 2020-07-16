@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:tenso_app/dto/feedback.dto.dart';
 import 'package:tenso_app/models/models.dart';
 
 part 'serializers.g.dart';
@@ -12,6 +13,7 @@ part 'serializers.g.dart';
   CompletedWorkout,
   CompletedWorkouts,
   DeviceInfo,
+  Feedback,
   Fingers,
   Grip,
   Group,

@@ -7,9 +7,9 @@ import 'package:tenso_app/models/custom_board_hold_image.model.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/screens/save_custom_board.screen.dart';
-import 'package:tenso_app/services/error.service.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/services/toast.service.dart';
+import 'package:tenso_app/widgets/toast_message.dart';
 
 enum BoxVisibility { selected, deselected, hidden }
 
@@ -124,7 +124,7 @@ class CustomBoardViewModel extends ChangeNotifier {
       if (_isAdjacent == true) {
         _invertSelectedStateBox(boxState);
       } else {
-        _toastService.add(ErrorMessages.customBoardNotAdjacent());
+        _toastService.add(ToastMessages.customBoardNotAdjacent());
       }
     }
 
@@ -135,7 +135,7 @@ class CustomBoardViewModel extends ChangeNotifier {
       if (_isInCenter == false) {
         _invertSelectedStateBox(boxState);
       } else {
-        _toastService.add(ErrorMessages.customBoardDeselect());
+        _toastService.add(ToastMessages.customBoardDeselect());
       }
     }
   }
@@ -309,7 +309,7 @@ class CustomBoardViewModel extends ChangeNotifier {
 
   void handleSaveTap() {
     if (_boardHolds.length < 2) {
-      ToastService().add(ErrorMessages.minimumTwoBoardHolds());
+      ToastService().add(ToastMessages.minimumTwoBoardHolds());
     } else {
       NavigationService().pushNamed(Routes.saveCustomBoardScreen,
           arguments: SaveCustomBoardScreenArguments(

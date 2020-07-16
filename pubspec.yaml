@@ -30,6 +30,7 @@ dependencies:
   uuid: ^2.0.4
   rxdart: ^0.24.1
   wakelock: ^0.1.4+1
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:
