@@ -16,8 +16,7 @@ class ExpandedContentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Column(children: <Widget>[
+    return Column(children: <Widget>[
       Text(
         title,
         style: styles.Staatliches.xsBlack,
@@ -28,6 +27,6 @@ class ExpandedContentTile extends StatelessWidget {
       if (contentContainerHeight != null)
         Container(height: contentContainerHeight, child: content),
       if (contentContainerHeight == null) content
-    ]));
+    ]);
   }
 }
