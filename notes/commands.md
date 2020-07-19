@@ -17,4 +17,6 @@ flutter packages pub run build_runner watch
 ### Release run
 flutter run --release -d ZY323W6WFN
 
+### Change icon
+flutter pub run flutter_launcher_icons:main
 
