@@ -72,39 +72,42 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
             Container(
               decoration: BoxDecoration(color: styles.Colors.bgBlack),
               child: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    if (_orientation == Orientation.portrait)
-                      _PortraitContainer(
-                        maxContainerHeight: _maxContainerHeight,
-                        content: RateWorkoutContent(
+                child: Container(
+                  decoration: BoxDecoration(color: styles.Colors.bgBlack),
+                  child: Column(
+                    children: <Widget>[
+                      if (_orientation == Orientation.portrait)
+                        _PortraitContainer(
                           maxContainerHeight: _maxContainerHeight,
-                          handleOpen: () {},
-                          tempUnit: _viewModel.tempUnit,
-                          handleCompleteTap: _handleCompleteTap,
-                          handlePerceivedExertionChanged:
-                              _viewModel.setPerceivedExertion,
-                          handleBodyWeightChanged: _viewModel.setBodyWeight,
-                          handleTemperatureChanged: _viewModel.setTemperature,
-                          handleHumidityChanged: _viewModel.setHumidity,
-                          handleCommentsChanged: _viewModel.setComments,
+                          content: RateWorkoutContent(
+                            maxContainerHeight: _maxContainerHeight,
+                            handleOpen: () {},
+                            tempUnit: _viewModel.tempUnit,
+                            handleCompleteTap: _handleCompleteTap,
+                            handlePerceivedExertionChanged:
+                                _viewModel.setPerceivedExertion,
+                            handleBodyWeightChanged: _viewModel.setBodyWeight,
+                            handleTemperatureChanged: _viewModel.setTemperature,
+                            handleHumidityChanged: _viewModel.setHumidity,
+                            handleCommentsChanged: _viewModel.setComments,
+                          ),
                         ),
-                      ),
-                    if (_orientation == Orientation.landscape)
-                      _LandscapeContainer(
-                        content: RateWorkoutContent(
-                          handleOpen: () {},
-                          handleCompleteTap: _handleCompleteTap,
-                          handlePerceivedExertionChanged:
-                              _viewModel.setPerceivedExertion,
-                          handleBodyWeightChanged: _viewModel.setBodyWeight,
-                          handleTemperatureChanged: _viewModel.setTemperature,
-                          handleHumidityChanged: _viewModel.setHumidity,
-                          handleCommentsChanged: _viewModel.setComments,
-                          tempUnit: _viewModel.tempUnit,
+                      if (_orientation == Orientation.landscape)
+                        _LandscapeContainer(
+                          content: RateWorkoutContent(
+                            handleOpen: () {},
+                            handleCompleteTap: _handleCompleteTap,
+                            handlePerceivedExertionChanged:
+                                _viewModel.setPerceivedExertion,
+                            handleBodyWeightChanged: _viewModel.setBodyWeight,
+                            handleTemperatureChanged: _viewModel.setTemperature,
+                            handleHumidityChanged: _viewModel.setHumidity,
+                            handleCommentsChanged: _viewModel.setComments,
+                            tempUnit: _viewModel.tempUnit,
+                          ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )

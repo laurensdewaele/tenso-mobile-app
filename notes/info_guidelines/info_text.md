@@ -1,3 +1,34 @@
+## How to use this app
+
+Tenso is intended for anyone serious about hangboarding.
+It's intended to cater to all your needs.
+If something is missing,
+
+[Button with let us know]
+
+## New to hangboarding
+
+The best way forward is to dive in and create your own workout.
+It's more effective than choosing a pre-made workout, made by someone else.
+Only you can know and figure out what you can hang.
+Trust yourself, and listen to your body.
+
+Start with our beginner workout and train the 3 most important grip types:
+- Open hand drag 3x
+- Half crimp 3x 
+- 3 finger drag 3x
+
+And simply hang on for as long as you can.
+If you can go above 30s, try a smaller edge size.
+
+Don't worry about not knowing the hang time in advance,
+you can alter them during your workout by clicking on 'log hangs' when pausing the workout.
+
+For you next workout, edit the workout and alter the hang time values to what you were able to hang.
+
+
+
+
 ##Reminder to yourself: 
 Just write down the basics or as little as possible and refer them to the links
 that do a better job (maybe).

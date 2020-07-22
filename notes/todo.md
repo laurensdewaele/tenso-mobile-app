@@ -21,6 +21,7 @@
 - LAUNCH
 
 ### Medium prio
+- Check if the keyboard widget is necessary, remove if not.
 - Info on group and rep rest needs to say stuff about group and rest, not just 
   variable and fixed.
 - More beginner workouts. => Repeaters / max-hang / density 
