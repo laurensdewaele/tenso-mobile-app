@@ -65,16 +65,16 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
     return WillPopScope(
       onWillPop: () async => false,
       child: ToastProvider(
-        child: ListView(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          children: [
-            Container(
+        child: Container(
+          decoration: BoxDecoration(color: styles.Colors.bgBlack),
+          child: SafeArea(
+            child: Container(
               decoration: BoxDecoration(color: styles.Colors.bgBlack),
-              child: SafeArea(
-                child: Container(
-                  decoration: BoxDecoration(color: styles.Colors.bgBlack),
-                  child: Column(
+              child: ListView(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                children: [
+                  Column(
                     children: <Widget>[
                       if (_orientation == Orientation.portrait)
                         _PortraitContainer(
@@ -107,11 +107,11 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                           ),
                         ),
                     ],
-                  ),
-                ),
+                  )
+                ],
               ),
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
