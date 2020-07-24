@@ -39,7 +39,7 @@
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
-**/android/app/tenso_android_key.jks
+**/android/app/key_store.jks
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

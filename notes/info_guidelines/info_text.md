@@ -87,3 +87,8 @@ There’s also one and half million different protocols out there that all have 
 It’s next to impossible to decide which ones to include and which ones te leave out.
 
 It’s up to you to experiment, be inventive, and find out what fits for you and your climbing specific goals.
+
+
+## Random
+
+Hangboarding without the perfect routine will still make you stronger than not hangboarding at all. Just get on with it, do the best you can and refine as you go.
