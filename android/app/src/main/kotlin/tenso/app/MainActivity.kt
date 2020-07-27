@@ -1,4 +1,4 @@
-package com.example.app
+package tenso.app
 
 import android.os.Bundle
 

@@ -20,3 +20,6 @@ flutter run --release -d ZY323W6WFN
 ### Change icon
 flutter pub run flutter_launcher_icons:main
 
+## Build android
+flutter build appbundle
+
