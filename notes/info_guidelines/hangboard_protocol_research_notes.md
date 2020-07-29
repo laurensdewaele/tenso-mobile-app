@@ -127,6 +127,45 @@ In the long term you need to combine
 Start where you are. Be it fingerboarding or campussing ( don’t do this lol ).
 PATIENCE is key!
 
+## Dave MacLeod video (https://www.youtube.com/watch?v=Z5HZTN4MR-o)
+
+In isometric training, it’s not clear wether it’s more beneficial to do either high loads 
+Or low loads until fatigue. 
+
+For beginners he recommends using lower loads. Until you gain familiarity with the device and the training. 
+
+For beginners, any given load will be beneficial. 
+
+30 minutes would be a normal finger board session
+
+Don’t feel the need to hit an exact number of seconds in your hang. The point is your hanging until failure. 
+
+Flexor unit strain => 3 f drag lol
+
+3 main grips => open hand drag => 3f drag => crimped grip
+
+
+
+1 set or more than 1 set?
+In advanced athletes, kind of. But even then there’s not much more effect.
+
+Al to of people can get a lot of results by just everyday or every other day, just doing one set.
+! Pulp, 1 hang low intensity, for 20s and lateron the exact same with half crimp, later on the day 3f drag.
+
+Level of effort!!!
+20 - 30s to failure!! Until you absolutely cannot hang anymore. But do not compromise on form,!!!!
+Exclude all other distractions, purely concentrate on it. If you can’t concentrate, don’t do it.
+Be present, do it properly!
+
+How can I hang til failure but not let my feet come off the board?
+Just when you notice you’re about to come off, position your feet so you can’t slip off.
+
+Longer duration low load stuff if you’re not used to it yet. Hang on to as long as you possibly can.
+Start off low, and progress from there.
+
+Get a coach to write you a program.
+However, that couch needs to know you quite well. Otherwise, he’s just taking a guess 
+
 
 
 

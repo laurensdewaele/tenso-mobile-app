@@ -1,3 +1,7 @@
+I’ve created this program for climbers, both beginners and experts, looking to make finger training as simple as possible. 
+No weights added, no scales to measure with, and no pulley system used. Just a hangboard with multiple edge sizes.
+
+
 ## How to use this app
 
 Tenso is intended for anyone serious about hangboarding.
@@ -57,19 +61,20 @@ It can feel like you’re lost in the woods sometimes. Which direction do I take
 
 We’re here to tell you that you’re lucky!
 Literally any path you take will provide you with a ton of gains.
-This is because your body hasn’t yet adapted to hangboarding thus  
-
+This is because your body hasn’t yet adapted to hangboarding thus any training is good training.
 
 ## Links
 
 https://www.tensionclimbing.com/hangboarding-a-way/
 https://www.youtube.com/watch?v=VeKE5VH5-qg
+https://www.youtube.com/watch?v=Z5HZTN4MR-o
 https://www.powercompanyclimbing.com/blog/2019/1/10/episode-118-the-best-hangboard-protocol-with-eva-lopez
 
 Great warmup video:
 https://www.youtube.com/watch?time_continue=207&v=jpWugfr-seA&feature=emb_logo
 
 Reddit climb harder wiki.
+
 
 
 

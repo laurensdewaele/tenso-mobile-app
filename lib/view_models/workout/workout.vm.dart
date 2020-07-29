@@ -58,7 +58,7 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void handleAddGroupTap() async {
-    Group _group = basicGroup;
+    Group _group = basicOpenHand;
     if (state.groups.length > 0) {
       _group = state.groups[state.groups.length - 1];
     }
