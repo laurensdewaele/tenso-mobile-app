@@ -23,3 +23,6 @@ flutter pub run flutter_launcher_icons:main
 ## Build android
 flutter build appbundle
 
+## Build android
+flutter build ios
+
