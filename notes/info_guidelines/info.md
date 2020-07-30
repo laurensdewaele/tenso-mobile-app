@@ -26,7 +26,7 @@ If you're new, the best way is the easiest way and you're lucky, because no matt
 improve anyway!
 
 Trust yourself and jump right in. We recommend you begin with the density hang workout. Simply hang on for as long as you can. 
-Remember to hang with proper form. See the link section for a video on proper form.
+Remember to warm up properly and hang with proper form. See the link section for a video on warming up and applying proper form.
 After a hang, rest for as long as it takes to reproduce the same max effort (usually 3 - 5min). On a rest phase, you can tap to pause, and log the amount of time you were able to hang on.
 
 For your next workout on a later date, look back at your previous workout to see what you were able to hang, and edit the workout accordingly.
@@ -62,5 +62,30 @@ E.g. if you can hang an additional 30kg for a half crimp grip for 7 seconds, and
 For repeaters, starting out, you want half that, so you need to subtract 20kg (70kg - 20kg = 50kg) with a pulley system.
 The exact load determination for each grip position can be tricky, but as long as you get pumped in the end and still manage to complete all the hangs, you're on the right track.
 Adjust the rep/set count accordingly.
+
+# Links
+
+Following links are great resources to know more about hangboarding.
+
+Warm up video:
+https://www.youtube.com/watch?time_continue=207&v=jpWugfr-seA&feature=emb_logo
+
+Proper form video:
+https://www.youtube.com/watch?v=_deu23LD_RY
+
+Article
+https://www.tensionclimbing.com/hangboarding-a-way/
+
+Video
+https://www.youtube.com/watch?v=VeKE5VH5-qg
+https://www.youtube.com/watch?v=Z5HZTN4MR-o
+
+Podcast
+https://www.powercompanyclimbing.com/blog/2019/1/10/episode-118-the-best-hangboard-protocol-with-eva-lopez
+
+Reddit climbharder hangboard wiki:
+https://www.reddit.com/r/climbharder/wiki/index#wiki_articles_-_fingerboarding
+
+
 
 
