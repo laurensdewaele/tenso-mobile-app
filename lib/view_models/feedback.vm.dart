@@ -10,7 +10,6 @@ import 'package:tenso_app/services/validation.service.dart';
 import 'package:tenso_app/widgets/toast_message.dart';
 
 final List<String> feedbackTypes = [
-  'appreciation',
   'board request',
   'bug',
   'feature request',

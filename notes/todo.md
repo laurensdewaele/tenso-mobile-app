@@ -1,9 +1,9 @@
 # TODO
 
-- Implement a feedback section.
-=> Connect to db.
-
-- Take new photo's of all grips.
+- Coming soon popup on graph section
+- First welcome message
+- Add open crimp, pinch grip, check if all grips available
+- LAUNCH
 
 ### Triage:
 - Have an overview of the things you specifically did, hang times, and skipped etc...
@@ -16,9 +16,7 @@
 - Scale pull measurements (Jan)? 
 
 ### Large prio
-- Add open crimp, pinch grip, check if all grips available
-- Info/explanation screen
-- LAUNCH
+
 
 ### Medium prio
 - Check if the keyboard widget is necessary, remove if not.

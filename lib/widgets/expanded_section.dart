@@ -97,7 +97,9 @@ class _ExpandedSectionState extends State<ExpandedSection>
     return AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,
-      child: Column(children: widget.children),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: widget.children),
     );
   }
 }

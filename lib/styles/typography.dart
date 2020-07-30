@@ -83,6 +83,7 @@ abstract class Lato {
     fontSize: 16,
     color: styles.Colors.black,
   );
+
   static const TextStyle xsGray = TextStyle(
       height: 1.5, fontFamily: 'Lato', fontSize: 16, color: styles.Colors.gray);
   static const TextStyle xsWhite = TextStyle(

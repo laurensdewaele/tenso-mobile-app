@@ -23,6 +23,19 @@ class ToastMessage extends StatelessWidget {
 }
 
 abstract class ToastMessages {
+  static Widget failedBrowserLaunch() => ToastMessage(
+        success: false,
+        message: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
+            TextSpan(
+              text: 'Failed to open browser.',
+              style: styles.Lato.sBlack,
+            ),
+          ]),
+        ),
+      );
+
   static Widget groupsEmpty() => ToastMessage(
         success: false,
         message: RichText(

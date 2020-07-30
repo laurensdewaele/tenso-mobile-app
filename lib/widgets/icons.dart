@@ -135,6 +135,20 @@ const infoIconBlackL = Icon(
   color: styles.Colors.black,
 );
 
+const infoIconBlackM = Icon(
+  size: styles.IconMeasurements.m,
+  iconData: IconData(0xf44c,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.black,
+);
+
+const infoIconBlackS = Icon(
+  size: styles.IconMeasurements.s,
+  iconData: IconData(0xf44c,
+      fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+  color: styles.Colors.black,
+);
+
 const searchIconWhiteXl = Icon(
   size: styles.IconMeasurements.xl,
   iconData: IconData(0xf4a4,

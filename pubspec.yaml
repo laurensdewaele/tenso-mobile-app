@@ -30,6 +30,7 @@ dependencies:
   http: ^0.12.1
   path_provider: ^1.5.1
   rxdart: ^0.24.1
+  url_launcher: ^5.5.0
   uuid: ^2.0.4
   wakelock: ^0.1.4+1
 

@@ -155,19 +155,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
 
 List<MenuItem> _menuItems = [
   MenuItem(
-      name: 'settings',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.settingsScreen);
-      },
-      icon: icons.settingsIconBlackL),
-  MenuItem(
-      name: 'progress',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.progressScreen);
-      },
-      icon: icons.chartIconBlackS),
-  MenuItem(
-      name: 'history',
+      name: 'calendar',
       handleTap: () {
         NavigationService().pushNamed(Routes.calendarScreen);
       },
@@ -177,5 +165,23 @@ List<MenuItem> _menuItems = [
       handleTap: () {
         NavigationService().pushNamed(Routes.feedbackScreen);
       },
-      icon: icons.editIconBlackS)
+      icon: icons.editIconBlackS),
+  MenuItem(
+      name: 'info',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.infoScreen);
+      },
+      icon: icons.infoIconBlackL),
+  MenuItem(
+      name: 'progress',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.progressScreen);
+      },
+      icon: icons.chartIconBlackS),
+  MenuItem(
+      name: 'settings',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.settingsScreen);
+      },
+      icon: icons.settingsIconBlackL),
 ];
