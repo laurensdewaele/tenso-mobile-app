@@ -1,7 +1,5 @@
 # TODO
 
-- Coming soon popup on graph section
-- First welcome message
 - Add open crimp, pinch grip, check if all grips available
 - LAUNCH
 
@@ -22,8 +20,6 @@
 - Check if the keyboard widget is necessary, remove if not.
 - Info on group and rep rest needs to say stuff about group and rest, not just 
   variable and fixed.
-- More beginner workouts. => Repeaters / max-hang / density 
-- Make videos to explain beginners how to use this app.
 - Graphs
 - Backend
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
@@ -38,6 +34,7 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
+- Make videos to explain beginners how to use this app.
 - Custom boards in horizontal scroll view.
 - Have a timer section, without specifying holds etc.
 - Show history with pauses included, skip buttons etc. 

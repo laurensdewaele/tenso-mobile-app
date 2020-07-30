@@ -7,6 +7,7 @@ import 'package:tenso_app/screens/execution.screen.dart';
 import 'package:tenso_app/screens/feedback.screen.dart';
 import 'package:tenso_app/screens/group.screen.dart';
 import 'package:tenso_app/screens/info.screen.dart';
+import 'package:tenso_app/screens/progress.screen.dart';
 import 'package:tenso_app/screens/rate_workout.screen.dart';
 import 'package:tenso_app/screens/save_custom_board.screen.dart';
 import 'package:tenso_app/screens/settings.screen.dart';
@@ -35,20 +36,21 @@ abstract class Routes {
 
 Map<String, WidgetBuilder> getRoutes(BuildContext context) {
   return {
-    Routes.infoScreen: (context) => InfoScreen(),
-    Routes.home: (context) => WorkoutOverviewScreen(),
-    Routes.workoutScreen: (context) => WorkoutScreen(),
+    Routes.boardSettingsScreen: (context) => BoardSettingsScreen(),
+    Routes.calendarScreen: (context) => CalendarScreen(),
+    Routes.customBoardScreen: (context) => CustomBoardScreen(),
+    Routes.completedWorkoutScreen: (context) => CompletedWorkoutScreen(),
+    Routes.executionScreen: (context) => ExecutionScreen(),
+    Routes.feedbackScreen: (context) => FeedbackScreen(),
     Routes.groupScreen: (context) => GroupScreen(),
-    Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
+    Routes.home: (context) => WorkoutOverviewScreen(),
+    Routes.infoScreen: (context) => InfoScreen(),
+    Routes.progressScreen: (context) => ProgressScreen(),
+    Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
+    Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
-    Routes.executionScreen: (context) => ExecutionScreen(),
-    Routes.calendarScreen: (context) => CalendarScreen(),
-    Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
-    Routes.boardSettingsScreen: (context) => BoardSettingsScreen(),
-    Routes.customBoardScreen: (context) => CustomBoardScreen(),
-    Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
-    Routes.feedbackScreen: (context) => FeedbackScreen(),
-    Routes.completedWorkoutScreen: (context) => CompletedWorkoutScreen()
+    Routes.workoutScreen: (context) => WorkoutScreen(),
+    Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
   };
 }
