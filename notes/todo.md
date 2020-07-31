@@ -15,6 +15,8 @@
 
 ### Large prio
 
+- Bug when deleting one completed workout on calendar view, deletes 2
+
 
 ### Medium prio
 - Check if the keyboard widget is necessary, remove if not.
