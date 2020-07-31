@@ -40,6 +40,7 @@
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
 **/android/app/key_store.jks
+**/android/fastlane/service_account.json
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
