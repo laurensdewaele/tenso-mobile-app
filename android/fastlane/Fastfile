@@ -21,18 +21,29 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Deploy a new beta version to Google Play"
   lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+    upload_to_play_store(
+        track: 'beta',
+        package_name: 'tenso.app',
+        metadata_path: './fastlane/metadata/android',
+        json_key: './fastlane/service_account.json',
+        skip_upload_apk: true,
+        skip_upload_aab: false,
+        aab: '../build/app/outputs/bundle/release/app-release.aab',
+        skip_upload_metadata: true,
+        skip_upload_changelogs: true,
+        skip_upload_images: true,
+        skip_upload_screenshots: true,
+        validate_only: false,
+        check_superseded_tracks: false,
+        timeout: 300,
+        deactivate_on_promote: true
+    )
   end
 
-  desc "Deploy a new version to the Google Play"
+  desc "Deploy a new version to Google Play"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
 end
