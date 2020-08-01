@@ -1,6 +1,11 @@
 # TODO
 
 - Add open crimp, pinch grip, check if all grips available
+- accept , en .
+- Log hangs => adjust hangs
+- Rate workout => complete workout
+- Menu swipe up, on new ios users it's awkward
+- back button overview
 - LAUNCH
 
 ### Triage:

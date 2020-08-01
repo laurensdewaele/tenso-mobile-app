@@ -28,7 +28,8 @@ abstract class InputParsers {
 
     double value;
     try {
-      value = double.parse(string.trim());
+      final String replacedCommas = string.replaceFirst(',', '.');
+      value = double.parse(replacedCommas.trim());
     } on FormatException catch (exception, stackTrace) {
       throw ParseException(
           input: string,
