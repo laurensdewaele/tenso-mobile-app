@@ -76,7 +76,7 @@ class InfoScreen extends StatelessWidget {
                       title: 'About',
                       children: <Widget>[
                         Text(
-                          'This app was built as a tool to help you progress your finger strength. Finger strength progression requires a lot of time. Therefor, logging your practice and being able to visualize your progression is invaluable.',
+                          'This app was built as a tool to help you progress your finger strength. Finger strength progression requires a lot of time. Therefore, logging your practice and being able to visualize your progression is invaluable.',
                           style: styles.Lato.xsBlack,
                         ),
                         Text(
@@ -94,7 +94,7 @@ class InfoScreen extends StatelessWidget {
                                     style: styles.Lato.xsBlackBold),
                                 TextSpan(
                                     text:
-                                        'only the most basic ones to get you started. A workout has to be tailored to the individual, and it\'s impossible for us to know all the variables it takes to design a balanced workout for that specific individual. Be it age, climbing age, sleep, stress, weight, the list goes on... Therefor, the best way forward is to help us get the individual started by themselves.',
+                                        'only the most basic ones to get you started. A workout has to be tailored to the individual, and it\'s impossible for us to know all the variables it takes to design a balanced workout for that specific individual. Be it age, climbing age, sleep, stress, weight, the list goes on... Therefore, the best way forward is to help us get the individual started by themselves.',
                                     style: styles.Lato.xsBlack),
                               ]),
                         ),

@@ -1,7 +1,7 @@
 # About
 
 This app was built as a tool to help you progress your finger strength.
-Finger strength progression requires a lot of time. Therefor, logging your 
+Finger strength progression requires a lot of time. Therefore, logging your 
 practice and being able to visualize your progression is invaluable.
 
 The app is built for allowing you to enter any kind of workout variable. Be it specific
@@ -14,7 +14,7 @@ made sure you can. This helps you set variables for your next workout and track 
 This app will not provide you with a myriad of different workouts or protocols, only the most basic ones to get you started. 
 A workout has to be tailored to the individual, and it's impossible for us to know all the variables 
 it takes to design a balanced workout for that specific individual. Be it age, climbing age, sleep, stress, 
-weight, the list goes on... Therefor, the best way forward for us is to help the individual to design it themselves.
+weight, the list goes on... Therefore, the best way forward for us is to help the individual to design it themselves.
 
 # New to hangboarding.
 
