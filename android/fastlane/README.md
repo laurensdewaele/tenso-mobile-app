@@ -26,11 +26,11 @@ Runs all the tests
 fastlane android beta
 ```
 Deploy a new beta version to Google Play
-### android deploy
+### android release
 ```
-fastlane android deploy
+fastlane android release
 ```
-Deploy a new version to Google Play
+Release a new version to Google Play
 
 ----
 
