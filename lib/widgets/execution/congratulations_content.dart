@@ -65,7 +65,7 @@ class CongratulationsContent extends StatelessWidget {
           ),
           Button(
             smallText: true,
-            text: 'rate workout',
+            text: 'complete workout',
             handleTap: handleRateWorkoutTap,
             displayBackground: true,
             backgroundColor: styles.Colors.turquoise,

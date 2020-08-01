@@ -181,7 +181,9 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                         child: Button(
                           backgroundColor: styles.Colors.gray,
                           text: 'back',
-                          handleTap: () {},
+                          handleTap: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
                       ),
                     ],

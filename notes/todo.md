@@ -1,14 +1,9 @@
 # TODO
 
-- Add open crimp, pinch grip, check if all grips available
-- accept , en .
-- Log hangs => adjust hangs
-- Rate workout => complete workout
-- Menu swipe up, on new ios users it's awkward
-- back button overview
 - LAUNCH
 
 ### Triage:
+- Menu swipe up, on new ios users it's awkward
 - Have an overview of the things you specifically did, hang times, and skipped etc...
 - Have an 'on the fly workout'? 
   Where you can specify how much you've hung, with added weight.
@@ -19,9 +14,7 @@
 - Scale pull measurements (Jan)? 
 
 ### Large prio
-
-- Bug when deleting one completed workout on calendar view, deletes 2
-
+- Add open crimp, pinch grip, check if all grips available
 
 ### Medium prio
 - Check if the keyboard widget is necessary, remove if not.

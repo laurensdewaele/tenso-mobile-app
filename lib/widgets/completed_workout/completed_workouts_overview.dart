@@ -61,32 +61,38 @@ class CompletedWorkoutsOverview extends StatelessWidget {
           Divider(
             height: styles.Measurements.l,
           ),
-          ...completedWorkoutList
-              .asMap()
-              .map((int index, completedWorkout) => MapEntry(
-                  index,
-                  SlidingCard(
-                    disabled: false,
-                    key: ValueKey(completedWorkout.id),
-                    border: true,
-                    divider: completedWorkoutList.length > 1 &&
-                        index != completedWorkoutList.length - 1,
-                    dividerHeight: styles.Measurements.m,
-                    leftAction: ViewAction(),
-                    handleLeftActionTap: () => handleViewTap(completedWorkout),
-                    rightAction: DeleteAction(),
-                    handleRightActionTap: () =>
-                        handleDeleteTap(completedWorkout),
-                    handleLongPress: () =>
-                        _handleLongPress(context, completedWorkout),
-                    content: _SlidingCardContent(
-                      handleTap: () => handleViewTap(completedWorkout),
-                      labelColor: completedWorkout.workout.labelColor,
-                      name: completedWorkout.workout.name,
-                    ),
-                  )))
-              .values
-              .toList(),
+          Column(
+            key: ValueKey(completedWorkoutList.hashCode),
+            children: <Widget>[
+              ...completedWorkoutList
+                  .asMap()
+                  .map((int index, completedWorkout) => MapEntry(
+                      index,
+                      SlidingCard(
+                        disabled: false,
+                        key: ValueKey(completedWorkout.id),
+                        border: true,
+                        divider: completedWorkoutList.length > 1 &&
+                            index != completedWorkoutList.length - 1,
+                        dividerHeight: styles.Measurements.m,
+                        leftAction: ViewAction(),
+                        handleLeftActionTap: () =>
+                            handleViewTap(completedWorkout),
+                        rightAction: DeleteAction(),
+                        handleRightActionTap: () =>
+                            handleDeleteTap(completedWorkout),
+                        handleLongPress: () =>
+                            _handleLongPress(context, completedWorkout),
+                        content: _SlidingCardContent(
+                          handleTap: () => handleViewTap(completedWorkout),
+                          labelColor: completedWorkout.workout.labelColor,
+                          name: completedWorkout.workout.name,
+                        ),
+                      )))
+                  .values
+                  .toList(),
+            ],
+          ),
           if (completedWorkoutList.length == 0)
             Text('There are no completed workouts for this day.',
                 style: styles.Lato.sBlack)
