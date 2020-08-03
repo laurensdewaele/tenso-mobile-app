@@ -33,10 +33,12 @@ class BottomMenuDrawer extends StatefulWidget {
       @required this.longestMenuItemLength,
       @required this.menuItems,
       @required this.dragIndicatorColor,
+      @required this.safeAreaPadding,
       this.close$,
       this.icons = false})
       : super(key: key);
 
+  final double safeAreaPadding;
   final bool startOpen;
   final List<MenuItem> menuItems;
   final double longestMenuItemLength;
@@ -84,9 +86,11 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
   void _setMeasurements() {
     final double _totalHeight = widget.menuItems.length * _kMenuItemHeight +
         _kDividerHeight +
-        _kRedDragIndicatorContainerHeight;
-    _heightToHide =
-        widget.menuItems.length * _kMenuItemHeight + _kDividerHeight;
+        _kRedDragIndicatorContainerHeight +
+        widget.safeAreaPadding * 2;
+    _heightToHide = widget.menuItems.length * _kMenuItemHeight +
+        _kDividerHeight +
+        widget.safeAreaPadding;
     _offsetHeight = _heightToHide / _totalHeight;
   }
 
@@ -187,46 +191,50 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                   colors: [styles.Colors.bgGray, styles.Colors.bgWhite],
                 ),
               ),
-              child: SafeArea(
-                  top: false,
-                  child: Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: _handleRedDragIndicatorTap,
-                        child: Container(
-                          decoration:
-                              BoxDecoration(color: styles.Colors.translucent),
-                          height: _kRedDragIndicatorContainerHeight,
-                          width: double.infinity,
-                          child: Center(
-                            child: _DragIndicatorRectangle(
-                                color: widget.dragIndicatorColor),
-                          ),
-                        ),
+              child: Column(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: _handleRedDragIndicatorTap,
+                    child: Container(
+                      decoration:
+                          BoxDecoration(color: styles.Colors.translucent),
+                      height: _kRedDragIndicatorContainerHeight,
+                      width: double.infinity,
+                      child: Center(
+                        child: _DragIndicatorRectangle(
+                            color: widget.dragIndicatorColor),
                       ),
-                      ...widget.menuItems
-                          .map(
-                            (menuItem) => GestureDetector(
-                              onTap: () {
-                                _forward();
-                                menuItem.handleTap();
-                              },
-                              child: widget.icons
-                                  ? _IconRow(
-                                      name: menuItem.name,
-                                      icon: menuItem.icon,
-                                      longestMenuItemLength:
-                                          widget.longestMenuItemLength)
-                                  : _Row(
-                                      name: menuItem.name,
-                                      longestMenuItemLength:
-                                          widget.longestMenuItemLength),
-                            ),
-                          )
-                          .toList(),
-                      Divider(height: styles.Measurements.m),
-                    ],
-                  )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: widget.safeAreaPadding,
+                  ),
+                  ...widget.menuItems
+                      .map(
+                        (menuItem) => GestureDetector(
+                          onTap: () {
+                            _forward();
+                            menuItem.handleTap();
+                          },
+                          child: widget.icons
+                              ? _IconRow(
+                                  name: menuItem.name,
+                                  icon: menuItem.icon,
+                                  longestMenuItemLength:
+                                      widget.longestMenuItemLength)
+                              : _Row(
+                                  name: menuItem.name,
+                                  longestMenuItemLength:
+                                      widget.longestMenuItemLength),
+                        ),
+                      )
+                      .toList(),
+                  Divider(height: styles.Measurements.m),
+                  SizedBox(
+                    height: widget.safeAreaPadding,
+                  ),
+                ],
+              ),
             ),
           ),
         )

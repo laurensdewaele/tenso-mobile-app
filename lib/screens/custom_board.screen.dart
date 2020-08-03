@@ -117,6 +117,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 )),
           ),
           BottomMenuDrawer(
+            safeAreaPadding: MediaQuery.of(context).padding.bottom,
             close$: _viewModel.closeBottomMenuDrawer$,
             dragIndicatorColor: styles.Colors.lightGray,
             menuItems: [

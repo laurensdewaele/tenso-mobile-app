@@ -83,20 +83,9 @@ class InfoScreen extends StatelessWidget {
                           '\nThe app is built for allowing you to enter any kind of workout variable. Be it specific mixed grips, custom edge sizes, body weight, you name it. We\'ll do our best so you can log everything your heart desires.',
                           style: styles.Lato.xsBlack,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: ' \nThis app will ',
-                              style: styles.Lato.xsBlack,
-                              children: [
-                                TextSpan(
-                                    text:
-                                        'not provide you with a myriad of different workouts or protocols, ',
-                                    style: styles.Lato.xsBlackBold),
-                                TextSpan(
-                                    text:
-                                        'only the most basic ones to get you started. A workout has to be tailored to the individual, and it\'s impossible for us to know all the variables it takes to design a balanced workout for that specific individual. Be it age, climbing age, sleep, stress, weight, the list goes on... Therefore, the best way forward is to help us get the individual started by themselves.',
-                                    style: styles.Lato.xsBlack),
-                              ]),
+                        Text(
+                          '\nThis app will not provide you with a myriad of different workouts or protocols, only the most basic ones to get you started. A workout has to be tailored to the individual, and it\'s impossible for us to know all the variables it takes to design a balanced workout for that specific individual. Be it age, climbing age, sleep, stress, weight, the list goes on... Therefore, the best way forward is to help us get the individual started by themselves.',
+                          style: styles.Lato.xsBlack,
                         ),
                       ],
                     ),
