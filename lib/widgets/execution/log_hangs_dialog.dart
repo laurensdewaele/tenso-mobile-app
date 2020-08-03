@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
 import 'package:tenso_app/widgets/execution/log_hangs_landscape.dart';
 import 'package:tenso_app/widgets/execution/log_hangs_portrait.dart';
-import 'package:tenso_app/widgets/toast_provider.dart';
 
 class LoggedHang {
   final int sequenceTimerIndex;
@@ -57,43 +56,40 @@ class _LogHangsDialogState extends State<LogHangsDialog> {
         _viewModel.handleDone();
         return false;
       },
-      child: ToastProvider(
-        child: Container(
-          width: double.infinity,
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              final Orientation _orientation =
-                  MediaQuery.of(context).orientation;
-              if (_orientation == Orientation.portrait) {
-                return LogHangsPortrait(
-                  groupText: _viewModel.groupText,
-                  setSelectedPastHang: _viewModel.setSelectedPastHang,
-                  selectedPastHang: _viewModel.selectedPastHang,
-                  pastHangs: _viewModel.pastHangs,
-                  handleScrollAttempt: _viewModel.handleScrollAttempt,
-                  canScroll: _viewModel.canScroll,
-                  handleDone: _viewModel.handleDone,
-                  repText: _viewModel.repText,
-                  setText: _viewModel.setText,
-                  setAddedWeightInput: _viewModel.setAddedWeightInput,
-                  setHangTimeInput: _viewModel.setHangTimeInput,
-                );
-              } else {
-                return LogHangsLandscape(
-                  setSelectedPastHang: _viewModel.setSelectedPastHang,
-                  selectedPastHang: _viewModel.selectedPastHang,
-                  pastHangs: _viewModel.pastHangs,
-                  handleScrollAttempt: _viewModel.handleScrollAttempt,
-                  canScroll: _viewModel.canScroll,
-                  handleDone: _viewModel.handleDone,
-                  repText: _viewModel.repText,
-                  setText: _viewModel.setText,
-                  setAddedWeightInput: _viewModel.setAddedWeightInput,
-                  setHangTimeInput: _viewModel.setHangTimeInput,
-                );
-              }
-            },
-          ),
+      child: Container(
+        width: double.infinity,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final Orientation _orientation = MediaQuery.of(context).orientation;
+            if (_orientation == Orientation.portrait) {
+              return LogHangsPortrait(
+                groupText: _viewModel.groupText,
+                setSelectedPastHang: _viewModel.setSelectedPastHang,
+                selectedPastHang: _viewModel.selectedPastHang,
+                pastHangs: _viewModel.pastHangs,
+                handleScrollAttempt: _viewModel.handleScrollAttempt,
+                canScroll: _viewModel.canScroll,
+                handleDone: _viewModel.handleDone,
+                repText: _viewModel.repText,
+                setText: _viewModel.setText,
+                setAddedWeightInput: _viewModel.setAddedWeightInput,
+                setHangTimeInput: _viewModel.setHangTimeInput,
+              );
+            } else {
+              return LogHangsLandscape(
+                setSelectedPastHang: _viewModel.setSelectedPastHang,
+                selectedPastHang: _viewModel.selectedPastHang,
+                pastHangs: _viewModel.pastHangs,
+                handleScrollAttempt: _viewModel.handleScrollAttempt,
+                canScroll: _viewModel.canScroll,
+                handleDone: _viewModel.handleDone,
+                repText: _viewModel.repText,
+                setText: _viewModel.setText,
+                setAddedWeightInput: _viewModel.setAddedWeightInput,
+                setHangTimeInput: _viewModel.setHangTimeInput,
+              );
+            }
+          },
         ),
       ),
     );
