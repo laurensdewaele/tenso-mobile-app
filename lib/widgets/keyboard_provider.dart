@@ -14,10 +14,7 @@ class KeyboardProvider extends StatelessWidget {
     _keyboardService.setDeviceHeight(deviceHeight, keyboardHeight);
 
     return GestureDetector(
-      onTap: () {
-        print('tapped');
-        _keyboardService.handleScreenTap();
-      },
+      onTap: _keyboardService.handleScreenTap,
       child: child,
     );
   }

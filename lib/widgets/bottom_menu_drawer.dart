@@ -33,12 +33,12 @@ class BottomMenuDrawer extends StatefulWidget {
       @required this.longestMenuItemLength,
       @required this.menuItems,
       @required this.dragIndicatorColor,
-      @required this.safeAreaPadding,
+      @required this.safeAreaPaddingBottom,
       this.close$,
       this.icons = false})
       : super(key: key);
 
-  final double safeAreaPadding;
+  final double safeAreaPaddingBottom;
   final bool startOpen;
   final List<MenuItem> menuItems;
   final double longestMenuItemLength;
@@ -87,10 +87,10 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
     final double _totalHeight = widget.menuItems.length * _kMenuItemHeight +
         _kDividerHeight +
         _kRedDragIndicatorContainerHeight +
-        widget.safeAreaPadding * 2;
+        widget.safeAreaPaddingBottom * 2;
     _heightToHide = widget.menuItems.length * _kMenuItemHeight +
         _kDividerHeight +
-        widget.safeAreaPadding;
+        widget.safeAreaPaddingBottom;
     _offsetHeight = _heightToHide / _totalHeight;
   }
 
@@ -207,7 +207,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                     ),
                   ),
                   SizedBox(
-                    height: widget.safeAreaPadding,
+                    height: widget.safeAreaPaddingBottom,
                   ),
                   ...widget.menuItems
                       .map(
@@ -231,7 +231,7 @@ class _BottomMenuDrawerState extends State<BottomMenuDrawer>
                       .toList(),
                   Divider(height: styles.Measurements.m),
                   SizedBox(
-                    height: widget.safeAreaPadding,
+                    height: widget.safeAreaPaddingBottom,
                   ),
                 ],
               ),
