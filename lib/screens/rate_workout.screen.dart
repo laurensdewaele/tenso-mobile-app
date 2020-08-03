@@ -4,8 +4,8 @@ import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/rate_workout.vm.dart';
 import 'package:tenso_app/widgets/card.dart';
+import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/rate_workout/rate_workout_content.dart';
-import 'package:tenso_app/widgets/toast_provider.dart';
 
 class RateWorkoutArguments {
   RateWorkoutArguments({@required this.workout, @required this.history});
@@ -64,7 +64,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
 
     return WillPopScope(
       onWillPop: () async => false,
-      child: ToastProvider(
+      child: KeyboardAndToastProvider(
         child: Container(
           decoration: BoxDecoration(color: styles.Colors.bgBlack),
           child: SafeArea(

@@ -1,5 +1,9 @@
 # TODO
 
+- keyboard on newest ios doesn't have an ok button. Therefore you're stuck and cannot navigate.
+- name ios is spelled attached
+- about section has different fonts on ios.
+- ios, menu is close to menu swipe button.
 - LAUNCH
 
 ### Triage:

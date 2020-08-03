@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/services/keyboard.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/custom_board/hold_input.vm.dart';
 import 'package:tenso_app/widgets/icon_button.dart';
@@ -142,7 +145,7 @@ class _Button extends StatelessWidget {
   }
 }
 
-class _InputPage extends StatelessWidget {
+class _InputPage extends StatefulWidget {
   _InputPage(
       {Key key,
       @required this.inputs,
@@ -155,44 +158,84 @@ class _InputPage extends StatelessWidget {
   final List<InputPageInput> inputs;
 
   @override
+  __InputPageState createState() => __InputPageState();
+}
+
+class __InputPageState extends State<_InputPage> {
+  double _keyboardOffsetHeight;
+  KeyboardService _keyboardService;
+  StreamSubscription<double> _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _keyboardService = KeyboardService();
+    _subscription =
+        _keyboardService.keyboardOffsetHeight$.listen(_handleKeyboardOffset);
+  }
+
+  void _handleKeyboardOffset(double height) {
+    setState(() {
+      _keyboardOffsetHeight = height;
+    });
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final _alignment =
-        inputs.length > 1 ? MainAxisAlignment.start : MainAxisAlignment.center;
-    final _flexFit = inputs.length > 1 ? FlexFit.tight : FlexFit.loose;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(styles.Measurements.xs, 0, 0, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: _alignment,
-              children: <Widget>[
-                ...inputs.map((InputPageInput input) => Flexible(
-                      fit: _flexFit,
-                      child: _InputPageInput(
-                        initialValue: input.initialValue,
-                        isInt: input.isInt,
-                        description: input.description,
-                        handleValueChanged: (String v) =>
-                            handleInput(input: v, type: input.type),
-                      ),
-                    )),
-              ],
-            ),
+    final _alignment = widget.inputs.length > 1
+        ? MainAxisAlignment.start
+        : MainAxisAlignment.center;
+    final _flexFit = widget.inputs.length > 1 ? FlexFit.tight : FlexFit.loose;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(styles.Measurements.xs, 0, 0, 0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: _alignment,
+                  children: <Widget>[
+                    ...widget.inputs.map((InputPageInput input) => Flexible(
+                          fit: _flexFit,
+                          child: _InputPageInput(
+                            initialValue: input.initialValue,
+                            isInt: input.isInt,
+                            description: input.description,
+                            handleValueChanged: (String v) =>
+                                widget.handleInput(input: v, type: input.type),
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+              IconButton(
+                  handleTap: widget.handleNextTap,
+                  icon: icons.forwardIconBlackXl,
+                  padding: const EdgeInsets.fromLTRB(
+                      styles.Measurements.xl,
+                      styles.Measurements.m,
+                      styles.Measurements.xs,
+                      styles.Measurements.m))
+            ],
           ),
-          IconButton(
-              handleTap: handleNextTap,
-              icon: icons.forwardIconBlackXl,
-              padding: const EdgeInsets.fromLTRB(
-                  styles.Measurements.xl,
-                  styles.Measurements.m,
-                  styles.Measurements.xs,
-                  styles.Measurements.m))
-        ],
-      ),
+        ),
+        AnimatedContainer(
+          height: _keyboardOffsetHeight,
+          duration: Duration(milliseconds: 275),
+          curve: Curves.easeOutQuad,
+        )
+      ],
     );
   }
 }
