@@ -30,6 +30,7 @@ class AppDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final Orientation _orientation = MediaQuery.of(context).orientation;
     return SafeArea(
+      maintainBottomViewPadding: true,
       child: KeyboardProvider(
         child: Center(
           child: LayoutBuilder(

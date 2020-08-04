@@ -125,6 +125,7 @@ class _ExecutionScreenState extends State<ExecutionScreen>
                           decoration: BoxDecoration(color: _state.primaryColor),
                         )),
                     SafeArea(
+                      maintainBottomViewPadding: true,
                       child: Padding(
                           padding: const EdgeInsets.all(styles.Measurements.m),
                           child: LayoutBuilder(

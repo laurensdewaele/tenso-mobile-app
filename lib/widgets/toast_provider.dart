@@ -108,7 +108,8 @@ class _ToastUIState extends State<_ToastUI>
                 padding: EdgeInsets.symmetric(
                     vertical: styles.Measurements.m,
                     horizontal: styles.Measurements.m),
-                child: SafeArea(child: widget.message)),
+                child: SafeArea(
+                    maintainBottomViewPadding: true, child: widget.message)),
           ],
         ),
       ),

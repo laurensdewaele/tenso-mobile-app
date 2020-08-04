@@ -68,6 +68,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
         child: Container(
           decoration: BoxDecoration(color: styles.Colors.bgBlack),
           child: SafeArea(
+            maintainBottomViewPadding: true,
             child: Container(
               decoration: BoxDecoration(color: styles.Colors.bgBlack),
               child: ListView(

@@ -51,13 +51,14 @@ class _ScreenState extends State<Screen> {
           color: widget.backgroundColor,
         ),
         child: SafeArea(
+            maintainBottomViewPadding: true,
             child: Container(
-          decoration: BoxDecoration(
-            color: widget.backgroundColor,
-          ),
-          padding: widget.padding,
-          child: widget.child,
-        )),
+              decoration: BoxDecoration(
+                color: widget.backgroundColor,
+              ),
+              padding: widget.padding,
+              child: widget.child,
+            )),
       ),
     );
   }

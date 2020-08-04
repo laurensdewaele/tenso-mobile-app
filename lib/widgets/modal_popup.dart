@@ -26,7 +26,8 @@ class _AppModalDecoration extends StatelessWidget {
             color: styles.Colors.bgWhite,
             borderRadius: BorderRadius.only(
                 topLeft: styles.kBorderRadius, topRight: styles.kBorderRadius)),
-        child: SafeArea(top: false, child: content));
+        child: SafeArea(
+            maintainBottomViewPadding: true, top: false, child: content));
   }
 }
 
