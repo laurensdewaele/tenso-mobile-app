@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/services/keyboard.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/custom_board/choose_hold_type.vm.dart';
 import 'package:tenso_app/widgets/icon_button.dart';
@@ -25,32 +22,11 @@ class HoldInputPage extends StatefulWidget {
 }
 
 class _HoldInputPageState extends State<HoldInputPage> {
-  double _keyboardOffsetHeight;
-  KeyboardService _keyboardService;
-  StreamSubscription<double> _subscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _keyboardService = KeyboardService();
-    _subscription =
-        _keyboardService.keyboardOffsetHeight$.listen(_handleKeyboardOffset);
-  }
-
-  void _handleKeyboardOffset(double height) {
-    setState(() {
-      _keyboardOffsetHeight = height;
-    });
-  }
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final double _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final double _viewPaddingBottom = MediaQuery.of(context).viewPadding.bottom;
+
     final _alignment = widget.inputs.length > 1
         ? MainAxisAlignment.start
         : MainAxisAlignment.center;
@@ -94,7 +70,7 @@ class _HoldInputPageState extends State<HoldInputPage> {
           ),
         ),
         AnimatedContainer(
-          height: _keyboardOffsetHeight,
+          height: _keyboardHeight - _viewPaddingBottom,
           duration: Duration(milliseconds: 275),
           curve: Curves.easeOutQuad,
         )

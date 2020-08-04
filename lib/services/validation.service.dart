@@ -65,7 +65,7 @@ abstract class Validators {
     if (value == null) {
       return _bool;
     }
-    if ((value as dynamic) > min && (value as dynamic) < max) {
+    if ((value as dynamic) >= min && (value as dynamic) <= max) {
       _bool = true;
     } else {
       throw ValidationException<T>(

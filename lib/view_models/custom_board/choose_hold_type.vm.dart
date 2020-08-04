@@ -151,8 +151,11 @@ class ChooseHoldTypeViewModel extends ChangeNotifier {
             inputField: 'supported fingers');
         validInputs.add(Validators.biggerThanZero(
             value: _pocketDepth, inputField: 'depth'));
-        validInputs.add(Validators.biggerThanZero(
-            value: _pocketSupportedFingers, inputField: 'supported fingers'));
+        validInputs.add(Validators.betweenRange(
+            max: 5,
+            min: 1,
+            value: _pocketSupportedFingers,
+            inputField: 'supported fingers'));
         break;
       case HoldType.edge:
         _edgeDepth = InputParsers.parseToDouble(
