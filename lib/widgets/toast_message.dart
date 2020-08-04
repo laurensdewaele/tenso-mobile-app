@@ -13,8 +13,18 @@ class ToastMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        if (success == false) Image.asset('assets/images/icons/error.png'),
-        if (success == true) Image.asset('assets/images/icons/success.png'),
+        if (success == false)
+          Image.asset(
+            'assets/images/icons/error.png',
+            width: 40,
+            height: 40,
+          ),
+        if (success == true)
+          Image.asset(
+            'assets/images/icons/success.png',
+            width: 40,
+            height: 40,
+          ),
         Divider(width: styles.Measurements.m),
         Expanded(child: Center(child: message))
       ],
