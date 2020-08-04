@@ -24,7 +24,7 @@ class InputPageInput {
       @required this.initialValue});
 }
 
-class HoldInputViewModel extends ChangeNotifier {
+class ChooseHoldTypeViewModel extends ChangeNotifier {
   VoidCallback handlePinchBlockInput;
   VoidCallback handleJugInput;
   void Function({double sloperDegrees}) handleSloperInput;
@@ -50,7 +50,7 @@ class HoldInputViewModel extends ChangeNotifier {
   String _edgeDepthInput;
   String _pocketSupportedFingersInput;
 
-  HoldInputViewModel(
+  ChooseHoldTypeViewModel(
       {@required this.handleEdgeInput,
       @required this.handlePocketInput,
       @required this.handleSloperInput,

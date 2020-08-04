@@ -1,5 +1,6 @@
 # TODO
 
+- Custom board issue on safarea when inputting pocket and edge.
 - Toast exclamation is pixalated
 - LAUNCH
 

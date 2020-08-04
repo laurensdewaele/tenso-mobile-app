@@ -5,9 +5,9 @@ import 'package:tenso_app/view_models/custom_board/custom_board.vm.dart';
 import 'package:tenso_app/widgets/bottom_menu_drawer.dart';
 import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/custom_board/add_hold_modal.dart';
+import 'package:tenso_app/widgets/custom_board/choose_hold_type_modal.dart';
 import 'package:tenso_app/widgets/custom_board/custom_board.dart';
 import 'package:tenso_app/widgets/custom_board/edit_delete_modal.dart';
-import 'package:tenso_app/widgets/custom_board/hold_input_modal.dart';
 import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
@@ -69,7 +69,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
   void _handleAddHoldTap() async {
     await showAppModalPopup(
         context: context,
-        content: HoldInputModal(
+        content: ChooseHoldTypeModal(
           isTopRow: _viewModel.selectedBoxesIsTopRow,
           multipleSelection: _viewModel.selectedBoxes.length > 1,
           handleEdgeInput: _viewModel.handleEdgeInput,
@@ -117,7 +117,7 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
                 )),
           ),
           BottomMenuDrawer(
-            safeAreaPadding: MediaQuery.of(context).padding.bottom,
+            safeAreaPaddingBottom: MediaQuery.of(context).padding.bottom,
             close$: _viewModel.closeBottomMenuDrawer$,
             dragIndicatorColor: styles.Colors.lightGray,
             menuItems: [
