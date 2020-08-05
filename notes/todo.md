@@ -1,6 +1,5 @@
 # TODO
 
-- Provide version no. that gets sent out with the feedback.
 - LAUNCH
 
 ### Triage:
