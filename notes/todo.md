@@ -3,58 +3,48 @@
 - LAUNCH
 
 ### Triage:
-- Menu swipe up, on new ios users it's awkward
-- Have an overview of the things you specifically did, hang times, and skipped etc...
-- Have an 'on the fly workout'? 
-  Where you can specify how much you've hung, with added weight.
-  Just rep per rep, or set per set.
-- Preview workout.
-- Instead of counting down, counting up is probably better.
-  Settings?
-- Scale pull measurements (Jan)? 
 
 ### Large prio
-- Add open crimp, pinch grip, check if all grips available
+- Add beastmaker 2000
+- Add pinch grip.
+- Graphs
+- Counting upwards in the settings.
+- Check the keyboard and keyboard provider, does it still do it's job?
+  keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
 ### Medium prio
-- Check if the keyboard widget is necessary, remove if not.
+- Add other boards
+- Setup sentry.io
+- Backend
+- Login with device id, to save workouts already
+- Review app on smaller and larger screens.
+- Tests
+
+### Small prio
+- Set reminder for workout.
+- Keep alive whilst on background and playing sounds.
+- Splash screen logo + loading
+- Add info button on most elements.
+- Make videos to explain beginners how to use this app.
+- Have an 'on the fly workout'?
+- Scale pull measurements (Jan)? 
+- background color on edit and create, not red?
+- Custom boards in horizontal scroll view.
+- Audioplayer service play sound takes a while when not already initted;
+- Adjust sounds of countdown / female/male voice that counts down.
+- Check out perf; Make as much constants and WIDGETS! consts.
 - Info on group and rep rest needs to say stuff about group and rest, not just 
   variable and fixed.
-- Graphs
-- Backend
+- Have a timer section, without specifying holds etc.
+- Webapp where people can upload their own image of the board
+    
+## Data strategy
+- Remove built value?
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
   You need to provide the app version no. on the workout. So you can map them corrrectly.
   When saving data to disk/be, specify a model version no. e.g workouts.txt:
     {v1: {}, v2{}}
-- Tests
-- Try catch blocks on sensitive code. E.g. deleting workout.
-- Setup sentry.io, don't think about self hosting for now.
-- Login with device id, to save workouts already
-- Nice logo (animated)!
-- Review app on smaller and larger screens.
 
-### Small prio
-- Make videos to explain beginners how to use this app.
-- Custom boards in horizontal scroll view.
-- Have a timer section, without specifying holds etc.
-- Show history with pauses included, skip buttons etc. 
-- edit standard board depths
-- Webapp where people can upload their own image of the board
-- Remove built value?
-- Remove gradients from screen
-- Make as much constants and WIDGETS! consts.
-- Add other boards
-- Keep alive whilst on background and playing sounds. 
-- Refactor navigation with navigator key?
-- Edit completed workout.
-- Audioplayer service play sound takes a while when not already initted;
-- keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
-- Adjust sounds of countdown / female/male voice that counts down.
-- Set reminder for workout.
-- Add info button on most elements
-- Check out perf.
-    
-## Data strategy
 Local is the source of truth.
 Always save and persist locally.
 Only when saving workouts or completed workouts => also send to server.
