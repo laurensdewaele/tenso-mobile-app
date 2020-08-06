@@ -1,8 +1,19 @@
 # TODO
 
+- Stop a hangboarding session, then press the back button in the "congratulations" screen. This puts the app in a broken state I cannot get out of.
+- BM2000
+- Chisel grip / open crimp
 - LAUNCH
 
+### Boards
+- Tension grindstone
+
 ### Triage:
+- Tracking of the pause timer.
+- Allow abilit to add some notes to each group, or name each group. 
+  I like to do some scapula pulls, knee raises and pull ups to warm up. 
+  I would love to have the warm up with prompts on here.
+- Adding notes whilst resting
 
 ### Large prio
 - Add beastmaker 2000
