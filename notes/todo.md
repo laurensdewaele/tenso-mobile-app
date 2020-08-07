@@ -1,6 +1,5 @@
 # TODO
 
-- Stop a hangboarding session, then press the back button in the "congratulations" screen. This puts the app in a broken state I cannot get out of.
 - Chisel grip / open crimp + pinch grip
 
 ### Boards
