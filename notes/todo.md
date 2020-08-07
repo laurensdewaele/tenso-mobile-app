@@ -1,16 +1,16 @@
-- Max hangs in a chisel isn't a bad thing.
-- Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ... 
-
 # TODO
 
-
 - Stop a hangboarding session, then press the back button in the "congratulations" screen. This puts the app in a broken state I cannot get out of.
-- BM2000
-- Chisel grip / open crimp
-- LAUNCH
+- Chisel grip / open crimp + pinch grip
 
 ### Boards
 - Tension grindstone
+- TRANGO Rock Prodigy
+- Tension Flash Board
+- metolius simulator 3D
+- Antworks Strong Ant 3
+- eva lopez’s boards
+- metolius’ boards
 
 ### Triage:
 - Tracking of the pause timer.
@@ -18,10 +18,9 @@
   I like to do some scapula pulls, knee raises and pull ups to warm up. 
   I would love to have the warm up with prompts on here.
 - Adding notes whilst resting
+- Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
 
 ### Large prio
-- Add beastmaker 2000
-- Add pinch grip.
 - Graphs
 - Counting upwards in the settings.
 - Check the keyboard and keyboard provider, does it still do it's job?
