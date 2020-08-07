@@ -206,9 +206,12 @@ class ExecutionViewModel {
       showAppDialog(
           fullWidth: true,
           context: _context,
-          content: CongratulationsContent(
-            handleLogHangsTap: _handleLogHangsTap,
-            handleRateWorkoutTap: _handleRateWorkoutTap,
+          content: WillPopScope(
+            onWillPop: () async => false,
+            child: CongratulationsContent(
+              handleLogHangsTap: _handleLogHangsTap,
+              handleRateWorkoutTap: _handleRateWorkoutTap,
+            ),
           ),
           smallWidth: false);
     }
@@ -336,12 +339,8 @@ class ExecutionViewModel {
   }
 
   void handleResumeTap() {
-    if (state.displayEndScreen == true) {
-      return;
-    } else {
-      _animationController.forward();
-      _navigationService.pop();
-    }
+    _animationController.forward();
+    _navigationService.pop();
   }
 
   int _getDisplaySeconds() {

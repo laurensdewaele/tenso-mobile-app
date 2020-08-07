@@ -4,13 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/keyboard_provider.dart';
 
-Future<void> showAppDialog({
-  @required BuildContext context,
-  @required Widget content,
-  @required bool smallWidth,
-  bool fullWidth = false,
-}) {
+Future<void> showAppDialog(
+    {@required BuildContext context,
+    @required Widget content,
+    @required bool smallWidth,
+    bool fullWidth = false,
+    bool useRootNavigator = true,
+    bool barrierDismissible = false}) {
   return showCupertinoDialog(
+      barrierDismissible: barrierDismissible,
+      useRootNavigator: useRootNavigator,
       context: context,
       builder: (BuildContext context) => AppDialog(
           content: content, smallWidth: smallWidth, fullWidth: fullWidth));
