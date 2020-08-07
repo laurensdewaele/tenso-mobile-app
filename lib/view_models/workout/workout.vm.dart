@@ -58,9 +58,7 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void handleAddGroupTap() async {
-    Group _group = basicOpenHand;
-
-    _group.rebuild(
+    Group _group = basicOpenHand.rebuild(
         (b) => b..board = _settingsState.settings.defaultBoard.toBuilder());
 
     if (state.groups.length > 0) {
