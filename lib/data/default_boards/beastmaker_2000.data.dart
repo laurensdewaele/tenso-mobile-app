@@ -295,7 +295,7 @@ final List<BoardHold> boardHolds = [
     ..depth = 14),
 ];
 
-final beastmaker1000 = Board((b) => b
+final beastmaker2000 = Board((b) => b
   ..name = 'Beastmaker 2000'
   ..id = 'beastmaker_2000'
   ..manufacturer = 'Beastmaker'
@@ -305,9 +305,8 @@ final beastmaker1000 = Board((b) => b
   ..imageAsset = 'assets/images/boards/beastmaker_2000.png'
   ..handToBoardHeightRatio = 1.2
   ..boardHolds.addAll(boardHolds)
-  ..defaultLeftGripHold = boardHolds
-      .singleWhere((boardHold) => boardHold.position == 11)
-      .toBuilder()
+  ..defaultLeftGripHold =
+      boardHolds.singleWhere((boardHold) => boardHold.position == 9).toBuilder()
   ..defaultRightGripHold = boardHolds
       .singleWhere((boardHold) => boardHold.position == 17)
       .toBuilder());
