@@ -16,8 +16,8 @@ class BoardsState {
   List<Board> get boardsList => _boards$.value.boards.toList();
 
   Future<void> init() async {
-    final Boards _boards = await _getBoards();
-    _boards$ = BehaviorSubject.seeded(_addDefaultBoards(_boards));
+    final Boards _persistedBoards = await _getBoards();
+    _boards$ = BehaviorSubject.seeded(_addDefaultBoards(_persistedBoards));
     return Future.value();
   }
 
