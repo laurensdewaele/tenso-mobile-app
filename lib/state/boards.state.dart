@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:tenso_app/data/basic_boards.dart';
+import 'package:tenso_app/data/basic_boards.data.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/persistence.service.dart';
 

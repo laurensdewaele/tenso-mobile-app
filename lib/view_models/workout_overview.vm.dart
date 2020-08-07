@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/data/empty_workout.dart';
+import 'package:tenso_app/data/empty_workout.data.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/screens/execution.screen.dart';

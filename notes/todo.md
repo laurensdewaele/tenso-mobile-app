@@ -1,4 +1,8 @@
+- Max hangs in a chisel isn't a bad thing.
+- Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ... 
+
 # TODO
+
 
 - Stop a hangboarding session, then press the back button in the "congratulations" screen. This puts the app in a broken state I cannot get out of.
 - BM2000
@@ -32,11 +36,11 @@
 - Tests
 
 ### Small prio
+- Make videos to explain beginners how to use this app.
 - Set reminder for workout.
 - Keep alive whilst on background and playing sounds.
 - Splash screen logo + loading
 - Add info button on most elements.
-- Make videos to explain beginners how to use this app.
 - Have an 'on the fly workout'?
 - Scale pull measurements (Jan)? 
 - background color on edit and create, not red?
