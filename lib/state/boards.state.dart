@@ -28,18 +28,12 @@ class BoardsState {
 
     final List<Board> _persistedBoardsList = _persistedBoards.boards.toList();
     final List<Board> _defaultBoardsList = defaultBoards.boards.toList();
+    final List<String> _defaultBoardsIDs =
+        _defaultBoardsList.map((Board _defaultBoard) => _defaultBoard.id);
 
-    final List<String> _persistedBoardIDs =
-        _persistedBoardsList.map((Board _board) => _board.id).toList();
-    final List<String> _defaultBoardIDs =
-        _defaultBoardsList.map((Board _board) => _board.id).toList();
-
-    _defaultBoardIDs.forEach((String _defaultBoardID) {
-      if (!_persistedBoardIDs.contains(_defaultBoardID)) {
-        _persistedBoardsList.add(_defaultBoardsList.firstWhere(
-            (Board _defaultBoard) => _defaultBoard.id == _defaultBoardID));
-      }
-    });
+    _persistedBoardsList.removeWhere((Board _persistedBoard) =>
+        _defaultBoardsIDs.contains(_persistedBoard.id));
+    _persistedBoardsList.addAll(_defaultBoardsList);
 
     return Boards((b) => b.boards.addAll(_persistedBoardsList));
   }
