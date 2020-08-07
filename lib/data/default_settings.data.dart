@@ -1,8 +1,8 @@
-import 'package:tenso_app/data/boards/beastmaker_1000.data.dart';
+import 'package:tenso_app/data/default_boards/beastmaker_1000.data.dart';
 import 'package:tenso_app/data/sounds.data.dart';
 import 'package:tenso_app/models/models.dart';
 
-final Settings basicSettings = Settings((b) => b
+final Settings defaultSettings = Settings((b) => b
   ..defaultBoard = beastmaker1000.toBuilder()
   ..preparationTimer = 20
   ..weightSystem = WeightSystem.metric

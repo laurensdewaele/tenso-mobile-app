@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:tenso_app/data/basic_settings.data.dart';
+import 'package:tenso_app/data/default_settings.data.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/persistence.service.dart';
 
@@ -16,7 +16,7 @@ class SettingsState {
 
   Future<void> init() async {
     final Settings _settings = await _persistenceService.getSettings();
-    _settings$ = BehaviorSubject.seeded(_settings ?? basicSettings);
+    _settings$ = BehaviorSubject.seeded(_settings ?? defaultSettings);
     return Future.value();
   }
 

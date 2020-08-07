@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:tenso_app/data/basic_boards.data.dart';
+import 'package:tenso_app/data/default_boards.data.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/persistence.service.dart';
 
@@ -17,8 +17,31 @@ class BoardsState {
 
   Future<void> init() async {
     final Boards _boards = await _getBoards();
-    _boards$ = BehaviorSubject.seeded(_boards ?? basicBoards);
+    _boards$ = BehaviorSubject.seeded(_addDefaultBoards(_boards));
     return Future.value();
+  }
+
+  Boards _addDefaultBoards(Boards _persistedBoards) {
+    if (_persistedBoards == null) {
+      return defaultBoards;
+    }
+
+    final List<Board> _persistedBoardsList = _persistedBoards.boards.toList();
+    final List<Board> _defaultBoardsList = defaultBoards.boards.toList();
+
+    final List<String> _persistedBoardIDs =
+        _persistedBoardsList.map((Board _board) => _board.id).toList();
+    final List<String> _defaultBoardIDs =
+        _defaultBoardsList.map((Board _board) => _board.id).toList();
+
+    _defaultBoardIDs.forEach((String _defaultBoardID) {
+      if (!_persistedBoardIDs.contains(_defaultBoardID)) {
+        _persistedBoardsList.add(_defaultBoardsList.firstWhere(
+            (Board _defaultBoard) => _defaultBoard.id == _defaultBoardID));
+      }
+    });
+
+    return Boards((b) => b.boards.addAll(_persistedBoardsList));
   }
 
   Future<Boards> _getBoards() async {
