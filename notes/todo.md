@@ -1,6 +1,7 @@
 # TODO
 
 - Chisel grip / open crimp + pinch grip
+- Adjust fastlane to incorporate changes. Or make a popup that tells the changes + review button. 
 
 ### Boards
 - Tension grindstone
