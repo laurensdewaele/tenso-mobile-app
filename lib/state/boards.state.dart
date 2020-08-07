@@ -28,8 +28,9 @@ class BoardsState {
 
     final List<Board> _persistedBoardsList = _persistedBoards.boards.toList();
     final List<Board> _defaultBoardsList = defaultBoards.boards.toList();
-    final List<String> _defaultBoardsIDs =
-        _defaultBoardsList.map((Board _defaultBoard) => _defaultBoard.id);
+    final List<String> _defaultBoardsIDs = _defaultBoardsList
+        .map((Board _defaultBoard) => _defaultBoard.id)
+        .toList();
 
     _persistedBoardsList.removeWhere((Board _persistedBoard) =>
         _defaultBoardsIDs.contains(_persistedBoard.id));
