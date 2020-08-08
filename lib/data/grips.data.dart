@@ -38,7 +38,7 @@ abstract class Grips {
     ..imageAssetHeight = 320);
 
   static Grip pinchL = Grip((b) => b
-    ..crimped = true
+    ..crimped = false
     ..description = 'pinch'
     ..name = 'pinchL'
     ..fingers = Fingers((b) => b
@@ -56,7 +56,7 @@ abstract class Grips {
     ..imageAssetHeight = 270);
 
   static Grip pinchR = Grip((b) => b
-    ..crimped = true
+    ..crimped = false
     ..description = 'pinch'
     ..name = 'pinchR'
     ..fingers = Fingers((b) => b
