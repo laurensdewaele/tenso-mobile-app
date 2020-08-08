@@ -1,41 +1,32 @@
 # TODO
 
-- Chisel grip / open crimp + pinch grip
-- Adjust fastlane to incorporate changes. Or make a popup that tells the changes + review button. 
-
-### Boards
-- Tension grindstone
-- TRANGO Rock Prodigy
-- Tension Flash Board
-- metolius simulator 3D
-- Antworks Strong Ant 3
-- eva lopez’s boards
-- metolius’ boards
-
-### Triage:
-- Tracking of the pause timer.
-- Allow abilit to add some notes to each group, or name each group. 
-  I like to do some scapula pulls, knee raises and pull ups to warm up. 
-  I would love to have the warm up with prompts on here.
 - Adding notes whilst resting
-- Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
+- Chisel grip / open crimp + pinch grip
+- Add zlag board
 
 ### Large prio
+
+- Allow ability to add some notes to each group, or name each group. 
+  I like to do some scapula pulls, knee raises and pull ups to warm up. 
+  I would love to have the warm up with prompts on here.
+- Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
+- Make videos to explain beginners how to use this app.
+
 - Graphs
-- Counting upwards in the settings.
+- Export data
+
 - Check the keyboard and keyboard provider, does it still do it's job?
   keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
 ### Medium prio
 - Add other boards
 - Setup sentry.io
-- Backend
-- Login with device id, to save workouts already
 - Review app on smaller and larger screens.
-- Tests
 
 ### Small prio
-- Make videos to explain beginners how to use this app.
+- Counting upwards in the settings.
+- Sync with strava or garmin for the data nerds
+- Tracking of the pause timer.
 - Set reminder for workout.
 - Keep alive whilst on background and playing sounds.
 - Splash screen logo + loading
