@@ -28,6 +28,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Settings.serializer)
       ..add(Sound.serializer)
       ..add(TempUnit.serializer)
+      ..add(Version.serializer)
+      ..add(Versioning.serializer)
       ..add(WeightSystem.serializer)
       ..add(Workout.serializer)
       ..add(Workouts.serializer)
@@ -50,6 +52,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(SequenceTimerLog)]),
           () => new ListBuilder<SequenceTimerLog>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Version)]),
+          () => new ListBuilder<Version>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Workout)]),
           () => new ListBuilder<Workout>())

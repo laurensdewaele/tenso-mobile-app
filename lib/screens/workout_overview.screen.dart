@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:flutter/scheduler.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/navigation.service.dart';
@@ -13,6 +14,7 @@ import 'package:tenso_app/widgets/icons.dart' as icons;
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/sliding_card.dart';
 import 'package:tenso_app/widgets/sliding_expansion_card.dart';
+import 'package:tenso_app/widgets/update.dart';
 import 'package:tenso_app/widgets/workout_overview/delete_action.dart';
 import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
 import 'package:tenso_app/widgets/workout_overview/workout_expanded_content.dart';
@@ -32,6 +34,11 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void initState() {
     _viewModel = WorkoutOverviewViewModel();
     _viewModel.addListener(_viewModelListener);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_viewModel.displayChangelog == true) {
+        _displayChangelog();
+      }
+    });
     super.initState();
   }
 
@@ -43,6 +50,20 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void dispose() {
     _viewModel.removeListener(_viewModelListener);
     super.dispose();
+  }
+
+  void _displayChangelog() async {
+    await showAppDialog(
+        barrierDismissible: true,
+        smallWidth: true,
+        context: context,
+        content: WillPopScope(
+          onWillPop: () async {
+            _viewModel.setDisplayChangelogFalse();
+            return true;
+          },
+          child: Update(),
+        ));
   }
 
   void _handleLongPress(Workout workout) async {
@@ -142,7 +163,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           ),
           BottomMenuDrawer(
             safeAreaPaddingBottom: MediaQuery.of(context).padding.bottom,
-            startOpen: _viewModel.startOpen,
+            startOpen: _viewModel.bottomMenuOpen,
             menuItems: _menuItems,
             longestMenuItemLength: 140,
             dragIndicatorColor: styles.Colors.primary,

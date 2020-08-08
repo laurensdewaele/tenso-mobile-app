@@ -20,6 +20,8 @@ export 'package:tenso_app/models/sequence_timer_type.model.dart';
 export 'package:tenso_app/models/settings.model.dart';
 export 'package:tenso_app/models/sound.model.dart';
 export 'package:tenso_app/models/temp_unit.model.dart';
+export 'package:tenso_app/models/version.model.dart';
+export 'package:tenso_app/models/versioning.model.dart';
 export 'package:tenso_app/models/weight_system.model.dart';
 export 'package:tenso_app/models/workout.model.dart';
 export 'package:tenso_app/models/workouts.model.dart';

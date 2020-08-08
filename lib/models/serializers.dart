@@ -3,6 +3,8 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:tenso_app/dto/feedback.dto.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/models/version.model.dart';
+import 'package:tenso_app/models/versioning.model.dart';
 
 part 'serializers.g.dart';
 
@@ -27,6 +29,8 @@ part 'serializers.g.dart';
   SequenceTimerType,
   Sound,
   TempUnit,
+  Version,
+  Versioning,
   WeightSystem,
   Workout,
   Workouts,

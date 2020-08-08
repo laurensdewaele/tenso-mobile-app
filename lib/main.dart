@@ -7,6 +7,7 @@ import 'package:tenso_app/state/boards.state.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/state/settings.state.dart';
 import 'package:tenso_app/state/user.state.dart';
+import 'package:tenso_app/state/versioning.state.dart';
 import 'package:tenso_app/state/workouts.state.dart';
 
 Future<Null> main() async {
@@ -23,7 +24,8 @@ Future<Null> main() async {
       WorkoutsState().init(),
       CompletedWorkoutsState().init(),
       SettingsState().init(),
-      UserState().init()
+      UserState().init(),
+      VersioningState().init()
     ];
 
     await Future.wait(futures);

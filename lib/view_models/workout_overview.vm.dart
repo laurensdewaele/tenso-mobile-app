@@ -8,20 +8,24 @@ import 'package:tenso_app/screens/execution.screen.dart';
 import 'package:tenso_app/screens/workout.screen.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/state/user.state.dart';
+import 'package:tenso_app/state/versioning.state.dart';
 import 'package:tenso_app/state/workouts.state.dart';
 import 'package:tenso_app/view_models/workout/workout.vm.dart';
 
 class WorkoutOverviewViewModel extends ChangeNotifier {
   List<Workout> _workoutList;
   List<Workout> get workoutList => _workoutList;
-  bool startOpen;
+  bool bottomMenuOpen;
+  bool _displayChangelog;
+  bool get displayChangelog => _displayChangelog;
   WorkoutsState _workoutsState;
   StreamSubscription _sub;
 
   NavigationService _navigationService;
 
   WorkoutOverviewViewModel() {
-    startOpen = UserState().deviceInfo.firstLaunch;
+    bottomMenuOpen = UserState().deviceInfo.firstLaunch;
+    _displayChangelog = VersioningState().displayChangelog;
     _navigationService = NavigationService();
     _workoutsState = WorkoutsState();
     _workoutList = _workoutsState.workoutList;
@@ -29,6 +33,11 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
       _workoutList = workoutList;
       notifyListeners();
     });
+  }
+
+  void setDisplayChangelogFalse() {
+    _displayChangelog = false;
+    VersioningState().setDisplayChangelogFalse();
   }
 
   void deleteWorkout(Workout workout) {

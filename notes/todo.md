@@ -1,10 +1,8 @@
 # TODO
 
-- Chisel grip / open crimp + pinch grip
+- Splash screen logo + loading
 - Adding notes whilst resting
 - Add metolius' boards.
-- Splash screen logo + loading
-- Add changelog on startup.
 
 ### Large prio
 
