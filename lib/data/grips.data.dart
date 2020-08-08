@@ -1,6 +1,78 @@
 import 'package:tenso_app/models/models.dart';
 
 abstract class Grips {
+  static Grip chiselL = Grip((b) => b
+    ..crimped = true
+    ..description = 'chisel (open crimp)'
+    ..name = 'chiselL'
+    ..fingers = Fingers((b) => b
+      ..thumb = false
+      ..index = true
+      ..middle = true
+      ..ring = true
+      ..pinky = true
+      ..count = 4).toBuilder()
+    ..imageAsset = 'assets/images/grips/chisel_L.png'
+    ..handType = HandType.leftHand
+    ..anchorX = 145
+    ..anchorY = 35
+    ..imageAssetWidth = 224
+    ..imageAssetHeight = 320);
+
+  static Grip chiselR = Grip((b) => b
+    ..crimped = true
+    ..description = 'chisel (open crimp)'
+    ..name = 'chiselR'
+    ..fingers = Fingers((b) => b
+      ..thumb = false
+      ..index = true
+      ..middle = true
+      ..ring = true
+      ..pinky = true
+      ..count = 4).toBuilder()
+    ..imageAsset = 'assets/images/grips/chisel_R.png'
+    ..handType = HandType.rightHand
+    ..anchorX = 84
+    ..anchorY = 35
+    ..imageAssetWidth = 224
+    ..imageAssetHeight = 320);
+
+  static Grip pinchL = Grip((b) => b
+    ..crimped = true
+    ..description = 'pinch'
+    ..name = 'pinchL'
+    ..fingers = Fingers((b) => b
+      ..thumb = true
+      ..index = true
+      ..middle = true
+      ..ring = true
+      ..pinky = true
+      ..count = 5).toBuilder()
+    ..imageAsset = 'assets/images/grips/pinch_L.png'
+    ..handType = HandType.leftHand
+    ..anchorX = 175
+    ..anchorY = 35
+    ..imageAssetWidth = 236
+    ..imageAssetHeight = 289);
+
+  static Grip pinchR = Grip((b) => b
+    ..crimped = true
+    ..description = 'pinch'
+    ..name = 'pinchR'
+    ..fingers = Fingers((b) => b
+      ..thumb = true
+      ..index = true
+      ..middle = true
+      ..ring = true
+      ..pinky = true
+      ..count = 5).toBuilder()
+    ..imageAsset = 'assets/images/grips/pinch_R.png'
+    ..handType = HandType.rightHand
+    ..anchorX = 71
+    ..anchorY = 35
+    ..imageAssetWidth = 236
+    ..imageAssetHeight = 289);
+
   static Grip monoPinkyL = Grip((b) => b
     ..crimped = false
     ..description = 'mono pinky'
@@ -437,8 +509,10 @@ abstract class Grips {
     ..imageAsset = 'assets/images/grips/full_crimp_R.png');
 
   static List<Grip> left = [
+    Grips.pinchL,
     Grips.fullCrimpL,
     Grips.halfCrimpL,
+    Grips.chiselL,
     Grips.openHandL,
     Grips.frontThreeL,
     Grips.backThreeL,
@@ -451,8 +525,10 @@ abstract class Grips {
     Grips.monoPinkyL,
   ];
   static List<Grip> right = [
+    Grips.pinchR,
     Grips.fullCrimpR,
     Grips.halfCrimpR,
+    Grips.chiselR,
     Grips.openHandR,
     Grips.frontThreeR,
     Grips.backThreeR,
