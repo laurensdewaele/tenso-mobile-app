@@ -1,8 +1,10 @@
 # TODO
 
-- Adding notes whilst resting
 - Chisel grip / open crimp + pinch grip
-- Add zlag board
+- Adding notes whilst resting
+- Add metolius' boards.
+- Splash screen logo + loading
+- Add changelog on startup.
 
 ### Large prio
 
@@ -29,7 +31,6 @@
 - Tracking of the pause timer.
 - Set reminder for workout.
 - Keep alive whilst on background and playing sounds.
-- Splash screen logo + loading
 - Add info button on most elements.
 - Have an 'on the fly workout'?
 - Scale pull measurements (Jan)? 
@@ -42,6 +43,7 @@
   variable and fixed.
 - Have a timer section, without specifying holds etc.
 - Webapp where people can upload their own image of the board
+- When dragging a hand and you go back to it's original position, it says it's in use.
     
 ## Data strategy
 - Remove built value?
