@@ -50,10 +50,10 @@ abstract class Grips {
       ..count = 5).toBuilder()
     ..imageAsset = 'assets/images/grips/pinch_L.png'
     ..handType = HandType.leftHand
-    ..anchorX = 175
-    ..anchorY = 35
-    ..imageAssetWidth = 236
-    ..imageAssetHeight = 289);
+    ..anchorX = 165
+    ..anchorY = 41
+    ..imageAssetWidth = 244
+    ..imageAssetHeight = 270);
 
   static Grip pinchR = Grip((b) => b
     ..crimped = true
@@ -68,10 +68,10 @@ abstract class Grips {
       ..count = 5).toBuilder()
     ..imageAsset = 'assets/images/grips/pinch_R.png'
     ..handType = HandType.rightHand
-    ..anchorX = 71
-    ..anchorY = 35
-    ..imageAssetWidth = 236
-    ..imageAssetHeight = 289);
+    ..anchorX = 90
+    ..anchorY = 41
+    ..imageAssetWidth = 244
+    ..imageAssetHeight = 270);
 
   static Grip monoPinkyL = Grip((b) => b
     ..crimped = false
