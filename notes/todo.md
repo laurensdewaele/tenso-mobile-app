@@ -1,5 +1,6 @@
 # TODO
 
+- IOS Fastlane => whatsNew
 - Splash screen logo + loading
 - Adding notes whilst resting
 - Add metolius' boards.
