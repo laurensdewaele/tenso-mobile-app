@@ -62,7 +62,8 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
             _viewModel.setDisplayChangelogFalse();
             return true;
           },
-          child: Update(),
+          child: Update(
+              setDisplayChangelogFalse: _viewModel.setDisplayChangelogFalse),
         ));
   }
 

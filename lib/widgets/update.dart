@@ -6,7 +6,9 @@ import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
 
 class Update extends StatelessWidget {
-  Update({Key key}) : super(key: key);
+  Update({Key key, this.setDisplayChangelogFalse}) : super(key: key);
+
+  final VoidCallback setDisplayChangelogFalse;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class Update extends StatelessWidget {
               displayBackground: false,
               text: 'Ok',
               handleTap: () {
+                setDisplayChangelogFalse();
                 Navigator.of(context).pop();
               })
         ]);
