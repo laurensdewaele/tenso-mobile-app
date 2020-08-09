@@ -3,7 +3,6 @@
 - Android not taking release notes
 - IOS Fastlane => whatsNew
 
-- Splash screen logo + loading
 - Adding notes whilst resting
 - Add eva lopez' boards.
 
@@ -28,6 +27,7 @@
 
 ### Small prio
 - Counting upwards in the settings.
+- Splash screen logo + loading
 - Sync with strava or garmin for the data nerds
 - Tracking of the pause timer.
 - Set reminder for workout.
