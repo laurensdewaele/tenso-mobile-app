@@ -27,6 +27,7 @@ class ExecutionViewModel {
   List<PastHang> get pastHangs => _getPastHangs();
   double get _effectiveDurationMs => _getEffectiveDurationMs();
   int get _displaySeconds => _getDisplaySeconds();
+  int _preparationTimer;
 
   BehaviorSubject<ExecutionState> _state$;
   Stream<ExecutionState> get state$ => _state$.stream;
@@ -41,6 +42,7 @@ class ExecutionViewModel {
     _animationController = animationController;
     _sequence =
         sequenceBuilder(workout: workout, settings: SettingsState().settings);
+    _preparationTimer = SettingsState().settings.preparationTimer;
     _navigationService = NavigationService();
     _currentSequenceIndex = 0;
     _state$ = BehaviorSubject.seeded(_buildStateAndPlayBeepSound());
@@ -265,7 +267,21 @@ class ExecutionViewModel {
   }
 
   void handlePauseTap() {
-    _animationController.stop(canceled: false);
+    if (state.type != SequenceTimerType.hangTimer) {
+      if (_displaySeconds <= _preparationTimer) {
+        _animationController.stop(canceled: false);
+      } else {
+        _animationController.addListener(_pausedDurationListener);
+      }
+    } else {
+      _animationController.stop(canceled: false);
+    }
+  }
+
+  void _pausedDurationListener() {
+    if (_displaySeconds <= _preparationTimer) {
+      _animationController.stop(canceled: false);
+    }
   }
 
   void handleSkipTap() {
@@ -339,6 +355,7 @@ class ExecutionViewModel {
   }
 
   void handleResumeTap() {
+    _animationController.removeListener(_pausedDurationListener);
     _animationController.forward();
     _navigationService.pop();
   }

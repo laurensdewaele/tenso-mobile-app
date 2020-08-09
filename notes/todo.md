@@ -3,7 +3,8 @@
 - Android not taking release notes
 - IOS Fastlane => whatsNew
 
-- Adding notes whilst resting
+- Let the timer continue when pausing, when it reaches the preparation timer, stop. 
+  Adding notes whilst resting
 - Add eva lopez' boards.
 
 ### Large prio
