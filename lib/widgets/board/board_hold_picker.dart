@@ -115,7 +115,9 @@ class _BoardHoldPickerState extends State<_BoardHoldPicker> {
   void didUpdateWidget(_BoardHoldPicker oldWidget) {
     if ((oldWidget.leftGrip != widget.leftGrip) ||
         (oldWidget.rightGrip != widget.rightGrip) ||
-        (oldWidget.boardImageAsset != widget.boardImageAsset)) {
+        (oldWidget.boardImageAsset != widget.boardImageAsset) ||
+        (oldWidget.leftGripBoardHold != widget.leftGripBoardHold) ||
+        (oldWidget.rightGripBoardHold != widget.rightGripBoardHold)) {
       _checkAndSetHandOffsets();
     }
     super.didUpdateWidget(oldWidget);
