@@ -2,9 +2,10 @@
 
 - Android not taking release notes
 - IOS Fastlane => whatsNew
+
 - Splash screen logo + loading
 - Adding notes whilst resting
-- Add metolius' boards.
+- Add eva lopez' boards.
 
 ### Large prio
 
