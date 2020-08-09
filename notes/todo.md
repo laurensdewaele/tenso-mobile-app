@@ -3,7 +3,6 @@
 - Android not taking release notes
 - IOS Fastlane => whatsNew
 
-- Bug when adding board, hands aren't aligned. 
 - Adding notes whilst resting
 - Add eva lopez' boards.
 
