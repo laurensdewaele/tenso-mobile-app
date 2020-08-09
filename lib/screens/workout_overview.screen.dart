@@ -57,14 +57,8 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
         barrierDismissible: true,
         smallWidth: true,
         context: context,
-        content: WillPopScope(
-          onWillPop: () async {
-            _viewModel.setDisplayChangelogFalse();
-            return true;
-          },
-          child: Update(
-              setDisplayChangelogFalse: _viewModel.setDisplayChangelogFalse),
-        ));
+        content: Update(
+            setDisplayChangelogFalse: _viewModel.setDisplayChangelogFalse));
   }
 
   void _handleLongPress(Workout workout) async {

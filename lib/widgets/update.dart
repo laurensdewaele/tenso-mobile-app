@@ -13,31 +13,37 @@ class Update extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Version _latestVersion = latestVersioning.versions[0];
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(
-            child: Text(
-              'update',
-              style: styles.Staatliches.xlBlack,
+    return WillPopScope(
+      onWillPop: () async {
+        setDisplayChangelogFalse();
+        return true;
+      },
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Text(
+                'update',
+                style: styles.Staatliches.xlBlack,
+              ),
             ),
-          ),
-          Divider(height: styles.Measurements.l),
-          Text(
-            _latestVersion.changelog,
-            textAlign: TextAlign.center,
-            style: styles.Lato.xsBlack,
-          ),
-          Divider(height: styles.Measurements.l),
-          Button(
-              small: true,
-              displayBackground: false,
-              text: 'Ok',
-              handleTap: () {
-                setDisplayChangelogFalse();
-                Navigator.of(context).pop();
-              })
-        ]);
+            Divider(height: styles.Measurements.l),
+            Text(
+              _latestVersion.changelog,
+              textAlign: TextAlign.center,
+              style: styles.Lato.xsBlack,
+            ),
+            Divider(height: styles.Measurements.l),
+            Button(
+                small: true,
+                displayBackground: false,
+                text: 'Ok',
+                handleTap: () {
+                  setDisplayChangelogFalse();
+                  Navigator.of(context).pop();
+                })
+          ]),
+    );
   }
 }
