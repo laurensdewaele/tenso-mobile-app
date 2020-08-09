@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:tenso_app/view_models/execution/adjust_hangs_dialog.vm.dart';
 import 'package:tenso_app/widgets/board/board_with_grips.dart';
 import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/execution/log_hangs_cupertino_picker.dart';
+import 'package:tenso_app/widgets/execution/adjust_hangs_cupertino_picker.dart';
 import 'package:tenso_app/widgets/number_input_and_description.dart';
 
-class LogHangsLandscape extends StatelessWidget {
-  const LogHangsLandscape({
+class AdjustHangsLandscape extends StatelessWidget {
+  const AdjustHangsLandscape({
     @required this.repText,
     @required this.selectedPastHang,
     @required this.setText,
@@ -103,7 +103,7 @@ class LogHangsLandscape extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
-                      child: LogHangsCupertinoPicker(
+                      child: AdjustHangsCupertinoPicker(
                         canScroll: canScroll,
                         handleScrollAttempt: handleScrollAttempt,
                         pastHangs: pastHangs,

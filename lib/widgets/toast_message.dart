@@ -260,13 +260,13 @@ abstract class ToastMessages {
           ]),
         ),
       );
-  static Widget loggingOnlyPossibleOnRests() => ToastMessage(
+  static Widget adjustingOnlyPossibleOnRests() => ToastMessage(
         success: false,
         message: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
             TextSpan(
-              text: 'Logging ',
+              text: 'Adjusting ',
               style: styles.Lato.sBlackBold,
             ),
             TextSpan(
@@ -284,13 +284,13 @@ abstract class ToastMessages {
           ]),
         ),
       );
-  static Widget loggingNotPossibleWhenNoCompletedHangs() => ToastMessage(
+  static Widget adjustingNotPossibleWhenNoCompletedHangs() => ToastMessage(
         success: false,
         message: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(text: '', style: styles.Lato.sBlack, children: [
             TextSpan(
-              text: 'Logging ',
+              text: 'Adjusting ',
               style: styles.Lato.sBlackBold,
             ),
             TextSpan(

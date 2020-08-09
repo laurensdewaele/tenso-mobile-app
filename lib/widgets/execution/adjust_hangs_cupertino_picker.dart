@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
+import 'package:tenso_app/view_models/execution/adjust_hangs_dialog.vm.dart';
 import 'package:tenso_app/widgets/divider.dart';
 
-class LogHangsCupertinoPicker extends StatelessWidget {
-  const LogHangsCupertinoPicker({
+class AdjustHangsCupertinoPicker extends StatelessWidget {
+  const AdjustHangsCupertinoPicker({
     @required this.handleScrollAttempt,
     @required this.canScroll,
     @required this.pastHangs,

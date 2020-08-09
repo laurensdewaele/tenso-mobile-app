@@ -1,40 +1,40 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
-import 'package:tenso_app/widgets/execution/log_hangs_landscape.dart';
-import 'package:tenso_app/widgets/execution/log_hangs_portrait.dart';
+import 'package:tenso_app/view_models/execution/adjust_hangs_dialog.vm.dart';
+import 'package:tenso_app/widgets/execution/adjust_hangs_landscape.dart';
+import 'package:tenso_app/widgets/execution/adjust_hangs_portrait.dart';
 
-class LoggedHang {
+class AdjustedHang {
   final int sequenceTimerIndex;
   final double effectiveAddedWeight;
   final double effectiveDurationS;
 
-  const LoggedHang({
+  const AdjustedHang({
     @required this.sequenceTimerIndex,
     @required this.effectiveAddedWeight,
     @required this.effectiveDurationS,
   });
 }
 
-class LogHangsDialog extends StatefulWidget {
-  LogHangsDialog(
-      {Key key, @required this.pastHangs, @required this.handleLoggedHangs})
+class AdjustHangsDialog extends StatefulWidget {
+  AdjustHangsDialog(
+      {Key key, @required this.pastHangs, @required this.handleAdjustedHangs})
       : super(key: key);
 
   final List<PastHang> pastHangs;
-  final void Function(List<LoggedHang> loggedHangs) handleLoggedHangs;
+  final void Function(List<AdjustedHang> adjustedHangs) handleAdjustedHangs;
 
   @override
-  _LogHangsDialogState createState() => _LogHangsDialogState();
+  _AdjustHangsDialogState createState() => _AdjustHangsDialogState();
 }
 
-class _LogHangsDialogState extends State<LogHangsDialog> {
-  LogHangsDialogViewModel _viewModel;
+class _AdjustHangsDialogState extends State<AdjustHangsDialog> {
+  AdjustHangsDialogViewModel _viewModel;
 
   @override
   void initState() {
-    _viewModel = LogHangsDialogViewModel(
+    _viewModel = AdjustHangsDialogViewModel(
         pastHangs: widget.pastHangs,
-        handleLoggedHangs: widget.handleLoggedHangs);
+        handleAdjustedHangs: widget.handleAdjustedHangs);
     _viewModel.addListener(_viewModelListener);
     super.initState();
   }
@@ -62,7 +62,7 @@ class _LogHangsDialogState extends State<LogHangsDialog> {
           builder: (BuildContext context, BoxConstraints constraints) {
             final Orientation _orientation = MediaQuery.of(context).orientation;
             if (_orientation == Orientation.portrait) {
-              return LogHangsPortrait(
+              return AdjustHangsPortrait(
                 groupText: _viewModel.groupText,
                 setSelectedPastHang: _viewModel.setSelectedPastHang,
                 selectedPastHang: _viewModel.selectedPastHang,
@@ -76,7 +76,7 @@ class _LogHangsDialogState extends State<LogHangsDialog> {
                 setHangTimeInput: _viewModel.setHangTimeInput,
               );
             } else {
-              return LogHangsLandscape(
+              return AdjustHangsLandscape(
                 setSelectedPastHang: _viewModel.setSelectedPastHang,
                 selectedPastHang: _viewModel.selectedPastHang,
                 pastHangs: _viewModel.pastHangs,

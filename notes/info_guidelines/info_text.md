@@ -26,7 +26,7 @@ And simply hang on for as long as you can.
 If you can go above 30s, try a smaller edge size.
 
 Don't worry about not knowing the hang time in advance,
-you can alter them during your workout by clicking on 'log hangs' when pausing the workout.
+you can alter them during your workout by clicking on 'adjust hangs' when pausing the workout.
 
 For you next workout, edit the workout and alter the hang time values to what you were able to hang.
 

@@ -8,11 +8,11 @@ class CongratulationsContent extends StatelessWidget {
   CongratulationsContent({
     Key key,
     @required this.handleRateWorkoutTap,
-    @required this.handleLogHangsTap,
+    @required this.handleAdjustHangsTap,
   }) : super(key: key);
 
   final VoidCallback handleRateWorkoutTap;
-  final VoidCallback handleLogHangsTap;
+  final VoidCallback handleAdjustHangsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +53,8 @@ class CongratulationsContent extends StatelessWidget {
             ),
           Button(
             smallText: true,
-            text: 'log hangs',
-            handleTap: handleLogHangsTap,
+            text: 'adjust hangs',
+            handleTap: handleAdjustHangsTap,
             displayBackground: true,
             backgroundColor: styles.Colors.blue,
             leadingIcon: icons.editIconWhiteXl,

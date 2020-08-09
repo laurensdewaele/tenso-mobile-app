@@ -7,9 +7,9 @@ import 'package:tenso_app/view_models/execution/execution_state.vm.dart';
 import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/execution/adjust_hangs_dialog.dart';
 import 'package:tenso_app/widgets/execution/execution_landscape.dart';
 import 'package:tenso_app/widgets/execution/execution_portrait.dart';
-import 'package:tenso_app/widgets/execution/log_hangs_dialog.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
 import 'package:tenso_app/widgets/toast_message.dart';
 import 'package:tenso_app/widgets/toast_provider.dart';
@@ -62,26 +62,28 @@ class _ExecutionScreenState extends State<ExecutionScreen>
         smallWidth: false,
         context: context,
         content: _PauseDialog(
-            duringHang: _viewModel.state.type == SequenceTimerType.hangTimer,
-            handleLogHangsTap: _handleLogHangsTap,
-            handleResumeTap: _viewModel.handleResumeTap,
-            handleSkipTap: _viewModel.handleSkipTap,
-            handleStopTap: _viewModel.handleStopTap));
+          duringHang: _viewModel.state.type == SequenceTimerType.hangTimer,
+          handleAdjustHangsTap: _handleAdjustHangsTap,
+          handleResumeTap: _viewModel.handleResumeTap,
+          handleSkipTap: _viewModel.handleSkipTap,
+          handleStopTap: _viewModel.handleStopTap,
+          handleAddCommentsTap: _viewModel.handleAddCommentsTap,
+        ));
   }
 
-  void _handleLogHangsTap() async {
+  void _handleAdjustHangsTap() async {
     if (_viewModel.state.type == SequenceTimerType.hangTimer) {
-      ToastService().add(ToastMessages.loggingOnlyPossibleOnRests());
+      ToastService().add(ToastMessages.adjustingOnlyPossibleOnRests());
     } else if (_viewModel.pastHangs.length == 0) {
       ToastService()
-          .add(ToastMessages.loggingNotPossibleWhenNoCompletedHangs());
+          .add(ToastMessages.adjustingNotPossibleWhenNoCompletedHangs());
     } else {
       await showAppDialog(
           fullWidth: true,
           context: context,
-          content: LogHangsDialog(
+          content: AdjustHangsDialog(
             pastHangs: _viewModel.pastHangs,
-            handleLoggedHangs: _viewModel.handleLoggedHangs,
+            handleAdjustedHangs: _viewModel.handleAdjustedHangs,
           ),
           smallWidth: false);
     }
@@ -195,15 +197,17 @@ class _PauseDialog extends StatelessWidget {
     @required this.handleResumeTap,
     @required this.handleSkipTap,
     @required this.handleStopTap,
-    @required this.handleLogHangsTap,
+    @required this.handleAdjustHangsTap,
     @required this.duringHang,
+    @required this.handleAddCommentsTap,
   }) : super(key: key);
 
   final bool duringHang;
   final VoidCallback handleStopTap;
   final VoidCallback handleResumeTap;
   final VoidCallback handleSkipTap;
-  final VoidCallback handleLogHangsTap;
+  final VoidCallback handleAdjustHangsTap;
+  final VoidCallback handleAddCommentsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -236,8 +240,20 @@ class _PauseDialog extends StatelessWidget {
               ),
               Button(
                 smallText: true,
-                text: 'log hangs',
-                handleTap: handleLogHangsTap,
+                text: 'add comments',
+                handleTap: handleAddCommentsTap,
+                displayBackground: true,
+                backgroundColor: styles.Colors.turquoise,
+                leadingIcon: icons.editIconWhiteXl,
+                leadingIconTextCentered: true,
+              ),
+              Divider(
+                height: styles.Measurements.m,
+              ),
+              Button(
+                smallText: true,
+                text: 'adjust hangs',
+                handleTap: handleAdjustHangsTap,
                 displayBackground: true,
                 backgroundColor: styles.Colors.blue,
                 leadingIcon: icons.editIconWhiteXl,

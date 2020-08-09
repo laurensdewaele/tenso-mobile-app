@@ -7,12 +7,12 @@ import 'package:tenso_app/screens/rate_workout.screen.dart';
 import 'package:tenso_app/services/audio_player.service.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/state/settings.state.dart';
+import 'package:tenso_app/view_models/execution/adjust_hangs_dialog.vm.dart';
 import 'package:tenso_app/view_models/execution/execution_sequence_builder.dart';
 import 'package:tenso_app/view_models/execution/execution_state.vm.dart';
-import 'package:tenso_app/view_models/execution/log_hangs_dialog.vm.dart';
 import 'package:tenso_app/widgets/dialog.dart';
+import 'package:tenso_app/widgets/execution/adjust_hangs_dialog.dart';
 import 'package:tenso_app/widgets/execution/congratulations_content.dart';
-import 'package:tenso_app/widgets/execution/log_hangs_dialog.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {
@@ -211,7 +211,7 @@ class ExecutionViewModel {
           content: WillPopScope(
             onWillPop: () async => false,
             child: CongratulationsContent(
-              handleLogHangsTap: _handleLogHangsTap,
+              handleAdjustHangsTap: _handleAdjustHangsTap,
               handleRateWorkoutTap: _handleRateWorkoutTap,
             ),
           ),
@@ -226,13 +226,13 @@ class ExecutionViewModel {
         arguments: RateWorkoutArguments(workout: _workout, history: _history));
   }
 
-  void _handleLogHangsTap() {
+  void _handleAdjustHangsTap() {
     showAppDialog(
         fullWidth: true,
         context: _context,
-        content: LogHangsDialog(
+        content: AdjustHangsDialog(
           pastHangs: pastHangs,
-          handleLoggedHangs: handleLoggedHangs,
+          handleAdjustedHangs: handleAdjustedHangs,
         ),
         smallWidth: false);
   }
@@ -267,14 +267,17 @@ class ExecutionViewModel {
   }
 
   void handlePauseTap() {
-    if (state.type != SequenceTimerType.hangTimer) {
+    if (state.type == SequenceTimerType.hangTimer ||
+        state.type == SequenceTimerType.preparationTimer) {
+      _animationController.stop(canceled: false);
+    }
+
+    if (state.type == SequenceTimerType.fixedRestTimer) {
       if (_displaySeconds <= _preparationTimer) {
         _animationController.stop(canceled: false);
       } else {
         _animationController.addListener(_pausedDurationListener);
       }
-    } else {
-      _animationController.stop(canceled: false);
     }
   }
 
@@ -360,6 +363,10 @@ class ExecutionViewModel {
     _navigationService.pop();
   }
 
+  void handleAddCommentsTap() {
+    // TODO: Add comments
+  }
+
   int _getDisplaySeconds() {
     if (_state$ == null) {
       return _currentSequence.originalDurationS;
@@ -382,17 +389,19 @@ class ExecutionViewModel {
         _animationController.value);
   }
 
-  void handleLoggedHangs(List<LoggedHang> loggedHangs) {
+  void handleAdjustedHangs(List<AdjustedHang> adjustedHangs) {
     _sequence = _sequence.map((SequenceTimer t) {
-      final _relevantLoggedHang = loggedHangs.firstWhere(
-          (LoggedHang loggedHang) => t.index == loggedHang.sequenceTimerIndex,
+      final _relevantAdjustedHang = adjustedHangs.firstWhere(
+          (AdjustedHang adjustedHang) =>
+              t.index == adjustedHang.sequenceTimerIndex,
           orElse: () => null);
 
       if (t.type == SequenceTimerType.hangTimer &&
-          _relevantLoggedHang != null) {
+          _relevantAdjustedHang != null) {
         return t.copyWith(
-            effectiveDurationMs: _relevantLoggedHang.effectiveDurationS * 1000,
-            effectiveAddedWeight: _relevantLoggedHang.effectiveAddedWeight);
+            effectiveDurationMs:
+                _relevantAdjustedHang.effectiveDurationS * 1000,
+            effectiveAddedWeight: _relevantAdjustedHang.effectiveAddedWeight);
       }
 
       return t;

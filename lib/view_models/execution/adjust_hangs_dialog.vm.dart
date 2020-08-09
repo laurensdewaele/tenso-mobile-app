@@ -4,7 +4,7 @@ import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/services/parser.service.dart';
 import 'package:tenso_app/services/validation.service.dart';
-import 'package:tenso_app/widgets/execution/log_hangs_dialog.dart';
+import 'package:tenso_app/widgets/execution/adjust_hangs_dialog.dart';
 
 class PastHang {
   final int sequenceTimerIndex;
@@ -118,9 +118,9 @@ class PastHang {
   }
 }
 
-class LogHangsDialogViewModel extends ChangeNotifier {
+class AdjustHangsDialogViewModel extends ChangeNotifier {
   NavigationService _navigationService;
-  void Function(List<LoggedHang> loggedHangs) handleLoggedHangs;
+  void Function(List<AdjustedHang> adjustedHangs) handleAdjustedHangs;
 
   List<PastHang> _pastHangs;
   List<PastHang> get pastHangs => _pastHangs;
@@ -139,8 +139,9 @@ class LogHangsDialogViewModel extends ChangeNotifier {
   String get groupText =>
       'group ${selectedPastHang.currentGroup}/${selectedPastHang.totalGroups}';
 
-  LogHangsDialogViewModel(
-      {@required List<PastHang> pastHangs, @required this.handleLoggedHangs}) {
+  AdjustHangsDialogViewModel(
+      {@required List<PastHang> pastHangs,
+      @required this.handleAdjustedHangs}) {
     _pastHangs = pastHangs;
     _canScroll = true;
     _navigationService = NavigationService();
@@ -226,14 +227,14 @@ class LogHangsDialogViewModel extends ChangeNotifier {
     return Future.sync(() {
       final bool _isValid = _validate();
       if (_isValid == true) {
-        final List<LoggedHang> _loggedHangs = _pastHangs
-            .map((PastHang pastHang) => LoggedHang(
+        final List<AdjustedHang> _adjustedHangs = _pastHangs
+            .map((PastHang pastHang) => AdjustedHang(
                 sequenceTimerIndex: pastHang.sequenceTimerIndex,
                 effectiveAddedWeight: pastHang.effectiveAddedWeight,
                 effectiveDurationS: pastHang.effectiveDurationS))
             .toList();
         _navigationService.pop();
-        handleLoggedHangs(_loggedHangs);
+        handleAdjustedHangs(_adjustedHangs);
         return true;
       } else {
         return false;
