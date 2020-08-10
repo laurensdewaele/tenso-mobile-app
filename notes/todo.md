@@ -3,7 +3,6 @@
 - Android not taking release notes
 - IOS Fastlane => whatsNew
 
-- Adding notes whilst resting
 - Add eva lopez' boards.
 
 ### Large prio
