@@ -12,6 +12,7 @@ import 'package:tenso_app/view_models/execution/execution_sequence_builder.dart'
 import 'package:tenso_app/view_models/execution/execution_state.vm.dart';
 import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/execution/adjust_hangs_dialog.dart';
+import 'package:tenso_app/widgets/execution/comments_dialog.dart';
 import 'package:tenso_app/widgets/execution/congratulations_content.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -28,6 +29,7 @@ class ExecutionViewModel {
   double get _effectiveDurationMs => _getEffectiveDurationMs();
   int get _displaySeconds => _getDisplaySeconds();
   int _preparationTimer;
+  String _comments = '';
 
   BehaviorSubject<ExecutionState> _state$;
   Stream<ExecutionState> get state$ => _state$.stream;
@@ -223,7 +225,8 @@ class ExecutionViewModel {
   void _handleRateWorkoutTap() {
     History _history = _generateHistory();
     _navigationService.pushNamed(Routes.rateWorkoutScreen,
-        arguments: RateWorkoutArguments(workout: _workout, history: _history));
+        arguments: RateWorkoutArguments(
+            workout: _workout, history: _history, comments: _comments));
   }
 
   void _handleAdjustHangsTap() {
@@ -364,7 +367,18 @@ class ExecutionViewModel {
   }
 
   void handleAddCommentsTap() {
-    // TODO: Add comments
+    showAppDialog(
+        fullWidth: true,
+        context: _context,
+        content: CommentsDialog(
+          initialComments: _comments,
+          setComments: _setComments,
+        ),
+        smallWidth: false);
+  }
+
+  void _setComments(String comments) {
+    _comments = comments;
   }
 
   int _getDisplaySeconds() {

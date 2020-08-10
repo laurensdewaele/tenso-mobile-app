@@ -19,6 +19,7 @@ class RateWorkoutContent extends StatelessWidget {
     @required this.handleHumidityChanged,
     @required this.handleTemperatureChanged,
     @required this.tempUnit,
+    @required this.initialComments,
     this.maxContainerHeight,
   }) : super(key: key);
 
@@ -31,6 +32,7 @@ class RateWorkoutContent extends StatelessWidget {
   final VoidCallback handleCompleteTap;
   final VoidCallback handleOpen;
   final TempUnit tempUnit;
+  final String initialComments;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class RateWorkoutContent extends StatelessWidget {
                   multiLine: true,
                   enabled: true,
                   primaryColor: styles.Colors.turquoise,
-                  initialValue: '',
+                  initialValue: initialComments,
                   handleValueChanged: handleCommentsChanged),
             ),
             Divider(

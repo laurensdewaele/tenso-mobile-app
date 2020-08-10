@@ -8,10 +8,14 @@ import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/rate_workout/rate_workout_content.dart';
 
 class RateWorkoutArguments {
-  RateWorkoutArguments({@required this.workout, @required this.history});
+  RateWorkoutArguments(
+      {@required this.workout,
+      @required this.history,
+      @required this.comments});
 
   final Workout workout;
   final History history;
+  final String comments;
 }
 
 class RateWorkoutScreen extends StatefulWidget {
@@ -25,6 +29,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   RateWorkoutViewModel _viewModel;
   Workout _workout;
   History _history;
+  String _comments;
 
   @override
   void didChangeDependencies() {
@@ -33,11 +38,14 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
         ModalRoute.of(context).settings.arguments;
     _workout = routeArguments.workout;
     _history = routeArguments.history;
+    _comments = routeArguments.comments;
+    if (_viewModel == null) {
+      _viewModel = RateWorkoutViewModel(comments: _comments);
+    }
   }
 
   @override
   void initState() {
-    _viewModel = RateWorkoutViewModel();
     super.initState();
   }
 
@@ -81,6 +89,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         _PortraitContainer(
                           maxContainerHeight: _maxContainerHeight,
                           content: RateWorkoutContent(
+                            initialComments: _viewModel.initialComments,
                             maxContainerHeight: _maxContainerHeight,
                             handleOpen: () {},
                             tempUnit: _viewModel.tempUnit,
@@ -96,6 +105,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                       if (_orientation == Orientation.landscape)
                         _LandscapeContainer(
                           content: RateWorkoutContent(
+                            initialComments: _viewModel.initialComments,
                             handleOpen: () {},
                             handleCompleteTap: _handleCompleteTap,
                             handlePerceivedExertionChanged:

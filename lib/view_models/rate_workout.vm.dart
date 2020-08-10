@@ -7,7 +7,9 @@ import 'package:tenso_app/state/settings.state.dart';
 import 'package:tenso_app/widgets/toast_message.dart';
 
 class RateWorkoutViewModel {
-  RateWorkoutViewModel() {
+  RateWorkoutViewModel({String comments}) {
+    _initialComments = comments;
+    _commentsInput = comments;
     _completedWorkoutsState = CompletedWorkoutsState();
     _tempUnit = SettingsState().settings.tempUnit;
     _toastService = ToastService();
@@ -27,6 +29,8 @@ class RateWorkoutViewModel {
   String _humidityInput;
   String _comments;
   String _commentsInput;
+  String _initialComments;
+  String get initialComments => _initialComments;
 
   void setPerceivedExertion(int n) {
     _perceivedExertion = n;
