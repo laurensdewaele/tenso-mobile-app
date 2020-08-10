@@ -372,12 +372,12 @@ class ExecutionViewModel {
         context: _context,
         content: CommentsDialog(
           initialComments: _comments,
-          setComments: _setComments,
+          handleCommentsChanged: _handleCommentsChanged,
         ),
         smallWidth: false);
   }
 
-  void _setComments(String comments) {
+  void _handleCommentsChanged(String comments) {
     _comments = comments;
   }
 
