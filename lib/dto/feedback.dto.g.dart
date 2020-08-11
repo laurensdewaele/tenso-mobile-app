@@ -24,7 +24,12 @@ class _$FeedbackSerializer implements StructuredSerializer<Feedback> {
       serializers.serialize(object.message,
           specifiedType: const FullType(String)),
     ];
-
+    if (object.email != null) {
+      result
+        ..add('email')
+        ..add(serializers.serialize(object.email,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -47,6 +52,10 @@ class _$FeedbackSerializer implements StructuredSerializer<Feedback> {
           result.message = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -59,11 +68,13 @@ class _$Feedback extends Feedback {
   final String type;
   @override
   final String message;
+  @override
+  final String email;
 
   factory _$Feedback([void Function(FeedbackBuilder) updates]) =>
       (new FeedbackBuilder()..update(updates)).build();
 
-  _$Feedback._({this.type, this.message}) : super._() {
+  _$Feedback._({this.type, this.message, this.email}) : super._() {
     if (type == null) {
       throw new BuiltValueNullFieldError('Feedback', 'type');
     }
@@ -82,19 +93,24 @@ class _$Feedback extends Feedback {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Feedback && type == other.type && message == other.message;
+    return other is Feedback &&
+        type == other.type &&
+        message == other.message &&
+        email == other.email;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, type.hashCode), message.hashCode));
+    return $jf(
+        $jc($jc($jc(0, type.hashCode), message.hashCode), email.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Feedback')
           ..add('type', type)
-          ..add('message', message))
+          ..add('message', message)
+          ..add('email', email))
         .toString();
   }
 }
@@ -110,12 +126,17 @@ class FeedbackBuilder implements Builder<Feedback, FeedbackBuilder> {
   String get message => _$this._message;
   set message(String message) => _$this._message = message;
 
+  String _email;
+  String get email => _$this._email;
+  set email(String email) => _$this._email = email;
+
   FeedbackBuilder();
 
   FeedbackBuilder get _$this {
     if (_$v != null) {
       _type = _$v.type;
       _message = _$v.message;
+      _email = _$v.email;
       _$v = null;
     }
     return this;
@@ -136,7 +157,8 @@ class FeedbackBuilder implements Builder<Feedback, FeedbackBuilder> {
 
   @override
   _$Feedback build() {
-    final _$result = _$v ?? new _$Feedback._(type: type, message: message);
+    final _$result =
+        _$v ?? new _$Feedback._(type: type, message: message, email: email);
     replace(_$result);
     return _$result;
   }

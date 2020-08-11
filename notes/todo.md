@@ -1,20 +1,17 @@
 # TODO
 
 - Android not taking release notes
-- Check , and . on ios. (Norwegian keyboard. App doesn't accept ,?)
 - Add email adress to feedback
-- Metrics conversion.
 
 ### Triage
-
 - Allow ability to add some notes to each group, or name each group. 
   I like to do some scapula pulls, knee raises and pull ups to warm up. 
   I would love to have the warm up with prompts on here.
 - Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
 - please make it possible to edit your previous hangs from the calendar :) 
 - Awesome app mate- 
-made me actually get back on the hangboard- 
-but freezes anytime I try to edit a group.
+  made me actually get back on the hangboard- 
+  but freezes anytime I try to edit a group.
 
 ### Large prio
 - Graphs

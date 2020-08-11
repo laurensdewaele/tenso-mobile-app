@@ -22,9 +22,15 @@ class FeedbackViewModel extends ChangeNotifier {
   ToastService _toastService = ToastService();
   String _messageInput;
   String _message;
+  String _emailInput;
+  String _email;
   String _type = feedbackTypes[0];
   bool _awaitingResponse = false;
   bool get awaitingResponse => _awaitingResponse;
+
+  void setEmail(String emailInput) {
+    _emailInput = emailInput;
+  }
 
   void setMessage(String message) {
     _messageInput = message;
@@ -35,10 +41,15 @@ class FeedbackViewModel extends ChangeNotifier {
   }
 
   bool _validate() {
+    final List<bool> _validations = [];
+
     _message = InputParsers.parseString(string: _messageInput);
-    final bool _valid =
-        Validators.stringNotEmpty(string: _message, inputField: 'message');
-    return _valid;
+    _validations.add(
+        Validators.stringNotEmpty(string: _message, inputField: 'message'));
+
+    _email = InputParsers.parseString(string: _emailInput);
+
+    return _validations.fold(true, (a, b) => a && b);
   }
 
   Future<bool> sendMessage() async {
@@ -49,7 +60,8 @@ class FeedbackViewModel extends ChangeNotifier {
         notifyListeners();
         final Feedback _feedback = Feedback((b) => b
           ..message = _message
-          ..type = _type);
+          ..type = _type
+          ..email = _email);
         final Response _response = await http.post(
             "https://tenso-server.ue.r.appspot.com/feedback",
             headers: {HttpHeaders.contentTypeHeader: 'application/json'},

@@ -11,6 +11,8 @@ abstract class Feedback implements Built<Feedback, FeedbackBuilder> {
 
   String get type;
   String get message;
+  @nullable
+  String get email;
 
   factory Feedback([void Function(FeedbackBuilder) updates]) = _$Feedback;
   Feedback._();

@@ -8,6 +8,7 @@ import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/keyboard_list_view.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/section.dart';
+import 'package:tenso_app/widgets/section_with_info_icon.dart';
 import 'package:tenso_app/widgets/text_input.dart';
 import 'package:tenso_app/widgets/top_navigation.dart';
 
@@ -102,7 +103,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                           ],
                         ),
                         Section(
-                          title: 'message',
+                          nextSectionHasInfoIcon: true,
+                          title: 'message *',
                           children: <Widget>[
                             Container(
                               height: 200,
@@ -112,6 +114,18 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                 handleValueChanged: _viewModel.setMessage,
                                 initialValue: '',
                               ),
+                            )
+                          ],
+                        ),
+                        SectionWithInfoIcon(
+                          appDialogContent: EmailInfo(),
+                          title: 'e-mail address',
+                          children: <Widget>[
+                            TextInput(
+                              primaryColor: styles.Colors.turquoise,
+                              multiLine: false,
+                              handleValueChanged: _viewModel.setEmail,
+                              initialValue: '',
                             )
                           ],
                         ),
@@ -131,6 +145,32 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class EmailInfo extends StatelessWidget {
+  EmailInfo({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(
+            'You may wish to leave your e-mail address, so we can reply to your feedback.'),
+        Divider(
+          height: styles.Measurements.l,
+        ),
+        Button(
+            small: true,
+            displayBackground: false,
+            text: 'Ok',
+            handleTap: () {
+              Navigator.of(context).pop();
+            })
+      ],
     );
   }
 }
