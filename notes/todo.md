@@ -1,7 +1,8 @@
 # TODO
 
+- Edit => freeze when long pressing bug.
 - Android not taking release notes =>
-  If successful: skip_upload_metadata: false, try true.
+  If successful: skip_upload_metadata: false, try true. done.
   Also see which .txt it actually takes. (remove default)
 - send version no with feedback
 
@@ -19,7 +20,7 @@
 - Graphs
 - Export data
 - Make videos to explain beginners how to use this app.
-- Check the keyboard and keyboard provider, does it still do it's job?
+- Check the keyboard and keyboard provider, doe\s it still do it's job?
   keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
 ### Medium prio
