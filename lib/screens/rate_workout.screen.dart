@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/rate_workout.vm.dart';
 import 'package:tenso_app/widgets/card.dart';
@@ -55,11 +54,7 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
   }
 
   void _handleCompleteTap() {
-    if (_viewModel.completeWorkout(workout: _workout, history: _history) ==
-        false) {
-      return;
-    }
-    Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
+    _viewModel.completeWorkout(workout: _workout, history: _history);
   }
 
   @override

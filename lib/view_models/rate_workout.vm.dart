@@ -1,23 +1,25 @@
 import 'package:flutter/foundation.dart';
 import 'package:tenso_app/helpers/unique_id.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/services/toast.service.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/services/navigation.service.dart';
+import 'package:tenso_app/services/parser.service.dart';
+import 'package:tenso_app/services/validation.service.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/state/settings.state.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 class RateWorkoutViewModel {
   RateWorkoutViewModel({String comments}) {
+    _navigationService = NavigationService();
     _commentsInput = comments;
     _completedWorkoutsState = CompletedWorkoutsState();
     _tempUnit = SettingsState().settings.tempUnit;
-    _toastService = ToastService();
   }
 
+  NavigationService _navigationService;
   CompletedWorkoutsState _completedWorkoutsState;
   TempUnit _tempUnit;
   TempUnit get tempUnit => _tempUnit;
-  ToastService _toastService;
 
   int _perceivedExertion;
   double _bodyWeight;
@@ -50,107 +52,50 @@ class RateWorkoutViewModel {
     _commentsInput = s;
   }
 
-  bool completeWorkout({@required Workout workout, @required History history}) {
-    if (_validateAll() == false) {
-      return false;
-    } else {
-      _saveCompletedWorkout(workout, history);
-      return true;
-    }
+  Future<bool> completeWorkout(
+      {@required Workout workout, @required History history}) {
+    return Future.sync(() async {
+      final bool _isValid = _validateAll();
+      if (_isValid == true) {
+        _saveCompletedWorkout(workout, history);
+        _navigationService.pushNamed(Routes.workoutOverviewScreen);
+      }
+      return _isValid;
+    });
   }
 
   bool _validateAll() {
-    if (_validateBodyWeight() == false) {
-      return false;
-    }
-    if (_validateTemperature() == false) {
-      return false;
-    }
-    if (_validateHumidity() == false) {
-      return false;
-    }
-    if (_validateComments() == false) {
-      return false;
-    }
-    return true;
-  }
+    final List<bool> _validations = [];
 
-  bool _validateBodyWeight() {
-    // Empty or > 0
-    if (_bodyWeightInput == null || _bodyWeightInput.trim() == '') {
-      _bodyWeight = null;
-      return true;
-    } else {
-      _bodyWeight = _parseStringToDouble(_bodyWeightInput, 'body weight');
-      if (_bodyWeight == null) {
-        return false;
-      }
-      if (_bodyWeight == 0) {
-        _bodyWeight = null;
-        return true;
-      }
-      if (_bodyWeight < 0) {
-        _smallerThanZeroException('body weight');
-        return false;
-      }
-      return true;
+    if (_bodyWeightInput != null && _bodyWeightInput != '') {
+      _bodyWeight = InputParsers.parseToDouble(
+          string: _bodyWeightInput, inputField: 'body weight');
+      _validations.add(Validators.biggerThanZero(
+          value: _bodyWeight, inputField: 'body weight'));
     }
-  }
 
-  bool _validateTemperature() {
-    // Empty or any value
-    if (_temperatureInput == null || _temperatureInput.trim() == '') {
-      _temperature = null;
-      return true;
-    } else {
-      _temperature = _parseStringToDouble(_temperatureInput, 'temperature');
-      if (_temperature == null) {
-        return false;
-      }
-      return true;
+    if (_temperatureInput != null && _temperatureInput != '') {
+      _temperature = InputParsers.parseToDouble(
+          string: _temperatureInput, inputField: 'temperature');
+      _validations.add(Validators.betweenRange<double>(
+          min: -1000,
+          max: 1000,
+          value: _temperature,
+          inputField: 'temperature'));
     }
-  }
 
-  bool _validateHumidity() {
-    // Humidity => 0 - 100  or empty
-    if (_humidityInput == null || _humidityInput.trim() == '') {
-      _humidity = null;
-      return true;
-    } else {
-      _humidity = _parseStringToDouble(_humidityInput, 'humidity');
-      if (_humidity == null) {
-        return false;
-      }
-      if (_humidity < 0) {
-        _smallerThanZeroException('humdity');
-        return false;
-      }
-      if (_humidity > 100) {
-        _largerThanException(100, 'humdity');
-        return false;
-      }
-      return true;
+    if (_humidityInput != null && _humidityInput != '') {
+      _humidity = InputParsers.parseToDouble(
+          string: _humidityInput, inputField: 'humidity');
+      _validations.add(Validators.betweenRange<double>(
+          min: 0, max: 100, value: _humidity, inputField: 'humidity'));
     }
-  }
 
-  bool _validateComments() {
-    if (_commentsInput == null || _commentsInput.trim() == '') {
-      _comments = null;
-      return true;
-    } else {
-      _comments = _commentsInput;
-      return true;
+    if (_commentsInput != null) {
+      _comments = InputParsers.parseString(string: _commentsInput);
     }
-  }
 
-  double _parseStringToDouble(String s, String variable) {
-    double value;
-    try {
-      value = double.parse(s.trim());
-    } on FormatException catch (_) {
-      _formatException(variable);
-    }
-    return value;
+    return _validations.fold(true, (a, b) => a && b);
   }
 
   void _saveCompletedWorkout(Workout workout, History history) {
@@ -167,19 +112,5 @@ class RateWorkoutViewModel {
       ..id = generateUniqueId());
 
     _completedWorkoutsState.addCompletedWorkout(completedWorkout);
-  }
-
-  void _formatException(String variable) {
-    _toastService.add(ToastMessages.inputNotANumber());
-  }
-
-  void _smallerThanZeroException(String inputField) {
-    _toastService
-        .add(ToastMessages.inputSmallerThanZero(inputField: inputField));
-  }
-
-  void _largerThanException(int max, String inputField) {
-    _toastService
-        .add(ToastMessages.inputLargerThan(max: max, inputField: inputField));
   }
 }
