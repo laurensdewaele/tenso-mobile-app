@@ -1,7 +1,7 @@
 # TODO
 
 - Android not taking release notes
-- Add email adress to feedback
+- send version no with feedback
 
 ### Triage
 - Allow ability to add some notes to each group, or name each group. 
