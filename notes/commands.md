@@ -21,6 +21,7 @@ flutter pub run flutter_launcher_icons:main
 
 ## Build android
 ###HAVE YOU CHECK YOU EDITED;??
+- Pubspec version ++
 - Versioning
 - Info page version no.
 - Fastlane android

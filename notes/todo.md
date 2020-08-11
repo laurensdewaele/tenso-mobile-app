@@ -1,6 +1,8 @@
 # TODO
 
-- Android not taking release notes
+- Android not taking release notes =>
+  If successful: skip_upload_metadata: false, try true.
+  Also see which .txt it actually takes. (remove default)
 - send version no with feedback
 
 ### Triage
