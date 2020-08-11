@@ -1,7 +1,6 @@
 # TODO
 
 - Android not taking release notes
-- IOS Fastlane => whatsNew
 
 - Add eva lopez' boards.
 
