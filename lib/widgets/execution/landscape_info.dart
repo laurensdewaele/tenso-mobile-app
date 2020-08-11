@@ -22,27 +22,49 @@ class LandscapeInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String leftGripName;
+    String leftGripDescription = leftGrip?.description;
     String leftHoldInfo;
-    if (leftGrip != null && leftGripBoardHold != null) {
-      leftGripName = leftGrip.description;
-      if (leftGripBoardHold.holdType == HoldType.pocket) {
-        final String depth = leftGripBoardHold.depth.toString();
-        leftHoldInfo = '$depth MM';
-      } else {
-        leftHoldInfo = leftGripBoardHold.holdType.toString();
+    if (leftGripBoardHold != null) {
+      final String holdType = leftGripBoardHold.holdType.toString();
+      leftHoldInfo = holdType;
+
+      if (leftGripBoardHold.holdType == HoldType.pocket ||
+          leftGripBoardHold.holdType == HoldType.edge) {
+        final String depth = leftGripBoardHold.depth?.toString();
+        if (depth != null) {
+          leftHoldInfo = '$holdType $depth MM';
+        }
+      }
+
+      if (leftGripBoardHold.holdType == HoldType.sloper) {
+        final String sloperDegrees =
+            leftGripBoardHold.sloperDegrees?.toString();
+        if (sloperDegrees != null) {
+          leftHoldInfo = '$holdType $sloperDegrees °';
+        }
       }
     }
 
-    String rightGripName;
+    String rightGripDescription = rightGrip?.description;
     String rightHoldInfo;
-    if (rightGrip != null && rightGripBoardHold != null) {
-      rightGripName = rightGrip.description;
-      if (rightGripBoardHold.holdType == HoldType.pocket) {
-        final String depth = rightGripBoardHold.depth.toString();
-        rightHoldInfo = '$depth MM';
-      } else {
-        rightHoldInfo = rightGripBoardHold.holdType.toString();
+    if (rightGripBoardHold != null) {
+      final String holdType = rightGripBoardHold.holdType.toString();
+      rightHoldInfo = holdType;
+
+      if (rightGripBoardHold.holdType == HoldType.pocket ||
+          rightGripBoardHold.holdType == HoldType.edge) {
+        final String depth = rightGripBoardHold.depth?.toString();
+        if (depth != null) {
+          rightHoldInfo = '$holdType $depth MM';
+        }
+      }
+
+      if (rightGripBoardHold.holdType == HoldType.sloper) {
+        final String sloperDegrees =
+            rightGripBoardHold.sloperDegrees?.toString();
+        if (sloperDegrees != null) {
+          rightHoldInfo = '$holdType $sloperDegrees °';
+        }
       }
     }
 
@@ -51,7 +73,7 @@ class LandscapeInfo extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
-            color: styles.Colors.darkGray,
+            color: styles.Colors.darkGrayTranslucent,
             boxShadow: [styles.kBoxShadow]),
         padding: EdgeInsets.symmetric(
             vertical: styles.Measurements.xs,
@@ -62,7 +84,7 @@ class LandscapeInfo extends StatelessWidget {
             Stack(
               fit: StackFit.loose,
               children: <Widget>[
-                if (leftGripName != null && leftHoldInfo != null)
+                if (leftGripDescription != null && leftHoldInfo != null)
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Column(
@@ -71,7 +93,7 @@ class LandscapeInfo extends StatelessWidget {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            leftGripName,
+                            leftGripDescription,
                             style: styles.Staatliches.lWhite,
                             textAlign: TextAlign.left,
                           ),
@@ -97,7 +119,7 @@ class LandscapeInfo extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (rightGripName != null && rightHoldInfo != null)
+                if (rightGripDescription != null && rightHoldInfo != null)
                   Align(
                     alignment: Alignment.centerRight,
                     child: Column(
@@ -106,7 +128,7 @@ class LandscapeInfo extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                            rightGripName,
+                            rightGripDescription,
                             style: styles.Staatliches.lWhite,
                             textAlign: TextAlign.right,
                           ),

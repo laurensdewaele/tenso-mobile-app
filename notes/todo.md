@@ -2,8 +2,6 @@
 
 - Android not taking release notes
 
-- Add eva lopez' boards.
-
 ### Large prio
 
 - Allow ability to add some notes to each group, or name each group. 

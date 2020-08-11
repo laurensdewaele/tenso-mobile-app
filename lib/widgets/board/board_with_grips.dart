@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
@@ -36,12 +38,21 @@ class BoardWithGrips extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
+      final double boardWidth = boardImageAssetWidth;
+      final double boardHeight = boardImageAssetWidth / boardAspectRatio;
+      final double maxWidth = constraints.maxWidth;
+      final double maxHeight = constraints.maxHeight;
+      final double widthRatio = maxWidth / boardWidth;
+      final double heightRatio = maxHeight / boardHeight;
+      final double bestRatio = min(widthRatio, heightRatio);
       final Size _boardSize =
-          Size(constraints.maxWidth, constraints.maxWidth / boardAspectRatio);
+          Size(boardWidth * bestRatio, boardHeight * bestRatio);
+
       final double _gripHeight = _boardSize.height * handToBoardHeightRatio;
       final _boardWithGripsHeight = _boardSize.height + _gripHeight;
 
-      final Widget _content = _BoardWithGrips(
+      final Widget _content = Center(
+          child: _BoardWithGrips(
         clipped: clipped,
         boardImageAssetWidth: boardImageAssetWidth,
         customBoardHoldImages: customBoardHoldImages,
@@ -52,7 +63,7 @@ class BoardWithGrips extends StatelessWidget {
         rightGripBoardHold: rightGripBoardHold,
         rightGrip: rightGrip,
         leftGrip: leftGrip,
-      );
+      ));
 
       if (withFixedHeight == true) {
         return Container(height: _boardWithGripsHeight, child: _content);
