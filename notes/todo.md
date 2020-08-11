@@ -1,18 +1,24 @@
 # TODO
 
 - Android not taking release notes
+- Check , and . on ios. (Norwegian keyboard. App doesn't accept ,?)
+- Add email adress to feedback
 
-### Large prio
+### Triage
 
 - Allow ability to add some notes to each group, or name each group. 
   I like to do some scapula pulls, knee raises and pull ups to warm up. 
   I would love to have the warm up with prompts on here.
 - Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
-- Make videos to explain beginners how to use this app.
+- please make it possible to edit your previous hangs from the calendar :) 
+- Awesome app mate- 
+made me actually get back on the hangboard- 
+but freezes anytime I try to edit a group.
 
+### Large prio
 - Graphs
 - Export data
-
+- Make videos to explain beginners how to use this app.
 - Check the keyboard and keyboard provider, does it still do it's job?
   keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
