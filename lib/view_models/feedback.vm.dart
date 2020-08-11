@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:tenso_app/data/versioning.data.dart';
 import 'package:tenso_app/dto/feedback.dto.dart';
 import 'package:tenso_app/services/parser.service.dart';
 import 'package:tenso_app/services/toast.service.dart';
@@ -61,7 +62,8 @@ class FeedbackViewModel extends ChangeNotifier {
         final Feedback _feedback = Feedback((b) => b
           ..message = _message
           ..type = _type
-          ..email = _email);
+          ..email = _email
+          ..versionNo = latestVersioning.versions[0].no);
         final Response _response = await http.post(
             "https://tenso-server.ue.r.appspot.com/feedback",
             headers: {HttpHeaders.contentTypeHeader: 'application/json'},

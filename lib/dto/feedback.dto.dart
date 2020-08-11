@@ -13,6 +13,7 @@ abstract class Feedback implements Built<Feedback, FeedbackBuilder> {
   String get message;
   @nullable
   String get email;
+  String get versionNo;
 
   factory Feedback([void Function(FeedbackBuilder) updates]) = _$Feedback;
   Feedback._();
