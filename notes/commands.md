@@ -20,6 +20,12 @@ flutter run --release -d ZY323W6WFN
 flutter pub run flutter_launcher_icons:main
 
 ## Build android
+###HAVE YOU CHECK YOU EDITED;??
+- Versioning
+- Info page version no.
+- Fastlane android
+- Fastlane IOS
+
 ./build_android.sh
 
 ## Build ios
