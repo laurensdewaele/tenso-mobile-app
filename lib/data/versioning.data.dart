@@ -4,7 +4,7 @@ final List<Version> versions = [
   Version((b) => b
     ..no = '1.0.14'
     ..changelog =
-        'Added the transgression hangboard.\n\nFixed bug on ios where comma input on numbers would not be valid.\n\nAdded e-mail address option on the feedback section, so we can get back to you.'
+        'Added the transgression hangboard.\n\nAdded e-mail address option on the feedback section, so we can get back to you.\n\nFixed bug on ios where comma input on numbers would not be accepted.'
     ..date = DateTime(2020, 8, 11).toUtc()),
   Version((b) => b
     ..no = '1.0.13'
