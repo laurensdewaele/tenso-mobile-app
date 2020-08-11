@@ -3,6 +3,7 @@
 - Android not taking release notes
 - Check , and . on ios. (Norwegian keyboard. App doesn't accept ,?)
 - Add email adress to feedback
+- Metrics conversion.
 
 ### Triage
 

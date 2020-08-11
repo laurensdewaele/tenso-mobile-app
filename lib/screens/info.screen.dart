@@ -240,6 +240,20 @@ class InfoScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                    ExpandedSection(
+                      title: 'Version',
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Text(
+                              '1.0.14',
+                              textAlign: TextAlign.start,
+                              style: styles.Lato.xsBlack,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
