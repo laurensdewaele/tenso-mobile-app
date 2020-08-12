@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/data/versioning.data.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/card.dart';
@@ -246,7 +247,7 @@ class InfoScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '1.0.14',
+                              latestVersioning.versions[0].no,
                               textAlign: TextAlign.start,
                               style: styles.Lato.xsBlack,
                             ),

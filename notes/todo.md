@@ -1,9 +1,6 @@
 # TODO
-- Edit => freeze when long pressing bug.
-- Tension grindstone
-- Android not taking release notes =>
-  If successful: skip_upload_metadata: false, try true. done.
-  Also see which .txt it actually takes. (remove default)
+- boards
+- backend + webapp
 
 ### Triage
 - Allow ability to add some notes to each group, or name each group. 

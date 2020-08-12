@@ -23,7 +23,6 @@ flutter pub run flutter_launcher_icons:main
 ###HAVE YOU CHECK YOU EDITED;??
 - Pubspec version ++
 - Versioning
-- Info page version no.
 - Fastlane android
 - Fastlane IOS
 

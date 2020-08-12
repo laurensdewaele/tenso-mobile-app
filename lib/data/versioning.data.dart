@@ -2,6 +2,11 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> versions = [
   Version((b) => b
+    ..no = '1.0.15'
+    ..changelog =
+        'Added the Grindstone Mk2 from Tension Climbing.\n\nFixed a bug where a climber would become stuck in the app whilst trying to edit a group.'
+    ..date = DateTime(2020, 8, 12).toUtc()),
+  Version((b) => b
     ..no = '1.0.14'
     ..changelog =
         'Added the transgression hangboard.\n\nAdded e-mail address option on the feedback section, so we can get back to you.\n\nFixed bug on ios where comma input on numbers would not be accepted.'

@@ -1,2 +1,0 @@
-As per u/sb52191's request, the timer keeps running in the background when pausing the screen (only on rest periods).
-Added the ability to write comments during the workout.

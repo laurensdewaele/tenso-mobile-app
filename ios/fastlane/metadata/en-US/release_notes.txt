@@ -1,3 +1,2 @@
-Added the transgression hangboard.
-Fixed bug on ios where comma input on numbers would not be valid.
-Added e-mail address option on the feedback section, so we can get back to you.
+Added the Grindstone Mk2 from Tension Climbing.
+Fixed a bug where a climber would become stuck in the app whilst trying to edit a group.

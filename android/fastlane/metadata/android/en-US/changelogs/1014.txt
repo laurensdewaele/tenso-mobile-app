@@ -1,3 +1,0 @@
-Added the transgression hangboard.
-Fixed bug on ios where comma input on numbers would not be valid.
-Added e-mail address option on the feedback section, so we can get back to you.
