@@ -33,9 +33,17 @@ class GroupOverview extends StatelessWidget {
         context: context,
         content: _EditDeleteDialog(
           title: 'group ${index + 1}/${groups.length}',
-          handleBackTap: () => Navigator.of(context).pop(),
-          handleEditTap: () => handleEditGroup(index),
-          handleDeleteTap: () => handleDeleteGroup(index),
+          handleBackTap: () {
+            Navigator.of(context).pop();
+          },
+          handleEditTap: () {
+            Navigator.of(context).pop();
+            handleEditGroup(index);
+          },
+          handleDeleteTap: () {
+            Navigator.of(context).pop();
+            handleDeleteGroup(index);
+          },
         ),
         smallWidth: null);
   }
