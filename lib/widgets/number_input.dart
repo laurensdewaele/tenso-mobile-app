@@ -89,7 +89,7 @@ class _NumberInputState extends State<NumberInput> {
               borderRadius: styles.kBorderRadiusAll),
           focusNode: _focusNode,
           keyboardType: _isDouble
-              ? TextInputType.numberWithOptions(decimal: true)
+              ? TextInputType.numberWithOptions(decimal: true, signed: true)
               : TextInputType.number,
           maxLength: _isDouble ? 6 : 3,
           onTap: _onTap,
