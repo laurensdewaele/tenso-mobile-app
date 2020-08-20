@@ -1,6 +1,6 @@
+import 'package:rxdart/rxdart.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/persistence.service.dart';
-import 'package:rxdart/rxdart.dart';
 
 class CompletedWorkoutsState {
   CompletedWorkoutsState._();
@@ -46,6 +46,15 @@ class CompletedWorkoutsState {
       ..addAll(completedWorkoutList)
       ..add(completedWorkout);
 
+    _setAndSaveCompletedWorkoutList(_newCompletedWorkoutList);
+  }
+
+  void editCompletedWorkout(CompletedWorkout editedCompletedWorkout) {
+    final List<CompletedWorkout> _newCompletedWorkoutList = []
+      ..addAll(completedWorkoutList);
+    _newCompletedWorkoutList
+        .removeWhere((c) => c.id == editedCompletedWorkout.id);
+    _newCompletedWorkoutList.add(editedCompletedWorkout);
     _setAndSaveCompletedWorkoutList(_newCompletedWorkoutList);
   }
 

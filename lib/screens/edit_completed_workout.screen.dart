@@ -4,6 +4,7 @@ import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/edit_completed_workout.vm.dart';
 import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/rate_workout/rate_workout_content.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/top_navigation.dart';
@@ -53,60 +54,62 @@ class _EditCompletedWorkoutScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-        handleBackNavigation: () {
-          Navigator.of(context).pop();
-        },
-        child: ListView(physics: ClampingScrollPhysics(), children: [
-          Column(
-            children: <Widget>[
-              TopNavigation(
-                title: 'edit completed workout',
-              ),
-              Divider(height: styles.Measurements.xxl),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: styles.Measurements.m,
-                      right: styles.Measurements.m,
-                      top: 0,
-                      bottom: styles.Measurements.l,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RateWorkoutContent(
-                          editing: true,
-                          handleBodyWeightChanged:
-                              _viewModel.handleBodyWeightChanged,
-                          handleCommentsChanged:
-                              _viewModel.handleCommentsChanged,
-                          handleCompleteTap: _viewModel.handleCompleteTap,
-                          handleHumidityChanged:
-                              _viewModel.handleHumidityChanged,
-                          handlePerceivedExertionChanged:
-                              _viewModel.handlePerceivedExertionChanged,
-                          handleTemperatureChanged:
-                              _viewModel.handleTemperatureChanged,
-                          initialComments: _viewModel.state.comments,
-                          initialPerceivedExertion:
-                              _viewModel.state.perceivedExertion,
-                          initialTemperature: _viewModel.state.temperature,
-                          initialHumidity: _viewModel.state.humidity,
-                          initialBodyWeight: _viewModel.state.bodyWeight,
-                          tempUnit: _viewModel.state.tempUnit,
-                        )
-                      ],
+    return KeyboardAndToastProvider(
+      child: Screen(
+          handleBackNavigation: () {
+            Navigator.of(context).pop();
+          },
+          child: ListView(physics: ClampingScrollPhysics(), children: [
+            Column(
+              children: <Widget>[
+                TopNavigation(
+                  title: 'edit completed workout',
+                ),
+                Divider(height: styles.Measurements.xxl),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: styles.Measurements.m,
+                        right: styles.Measurements.m,
+                        top: 0,
+                        bottom: styles.Measurements.l,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RateWorkoutContent(
+                            editing: true,
+                            handleBodyWeightChanged:
+                                _viewModel.handleBodyWeightChanged,
+                            handleCommentsChanged:
+                                _viewModel.handleCommentsChanged,
+                            handleCompleteTap: _viewModel.handleCompleteTap,
+                            handleHumidityChanged:
+                                _viewModel.handleHumidityChanged,
+                            handlePerceivedExertionChanged:
+                                _viewModel.handlePerceivedExertionChanged,
+                            handleTemperatureChanged:
+                                _viewModel.handleTemperatureChanged,
+                            initialComments: _viewModel.state.comments,
+                            initialPerceivedExertion:
+                                _viewModel.state.perceivedExertion,
+                            initialTemperature: _viewModel.state.temperature,
+                            initialHumidity: _viewModel.state.humidity,
+                            initialBodyWeight: _viewModel.state.bodyWeight,
+                            tempUnit: _viewModel.state.tempUnit,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Divider(height: styles.Measurements.xxl)
-            ],
-          )
-        ]));
+                Divider(height: styles.Measurements.xxl)
+              ],
+            )
+          ])),
+    );
   }
 }

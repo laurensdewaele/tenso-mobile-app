@@ -72,6 +72,8 @@ class RateWorkoutViewModel {
           string: _bodyWeightInput, inputField: 'body weight');
       _validations.add(Validators.biggerThanZero(
           value: _bodyWeight, inputField: 'body weight'));
+    } else {
+      _bodyWeight = null;
     }
 
     if (_temperatureInput != null && _temperatureInput != '') {
@@ -82,6 +84,8 @@ class RateWorkoutViewModel {
           max: 1000,
           value: _temperature,
           inputField: 'temperature'));
+    } else {
+      _temperature = null;
     }
 
     if (_humidityInput != null && _humidityInput != '') {
@@ -89,10 +93,14 @@ class RateWorkoutViewModel {
           string: _humidityInput, inputField: 'humidity');
       _validations.add(Validators.betweenRange<double>(
           min: 0, max: 100, value: _humidity, inputField: 'humidity'));
+    } else {
+      _humidity = null;
     }
 
-    if (_commentsInput != null) {
+    if (_commentsInput != null && _commentsInput != '') {
       _comments = InputParsers.parseString(string: _commentsInput);
+    } else {
+      _comments = null;
     }
 
     return _validations.fold(true, (a, b) => a && b);

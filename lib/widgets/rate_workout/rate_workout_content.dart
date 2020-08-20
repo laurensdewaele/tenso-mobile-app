@@ -210,11 +210,13 @@ class _CupertinoPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int _initialItem =
+        initialPerceivedExertion == null ? 10 : initialPerceivedExertion - 1;
     return Container(
       height: 150,
       child: CupertinoPicker(
-        scrollController: FixedExtentScrollController(
-            initialItem: initialPerceivedExertion ?? 10),
+        scrollController:
+            FixedExtentScrollController(initialItem: _initialItem),
         useMagnifier: true,
         magnification: 1,
         backgroundColor: styles.Colors.bgWhite,

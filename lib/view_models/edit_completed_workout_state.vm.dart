@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
 
 class EditCompletedWorkoutViewModelState {
@@ -27,14 +28,14 @@ class EditCompletedWorkoutViewModelState {
   });
 
   EditCompletedWorkoutViewModelState copyWith({
-    String comments,
+    Nullable<String> comments,
     String commentsInput,
-    double humidity,
+    Nullable<double> humidity,
     String humidityInput,
     TempUnit tempUnit,
-    double temperature,
+    Nullable<double> temperature,
     String temperatureInput,
-    double bodyWeight,
+    Nullable<double> bodyWeight,
     String bodyWeightInput,
     int perceivedExertion,
   }) {
@@ -57,14 +58,14 @@ class EditCompletedWorkoutViewModelState {
     }
 
     return new EditCompletedWorkoutViewModelState(
-      comments: comments ?? this.comments,
+      comments: comments == null ? this.comments : comments.value,
       commentsInput: commentsInput ?? this.commentsInput,
-      humidity: humidity ?? this.humidity,
+      humidity: humidity == null ? this.humidity : humidity.value,
       humidityInput: humidityInput ?? this.humidityInput,
       tempUnit: tempUnit ?? this.tempUnit,
-      temperature: temperature ?? this.temperature,
+      temperature: temperature == null ? this.temperature : temperature.value,
       temperatureInput: temperatureInput ?? this.temperatureInput,
-      bodyWeight: bodyWeight ?? this.bodyWeight,
+      bodyWeight: bodyWeight == null ? this.bodyWeight : bodyWeight.value,
       bodyWeightInput: bodyWeightInput ?? this.bodyWeightInput,
       perceivedExertion: perceivedExertion ?? this.perceivedExertion,
     );

@@ -1,24 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/completed_workout.model.dart';
-import 'package:tenso_app/routes/routes.dart';
-import 'package:tenso_app/screens/edit_completed_workout.screen.dart';
-import 'package:tenso_app/state/completed_workouts.state.dart';
-import 'package:tenso_app/state/workouts.state.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/completed_workout/logs_overview.dart';
 import 'package:tenso_app/widgets/completed_workout/stats.dart';
-import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/icon_button.dart';
-import 'package:tenso_app/widgets/icons.dart' as icons;
 import 'package:tenso_app/widgets/keyboard_list_view.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/section.dart';
 import 'package:tenso_app/widgets/top_navigation.dart';
-import 'package:tenso_app/widgets/workout_overview/workout_long_press_dialog.dart';
 
 class CompletedWorkoutScreenArguments {
   final CompletedWorkout completedWorkout;
@@ -37,8 +28,6 @@ class CompletedWorkoutScreen extends StatefulWidget {
 
 class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
   CompletedWorkout _completedWorkout;
-  CompletedWorkoutsState _completedWorkoutsState;
-  WorkoutsState _workoutsState;
 
   @override
   void didChangeDependencies() {
@@ -52,8 +41,6 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
 
   @override
   void initState() {
-    _completedWorkoutsState = CompletedWorkoutsState();
-    _workoutsState = WorkoutsState();
     super.initState();
   }
 
@@ -64,35 +51,6 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
 
   void _handleBackNavigation() {
     Navigator.of(context).pop();
-  }
-
-  void _handleDeleteTap() {
-    _completedWorkoutsState.deleteCompletedWorkout(_completedWorkout);
-    Navigator.of(context).pop();
-  }
-
-  void _handleEditTap() {
-    Navigator.of(context).pushNamed(Routes.editCompletedWorkoutScreen,
-        arguments: EditCompletedWorkoutScreenArguments(
-          completedWorkout: _completedWorkout,
-        ));
-  }
-
-  void _handleCopyTap() {
-    _workoutsState.copyWorkout(_completedWorkout.workout);
-    Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
-  }
-
-  void _launchActions() async {
-    await showAppDialog(
-        smallWidth: true,
-        context: context,
-        content: WorkoutLongPressDialog(
-          name: _completedWorkout.workout.name,
-          handleDeleteTap: () => _handleDeleteTap(),
-          handleEditTap: () => _handleEditTap(),
-          handleCopyTap: () => _handleCopyTap(),
-        ));
   }
 
   @override
@@ -133,8 +91,7 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                           )
                         ],
                       ),
-                      if (_completedWorkout.comments != null &&
-                          _completedWorkout.comments != '')
+                      if (_completedWorkout.comments != null)
                         Section(
                           title: 'comments',
                           children: <Widget>[
@@ -159,29 +116,6 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                                   .toList(),
                             )
                           ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'actions',
-                            style: styles.Staatliches.xlBlack,
-                          ),
-                          IconButton(
-                              handleTap: _launchActions,
-                              icon: icons.downCaretBlack)
-                        ],
-                      ),
-                      Divider(
-                        height: styles.Measurements.l,
-                      ),
-                      Center(
-                        child: Button(
-                          backgroundColor: styles.Colors.gray,
-                          text: 'back',
-                          handleTap: () {
-                            Navigator.of(context).pop();
-                          },
                         ),
                       ),
                     ],
