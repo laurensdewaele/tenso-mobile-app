@@ -41,7 +41,6 @@
 - Add info button on most elements.
 - Have an 'on the fly workout'?
 - Scale pull measurements (Jan)? 
-- background color on edit and create, not red?
 - Custom boards in horizontal scroll view.
 - Audioplayer service play sound takes a while when not already initted;
 - Adjust sounds of countdown / female/male voice that counts down.
