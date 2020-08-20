@@ -1,9 +1,11 @@
 # TODO
 
+- Edit completed workout
 - Add edge to top row
 - New users popup to info section.
 - Auto save whilst editing a workout?
 - Show a more detailed changelog
+- Info button default board
 - boards
 - backend + webapp
 
