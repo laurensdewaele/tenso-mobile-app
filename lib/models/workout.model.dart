@@ -42,6 +42,10 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   int _calculateTotalRestTime() {
     bool _canBeMeasured = true;
 
+    if (restBetweenGroupsFixed != true && groups.length > 1) {
+      _canBeMeasured = false;
+    }
+
     groups.forEach((Group group) {
       if (group.restBetweenRepsFixed == false) {
         _canBeMeasured = false;
