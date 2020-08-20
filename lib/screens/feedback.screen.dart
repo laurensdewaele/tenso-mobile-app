@@ -158,7 +158,9 @@ class EmailInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-            'You may wish to leave your e-mail address, so we can reply to your feedback.'),
+          'You may wish to leave your e-mail address, so we can reply to your feedback.',
+          style: styles.Lato.xsBlack,
+        ),
         Divider(
           height: styles.Measurements.l,
         ),
