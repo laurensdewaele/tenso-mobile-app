@@ -136,7 +136,8 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                           )
                         ],
                       ),
-                      if (_completedWorkout.comments != null)
+                      if (_completedWorkout.comments != null &&
+                          _completedWorkout.comments != '')
                         Section(
                           title: 'comments',
                           children: <Widget>[

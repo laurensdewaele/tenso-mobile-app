@@ -16,11 +16,6 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios beta
-```
-fastlane ios beta
-```
-Push a new beta build to TestFlight
 ### ios release
 ```
 fastlane ios release
