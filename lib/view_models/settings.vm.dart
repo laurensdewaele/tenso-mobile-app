@@ -2,16 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/services/keyboard.service.dart';
+import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/services/parser.service.dart';
 import 'package:tenso_app/services/validation.service.dart';
 import 'package:tenso_app/state/settings.state.dart';
 
 class SettingsViewModel extends ChangeNotifier {
+  KeyboardService _keyboardService;
   SettingsState _settingsState;
   Settings _settings;
   StreamSubscription _sub;
+  NavigationService _navigationService;
 
   SettingsViewModel() {
+    _keyboardService = KeyboardService();
+    _navigationService = NavigationService();
     _settingsState = SettingsState();
     _settings = _settingsState.settings;
     _update(_settings);
@@ -45,12 +52,33 @@ class SettingsViewModel extends ChangeNotifier {
     _preparationTimerInput = s;
   }
 
-  Future<bool> canNavigate() {
+  void handleBackNavigation() async {
+    if (await _canNavigate() == true) {
+      _navigationService.pushNamed(Routes.workoutOverviewScreen);
+    }
+  }
+
+  void handleSoundNavigation() async {
+    if (await _canNavigate() == true) {
+      _navigationService.pushNamed(Routes.soundSettingsScreen);
+    }
+  }
+
+  void handleBoardNavigation() async {
+    if (await _canNavigate() == true) {
+      _navigationService.pushNamed(Routes.boardSettingsScreen);
+    }
+  }
+
+  Future<bool> _canNavigate() {
     // See https://dart.dev/guides/libraries/futures-error-handling#potential-problem-accidentally-mixing-synchronous-and-asynchronous-errors
     return Future.sync(_validateAndSet);
   }
 
   bool _validateAndSet() {
+    // This makes sure the input is not focused when returning from another screen.
+    _keyboardService.handleScreenTap();
+
     _preparationTimer = InputParsers.parseToInt(
         string: _preparationTimerInput, inputField: 'Preparation timer');
 

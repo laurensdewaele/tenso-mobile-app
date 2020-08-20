@@ -14,7 +14,7 @@ import 'package:tenso_app/view_models/workout/group.vm.dart';
 import 'package:tenso_app/view_models/workout/workout_state.vm.dart';
 import 'package:tenso_app/widgets/toast_message.dart';
 
-enum WorkoutActions { newWorkout, editWorkout, viewWorkout }
+enum WorkoutActions { newWorkout, editWorkout }
 
 class WorkoutViewModel extends ChangeNotifier {
   Workout _workout;
@@ -48,10 +48,6 @@ class WorkoutViewModel extends ChangeNotifier {
       case WorkoutActions.editWorkout:
         _initialState =
             WorkoutViewModelState.editWorkout(workout, _weightSystem);
-        break;
-      case WorkoutActions.viewWorkout:
-        _initialState =
-            WorkoutViewModelState.viewWorkout(workout, workout.weightSystem);
         break;
     }
     _state = _initialState;
@@ -104,6 +100,14 @@ class WorkoutViewModel extends ChangeNotifier {
       _newGroups[editGroupIndex] = _newGroup;
       _state = state.copyWith(groups: _newGroups);
       notifyListeners();
+    }
+  }
+
+  void handleBackNavigation() {
+    if (_workoutAction == WorkoutActions.editWorkout) {
+      handleSaveTap();
+    } else {
+      _navigationService.pop();
     }
   }
 
@@ -169,8 +173,6 @@ class WorkoutViewModel extends ChangeNotifier {
         break;
       case WorkoutActions.editWorkout:
         _workoutsState.editWorkout(_newWorkout);
-        break;
-      case WorkoutActions.viewWorkout:
         break;
     }
   }

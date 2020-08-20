@@ -36,6 +36,14 @@ class GroupViewModel extends ChangeNotifier {
     _state = _initialState;
   }
 
+  void handleBackNavigation() {
+    if (state.groupAction == GroupActions.editGroup) {
+      addGroup();
+    } else {
+      _navigationService.pop();
+    }
+  }
+
   Future<bool> addGroup() {
     return Future.sync(() {
       final _isValid = _validate();

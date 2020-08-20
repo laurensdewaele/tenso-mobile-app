@@ -75,291 +75,198 @@ class _GroupScreenState extends State<GroupScreen> {
   @override
   Widget build(BuildContext context) {
     return KeyboardAndToastProvider(
-      child: Screen(
-          handleBackNavigation: () => Navigator.of(context).pop(),
-          child: KeyboardListView(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  TopNavigation(
-                    title: _viewModel.state.title,
-                  ),
-                  Divider(height: styles.Measurements.xxl),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: styles.Measurements.xs),
-                    child: Card(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: styles.Measurements.m,
-                                top: styles.Measurements.s,
-                                right: styles.Measurements.m,
-                                bottom: styles.Measurements.l),
-                            child: Column(
+      child: WillPopScope(
+        onWillPop: () async {
+          _viewModel.handleBackNavigation();
+          return false;
+        },
+        child: Screen(
+            handleBackNavigation: _viewModel.handleBackNavigation,
+            child: KeyboardListView(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    TopNavigation(
+                      title: _viewModel.state.title,
+                    ),
+                    Divider(height: styles.Measurements.xxl),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: styles.Measurements.xs),
+                      child: Card(
+                          child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                ExpandedSection(
-                                  title: 'Board',
-                                  children: <Widget>[
-                                    BoardPicker(
-                                      primaryColor: styles.Colors.primary,
-                                      selectedBoard: _viewModel.state.board,
-                                      handleBoardChanged: _viewModel.setBoard,
-                                      boards: _viewModel.state.boards,
-                                    ),
-                                    Divider(
-                                      height: styles.Measurements.xxl,
-                                    )
-                                  ],
-                                ),
-                                if (_viewModel.state.inputsEnabled == true)
-                                  Column(
+                              children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: styles.Measurements.m,
+                                  top: styles.Measurements.s,
+                                  right: styles.Measurements.m,
+                                  bottom: styles.Measurements.l),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  ExpandedSection(
+                                    title: 'Board',
                                     children: <Widget>[
-                                      Section(
-                                        title: 'Grips',
-                                        children: <Widget>[
-                                          GripPickerContainer(
-                                            textPrimaryColor: _viewModel
-                                                .state.textPrimaryColor,
-                                            primaryColor:
-                                                _viewModel.state.primaryColor,
-                                            handleLeftHandSelected: _viewModel
-                                                .handleLeftHandSelected,
-                                            handleRightHandSelected: _viewModel
-                                                .handleRightHandSelected,
-                                            handleOneHandedTap:
-                                                _viewModel.handleOneHandedTap,
-                                            handleTwoHandedTap:
-                                                _viewModel.handleTwoHandedTap,
-                                            rightGrip:
-                                                _viewModel.state.rightGrip,
-                                            leftGrip: _viewModel.state.leftGrip,
-                                            handleRightGripSelected: _viewModel
-                                                .handleRightGripSelected,
-                                            handleLeftGripSelected: _viewModel
-                                                .handleLeftGripSelected,
-                                            handHold: _viewModel.state.handHold,
-                                          )
-                                        ],
+                                      BoardPicker(
+                                        primaryColor: styles.Colors.primary,
+                                        selectedBoard: _viewModel.state.board,
+                                        handleBoardChanged: _viewModel.setBoard,
+                                        boards: _viewModel.state.boards,
                                       ),
-                                      Section(
-                                        title: 'Holds',
-                                        children: <Widget>[
-                                          BoardHoldPicker(
-                                            handToBoardHeightRatio: _viewModel
-                                                .state
-                                                .board
-                                                .handToBoardHeightRatio,
-                                            boardAspectRatio: _viewModel
-                                                .state.board.aspectRatio,
-                                            boardHolds: _viewModel
-                                                .state.board.boardHolds
-                                                .toList(),
-                                            customBoardHoldImages: _viewModel
-                                                .state
-                                                .board
-                                                .customBoardHoldImages
-                                                ?.toList(),
-                                            boardImageAsset: _viewModel
-                                                .state.board.imageAsset,
-                                            boardImageAssetWidth: _viewModel
-                                                .state.board.imageAssetWidth,
-                                            leftGrip: _viewModel.state.leftGrip,
-                                            rightGrip:
-                                                _viewModel.state.rightGrip,
-                                            leftGripBoardHold: _viewModel
-                                                .state.leftGripBoardHold,
-                                            rightGripBoardHold: _viewModel
-                                                .state.rightGripBoardHold,
-                                            handleLeftGripBoardHoldChanged:
-                                                _viewModel.setLeftGripBoardHold,
-                                            handleRightGripBoardHoldChanged:
-                                                _viewModel
-                                                    .setRightGripBoardHold,
-                                          ),
-                                          BoardHoldInfo(
-                                            leftGripBoardHold: _viewModel
-                                                .state.leftGripBoardHold,
-                                            rightGripBoardHold: _viewModel
-                                                .state.rightGripBoardHold,
-                                            leftGrip: _viewModel.state.leftGrip,
-                                            rightGrip:
-                                                _viewModel.state.rightGrip,
-                                          )
-                                        ],
-                                      ),
+                                      Divider(
+                                        height: styles.Measurements.xxl,
+                                      )
                                     ],
                                   ),
-                                if (_viewModel.state.inputsEnabled != true)
-                                  SelectedGripsAndHolds(
-                                    board: _viewModel.state.board,
-                                    leftGrip: _viewModel.state.leftGrip,
-                                    leftGripBoardHold:
-                                        _viewModel.state.leftGripBoardHold,
-                                    rightGrip: _viewModel.state.rightGrip,
-                                    rightGripBoardHold:
-                                        _viewModel.state.rightGripBoardHold,
-                                  ),
-                                Section(
-                                  title: 'basics',
-                                  nextSectionHasInfoIcon: true,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                  if (_viewModel.state.inputsEnabled == true)
+                                    Column(
                                       children: <Widget>[
-                                        Text('Repeaters',
-                                            style: styles.Lato.xsGray),
-                                        CupertinoSwitch(
-                                          onChanged: _viewModel.toggleRepeaters,
-                                          value: _viewModel.state.repeaters,
-                                          activeColor:
-                                              _viewModel.state.primaryColor,
-                                          trackColor: styles.Colors.lightGray,
-                                        )
-                                      ],
-                                    ),
-                                    Divider(
-                                      height: styles.Measurements.m,
-                                    ),
-                                    NumberInputAndDescription<int>(
-                                      enabled: _viewModel.state.inputsEnabled,
-                                      primaryColor:
-                                          _viewModel.state.primaryColor,
-                                      description: 'repetitions',
-                                      handleValueChanged: _viewModel.setReps,
-                                      initialValue: _viewModel.state.reps,
-                                    ),
-                                    Divider(
-                                      height: styles.Measurements.m,
-                                    ),
-                                    NumberInputAndDescription<int>(
-                                      enabled: _viewModel.state.inputsEnabled,
-                                      primaryColor:
-                                          _viewModel.state.primaryColor,
-                                      description: 'hang time seconds',
-                                      handleValueChanged:
-                                          _viewModel.setHangTimeS,
-                                      initialValue: _viewModel.state.hangTimeS,
-                                    ),
-                                    if (_viewModel.state.repeaters == true)
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Divider(
-                                            height: styles.Measurements.m,
-                                          ),
-                                          NumberInputAndDescription<int>(
-                                            enabled:
-                                                _viewModel.state.inputsEnabled,
-                                            primaryColor:
-                                                _viewModel.state.primaryColor,
-                                            description:
-                                                'rest seconds between repetitions',
-                                            handleValueChanged:
-                                                _viewModel.setRestBetweenRepsS,
-                                            initialValue: _viewModel
-                                                .state.restBetweenRepsS,
-                                          ),
-                                          Divider(
-                                            height: styles.Measurements.m,
-                                          ),
-                                          NumberInputAndDescription<int>(
-                                            enabled:
-                                                _viewModel.state.inputsEnabled,
-                                            primaryColor:
-                                                _viewModel.state.primaryColor,
-                                            description: 'sets',
-                                            handleValueChanged:
-                                                _viewModel.setSets,
-                                            initialValue: _viewModel.state.sets,
-                                          ),
-                                        ],
-                                      )
-                                  ],
-                                ),
-                                if (_viewModel.state.repeaters == true)
-                                  SectionWithInfoIcon(
-                                    appDialogContent: FixedVariableTimerInfo(),
-                                    title: 'Set rest',
-                                    children: <Widget>[
-                                      Tabs(
-                                        leftText: 'Variable',
-                                        rightText: 'Fixed',
-                                        handleLeftTap: _viewModel
-                                            .setRestBetweenSetsVariable,
-                                        handleRightTap:
-                                            _viewModel.setRestBetweenSetsFixed,
-                                        isLeftSelected: _viewModel
-                                                .state.restBetweenSetsFixed ==
-                                            false,
-                                        isRightSelected: _viewModel
-                                                .state.restBetweenSetsFixed ==
-                                            true,
-                                        primaryColor:
-                                            _viewModel.state.primaryColor,
-                                        textPrimaryColor:
-                                            _viewModel.state.textPrimaryColor,
-                                      ),
-                                      if (_viewModel
-                                              .state.restBetweenSetsFixed ==
-                                          true)
-                                        Column(
+                                        Section(
+                                          title: 'Grips',
                                           children: <Widget>[
-                                            Divider(
-                                              height: styles.Measurements.m,
-                                            ),
-                                            NumberInputAndDescription<int>(
-                                              enabled: _viewModel
-                                                  .state.inputsEnabled,
+                                            GripPickerContainer(
+                                              textPrimaryColor: _viewModel
+                                                  .state.textPrimaryColor,
                                               primaryColor:
                                                   _viewModel.state.primaryColor,
-                                              description:
-                                                  'rest seconds between sets',
-                                              handleValueChanged: _viewModel
-                                                  .setRestBetweenSetsS,
-                                              initialValue: _viewModel
-                                                  .state.restBetweenSetsS,
-                                            ),
+                                              handleLeftHandSelected: _viewModel
+                                                  .handleLeftHandSelected,
+                                              handleRightHandSelected:
+                                                  _viewModel
+                                                      .handleRightHandSelected,
+                                              handleOneHandedTap:
+                                                  _viewModel.handleOneHandedTap,
+                                              handleTwoHandedTap:
+                                                  _viewModel.handleTwoHandedTap,
+                                              rightGrip:
+                                                  _viewModel.state.rightGrip,
+                                              leftGrip:
+                                                  _viewModel.state.leftGrip,
+                                              handleRightGripSelected:
+                                                  _viewModel
+                                                      .handleRightGripSelected,
+                                              handleLeftGripSelected: _viewModel
+                                                  .handleLeftGripSelected,
+                                              handHold:
+                                                  _viewModel.state.handHold,
+                                            )
                                           ],
-                                        )
-                                    ],
-                                  ),
-                                if (_viewModel.state.repeaters == false)
-                                  SectionWithInfoIcon(
-                                    appDialogContent: FixedVariableTimerInfo(),
-                                    title: 'Rep rest',
+                                        ),
+                                        Section(
+                                          title: 'Holds',
+                                          children: <Widget>[
+                                            BoardHoldPicker(
+                                              handToBoardHeightRatio: _viewModel
+                                                  .state
+                                                  .board
+                                                  .handToBoardHeightRatio,
+                                              boardAspectRatio: _viewModel
+                                                  .state.board.aspectRatio,
+                                              boardHolds: _viewModel
+                                                  .state.board.boardHolds
+                                                  .toList(),
+                                              customBoardHoldImages: _viewModel
+                                                  .state
+                                                  .board
+                                                  .customBoardHoldImages
+                                                  ?.toList(),
+                                              boardImageAsset: _viewModel
+                                                  .state.board.imageAsset,
+                                              boardImageAssetWidth: _viewModel
+                                                  .state.board.imageAssetWidth,
+                                              leftGrip:
+                                                  _viewModel.state.leftGrip,
+                                              rightGrip:
+                                                  _viewModel.state.rightGrip,
+                                              leftGripBoardHold: _viewModel
+                                                  .state.leftGripBoardHold,
+                                              rightGripBoardHold: _viewModel
+                                                  .state.rightGripBoardHold,
+                                              handleLeftGripBoardHoldChanged:
+                                                  _viewModel
+                                                      .setLeftGripBoardHold,
+                                              handleRightGripBoardHoldChanged:
+                                                  _viewModel
+                                                      .setRightGripBoardHold,
+                                            ),
+                                            BoardHoldInfo(
+                                              leftGripBoardHold: _viewModel
+                                                  .state.leftGripBoardHold,
+                                              rightGripBoardHold: _viewModel
+                                                  .state.rightGripBoardHold,
+                                              leftGrip:
+                                                  _viewModel.state.leftGrip,
+                                              rightGrip:
+                                                  _viewModel.state.rightGrip,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  if (_viewModel.state.inputsEnabled != true)
+                                    SelectedGripsAndHolds(
+                                      board: _viewModel.state.board,
+                                      leftGrip: _viewModel.state.leftGrip,
+                                      leftGripBoardHold:
+                                          _viewModel.state.leftGripBoardHold,
+                                      rightGrip: _viewModel.state.rightGrip,
+                                      rightGripBoardHold:
+                                          _viewModel.state.rightGripBoardHold,
+                                    ),
+                                  Section(
+                                    title: 'basics',
+                                    nextSectionHasInfoIcon: true,
                                     children: <Widget>[
-                                      Tabs(
-                                        leftText: 'Variable',
-                                        rightText: 'Fixed',
-                                        handleLeftTap: _viewModel
-                                            .setRestBetweenRepsVariable,
-                                        handleRightTap:
-                                            _viewModel.setRestBetweenRepsFixed,
-                                        isLeftSelected: _viewModel
-                                                .state.restBetweenRepsFixed ==
-                                            false,
-                                        isRightSelected: _viewModel
-                                                .state.restBetweenRepsFixed ==
-                                            true,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text('Repeaters',
+                                              style: styles.Lato.xsGray),
+                                          CupertinoSwitch(
+                                            onChanged:
+                                                _viewModel.toggleRepeaters,
+                                            value: _viewModel.state.repeaters,
+                                            activeColor:
+                                                _viewModel.state.primaryColor,
+                                            trackColor: styles.Colors.lightGray,
+                                          )
+                                        ],
+                                      ),
+                                      Divider(
+                                        height: styles.Measurements.m,
+                                      ),
+                                      NumberInputAndDescription<int>(
+                                        enabled: _viewModel.state.inputsEnabled,
                                         primaryColor:
                                             _viewModel.state.primaryColor,
-                                        textPrimaryColor:
-                                            _viewModel.state.textPrimaryColor,
+                                        description: 'repetitions',
+                                        handleValueChanged: _viewModel.setReps,
+                                        initialValue: _viewModel.state.reps,
                                       ),
-                                      if (_viewModel
-                                              .state.restBetweenRepsFixed ==
-                                          true)
+                                      Divider(
+                                        height: styles.Measurements.m,
+                                      ),
+                                      NumberInputAndDescription<int>(
+                                        enabled: _viewModel.state.inputsEnabled,
+                                        primaryColor:
+                                            _viewModel.state.primaryColor,
+                                        description: 'hang time seconds',
+                                        handleValueChanged:
+                                            _viewModel.setHangTimeS,
+                                        initialValue:
+                                            _viewModel.state.hangTimeS,
+                                      ),
+                                      if (_viewModel.state.repeaters == true)
                                         Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Divider(
                                               height: styles.Measurements.m,
@@ -376,52 +283,165 @@ class _GroupScreenState extends State<GroupScreen> {
                                               initialValue: _viewModel
                                                   .state.restBetweenRepsS,
                                             ),
+                                            Divider(
+                                              height: styles.Measurements.m,
+                                            ),
+                                            NumberInputAndDescription<int>(
+                                              enabled: _viewModel
+                                                  .state.inputsEnabled,
+                                              primaryColor:
+                                                  _viewModel.state.primaryColor,
+                                              description: 'sets',
+                                              handleValueChanged:
+                                                  _viewModel.setSets,
+                                              initialValue:
+                                                  _viewModel.state.sets,
+                                            ),
                                           ],
                                         )
                                     ],
                                   ),
-                                Section(
-                                  title: 'added weight',
-                                  children: <Widget>[
-                                    NumberInputAndDescription<double>(
-                                      enabled: _viewModel.state.inputsEnabled,
-                                      primaryColor:
+                                  if (_viewModel.state.repeaters == true)
+                                    SectionWithInfoIcon(
+                                      appDialogContent:
+                                          FixedVariableTimerInfo(),
+                                      title: 'Set rest',
+                                      children: <Widget>[
+                                        Tabs(
+                                          leftText: 'Variable',
+                                          rightText: 'Fixed',
+                                          handleLeftTap: _viewModel
+                                              .setRestBetweenSetsVariable,
+                                          handleRightTap: _viewModel
+                                              .setRestBetweenSetsFixed,
+                                          isLeftSelected: _viewModel
+                                                  .state.restBetweenSetsFixed ==
+                                              false,
+                                          isRightSelected: _viewModel
+                                                  .state.restBetweenSetsFixed ==
+                                              true,
+                                          primaryColor:
+                                              _viewModel.state.primaryColor,
+                                          textPrimaryColor:
+                                              _viewModel.state.textPrimaryColor,
+                                        ),
+                                        if (_viewModel
+                                                .state.restBetweenSetsFixed ==
+                                            true)
+                                          Column(
+                                            children: <Widget>[
+                                              Divider(
+                                                height: styles.Measurements.m,
+                                              ),
+                                              NumberInputAndDescription<int>(
+                                                enabled: _viewModel
+                                                    .state.inputsEnabled,
+                                                primaryColor: _viewModel
+                                                    .state.primaryColor,
+                                                description:
+                                                    'rest seconds between sets',
+                                                handleValueChanged: _viewModel
+                                                    .setRestBetweenSetsS,
+                                                initialValue: _viewModel
+                                                    .state.restBetweenSetsS,
+                                              ),
+                                            ],
+                                          )
+                                      ],
+                                    ),
+                                  if (_viewModel.state.repeaters == false)
+                                    SectionWithInfoIcon(
+                                      appDialogContent:
+                                          FixedVariableTimerInfo(),
+                                      title: 'Rep rest',
+                                      children: <Widget>[
+                                        Tabs(
+                                          leftText: 'Variable',
+                                          rightText: 'Fixed',
+                                          handleLeftTap: _viewModel
+                                              .setRestBetweenRepsVariable,
+                                          handleRightTap: _viewModel
+                                              .setRestBetweenRepsFixed,
+                                          isLeftSelected: _viewModel
+                                                  .state.restBetweenRepsFixed ==
+                                              false,
+                                          isRightSelected: _viewModel
+                                                  .state.restBetweenRepsFixed ==
+                                              true,
+                                          primaryColor:
+                                              _viewModel.state.primaryColor,
+                                          textPrimaryColor:
+                                              _viewModel.state.textPrimaryColor,
+                                        ),
+                                        if (_viewModel
+                                                .state.restBetweenRepsFixed ==
+                                            true)
+                                          Column(
+                                            children: <Widget>[
+                                              Divider(
+                                                height: styles.Measurements.m,
+                                              ),
+                                              NumberInputAndDescription<int>(
+                                                enabled: _viewModel
+                                                    .state.inputsEnabled,
+                                                primaryColor: _viewModel
+                                                    .state.primaryColor,
+                                                description:
+                                                    'rest seconds between repetitions',
+                                                handleValueChanged: _viewModel
+                                                    .setRestBetweenRepsS,
+                                                initialValue: _viewModel
+                                                    .state.restBetweenRepsS,
+                                              ),
+                                            ],
+                                          )
+                                      ],
+                                    ),
+                                  Section(
+                                    title: 'added weight',
+                                    children: <Widget>[
+                                      NumberInputAndDescription<double>(
+                                        enabled: _viewModel.state.inputsEnabled,
+                                        primaryColor:
+                                            _viewModel.state.primaryColor,
+                                        description:
+                                            _viewModel.state.weightUnit,
+                                        handleValueChanged:
+                                            _viewModel.setAddedWeight,
+                                        initialValue:
+                                            _viewModel.state.addedWeight,
+                                      ),
+                                      Divider(
+                                        height: styles.Measurements.xxl,
+                                      ),
+                                    ],
+                                  ),
+                                  Button(
+                                      text: _viewModel.state.saveButtonText,
+                                      smallText: true,
+                                      backgroundColor:
                                           _viewModel.state.primaryColor,
-                                      description: _viewModel.state.weightUnit,
-                                      handleValueChanged:
-                                          _viewModel.setAddedWeight,
-                                      initialValue:
-                                          _viewModel.state.addedWeight,
-                                    ),
-                                    Divider(
-                                      height: styles.Measurements.xxl,
-                                    ),
-                                  ],
-                                ),
-                                Button(
-                                    text: _viewModel.state.saveButtonText,
-                                    smallText: true,
-                                    backgroundColor:
-                                        _viewModel.state.primaryColor,
-                                    height: styles.kSmallButtonHeight,
-                                    handleTap: _viewModel.addGroup,
-                                    leadingIcon: _viewModel.state.groupAction ==
-                                            GroupActions.addGroup
-                                        ? icons.plusIconWhiteS
-                                        : null),
-                                Divider(
-                                  height: styles.Measurements.xxl,
-                                ),
-                              ],
-                            ),
-                          )
-                        ])),
-                  ),
-                  Divider(height: styles.Measurements.xxl)
-                ],
-              )
-            ],
-          )),
+                                      height: styles.kSmallButtonHeight,
+                                      handleTap: _viewModel.addGroup,
+                                      leadingIcon:
+                                          _viewModel.state.groupAction ==
+                                                  GroupActions.addGroup
+                                              ? icons.plusIconWhiteS
+                                              : null),
+                                  Divider(
+                                    height: styles.Measurements.xxl,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ])),
+                    ),
+                    Divider(height: styles.Measurements.xxl)
+                  ],
+                )
+              ],
+            )),
+      ),
     );
   }
 }

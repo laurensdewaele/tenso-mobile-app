@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/settings.vm.dart';
 import 'package:tenso_app/widgets/card.dart';
@@ -44,41 +43,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  void _handleBackNavigation() async {
-    final bool _canNavigate = await _viewModel.canNavigate();
-    if (_canNavigate == true) {
-      Navigator.of(context).pushNamed(Routes.workoutOverviewScreen);
-    }
-  }
-
-  void _handleSoundNavigation() async {
-    final bool _canNavigate = await _viewModel.canNavigate();
-    if (_canNavigate == true) {
-      Navigator.of(context).pushNamed(Routes.soundSettingsScreen);
-    }
-  }
-
-  void _handleBoardNavigation() async {
-    final bool _canNavigate = await _viewModel.canNavigate();
-    if (_canNavigate == true) {
-      Navigator.of(context).pushNamed(Routes.boardSettingsScreen);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return await _viewModel.canNavigate();
+        _viewModel.handleBackNavigation();
+        return false;
       },
       child: KeyboardAndToastProvider(
         child: Screen(
-          handleBackNavigation: _handleBackNavigation,
+          handleBackNavigation: _viewModel.handleBackNavigation,
           child: KeyboardListView(children: [
             Column(
               children: <Widget>[
                 TopNavigation(
-                  handleBackNavigation: _handleBackNavigation,
+                  handleBackNavigation: _viewModel.handleBackNavigation,
                   title: 'settings',
                 ),
                 Divider(height: styles.Measurements.xxl),
@@ -95,7 +74,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           _InfoSection(
                               title: 'boards',
-                              handleNavigation: _handleBoardNavigation),
+                              handleNavigation:
+                                  _viewModel.handleBoardNavigation),
                           Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: styles.Measurements.m,
@@ -122,7 +102,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               )),
                           _InfoSection(
                               title: 'sound',
-                              handleNavigation: _handleSoundNavigation),
+                              handleNavigation:
+                                  _viewModel.handleSoundNavigation),
                           Divider(
                             height: styles.Measurements.xxl,
                           ),

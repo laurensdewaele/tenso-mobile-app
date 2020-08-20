@@ -71,145 +71,155 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return KeyboardAndToastProvider(
-      child: Screen(
-          handleBackNavigation: () => Navigator.of(context).pop(),
-          child: KeyboardListView(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  TopNavigation(
-                    title: _viewModel.state.title,
-                  ),
-                  Divider(height: styles.Measurements.xxl),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: styles.Measurements.xs),
-                    child: Card(
-                      padding: EdgeInsets.only(
-                        left: styles.Measurements.m,
-                        top: 0,
-                        right: styles.Measurements.m,
-                        bottom: styles.Measurements.l,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Divider(
-                              height: styles.Measurements.l -
-                                  styles.Measurements.kInfoIconSurplus),
-                          SectionWithInfoIcon(
-                            nextSectionHasInfoIcon: true,
-                            title: 'Groups',
-                            appDialogContent: _GroupInfo(),
-                            children: <Widget>[
-                              GroupOverview(
-                                disabled:
-                                    _viewModel.state.inputsEnabled == false,
-                                groups: _viewModel.state.groups,
-                                handleEditGroup: _viewModel.handleEditGroup,
-                                handleDeleteGroup: _viewModel.handleDeleteGroup,
-                                weightUnit: _viewModel.state.weightSystem.unit,
-                              ),
-                              if (_viewModel.state.inputsEnabled == true)
-                                Column(
-                                  children: <Widget>[
-                                    if (_viewModel.state.groups.length > 0)
-                                      Divider(
-                                        height: styles.Measurements.l,
-                                      ),
-                                    Button(
-                                        smallText: true,
-                                        height: styles.kSmallButtonHeight,
-                                        text: 'Add group',
-                                        backgroundColor: styles.Colors.primary,
-                                        handleTap: _viewModel.handleAddGroupTap,
-                                        leadingIcon: icons.plusIconWhiteS)
-                                  ],
-                                )
-                            ],
-                          ),
-                          SectionWithInfoIcon(
-                            nextSectionHasInfoIcon: true,
-                            title: 'group rest',
-                            appDialogContent: FixedVariableTimerInfo(),
-                            children: <Widget>[
-                              Tabs(
-                                leftText: 'Variable',
-                                rightText: 'Fixed',
-                                handleLeftTap:
-                                    _viewModel.setRestBetweenGroupsVariable,
-                                handleRightTap:
-                                    _viewModel.setRestBetweenGroupsFixed,
-                                isLeftSelected:
-                                    _viewModel.state.restBetweenGroupsFixed ==
-                                        false,
-                                isRightSelected:
-                                    _viewModel.state.restBetweenGroupsFixed ==
-                                        true,
-                                primaryColor: _viewModel.state.primaryColor,
-                                textPrimaryColor:
-                                    _viewModel.state.textPrimaryColor,
-                              ),
-                              Divider(
-                                height: styles.Measurements.m,
-                              ),
-                              if (_viewModel.state.restBetweenGroupsFixed ==
-                                  true)
-                                NumberInputAndDescription<int>(
-                                  enabled: _viewModel.state.inputsEnabled,
-                                  primaryColor: _viewModel.state.primaryColor,
-                                  description: 'seconds',
-                                  handleValueChanged:
-                                      _viewModel.setRestBetweenGroupsS,
-                                  initialValue:
-                                      _viewModel.state.restBetweenGroupsS,
+      child: WillPopScope(
+        onWillPop: () async {
+          _viewModel.handleBackNavigation();
+          return false;
+        },
+        child: Screen(
+            handleBackNavigation: _viewModel.handleBackNavigation,
+            child: KeyboardListView(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    TopNavigation(
+                      title: _viewModel.state.title,
+                    ),
+                    Divider(height: styles.Measurements.xxl),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: styles.Measurements.xs),
+                      child: Card(
+                        padding: EdgeInsets.only(
+                          left: styles.Measurements.m,
+                          top: 0,
+                          right: styles.Measurements.m,
+                          bottom: styles.Measurements.l,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Divider(
+                                height: styles.Measurements.l -
+                                    styles.Measurements.kInfoIconSurplus),
+                            SectionWithInfoIcon(
+                              nextSectionHasInfoIcon: true,
+                              title: 'Groups',
+                              appDialogContent: _GroupInfo(),
+                              children: <Widget>[
+                                GroupOverview(
+                                  disabled:
+                                      _viewModel.state.inputsEnabled == false,
+                                  groups: _viewModel.state.groups,
+                                  handleEditGroup: _viewModel.handleEditGroup,
+                                  handleDeleteGroup:
+                                      _viewModel.handleDeleteGroup,
+                                  weightUnit:
+                                      _viewModel.state.weightSystem.unit,
                                 ),
-                            ],
-                          ),
-                          SectionWithInfoIcon(
-                            title: 'color label',
-                            appDialogContent: _ColorLabelInfo(),
-                            children: <Widget>[
-                              LabelPicker(
-                                  handleLabelChanged: _viewModel.setLabel,
-                                  initialLabel: _viewModel.state.label,
-                                  enabled: _viewModel.state.inputsEnabled)
-                            ],
-                          ),
-                          Section(
-                            title: 'name',
-                            children: <Widget>[
-                              TextInput(
-                                  multiLine: false,
-                                  enabled: _viewModel.state.inputsEnabled,
-                                  primaryColor: _viewModel.state.primaryColor,
-                                  initialValue: _viewModel.state.name,
-                                  handleValueChanged: _viewModel.setName)
-                            ],
-                          ),
-                          Divider(
-                            height: styles.Measurements.l,
-                          ),
-                          Center(
-                            child: Button(
-                              backgroundColor: _viewModel.state.primaryColor,
-                              text: _viewModel.state.saveButtonText,
-                              handleTap: _viewModel.handleSaveTap,
+                                if (_viewModel.state.inputsEnabled == true)
+                                  Column(
+                                    children: <Widget>[
+                                      if (_viewModel.state.groups.length > 0)
+                                        Divider(
+                                          height: styles.Measurements.l,
+                                        ),
+                                      Button(
+                                          smallText: true,
+                                          height: styles.kSmallButtonHeight,
+                                          text: 'Add group',
+                                          backgroundColor:
+                                              styles.Colors.primary,
+                                          handleTap:
+                                              _viewModel.handleAddGroupTap,
+                                          leadingIcon: icons.plusIconWhiteS)
+                                    ],
+                                  )
+                              ],
                             ),
-                          ),
-                          Divider(
-                            height: styles.Measurements.xxl,
-                          ),
-                        ],
+                            SectionWithInfoIcon(
+                              nextSectionHasInfoIcon: true,
+                              title: 'group rest',
+                              appDialogContent: FixedVariableTimerInfo(),
+                              children: <Widget>[
+                                Tabs(
+                                  leftText: 'Variable',
+                                  rightText: 'Fixed',
+                                  handleLeftTap:
+                                      _viewModel.setRestBetweenGroupsVariable,
+                                  handleRightTap:
+                                      _viewModel.setRestBetweenGroupsFixed,
+                                  isLeftSelected:
+                                      _viewModel.state.restBetweenGroupsFixed ==
+                                          false,
+                                  isRightSelected:
+                                      _viewModel.state.restBetweenGroupsFixed ==
+                                          true,
+                                  primaryColor: _viewModel.state.primaryColor,
+                                  textPrimaryColor:
+                                      _viewModel.state.textPrimaryColor,
+                                ),
+                                Divider(
+                                  height: styles.Measurements.m,
+                                ),
+                                if (_viewModel.state.restBetweenGroupsFixed ==
+                                    true)
+                                  NumberInputAndDescription<int>(
+                                    enabled: _viewModel.state.inputsEnabled,
+                                    primaryColor: _viewModel.state.primaryColor,
+                                    description: 'seconds',
+                                    handleValueChanged:
+                                        _viewModel.setRestBetweenGroupsS,
+                                    initialValue:
+                                        _viewModel.state.restBetweenGroupsS,
+                                  ),
+                              ],
+                            ),
+                            SectionWithInfoIcon(
+                              title: 'color label',
+                              appDialogContent: _ColorLabelInfo(),
+                              children: <Widget>[
+                                LabelPicker(
+                                    handleLabelChanged: _viewModel.setLabel,
+                                    initialLabel: _viewModel.state.label,
+                                    enabled: _viewModel.state.inputsEnabled)
+                              ],
+                            ),
+                            Section(
+                              title: 'name',
+                              children: <Widget>[
+                                TextInput(
+                                    multiLine: false,
+                                    enabled: _viewModel.state.inputsEnabled,
+                                    primaryColor: _viewModel.state.primaryColor,
+                                    initialValue: _viewModel.state.name,
+                                    handleValueChanged: _viewModel.setName)
+                              ],
+                            ),
+                            Divider(
+                              height: styles.Measurements.l,
+                            ),
+                            Center(
+                              child: Button(
+                                backgroundColor: _viewModel.state.primaryColor,
+                                text: _viewModel.state.saveButtonText,
+                                handleTap: _viewModel.handleSaveTap,
+                              ),
+                            ),
+                            Divider(
+                              height: styles.Measurements.xxl,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Divider(height: styles.Measurements.xxl)
-                ],
-              )
-            ],
-          )),
+                    Divider(height: styles.Measurements.xxl)
+                  ],
+                )
+              ],
+            )),
+      ),
     );
   }
 }

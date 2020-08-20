@@ -56,22 +56,6 @@ class WorkoutViewModelState {
         textPrimaryColor = styles.Lato.xsBlue,
         title = 'Edit workout';
 
-  WorkoutViewModelState.viewWorkout(
-      Workout workout, WeightSystem currentWeightSystem)
-      : label = workout.label,
-        groups = workout.groups.toList(),
-        restBetweenGroupsFixed = workout.restBetweenGroupsFixed,
-        restBetweenGroupsS = workout.restBetweenGroupsS,
-        restBetweenGroupsSInput = workout.restBetweenGroupsS.toString(),
-        name = workout.name,
-        nameInput = workout.name,
-        weightSystem = currentWeightSystem,
-        saveButtonText = 'back',
-        inputsEnabled = false,
-        primaryColor = styles.Colors.gray,
-        textPrimaryColor = styles.Lato.xsGray,
-        title = 'View workout';
-
   const WorkoutViewModelState({
     @required this.label,
     @required this.groups,

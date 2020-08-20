@@ -53,6 +53,10 @@ class EditCompletedWorkoutViewModel {
     _state = state.copyWith(temperatureInput: temperatureInput);
   }
 
+  void handleBackNavigation() {
+    handleCompleteTap();
+  }
+
   Future<bool> handleCompleteTap() {
     return Future.sync(() async {
       final bool _isValid = _validateAll();
