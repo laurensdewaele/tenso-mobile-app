@@ -122,8 +122,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                         smallText: true,
                                         height: styles.kSmallButtonHeight,
                                         text: 'Add group',
-                                        backgroundColor:
-                                            _viewModel.state.primaryColor,
+                                        backgroundColor: styles.Colors.primary,
                                         handleTap: _viewModel.handleAddGroupTap,
                                         leadingIcon: icons.plusIconWhiteS)
                                   ],
