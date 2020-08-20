@@ -7,26 +7,18 @@ import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
 
 class WorkoutLongPressDialog extends StatelessWidget {
-  WorkoutLongPressDialog(
-      {Key key,
-      @required this.handleCopyTap,
-      @required this.handleDeleteTap,
-      @required this.name,
-      this.onWorkoutOverviewScreen = false,
-      this.onCompletedWorkoutsOverviewScreen = false,
-      this.onCompletedWorkoutScreen = false,
-      this.handleEditTap,
-      this.handleViewTap})
-      : super(key: key);
+  WorkoutLongPressDialog({
+    Key key,
+    @required this.handleCopyTap,
+    @required this.handleDeleteTap,
+    @required this.name,
+    this.handleEditTap,
+  }) : super(key: key);
 
-  final bool onCompletedWorkoutsOverviewScreen;
-  final bool onWorkoutOverviewScreen;
-  final bool onCompletedWorkoutScreen;
   final String name;
   final VoidCallback handleEditTap;
   final VoidCallback handleDeleteTap;
   final VoidCallback handleCopyTap;
-  final VoidCallback handleViewTap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,39 +30,16 @@ class WorkoutLongPressDialog extends StatelessWidget {
           style: styles.Staatliches.lBlack,
         ),
         Divider(height: styles.Measurements.l),
-        if (onCompletedWorkoutsOverviewScreen == true)
-          Button(
-              text: 'View',
-              backgroundColor: styles.Colors.gray,
-              displayBackground: true,
-              leadingIcon: icons.searchIconWhiteXl,
-              handleTap: () {
-                Navigator.of(context).pop();
-                handleViewTap();
-              },
-              leadingIconTextCentered: true),
-        if (onCompletedWorkoutScreen == true)
-          Button(
-              text: 'View params',
-              backgroundColor: styles.Colors.gray,
-              displayBackground: true,
-              leadingIcon: icons.searchIconWhiteXl,
-              handleTap: () {
-                Navigator.of(context).pop();
-                handleViewTap();
-              },
-              leadingIconTextCentered: true),
-        if (onWorkoutOverviewScreen == true)
-          Button(
-              text: 'Edit',
-              backgroundColor: styles.Colors.blue,
-              displayBackground: true,
-              leadingIcon: icons.editIconWhiteXl,
-              handleTap: () {
-                Navigator.of(context).pop();
-                handleEditTap();
-              },
-              leadingIconTextCentered: true),
+        Button(
+            text: 'Edit',
+            backgroundColor: styles.Colors.blue,
+            displayBackground: true,
+            leadingIcon: icons.editIconWhiteXl,
+            handleTap: () {
+              Navigator.of(context).pop();
+              handleEditTap();
+            },
+            leadingIconTextCentered: true),
         Divider(height: styles.Measurements.m),
         Button(
             text: 'Copy',

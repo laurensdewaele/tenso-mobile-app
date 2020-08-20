@@ -23,6 +23,7 @@ class RateWorkoutContent extends StatelessWidget {
     @required this.initialHumidity,
     @required this.initialPerceivedExertion,
     @required this.initialTemperature,
+    this.editing = false,
     this.maxContainerHeight,
   }) : super(key: key);
 
@@ -39,9 +40,12 @@ class RateWorkoutContent extends StatelessWidget {
   final double initialTemperature;
   final double initialBodyWeight;
   final int initialPerceivedExertion;
+  final bool editing;
 
   @override
   Widget build(BuildContext context) {
+    final Color _primaryColor =
+        editing == true ? styles.Colors.blue : styles.Colors.turquoise;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -59,7 +63,7 @@ class RateWorkoutContent extends StatelessWidget {
               child: TextInput(
                   multiLine: true,
                   enabled: true,
-                  primaryColor: styles.Colors.turquoise,
+                  primaryColor: _primaryColor,
                   initialValue: initialComments,
                   handleValueChanged: handleCommentsChanged),
             ),
@@ -76,7 +80,7 @@ class RateWorkoutContent extends StatelessWidget {
               height: styles.Measurements.l,
             ),
             NumberInputAndDescription<double>(
-              primaryColor: styles.Colors.turquoise,
+              primaryColor: _primaryColor,
               description: 'body weight',
               handleValueChanged: handleBodyWeightChanged,
               initialValue: initialBodyWeight,
@@ -85,7 +89,7 @@ class RateWorkoutContent extends StatelessWidget {
               height: styles.Measurements.m,
             ),
             NumberInputAndDescription<double>(
-              primaryColor: styles.Colors.turquoise,
+              primaryColor: _primaryColor,
               description: '° ${tempUnit.toString()}',
               handleValueChanged: handleTemperatureChanged,
               initialValue: initialTemperature,
@@ -94,7 +98,7 @@ class RateWorkoutContent extends StatelessWidget {
               height: styles.Measurements.m,
             ),
             NumberInputAndDescription<double>(
-              primaryColor: styles.Colors.turquoise,
+              primaryColor: _primaryColor,
               description: 'humidity',
               handleValueChanged: handleHumidityChanged,
               initialValue: initialHumidity,
@@ -120,7 +124,7 @@ class RateWorkoutContent extends StatelessWidget {
         if (maxContainerHeight == null)
           Divider(height: styles.Measurements.xxl),
         Button(
-          backgroundColor: styles.Colors.turquoise,
+          backgroundColor: _primaryColor,
           width: double.infinity,
           text: 'done',
           handleTap: handleCompleteTap,

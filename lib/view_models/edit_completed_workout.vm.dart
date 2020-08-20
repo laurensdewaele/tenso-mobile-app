@@ -1,23 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/completed_workout.model.dart';
 import 'package:tenso_app/models/models.dart';
-
-class EditCompletedWorkoutViewModelState {
-  final String comments;
-  final double humidity;
-  final TempUnit tempUnit;
-  final double temperature;
-  final double bodyWeight;
-  final int perceivedExertion;
-
-  const EditCompletedWorkoutViewModelState(
-      {@required this.comments,
-      @required this.humidity,
-      @required this.tempUnit,
-      @required this.temperature,
-      @required this.bodyWeight,
-      @required this.perceivedExertion});
-}
+import 'package:tenso_app/view_models/edit_completed_workout_state.vm.dart';
 
 class EditCompletedWorkoutViewModel {
   CompletedWorkout _completedWorkout;
@@ -28,17 +11,36 @@ class EditCompletedWorkoutViewModel {
     _completedWorkout = completedWorkout;
     _state = EditCompletedWorkoutViewModelState(
         comments: completedWorkout.comments,
+        commentsInput: completedWorkout.comments,
+        bodyWeight: completedWorkout.bodyWeight,
+        bodyWeightInput: completedWorkout.bodyWeight?.toString(),
         humidity: completedWorkout.humidity,
+        humidityInput: completedWorkout.humidity?.toString(),
         tempUnit: completedWorkout.tempUnit,
         temperature: completedWorkout.temperature,
-        bodyWeight: completedWorkout.bodyWeight,
+        temperatureInput: completedWorkout.temperature?.toString(),
         perceivedExertion: completedWorkout.perceivedExertion);
   }
 
-  handleBodyWeightChanged(String bodyWeightInput) {}
-  handleCommentsChanged(String commentsInput) {}
-  handleHumidityChanged(String humidityInput) {}
-  handlePerceivedExertionChanged(int perceivedExertion) {}
-  handleTemperatureChanged(String temperatureInput) {}
+  handleBodyWeightChanged(String bodyWeightInput) {
+    _state = state.copyWith(bodyWeightInput: bodyWeightInput);
+  }
+
+  handleCommentsChanged(String commentsInput) {
+    _state = state.copyWith(commentsInput: commentsInput);
+  }
+
+  handleHumidityChanged(String humidityInput) {
+    _state = state.copyWith(humidityInput: humidityInput);
+  }
+
+  handlePerceivedExertionChanged(int perceivedExertion) {
+    _state = state.copyWith(perceivedExertion: perceivedExertion);
+  }
+
+  handleTemperatureChanged(String temperatureInput) {
+    _state = state.copyWith(temperatureInput: temperatureInput);
+  }
+
   handleCompleteTap() {}
 }

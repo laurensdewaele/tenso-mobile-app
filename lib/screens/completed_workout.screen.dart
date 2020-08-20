@@ -2,11 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/completed_workout.model.dart';
 import 'package:tenso_app/routes/routes.dart';
-import 'package:tenso_app/screens/workout.screen.dart';
+import 'package:tenso_app/screens/edit_completed_workout.screen.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/state/workouts.state.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/view_models/workout/workout.vm.dart';
 import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/completed_workout/logs_overview.dart';
@@ -72,11 +71,11 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
     Navigator.of(context).pop();
   }
 
-  void _handleViewParamsTap() {
-    Navigator.of(context).pushNamed(Routes.workoutScreen,
-        arguments: WorkoutScreenArguments(
-            workout: _completedWorkout.workout,
-            workoutAction: WorkoutActions.viewWorkout));
+  void _handleEditTap() {
+    Navigator.of(context).pushNamed(Routes.editCompletedWorkoutScreen,
+        arguments: EditCompletedWorkoutScreenArguments(
+          completedWorkout: _completedWorkout,
+        ));
   }
 
   void _handleCopyTap() {
@@ -89,10 +88,9 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
         smallWidth: true,
         context: context,
         content: WorkoutLongPressDialog(
-          onCompletedWorkoutScreen: true,
           name: _completedWorkout.workout.name,
           handleDeleteTap: () => _handleDeleteTap(),
-          handleViewTap: () => _handleViewParamsTap(),
+          handleEditTap: () => _handleEditTap(),
           handleCopyTap: () => _handleCopyTap(),
         ));
   }

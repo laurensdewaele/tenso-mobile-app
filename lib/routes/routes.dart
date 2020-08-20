@@ -3,6 +3,7 @@ import 'package:tenso_app/screens/board_settings.screen.dart';
 import 'package:tenso_app/screens/calendar.screen.dart';
 import 'package:tenso_app/screens/completed_workout.screen.dart';
 import 'package:tenso_app/screens/custom_board.screen.dart';
+import 'package:tenso_app/screens/edit_completed_workout.screen.dart';
 import 'package:tenso_app/screens/execution.screen.dart';
 import 'package:tenso_app/screens/feedback.screen.dart';
 import 'package:tenso_app/screens/group.screen.dart';
@@ -21,6 +22,8 @@ abstract class Routes {
   static const String calendarScreen = '/calendarScreen';
   static const String completedWorkoutScreen = '/completedWorkoutScreen';
   static const String customBoardScreen = '/customBoardScreen';
+  static const String editCompletedWorkoutScreen =
+      '/editCompletedWorkoutScreen';
   static const String executionScreen = '/executionScreen';
   static const String feedbackScreen = '/feedbackScreen';
   static const String groupScreen = '/groupScreen';
@@ -40,6 +43,8 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.calendarScreen: (context) => CalendarScreen(),
     Routes.customBoardScreen: (context) => CustomBoardScreen(),
     Routes.completedWorkoutScreen: (context) => CompletedWorkoutScreen(),
+    Routes.editCompletedWorkoutScreen: (context) =>
+        EditCompletedWorkoutScreen(),
     Routes.executionScreen: (context) => ExecutionScreen(),
     Routes.feedbackScreen: (context) => FeedbackScreen(),
     Routes.groupScreen: (context) => GroupScreen(),

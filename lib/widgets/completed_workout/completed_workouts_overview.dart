@@ -8,23 +8,25 @@ import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/sliding_card.dart';
 import 'package:tenso_app/widgets/workout_overview/delete_action.dart';
-import 'package:tenso_app/widgets/workout_overview/view_action.dart';
+import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
 import 'package:tenso_app/widgets/workout_overview/workout_long_press_dialog.dart';
 
 class CompletedWorkoutsOverview extends StatelessWidget {
-  CompletedWorkoutsOverview(
-      {Key key,
-      @required this.selectedDay,
-      @required this.completedWorkoutList,
-      @required this.handleDeleteTap,
-      @required this.handleCopyTap,
-      @required this.handleViewTap})
-      : super(key: key);
+  CompletedWorkoutsOverview({
+    Key key,
+    @required this.selectedDay,
+    @required this.completedWorkoutList,
+    @required this.handleDeleteTap,
+    @required this.handleCopyTap,
+    @required this.handleEditTap,
+    @required this.handleViewTap,
+  }) : super(key: key);
 
   final DateTime selectedDay;
   final List<CompletedWorkout> completedWorkoutList;
   final void Function(CompletedWorkout completedWorkout) handleDeleteTap;
   final void Function(CompletedWorkout completedWorkout) handleCopyTap;
+  final void Function(CompletedWorkout completedWorkout) handleEditTap;
   final void Function(CompletedWorkout completedWorkout) handleViewTap;
 
   void _handleLongPress(
@@ -33,10 +35,9 @@ class CompletedWorkoutsOverview extends StatelessWidget {
         smallWidth: true,
         context: context,
         content: WorkoutLongPressDialog(
-          onCompletedWorkoutsOverviewScreen: true,
           name: completedWorkout.workout.name,
           handleDeleteTap: () => handleDeleteTap(completedWorkout),
-          handleViewTap: () => handleViewTap(completedWorkout),
+          handleEditTap: () => handleEditTap(completedWorkout),
           handleCopyTap: () => handleCopyTap(completedWorkout),
         ));
   }
@@ -75,9 +76,9 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                         divider: completedWorkoutList.length > 1 &&
                             index != completedWorkoutList.length - 1,
                         dividerHeight: styles.Measurements.m,
-                        leftAction: ViewAction(),
+                        leftAction: EditAction(),
                         handleLeftActionTap: () =>
-                            handleViewTap(completedWorkout),
+                            handleEditTap(completedWorkout),
                         rightAction: DeleteAction(),
                         handleRightActionTap: () =>
                             handleDeleteTap(completedWorkout),

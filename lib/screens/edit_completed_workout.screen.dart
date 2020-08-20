@@ -57,12 +57,13 @@ class _EditCompletedWorkoutScreenState
         handleBackNavigation: () {
           Navigator.of(context).pop();
         },
+        backgroundColor: styles.Colors.blue,
         child: ListView(physics: ClampingScrollPhysics(), children: [
           Column(
             children: <Widget>[
               TopNavigation(
                 title: 'edit completed workout',
-                dark: true,
+                dark: false,
               ),
               Divider(height: styles.Measurements.xxl),
               Padding(
@@ -73,13 +74,14 @@ class _EditCompletedWorkoutScreenState
                     padding: const EdgeInsets.only(
                       left: styles.Measurements.m,
                       right: styles.Measurements.m,
-                      top: styles.Measurements.m,
+                      top: 0,
                       bottom: styles.Measurements.l,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RateWorkoutContent(
+                          editing: true,
                           handleBodyWeightChanged:
                               _viewModel.handleBodyWeightChanged,
                           handleCommentsChanged:

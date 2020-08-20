@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/screens/completed_workout.screen.dart';
+import 'package:tenso_app/screens/edit_completed_workout.screen.dart';
 import 'package:tenso_app/view_models/calendar.vm.dart';
 import 'package:tenso_app/widgets/calendar/date_picker.dart';
 import 'package:tenso_app/widgets/calendar/header.dart';
@@ -47,6 +48,13 @@ class _CalendarState extends State<Calendar> {
         ));
   }
 
+  void _handleEditTap(CompletedWorkout completedWorkout) {
+    Navigator.of(context).pushNamed(Routes.editCompletedWorkoutScreen,
+        arguments: EditCompletedWorkoutScreenArguments(
+          completedWorkout: completedWorkout,
+        ));
+  }
+
   void _handleViewTap(CompletedWorkout completedWorkout) {
     Navigator.of(context).pushNamed(Routes.completedWorkoutScreen,
         arguments: CompletedWorkoutScreenArguments(
@@ -68,6 +76,7 @@ class _CalendarState extends State<Calendar> {
             handlePreviousMonthSwipe: _viewModel.setPreviousMonth,
             handleNextMonthSwipe: _viewModel.setNextMonth),
         CompletedWorkoutsOverview(
+            handleEditTap: _handleEditTap,
             handleViewTap: _handleViewTap,
             handleDeleteTap: _viewModel.deleteCompletedWorkout,
             handleCopyTap: _viewModel.copyCompletedWorkout,
