@@ -2,6 +2,11 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> versions = [
   Version((b) => b
+    ..no = '1.0.17'
+    ..changelog =
+        'Added the ability to edit completed workouts.\n\nProgress is automatically saved when editing a workout, group or completed workout.'
+    ..date = DateTime(2020, 8, 20).toUtc()),
+  Version((b) => b
     ..no = '1.0.16'
     ..changelog =
         'Added bug on ios where the keyboard would not show a minus sign for entering negative weights.'

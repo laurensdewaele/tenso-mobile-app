@@ -1,9 +1,10 @@
 # TODO
+- I logged a custom workout and it set the date to a day in the future. would love to have the option to edit a date as well!
+  babattles@gmail.com
 
-- Edit completed workout
+- Show list of updates compared to last version.
 - Add edge to top row
 - New users popup to info section.
-- Auto save whilst editing a workout?
 - Show a more detailed changelog
 - Info button default board
 - boards
@@ -14,10 +15,6 @@
   I like to do some scapula pulls, knee raises and pull ups to warm up. 
   I would love to have the warm up with prompts on here.
 - Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
-- please make it possible to edit your previous hangs from the calendar :) 
-- Awesome app mate- 
-  made me actually get back on the hangboard- 
-  but freezes anytime I try to edit a group.
 
 ### Large prio
 - Graphs
