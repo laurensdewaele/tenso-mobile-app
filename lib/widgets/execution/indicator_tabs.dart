@@ -15,28 +15,26 @@ class IndicatorTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<int> list = List.generate(count, (i) => i + 1);
 
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          ...list.map((n) {
-            if (n < active) {
-              return _Container(
-                  content: _CompletedCircle(
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        ...list.map((n) {
+          if (n < active) {
+            return _Container(
+                content: _CompletedCircle(
+              primaryColor: primaryColor,
+            ));
+          } else {
+            return _Container(
+              content: _Circle(
+                active: n == active,
                 primaryColor: primaryColor,
-              ));
-            } else {
-              return _Container(
-                content: _Circle(
-                  active: n == active,
-                  primaryColor: primaryColor,
-                ),
-              );
-            }
-          })
-        ],
-      ),
+              ),
+            );
+          }
+        })
+      ],
     );
   }
 }

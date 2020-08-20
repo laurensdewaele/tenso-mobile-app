@@ -25,6 +25,7 @@ class NumberInput<T> extends StatefulWidget {
 class _NumberInputState extends State<NumberInput> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
+  String _initialValue;
 
   StreamSubscription _shouldLoseFocusSub;
   StreamSubscription _resetInitialValueSub;
@@ -33,7 +34,9 @@ class _NumberInputState extends State<NumberInput> {
   @override
   void initState() {
     super.initState();
-    _textEditingController.text = widget.initialValue.toString();
+    _initialValue =
+        widget.initialValue == null ? '' : widget.initialValue.toString();
+    _textEditingController.text = _initialValue;
     _focusNode.addListener(() {
       if (_focusNode.hasFocus == true) {
         _textEditingController.clear();
@@ -44,7 +47,7 @@ class _NumberInputState extends State<NumberInput> {
       _focusNode.unfocus();
     });
     _resetInitialValueSub = _keyboardService.resetInitialValue$.listen((_) {
-      _textEditingController.text = widget.initialValue;
+      _textEditingController.text = _initialValue;
     });
   }
 
@@ -72,8 +75,8 @@ class _NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    final bool _isDouble =
-        widget.initialValue.runtimeType == double ? true : false;
+    final bool _isDouble = widget.initialValue.runtimeType == double ||
+        widget.initialValue.runtimeType == Null;
     return Container(
       width: _isDouble ? styles.Measurements.xxl : styles.Measurements.xl,
       child: Listener(
@@ -88,9 +91,8 @@ class _NumberInputState extends State<NumberInput> {
               color: widget.primaryColor,
               borderRadius: styles.kBorderRadiusAll),
           focusNode: _focusNode,
-          keyboardType: _isDouble
-              ? TextInputType.numberWithOptions(decimal: true, signed: true)
-              : TextInputType.number,
+          keyboardType:
+              TextInputType.numberWithOptions(decimal: true, signed: true),
           maxLength: _isDouble ? 6 : 3,
           onTap: _onTap,
           onEditingComplete: _onComplete,

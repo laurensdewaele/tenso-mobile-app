@@ -84,6 +84,7 @@ class _ExpandedSectionState extends State<ExpandedSection>
         ),
         ClipRect(
           child: Align(
+            alignment: Alignment.topLeft,
             heightFactor: _heightFactor.value,
             child: child,
           ),

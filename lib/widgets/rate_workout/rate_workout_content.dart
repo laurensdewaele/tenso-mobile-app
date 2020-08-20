@@ -3,8 +3,8 @@ import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/empty_input_and_description.dart';
 import 'package:tenso_app/widgets/expanded_section.dart';
+import 'package:tenso_app/widgets/number_input_and_description.dart';
 import 'package:tenso_app/widgets/section_with_info_icon.dart';
 import 'package:tenso_app/widgets/text_input.dart';
 
@@ -13,13 +13,16 @@ class RateWorkoutContent extends StatelessWidget {
     Key key,
     @required this.handleCompleteTap,
     @required this.handlePerceivedExertionChanged,
-    @required this.handleOpen,
     @required this.handleBodyWeightChanged,
     @required this.handleCommentsChanged,
     @required this.handleHumidityChanged,
     @required this.handleTemperatureChanged,
     @required this.tempUnit,
     @required this.initialComments,
+    @required this.initialBodyWeight,
+    @required this.initialHumidity,
+    @required this.initialPerceivedExertion,
+    @required this.initialTemperature,
     this.maxContainerHeight,
   }) : super(key: key);
 
@@ -30,20 +33,22 @@ class RateWorkoutContent extends StatelessWidget {
   final void Function(String s) handleCommentsChanged;
   final double maxContainerHeight;
   final VoidCallback handleCompleteTap;
-  final VoidCallback handleOpen;
   final TempUnit tempUnit;
   final String initialComments;
+  final double initialHumidity;
+  final double initialTemperature;
+  final double initialBodyWeight;
+  final int initialPerceivedExertion;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(
-          height: 14,
+          height: styles.Measurements.s,
         ),
         ExpandedSection(
-          handleOpen: handleOpen,
           title: 'comments',
           children: <Widget>[
             Divider(
@@ -65,32 +70,34 @@ class RateWorkoutContent extends StatelessWidget {
           ],
         ),
         ExpandedSection(
-          handleOpen: handleOpen,
           title: 'advanced statistics',
           children: <Widget>[
             Divider(
               height: styles.Measurements.l,
             ),
-            EmptyInputAndDescription(
+            NumberInputAndDescription<double>(
               primaryColor: styles.Colors.turquoise,
               description: 'body weight',
               handleValueChanged: handleBodyWeightChanged,
+              initialValue: initialBodyWeight,
             ),
             Divider(
               height: styles.Measurements.m,
             ),
-            EmptyInputAndDescription(
+            NumberInputAndDescription<double>(
               primaryColor: styles.Colors.turquoise,
               description: '° ${tempUnit.toString()}',
               handleValueChanged: handleTemperatureChanged,
+              initialValue: initialTemperature,
             ),
             Divider(
               height: styles.Measurements.m,
             ),
-            EmptyInputAndDescription(
+            NumberInputAndDescription<double>(
               primaryColor: styles.Colors.turquoise,
               description: 'humidity',
               handleValueChanged: handleHumidityChanged,
+              initialValue: initialHumidity,
             ),
             Divider(
               height: styles.Measurements.xxl -
@@ -104,6 +111,7 @@ class RateWorkoutContent extends StatelessWidget {
           children: <Widget>[
             _CupertinoPicker(
               setPerceivedExertion: handlePerceivedExertionChanged,
+              initialPerceivedExertion: initialPerceivedExertion,
             ),
           ],
         ),
@@ -187,17 +195,22 @@ class _PerceivedExertionInfo extends StatelessWidget {
 }
 
 class _CupertinoPicker extends StatelessWidget {
-  _CupertinoPicker({Key key, @required this.setPerceivedExertion})
+  _CupertinoPicker(
+      {Key key,
+      @required this.setPerceivedExertion,
+      @required this.initialPerceivedExertion})
       : super(key: key);
 
   final void Function(int d) setPerceivedExertion;
+  final int initialPerceivedExertion;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 150,
       child: CupertinoPicker(
-        scrollController: FixedExtentScrollController(initialItem: 10),
+        scrollController: FixedExtentScrollController(
+            initialItem: initialPerceivedExertion ?? 10),
         useMagnifier: true,
         magnification: 1,
         backgroundColor: styles.Colors.bgWhite,

@@ -95,9 +95,11 @@ class _GroupScreenState extends State<GroupScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: styles.Measurements.m,
-                                vertical: styles.Measurements.l),
+                            padding: EdgeInsets.only(
+                                left: styles.Measurements.m,
+                                top: styles.Measurements.s,
+                                right: styles.Measurements.m,
+                                bottom: styles.Measurements.l),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,

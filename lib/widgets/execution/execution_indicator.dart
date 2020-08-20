@@ -77,24 +77,77 @@ class _Row extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-            width: 60,
-            child: Text(
-              title,
-              style: styles.Staatliches.mWhite,
-              textAlign: TextAlign.end,
-            )),
-        Divider(
-          width: styles.Measurements.xs,
-        ),
-        if (orientation == Orientation.portrait)
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      final double _textContainerWidth = 60;
+      final double _dividerWidth = styles.Measurements.xs;
+      final double _indicatorHeight = styles.Measurements.s + 3;
+      final double _indicatorWidth = 25;
+      final bool _containerExceedsMaxWidth =
+          constraints.maxWidth - _textContainerWidth - _dividerWidth <
+              maxTotal.toDouble() * _indicatorWidth;
+      final bool _rowExceedsMaxWidth =
+          constraints.maxWidth - _textContainerWidth - _dividerWidth <
+              total.toDouble() * _indicatorWidth;
+
+      return Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
           Container(
-            width: maxTotal.toDouble() * 25,
-            child: Row(
+              width: _textContainerWidth,
+              child: Text(
+                title,
+                style: styles.Staatliches.mWhite,
+                textAlign: TextAlign.end,
+              )),
+          Divider(
+            width: styles.Measurements.xs,
+          ),
+          if (orientation == Orientation.portrait &&
+              _containerExceedsMaxWidth == true &&
+              _rowExceedsMaxWidth == true)
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: IndicatorTabs(
+                  active: current,
+                  count: total,
+                  primaryColor: primaryColor,
+                ),
+              ),
+            ),
+          if (orientation == Orientation.portrait &&
+              _containerExceedsMaxWidth == true &&
+              _rowExceedsMaxWidth == false)
+            Expanded(
+              child: Container(
+                height: _indicatorHeight,
+                width: double.infinity,
+                child: IndicatorTabs(
+                  active: current,
+                  count: total,
+                  primaryColor: primaryColor,
+                ),
+              ),
+            ),
+          if (orientation == Orientation.portrait &&
+              _containerExceedsMaxWidth == false)
+            Container(
+              width: maxTotal.toDouble() * _indicatorWidth,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IndicatorTabs(
+                    active: current,
+                    count: total,
+                    primaryColor: primaryColor,
+                  ),
+                ],
+              ),
+            ),
+          if (orientation == Orientation.landscape)
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 IndicatorTabs(
@@ -103,21 +156,10 @@ class _Row extends StatelessWidget {
                   primaryColor: primaryColor,
                 ),
               ],
-            ),
-          ),
-        if (orientation == Orientation.landscape)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              IndicatorTabs(
-                active: current,
-                count: total,
-                primaryColor: primaryColor,
-              ),
-            ],
-          )
-      ],
-    );
+            )
+        ],
+      );
+    });
   }
 
   const _Row(

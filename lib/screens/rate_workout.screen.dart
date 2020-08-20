@@ -85,8 +85,11 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                           maxContainerHeight: _maxContainerHeight,
                           content: RateWorkoutContent(
                             initialComments: _viewModel.initialComments,
+                            initialBodyWeight: null,
+                            initialHumidity: null,
+                            initialPerceivedExertion: null,
+                            initialTemperature: null,
                             maxContainerHeight: _maxContainerHeight,
-                            handleOpen: () {},
                             tempUnit: _viewModel.tempUnit,
                             handleCompleteTap: _handleCompleteTap,
                             handlePerceivedExertionChanged:
@@ -101,7 +104,10 @@ class _RateWorkoutScreenState extends State<RateWorkoutScreen> {
                         _LandscapeContainer(
                           content: RateWorkoutContent(
                             initialComments: _viewModel.initialComments,
-                            handleOpen: () {},
+                            initialBodyWeight: null,
+                            initialHumidity: null,
+                            initialPerceivedExertion: null,
+                            initialTemperature: null,
                             handleCompleteTap: _handleCompleteTap,
                             handlePerceivedExertionChanged:
                                 _viewModel.setPerceivedExertion,
