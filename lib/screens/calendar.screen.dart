@@ -20,7 +20,6 @@ class CalendarScreen extends StatelessWidget {
             children: <Widget>[
               TopNavigation(
                 title: 'calendar',
-                dark: true,
               ),
               Divider(height: styles.Measurements.xxl),
               Padding(

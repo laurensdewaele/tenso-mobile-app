@@ -54,7 +54,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 TopNavigation(
                   handleBackNavigation: _handleBackNavigation,
                   title: 'feedback',
-                  dark: true,
                 ),
                 Divider(height: styles.Measurements.xxl),
                 Padding(

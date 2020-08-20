@@ -39,7 +39,7 @@ class ProgressScreen extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               title: 'Progress',
-              dark: false,
+              dark: true,
             ),
             Divider(height: styles.Measurements.xxl),
             Expanded(

@@ -106,7 +106,6 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
               TopNavigation(
                 handleBackNavigation: _handleBackNavigation,
                 title: _completedWorkout.workout.name,
-                dark: true,
               ),
               Divider(height: styles.Measurements.xxl),
               Padding(

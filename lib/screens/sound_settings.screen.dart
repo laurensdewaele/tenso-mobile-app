@@ -63,7 +63,6 @@ class _SoundSettingsScreenState extends State<SoundSettingsScreen> {
                   TopNavigation(
                     handleBackNavigation: _handleBackNavigation,
                     title: 'sound settings',
-                    dark: true,
                   ),
                   Divider(height: styles.Measurements.xxl),
                   Padding(

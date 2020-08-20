@@ -80,7 +80,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 TopNavigation(
                   handleBackNavigation: _handleBackNavigation,
                   title: 'settings',
-                  dark: true,
                 ),
                 Divider(height: styles.Measurements.xxl),
                 Padding(

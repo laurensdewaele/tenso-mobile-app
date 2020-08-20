@@ -33,16 +33,17 @@ class TopNavigation extends StatelessWidget {
                       styles.Measurements.m,
                       styles.Measurements.m),
                   handleTap: () => _handleTap(context),
-                  icon: dark ? icons.backIconBlack : icons.backIconWhite,
+                  icon:
+                      dark == true ? icons.backIconWhite : icons.backIconBlack,
                 ))
           ],
         ),
         Positioned.fill(
           child: Center(
             child: Text(title,
-                style: dark
-                    ? styles.Staatliches.mBlack
-                    : styles.Staatliches.mWhite,
+                style: dark == true
+                    ? styles.Staatliches.mWhite
+                    : styles.Staatliches.mBlack,
                 textAlign: TextAlign.center),
           ),
         ),

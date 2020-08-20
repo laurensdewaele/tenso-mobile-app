@@ -87,7 +87,6 @@ class _SaveCustomBoardScreenState extends State<SaveCustomBoardScreen> {
                   children: <Widget>[
                     TopNavigation(
                       title: 'save custom board',
-                      dark: true,
                       handleBackNavigation: () {
                         Navigator.of(context).pop();
                       },

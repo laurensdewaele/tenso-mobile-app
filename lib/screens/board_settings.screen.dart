@@ -64,7 +64,6 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
                 TopNavigation(
                   handleBackNavigation: _viewModel.handleBackNavigation,
                   title: 'board settings',
-                  dark: true,
                 ),
                 Divider(height: styles.Measurements.xxl),
                 Padding(

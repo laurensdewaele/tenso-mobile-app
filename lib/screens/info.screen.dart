@@ -54,7 +54,6 @@ class InfoScreen extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               title: 'Info',
-              dark: true,
             ),
             Divider(height: styles.Measurements.xxl),
             Padding(

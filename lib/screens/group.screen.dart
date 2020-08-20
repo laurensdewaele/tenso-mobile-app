@@ -77,7 +77,6 @@ class _GroupScreenState extends State<GroupScreen> {
     return KeyboardAndToastProvider(
       child: Screen(
           handleBackNavigation: () => Navigator.of(context).pop(),
-          backgroundColor: _viewModel.state.primaryColor,
           child: KeyboardListView(
             children: <Widget>[
               Column(

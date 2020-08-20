@@ -95,7 +95,6 @@ class _CustomBoardScreenState extends State<CustomBoardScreen> {
               children: <Widget>[
                 TopNavigation(
                   title: 'custom board',
-                  dark: true,
                   handleBackNavigation: () => Navigator.of(context).pop(),
                 ),
               ],

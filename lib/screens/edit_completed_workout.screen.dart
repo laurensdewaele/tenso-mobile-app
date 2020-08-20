@@ -57,13 +57,11 @@ class _EditCompletedWorkoutScreenState
         handleBackNavigation: () {
           Navigator.of(context).pop();
         },
-        backgroundColor: styles.Colors.blue,
         child: ListView(physics: ClampingScrollPhysics(), children: [
           Column(
             children: <Widget>[
               TopNavigation(
                 title: 'edit completed workout',
-                dark: false,
               ),
               Divider(height: styles.Measurements.xxl),
               Padding(
