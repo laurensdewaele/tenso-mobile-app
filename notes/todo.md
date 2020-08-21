@@ -1,12 +1,9 @@
 # TODO
 - I logged a custom workout and it set the date to a day in the future. would love to have the option to edit a date as well!
   babattles@gmail.com
-  respond to review.
-- respond to tordtvedten@gmail.com that you can autosave.
 - respond to babattles@gmail.com and the review once the date update is live .18
 - Svanhild screenshot startup first time.
 
-- Show list of updates compared to last version.
 - add awesome woodys boards
 - Add edge to top row
 
