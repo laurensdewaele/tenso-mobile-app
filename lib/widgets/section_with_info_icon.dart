@@ -35,6 +35,7 @@ class SectionWithInfoIcon extends StatelessWidget {
             IconButton(
                 handleTap: () {
                   showAppDialog(
+                      barrierDismissible: true,
                       context: context,
                       content: appDialogContent,
                       smallWidth: false);

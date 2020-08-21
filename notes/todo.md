@@ -3,13 +3,16 @@
   babattles@gmail.com
   respond to review.
 - respond to tordtvedten@gmail.com that you can autosave.
+- respond to babattles@gmail.com and the review once the date update is live .18
 
-
+- Info button default board
+- Isfirst opening, keeps on opening on returning to the main screen.
 - Show list of updates compared to last version.
+- add awesome woodys boards
+
 - Add edge to top row
 - New users popup to info section.
-- Show a more detailed changelog
-- Info button default board
+
 - boards
 - backend + webapp
 

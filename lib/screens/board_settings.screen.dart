@@ -14,6 +14,7 @@ import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/keyboard_list_view.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/section.dart';
+import 'package:tenso_app/widgets/section_with_info_icon.dart';
 import 'package:tenso_app/widgets/top_navigation.dart';
 
 class BoardSettingsScreen extends StatefulWidget {
@@ -70,9 +71,12 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
                   child: Card(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: styles.Measurements.m,
-                        vertical: styles.Measurements.l),
+                    padding: EdgeInsets.only(
+                      left: styles.Measurements.m,
+                      top: styles.Measurements.s,
+                      right: styles.Measurements.m,
+                      bottom: styles.Measurements.l,
+                    ),
                     child: StreamBuilder<Object>(
                         initialData: _viewModel.state,
                         stream: _viewModel.state$,
@@ -90,8 +94,10 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Section(
+                                    SectionWithInfoIcon(
                                       title: 'default board',
+                                      appDialogContent:
+                                          _DefaultBoardInfoDialog(),
                                       children: <Widget>[
                                         BoardPicker(
                                           primaryColor: styles.Colors.primary,
@@ -191,6 +197,33 @@ class _CustomBoard extends StatelessWidget {
         ],
       );
     });
+  }
+}
+
+class _DefaultBoardInfoDialog extends StatelessWidget {
+  _DefaultBoardInfoDialog({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'This lets you set the board you most often use, so you won\'t have to reselect your board every time.',
+          style: styles.Lato.xsBlack,
+        ),
+        Divider(
+          height: styles.Measurements.l,
+        ),
+        Button(
+            small: true,
+            displayBackground: false,
+            text: 'Ok',
+            handleTap: () {
+              Navigator.of(context).pop();
+            })
+      ],
+    );
   }
 }
 
