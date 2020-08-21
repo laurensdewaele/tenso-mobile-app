@@ -13,7 +13,7 @@ final List<Version> versions = [
     ..no = '1.0.16'
     ..incrementalNo = 16
     ..changelog.addAll([
-      'Fixed bug on ios where the keyboard would not show a minus sign for entering negative weights.'
+      'Fixed bug on IOS where the keyboard would not show a minus sign for entering negative weights.'
     ])
     ..date = DateTime(2020, 8, 12).toUtc()),
   Version((b) => b
@@ -36,7 +36,7 @@ final List<Version> versions = [
     ..incrementalNo = 13
     ..changelog.addAll([
       'Added e-mail address option on the feedback section, so we can get back to you.',
-      'Fixed bug on ios where comma input on numbers would not be accepted.'
+      'Fixed bug on IOS where comma input on numbers would not be accepted.'
     ])
     ..date = DateTime(2020, 8, 10).toUtc()),
   Version((b) => b
