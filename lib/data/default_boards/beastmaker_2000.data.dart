@@ -4,7 +4,7 @@ import 'package:tenso_app/models/models.dart';
 
 const Size _kBoardSize = const Size(985, 248);
 
-final List<BoardHold> boardHolds = [
+final List<BoardHold> _boardHolds = [
   BoardHold((b) => b
     ..anchorXPercent = 87.5 / _kBoardSize.width
     ..anchorYPercent = 80 / _kBoardSize.height
@@ -296,17 +296,18 @@ final List<BoardHold> boardHolds = [
 ];
 
 final beastmaker2000 = Board((b) => b
-  ..name = 'Beastmaker 2000'
+  ..name = 'Beastmaker - 2000 series'
   ..id = 'beastmaker_2000'
   ..manufacturer = 'Beastmaker'
-  ..model = '2000'
+  ..model = '2000 series'
   ..imageAssetWidth = _kBoardSize.width
   ..imageAssetHeight = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/beastmaker_2000.png'
   ..handToBoardHeightRatio = 1.1
-  ..boardHolds.addAll(boardHolds)
-  ..defaultLeftGripHold =
-      boardHolds.singleWhere((boardHold) => boardHold.position == 9).toBuilder()
-  ..defaultRightGripHold = boardHolds
+  ..boardHolds.addAll(_boardHolds)
+  ..defaultLeftGripHold = _boardHolds
+      .singleWhere((boardHold) => boardHold.position == 9)
+      .toBuilder()
+  ..defaultRightGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 17)
       .toBuilder());
