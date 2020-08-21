@@ -1,6 +1,6 @@
 import 'package:tenso_app/models/models.dart';
 
-final List<Version> versions = [
+final List<Version> _versions = [
   Version((b) => b
     ..no = '1.0.17'
     ..incrementalNo = 17
@@ -62,4 +62,6 @@ final List<Version> versions = [
 ];
 
 final Versioning latestVersioning =
-    Versioning((b) => b..versions.addAll(versions));
+    Versioning((b) => b..versions.addAll(_versions));
+
+final Version latestVersion = _versions[0];

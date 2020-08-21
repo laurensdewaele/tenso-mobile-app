@@ -63,7 +63,7 @@ class FeedbackViewModel extends ChangeNotifier {
           ..message = _message
           ..type = _type
           ..email = _email
-          ..versionNo = latestVersioning.versions[0].no);
+          ..versionNo = latestVersion.no);
         final Response _response = await http.post(
             "https://tenso-server.ue.r.appspot.com/feedback",
             headers: {HttpHeaders.contentTypeHeader: 'application/json'},

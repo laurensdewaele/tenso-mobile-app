@@ -45,28 +45,28 @@ class PersistenceService {
     return File('$path/device_info.txt');
   }
 
-  Future<File> get _localVersioningFile async {
+  Future<File> get _localVersionFile async {
     final path = await _localPath;
-    return File('$path/versioning.txt');
+    return File('$path/version.txt');
   }
 
-  Future<Versioning> getVersioning() async {
-    Versioning _versioning;
+  Future<Version> getVersion() async {
+    Version _version;
     try {
-      final file = await _localVersioningFile;
+      final file = await _localVersionFile;
       String contents = await file.readAsString();
-      _versioning = Versioning.fromJson(contents);
+      _version = Version.fromJson(contents);
     } catch (e) {
       print(e);
       // TODO: Error handling.
     }
-    return _versioning;
+    return _version;
   }
 
-  void saveVersioning(Versioning _versioning) async {
+  void saveVersion(Version version) async {
     try {
-      final file = await _localVersioningFile;
-      file.writeAsString(_versioning.toJson().toString());
+      final file = await _localVersionFile;
+      file.writeAsString(version.toJson().toString());
     } catch (e) {
       print(e);
       // TODO: Error handling

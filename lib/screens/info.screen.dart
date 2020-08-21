@@ -246,7 +246,7 @@ class InfoScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              latestVersioning.versions[0].no,
+                              latestVersion.no,
                               textAlign: TextAlign.start,
                               style: styles.Lato.xsBlack,
                             ),

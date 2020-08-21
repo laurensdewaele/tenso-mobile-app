@@ -14,12 +14,10 @@ class Update extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Version> _persistedVersions =
-        VersioningState().persistedVersioning.versions.toList();
-    final Version _latestPersistedVersion = _persistedVersions[0];
+    final Version _persistedVersion = VersioningState().persistedVersion;
     final List<Version> _versionsInBetween = latestVersioning.versions
         .where((Version version) =>
-            version.incrementalNo > _latestPersistedVersion.incrementalNo)
+            version.incrementalNo > _persistedVersion.incrementalNo)
         .toList();
     final List<String> changelogs = _versionsInBetween
         .map((Version version) => version.changelog)

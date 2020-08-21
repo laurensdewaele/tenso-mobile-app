@@ -11,27 +11,21 @@ class VersioningState {
 
   bool _displayChangelog = false;
   bool get displayChangelog => _displayChangelog;
-  Versioning _persistedVersioning;
-  Versioning get persistedVersioning => _persistedVersioning;
+  Version _persistedVersion;
+  Version get persistedVersion => _persistedVersion;
 
   Future<void> init() async {
-    _persistedVersioning = await _getVersioning();
-    if (_persistedVersioning != null &&
-        _persistedVersioning.versions[0].no !=
-            latestVersioning.versions[0].no) {
+    _persistedVersion = await _persistenceService.getVersion();
+    if (_persistedVersion != null &&
+        _persistedVersion.incrementalNo != latestVersion.incrementalNo) {
       _displayChangelog = true;
     }
-    _saveVersioning(latestVersioning);
+    _saveVersion(latestVersion);
     return Future.value();
   }
 
-  Future<Versioning> _getVersioning() async {
-    final Versioning _versioning = await _persistenceService.getVersioning();
-    return _versioning;
-  }
-
-  void _saveVersioning(Versioning _versioning) {
-    _persistenceService.saveVersioning(_versioning);
+  void _saveVersion(Version version) {
+    _persistenceService.saveVersion(version);
   }
 
   void setDisplayChangelogFalse() {
