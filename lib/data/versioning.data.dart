@@ -2,6 +2,15 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> _versions = [
   Version((b) => b
+    ..no = '1.0.18'
+    ..incrementalNo = 18
+    ..changelog.addAll([
+      'Fixed date issue on completed workouts and calendar overview screen.',
+      'Added info button on default boards after feedback',
+      'Better versioning system',
+    ])
+    ..date = DateTime(2020, 8, 20).toUtc()),
+  Version((b) => b
     ..no = '1.0.17'
     ..incrementalNo = 17
     ..changelog.addAll([
