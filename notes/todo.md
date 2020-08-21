@@ -4,9 +4,7 @@
   respond to review.
 - respond to tordtvedten@gmail.com that you can autosave.
 - respond to babattles@gmail.com and the review once the date update is live .18
-
-- Isfirst opening, keeps on opening on returning to the main screen.
-- New users popup to info section.
+- Svanhild screenshot startup first time.
 
 - Show list of updates compared to last version.
 - add awesome woodys boards

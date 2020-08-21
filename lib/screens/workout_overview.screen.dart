@@ -38,6 +38,9 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
       if (_viewModel.displayChangelog == true) {
         _displayChangelog();
       }
+      if (_viewModel.firstLaunch == true) {
+        _displayNewcomerInfo();
+      }
     });
     super.initState();
   }
@@ -50,6 +53,14 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void dispose() {
     _viewModel.removeListener(_viewModelListener);
     super.dispose();
+  }
+
+  void _displayNewcomerInfo() async {
+    await showAppDialog(
+        barrierDismissible: true,
+        smallWidth: false,
+        context: context,
+        content: _NewcomerInfo());
   }
 
   void _displayChangelog() async {
@@ -157,7 +168,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           ),
           BottomMenuDrawer(
             safeAreaPaddingBottom: MediaQuery.of(context).padding.bottom,
-            startOpen: _viewModel.openBottomMenuOnStartup,
+            startOpen: _viewModel.firstLaunch,
             menuItems: _menuItems,
             longestMenuItemLength: 140,
             dragIndicatorColor: styles.Colors.primary,
@@ -165,6 +176,51 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           )
         ],
       ),
+    );
+  }
+}
+
+class _NewcomerInfo extends StatelessWidget {
+  _NewcomerInfo({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Text(
+            'Welcome to Tenso!',
+            style: styles.Staatliches.lBlack,
+          ),
+        ),
+        Text(
+          '\nIf you\'re relatively new to hangboarding, we suggest you check out our info page.',
+          style: styles.Lato.xsBlack,
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          '\nIf you want to jump right in, we provided two low level entry workouts for you. A density hang protocol and a max hang protocol. For more, check out the info section.',
+          style: styles.Lato.xsBlack,
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          '\nYou can also create your own custom workout, go ahead by clicking on \'add workout\'.',
+          style: styles.Lato.xsBlack,
+          textAlign: TextAlign.center,
+        ),
+        Divider(
+          height: styles.Measurements.l,
+        ),
+        Button(
+            small: true,
+            displayBackground: false,
+            text: 'Ok',
+            handleTap: () {
+              Navigator.of(context).pop();
+            })
+      ],
     );
   }
 }
