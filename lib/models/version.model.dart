@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tenso_app/models/serializers.dart';
@@ -10,8 +11,9 @@ abstract class Version implements Built<Version, VersionBuilder> {
   static Serializer<Version> get serializer => _$versionSerializer;
 
   String get no;
+  int get incrementalNo;
   DateTime get date;
-  String get changelog;
+  BuiltList<String> get changelog;
 
   factory Version([void Function(VersionBuilder) updates]) = _$Version;
   Version._();

@@ -11,9 +11,11 @@ class VersioningState {
 
   bool _displayChangelog = false;
   bool get displayChangelog => _displayChangelog;
+  Versioning _persistedVersioning;
+  Versioning get persistedVersioning => _persistedVersioning;
 
   Future<void> init() async {
-    final Versioning _persistedVersioning = await _getVersioning();
+    _persistedVersioning = await _getVersioning();
     if (_persistedVersioning != null &&
         _persistedVersioning.versions[0].no !=
             latestVersioning.versions[0].no) {

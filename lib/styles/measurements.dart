@@ -13,4 +13,6 @@ abstract class IconMeasurements {
   static const double l = 24;
   static const double m = 20;
   static const double s = 18;
+  static const double xs = 16;
+  static const double xxs = 14;
 }

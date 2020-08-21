@@ -20,12 +20,16 @@ class _$VersionSerializer implements StructuredSerializer<Version> {
     final result = <Object>[
       'no',
       serializers.serialize(object.no, specifiedType: const FullType(String)),
+      'incrementalNo',
+      serializers.serialize(object.incrementalNo,
+          specifiedType: const FullType(int)),
       'date',
       serializers.serialize(object.date,
           specifiedType: const FullType(DateTime)),
       'changelog',
       serializers.serialize(object.changelog,
-          specifiedType: const FullType(String)),
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
     ];
 
     return result;
@@ -46,13 +50,19 @@ class _$VersionSerializer implements StructuredSerializer<Version> {
           result.no = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'incrementalNo':
+          result.incrementalNo = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'date':
           result.date = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
           break;
         case 'changelog':
-          result.changelog = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.changelog.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<Object>);
           break;
       }
     }
@@ -65,16 +75,22 @@ class _$Version extends Version {
   @override
   final String no;
   @override
+  final int incrementalNo;
+  @override
   final DateTime date;
   @override
-  final String changelog;
+  final BuiltList<String> changelog;
 
   factory _$Version([void Function(VersionBuilder) updates]) =>
       (new VersionBuilder()..update(updates)).build();
 
-  _$Version._({this.no, this.date, this.changelog}) : super._() {
+  _$Version._({this.no, this.incrementalNo, this.date, this.changelog})
+      : super._() {
     if (no == null) {
       throw new BuiltValueNullFieldError('Version', 'no');
+    }
+    if (incrementalNo == null) {
+      throw new BuiltValueNullFieldError('Version', 'incrementalNo');
     }
     if (date == null) {
       throw new BuiltValueNullFieldError('Version', 'date');
@@ -96,20 +112,23 @@ class _$Version extends Version {
     if (identical(other, this)) return true;
     return other is Version &&
         no == other.no &&
+        incrementalNo == other.incrementalNo &&
         date == other.date &&
         changelog == other.changelog;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, no.hashCode), date.hashCode), changelog.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, no.hashCode), incrementalNo.hashCode), date.hashCode),
+        changelog.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Version')
           ..add('no', no)
+          ..add('incrementalNo', incrementalNo)
           ..add('date', date)
           ..add('changelog', changelog))
         .toString();
@@ -123,21 +142,27 @@ class VersionBuilder implements Builder<Version, VersionBuilder> {
   String get no => _$this._no;
   set no(String no) => _$this._no = no;
 
+  int _incrementalNo;
+  int get incrementalNo => _$this._incrementalNo;
+  set incrementalNo(int incrementalNo) => _$this._incrementalNo = incrementalNo;
+
   DateTime _date;
   DateTime get date => _$this._date;
   set date(DateTime date) => _$this._date = date;
 
-  String _changelog;
-  String get changelog => _$this._changelog;
-  set changelog(String changelog) => _$this._changelog = changelog;
+  ListBuilder<String> _changelog;
+  ListBuilder<String> get changelog =>
+      _$this._changelog ??= new ListBuilder<String>();
+  set changelog(ListBuilder<String> changelog) => _$this._changelog = changelog;
 
   VersionBuilder();
 
   VersionBuilder get _$this {
     if (_$v != null) {
       _no = _$v.no;
+      _incrementalNo = _$v.incrementalNo;
       _date = _$v.date;
-      _changelog = _$v.changelog;
+      _changelog = _$v.changelog?.toBuilder();
       _$v = null;
     }
     return this;
@@ -158,8 +183,25 @@ class VersionBuilder implements Builder<Version, VersionBuilder> {
 
   @override
   _$Version build() {
-    final _$result =
-        _$v ?? new _$Version._(no: no, date: date, changelog: changelog);
+    _$Version _$result;
+    try {
+      _$result = _$v ??
+          new _$Version._(
+              no: no,
+              incrementalNo: incrementalNo,
+              date: date,
+              changelog: changelog.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'changelog';
+        changelog.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'Version', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

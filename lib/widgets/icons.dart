@@ -16,6 +16,12 @@ const editIconWhiteL = Icon(
     size: styles.IconMeasurements.l,
     color: styles.Colors.white);
 
+const dotBlackS = Icon(
+    iconData: IconData(0xf401,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
+    size: styles.IconMeasurements.xxs,
+    color: styles.Colors.black);
+
 const backIconBlack = Icon(
   iconData: CupertinoIcons.back,
   color: styles.Colors.black,

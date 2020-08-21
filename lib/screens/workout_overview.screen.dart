@@ -66,7 +66,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
   void _displayChangelog() async {
     await showAppDialog(
         barrierDismissible: true,
-        smallWidth: true,
+        smallWidth: false,
         context: context,
         content: Update(
             setDisplayChangelogFalse: _viewModel.setDisplayChangelogFalse));
