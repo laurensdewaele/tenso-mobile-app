@@ -9,7 +9,7 @@ final List<Version> _versions = [
       'Added info button on default boards after feedback',
       'Better versioning system',
     ])
-    ..date = DateTime(2020, 8, 20).toUtc()),
+    ..date = DateTime(2020, 8, 21).toUtc()),
   Version((b) => b
     ..no = '1.0.17'
     ..incrementalNo = 17
