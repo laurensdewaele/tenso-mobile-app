@@ -54,7 +54,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   void handleBackNavigation() async {
     if (await _canNavigate() == true) {
-      _navigationService.pushNamed(Routes.workoutOverviewScreen);
+      _navigationService.pop();
     }
   }
 

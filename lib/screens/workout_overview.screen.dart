@@ -157,7 +157,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           ),
           BottomMenuDrawer(
             safeAreaPaddingBottom: MediaQuery.of(context).padding.bottom,
-            startOpen: _viewModel.bottomMenuOpen,
+            startOpen: _viewModel.openBottomMenuOnStartup,
             menuItems: _menuItems,
             longestMenuItemLength: 140,
             dragIndicatorColor: styles.Colors.primary,

@@ -15,7 +15,9 @@ import 'package:tenso_app/view_models/workout/workout.vm.dart';
 class WorkoutOverviewViewModel extends ChangeNotifier {
   List<Workout> _workoutList;
   List<Workout> get workoutList => _workoutList;
-  bool bottomMenuOpen;
+  bool _openBottomMenuOnStartup;
+  bool get openBottomMenuOnStartup => _openBottomMenuOnStartup;
+
   bool _displayChangelog;
   bool get displayChangelog => _displayChangelog;
   WorkoutsState _workoutsState;
@@ -24,7 +26,7 @@ class WorkoutOverviewViewModel extends ChangeNotifier {
   NavigationService _navigationService;
 
   WorkoutOverviewViewModel() {
-    bottomMenuOpen = UserState().deviceInfo.firstLaunch;
+    _openBottomMenuOnStartup = UserState().deviceInfo.firstLaunch;
     _displayChangelog = VersioningState().displayChangelog;
     _navigationService = NavigationService();
     _workoutsState = WorkoutsState();
