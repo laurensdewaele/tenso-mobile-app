@@ -50,15 +50,15 @@ class CalendarViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedDay(DateTime day) {
-    _selectedDay = day;
+  void setSelectedDay(DateTime date) {
+    _selectedDay = date;
     _setCompletedWorkoutsForSelectedDay();
     _setCalendarTableDays();
     notifyListeners();
   }
 
-  void setSelectedMonth(DateTime month) {
-    _selectedMonth = month;
+  void setSelectedMonth(DateTime date) {
+    _selectedMonth = date;
     _setCompletedWorkoutsForSelectedDay();
     _setCalendarTableDays();
     notifyListeners();
@@ -66,7 +66,7 @@ class CalendarViewModel extends ChangeNotifier {
 
   void setPreviousMonth() {
     final DateTime newMonth =
-        DateTime.utc(_selectedMonth.year, _selectedMonth.month - 1);
+        DateTime(_selectedMonth.year, _selectedMonth.month - 1);
 
     if (calendarDatePickerMonths.where((m) => isSameMonth(m, newMonth)).length >
         0) {
@@ -76,7 +76,7 @@ class CalendarViewModel extends ChangeNotifier {
 
   void setNextMonth() {
     final DateTime newMonth =
-        DateTime.utc(_selectedMonth.year, _selectedMonth.month + 1);
+        DateTime(_selectedMonth.year, _selectedMonth.month + 1);
 
     if (calendarDatePickerMonths.where((m) => isSameMonth(m, newMonth)).length >
         0) {
@@ -98,22 +98,22 @@ class CalendarViewModel extends ChangeNotifier {
   void _setCompletedWorkoutsForSelectedDay() {
     _completedWorkoutsForSelectedDay = _completedWorkoutList
         .where((completedWorkout) =>
-            _isSameDay(completedWorkout.completedDate, _selectedDay))
+            _isSameDay(completedWorkout.completedLocalDate, _selectedDay))
         ?.toList();
   }
 
   void _setDatePickerMonths() {
     List<DateTime> completedWorkoutMonths = _completedWorkoutList
-        .map((completedWorkout) => DateTime.utc(
-            completedWorkout.completedDate.year,
-            completedWorkout.completedDate.month))
+        .map((completedWorkout) => DateTime(
+            completedWorkout.completedLocalDate.year,
+            completedWorkout.completedLocalDate.month))
         ?.toList();
     completedWorkoutMonths.sort((DateTime a, DateTime b) => a.compareTo(b));
 
     DateTime first = completedWorkoutMonths.length > 0
         ? completedWorkoutMonths[0]
-        : DateTime.now().toUtc();
-    DateTime last = DateTime.now().toUtc();
+        : DateTime.now();
+    DateTime last = DateTime.now();
     DateTime threeBeforeFirst = DateTime(first.year, first.month - 3);
     DateTime threeAfterLast = DateTime(last.year, last.month + 3);
 
@@ -139,8 +139,8 @@ class CalendarViewModel extends ChangeNotifier {
 List<Color> _getWorkoutLabelColors(
     DateTime day, List<CompletedWorkout> completedWorkoutList) {
   return completedWorkoutList
-      .where(
-          (completedWorkout) => _isSameDay(completedWorkout.completedDate, day))
+      .where((completedWorkout) =>
+          _isSameDay(completedWorkout.completedLocalDate, day))
       .map((completedWorkout) => completedWorkout.workout.labelColor)
       .toList();
 }
@@ -156,10 +156,10 @@ bool isSameMonth(DateTime first, DateTime second) {
 }
 
 List<DateTime> _daysInMonth(DateTime month) {
-  final first = DateTime.utc(month.year, month.month, 1);
+  final first = DateTime(month.year, month.month, 1);
   final daysBefore = first.weekday - 1;
   final firstToDisplay = first.subtract(Duration(days: daysBefore));
-  final last = DateTime.utc(month.year, month.month + 1, 1)
+  final last = DateTime(month.year, month.month + 1, 1)
       .subtract(const Duration(days: 1));
   final daysAfter = 7 - last.weekday;
   final lastToDisplay = last.add(Duration(days: daysAfter));
@@ -170,7 +170,7 @@ Iterable<DateTime> _daysInRange(DateTime firstDay, DateTime lastDay) sync* {
   var temp = firstDay;
 
   while (temp.compareTo(lastDay) < 1) {
-    yield _normalizeDate(temp);
+    yield temp;
     temp = temp.add(const Duration(days: 1));
   }
 }
@@ -180,11 +180,7 @@ Iterable<DateTime> _monthsInRange(
   var temp = firstMonth;
 
   while (temp.compareTo(lastMonth) < 1) {
-    yield _normalizeDate(temp);
+    yield temp;
     temp = DateTime(temp.year, temp.month + 1);
   }
-}
-
-DateTime _normalizeDate(DateTime value) {
-  return DateTime.utc(value.year, value.month, value.day, 12);
 }
