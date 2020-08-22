@@ -59,8 +59,9 @@ class ProgressScreen extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Text(
-                            'Coming soon!',
-                            style: styles.Staatliches.lBlack,
+                            'We are working on designing and building screens that will display your progression in various ways. In the mean time, keep training and log data. Hang in there!',
+                            style: styles.Lato.xsBlack,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       )
