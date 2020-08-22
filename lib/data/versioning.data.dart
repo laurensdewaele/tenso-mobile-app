@@ -8,7 +8,7 @@ final List<Version> _versions = [
       'Added awesome woodys boards. Cliff board mini + the home boy',
       'Fixed date display on the calendar screen.',
     ])
-    ..date = DateTime(2020, 8, 21).toUtc()),
+    ..date = DateTime(2020, 8, 22).toUtc()),
   Version((b) => b
     ..no = '1.0.17'
     ..incrementalNo = 17

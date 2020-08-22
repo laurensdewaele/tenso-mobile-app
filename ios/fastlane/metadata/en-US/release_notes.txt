@@ -1,2 +1,2 @@
-Added the ability to edit completed workouts.
-Progress is automatically saved when editing a workout, group or completed workout.
+Added awesome woodys boards. Cliff board mini + the home boy.
+Fixed date display on the calendar screen.
