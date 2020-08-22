@@ -8,7 +8,7 @@ import 'package:tenso_app/models/models.dart';
 // Only an issue when forcing the hang_board height.
 const Size _kBoardSize = const Size(395.88, 100);
 
-final List<BoardHold> boardHolds = [
+final List<BoardHold> _boardHolds = [
   BoardHold((b) => b
     ..anchorXPercent = 55 / _kBoardSize.width
     ..anchorYPercent = 0 / _kBoardSize.height
@@ -263,18 +263,18 @@ final List<BoardHold> boardHolds = [
 ];
 
 final beastmaker1000 = Board((b) => b
-  ..name = 'Beastmaker 1000'
+  ..name = 'Beastmaker - 1000 series'
   ..id = 'beastmaker_1000'
   ..manufacturer = 'Beastmaker'
-  ..model = '1000'
+  ..model = '1000 series'
   ..imageAssetWidth = _kBoardSize.width
   ..imageAssetHeight = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/beastmaker_1000.png'
   ..handToBoardHeightRatio = 1.2
-  ..boardHolds.addAll(boardHolds)
-  ..defaultLeftGripHold = boardHolds
+  ..boardHolds.addAll(_boardHolds)
+  ..defaultLeftGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 11)
       .toBuilder()
-  ..defaultRightGripHold = boardHolds
+  ..defaultRightGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 17)
       .toBuilder());

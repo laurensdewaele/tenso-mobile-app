@@ -4,7 +4,7 @@ import 'package:tenso_app/models/models.dart';
 
 const Size _kBoardSize = const Size(1000, 627);
 
-final List<BoardHold> boardHolds = [
+final List<BoardHold> _boardHolds = [
   BoardHold((b) => b
     ..anchorXPercent = 167 / _kBoardSize.width
     ..anchorYPercent = 3 / _kBoardSize.height
@@ -302,7 +302,7 @@ final List<BoardHold> boardHolds = [
 ];
 
 final transgression = Board((b) => b
-  ..name = 'Transgression'
+  ..name = 'Transgression - Transgression'
   ..id = 'transgression_transgression'
   ..manufacturer = 'Transgression'
   ..model = 'Transgression'
@@ -310,9 +310,10 @@ final transgression = Board((b) => b
   ..imageAssetHeight = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/transgression.png'
   ..handToBoardHeightRatio = 0.4
-  ..boardHolds.addAll(boardHolds)
-  ..defaultLeftGripHold =
-      boardHolds.singleWhere((boardHold) => boardHold.position == 4).toBuilder()
-  ..defaultRightGripHold = boardHolds
+  ..boardHolds.addAll(_boardHolds)
+  ..defaultLeftGripHold = _boardHolds
+      .singleWhere((boardHold) => boardHold.position == 4)
+      .toBuilder()
+  ..defaultRightGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 6)
       .toBuilder());

@@ -4,7 +4,7 @@ import 'package:tenso_app/models/models.dart';
 
 const Size _kBoardSize = const Size(558, 153);
 
-final List<BoardHold> boardHolds = [
+final List<BoardHold> _boardHolds = [
   BoardHold((b) => b
     ..anchorXPercent = 65 / _kBoardSize.width
     ..anchorYPercent = 0 / _kBoardSize.height
@@ -201,7 +201,7 @@ final List<BoardHold> boardHolds = [
 ];
 
 final grindstoneMk2 = Board((b) => b
-  ..name = 'Grindstone Mk2'
+  ..name = 'Tension climbing - Grindstone Mk2'
   ..id = 'grindstone_mk2'
   ..manufacturer = 'Tension climbing'
   ..model = 'Grindstone Mk2'
@@ -209,10 +209,10 @@ final grindstoneMk2 = Board((b) => b
   ..imageAssetHeight = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/grindstone_mk2.png'
   ..handToBoardHeightRatio = .74
-  ..boardHolds.addAll(boardHolds)
-  ..defaultLeftGripHold = boardHolds
+  ..boardHolds.addAll(_boardHolds)
+  ..defaultLeftGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 15)
       .toBuilder()
-  ..defaultRightGripHold = boardHolds
+  ..defaultRightGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 17)
       .toBuilder());

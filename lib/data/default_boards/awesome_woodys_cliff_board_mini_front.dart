@@ -1,0 +1,155 @@
+import 'dart:ui';
+
+import 'package:tenso_app/models/models.dart';
+
+const Size _kBoardSize = const Size(1000, 414);
+
+final List<BoardHold> _boardHolds = [
+  BoardHold((b) => b
+    ..anchorXPercent = 176 / _kBoardSize.width
+    ..anchorYPercent = 1 / _kBoardSize.height
+    ..leftPercent = 0 / _kBoardSize.width
+    ..topPercent = -12 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 119 / _kBoardSize.height
+    ..position = 1
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 30),
+  BoardHold((b) => b
+    ..anchorXPercent = 504 / _kBoardSize.width
+    ..anchorYPercent = 1 / _kBoardSize.height
+    ..leftPercent = 333 / _kBoardSize.width
+    ..topPercent = -12 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 119 / _kBoardSize.height
+    ..position = 2
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 30),
+  BoardHold((b) => b
+    ..anchorXPercent = 830 / _kBoardSize.width
+    ..anchorYPercent = 1 / _kBoardSize.height
+    ..leftPercent = 666 / _kBoardSize.width
+    ..topPercent = -12 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 119 / _kBoardSize.height
+    ..position = 3
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 30),
+  BoardHold((b) => b
+    ..anchorXPercent = 504 / _kBoardSize.width
+    ..anchorYPercent = 180 / _kBoardSize.height
+    ..leftPercent = 333 / _kBoardSize.width
+    ..topPercent = 107 / _kBoardSize.height
+    ..widthPercent = 325 / _kBoardSize.width
+    ..heightPercent = 80 / _kBoardSize.height
+    ..position = 4
+    ..holdType = HoldType.jug
+    ..supportedFingers = 5),
+  BoardHold((b) => b
+    ..anchorXPercent = 176 / _kBoardSize.width
+    ..anchorYPercent = 193 / _kBoardSize.height
+    ..leftPercent = 0 / _kBoardSize.width
+    ..topPercent = 187 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 60 / _kBoardSize.height
+    ..position = 5
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 20),
+  BoardHold((b) => b
+    ..anchorXPercent = 504 / _kBoardSize.width
+    ..anchorYPercent = 193 / _kBoardSize.height
+    ..leftPercent = 333 / _kBoardSize.width
+    ..topPercent = 187 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 60 / _kBoardSize.height
+    ..position = 6
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 20),
+  BoardHold((b) => b
+    ..anchorXPercent = 830 / _kBoardSize.width
+    ..anchorYPercent = 193 / _kBoardSize.height
+    ..leftPercent = 666 / _kBoardSize.width
+    ..topPercent = 187 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 60 / _kBoardSize.height
+    ..position = 7
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 20),
+  BoardHold((b) => b
+    ..anchorXPercent = 218 / _kBoardSize.width
+    ..anchorYPercent = 325 / _kBoardSize.height
+    ..leftPercent = 52 / _kBoardSize.width
+    ..topPercent = 247 / _kBoardSize.height
+    ..widthPercent = 325 / _kBoardSize.width
+    ..heightPercent = 92 / _kBoardSize.height
+    ..position = 8
+    ..holdType = HoldType.jug
+    ..supportedFingers = 5),
+  BoardHold((b) => b
+    ..anchorXPercent = 791 / _kBoardSize.width
+    ..anchorYPercent = 325 / _kBoardSize.height
+    ..leftPercent = 618 / _kBoardSize.width
+    ..topPercent = 247 / _kBoardSize.height
+    ..widthPercent = 325 / _kBoardSize.width
+    ..heightPercent = 92 / _kBoardSize.height
+    ..position = 9
+    ..holdType = HoldType.jug
+    ..supportedFingers = 5),
+  BoardHold((b) => b
+    ..anchorXPercent = 176 / _kBoardSize.width
+    ..anchorYPercent = 357 / _kBoardSize.height
+    ..leftPercent = 0 / _kBoardSize.width
+    ..topPercent = 339 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 68 / _kBoardSize.height
+    ..position = 10
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 15),
+  BoardHold((b) => b
+    ..anchorXPercent = 509 / _kBoardSize.width
+    ..anchorYPercent = 357 / _kBoardSize.height
+    ..leftPercent = 333 / _kBoardSize.width
+    ..topPercent = 339 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 68 / _kBoardSize.height
+    ..position = 11
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 15),
+  BoardHold((b) => b
+    ..anchorXPercent = 827 / _kBoardSize.width
+    ..anchorYPercent = 357 / _kBoardSize.height
+    ..leftPercent = 666 / _kBoardSize.width
+    ..topPercent = 339 / _kBoardSize.height
+    ..widthPercent = 333 / _kBoardSize.width
+    ..heightPercent = 68 / _kBoardSize.height
+    ..position = 12
+    ..holdType = HoldType.edge
+    ..supportedFingers = 5
+    ..depth = 15),
+];
+
+final awesomeWoodysCliffBoardMiniFront = Board((b) => b
+  ..name = 'Awesome Woodys - cliff board mini (front)'
+  ..id = 'awesome_woodys_mini_front'
+  ..manufacturer = 'Awesome Woodys'
+  ..model = 'cliff board mini'
+  ..imageAssetWidth = _kBoardSize.width
+  ..imageAssetHeight = _kBoardSize.height
+  ..imageAsset =
+      'assets/images/boards/awesome_woodys_cliff_board_mini_front.png'
+  ..handToBoardHeightRatio = .937
+  ..boardHolds.addAll(_boardHolds)
+  ..defaultLeftGripHold = _boardHolds
+      .singleWhere((boardHold) => boardHold.position == 5)
+      .toBuilder()
+  ..defaultRightGripHold = _boardHolds
+      .singleWhere((boardHold) => boardHold.position == 7)
+      .toBuilder());
