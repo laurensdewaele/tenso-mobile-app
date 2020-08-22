@@ -233,7 +233,7 @@ final awesomeWoodysTheHomeBoy = Board((b) => b
   ..imageAssetWidth = _kBoardSize.width
   ..imageAssetHeight = _kBoardSize.height
   ..imageAsset = 'assets/images/boards/awesome_woodys_the_home_boy.png'
-  ..handToBoardHeightRatio = .937
+  ..handToBoardHeightRatio = .8
   ..boardHolds.addAll(_boardHolds)
   ..defaultLeftGripHold = _boardHolds
       .singleWhere((boardHold) => boardHold.position == 5)

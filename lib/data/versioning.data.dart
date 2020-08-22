@@ -5,9 +5,8 @@ final List<Version> _versions = [
     ..no = '1.0.18'
     ..incrementalNo = 18
     ..changelog.addAll([
-      'Fixed date issue on completed workouts and calendar overview screen.',
-      'Added info button on default boards after feedback',
-      'Better versioning system',
+      'Added awesome woodys boards. Cliff board mini + the home boy',
+      'Fixed date display on the calendar screen.',
     ])
     ..date = DateTime(2020, 8, 21).toUtc()),
   Version((b) => b
