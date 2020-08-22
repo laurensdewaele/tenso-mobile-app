@@ -4,9 +4,7 @@
 - respond to babattles@gmail.com and the review once the date update is live .18
 - Svanhild screenshot startup first time.
 
-- add awesome woodys boards
-- Add edge to top row
-
+- Add edge to top row custom board
 - boards
 - backend + webapp
 
@@ -29,16 +27,15 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
+- Custom boards in horizontal scroll view.
 - Counting upwards in the settings.
 - Splash screen logo + loading
 - Sync with strava or garmin for the data nerds
-- Tracking of the pause timer.
 - Set reminder for workout.
 - Keep alive whilst on background and playing sounds.
 - Add info button on most elements.
 - Have an 'on the fly workout'?
 - Scale pull measurements (Jan)? 
-- Custom boards in horizontal scroll view.
 - Audioplayer service play sound takes a while when not already initted;
 - Adjust sounds of countdown / female/male voice that counts down.
 - Check out perf; Make as much constants and WIDGETS! consts.
@@ -59,7 +56,6 @@ Local is the source of truth.
 Always save and persist locally.
 Only when saving workouts or completed workouts => also send to server.
 Only when something goes wrong when requesting the local db => try to fetch via backend.
-  
   
 ## Errors
 ### On initial persistence - first time install app
