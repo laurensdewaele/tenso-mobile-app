@@ -1,14 +1,14 @@
 # TODO
-- I logged a custom workout and it set the date to a day in the future. would love to have the option to edit a date as well!
-  babattles@gmail.com
-- respond to babattles@gmail.com and the review once the date update is live .18
-- Svanhild screenshot startup first time.
+- error back button custom board => settings
+- Simulator 3D
 
 - Add edge to top row custom board
 - boards
 - backend + webapp
 
 ### Triage
+- Onboarding screen
+- rethink save and info button on menu?
 - Allow ability to add some notes to each group, or name each group. 
   I like to do some scapula pulls, knee raises and pull ups to warm up. 
   I would love to have the warm up with prompts on here.

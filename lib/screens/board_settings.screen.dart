@@ -56,9 +56,7 @@ class _BoardSettingsScreenState extends State<BoardSettingsScreen> {
   Widget build(BuildContext context) {
     return KeyboardAndToastProvider(
       child: Screen(
-          handleBackNavigation: () {
-            Navigator.of(context).pop();
-          },
+          handleBackNavigation: _viewModel.handleBackNavigation,
           child: KeyboardListView(children: [
             Column(
               children: <Widget>[

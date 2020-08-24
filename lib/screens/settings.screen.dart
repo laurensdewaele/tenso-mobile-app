@@ -72,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Divider(
                             height: styles.Measurements.xs,
                           ),
-                          _InfoSection(
+                          _NavigateSection(
                               title: 'boards',
                               handleNavigation:
                                   _viewModel.handleBoardNavigation),
@@ -100,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                 ],
                               )),
-                          _InfoSection(
+                          _NavigateSection(
                               title: 'sound',
                               handleNavigation:
                                   _viewModel.handleSoundNavigation),
@@ -174,8 +174,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 }
 
-class _InfoSection extends StatelessWidget {
-  _InfoSection({Key key, @required this.title, @required this.handleNavigation})
+class _NavigateSection extends StatelessWidget {
+  _NavigateSection(
+      {Key key, @required this.title, @required this.handleNavigation})
       : super(key: key);
 
   final String title;

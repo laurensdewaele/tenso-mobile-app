@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/routes/routes.dart';
@@ -55,7 +56,7 @@ class BoardSettingsViewModel {
   }
 
   void handleBackNavigation() {
-    _navigationService.pushNamed(Routes.settingsScreen);
+    _navigationService.popUntil(ModalRoute.withName('/settingsScreen'));
   }
 
   void handleDeleteCustomBoard(Board customBoard) {
