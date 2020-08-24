@@ -54,8 +54,8 @@ class SettingsViewModel extends ChangeNotifier {
 
   void handleBackNavigation() async {
     if (await _canNavigate() == true) {
-      // We need to pop back until the home route
-      // Navigating to /workoutOverviewScreen, triggers the newcomer popup and
+      // We need to pop back until the home route,
+      // navigating to /workoutOverviewScreen, triggers the newcomer popup and
       // opens the bottomMenuDrawer for newcomers.
       // Popping causes an issue because saveCustomBoardScreen does not pop.
       _navigationService.popUntil(ModalRoute.withName('/'));
