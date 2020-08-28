@@ -1,2 +1,1 @@
-Added awesome woodys boards. Cliff board mini + the home boy.
-Fixed date display on the calendar screen.
+Fixed other navigation errors.

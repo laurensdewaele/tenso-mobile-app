@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tenso_app/helpers/unique_id.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/services/parser.service.dart';
 import 'package:tenso_app/services/validation.service.dart';
@@ -58,7 +58,7 @@ class RateWorkoutViewModel {
       final bool _isValid = _validateAll();
       if (_isValid == true) {
         _saveCompletedWorkout(workout, history);
-        _navigationService.pushNamed(Routes.workoutOverviewScreen);
+        _navigationService.popUntil(ModalRoute.withName('/'));
       }
       return _isValid;
     });

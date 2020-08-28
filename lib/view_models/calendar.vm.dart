@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/state/workouts.state.dart';
@@ -127,7 +126,7 @@ class CalendarViewModel extends ChangeNotifier {
 
   void copyCompletedWorkout(CompletedWorkout completedWorkout) {
     _workoutsState.copyWorkout(completedWorkout.workout);
-    _navigationService.pushNamed(Routes.workoutOverviewScreen);
+    _navigationService.popUntil(ModalRoute.withName('/'));
   }
 
   void dispose() {

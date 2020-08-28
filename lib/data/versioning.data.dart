@@ -2,6 +2,16 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> _versions = [
   Version((b) => b
+    ..no = '1.0.20'
+    ..incrementalNo = 20
+    ..changelog.addAll(['Fixed other navigation errors.'])
+    ..date = DateTime(2020, 8, 24).toUtc()),
+  Version((b) => b
+    ..no = '1.0.19'
+    ..incrementalNo = 19
+    ..changelog.addAll(['Fixed navigation bug on the settings screen.'])
+    ..date = DateTime(2020, 8, 24).toUtc()),
+  Version((b) => b
     ..no = '1.0.18'
     ..incrementalNo = 18
     ..changelog.addAll([

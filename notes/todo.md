@@ -1,10 +1,7 @@
 # TODO
-- error back button custom board => settings
-- Simulator 3D
-
-- Add edge to top row custom board
+- metolius 3d
 - boards
-- backend + webapp
+- graphs - in app
 
 ### Triage
 - Onboarding screen
@@ -22,6 +19,7 @@
   keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
 ### Medium prio
+- Add edge to top row custom board
 - Add other boards
 - Setup sentry.io
 - Review app on smaller and larger screens.

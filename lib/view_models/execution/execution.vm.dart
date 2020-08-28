@@ -205,7 +205,7 @@ class ExecutionViewModel {
 
     History _history = _generateHistory();
     if (_history.timerUnderTensionMs == 0) {
-      _navigationService.pushNamed(Routes.workoutOverviewScreen);
+      _navigationService.popUntil(ModalRoute.withName('/'));
     } else {
       showAppDialog(
           fullWidth: true,
