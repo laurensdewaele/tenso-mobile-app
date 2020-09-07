@@ -424,9 +424,11 @@ class ExecutionViewModel {
 
   void dispose() {
     Wakelock.disable();
-    _animationController.removeListener(_setState);
-    _animationController.removeStatusListener(_animationStatusListener);
-    _animationController.dispose();
-    _state$.close();
+    try {
+      _animationController.removeListener(_setState);
+      _animationController.removeStatusListener(_animationStatusListener);
+      _animationController.dispose();
+      _state$.close();
+    } catch (_) {}
   }
 }
