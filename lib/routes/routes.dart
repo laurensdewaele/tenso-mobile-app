@@ -13,6 +13,7 @@ import 'package:tenso_app/screens/save_custom_board.screen.dart';
 import 'package:tenso_app/screens/settings.screen.dart';
 import 'package:tenso_app/screens/sound_settings.screen.dart';
 import 'package:tenso_app/screens/stats.screen.dart';
+import 'package:tenso_app/screens/total_hang_rest_time.screen.dart';
 import 'package:tenso_app/screens/workout.screen.dart';
 import 'package:tenso_app/screens/workout_overview.screen.dart';
 
@@ -32,6 +33,7 @@ abstract class Routes {
   static const String saveCustomBoardScreen = '/saveCustomBoardScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String soundSettingsScreen = '/soundSettingsScreen';
+  static const String totalHangRestTimeScreen = '/totalHangRestTimeScreen';
   static const String rateWorkoutScreen = '/rateWorkoutScreen';
   static const String workoutScreen = '/workoutScreen';
   static const String workoutOverviewScreen = '/workoutOverviewScreen';
@@ -55,6 +57,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
+    Routes.totalHangRestTimeScreen: (context) => TotalHangRestTimeScreen(),
     Routes.workoutScreen: (context) => WorkoutScreen(),
     Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),
   };
