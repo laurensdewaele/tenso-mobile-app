@@ -1,7 +1,8 @@
 # TODO
+- graphs - overview screen
 - metolius 3d
-- boards
-- graphs - in app
+- onboarding screen
+- share workouts with friends
 
 ### Triage
 - Onboarding screen
