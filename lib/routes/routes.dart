@@ -8,11 +8,11 @@ import 'package:tenso_app/screens/execution.screen.dart';
 import 'package:tenso_app/screens/feedback.screen.dart';
 import 'package:tenso_app/screens/group.screen.dart';
 import 'package:tenso_app/screens/info.screen.dart';
-import 'package:tenso_app/screens/progress.screen.dart';
 import 'package:tenso_app/screens/rate_workout.screen.dart';
 import 'package:tenso_app/screens/save_custom_board.screen.dart';
 import 'package:tenso_app/screens/settings.screen.dart';
 import 'package:tenso_app/screens/sound_settings.screen.dart';
+import 'package:tenso_app/screens/stats.screen.dart';
 import 'package:tenso_app/screens/workout.screen.dart';
 import 'package:tenso_app/screens/workout_overview.screen.dart';
 
@@ -28,7 +28,7 @@ abstract class Routes {
   static const String feedbackScreen = '/feedbackScreen';
   static const String groupScreen = '/groupScreen';
   static const String infoScreen = '/infoScreen';
-  static const String progressScreen = '/progressScreen';
+  static const String statsScreen = '/statsScreen';
   static const String saveCustomBoardScreen = '/saveCustomBoardScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String soundSettingsScreen = '/soundSettingsScreen';
@@ -50,7 +50,7 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.groupScreen: (context) => GroupScreen(),
     Routes.home: (context) => WorkoutOverviewScreen(),
     Routes.infoScreen: (context) => InfoScreen(),
-    Routes.progressScreen: (context) => ProgressScreen(),
+    Routes.statsScreen: (context) => StatsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
     Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
