@@ -3,8 +3,8 @@ import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
 
-class Filter extends StatelessWidget {
-  const Filter({
+class StatsFilter extends StatelessWidget {
+  const StatsFilter({
     @required this.handleTap,
     @required this.selectedFilter,
   });
