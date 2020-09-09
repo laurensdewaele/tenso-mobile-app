@@ -28,12 +28,15 @@ class TotalHangRestTimeScreen extends StatelessWidget {
             title: 'total hang and rest time',
             dark: true,
           ),
+          Divider(
+            height: styles.Measurements.s,
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
                   left: styles.Measurements.xs,
                   right: styles.Measurements.xs,
-                  bottom: styles.Measurements.m),
+                  bottom: styles.Measurements.xs),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -41,7 +44,7 @@ class TotalHangRestTimeScreen extends StatelessWidget {
                     selectedFilter: Container(),
                     handleTap: () {},
                   ),
-                  Divider(height: styles.Measurements.xs),
+                  Divider(height: 10),
                   Expanded(
                       child: Card(
                     padding: EdgeInsets.all(styles.Measurements.xs),
@@ -59,64 +62,68 @@ class TotalHangRestTimeScreen extends StatelessWidget {
                             SimpleTimeSeriesChart.withSampleData(),
                           ],
                         )),
-                        Divider(
-                          height: styles.Measurements.xs,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  print('left date');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: styles.Colors.translucent),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        '5 sept 2020',
-                                        style: styles.Staatliches.mBlack,
-                                      ),
-                                      Divider(
-                                        width: styles.Measurements.s,
-                                      ),
-                                      icons.downCaretBlackL
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  print('right date');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: styles.Colors.translucent),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      icons.downCaretBlackL,
-                                      Divider(
-                                        width: styles.Measurements.s,
-                                      ),
-                                      Text(
-                                        '10 okt 2020',
-                                        style: styles.Staatliches.mBlack,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
                       ],
                     ),
-                  ))
+                  )),
+                  Divider(height: 10),
+                  Card(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: styles.Measurements.xs,
+                      vertical: styles.Measurements.xs,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              print('left date');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: styles.Colors.translucent),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '5 sept 2020',
+                                    style: styles.Staatliches.mBlack,
+                                  ),
+                                  Divider(
+                                    width: styles.Measurements.s,
+                                  ),
+                                  icons.downCaretBlackL
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              print('right date');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: styles.Colors.translucent),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  icons.downCaretBlackL,
+                                  Divider(
+                                    width: styles.Measurements.s,
+                                  ),
+                                  Text(
+                                    '10 okt 2020',
+                                    style: styles.Staatliches.mBlack,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

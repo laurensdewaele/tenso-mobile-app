@@ -29,7 +29,7 @@ class Filter extends StatelessWidget {
               style: styles.Staatliches.mBlack,
             ),
             selectedFilter,
-            icons.forwardIconBlackXl
+            icons.forwardIconBlackL
           ],
         ),
       ),
