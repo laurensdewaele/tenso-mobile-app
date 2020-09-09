@@ -29,7 +29,8 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
       mainAxisSize: MainAxisSize.max,
       children: [
         StatsFilter(
-          selectedFilter: Container(),
+          selectedFilter: SelectedFilter(
+              labelColor: styles.Colors.blue, workoutName: 'testasdfsdsdfing'),
           handleTap: () {},
         ),
         Divider(height: styles.Measurements.xs),
