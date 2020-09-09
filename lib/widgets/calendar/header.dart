@@ -31,7 +31,7 @@ class CalendarHeader extends StatelessWidget {
               style: styles.Staatliches.xlBlack,
             ),
             IconButton(
-                handleTap: handleSelectMonthTap, icon: icons.downCaretBlack)
+                handleTap: handleSelectMonthTap, icon: icons.downCaretBlackL)
           ],
         ),
       ),

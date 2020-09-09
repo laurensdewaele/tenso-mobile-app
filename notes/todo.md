@@ -1,5 +1,6 @@
 # TODO
 - graphs - overview screen
+- defy the crux
 - metolius 3d
 - onboarding screen
 - share workouts with friends

@@ -18,7 +18,7 @@ class Filter extends StatelessWidget {
       onTap: handleTap,
       child: Card(
         padding: EdgeInsets.symmetric(
-          horizontal: styles.Measurements.m,
+          horizontal: styles.Measurements.xs,
           vertical: styles.Measurements.xs,
         ),
         child: Row(
@@ -26,7 +26,7 @@ class Filter extends StatelessWidget {
           children: [
             Text(
               'filter',
-              style: styles.Staatliches.lBlack,
+              style: styles.Staatliches.mBlack,
             ),
             selectedFilter,
             icons.forwardIconBlackXl
