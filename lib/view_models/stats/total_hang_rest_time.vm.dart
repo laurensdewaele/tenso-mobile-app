@@ -26,8 +26,13 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
     final List<DateTime> _dateRange = _completedWorkouts
         .map((CompletedWorkout c) => c.completedLocalDate)
         .toList();
-    final DateTime _startDate = _dateRange.first;
-    final DateTime _endDate = _dateRange.last;
+
+    DateTime _startDate;
+    DateTime _endDate;
+    if (_dateRange.length > 0) {
+      _startDate = _dateRange.first;
+      _endDate = _dateRange.last;
+    }
 
     _state = TotalHangRestTimeViewModelState(
         dateRange: _dateRange,
@@ -39,11 +44,13 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   }
 
   void setStartDate(DateTime startDate) {
+    // TODO: Adjust data to cover only the selected range
     _state = state.copyWith(startDate: startDate);
     notifyListeners();
   }
 
   void setEndDate(DateTime endDate) {
+    // TODO: Adjust data to cover only the selected range
     _state = state.copyWith(endDate: endDate);
     notifyListeners();
   }

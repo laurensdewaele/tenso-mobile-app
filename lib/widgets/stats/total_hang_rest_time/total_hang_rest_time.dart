@@ -57,27 +57,40 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        StatsFilter(
-          rangeFilter: null,
-          handleTap: () {},
+    if (_viewModel.state.dateRange.length == 0) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: styles.Measurements.m),
+        child: Center(
+          child: Text(
+            'No data.\nThere must be at least one completed workout.',
+            style: styles.Lato.lWhiteBold,
+            textAlign: TextAlign.center,
+          ),
         ),
-        Divider(height: styles.Measurements.xs),
-        Expanded(
-            child: TotalHangRestTimeChart(
-          hangData: _viewModel.state.hangData,
-          restData: _viewModel.state.restData,
-        )),
-        Divider(height: styles.Measurements.xs),
-        StatsDate(
-          endDate: DateTime.now(),
-          startDate: DateTime.now(),
-          handleStartDateTap: _handleStartDateTap,
-          handleEndDateTap: _handleEndDateTap,
-        )
-      ],
-    );
+      );
+    } else {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          StatsFilter(
+            rangeFilter: null,
+            handleTap: () {},
+          ),
+          Divider(height: styles.Measurements.xs),
+          Expanded(
+              child: TotalHangRestTimeChart(
+            hangData: _viewModel.state.hangData,
+            restData: _viewModel.state.restData,
+          )),
+          Divider(height: styles.Measurements.xs),
+          StatsDate(
+            endDate: _viewModel.state.endDate,
+            startDate: _viewModel.state.startDate,
+            handleStartDateTap: _handleStartDateTap,
+            handleEndDateTap: _handleEndDateTap,
+          )
+        ],
+      );
+    }
   }
 }

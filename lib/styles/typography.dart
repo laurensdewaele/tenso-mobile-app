@@ -58,6 +58,12 @@ abstract class Lato {
       fontSize: 22,
       color: styles.Colors.black,
       fontWeight: FontWeight.w700);
+  static const TextStyle lWhiteBold = TextStyle(
+      height: 1.5,
+      fontFamily: 'Lato',
+      fontSize: 22,
+      color: styles.Colors.white,
+      fontWeight: FontWeight.w700);
   static const TextStyle sBlackBold = TextStyle(
       height: 1.5,
       fontFamily: 'Lato',
