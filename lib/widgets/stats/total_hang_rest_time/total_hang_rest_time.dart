@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/stats/total_hang_rest_time.vm.dart';
+import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/modal_popup.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/date_picker.dart';
@@ -78,9 +79,22 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
           ),
           Divider(height: styles.Measurements.xs),
           Expanded(
-              child: TotalHangRestTimeChart(
-            hangData: _viewModel.state.hangData,
-            restData: _viewModel.state.restData,
+              child: Card(
+            padding: EdgeInsets.all(styles.Measurements.xs),
+            child: Stack(
+              children: [
+                _Label(
+                  dateTime: _viewModel.state.selectedDate,
+                  hangSeconds: _viewModel.state.hangSecondsForSelectedDate,
+                  restSeconds: _viewModel.state.restSecondsForSelectedDate,
+                ),
+                TotalHangRestTimeChart(
+                  hangData: _viewModel.state.hangData,
+                  restData: _viewModel.state.restData,
+                  handleSelectedDate: _viewModel.setSelectedDate,
+                ),
+              ],
+            ),
           )),
           Divider(height: styles.Measurements.xs),
           StatsDate(
@@ -92,5 +106,56 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
         ],
       );
     }
+  }
+}
+
+class _Label extends StatelessWidget {
+  const _Label({
+    @required this.dateTime,
+    @required this.restSeconds,
+    @required this.hangSeconds,
+  });
+
+  final DateTime dateTime;
+  final int restSeconds;
+  final int hangSeconds;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(
+              text: 'total rest: ',
+              style: styles.Staatliches.xsBlack,
+              children: [
+                TextSpan(
+                    text: '${restSeconds.toString()}s',
+                    style: styles.Lato.xsBlue),
+              ]),
+        ),
+        RichText(
+          text: TextSpan(
+              text: 'total tut: ',
+              style: styles.Staatliches.xsBlack,
+              children: [
+                TextSpan(
+                    text: '${hangSeconds.toString()}s',
+                    style: styles.Lato.xsPrimary),
+              ]),
+        ),
+        RichText(
+          text: TextSpan(
+              text: 'date: ',
+              style: styles.Staatliches.xsBlack,
+              children: [
+                TextSpan(
+                    text: '${dateTime.day}-${dateTime.month}-${dateTime.year}',
+                    style: styles.Lato.xsBlack),
+              ]),
+        ),
+      ],
+    );
   }
 }

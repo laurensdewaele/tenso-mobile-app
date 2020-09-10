@@ -11,6 +11,9 @@ class TotalHangRestTimeViewModelState {
     @required this.rangeFilter,
     @required this.hangData,
     @required this.restData,
+    @required this.selectedDate,
+    @required this.hangSecondsForSelectedDate,
+    @required this.restSecondsForSelectedDate,
   });
 
   final DateTime startDate;
@@ -19,6 +22,9 @@ class TotalHangRestTimeViewModelState {
   final RangeFilter rangeFilter;
   final List<TotalHangRestTimeData> hangData;
   final List<TotalHangRestTimeData> restData;
+  final DateTime selectedDate;
+  final int hangSecondsForSelectedDate;
+  final int restSecondsForSelectedDate;
 
   TotalHangRestTimeViewModelState copyWith({
     DateTime startDate,
@@ -27,13 +33,23 @@ class TotalHangRestTimeViewModelState {
     Nullable<RangeFilter> rangeFilter,
     List<TotalHangRestTimeData> hangData,
     List<TotalHangRestTimeData> restData,
+    DateTime selectedDate,
+    int hangSecondsForSelectedDate,
+    int restSecondsForSelectedDate,
   }) {
     if ((startDate == null || identical(startDate, this.startDate)) &&
         (endDate == null || identical(endDate, this.endDate)) &&
         (dateRange == null || identical(dateRange, this.dateRange)) &&
         (rangeFilter == null || identical(rangeFilter, this.rangeFilter)) &&
         (hangData == null || identical(hangData, this.hangData)) &&
-        (restData == null || identical(restData, this.restData))) {
+        (restData == null || identical(restData, this.restData)) &&
+        (selectedDate == null || identical(selectedDate, this.selectedDate)) &&
+        (hangSecondsForSelectedDate == null ||
+            identical(
+                hangSecondsForSelectedDate, this.hangSecondsForSelectedDate)) &&
+        (restSecondsForSelectedDate == null ||
+            identical(
+                restSecondsForSelectedDate, this.restSecondsForSelectedDate))) {
       return this;
     }
 
@@ -44,6 +60,11 @@ class TotalHangRestTimeViewModelState {
       rangeFilter: rangeFilter == null ? this.rangeFilter : rangeFilter.value,
       hangData: hangData ?? this.hangData,
       restData: restData ?? this.restData,
+      selectedDate: selectedDate ?? this.selectedDate,
+      hangSecondsForSelectedDate:
+          hangSecondsForSelectedDate ?? this.hangSecondsForSelectedDate,
+      restSecondsForSelectedDate:
+          restSecondsForSelectedDate ?? this.restSecondsForSelectedDate,
     );
   }
 }

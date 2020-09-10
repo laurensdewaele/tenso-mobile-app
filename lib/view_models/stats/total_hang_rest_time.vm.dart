@@ -40,7 +40,22 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         endDate: _endDate,
         rangeFilter: null,
         hangData: _totalHangData,
-        restData: _totalRestData);
+        restData: _totalRestData,
+        selectedDate: _startDate,
+        hangSecondsForSelectedDate: _getHangSecondsForSelectedDate(_startDate),
+        restSecondsForSelectedDate: _getRestSecondsForSelectedDate(_startDate));
+  }
+
+  int _getHangSecondsForSelectedDate(DateTime dateTime) {
+    return _totalHangData
+        .firstWhere((TotalHangRestTimeData data) => data.date == dateTime)
+        .seconds;
+  }
+
+  int _getRestSecondsForSelectedDate(DateTime dateTime) {
+    return _totalRestData
+        .firstWhere((TotalHangRestTimeData data) => data.date == dateTime)
+        .seconds;
   }
 
   void setStartDate(DateTime startDate) {
@@ -52,6 +67,14 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   void setEndDate(DateTime endDate) {
     // TODO: Adjust data to cover only the selected range
     _state = state.copyWith(endDate: endDate);
+    notifyListeners();
+  }
+
+  void setSelectedDate(DateTime date) {
+    _state = state.copyWith(
+        selectedDate: date,
+        hangSecondsForSelectedDate: _getHangSecondsForSelectedDate(date),
+        restSecondsForSelectedDate: _getRestSecondsForSelectedDate(date));
     notifyListeners();
   }
 }
