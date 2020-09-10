@@ -5,32 +5,50 @@ import 'package:tenso_app/widgets/color_square.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
 
-class SelectedFilter {
-  final String workoutName;
-  final Color labelColor;
-
-  const SelectedFilter({
-    this.workoutName,
+class RangeFilter {
+  const RangeFilter({
     this.labelColor,
+    this.workoutName,
   });
+
+  final Color labelColor;
+  final String workoutName;
+}
+
+class LabelFilter extends RangeFilter {
+  const LabelFilter({
+    @required this.labelColor,
+  }) : super(labelColor: labelColor, workoutName: null);
+
+  final Color labelColor;
+}
+
+class WorkoutFilter extends RangeFilter {
+  final Color labelColor;
+  final String workoutName;
+
+  const WorkoutFilter({
+    @required this.labelColor,
+    @required this.workoutName,
+  }) : super(labelColor: labelColor, workoutName: workoutName);
 }
 
 class StatsFilter extends StatelessWidget {
   const StatsFilter({
     @required this.handleTap,
-    @required this.selectedFilter,
+    this.rangeFilter,
   });
 
   final VoidCallback handleTap;
-  final SelectedFilter selectedFilter;
+  final RangeFilter rangeFilter;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final double _kLeftRightContainerWidth = 57;
 
-      String _workoutName = selectedFilter.workoutName;
-      final Color _labelColor = selectedFilter.labelColor;
+      String _workoutName = rangeFilter?.workoutName;
+      final Color _labelColor = rangeFilter?.labelColor;
 
       if (_workoutName != null && _workoutName.length > 21) {
         _workoutName = _workoutName.substring(0, 21);
@@ -69,18 +87,18 @@ class StatsFilter extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (_workoutName == null && _labelColor == null)
+                    if (rangeFilter == null)
                       Text(
                         'none',
                         style: styles.Staatliches.mBlack,
                       ),
-                    if (_workoutName != null)
+                    if (rangeFilter?.runtimeType == WorkoutFilter)
                       Text(_workoutName,
                           style: styles.Staatliches.mBlack,
                           overflow: TextOverflow.ellipsis),
-                    if (_labelColor != null && _workoutName != null)
+                    if (rangeFilter?.runtimeType == WorkoutFilter)
                       Divider(width: styles.Measurements.xs),
-                    if (_labelColor != null)
+                    if (rangeFilter?.labelColor != null)
                       ColorSquare(
                         color: _labelColor,
                         width: styles.Measurements.m,
