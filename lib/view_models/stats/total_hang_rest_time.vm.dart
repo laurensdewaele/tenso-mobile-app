@@ -14,13 +14,17 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   TotalHangRestTimeViewModel() {
     final List<CompletedWorkout> _completedWorkouts =
         CompletedWorkoutsState().completedWorkoutList;
+    _completedWorkouts.sort((CompletedWorkout a, CompletedWorkout b) =>
+        a.completedLocalDate.compareTo(b.completedLocalDate));
     _totalHangData = _completedWorkouts
         .map((CompletedWorkout c) => TotalHangRestTimeData(
-            date: c.completedLocalDate, seconds: c.workout.timeUnderTension))
+            date: c.completedLocalDate,
+            seconds: c.history.timerUnderTensionMs ~/ 1000))
         .toList();
     _totalRestData = _completedWorkouts
         .map((CompletedWorkout c) => TotalHangRestTimeData(
-            date: c.completedLocalDate, seconds: c.workout.totalRestTime))
+            date: c.completedLocalDate,
+            seconds: c.history.totalRestTimeMs ~/ 1000))
         .toList();
 
     final List<DateTime> _dateRange = _completedWorkouts
@@ -58,16 +62,52 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         .seconds;
   }
 
-  void setStartDate(DateTime startDate) {
-    // TODO: Adjust data to cover only the selected range
-    _state = state.copyWith(startDate: startDate);
+  void _setNewDates({DateTime startDate, DateTime endDate}) {
+    DateTime _checkIsAtSameMomentAsDate;
+    DateTime _startDate = startDate;
+    DateTime _endDate = endDate;
+
+    if (_endDate == null) {
+      _checkIsAtSameMomentAsDate = startDate;
+      _endDate = state.endDate;
+    }
+    if (_startDate == null) {
+      _checkIsAtSameMomentAsDate = endDate;
+      _startDate = state.startDate;
+    }
+
+    List<TotalHangRestTimeData> _newHangData = [];
+    List<TotalHangRestTimeData> _newRestData = [];
+
+    if (_startDate.isBefore(_endDate) ||
+        _startDate.isAtSameMomentAs(_endDate)) {
+      _newHangData = _totalHangData
+          .where((TotalHangRestTimeData data) =>
+              (data.date.isAfter(_startDate) && data.date.isBefore(_endDate)) ||
+              data.date.isAtSameMomentAs(_checkIsAtSameMomentAsDate))
+          .toList();
+
+      _newRestData = _totalRestData
+          .where((TotalHangRestTimeData data) =>
+              (data.date.isAfter(_startDate) && data.date.isBefore(_endDate)) ||
+              data.date.isAtSameMomentAs(_checkIsAtSameMomentAsDate))
+          .toList();
+    }
+
+    _state = state.copyWith(
+        startDate: _startDate,
+        endDate: _endDate,
+        hangData: _newHangData,
+        restData: _newRestData);
     notifyListeners();
   }
 
+  void setStartDate(DateTime startDate) {
+    _setNewDates(startDate: startDate);
+  }
+
   void setEndDate(DateTime endDate) {
-    // TODO: Adjust data to cover only the selected range
-    _state = state.copyWith(endDate: endDate);
-    notifyListeners();
+    _setNewDates(endDate: endDate);
   }
 
   void setSelectedDate(DateTime date) {

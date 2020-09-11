@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/stats_filter.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/total_hang_rest_time_chart.dart';
@@ -67,4 +68,31 @@ class TotalHangRestTimeViewModelState {
           restSecondsForSelectedDate ?? this.restSecondsForSelectedDate,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TotalHangRestTimeViewModelState &&
+          runtimeType == other.runtimeType &&
+          startDate == other.startDate &&
+          endDate == other.endDate &&
+          dateRange == other.dateRange &&
+          rangeFilter == other.rangeFilter &&
+          listEquals(hangData, other.hangData) &&
+          listEquals(restData, other.restData) &&
+          selectedDate == other.selectedDate &&
+          hangSecondsForSelectedDate == other.hangSecondsForSelectedDate &&
+          restSecondsForSelectedDate == other.restSecondsForSelectedDate;
+
+  @override
+  int get hashCode =>
+      startDate.hashCode ^
+      endDate.hashCode ^
+      dateRange.hashCode ^
+      rangeFilter.hashCode ^
+      hangData.hashCode ^
+      restData.hashCode ^
+      selectedDate.hashCode ^
+      hangSecondsForSelectedDate.hashCode ^
+      restSecondsForSelectedDate.hashCode;
 }

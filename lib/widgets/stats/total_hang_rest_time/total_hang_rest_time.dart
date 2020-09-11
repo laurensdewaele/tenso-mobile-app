@@ -83,11 +83,12 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
             padding: EdgeInsets.all(styles.Measurements.xs),
             child: Stack(
               children: [
-                _Label(
-                  dateTime: _viewModel.state.selectedDate,
-                  hangSeconds: _viewModel.state.hangSecondsForSelectedDate,
-                  restSeconds: _viewModel.state.restSecondsForSelectedDate,
-                ),
+                if (_viewModel.state.hangData.length > 0)
+                  _Label(
+                    dateTime: _viewModel.state.selectedDate,
+                    hangSeconds: _viewModel.state.hangSecondsForSelectedDate,
+                    restSeconds: _viewModel.state.restSecondsForSelectedDate,
+                  ),
                 TotalHangRestTimeChart(
                   hangData: _viewModel.state.hangData,
                   restData: _viewModel.state.restData,
