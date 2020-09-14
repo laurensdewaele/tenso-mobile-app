@@ -85,11 +85,11 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
                             GestureDetector(
                               onTap: () => _handleLabelTap(l),
                               child: _SmallSquare(
-                                size: smallSquareSize,
-                                isFirst: i == 0,
-                                isLast: i == 6,
-                                label: l.label,
-                              ),
+                                  size: smallSquareSize,
+                                  isFirst: i == 0,
+                                  isLast: i == 6,
+                                  label: l.label,
+                                  text: l.text),
                             )))
                         .values
                         .toList(),
@@ -107,9 +107,9 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
                               left: i * smallSquareSize,
                               top: 0,
                               child: _BigSquare(
-                                size: bigSquareSize,
-                                label: l.label,
-                              ),
+                                  size: bigSquareSize,
+                                  label: l.label,
+                                  text: l.text),
                             )
                           : null))
                   .values
@@ -122,33 +122,44 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
 }
 
 class _BigSquare extends StatelessWidget {
-  _BigSquare({Key key, @required this.label, @required this.size})
+  _BigSquare(
+      {Key key, @required this.label, @required this.size, @required this.text})
       : super(key: key);
 
   final Label label;
   final double size;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: size,
-        width: size,
-        decoration: BoxDecoration(
-          borderRadius: styles.kBorderRadiusAll,
-          color: styles.labelColors[label],
-        ));
+      height: size,
+      width: size,
+      decoration: BoxDecoration(
+        borderRadius: styles.kBorderRadiusAll,
+        color: styles.labelColors[label],
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: styles.Staatliches.lWhite,
+        ),
+      ),
+    );
   }
 }
 
 class _SmallSquare extends StatelessWidget {
-  _SmallSquare({
-    Key key,
-    @required this.size,
-    @required this.isFirst,
-    @required this.isLast,
-    @required this.label,
-  }) : super(key: key);
+  _SmallSquare(
+      {Key key,
+      @required this.size,
+      @required this.isFirst,
+      @required this.isLast,
+      @required this.label,
+      @required this.text})
+      : super(key: key);
 
+  final String text;
   final double size;
   final bool isFirst;
   final bool isLast;
@@ -171,11 +182,18 @@ class _SmallSquare extends StatelessWidget {
     }
 
     return Container(
-        height: size,
-        width: size,
-        decoration: BoxDecoration(
-          borderRadius: _borderRadius,
-          color: styles.labelColors[label],
-        ));
+      height: size,
+      width: size,
+      decoration: BoxDecoration(
+        borderRadius: _borderRadius,
+        color: styles.labelColors[label],
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: styles.Staatliches.sWhite,
+        ),
+      ),
+    );
   }
 }

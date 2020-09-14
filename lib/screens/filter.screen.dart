@@ -67,46 +67,77 @@ class _FilterScreenState extends State<FilterScreen> {
       child: Screen(
         backgroundColor: styles.Colors.bgGray,
         handleBackNavigation: _viewModel.handleBackNavigation,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            TopNavigation(
-              handleBackNavigation: _viewModel.handleBackNavigation,
-              title: 'choose filter',
-              dark: false,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: styles.Measurements.xs,
-                  vertical: styles.Measurements.l),
-              child: Column(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                TopNavigation(
+                  handleBackNavigation: _viewModel.handleBackNavigation,
+                  title: 'choose filter',
+                  dark: false,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: styles.Measurements.xs,
+                      vertical: styles.Measurements.xxl),
+                  child: Column(
                     children: [
-                      Card(
-                        padding: EdgeInsets.all(styles.Measurements.m),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'label',
-                              style: styles.Staatliches.xlBlack,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Card(
+                            padding: EdgeInsets.all(styles.Measurements.m),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'label',
+                                  style: styles.Staatliches.xlBlack,
+                                ),
+                                Divider(height: styles.Measurements.m),
+                                LabelWithTextPicker(
+                                  reset$: _viewModel.reset$,
+                                  handleLabelChanged:
+                                      _viewModel.setSelectedLabel,
+                                  labelsWithText:
+                                      _viewModel.state.labelsWithText,
+                                  initialLabelWithText:
+                                      _viewModel.state.initialLabelWithText,
+                                ),
+                              ],
                             ),
-                            Divider(height: styles.Measurements.l),
-                            LabelWithTextPicker(
-                              reset$: _viewModel.reset$,
-                              handleLabelChanged: _viewModel.setSelectedLabel,
-                              labelsWithText: _viewModel.state.labelsWithText,
-                              initialLabelWithText:
-                                  _viewModel.state.initialLabelWithText,
+                          ),
+                          Divider(
+                            height: styles.Measurements.xl,
+                          ),
+                          Card(
+                            padding: EdgeInsets.all(styles.Measurements.m),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'workout',
+                                  style: styles.Staatliches.xlBlack,
+                                ),
+                                Divider(height: styles.Measurements.l),
+                                // Workout list,
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          )
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                )
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              child: Card(
+                padding: EdgeInsets.all(styles.Measurements.m),
+                child: Text('clear and apply'),
               ),
             )
           ],

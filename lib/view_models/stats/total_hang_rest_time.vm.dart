@@ -47,6 +47,8 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
     }
 
     _state = TotalHangRestTimeViewModelState(
+        filteredWorkout: null,
+        filteredLabel: null,
         dateRange: _dateRange,
         startDate: _startDate,
         endDate: _endDate,
@@ -127,13 +129,14 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   }
 
   void handleFilterTap() async {
-    final FilterScreenArguments _newFilters =
-        await _navigationService.pushNamed(Routes.filterScreen,
-            arguments: FilterScreenArguments(
-                filteredWorkout: state.filteredWorkout,
-                filteredLabel: state.filteredLabel));
+    final _newFilters = await _navigationService.pushNamed(Routes.filterScreen,
+        arguments: FilterScreenArguments(
+            filteredWorkout: state.filteredWorkout,
+            filteredLabel: state.filteredLabel));
     _state = state.copyWith(
-        filteredLabel: Nullable(_newFilters.filteredLabel),
-        filteredWorkout: Nullable(_newFilters.filteredWorkout));
+        filteredLabel:
+            Nullable((_newFilters as FilterScreenArguments).filteredLabel),
+        filteredWorkout:
+            Nullable((_newFilters as FilterScreenArguments).filteredWorkout));
   }
 }

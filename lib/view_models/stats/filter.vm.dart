@@ -44,7 +44,8 @@ class FilterViewModel extends ChangeNotifier {
   List<WorkoutCompletedAmount> _getCompletedWorkoutsByAmount() {
     List<Workout> _completedWorkouts = _completedWorkoutsState
         .completedWorkoutList
-        .map((CompletedWorkout c) => c.workout);
+        .map((CompletedWorkout c) => c.workout)
+        .toList();
 
     List<WorkoutCompletedAmount> _completedWorkoutsByAmount = [];
 
@@ -67,7 +68,8 @@ class FilterViewModel extends ChangeNotifier {
 
   List<LabelWithText> _getLabelsWithText() {
     List<Label> _completedLabels = _completedWorkoutsState.completedWorkoutList
-        .map((CompletedWorkout c) => c.workout.label);
+        .map((CompletedWorkout c) => c.workout.label)
+        .toList();
 
     List<LabelCompletedAmount> _completedLabelsByAmount = [];
 
@@ -83,10 +85,12 @@ class FilterViewModel extends ChangeNotifier {
     });
 
     String getCompletedAmountForLabel(Label label) {
-      return _completedLabelsByAmount
-          .firstWhere((LabelCompletedAmount c) => c.label == label)
-          .completedAmount
-          .toString();
+      final int _completedAmount = _completedLabelsByAmount
+          .firstWhere((LabelCompletedAmount c) => c.label == label,
+              orElse: () => null)
+          ?.completedAmount;
+
+      return _completedAmount == null ? '0X' : '${_completedAmount}X';
     }
 
     List<LabelWithText> _labelsWithText = [
