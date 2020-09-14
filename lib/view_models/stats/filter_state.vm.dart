@@ -26,7 +26,7 @@ class LabelWithCompletedAmount {
 class FilterViewModelState {
   Label selectedLabel;
   Workout selectedWorkout;
-  List<WorkoutWithCompletedAmount> completedWorkoutsByAmount;
+  List<WorkoutWithCompletedAmount> workoutsWithCompletedAmount;
   List<LabelWithText> labelsWithText;
   LabelWithText get initialLabelWithText =>
       labelsWithText.firstWhere((LabelWithText l) => l.label == selectedLabel,
@@ -35,7 +35,7 @@ class FilterViewModelState {
   FilterViewModelState({
     this.selectedLabel,
     this.selectedWorkout,
-    @required this.completedWorkoutsByAmount,
+    @required this.workoutsWithCompletedAmount,
     @required this.labelsWithText,
   });
 
@@ -43,7 +43,7 @@ class FilterViewModelState {
     Nullable<Label> selectedLabel,
     List<LabelWithText> labelsWithText,
     Nullable<Workout> selectedWorkout,
-    List<WorkoutWithCompletedAmount> completedWorkoutsByAmount,
+    List<WorkoutWithCompletedAmount> workoutsWithCompletedAmount,
   }) {
     return new FilterViewModelState(
       selectedLabel:
@@ -51,8 +51,8 @@ class FilterViewModelState {
       selectedWorkout: selectedWorkout == null
           ? this.selectedWorkout
           : selectedWorkout.value,
-      completedWorkoutsByAmount:
-          completedWorkoutsByAmount ?? this.completedWorkoutsByAmount,
+      workoutsWithCompletedAmount:
+          workoutsWithCompletedAmount ?? this.workoutsWithCompletedAmount,
       labelsWithText: labelsWithText ?? this.labelsWithText,
     );
   }
@@ -64,13 +64,13 @@ class FilterViewModelState {
           runtimeType == other.runtimeType &&
           selectedLabel == other.selectedLabel &&
           selectedWorkout == other.selectedWorkout &&
-          completedWorkoutsByAmount == other.completedWorkoutsByAmount &&
+          workoutsWithCompletedAmount == other.workoutsWithCompletedAmount &&
           labelsWithText == other.labelsWithText;
 
   @override
   int get hashCode =>
       selectedLabel.hashCode ^
       selectedWorkout.hashCode ^
-      completedWorkoutsByAmount.hashCode ^
+      workoutsWithCompletedAmount.hashCode ^
       labelsWithText.hashCode;
 }

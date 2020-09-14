@@ -16,7 +16,7 @@ class FilterViewModel extends ChangeNotifier {
     _state = FilterViewModelState(
       selectedLabel: filteredLabel ?? null,
       selectedWorkout: filteredWorkout ?? null,
-      completedWorkoutsByAmount: _getCompletedWorkoutsByAmount(),
+      workoutsWithCompletedAmount: _getCompletedWorkoutsByAmount(),
       labelsWithText: _getLabelsWithText(),
     );
   }
@@ -24,8 +24,8 @@ class FilterViewModel extends ChangeNotifier {
   CompletedWorkoutsState _completedWorkoutsState;
   NavigationService _navigationService;
 
-  final StreamController<bool> _reset$ = StreamController.broadcast();
-  Stream<bool> get reset$ => _reset$.stream;
+  final StreamController<bool> _resetLabelPicker$ = StreamController();
+  Stream<bool> get resetLabelPicker$ => _resetLabelPicker$.stream;
 
   FilterViewModelState _state;
   FilterViewModelState get state => _state;
@@ -40,7 +40,7 @@ class FilterViewModel extends ChangeNotifier {
     _state = state.copyWith(
         selectedWorkout: Nullable<Workout>(workout),
         selectedLabel: Nullable<Label>(null));
-    _reset$.sink.add(true);
+    _resetLabelPicker$.sink.add(true);
     notifyListeners();
   }
 
@@ -126,7 +126,7 @@ class FilterViewModel extends ChangeNotifier {
   }
 
   void handleClearTap() {
-    _reset$.sink.add(true);
+    _resetLabelPicker$.sink.add(true);
     _state = state.copyWith(
         selectedLabel: Nullable(null), selectedWorkout: Nullable(null));
     notifyListeners();
@@ -138,7 +138,7 @@ class FilterViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
-    _reset$.close();
+    _resetLabelPicker$.close();
     super.dispose();
   }
 }
