@@ -75,7 +75,7 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
         children: [
           StatsFilter(
             rangeFilter: null,
-            handleTap: () {},
+            handleTap: _viewModel.handleFilterTap,
           ),
           Divider(height: styles.Measurements.xs),
           Expanded(

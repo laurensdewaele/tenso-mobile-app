@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/completed_workout.model.dart';
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/screens/filter.screen.dart';
+import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/view_models/stats/total_hang_rest_time_state.vm.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/total_hang_rest_time_chart.dart';
 
 class TotalHangRestTimeViewModel extends ChangeNotifier {
+  NavigationService _navigationService;
+
   TotalHangRestTimeViewModelState _state;
   TotalHangRestTimeViewModelState get state => _state;
 
@@ -12,6 +18,8 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   List<TotalHangRestTimeData> _totalRestData;
 
   TotalHangRestTimeViewModel() {
+    _navigationService = NavigationService();
+
     final List<CompletedWorkout> _completedWorkouts =
         CompletedWorkoutsState().completedWorkoutList;
     _completedWorkouts.sort((CompletedWorkout a, CompletedWorkout b) =>
@@ -116,5 +124,16 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         hangSecondsForSelectedDate: _getHangSecondsForSelectedDate(date),
         restSecondsForSelectedDate: _getRestSecondsForSelectedDate(date));
     notifyListeners();
+  }
+
+  void handleFilterTap() async {
+    final FilterScreenArguments _newFilters =
+        await _navigationService.pushNamed(Routes.filterScreen,
+            arguments: FilterScreenArguments(
+                filteredWorkout: state.filteredWorkout,
+                filteredLabel: state.filteredLabel));
+    _state = state.copyWith(
+        filteredLabel: Nullable(_newFilters.filteredLabel),
+        filteredWorkout: Nullable(_newFilters.filteredWorkout));
   }
 }

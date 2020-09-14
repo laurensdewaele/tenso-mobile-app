@@ -1,9 +1,11 @@
 # TODO
 - graphs - overview screen
+- refactor into modules, I'm loosing too much time trying to locate files.
 - defy the crux
 - metolius 3d
 - onboarding screen
 - share workouts with friends
+- Integrate bodyweight %, 130%
 
 ### Triage
 - Onboarding screen
