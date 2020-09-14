@@ -14,9 +14,9 @@ class FilterViewModel extends ChangeNotifier {
     _navigationService = NavigationService();
     _completedWorkoutsState = CompletedWorkoutsState();
     _state = FilterViewModelState(
-      selectedLabel: filteredLabel ?? null,
-      selectedWorkout: filteredWorkout ?? null,
-      workoutsWithCompletedAmount: _getCompletedWorkoutsByAmount(),
+      selectedLabel: filteredLabel,
+      selectedWorkout: filteredWorkout,
+      workoutsWithCompletedAmount: _getWorkoutsWithCompletedAmount(),
       labelsWithText: _getLabelsWithText(),
     );
   }
@@ -44,31 +44,31 @@ class FilterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<WorkoutWithCompletedAmount> _getCompletedWorkoutsByAmount() {
+  List<WorkoutWithCompletedAmount> _getWorkoutsWithCompletedAmount() {
     List<Workout> _completedWorkouts = _completedWorkoutsState
         .completedWorkoutList
         .map((CompletedWorkout c) => c.workout)
         .toList();
 
-    List<WorkoutWithCompletedAmount> _completedWorkoutsByAmount = [];
+    List<WorkoutWithCompletedAmount> _workoutsWithCompletedAmount = [];
 
     _completedWorkouts.forEach((Workout w) {
-      if (!_completedWorkoutsByAmount
+      if (!_workoutsWithCompletedAmount
           .map((WorkoutWithCompletedAmount w) => w.workout.id)
           .contains(w.id)) {
         final int _completedAmount =
             _completedWorkouts.where((Workout _w) => w.id == _w.id).length;
-        _completedWorkoutsByAmount.add(WorkoutWithCompletedAmount(
+        _workoutsWithCompletedAmount.add(WorkoutWithCompletedAmount(
           workout: w,
           completedAmount: _completedAmount,
         ));
       }
     });
 
-    _completedWorkoutsByAmount
+    _workoutsWithCompletedAmount
         .sort((a, b) => b.completedAmount.compareTo(a.completedAmount));
 
-    return _completedWorkoutsByAmount;
+    return _workoutsWithCompletedAmount;
   }
 
   List<LabelWithText> _getLabelsWithText() {
@@ -76,21 +76,21 @@ class FilterViewModel extends ChangeNotifier {
         .map((CompletedWorkout c) => c.workout.label)
         .toList();
 
-    List<LabelWithCompletedAmount> _completedLabelsByAmount = [];
+    List<LabelWithCompletedAmount> _labelsWithCompletedAmount = [];
 
     _completedLabels.forEach((Label label) {
-      if (!_completedLabelsByAmount
+      if (!_labelsWithCompletedAmount
           .map((LabelWithCompletedAmount l) => l.label)
           .contains(label)) {
         final int _completedAmount =
             _completedLabels.where((Label _label) => label == _label).length;
-        _completedLabelsByAmount.add(LabelWithCompletedAmount(
+        _labelsWithCompletedAmount.add(LabelWithCompletedAmount(
             label: label, completedAmount: _completedAmount));
       }
     });
 
     String getCompletedAmountForLabel(Label label) {
-      final int _completedAmount = _completedLabelsByAmount
+      final int _completedAmount = _labelsWithCompletedAmount
           .firstWhere((LabelWithCompletedAmount c) => c.label == label,
               orElse: () => null)
           ?.completedAmount;
@@ -98,23 +98,10 @@ class FilterViewModel extends ChangeNotifier {
       return _completedAmount == null ? '0X' : '${_completedAmount}X';
     }
 
-    List<LabelWithText> _labelsWithText = [
-      LabelWithText(
-          label: Label.black, text: getCompletedAmountForLabel(Label.black)),
-      LabelWithText(
-          label: Label.red, text: getCompletedAmountForLabel(Label.red)),
-      LabelWithText(
-          label: Label.orange, text: getCompletedAmountForLabel(Label.orange)),
-      LabelWithText(
-          label: Label.yellow, text: getCompletedAmountForLabel(Label.yellow)),
-      LabelWithText(
-          label: Label.turquoise,
-          text: getCompletedAmountForLabel(Label.turquoise)),
-      LabelWithText(
-          label: Label.blue, text: getCompletedAmountForLabel(Label.blue)),
-      LabelWithText(
-          label: Label.purple, text: getCompletedAmountForLabel(Label.purple)),
-    ];
+    List<LabelWithText> _labelsWithText = defaultLabels
+        .map((LabelWithText l) =>
+            l.copyWith(text: Nullable(getCompletedAmountForLabel(l.label))))
+        .toList();
 
     return _labelsWithText;
   }

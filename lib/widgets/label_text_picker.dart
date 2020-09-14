@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
@@ -22,6 +23,16 @@ class LabelWithText {
     @required this.label,
     this.text,
   });
+
+  LabelWithText copyWith({
+    Label label,
+    Nullable<String> text,
+  }) {
+    return new LabelWithText(
+      label: label ?? this.label,
+      text: text == null ? this.text : text.value,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>
