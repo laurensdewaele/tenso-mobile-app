@@ -252,12 +252,14 @@ class _CompletedWorkoutCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(styles.Measurements.s),
+          padding: EdgeInsets.all(
+              isSelected ? styles.Measurements.s - 1 : styles.Measurements.s),
           decoration: BoxDecoration(
             borderRadius: styles.kBorderRadiusAll,
             border: Border.all(
-                color:
-                    isSelected ? styles.Colors.turquoise : styles.Colors.gray),
+              color: isSelected ? styles.Colors.turquoise : styles.Colors.gray,
+              width: isSelected ? 2 : 1,
+            ),
             color: styles.Colors.bgWhite,
           ),
           child: Row(
