@@ -120,6 +120,16 @@ class FilterViewModel extends ChangeNotifier {
         filteredLabel: state.selectedLabel));
   }
 
+  void handleClearTap() {
+    _reset$.sink.add(true);
+    _state = state.copyWith(selectedLabel: null, selectedWorkout: null);
+    notifyListeners();
+  }
+
+  void handleApplyTap() {
+    handleBackNavigation();
+  }
+
   @override
   void dispose() {
     _reset$.close();
