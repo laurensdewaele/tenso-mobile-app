@@ -59,6 +59,16 @@ class StatsScreen extends StatelessWidget {
                     children: [
                       StatsCard(
                         handleTap: () {
+                          Navigator.of(context)
+                              .pushNamed(Routes.totalHangRestTimeScreen);
+                        },
+                        title: 'total hang and rest time',
+                        disabled: false,
+                        iconPath:
+                            'assets/images/icons/total_hang_rest_time.png',
+                      ),
+                      StatsCard(
+                        handleTap: () {
                           openUnavailableModal(context);
                         },
                         title: 'added weight per group',
@@ -73,6 +83,14 @@ class StatsScreen extends StatelessWidget {
                         title: 'fingers used',
                         disabled: true,
                         iconPath: 'assets/images/icons/fingers_used.png',
+                      ),
+                      StatsCard(
+                        handleTap: () {
+                          openUnavailableModal(context);
+                        },
+                        title: 'grip types used',
+                        disabled: true,
+                        iconPath: 'assets/images/icons/grip_types_used.png',
                       ),
                       StatsCard(
                         handleTap: () {
@@ -97,16 +115,6 @@ class StatsScreen extends StatelessWidget {
                         title: 'time of day',
                         disabled: true,
                         iconPath: 'assets/images/icons/time_of_day.png',
-                      ),
-                      StatsCard(
-                        handleTap: () {
-                          Navigator.of(context)
-                              .pushNamed(Routes.totalHangRestTimeScreen);
-                        },
-                        title: 'total hang and rest time',
-                        disabled: false,
-                        iconPath:
-                            'assets/images/icons/total_hang_rest_time.png',
                       ),
                     ],
                   ),
