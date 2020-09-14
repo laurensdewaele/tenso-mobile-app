@@ -3,25 +3,21 @@ import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/widgets/label_text_picker.dart';
 
-class WorkoutCompletedAmount {
-  final String workoutId;
-  final String workoutName;
-  final Label label;
+class WorkoutWithCompletedAmount {
+  final Workout workout;
   final int completedAmount;
 
-  const WorkoutCompletedAmount({
-    @required this.workoutId,
-    @required this.workoutName,
-    @required this.label,
+  const WorkoutWithCompletedAmount({
+    @required this.workout,
     @required this.completedAmount,
   });
 }
 
-class LabelCompletedAmount {
+class LabelWithCompletedAmount {
   final Label label;
   final int completedAmount;
 
-  const LabelCompletedAmount({
+  const LabelWithCompletedAmount({
     @required this.label,
     @required this.completedAmount,
   });
@@ -30,7 +26,7 @@ class LabelCompletedAmount {
 class FilterViewModelState {
   Label selectedLabel;
   Workout selectedWorkout;
-  List<WorkoutCompletedAmount> completedWorkoutsByAmount;
+  List<WorkoutWithCompletedAmount> completedWorkoutsByAmount;
   List<LabelWithText> labelsWithText;
   LabelWithText get initialLabelWithText =>
       labelsWithText.firstWhere((LabelWithText l) => l.label == selectedLabel,
@@ -47,7 +43,7 @@ class FilterViewModelState {
     Nullable<Label> selectedLabel,
     List<LabelWithText> labelsWithText,
     Nullable<Workout> selectedWorkout,
-    List<WorkoutCompletedAmount> completedWorkoutsByAmount,
+    List<WorkoutWithCompletedAmount> completedWorkoutsByAmount,
   }) {
     return new FilterViewModelState(
       selectedLabel:

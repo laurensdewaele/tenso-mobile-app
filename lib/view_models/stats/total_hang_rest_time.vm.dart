@@ -149,19 +149,21 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         (_newFilters as FilterScreenArguments).filteredLabel;
 
     if (_filteredWorkout != null) {
-      _filteredHangData = _filteredHangData.where(
-          (TotalHangRestTimeData data) =>
-              data.workoutId == _filteredWorkout.id);
-      _filteredRestData = _filteredRestData.where(
-          (TotalHangRestTimeData data) =>
-              data.workoutId == _filteredWorkout.id);
+      _filteredHangData = _totalHangData
+          .where((TotalHangRestTimeData data) =>
+              data.workoutId == _filteredWorkout.id)
+          .toList();
+      _filteredRestData = _totalRestData
+          .where((TotalHangRestTimeData data) =>
+              data.workoutId == _filteredWorkout.id)
+          .toList();
     }
 
     if (_filteredLabel != null) {
-      _filteredHangData = _filteredHangData
+      _filteredHangData = _totalHangData
           .where((TotalHangRestTimeData data) => data.label == _filteredLabel)
           .toList();
-      _filteredRestData = _filteredRestData
+      _filteredRestData = _totalRestData
           .where((TotalHangRestTimeData data) => data.label == _filteredLabel)
           .toList();
     }

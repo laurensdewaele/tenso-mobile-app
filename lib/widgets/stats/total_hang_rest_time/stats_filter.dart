@@ -19,7 +19,7 @@ class StatsFilter extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final double _kLeftRightContainerWidth = 57;
 
-      String _workoutName;
+      String _workoutName = filteredWorkout?.name;
 
       if (filteredWorkout?.name != null && filteredWorkout.name.length > 21) {
         _workoutName = _workoutName.substring(0, 21);

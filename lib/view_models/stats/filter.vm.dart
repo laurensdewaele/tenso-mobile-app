@@ -33,35 +33,40 @@ class FilterViewModel extends ChangeNotifier {
   setSelectedLabel(Label label) {
     _state = state.copyWith(
         selectedLabel: Nullable<Label>(label), selectedWorkout: Nullable(null));
+    notifyListeners();
   }
 
   setSelectedWorkout(Workout workout) {
     _state = state.copyWith(
         selectedWorkout: Nullable<Workout>(workout),
-        selectedLabel: Nullable(null));
+        selectedLabel: Nullable<Label>(null));
+    _reset$.sink.add(true);
+    notifyListeners();
   }
 
-  List<WorkoutCompletedAmount> _getCompletedWorkoutsByAmount() {
+  List<WorkoutWithCompletedAmount> _getCompletedWorkoutsByAmount() {
     List<Workout> _completedWorkouts = _completedWorkoutsState
         .completedWorkoutList
         .map((CompletedWorkout c) => c.workout)
         .toList();
 
-    List<WorkoutCompletedAmount> _completedWorkoutsByAmount = [];
+    List<WorkoutWithCompletedAmount> _completedWorkoutsByAmount = [];
 
     _completedWorkouts.forEach((Workout w) {
       if (!_completedWorkoutsByAmount
-          .map((WorkoutCompletedAmount w) => w.workoutId)
+          .map((WorkoutWithCompletedAmount w) => w.workout.id)
           .contains(w.id)) {
         final int _completedAmount =
             _completedWorkouts.where((Workout _w) => w.id == _w.id).length;
-        _completedWorkoutsByAmount.add(WorkoutCompletedAmount(
-            workoutId: w.id,
-            completedAmount: _completedAmount,
-            label: w.label,
-            workoutName: w.name));
+        _completedWorkoutsByAmount.add(WorkoutWithCompletedAmount(
+          workout: w,
+          completedAmount: _completedAmount,
+        ));
       }
     });
+
+    _completedWorkoutsByAmount
+        .sort((a, b) => b.completedAmount.compareTo(a.completedAmount));
 
     return _completedWorkoutsByAmount;
   }
@@ -71,22 +76,22 @@ class FilterViewModel extends ChangeNotifier {
         .map((CompletedWorkout c) => c.workout.label)
         .toList();
 
-    List<LabelCompletedAmount> _completedLabelsByAmount = [];
+    List<LabelWithCompletedAmount> _completedLabelsByAmount = [];
 
     _completedLabels.forEach((Label label) {
       if (!_completedLabelsByAmount
-          .map((LabelCompletedAmount l) => l.label)
+          .map((LabelWithCompletedAmount l) => l.label)
           .contains(label)) {
         final int _completedAmount =
             _completedLabels.where((Label _label) => label == _label).length;
-        _completedLabelsByAmount.add(LabelCompletedAmount(
+        _completedLabelsByAmount.add(LabelWithCompletedAmount(
             label: label, completedAmount: _completedAmount));
       }
     });
 
     String getCompletedAmountForLabel(Label label) {
       final int _completedAmount = _completedLabelsByAmount
-          .firstWhere((LabelCompletedAmount c) => c.label == label,
+          .firstWhere((LabelWithCompletedAmount c) => c.label == label,
               orElse: () => null)
           ?.completedAmount;
 
