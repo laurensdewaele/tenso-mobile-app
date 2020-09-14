@@ -3,9 +3,9 @@ import 'package:tenso_app/data/versioning.data.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/state/versioning.state.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart';
+import 'package:tenso_app/widgets/ok_button.dart';
 
 class Update extends StatelessWidget {
   Update({Key key, this.setDisplayChangelogFalse}) : super(key: key);
@@ -66,14 +66,10 @@ class Update extends StatelessWidget {
                       ],
                     )),
                 Divider(height: styles.Measurements.s),
-                Button(
-                    small: true,
-                    displayBackground: false,
-                    text: 'Ok',
-                    handleTap: () {
-                      setDisplayChangelogFalse();
-                      Navigator.of(context).pop();
-                    })
+                OKButton(handleTap: () {
+                  setDisplayChangelogFalse();
+                  Navigator.of(context).pop();
+                }),
               ])
         ],
       ),

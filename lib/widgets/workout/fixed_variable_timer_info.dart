@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/ok_button.dart';
 
 class FixedVariableTimerInfo extends StatelessWidget {
   FixedVariableTimerInfo({Key key}) : super(key: key);
@@ -40,13 +40,9 @@ class FixedVariableTimerInfo extends StatelessWidget {
             Divider(
               height: styles.Measurements.l,
             ),
-            Button(
-                small: true,
-                displayBackground: false,
-                text: 'Ok',
-                handleTap: () {
-                  Navigator.of(context).pop();
-                })
+            OKButton(handleTap: () {
+              Navigator.of(context).pop();
+            }),
           ],
         )
       ],

@@ -10,6 +10,7 @@ import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/keyboard_list_view.dart';
 import 'package:tenso_app/widgets/label_text_picker.dart';
 import 'package:tenso_app/widgets/number_input_and_description.dart';
+import 'package:tenso_app/widgets/ok_button.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/section.dart';
 import 'package:tenso_app/widgets/section_with_info_icon.dart';
@@ -234,13 +235,9 @@ class _ColorLabelInfo extends StatelessWidget {
         ),
         Divider(height: styles.Measurements.l),
         Center(
-          child: Button(
-              small: true,
-              displayBackground: false,
-              text: 'Ok',
-              handleTap: () {
-                Navigator.of(context).pop();
-              }),
+          child: OKButton(handleTap: () {
+            Navigator.of(context).pop();
+          }),
         )
       ],
     );
@@ -278,13 +275,9 @@ class _GroupInfo extends StatelessWidget {
         ),
         Divider(height: styles.Measurements.l),
         Center(
-          child: Button(
-              small: true,
-              displayBackground: false,
-              text: 'Ok',
-              handleTap: () {
-                Navigator.of(context).pop();
-              }),
+          child: OKButton(handleTap: () {
+            Navigator.of(context).pop();
+          }),
         )
       ],
     );

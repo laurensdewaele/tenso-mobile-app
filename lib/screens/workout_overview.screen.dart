@@ -9,6 +9,7 @@ import 'package:tenso_app/widgets/color_square.dart';
 import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/ok_button.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/sliding_card.dart';
 import 'package:tenso_app/widgets/sliding_expansion_card.dart';
@@ -211,13 +212,9 @@ class _NewcomerInfo extends StatelessWidget {
         Divider(
           height: styles.Measurements.l,
         ),
-        Button(
-            small: true,
-            displayBackground: false,
-            text: 'Ok',
-            handleTap: () {
-              Navigator.of(context).pop();
-            })
+        OKButton(handleTap: () {
+          Navigator.of(context).pop();
+        }),
       ],
     );
   }

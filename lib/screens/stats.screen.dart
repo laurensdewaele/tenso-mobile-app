@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/widgets/ok_button.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/stats/stats_card.dart';
 import 'package:tenso_app/widgets/top_navigation.dart';
@@ -148,13 +148,9 @@ class _UnavailableInfo extends StatelessWidget {
         Divider(
           height: styles.Measurements.l,
         ),
-        Button(
-            small: true,
-            displayBackground: false,
-            text: 'Ok',
-            handleTap: () {
-              Navigator.of(context).pop();
-            })
+        OKButton(handleTap: () {
+          Navigator.of(context).pop();
+        }),
       ],
     );
   }
