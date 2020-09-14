@@ -106,8 +106,9 @@ class _TotalHangRestTimeChartState extends State<TotalHangRestTimeChart> {
     if (widget.hangData.length == 0) {
       return Center(
         child: Text(
-          'No data for selected range',
+          'No data for selected filter and dates',
           style: styles.Lato.lBlackBold,
+          textAlign: TextAlign.center,
         ),
       );
     } else {

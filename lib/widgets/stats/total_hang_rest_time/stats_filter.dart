@@ -77,7 +77,7 @@ class StatsFilter extends StatelessWidget {
                       ),
                     if (filteredLabel != null)
                       ColorSquare(
-                        color: styles.labelColors[filteredLabel],
+                        color: filteredLabel.color,
                         width: styles.Measurements.m,
                         height: styles.Measurements.m,
                       ),

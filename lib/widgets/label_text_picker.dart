@@ -4,14 +4,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
+List<LabelWithText> defaultLabels = [
+  LabelWithText(label: Label.black),
+  LabelWithText(label: Label.red),
+  LabelWithText(label: Label.orange),
+  LabelWithText(label: Label.yellow),
+  LabelWithText(label: Label.turquoise),
+  LabelWithText(label: Label.blue),
+  LabelWithText(label: Label.purple),
+];
+
 class LabelWithText {
   final Label label;
   final String text;
 
   const LabelWithText({
     @required this.label,
-    @required this.text,
+    this.text,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LabelWithText &&
+          runtimeType == other.runtimeType &&
+          label == other.label &&
+          text == other.text;
+
+  @override
+  int get hashCode => label.hashCode ^ text.hashCode;
 }
 
 class LabelWithTextPicker extends StatefulWidget {
@@ -19,7 +40,7 @@ class LabelWithTextPicker extends StatefulWidget {
       {@required this.labelsWithText,
       @required this.handleLabelChanged,
       this.initialLabelWithText,
-      @required this.reset$});
+      this.reset$});
 
   final List<LabelWithText> labelsWithText;
   final void Function(Label label) handleLabelChanged;
@@ -38,16 +59,20 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
   void initState() {
     super.initState();
     _activeLabelWithText = widget.initialLabelWithText;
-    _sub = widget.reset$.listen((bool _) {
-      setState(() {
-        _activeLabelWithText = null;
+    if (widget.reset$ != null) {
+      _sub = widget.reset$.listen((bool _) {
+        setState(() {
+          _activeLabelWithText = null;
+        });
       });
-    });
+    }
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    if (widget.reset$ != null) {
+      _sub.cancel();
+    }
     super.dispose();
   }
 
@@ -123,10 +148,7 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
 
 class _BigSquare extends StatelessWidget {
   _BigSquare(
-      {Key key,
-      @required this.labelColor,
-      @required this.size,
-      @required this.text})
+      {Key key, @required this.labelColor, @required this.size, this.text})
       : super(key: key);
 
   final Color labelColor;
@@ -144,7 +166,7 @@ class _BigSquare extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          text,
+          text ?? '',
           style: styles.Staatliches.lWhite,
         ),
       ),
@@ -159,7 +181,7 @@ class _SmallSquare extends StatelessWidget {
       @required this.isFirst,
       @required this.isLast,
       @required this.labelColor,
-      @required this.text})
+      this.text})
       : super(key: key);
 
   final String text;
@@ -193,7 +215,7 @@ class _SmallSquare extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          text,
+          text ?? '',
           style: styles.Staatliches.sWhite,
         ),
       ),

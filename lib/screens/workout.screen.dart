@@ -8,6 +8,7 @@ import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
 import 'package:tenso_app/widgets/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/widgets/keyboard_list_view.dart';
+import 'package:tenso_app/widgets/label_text_picker.dart';
 import 'package:tenso_app/widgets/number_input_and_description.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/section.dart';
@@ -17,7 +18,6 @@ import 'package:tenso_app/widgets/text_input.dart';
 import 'package:tenso_app/widgets/top_navigation.dart';
 import 'package:tenso_app/widgets/workout/fixed_variable_timer_info.dart';
 import 'package:tenso_app/widgets/workout/group_overview.dart';
-import 'package:tenso_app/widgets/workout/label_picker.dart';
 
 class WorkoutScreenArguments {
   final WorkoutActions workoutAction;
@@ -109,8 +109,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               appDialogContent: _GroupInfo(),
                               children: <Widget>[
                                 GroupOverview(
-                                  disabled:
-                                      _viewModel.state.inputsEnabled == false,
                                   groups: _viewModel.state.groups,
                                   handleEditGroup: _viewModel.handleEditGroup,
                                   handleDeleteGroup:
@@ -118,24 +116,21 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                   weightUnit:
                                       _viewModel.state.weightSystem.unit,
                                 ),
-                                if (_viewModel.state.inputsEnabled == true)
-                                  Column(
-                                    children: <Widget>[
-                                      if (_viewModel.state.groups.length > 0)
-                                        Divider(
-                                          height: styles.Measurements.l,
-                                        ),
-                                      Button(
-                                          smallText: true,
-                                          height: styles.kSmallButtonHeight,
-                                          text: 'Add group',
-                                          backgroundColor:
-                                              styles.Colors.primary,
-                                          handleTap:
-                                              _viewModel.handleAddGroupTap,
-                                          leadingIcon: icons.plusIconWhiteS)
-                                    ],
-                                  )
+                                Column(
+                                  children: <Widget>[
+                                    if (_viewModel.state.groups.length > 0)
+                                      Divider(
+                                        height: styles.Measurements.l,
+                                      ),
+                                    Button(
+                                        smallText: true,
+                                        height: styles.kSmallButtonHeight,
+                                        text: 'Add group',
+                                        backgroundColor: styles.Colors.primary,
+                                        handleTap: _viewModel.handleAddGroupTap,
+                                        leadingIcon: icons.plusIconWhiteS)
+                                  ],
+                                )
                               ],
                             ),
                             SectionWithInfoIcon(
@@ -166,7 +161,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                 if (_viewModel.state.restBetweenGroupsFixed ==
                                     true)
                                   NumberInputAndDescription<int>(
-                                    enabled: _viewModel.state.inputsEnabled,
                                     primaryColor: _viewModel.state.primaryColor,
                                     description: 'seconds',
                                     handleValueChanged:
@@ -180,10 +174,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               title: 'color label',
                               appDialogContent: _ColorLabelInfo(),
                               children: <Widget>[
-                                LabelPicker(
-                                    handleLabelChanged: _viewModel.setLabel,
-                                    initialLabel: _viewModel.state.label,
-                                    enabled: _viewModel.state.inputsEnabled)
+                                LabelWithTextPicker(
+                                  handleLabelChanged: _viewModel.setLabel,
+                                  initialLabelWithText: LabelWithText(
+                                      label: _viewModel.state.label ??
+                                          defaultLabels[4].label),
+                                  labelsWithText: defaultLabels,
+                                ),
                               ],
                             ),
                             Section(
@@ -191,7 +188,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               children: <Widget>[
                                 TextInput(
                                     multiLine: false,
-                                    enabled: _viewModel.state.inputsEnabled,
                                     primaryColor: _viewModel.state.primaryColor,
                                     initialValue: _viewModel.state.name,
                                     handleValueChanged: _viewModel.setName)

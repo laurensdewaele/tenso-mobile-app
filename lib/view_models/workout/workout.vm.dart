@@ -123,9 +123,6 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void setRestBetweenGroupsFixed() {
-    if (state.inputsEnabled == false) {
-      return;
-    }
     _state = state.copyWith(
         restBetweenGroupsFixed: true,
         restBetweenGroupsSInput: Nullable('180'),
@@ -134,9 +131,6 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void setRestBetweenGroupsVariable() {
-    if (state.inputsEnabled == false) {
-      return;
-    }
     _state = state.copyWith(
         restBetweenGroupsFixed: false,
         restBetweenGroupsS: Nullable(null),
