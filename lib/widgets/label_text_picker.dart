@@ -88,7 +88,7 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
                                   size: smallSquareSize,
                                   isFirst: i == 0,
                                   isLast: i == 6,
-                                  label: l.label,
+                                  labelColor: l.label.color,
                                   text: l.text),
                             )))
                         .values
@@ -108,7 +108,7 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
                               top: 0,
                               child: _BigSquare(
                                   size: bigSquareSize,
-                                  label: l.label,
+                                  labelColor: l.label.color,
                                   text: l.text),
                             )
                           : null))
@@ -123,10 +123,13 @@ class _LabelWithTextPickerState extends State<LabelWithTextPicker> {
 
 class _BigSquare extends StatelessWidget {
   _BigSquare(
-      {Key key, @required this.label, @required this.size, @required this.text})
+      {Key key,
+      @required this.labelColor,
+      @required this.size,
+      @required this.text})
       : super(key: key);
 
-  final Label label;
+  final Color labelColor;
   final double size;
   final String text;
 
@@ -137,7 +140,7 @@ class _BigSquare extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         borderRadius: styles.kBorderRadiusAll,
-        color: styles.labelColors[label],
+        color: labelColor,
       ),
       child: Center(
         child: Text(
@@ -155,7 +158,7 @@ class _SmallSquare extends StatelessWidget {
       @required this.size,
       @required this.isFirst,
       @required this.isLast,
-      @required this.label,
+      @required this.labelColor,
       @required this.text})
       : super(key: key);
 
@@ -163,7 +166,7 @@ class _SmallSquare extends StatelessWidget {
   final double size;
   final bool isFirst;
   final bool isLast;
-  final Label label;
+  final Color labelColor;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +189,7 @@ class _SmallSquare extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         borderRadius: _borderRadius,
-        color: styles.labelColors[label],
+        color: labelColor,
       ),
       child: Center(
         child: Text(

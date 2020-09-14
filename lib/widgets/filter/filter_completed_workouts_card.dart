@@ -39,7 +39,7 @@ class FilterCompletedWorkoutsCard extends StatelessWidget {
                     child: _CompletedWorkoutCard(
                       divider: workoutsWithCompletedAmount.length > 1 &&
                           index != workoutsWithCompletedAmount.length - 1,
-                      labelColor: w.workout.labelColor,
+                      labelColor: w.workout.label.color,
                       completedAmount: w.completedAmount,
                       isSelected: selectedWorkout?.id == w.workout.id,
                       workoutName: w.workout.name,

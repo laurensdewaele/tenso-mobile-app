@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/models/serializers.dart';
-import 'package:tenso_app/styles/styles.dart' as styles;
 
 part 'workout.model.g.dart';
 
@@ -22,8 +20,6 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   String get name;
   Label get label;
 
-  // Color class cannot be serialized by built value
-  Color get labelColor => styles.labelColors[label];
   int get timeUnderTension => _calculateTimeUnderTension();
   int get totalRestTime => _calculateTotalRestTime();
 

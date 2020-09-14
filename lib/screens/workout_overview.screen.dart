@@ -136,7 +136,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                               padding: const EdgeInsets.only(
                                   right: styles.Measurements.s),
                               child: ColorSquare(
-                                color: workout.labelColor,
+                                color: workout.label.color,
                                 width: styles.Measurements.xxl,
                                 height: styles.Measurements.xxl,
                               ),

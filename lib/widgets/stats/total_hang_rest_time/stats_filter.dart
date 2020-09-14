@@ -71,7 +71,7 @@ class StatsFilter extends StatelessWidget {
                       Divider(width: styles.Measurements.xs),
                     if (filteredWorkout != null)
                       ColorSquare(
-                        color: filteredWorkout.labelColor,
+                        color: filteredWorkout.label.color,
                         width: styles.Measurements.m,
                         height: styles.Measurements.m,
                       ),
