@@ -74,7 +74,8 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
         mainAxisSize: MainAxisSize.max,
         children: [
           StatsFilter(
-            rangeFilter: null,
+            filteredLabel: _viewModel.state.filteredLabel,
+            filteredWorkout: _viewModel.state.filteredWorkout,
             handleTap: _viewModel.handleFilterTap,
           ),
           Divider(height: styles.Measurements.xs),

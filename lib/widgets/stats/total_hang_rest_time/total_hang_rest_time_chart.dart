@@ -1,15 +1,20 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 class TotalHangRestTimeData {
   final DateTime date;
   final int seconds;
+  final String workoutId;
+  final Label label;
 
   const TotalHangRestTimeData({
     @required this.date,
     @required this.seconds,
+    @required this.workoutId,
+    @required this.label,
   });
 
   @override
@@ -18,15 +23,13 @@ class TotalHangRestTimeData {
       other is TotalHangRestTimeData &&
           runtimeType == other.runtimeType &&
           date == other.date &&
-          seconds == other.seconds;
+          seconds == other.seconds &&
+          workoutId == other.workoutId &&
+          label == other.label;
 
   @override
-  int get hashCode => date.hashCode ^ seconds.hashCode;
-
-  @override
-  String toString() {
-    return 'TotalHangRestTimeData{date: $date, seconds: $seconds}';
-  }
+  int get hashCode =>
+      date.hashCode ^ seconds.hashCode ^ workoutId.hashCode ^ label.hashCode;
 }
 
 class TotalHangRestTimeChart extends StatefulWidget {

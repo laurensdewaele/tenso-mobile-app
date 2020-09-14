@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/completed_workout.model.dart';
+import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/screens/filter.screen.dart';
 import 'package:tenso_app/services/navigation.service.dart';
@@ -17,6 +18,9 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   List<TotalHangRestTimeData> _totalHangData;
   List<TotalHangRestTimeData> _totalRestData;
 
+  List<TotalHangRestTimeData> _filteredHangData;
+  List<TotalHangRestTimeData> _filteredRestData;
+
   TotalHangRestTimeViewModel() {
     _navigationService = NavigationService();
 
@@ -26,14 +30,21 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         a.completedLocalDate.compareTo(b.completedLocalDate));
     _totalHangData = _completedWorkouts
         .map((CompletedWorkout c) => TotalHangRestTimeData(
+            label: c.workout.label,
+            workoutId: c.workout.id,
             date: c.completedLocalDate,
             seconds: c.history.timerUnderTensionMs ~/ 1000))
         .toList();
     _totalRestData = _completedWorkouts
         .map((CompletedWorkout c) => TotalHangRestTimeData(
+            label: c.workout.label,
+            workoutId: c.workout.id,
             date: c.completedLocalDate,
             seconds: c.history.totalRestTimeMs ~/ 1000))
         .toList();
+
+    _filteredHangData = _totalHangData;
+    _filteredRestData = _totalRestData;
 
     final List<DateTime> _dateRange = _completedWorkouts
         .map((CompletedWorkout c) => c.completedLocalDate)
@@ -52,7 +63,6 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         dateRange: _dateRange,
         startDate: _startDate,
         endDate: _endDate,
-        rangeFilter: null,
         hangData: _totalHangData,
         restData: _totalRestData,
         selectedDate: _startDate,
@@ -73,16 +83,13 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
   }
 
   void _setNewDates({DateTime startDate, DateTime endDate}) {
-    DateTime _checkIsAtSameMomentAsDate;
     DateTime _startDate = startDate;
     DateTime _endDate = endDate;
 
     if (_endDate == null) {
-      _checkIsAtSameMomentAsDate = startDate;
       _endDate = state.endDate;
     }
     if (_startDate == null) {
-      _checkIsAtSameMomentAsDate = endDate;
       _startDate = state.startDate;
     }
 
@@ -91,16 +98,18 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
 
     if (_startDate.isBefore(_endDate) ||
         _startDate.isAtSameMomentAs(_endDate)) {
-      _newHangData = _totalHangData
+      _newHangData = _filteredHangData
           .where((TotalHangRestTimeData data) =>
               (data.date.isAfter(_startDate) && data.date.isBefore(_endDate)) ||
-              data.date.isAtSameMomentAs(_checkIsAtSameMomentAsDate))
+              data.date.isAtSameMomentAs(_startDate) ||
+              data.date.isAtSameMomentAs(_endDate))
           .toList();
 
-      _newRestData = _totalRestData
+      _newRestData = _filteredRestData
           .where((TotalHangRestTimeData data) =>
               (data.date.isAfter(_startDate) && data.date.isBefore(_endDate)) ||
-              data.date.isAtSameMomentAs(_checkIsAtSameMomentAsDate))
+              data.date.isAtSameMomentAs(_startDate) ||
+              data.date.isAtSameMomentAs(_endDate))
           .toList();
     }
 
@@ -133,10 +142,41 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         arguments: FilterScreenArguments(
             filteredWorkout: state.filteredWorkout,
             filteredLabel: state.filteredLabel));
+
+    final Workout _filteredWorkout =
+        (_newFilters as FilterScreenArguments).filteredWorkout;
+    final Label _filteredLabel =
+        (_newFilters as FilterScreenArguments).filteredLabel;
+
+    if (_filteredWorkout != null) {
+      _filteredHangData = _filteredHangData.where(
+          (TotalHangRestTimeData data) =>
+              data.workoutId == _filteredWorkout.id);
+      _filteredRestData = _filteredRestData.where(
+          (TotalHangRestTimeData data) =>
+              data.workoutId == _filteredWorkout.id);
+    }
+
+    if (_filteredLabel != null) {
+      _filteredHangData = _filteredHangData
+          .where((TotalHangRestTimeData data) => data.label == _filteredLabel)
+          .toList();
+      _filteredRestData = _filteredRestData
+          .where((TotalHangRestTimeData data) => data.label == _filteredLabel)
+          .toList();
+    }
+
+    if (_filteredWorkout == null && _filteredLabel == null) {
+      _filteredHangData = _totalHangData;
+      _filteredRestData = _totalRestData;
+    }
+
     _state = state.copyWith(
         filteredLabel:
             Nullable((_newFilters as FilterScreenArguments).filteredLabel),
         filteredWorkout:
             Nullable((_newFilters as FilterScreenArguments).filteredWorkout));
+
+    _setNewDates(startDate: state.startDate, endDate: state.endDate);
   }
 }

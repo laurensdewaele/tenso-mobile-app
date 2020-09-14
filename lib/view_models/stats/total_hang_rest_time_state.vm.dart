@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/widgets/stats/total_hang_rest_time/stats_filter.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/total_hang_rest_time_chart.dart';
 
 class TotalHangRestTimeViewModelState {
@@ -10,7 +9,6 @@ class TotalHangRestTimeViewModelState {
       {@required this.startDate,
       @required this.endDate,
       @required this.dateRange,
-      @required this.rangeFilter,
       @required this.hangData,
       @required this.restData,
       @required this.selectedDate,
@@ -24,7 +22,6 @@ class TotalHangRestTimeViewModelState {
   final DateTime startDate;
   final DateTime endDate;
   final List<DateTime> dateRange;
-  final RangeFilter rangeFilter;
   final List<TotalHangRestTimeData> hangData;
   final List<TotalHangRestTimeData> restData;
   final DateTime selectedDate;
@@ -35,7 +32,6 @@ class TotalHangRestTimeViewModelState {
     DateTime startDate,
     DateTime endDate,
     List<DateTime> dateRange,
-    Nullable<RangeFilter> rangeFilter,
     List<TotalHangRestTimeData> hangData,
     List<TotalHangRestTimeData> restData,
     DateTime selectedDate,
@@ -55,7 +51,6 @@ class TotalHangRestTimeViewModelState {
           hangSecondsForSelectedDate ?? this.hangSecondsForSelectedDate,
       restSecondsForSelectedDate:
           restSecondsForSelectedDate ?? this.restSecondsForSelectedDate,
-      rangeFilter: rangeFilter == null ? this.rangeFilter : rangeFilter.value,
       filteredWorkout: filteredWorkout == null
           ? this.filteredWorkout
           : filteredWorkout.value,
@@ -74,7 +69,6 @@ class TotalHangRestTimeViewModelState {
           startDate == other.startDate &&
           endDate == other.endDate &&
           dateRange == other.dateRange &&
-          rangeFilter == other.rangeFilter &&
           hangData == other.hangData &&
           restData == other.restData &&
           selectedDate == other.selectedDate &&
@@ -88,7 +82,6 @@ class TotalHangRestTimeViewModelState {
       startDate.hashCode ^
       endDate.hashCode ^
       dateRange.hashCode ^
-      rangeFilter.hashCode ^
       hangData.hashCode ^
       restData.hashCode ^
       selectedDate.hashCode ^

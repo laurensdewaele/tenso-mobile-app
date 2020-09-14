@@ -122,7 +122,8 @@ class FilterViewModel extends ChangeNotifier {
 
   void handleClearTap() {
     _reset$.sink.add(true);
-    _state = state.copyWith(selectedLabel: null, selectedWorkout: null);
+    _state = state.copyWith(
+        selectedLabel: Nullable(null), selectedWorkout: Nullable(null));
     notifyListeners();
   }
 
