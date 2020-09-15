@@ -5,7 +5,7 @@ import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/modal_popup.dart';
 import 'package:tenso_app/widgets/stats/date_picker.dart';
-import 'package:tenso_app/widgets/stats/total_hang_rest_time/stats_date.dart';
+import 'package:tenso_app/widgets/stats/stats_date_card.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/stats_filter.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/total_hang_rest_time_chart.dart';
 
@@ -99,7 +99,7 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
             ),
           )),
           Divider(height: styles.Measurements.xs),
-          StatsDate(
+          StatsDateCard(
             endDate: _viewModel.state.endDate,
             startDate: _viewModel.state.startDate,
             handleStartDateTap: _handleStartDateTap,

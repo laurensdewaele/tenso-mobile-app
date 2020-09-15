@@ -4,8 +4,8 @@ import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
 
-class StatsDate extends StatelessWidget {
-  const StatsDate({
+class StatsDateCard extends StatelessWidget {
+  const StatsDateCard({
     @required this.startDate,
     @required this.endDate,
     @required this.handleStartDateTap,
