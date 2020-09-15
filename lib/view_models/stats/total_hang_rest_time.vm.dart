@@ -63,8 +63,8 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         dateRange: _dateRange,
         startDate: _startDate,
         endDate: _endDate,
-        hangData: _totalHangData,
-        restData: _totalRestData,
+        hangData: _filteredHangData,
+        restData: _filteredRestData,
         selectedDate: _startDate,
         hangSecondsForSelectedDate: _getHangSecondsForSelectedDate(_startDate),
         restSecondsForSelectedDate: _getRestSecondsForSelectedDate(_startDate));
