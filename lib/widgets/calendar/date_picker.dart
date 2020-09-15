@@ -3,8 +3,6 @@ import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/calendar.vm.dart';
 import 'package:tenso_app/widgets/calendar/constants.dart';
 
-// Refactor to also display day dates, not only display months;
-
 class CalendarDatePicker extends StatelessWidget {
   CalendarDatePicker(
       {Key key,

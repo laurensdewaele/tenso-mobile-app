@@ -28,17 +28,17 @@ List<MenuItem> menuItems = [
       },
       icon: icons.infoIconBlackL),
   MenuItem(
-      name: 'stats',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.statsScreen);
-      },
-      icon: icons.chartIconBlackS),
-  MenuItem(
       name: 'settings',
       handleTap: () {
         NavigationService().pushNamed(Routes.settingsScreen);
       },
       icon: icons.settingsIconBlackL),
+  MenuItem(
+      name: 'stats',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.statsScreen);
+      },
+      icon: icons.chartIconBlackS),
 ];
 
 class MenuItem {
