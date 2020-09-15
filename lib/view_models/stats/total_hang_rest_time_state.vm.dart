@@ -11,7 +11,7 @@ class TotalHangRestTimeViewModelState {
       @required this.dateRange,
       @required this.hangData,
       @required this.restData,
-      @required this.selectedDate,
+      @required this.selectedDateOnChart,
       @required this.hangSecondsForSelectedDate,
       @required this.restSecondsForSelectedDate,
       @required this.filteredLabel,
@@ -24,7 +24,7 @@ class TotalHangRestTimeViewModelState {
   final List<DateTime> dateRange;
   final List<TotalHangRestTimeData> hangData;
   final List<TotalHangRestTimeData> restData;
-  final DateTime selectedDate;
+  final DateTime selectedDateOnChart;
   final int hangSecondsForSelectedDate;
   final int restSecondsForSelectedDate;
 
@@ -34,7 +34,7 @@ class TotalHangRestTimeViewModelState {
     List<DateTime> dateRange,
     List<TotalHangRestTimeData> hangData,
     List<TotalHangRestTimeData> restData,
-    DateTime selectedDate,
+    DateTime selectedDateOnChart,
     int hangSecondsForSelectedDate,
     int restSecondsForSelectedDate,
     Nullable<Label> filteredLabel,
@@ -46,7 +46,7 @@ class TotalHangRestTimeViewModelState {
       dateRange: dateRange ?? this.dateRange,
       hangData: hangData ?? this.hangData,
       restData: restData ?? this.restData,
-      selectedDate: selectedDate ?? this.selectedDate,
+      selectedDateOnChart: selectedDateOnChart ?? this.selectedDateOnChart,
       hangSecondsForSelectedDate:
           hangSecondsForSelectedDate ?? this.hangSecondsForSelectedDate,
       restSecondsForSelectedDate:
@@ -71,7 +71,7 @@ class TotalHangRestTimeViewModelState {
           dateRange == other.dateRange &&
           hangData == other.hangData &&
           restData == other.restData &&
-          selectedDate == other.selectedDate &&
+          selectedDateOnChart == other.selectedDateOnChart &&
           hangSecondsForSelectedDate == other.hangSecondsForSelectedDate &&
           restSecondsForSelectedDate == other.restSecondsForSelectedDate;
 
@@ -84,7 +84,7 @@ class TotalHangRestTimeViewModelState {
       dateRange.hashCode ^
       hangData.hashCode ^
       restData.hashCode ^
-      selectedDate.hashCode ^
+      selectedDateOnChart.hashCode ^
       hangSecondsForSelectedDate.hashCode ^
       restSecondsForSelectedDate.hashCode;
 }

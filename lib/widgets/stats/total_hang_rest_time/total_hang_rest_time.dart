@@ -86,14 +86,14 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
               children: [
                 if (_viewModel.state.hangData.length > 0)
                   _Label(
-                    dateTime: _viewModel.state.selectedDate,
+                    dateTime: _viewModel.state.selectedDateOnChart,
                     hangSeconds: _viewModel.state.hangSecondsForSelectedDate,
                     restSeconds: _viewModel.state.restSecondsForSelectedDate,
                   ),
                 TotalHangRestTimeChart(
                   hangData: _viewModel.state.hangData,
                   restData: _viewModel.state.restData,
-                  handleSelectedDate: _viewModel.setSelectedDate,
+                  handleSelectedDate: _viewModel.setSelectedDateOnChart,
                 ),
               ],
             ),

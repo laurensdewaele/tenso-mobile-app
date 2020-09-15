@@ -65,7 +65,7 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
         endDate: _endDate,
         hangData: _filteredHangData,
         restData: _filteredRestData,
-        selectedDate: _startDate,
+        selectedDateOnChart: _startDate,
         hangSecondsForSelectedDate: _getHangSecondsForSelectedDate(_startDate),
         restSecondsForSelectedDate: _getRestSecondsForSelectedDate(_startDate));
   }
@@ -129,9 +129,9 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
     _setNewDates(endDate: endDate);
   }
 
-  void setSelectedDate(DateTime date) {
+  void setSelectedDateOnChart(DateTime date) {
     _state = state.copyWith(
-        selectedDate: date,
+        selectedDateOnChart: date,
         hangSecondsForSelectedDate: _getHangSecondsForSelectedDate(date),
         restSecondsForSelectedDate: _getRestSecondsForSelectedDate(date));
     notifyListeners();
