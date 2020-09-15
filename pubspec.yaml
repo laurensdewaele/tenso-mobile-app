@@ -21,7 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  audioplayers: ^0.15.1
+  audioplayers: ^0.16.1
   auto_size_text: ^2.1.0
   built_collection: ^4.3.2
   built_value: ^7.0.8

@@ -1,10 +1,14 @@
 import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class AudioPlayerService {
   AudioCache _audioCache;
+  AudioPlayer _audioPlayer;
 
   AudioPlayerService._() {
-    _audioCache = AudioCache(prefix: 'audio/');
+    _audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+    _audioCache =
+        AudioCache(prefix: 'assets/audio/', fixedPlayer: _audioPlayer);
   }
   static final AudioPlayerService _audioPlayerService = AudioPlayerService._();
   factory AudioPlayerService() => _audioPlayerService;
