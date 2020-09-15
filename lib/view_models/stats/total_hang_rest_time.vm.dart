@@ -174,10 +174,8 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
     }
 
     _state = state.copyWith(
-        filteredLabel:
-            Nullable((_newFilters as FilterScreenArguments).filteredLabel),
-        filteredWorkout:
-            Nullable((_newFilters as FilterScreenArguments).filteredWorkout));
+        filteredLabel: Nullable(_filteredLabel),
+        filteredWorkout: Nullable(_filteredWorkout));
 
     _setNewDates(startDate: state.startDate, endDate: state.endDate);
   }
