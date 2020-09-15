@@ -85,7 +85,7 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
             child: Stack(
               children: [
                 if (_viewModel.state.hangData.length > 0)
-                  _Label(
+                  _ChartLabel(
                     dateTime: _viewModel.state.selectedDateOnChart,
                     hangSeconds: _viewModel.state.hangSecondsForSelectedDate,
                     restSeconds: _viewModel.state.restSecondsForSelectedDate,
@@ -111,8 +111,8 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
   }
 }
 
-class _Label extends StatelessWidget {
-  const _Label({
+class _ChartLabel extends StatelessWidget {
+  const _ChartLabel({
     @required this.dateTime,
     @required this.restSeconds,
     @required this.hangSeconds,
