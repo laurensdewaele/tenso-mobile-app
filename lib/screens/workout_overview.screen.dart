@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/routes/routes.dart';
-import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/view_models/workout_overview.vm.dart';
 import 'package:tenso_app/widgets/bottom_menu_drawer.dart';
@@ -11,6 +9,7 @@ import 'package:tenso_app/widgets/color_square.dart';
 import 'package:tenso_app/widgets/dialog.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icons.dart' as icons;
+import 'package:tenso_app/widgets/ok_button.dart';
 import 'package:tenso_app/widgets/screen.dart';
 import 'package:tenso_app/widgets/sliding_card.dart';
 import 'package:tenso_app/widgets/sliding_expansion_card.dart';
@@ -138,7 +137,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
                               padding: const EdgeInsets.only(
                                   right: styles.Measurements.s),
                               child: ColorSquare(
-                                color: workout.labelColor,
+                                color: workout.label.color,
                                 width: styles.Measurements.xxl,
                                 height: styles.Measurements.xxl,
                               ),
@@ -169,7 +168,7 @@ class _WorkoutOverviewScreenState extends State<WorkoutOverviewScreen> {
           BottomMenuDrawer(
             safeAreaPaddingBottom: MediaQuery.of(context).padding.bottom,
             startOpen: _viewModel.firstLaunch,
-            menuItems: _menuItems,
+            menuItems: menuItems,
             longestMenuItemLength: 140,
             dragIndicatorColor: styles.Colors.primary,
             icons: true,
@@ -213,47 +212,10 @@ class _NewcomerInfo extends StatelessWidget {
         Divider(
           height: styles.Measurements.l,
         ),
-        Button(
-            small: true,
-            displayBackground: false,
-            text: 'Ok',
-            handleTap: () {
-              Navigator.of(context).pop();
-            })
+        OKButton(handleTap: () {
+          Navigator.of(context).pop();
+        }),
       ],
     );
   }
 }
-
-List<MenuItem> _menuItems = [
-  MenuItem(
-      name: 'feedback',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.feedbackScreen);
-      },
-      icon: icons.editIconBlackS),
-  MenuItem(
-      name: 'history',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.calendarScreen);
-      },
-      icon: icons.calendarIconBlackM),
-  MenuItem(
-      name: 'info',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.infoScreen);
-      },
-      icon: icons.infoIconBlackL),
-  MenuItem(
-      name: 'progress',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.progressScreen);
-      },
-      icon: icons.chartIconBlackS),
-  MenuItem(
-      name: 'settings',
-      handleTap: () {
-        NavigationService().pushNamed(Routes.settingsScreen);
-      },
-      icon: icons.settingsIconBlackL),
-];

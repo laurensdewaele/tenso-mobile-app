@@ -15,7 +15,7 @@ import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
 class GroupOverview extends StatelessWidget {
   GroupOverview(
       {Key key,
-      @required this.disabled,
+      this.disabled = false,
       @required this.groups,
       @required this.weightUnit,
       @required this.handleEditGroup,

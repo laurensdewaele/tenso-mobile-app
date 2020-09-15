@@ -5,6 +5,7 @@ import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/expanded_section.dart';
 import 'package:tenso_app/widgets/number_input_and_description.dart';
+import 'package:tenso_app/widgets/ok_button.dart';
 import 'package:tenso_app/widgets/section_with_info_icon.dart';
 import 'package:tenso_app/widgets/text_input.dart';
 
@@ -184,13 +185,9 @@ class _PerceivedExertionInfo extends StatelessWidget {
             Divider(
               height: styles.Measurements.l,
             ),
-            Button(
-                small: true,
-                displayBackground: false,
-                text: 'Ok',
-                handleTap: () {
-                  Navigator.of(context).pop();
-                })
+            OKButton(handleTap: () {
+              Navigator.of(context).pop();
+            }),
           ],
         )
       ],

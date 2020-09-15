@@ -23,7 +23,7 @@ class Stats extends StatelessWidget {
         ExpandedContentTile(
           title: 'label',
           content: ColorSquare(
-              color: completedWorkout.workout.labelColor,
+              color: completedWorkout.workout.label.color,
               width: styles.Measurements.xl,
               height: styles.Measurements.xl),
           contentContainerHeight: styles.Measurements.xl,

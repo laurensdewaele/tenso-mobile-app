@@ -19,7 +19,6 @@ class WorkoutViewModelState {
   final WeightSystem weightSystem;
 
   final String saveButtonText;
-  final bool inputsEnabled;
   final Color primaryColor;
   final TextStyle textPrimaryColor;
   final String title;
@@ -35,7 +34,6 @@ class WorkoutViewModelState {
         nameInput = workout.name,
         weightSystem = currentWeightSystem,
         saveButtonText = 'save',
-        inputsEnabled = true,
         primaryColor = styles.Colors.primary,
         textPrimaryColor = styles.Lato.xsPrimary,
         title = 'New workout';
@@ -51,7 +49,6 @@ class WorkoutViewModelState {
         nameInput = workout.name,
         weightSystem = currentWeightSystem,
         saveButtonText = 'save',
-        inputsEnabled = true,
         primaryColor = styles.Colors.blue,
         textPrimaryColor = styles.Lato.xsBlue,
         title = 'Edit workout';
@@ -66,7 +63,6 @@ class WorkoutViewModelState {
     @required this.nameInput,
     @required this.weightSystem,
     @required this.saveButtonText,
-    @required this.inputsEnabled,
     @required this.primaryColor,
     @required this.textPrimaryColor,
     @required this.title,
@@ -82,7 +78,6 @@ class WorkoutViewModelState {
     String nameInput,
     WeightSystem weightSystem,
     String saveButtonText,
-    bool inputsEnabled,
     Color primaryColor,
     TextStyle textPrimaryColor,
     String title,
@@ -102,7 +97,6 @@ class WorkoutViewModelState {
       nameInput: nameInput ?? this.nameInput,
       weightSystem: weightSystem ?? this.weightSystem,
       saveButtonText: saveButtonText ?? this.saveButtonText,
-      inputsEnabled: inputsEnabled ?? this.inputsEnabled,
       primaryColor: primaryColor ?? this.primaryColor,
       textPrimaryColor: textPrimaryColor ?? this.textPrimaryColor,
       title: title ?? this.title,

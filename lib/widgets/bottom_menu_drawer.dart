@@ -1,9 +1,45 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/routes/routes.dart';
+import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/icon.dart';
+import 'package:tenso_app/widgets/icons.dart' as icons;
+
+List<MenuItem> menuItems = [
+  MenuItem(
+      name: 'feedback',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.feedbackScreen);
+      },
+      icon: icons.editIconBlackS),
+  MenuItem(
+      name: 'history',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.calendarScreen);
+      },
+      icon: icons.calendarIconBlackM),
+  MenuItem(
+      name: 'info',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.infoScreen);
+      },
+      icon: icons.infoIconBlackL),
+  MenuItem(
+      name: 'settings',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.settingsScreen);
+      },
+      icon: icons.settingsIconBlackL),
+  MenuItem(
+      name: 'stats',
+      handleTap: () {
+        NavigationService().pushNamed(Routes.statsScreen);
+      },
+      icon: icons.chartIconBlackS),
+];
 
 class MenuItem {
   final String name;

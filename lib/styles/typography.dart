@@ -58,6 +58,12 @@ abstract class Lato {
       fontSize: 22,
       color: styles.Colors.black,
       fontWeight: FontWeight.w700);
+  static const TextStyle lWhiteBold = TextStyle(
+      height: 1.5,
+      fontFamily: 'Lato',
+      fontSize: 22,
+      color: styles.Colors.white,
+      fontWeight: FontWeight.w700);
   static const TextStyle sBlackBold = TextStyle(
       height: 1.5,
       fontFamily: 'Lato',
@@ -83,9 +89,20 @@ abstract class Lato {
     fontSize: 16,
     color: styles.Colors.black,
   );
+  static const TextStyle xsBlue = TextStyle(
+    height: 1.5,
+    fontFamily: 'Lato',
+    fontSize: 16,
+    color: styles.Colors.blue,
+  );
 
   static const TextStyle xsGray = TextStyle(
       height: 1.5, fontFamily: 'Lato', fontSize: 16, color: styles.Colors.gray);
+  static const TextStyle xsLightGray = TextStyle(
+      height: 1.5,
+      fontFamily: 'Lato',
+      fontSize: 16,
+      color: styles.Colors.lightGray);
   static const TextStyle xsWhite = TextStyle(
       height: 1.5,
       fontFamily: 'Lato',
@@ -96,6 +113,4 @@ abstract class Lato {
       fontFamily: 'Lato',
       fontSize: 16,
       color: styles.Colors.primary);
-  static const TextStyle xsBlue = TextStyle(
-      height: 1.5, fontFamily: 'Lato', fontSize: 16, color: styles.Colors.blue);
 }

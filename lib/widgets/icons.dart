@@ -43,6 +43,11 @@ const forwardIconBlackXl = Icon(
     size: styles.IconMeasurements.xl,
     color: styles.Colors.black);
 
+const forwardIconBlackL = Icon(
+    iconData: CupertinoIcons.forward,
+    size: styles.IconMeasurements.l,
+    color: styles.Colors.black);
+
 const chartIconBlackS = Icon(
     size: styles.IconMeasurements.s,
     iconData: IconData(0xf484,

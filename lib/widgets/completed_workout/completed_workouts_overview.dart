@@ -86,7 +86,7 @@ class CompletedWorkoutsOverview extends StatelessWidget {
                             _handleLongPress(context, completedWorkout),
                         content: _SlidingCardContent(
                           handleTap: () => handleViewTap(completedWorkout),
-                          labelColor: completedWorkout.workout.labelColor,
+                          labelColor: completedWorkout.workout.label.color,
                           name: completedWorkout.workout.name,
                         ),
                       )))

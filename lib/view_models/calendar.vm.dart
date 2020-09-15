@@ -140,7 +140,7 @@ List<Color> _getWorkoutLabelColors(
   return completedWorkoutList
       .where((completedWorkout) =>
           _isSameDay(completedWorkout.completedLocalDate, day))
-      .map((completedWorkout) => completedWorkout.workout.labelColor)
+      .map((completedWorkout) => completedWorkout.workout.label.color)
       .toList();
 }
 

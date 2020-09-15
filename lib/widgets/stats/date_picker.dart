@@ -1,25 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/view_models/calendar.vm.dart';
 import 'package:tenso_app/widgets/calendar/constants.dart';
 
-class CalendarDatePicker extends StatelessWidget {
-  CalendarDatePicker(
+class StatsDatePicker extends StatelessWidget {
+  StatsDatePicker(
       {Key key,
-      @required this.months,
-      @required this.handleSelectedMonth,
-      @required this.currentMonth})
+      @required this.dates,
+      @required this.handleSelectedDate,
+      @required this.initialDate})
       : super(key: key);
 
-  final List<DateTime> months;
-  final void Function(DateTime date) handleSelectedMonth;
-  final DateTime currentMonth;
+  final List<DateTime> dates;
+  final void Function(DateTime date) handleSelectedDate;
+  final DateTime initialDate;
 
   @override
   Widget build(BuildContext context) {
-    final DateTime isSelectedMonth =
-        months.firstWhere((DateTime month) => isSameMonth(month, currentMonth));
-    final int initialItem = months.indexOf(isSelectedMonth);
+    final int initialItem = dates.indexOf(initialDate);
 
     return Container(
       padding: EdgeInsets.all(styles.Measurements.xs),
@@ -32,17 +29,17 @@ class CalendarDatePicker extends StatelessWidget {
           magnification: 1,
           backgroundColor: styles.Colors.bgWhite,
           onSelectedItemChanged: (int index) {
-            handleSelectedMonth(months[index]);
+            handleSelectedDate(dates[index]);
           },
           itemExtent: 40,
           children: <Widget>[
-            ...months.map((DateTime month) {
-              final String _month = kMonths[month.month];
-              final String _year = month.year.toString();
+            ...dates.map((DateTime date) {
+              final String _month = kMonths[date.month];
+              final String _year = date.year.toString();
 
               return Center(
                 child: Text(
-                  ' $_month $_year',
+                  '${date.day} $_month $_year',
                   style: styles.Staatliches.lBlack,
                 ),
               );

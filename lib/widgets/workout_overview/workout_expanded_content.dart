@@ -28,7 +28,7 @@ class WorkoutExpandedContent extends StatelessWidget {
             ExpandedContentTile(
               title: 'label',
               content: ColorSquare(
-                  color: workout.labelColor,
+                  color: workout.label.color,
                   width: styles.Measurements.xl,
                   height: styles.Measurements.xl),
               contentContainerHeight: styles.Measurements.xl,

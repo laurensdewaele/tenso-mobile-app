@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/models/models.dart';
 
 abstract class Colors {
   static const Color primary = const Color.fromRGBO(220, 88, 88, 1);
   static const Color white = const Color.fromRGBO(255, 255, 255, 1);
   static const Color whiteTranslucent = const Color.fromRGBO(255, 255, 255, .9);
   static const Color black = const Color.fromRGBO(52, 52, 52, 1);
+  static const Color blackTranslucent = const Color.fromRGBO(52, 52, 52, .5);
   static const Color darkGray = const Color.fromRGBO(71, 71, 71, 1);
   static const Color darkGrayTranslucent = const Color.fromRGBO(71, 71, 71, .8);
   static const Color gray = const Color.fromRGBO(102, 102, 102, 1);
@@ -24,14 +24,14 @@ abstract class Colors {
   static const Color purple = Color.fromRGBO(155, 89, 182, 1.0);
 }
 
-const Map<Label, Color> labelColors = {
-  Label.black: Colors.black,
-  Label.red: Colors.primary,
-  Label.orange: Colors.orange,
-  Label.yellow: Colors.yellow,
-  Label.turquoise: Colors.turquoise,
-  Label.blue: Colors.blue,
-  Label.purple: Colors.purple,
+const Map<String, Color> labelColors = {
+  'black': Colors.black,
+  'red': Colors.primary,
+  'orange': Colors.orange,
+  'yellow': Colors.yellow,
+  'turquoise': Colors.turquoise,
+  'blue': Colors.blue,
+  'purple': Colors.purple,
 };
 
 const Map<int, Color> difficultyColors = {
