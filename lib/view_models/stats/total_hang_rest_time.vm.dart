@@ -72,14 +72,16 @@ class TotalHangRestTimeViewModel extends ChangeNotifier {
 
   int _getHangSecondsForSelectedDate(DateTime dateTime) {
     return _totalHangData
-        .firstWhere((TotalHangRestTimeData data) => data.date == dateTime)
-        .seconds;
+        .firstWhere((TotalHangRestTimeData data) => data.date == dateTime,
+            orElse: () => null)
+        ?.seconds;
   }
 
   int _getRestSecondsForSelectedDate(DateTime dateTime) {
     return _totalRestData
-        .firstWhere((TotalHangRestTimeData data) => data.date == dateTime)
-        .seconds;
+        .firstWhere((TotalHangRestTimeData data) => data.date == dateTime,
+            orElse: () => null)
+        ?.seconds;
   }
 
   void _setNewDates({DateTime startDate, DateTime endDate}) {
