@@ -21,7 +21,7 @@ class StatsFilter extends StatelessWidget {
 
       String _workoutName = filteredWorkout?.name;
 
-      if (filteredWorkout?.name != null && filteredWorkout.name.length > 21) {
+      if (_workoutName != null && _workoutName.length > 21) {
         _workoutName = _workoutName.substring(0, 21);
         _workoutName = '$_workoutName...';
       }
