@@ -5,7 +5,7 @@ import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
-List<LabelWithText> defaultLabels = [
+List<LabelWithText> defaultLabelsWithText = [
   LabelWithText(label: Label.black),
   LabelWithText(label: Label.red),
   LabelWithText(label: Label.orange),

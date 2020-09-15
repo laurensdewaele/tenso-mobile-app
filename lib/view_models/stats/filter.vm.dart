@@ -32,14 +32,13 @@ class FilterViewModel extends ChangeNotifier {
 
   setSelectedLabel(Label label) {
     _state = state.copyWith(
-        selectedLabel: Nullable<Label>(label), selectedWorkout: Nullable(null));
+        selectedLabel: Nullable(label), selectedWorkout: Nullable(null));
     notifyListeners();
   }
 
   setSelectedWorkout(Workout workout) {
     _state = state.copyWith(
-        selectedWorkout: Nullable<Workout>(workout),
-        selectedLabel: Nullable<Label>(null));
+        selectedWorkout: Nullable(workout), selectedLabel: Nullable(null));
     _resetLabelPicker$.sink.add(true);
     notifyListeners();
   }
@@ -98,7 +97,7 @@ class FilterViewModel extends ChangeNotifier {
       return _completedAmount == null ? '0X' : '${_completedAmount}X';
     }
 
-    List<LabelWithText> _labelsWithText = defaultLabels
+    List<LabelWithText> _labelsWithText = defaultLabelsWithText
         .map((LabelWithText l) =>
             l.copyWith(text: Nullable(getCompletedAmountForLabel(l.label))))
         .toList();

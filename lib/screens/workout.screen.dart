@@ -179,8 +179,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                   handleLabelChanged: _viewModel.setLabel,
                                   initialLabelWithText: LabelWithText(
                                       label: _viewModel.state.label ??
-                                          defaultLabels[4].label),
-                                  labelsWithText: defaultLabels,
+                                          defaultLabelsWithText[4].label),
+                                  labelsWithText: defaultLabelsWithText,
                                 ),
                               ],
                             ),
