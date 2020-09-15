@@ -4,7 +4,7 @@ import 'package:tenso_app/view_models/stats/total_hang_rest_time.vm.dart';
 import 'package:tenso_app/widgets/card.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/modal_popup.dart';
-import 'package:tenso_app/widgets/stats/total_hang_rest_time/date_picker.dart';
+import 'package:tenso_app/widgets/stats/date_picker.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/stats_date.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/stats_filter.dart';
 import 'package:tenso_app/widgets/stats/total_hang_rest_time/total_hang_rest_time_chart.dart';
@@ -39,7 +39,7 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
   void _handleStartDateTap() async {
     await showAppModalPopup(
         context: context,
-        content: DatePicker(
+        content: StatsDatePicker(
           dates: _viewModel.state.dateRange,
           initialDate: _viewModel.state.startDate,
           handleSelectedDate: _viewModel.setStartDate,
@@ -49,7 +49,7 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
   void _handleEndDateTap() async {
     await showAppModalPopup(
         context: context,
-        content: DatePicker(
+        content: StatsDatePicker(
           dates: _viewModel.state.dateRange,
           initialDate: _viewModel.state.endDate,
           handleSelectedDate: _viewModel.setEndDate,

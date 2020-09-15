@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/calendar/constants.dart';
 
-class DatePicker extends StatelessWidget {
-  DatePicker(
+class StatsDatePicker extends StatelessWidget {
+  StatsDatePicker(
       {Key key,
       @required this.dates,
       @required this.handleSelectedDate,
