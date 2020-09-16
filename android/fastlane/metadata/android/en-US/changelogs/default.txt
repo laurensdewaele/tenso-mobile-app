@@ -1,1 +1,3 @@
-Fixed other navigation errors.
+Added the first progress statistic, a graph to measure your total hang and rest time.
+Added the Metolius - Simulator 3D board.
+Added the Defy the crux - The log board.

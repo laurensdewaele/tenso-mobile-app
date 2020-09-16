@@ -1,12 +1,10 @@
 # TODO
-- metolius 3d
 - refactor into modules, I'm loosing too much time trying to locate files.
 - onboarding screen
 - share workouts with friends
 - Integrate bodyweight %, 130%
 
 ### Triage
-- Onboarding screen
 - rethink save and info button on menu?
 - Allow ability to add some notes to each group, or name each group. 
   I like to do some scapula pulls, knee raises and pull ups to warm up. 
