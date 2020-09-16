@@ -27,6 +27,7 @@
 - Review app on smaller and larger screens.
 
 ### Small prio
+- On orientation switching, the grips are not re-painted.
 - Custom boards in horizontal scroll view.
 - Counting upwards in the settings.
 - Splash screen logo + loading
