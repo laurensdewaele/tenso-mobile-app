@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/services/error.service.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 class ValidationException<T> extends AppException {
   final String validationType;

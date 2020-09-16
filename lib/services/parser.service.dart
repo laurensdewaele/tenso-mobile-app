@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/services/error.service.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 class ParseException extends AppException {
   final String input;
