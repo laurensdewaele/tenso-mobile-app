@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/data/versioning.data.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/expanded_section.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/modules/toast/toast_provider.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const Map<String, String> _links = {

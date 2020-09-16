@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/modules/common/keyboard/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/completed_workout/edit_completed_workout.vm.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/modules/rate_workout/rate_workout_content.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class EditCompletedWorkoutScreenArguments {
   final CompletedWorkout completedWorkout;

@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/modal_popup.dart';
 import 'package:tenso_app/modules/stats/date_picker.dart';
 import 'package:tenso_app/modules/stats/stats_date_card.dart';
+import 'package:tenso_app/modules/stats/stats_filter_card.dart';
 import 'package:tenso_app/modules/stats/total_hang_rest_time/total_hang_rest_time.vm.dart';
 import 'package:tenso_app/modules/stats/total_hang_rest_time/total_hang_rest_time_chart.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class TotalHangRestTime extends StatefulWidget {
   TotalHangRestTime({Key key}) : super(key: key);
@@ -72,7 +73,7 @@ class _TotalHangRestTimeState extends State<TotalHangRestTime> {
       return Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          StatsFilter(
+          StatsFilterCard(
             filteredLabel: _viewModel.state.filteredLabel,
             filteredWorkout: _viewModel.state.filteredWorkout,
             handleTap: _viewModel.handleFilterTap,

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/common/ok_button.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/stats/stats_card.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/ok_button.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class StatsScreen extends StatelessWidget {
   StatsScreen({Key key}) : super(key: key);

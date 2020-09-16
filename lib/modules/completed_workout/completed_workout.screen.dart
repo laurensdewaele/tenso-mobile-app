@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/completed_workout.model.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/screen.dart';
 import 'package:tenso_app/modules/common/section.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
+import 'package:tenso_app/modules/completed_workout/completed_workout_stats.dart';
 import 'package:tenso_app/modules/completed_workout/logs_overview.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_list_view.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/keyboard_list_view.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class CompletedWorkoutScreenArguments {
   final CompletedWorkout completedWorkout;
@@ -85,7 +86,7 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                       Section(
                         title: 'stats',
                         children: <Widget>[
-                          Stats(
+                          CompletedWorkoutStats(
                             completedWorkout: _completedWorkout,
                           )
                         ],

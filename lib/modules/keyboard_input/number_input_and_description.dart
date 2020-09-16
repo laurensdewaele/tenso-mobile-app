@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/modules/common/keyboard/number_input.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/keyboard_input/number_input.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class NumberInputAndDescription<T> extends StatelessWidget {
   NumberInputAndDescription({

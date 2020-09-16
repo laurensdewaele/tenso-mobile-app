@@ -3,7 +3,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
+import 'package:tenso_app/modules/execution/adjust_hangs_dialog.dart';
 import 'package:tenso_app/modules/execution/adjust_hangs_dialog.vm.dart';
+import 'package:tenso_app/modules/execution/comments_dialog.dart';
+import 'package:tenso_app/modules/execution/congratulations_content.dart';
 import 'package:tenso_app/modules/execution/execution_sequence_builder.dart';
 import 'package:tenso_app/modules/execution/execution_state.vm.dart';
 import 'package:tenso_app/modules/rate_workout/rate_workout.screen.dart';
@@ -11,9 +14,6 @@ import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/audio_player.service.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/state/settings.state.dart';
-import 'package:tenso_app/widgets/execution/adjust_hangs_dialog.dart';
-import 'package:tenso_app/widgets/execution/comments_dialog.dart';
-import 'package:tenso_app/widgets/execution/congratulations_content.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ExecutionViewModel {

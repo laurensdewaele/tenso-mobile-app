@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/stats/total_hang_rest_time/total_hang_rest_time.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class TotalHangRestTimeScreen extends StatelessWidget {
   TotalHangRestTimeScreen({Key key}) : super(key: key);

@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/common/bottom_menu_drawer.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
-import 'package:tenso_app/modules/common/keyboard/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/modal_popup.dart';
+import 'package:tenso_app/modules/common/ok_button.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/custom_board/add_hold_modal.dart';
 import 'package:tenso_app/modules/custom_board/choose_hold_type_modal.dart';
 import 'package:tenso_app/modules/custom_board/custom_board.dart';
 import 'package:tenso_app/modules/custom_board/custom_board.vm.dart';
 import 'package:tenso_app/modules/custom_board/edit_delete_modal.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/ok_button.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class CustomBoardScreenArguments {
   final Board boardToEdit;

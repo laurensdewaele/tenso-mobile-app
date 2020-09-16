@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/color_square.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class StatsFilterCard extends StatelessWidget {
   const StatsFilterCard(

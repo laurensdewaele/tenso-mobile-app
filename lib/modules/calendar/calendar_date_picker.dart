@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/modules/calendar/calendar.vm.dart';
+import 'package:tenso_app/modules/calendar/constants.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/calendar/constants.dart';
 
 class CalendarDatePicker extends StatelessWidget {
   CalendarDatePicker(

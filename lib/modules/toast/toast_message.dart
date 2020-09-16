@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class ToastMessage extends StatelessWidget {
   ToastMessage({Key key, @required this.success, @required this.message})

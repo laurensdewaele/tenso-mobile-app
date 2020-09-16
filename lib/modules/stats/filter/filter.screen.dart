@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/button.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/stats/filter/filter.vm.dart';
 import 'package:tenso_app/modules/stats/filter/filter_completed_workouts_card.dart';
 import 'package:tenso_app/modules/stats/filter/filter_label_picker_card.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class FilterScreenArguments {
   final Label filteredLabel;

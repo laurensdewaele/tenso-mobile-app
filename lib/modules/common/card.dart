@@ -9,7 +9,6 @@ class Card extends StatelessWidget {
       this.bgColor = styles.Colors.bgWhite});
 
   final Widget child;
-  // Padding is variable. Different for WorkoutOverview and NewWorkout.
   final EdgeInsets padding;
   final bool border;
   final Color bgColor;

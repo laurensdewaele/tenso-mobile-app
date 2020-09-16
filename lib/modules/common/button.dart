@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icon.dart';
 import 'package:tenso_app/modules/common/loading_indicator.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class Button extends StatelessWidget {
   const Button({

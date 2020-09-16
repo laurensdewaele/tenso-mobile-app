@@ -4,6 +4,7 @@ import 'package:tenso_app/helpers/nullable.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/group/group.screen.dart';
 import 'package:tenso_app/modules/group/group.vm.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/modules/workout/workout_state.vm.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/navigation.service.dart';
@@ -12,7 +13,6 @@ import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/services/validation.service.dart';
 import 'package:tenso_app/state/settings.state.dart';
 import 'package:tenso_app/state/workouts.state.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 enum WorkoutActions { newWorkout, editWorkout }
 

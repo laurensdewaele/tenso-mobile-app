@@ -1,6 +1,6 @@
-import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/styles/styles.dart' as styles;
 
 class Section extends StatelessWidget {
   Section(

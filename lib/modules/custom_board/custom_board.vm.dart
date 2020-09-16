@@ -6,10 +6,10 @@ import 'package:tenso_app/data/custom_board.data.dart';
 import 'package:tenso_app/models/custom_board_hold_image.model.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/custom_board/save_custom_board.screen.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/services/toast.service.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 enum BoxVisibility { selected, deselected, hidden }
 

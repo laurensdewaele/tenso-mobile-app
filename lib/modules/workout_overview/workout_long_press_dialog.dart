@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/modules/common/button.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class WorkoutLongPressDialog extends StatelessWidget {
   WorkoutLongPressDialog({

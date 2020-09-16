@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/label_with_text_picker.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class FilterLabelPickerCard extends StatelessWidget {
   const FilterLabelPickerCard({

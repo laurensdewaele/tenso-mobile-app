@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:tenso_app/data/versioning.data.dart';
 import 'package:tenso_app/dto/feedback.dto.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/services/parser.service.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/services/validation.service.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 final List<String> feedbackTypes = [
   'board request',

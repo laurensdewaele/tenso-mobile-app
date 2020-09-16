@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icon.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 List<MenuItem> menuItems = [
   MenuItem(

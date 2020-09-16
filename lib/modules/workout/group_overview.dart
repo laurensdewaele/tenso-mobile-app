@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/board/board_with_grips.dart';
+import 'package:tenso_app/modules/common/button.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/modules/common/sliding_card.dart';
 import 'package:tenso_app/modules/common/sliding_expansion_card.dart';
 import 'package:tenso_app/modules/workout/rep_set_header_info.dart';
 import 'package:tenso_app/modules/workout_overview/delete_action.dart';
+import 'package:tenso_app/modules/workout_overview/edit_action.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/board/board_with_grips.dart';
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
 
 class GroupOverview extends StatelessWidget {
   GroupOverview(

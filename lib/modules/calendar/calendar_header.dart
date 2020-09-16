@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart' hide Icon;
+import 'package:tenso_app/modules/calendar/constants.dart';
 import 'package:tenso_app/modules/common/icon_button.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/calendar/constants.dart';
 
 class CalendarHeader extends StatelessWidget {
   CalendarHeader(

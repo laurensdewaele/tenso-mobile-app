@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/modules/common/number_input_and_description.dart';
+import 'package:tenso_app/modules/board/board_with_grips.dart';
+import 'package:tenso_app/modules/common/button.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/execution/adjust_hangs_cupertino_picker.dart';
 import 'package:tenso_app/modules/execution/adjust_hangs_dialog.vm.dart';
+import 'package:tenso_app/modules/keyboard_input/number_input_and_description.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/board/board_with_grips.dart';
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/execution/adjust_hangs_cupertino_picker.dart';
 
 class AdjustHangsLandscape extends StatelessWidget {
   const AdjustHangsLandscape({

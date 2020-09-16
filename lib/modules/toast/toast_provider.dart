@@ -82,8 +82,7 @@ class _ToastUIState extends State<_ToastUI>
       // Futures in Dart cannot be cancelled. Streams can.
       _subscription = _delayedTicker.asStream().listen((_) => {
             // It could be null because it might have already been disposed.
-            if (_animationController != null)
-              _animationController.reverse()
+            if (_animationController != null) _animationController.reverse()
           });
     });
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/color_square.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/stats/filter/filter_state.vm.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class FilterCompletedWorkoutsCard extends StatelessWidget {
   const FilterCompletedWorkoutsCard({

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/group.model.dart';
-import 'package:tenso_app/modules/common/horizontal_group_overview/horizontal_group_navigation_indicator.dart';
-import 'package:tenso_app/modules/common/horizontal_group_overview/horizontal_group_overview.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/horizontal_group_overview/horizontal_group_navigation_indicator.dart';
+import 'package:tenso_app/modules/horizontal_group_overview/horizontal_group_overview.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class HorizontalGroupOverviewWithIndicator extends StatefulWidget {
   HorizontalGroupOverviewWithIndicator(

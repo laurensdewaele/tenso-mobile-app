@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/data/grips.data.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/radio_button.dart';
 import 'package:tenso_app/modules/common/tabs.dart';
+import 'package:tenso_app/modules/workout/grip_picker.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/workout/grip_picker.dart';
 
 class GripPickerContainer extends StatefulWidget {
   GripPickerContainer({

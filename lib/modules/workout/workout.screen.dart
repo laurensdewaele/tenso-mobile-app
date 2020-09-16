@@ -1,24 +1,24 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/button.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
-import 'package:tenso_app/modules/common/keyboard/keyboard_and_toast_provider.dart';
-import 'package:tenso_app/modules/common/keyboard/text_input.dart';
 import 'package:tenso_app/modules/common/label_with_text_picker.dart';
-import 'package:tenso_app/modules/common/number_input_and_description.dart';
+import 'package:tenso_app/modules/common/ok_button.dart';
 import 'package:tenso_app/modules/common/screen.dart';
 import 'package:tenso_app/modules/common/section.dart';
 import 'package:tenso_app/modules/common/section_with_info_icon.dart';
 import 'package:tenso_app/modules/common/tabs.dart';
+import 'package:tenso_app/modules/common/top_navigation.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_list_view.dart';
+import 'package:tenso_app/modules/keyboard_input/number_input_and_description.dart';
+import 'package:tenso_app/modules/keyboard_input/text_input.dart';
 import 'package:tenso_app/modules/workout/fixed_variable_timer_info.dart';
 import 'package:tenso_app/modules/workout/group_overview.dart';
 import 'package:tenso_app/modules/workout/workout.vm.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/keyboard_list_view.dart';
-import 'package:tenso_app/widgets/ok_button.dart';
-import 'package:tenso_app/widgets/top_navigation.dart';
 
 class WorkoutScreenArguments {
   final WorkoutActions workoutAction;

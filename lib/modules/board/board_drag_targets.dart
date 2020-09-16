@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/board/hang_board.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/board/hang_board.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 class BoardDragTargets extends StatelessWidget {
   BoardDragTargets(

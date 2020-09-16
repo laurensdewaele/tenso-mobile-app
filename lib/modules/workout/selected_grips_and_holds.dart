@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/board/board_hold_info.dart';
+import 'package:tenso_app/modules/board/board_with_grips.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/board/board_hold_info.dart';
-import 'package:tenso_app/widgets/board/board_with_grips.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class SelectedGripsAndHolds extends StatelessWidget {
   SelectedGripsAndHolds({

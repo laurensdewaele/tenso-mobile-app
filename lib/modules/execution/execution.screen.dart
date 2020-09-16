@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/button.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
+import 'package:tenso_app/modules/execution/adjust_hangs_dialog.dart';
 import 'package:tenso_app/modules/execution/execution.vm.dart';
+import 'package:tenso_app/modules/execution/execution_landscape.dart';
+import 'package:tenso_app/modules/execution/execution_portrait.dart';
 import 'package:tenso_app/modules/execution/execution_state.vm.dart';
+import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/modules/toast/toast_provider.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/execution/adjust_hangs_dialog.dart';
-import 'package:tenso_app/widgets/execution/execution_landscape.dart';
-import 'package:tenso_app/widgets/execution/execution_portrait.dart';
-import 'package:tenso_app/widgets/toast_message.dart';
 
 class ExecutionScreenArguments {
   ExecutionScreenArguments({this.workout});

@@ -11,12 +11,12 @@ import 'package:tenso_app/modules/info/info.screen.dart';
 import 'package:tenso_app/modules/rate_workout/rate_workout.screen.dart';
 import 'package:tenso_app/modules/settings/board_settings.screen.dart';
 import 'package:tenso_app/modules/settings/settings.screen.dart';
+import 'package:tenso_app/modules/settings/sound_settings.screen.dart';
 import 'package:tenso_app/modules/stats/filter/filter.screen.dart';
 import 'package:tenso_app/modules/stats/stats.screen.dart';
 import 'package:tenso_app/modules/stats/total_hang_rest_time/total_hang_rest_time.screen.dart';
 import 'package:tenso_app/modules/workout/workout.screen.dart';
 import 'package:tenso_app/modules/workout_overview/workout_overview.screen.dart';
-import 'package:tenso_app/screens/sound_settings.screen.dart';
 
 abstract class Routes {
   static const String home = '/';

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/custom_board/choose_hold_type.vm.dart';
+import 'package:tenso_app/modules/custom_board/hold_input_page.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/custom_board/hold_input_page.dart';
 
 class ChooseHoldTypeModal extends StatefulWidget {
   const ChooseHoldTypeModal(

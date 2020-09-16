@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/modules/common/keyboard/keyboard_and_toast_provider.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/modules/rate_workout/rate_workout.vm.dart';
 import 'package:tenso_app/modules/rate_workout/rate_workout_content.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/card.dart';
 
 class RateWorkoutArguments {
   RateWorkoutArguments(

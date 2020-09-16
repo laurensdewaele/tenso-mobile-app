@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/modules/common/keyboard/text_input.dart';
+import 'package:tenso_app/modules/common/button.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/keyboard_input/text_input.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class CommentsDialog extends StatelessWidget {
   CommentsDialog(

@@ -6,7 +6,7 @@ import 'package:tenso_app/modules/workout_overview/expanded_content_tile.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 class CompletedWorkoutStats extends StatelessWidget {
-  final CompletedWorkoutStats completedWorkout;
+  final CompletedWorkout completedWorkout;
 
   const CompletedWorkoutStats({
     @required this.completedWorkout,

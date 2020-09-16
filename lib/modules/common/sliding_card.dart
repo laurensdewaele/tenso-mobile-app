@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart' hide Icon;
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
+import 'package:tenso_app/modules/common/card.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 
 enum _SlideDirection { left, right }
 

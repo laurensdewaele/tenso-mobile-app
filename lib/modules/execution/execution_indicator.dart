@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/execution/indicator_tabs.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/execution/indicator_tabs.dart';
 
 class ExecutionIndicator extends StatelessWidget {
   const ExecutionIndicator(

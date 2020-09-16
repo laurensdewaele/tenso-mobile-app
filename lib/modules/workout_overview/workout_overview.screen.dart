@@ -2,22 +2,22 @@ import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/scheduler.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/common/bottom_menu_drawer.dart';
+import 'package:tenso_app/modules/common/button.dart';
 import 'package:tenso_app/modules/common/color_square.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
+import 'package:tenso_app/modules/common/ok_button.dart';
 import 'package:tenso_app/modules/common/screen.dart';
 import 'package:tenso_app/modules/common/sliding_card.dart';
 import 'package:tenso_app/modules/common/sliding_expansion_card.dart';
 import 'package:tenso_app/modules/workout_overview/delete_action.dart';
+import 'package:tenso_app/modules/workout_overview/edit_action.dart';
 import 'package:tenso_app/modules/workout_overview/update.dart';
+import 'package:tenso_app/modules/workout_overview/workout_expanded_content.dart';
+import 'package:tenso_app/modules/workout_overview/workout_long_press_dialog.dart';
 import 'package:tenso_app/modules/workout_overview/workout_overview.vm.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/ok_button.dart';
-import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
-import 'package:tenso_app/widgets/workout_overview/workout_expanded_content.dart';
-import 'package:tenso_app/widgets/workout_overview/workout_long_press_dialog.dart';
 
 class WorkoutOverviewScreen extends StatefulWidget {
   WorkoutOverviewScreen();

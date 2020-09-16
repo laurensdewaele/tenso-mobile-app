@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/calendar/constants.dart';
+import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/color_square.dart';
 import 'package:tenso_app/modules/common/dialog.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/sliding_card.dart';
 import 'package:tenso_app/modules/workout_overview/delete_action.dart';
+import 'package:tenso_app/modules/workout_overview/edit_action.dart';
+import 'package:tenso_app/modules/workout_overview/workout_long_press_dialog.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/calendar/constants.dart';
-import 'package:tenso_app/widgets/card.dart';
-import 'package:tenso_app/widgets/divider.dart';
-import 'package:tenso_app/widgets/workout_overview/edit_action.dart';
-import 'package:tenso_app/widgets/workout_overview/workout_long_press_dialog.dart';
 
 class CompletedWorkoutsOverview extends StatelessWidget {
   CompletedWorkoutsOverview({

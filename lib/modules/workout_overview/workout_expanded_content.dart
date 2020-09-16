@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/button.dart';
 import 'package:tenso_app/modules/common/color_square.dart';
-import 'package:tenso_app/modules/common/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
+import 'package:tenso_app/modules/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
 import 'package:tenso_app/modules/workout_overview/display_duration_seconds.dart';
 import 'package:tenso_app/modules/workout_overview/expanded_content_tile.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/button.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 class WorkoutExpandedContent extends StatelessWidget {
   WorkoutExpandedContent(

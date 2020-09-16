@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart' hide Icon;
-import 'package:tenso_app/modules/common/keyboard_provider.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_provider.dart';
 import 'package:tenso_app/modules/toast/toast_provider.dart';
 
 class KeyboardAndToastProvider extends StatelessWidget {

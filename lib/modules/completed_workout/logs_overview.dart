@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/modules/common/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/completed_workout/log_overview.vm.dart';
+import 'package:tenso_app/modules/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class LogsOverview extends StatefulWidget {
   LogsOverview({

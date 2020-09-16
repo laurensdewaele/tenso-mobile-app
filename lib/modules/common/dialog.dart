@@ -1,7 +1,7 @@
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/modules/common/keyboard_provider.dart';
+import 'package:tenso_app/modules/keyboard_input/keyboard_provider.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 Future<void> showAppDialog(

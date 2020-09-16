@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/execution/adjust_hangs_dialog.vm.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/divider.dart';
 
 class AdjustHangsCupertinoPicker extends StatelessWidget {
   const AdjustHangsCupertinoPicker({

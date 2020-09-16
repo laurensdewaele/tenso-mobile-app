@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/widgets/button.dart';
+import 'package:tenso_app/modules/common/button.dart';
 
 class OKButton extends StatelessWidget {
   OKButton({Key key, @required this.handleTap}) : super(key: key);

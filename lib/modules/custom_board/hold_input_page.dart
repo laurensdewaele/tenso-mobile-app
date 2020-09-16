@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/modules/common/icon_button.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
-import 'package:tenso_app/modules/common/number_input_and_description.dart';
 import 'package:tenso_app/modules/custom_board/choose_hold_type.vm.dart';
+import 'package:tenso_app/modules/keyboard_input/number_input_and_description.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 class HoldInputPage extends StatefulWidget {

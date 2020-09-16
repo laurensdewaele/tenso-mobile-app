@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/data/custom_board.data.dart' as customBoard;
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/modules/custom_board/box.dart';
+import 'package:tenso_app/modules/board/hang_board.dart';
+import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/modules/custom_board/custom_board.vm.dart';
 import 'package:tenso_app/modules/custom_board/positioned_image.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/board/hang_board.dart';
 
 class CustomBoard extends StatelessWidget {
   CustomBoard({

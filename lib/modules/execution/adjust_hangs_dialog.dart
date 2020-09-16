@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/modules/execution/adjust_hangs_dialog.vm.dart';
-import 'package:tenso_app/widgets/execution/adjust_hangs_landscape.dart';
-import 'package:tenso_app/widgets/execution/adjust_hangs_portrait.dart';
+import 'package:tenso_app/modules/execution/adjust_hangs_landscape.dart';
+import 'package:tenso_app/modules/execution/adjust_hangs_portrait.dart';
 
 class AdjustedHang {
   final int sequenceTimerIndex;

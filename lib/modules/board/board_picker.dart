@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/board/hang_board.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
-import 'package:tenso_app/widgets/board/hang_board.dart';
-import 'package:tenso_app/widgets/divider.dart';
 
 const double _kBoardWidthPercent = .8;
 
