@@ -9,7 +9,7 @@ final List<Version> _versions = [
       'Added the Metolius - Simulator 3D board.',
       'Added the Defy the crux - The log board.'
     ])
-    ..date = DateTime(2020, 8, 24).toUtc()),
+    ..date = DateTime(2020, 9, 16).toUtc()),
   Version((b) => b
     ..no = '1.0.20'
     ..incrementalNo = 20
