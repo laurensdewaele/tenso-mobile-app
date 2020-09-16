@@ -6,7 +6,7 @@ import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/services/navigation.service.dart';
 import 'package:tenso_app/state/completed_workouts.state.dart';
 import 'package:tenso_app/state/workouts.state.dart';
-import 'package:tenso_app/widgets/calendar/table.dart';
+import 'package:tenso_app/widgets/calendar/calendar_table_day.dart';
 
 class CalendarViewModel extends ChangeNotifier {
   CompletedWorkoutsState _completedWorkoutsState;

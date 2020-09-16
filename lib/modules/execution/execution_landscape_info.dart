@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
-class LandscapeInfo extends StatelessWidget {
-  LandscapeInfo(
+class ExecutionLandScapeInfo extends StatelessWidget {
+  ExecutionLandScapeInfo(
       {this.addedWeight,
       this.weightSystem,
       this.leftGrip,

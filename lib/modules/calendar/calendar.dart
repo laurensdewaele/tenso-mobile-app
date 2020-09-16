@@ -6,9 +6,9 @@ import 'package:tenso_app/modules/completed_workout/completed_workout.screen.dar
 import 'package:tenso_app/modules/completed_workout/completed_workouts_overview.dart';
 import 'package:tenso_app/modules/completed_workout/edit_completed_workout.screen.dart';
 import 'package:tenso_app/routes/routes.dart';
-import 'package:tenso_app/widgets/calendar/date_picker.dart';
-import 'package:tenso_app/widgets/calendar/header.dart';
-import 'package:tenso_app/widgets/calendar/table.dart';
+import 'package:tenso_app/widgets/calendar/calendar_date_picker.dart';
+import 'package:tenso_app/widgets/calendar/calendar_header.dart';
+import 'package:tenso_app/widgets/calendar/calendar_table_day.dart';
 
 class Calendar extends StatefulWidget {
   Calendar({Key key}) : super(key: key);

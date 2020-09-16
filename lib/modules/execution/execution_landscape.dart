@@ -2,12 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/common/icons.dart' as icons;
+import 'package:tenso_app/modules/execution/execution_landscape_info.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:tenso_app/widgets/board/board_with_grips.dart';
 import 'package:tenso_app/widgets/button.dart';
 import 'package:tenso_app/widgets/divider.dart';
 import 'package:tenso_app/widgets/execution/execution_indicator.dart';
-import 'package:tenso_app/widgets/execution/landscape_info.dart';
+import 'package:tenso_app/widgets/execution/execution_landscape_info.dart';
 
 class ExecutionLandscape extends StatelessWidget {
   const ExecutionLandscape({
@@ -87,7 +88,7 @@ class ExecutionLandscape extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: LandscapeInfo(
+                  child: ExecutionLandScapeInfo(
                     addedWeight: addedWeight,
                     weightSystem: weightSystem,
                     leftGrip: leftGrip,

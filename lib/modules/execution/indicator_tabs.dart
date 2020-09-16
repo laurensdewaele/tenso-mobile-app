@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:tenso_app/styles/styles.dart' as styles;
 
-// There could be some better code re-use with the normal
-// NavigatorTabs, but this make the code much more readable.
 class IndicatorTabs extends StatelessWidget {
   IndicatorTabs(
       {this.count, this.active, this.primaryColor = styles.Colors.primary});

@@ -61,11 +61,11 @@ class CustomBoard extends StatelessWidget {
                 children: <Widget>[
                   ...boxes.map((BoxState boxState) {
                     if (boxState.visibility == BoxVisibility.selected) {
-                      return SelectedBox(
+                      return _SelectedBox(
                           handleTap: () => handleBoxTap(boxState));
                     } else if (boxState.visibility ==
                         BoxVisibility.deselected) {
-                      return Box(handleTap: () => handleBoxTap(boxState));
+                      return _Box(handleTap: () => handleBoxTap(boxState));
                     } else {
                       return Container();
                     }
@@ -137,4 +137,47 @@ Rect _getGestureDetectorRect(
   }
 
   return _rect;
+}
+
+class _Box extends StatelessWidget {
+  _Box({Key key, @required this.handleTap}) : super(key: key);
+
+  final VoidCallback handleTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: handleTap,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: styles.kBorderRadiusAll,
+            border:
+                Border.all(width: 1, color: styles.Colors.whiteTranslucent)),
+        child: Center(
+          child: icons.plusIconWhiteS,
+        ),
+      ),
+    );
+  }
+}
+
+class _SelectedBox extends StatelessWidget {
+  _SelectedBox({Key key, @required this.handleTap}) : super(key: key);
+
+  final VoidCallback handleTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: handleTap,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: styles.kBorderRadiusAll,
+            border: Border.all(width: 1, color: styles.Colors.black)),
+        child: Center(
+          child: icons.selectedIconBlackS,
+        ),
+      ),
+    );
+  }
 }
