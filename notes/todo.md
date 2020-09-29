@@ -1,15 +1,32 @@
 # TODO
-- refactor into modules, I'm loosing too much time trying to locate files.
-- onboarding screen
-- share workouts with friends
+- Bug on adjust workouts, gewicht wordt niet geset?
+- Add Trango rock prodigy + metoliius wood grips 2 compact.
+- onboarding screen + share protocol overview on website + promote
+- Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
+
+- Op completed workout is er geen gewicht zichtbaar. Ik wil een grafiek met hang tijd, rust + added weight
 - Integrate bodyweight %, 130%
 
+- track completed workouts from users
+- Create info graphic on the tenso website, where people can download and print.
+- change chisel to open crimp (name)
+
+- share workouts, this also means settings up an account
+- Video of how to use the app
+
+
 ### Triage
+- Audioplayers stops audio sound on IOS (Ting)
 - rethink save and info button on menu?
-- Allow ability to add some notes to each group, or name each group. 
-  I like to do some scapula pulls, knee raises and pull ups to warm up. 
-  I would love to have the warm up with prompts on here.
 - Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
+- Set reminder on calendar page
+- Customized congratulations screen, first workout, milestones...
+
+Pro features:
+- Compare against locals
+- Insight into all data
+- World leaderboards
+- Build frontend that lets you upload image of your own custom board and draw rectangles
 
 ### Large prio
 - Graphs
