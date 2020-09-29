@@ -1,3 +1,2 @@
-Added the first progress statistic, a graph to measure your total hang and rest time.
-Added the Metolius - Simulator 3D board.
-Added the Defy the crux - The log board.
+Added the Metolius - Wood grips II compact board.
+Fixed a bug where on the 'adjust hangs' screen, the added weight would not be registered.

@@ -2,6 +2,14 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> _versions = [
   Version((b) => b
+    ..no = '1.0.22'
+    ..incrementalNo = 22
+    ..changelog.addAll([
+      'Added the Metolius - Wood grips II compact board',
+      'Fixed a bug where on the \'adjust hangs\' screen, the added weight would not be registered.',
+    ])
+    ..date = DateTime(2020, 9, 29).toUtc()),
+  Version((b) => b
     ..no = '1.0.21'
     ..incrementalNo = 21
     ..changelog.addAll([
