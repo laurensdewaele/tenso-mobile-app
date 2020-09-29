@@ -3,7 +3,7 @@ import 'package:tenso_app/models/models.dart';
 abstract class Grips {
   static Grip chiselL = Grip((b) => b
     ..crimped = true
-    ..description = 'chisel (open crimp)'
+    ..description = 'open crimp (chisel)'
     ..name = 'chiselL'
     ..fingers = Fingers((b) => b
       ..thumb = false
@@ -21,7 +21,7 @@ abstract class Grips {
 
   static Grip chiselR = Grip((b) => b
     ..crimped = true
-    ..description = 'chisel (open crimp)'
+    ..description = 'open crimp (chisel)'
     ..name = 'chiselR'
     ..fingers = Fingers((b) => b
       ..thumb = false

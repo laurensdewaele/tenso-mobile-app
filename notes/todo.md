@@ -63,6 +63,13 @@ Pro features:
 - Webapp where people can upload their own image of the board
 - When dragging a hand and you go back to it's original position, it says it's in use.
     
+## Data
+
+Changed the description of grip type chisel.
+From 'chisel (open crimp)' to 'open crimp (chisel)'.
+This means it's wrong in people's history.
+You would need to reference it or run through the data and adjust.    
+
 ## Data strategy
 - Remove built value?
 - When changing the model => workouts will be lost because the parsing will fail. Make sure there's a mapping mechanism in place.
