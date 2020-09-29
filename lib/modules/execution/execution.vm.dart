@@ -74,8 +74,8 @@ class ExecutionViewModel {
         currentSet: t.currentSet,
         effectiveDurationS: _effectiveDurationS,
         effectiveDurationSInput: _effectiveDurationS.toString(),
-        effectiveAddedWeight: t.originalAddedWeight,
-        effectiveAddedWeightInput: t.originalAddedWeight.toString(),
+        effectiveAddedWeight: t.effectiveAddedWeight,
+        effectiveAddedWeightInput: t.effectiveAddedWeight.toString(),
         isSelected:
             t.index == _pastHangSequences[_pastHangSequences.length - 1].index,
         boardAspectRatio: t.board.aspectRatio,
@@ -412,6 +412,10 @@ class ExecutionViewModel {
 
       if (t.type == SequenceTimerType.hangTimer &&
           _relevantAdjustedHang != null) {
+        SequenceTimer _t = t.copyWith(
+            effectiveDurationMs:
+                _relevantAdjustedHang.effectiveDurationS * 1000,
+            effectiveAddedWeight: _relevantAdjustedHang.effectiveAddedWeight);
         return t.copyWith(
             effectiveDurationMs:
                 _relevantAdjustedHang.effectiveDurationS * 1000,
