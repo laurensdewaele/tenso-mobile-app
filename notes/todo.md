@@ -1,6 +1,8 @@
 # TODO
 - Bug on adjust workouts, gewicht wordt niet geset?
-- Add Trango rock prodigy + metoliius wood grips 2 compact.
+- metoliius wood grips 2 compact.
+
+- Add Trango rock prodigy 
 - onboarding screen + share protocol overview on website + promote
 - Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
 
