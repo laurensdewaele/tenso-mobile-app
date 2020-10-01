@@ -1,13 +1,17 @@
 # TODO
-- Bug on adjust workouts, gewicht wordt niet geset?
-- metoliius wood grips 2 compact.
+- Op completed workout is er geen gewicht zichtbaar. Ik wil een grafiek met hang tijd, rust + added weight
+  How will you do added weight?
+   
+- Integrate bodyweight %, 130%
 
-- Add Trango rock prodigy 
+- Add Trango rock prodigy
+
+
 - onboarding screen + share protocol overview on website + promote
 - Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
 
-- Op completed workout is er geen gewicht zichtbaar. Ik wil een grafiek met hang tijd, rust + added weight
-- Integrate bodyweight %, 130%
+
+
 
 - track completed workouts from users
 - Create info graphic on the tenso website, where people can download and print.
