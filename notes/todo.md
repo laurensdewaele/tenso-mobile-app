@@ -1,10 +1,15 @@
 # TODO
+- update to new cupertino icons package
+- fix sloper degrees null on metolius wood grips II compact.
+- Add Tension grindstone mkI
+
 - Op completed workout is er geen gewicht zichtbaar. Ik wil een grafiek met hang tijd, rust + added weight
   How will you do added weight?
    
 - Integrate bodyweight %, 130%
 
 - Add Trango rock prodigy
+
 
 
 - onboarding screen + share protocol overview on website + promote

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/completed_workout/log_overview.vm.dart';
+import 'package:tenso_app/modules/completed_workout/logs_overview_chart.dart';
 import 'package:tenso_app/modules/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
@@ -60,10 +61,11 @@ class _LogsOverviewState extends State<LogsOverview> {
             _OverviewDivider(),
           ],
         ),
-        _LogOverview(
-          selectedLog: _viewModel.selectedLog,
-          weightUnit: widget.weightUnit,
-        )
+        // _LogOverview(
+        //   selectedLog: _viewModel.selectedLog,
+        //   weightUnit: widget.weightUnit,
+        // )
+        Container(height: 500, child: LogsOverviewChart()),
       ],
     );
   }

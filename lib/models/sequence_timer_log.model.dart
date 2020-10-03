@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/models/serializers.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/models/serializers.dart';
 
 part 'sequence_timer_log.model.g.dart';
 
@@ -22,6 +22,8 @@ abstract class SequenceTimerLog
   bool get skipped;
   bool get stopped;
   int get groupIndex;
+
+  double get originalDurationMs => (originalDurationS * 1000).toDouble();
 
   factory SequenceTimerLog([void Function(SequenceTimerLogBuilder) updates]) =
       _$SequenceTimerLog;
