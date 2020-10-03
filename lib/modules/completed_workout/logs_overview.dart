@@ -43,31 +43,28 @@ class _LogsOverviewState extends State<LogsOverview> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      final double maxHeight = constraints.maxHeight;
-      return Container(
-        height: maxHeight,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            HorizontalGroupOverviewWithIndicator(
-              groups: widget.groups,
-              handleVisibleGroupIndex: _viewModel.setActiveGroupIndex,
-            ),
-            _OverviewDivider(),
-            Expanded(
-                child: LogsOverviewChart(
-              weightUnit: _viewModel.weightUnit,
-              handleSelection: _viewModel.handleSelection,
-              maxWeightAxisValue: _viewModel.maxWeightAxisValue,
-              minWeightAxisValue: _viewModel.minWeightAxisValue,
-              sequenceTimerLogs: _viewModel.activeLogsForGroup,
-            )),
-          ],
-        ),
-      );
-    });
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    return Container(
+      height: deviceHeight - styles.Measurements.m * 2,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          HorizontalGroupOverviewWithIndicator(
+            groups: widget.groups,
+            handleVisibleGroupIndex: _viewModel.setActiveGroupIndex,
+          ),
+          Expanded(
+              child: LogsOverviewChart(
+            weightUnit: _viewModel.weightUnit,
+            handleSelection: _viewModel.handleSelection,
+            maxWeightAxisValue: _viewModel.maxWeightAxisValue,
+            minWeightAxisValue: _viewModel.minWeightAxisValue,
+            sequenceTimerLogs: _viewModel.activeLogsForGroup,
+          )),
+        ],
+      ),
+    );
   }
 }
 

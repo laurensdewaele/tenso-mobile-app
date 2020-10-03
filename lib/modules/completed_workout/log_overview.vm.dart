@@ -26,8 +26,8 @@ class LogOverviewViewModel extends ChangeNotifier {
     final List<double> _effectiveAddedWeights = activeLogsForGroup
         .map((SequenceTimerLog log) => log.effectiveAddedWeight)
         .toList();
-    _minWeightAxisValue = _effectiveAddedWeights.reduce(min);
-    _maxWeightAxisValue = _effectiveAddedWeights.reduce(max);
+    _minWeightAxisValue = _effectiveAddedWeights.reduce(min) - 5;
+    _maxWeightAxisValue = _effectiveAddedWeights.reduce(max) + 5;
   }
 
   void _setActiveLogsForGroup(int groupIndex) {

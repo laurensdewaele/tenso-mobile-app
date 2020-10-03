@@ -54,21 +54,21 @@ class _LogsOverviewChartState extends State<LogsOverviewChart> {
     widget.handleSelection(_log);
   }
 
-  _effectiveAddedWeightMeasureFn(SequenceTimerLog log, int _) {
+  double _effectiveAddedWeightMeasureFn(SequenceTimerLog log, int _) {
     if (log.type == SequenceTimerType.hangTimer) {
       return log.effectiveAddedWeight;
     } else
       return null;
   }
 
-  _targetLineColorFn(SequenceTimerLog log, int _) {
+  charts.Color _targetLineColorFn(SequenceTimerLog log, int _) {
     if (log.type == SequenceTimerType.hangTimer) {
       return ChartColors.primary;
     }
     return ChartColors.blue;
   }
 
-  _effectiveDurationColorFn(SequenceTimerLog log, int _) {
+  charts.Color _effectiveDurationColorFn(SequenceTimerLog log, int _) {
     if (log.skipped == true || log.stopped == true) {
       return ChartColors.gray;
     }
@@ -95,9 +95,9 @@ class _LogsOverviewChartState extends State<LogsOverviewChart> {
         domainFn: (SequenceTimerLog log, _) => log.index.toString(),
         measureFn: _effectiveAddedWeightMeasureFn,
         data: widget.sequenceTimerLogs,
-        colorFn: (SequenceTimerLog log, __) => ChartColors.bgWhite,
+        colorFn: (SequenceTimerLog log, __) => ChartColors.black,
       )
-        ..setAttribute(charts.measureAxisIdKey, 'effectiveAddedWeightAxisId')
+        ..setAttribute(charts.measureAxisIdKey, 'secondaryMeasureAxisId')
         ..setAttribute(charts.rendererIdKey, 'effectiveAddedWeightRendererId'),
       new charts.Series<SequenceTimerLog, String>(
         id: 'targetLine',

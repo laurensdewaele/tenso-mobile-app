@@ -1,4 +1,5 @@
 # TODO
+- test on android sim
 - update to new cupertino icons package
 - splash screen
 - fix sloper degrees null on metolius wood grips II compact.
