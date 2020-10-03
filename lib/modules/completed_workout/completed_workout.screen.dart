@@ -112,7 +112,8 @@ class _CompletedWorkoutScreenState extends State<CompletedWorkoutScreen> {
                               weightUnit:
                                   _completedWorkout.workout.weightSystem.unit,
                               groups: _completedWorkout.workout.groups.toList(),
-                              logs: _completedWorkout.history.sequenceTimerLogs
+                              sequenceTimerLogs: _completedWorkout
+                                  .history.sequenceTimerLogs
                                   .toList(),
                             )
                           ],
