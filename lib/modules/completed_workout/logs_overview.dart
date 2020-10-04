@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
-import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/completed_workout/log_overview.vm.dart';
 import 'package:tenso_app/modules/completed_workout/logs_overview_chart.dart';
 import 'package:tenso_app/modules/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
@@ -45,7 +44,7 @@ class _LogsOverviewState extends State<LogsOverview> {
   Widget build(BuildContext context) {
     final double deviceHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: deviceHeight - styles.Measurements.m * 2,
+      height: deviceHeight - styles.Measurements.xxl,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,25 +61,107 @@ class _LogsOverviewState extends State<LogsOverview> {
             minWeightAxisValue: _viewModel.minWeightAxisValue,
             sequenceTimerLogs: _viewModel.activeLogsForGroup,
           )),
+          _LogsOverviewChartLabel(
+            weightUnit: _viewModel.selectedLog.weightSystem.unit,
+            effectiveAddedWeight: _viewModel.selectedLog.effectiveAddedWeight,
+            originalAddedWeight: _viewModel.selectedLog.originalAddedWeight,
+            effectiveDurationMs: _viewModel.selectedLog.effectiveDurationMs,
+            originalDurationS: _viewModel.selectedLog.originalDurationS,
+            sequenceTimerType: _viewModel.selectedLog.type,
+          )
         ],
       ),
     );
   }
 }
 
-class _OverviewDivider extends StatelessWidget {
-  _OverviewDivider({Key key}) : super(key: key);
+class _LogsOverviewChartLabel extends StatelessWidget {
+  final double effectiveDurationMs;
+  final double originalAddedWeight;
+  final double effectiveAddedWeight;
+  final String weightUnit;
+  final int originalDurationS;
+  final SequenceTimerType sequenceTimerType;
+
+  const _LogsOverviewChartLabel(
+      {@required this.effectiveDurationMs,
+      @required this.originalAddedWeight,
+      @required this.effectiveAddedWeight,
+      @required this.weightUnit,
+      @required this.originalDurationS,
+      @required this.sequenceTimerType});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Divider(height: styles.Measurements.s),
-        Container(
-          height: 1,
-          decoration: BoxDecoration(color: styles.Colors.lightGray),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            RichText(
+              text: TextSpan(
+                  text: 'type: ',
+                  style: styles.Staatliches.xxsBlack,
+                  children: [
+                    TextSpan(
+                        text: '${sequenceTimerType.toString()}',
+                        style: styles.Lato.xxsGray),
+                  ]),
+            ),
+          ],
         ),
-        Divider(height: styles.Measurements.s),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            RichText(
+              text: TextSpan(
+                  text: 'original duration: ',
+                  style: styles.Staatliches.xxsBlack,
+                  children: [
+                    TextSpan(
+                        text: '${originalDurationS}s',
+                        style: styles.Lato.xxsGray),
+                  ]),
+            ),
+            RichText(
+              text: TextSpan(
+                  text: 'original added weight: ',
+                  style: styles.Staatliches.xxsBlack,
+                  children: [
+                    TextSpan(
+                        text: '$originalAddedWeight$weightUnit',
+                        style: styles.Lato.xxsGray),
+                  ]),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            RichText(
+              text: TextSpan(
+                  text: 'effective duration: ',
+                  style: styles.Staatliches.xxsBlack,
+                  children: [
+                    TextSpan(
+                        text: '${effectiveDurationMs ~/ 1000}s',
+                        style: styles.Lato.xxsGray),
+                  ]),
+            ),
+            RichText(
+              text: TextSpan(
+                  text: 'effective added weight: ',
+                  style: styles.Staatliches.xxsBlack,
+                  children: [
+                    TextSpan(
+                        text: '$effectiveAddedWeight$weightUnit',
+                        style: styles.Lato.xxsGray),
+                  ]),
+            ),
+          ],
+        )
       ],
     );
   }

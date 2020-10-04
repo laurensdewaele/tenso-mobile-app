@@ -134,7 +134,7 @@ class _LogsOverviewChartState extends State<LogsOverviewChart> {
         ),
         new charts.PointRendererConfig(
           customRendererId: 'effectiveAddedWeightRendererId',
-          radiusPx: 5,
+          radiusPx: 3,
           symbolRenderer: charts.CircleSymbolRenderer(isSolid: true),
         )
       ],

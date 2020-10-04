@@ -1,4 +1,5 @@
 # TODO
+- recruitment pulls
 - test on android sim
 - update to new cupertino icons package
 - splash screen
