@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tenso_app/models/models.dart';
+import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/completed_workout/log_overview.vm.dart';
 import 'package:tenso_app/modules/completed_workout/logs_overview_chart.dart';
 import 'package:tenso_app/modules/horizontal_group_overview/horizonal_group_overview_with_indicator.dart';
@@ -53,6 +54,7 @@ class _LogsOverviewState extends State<LogsOverview> {
             groups: widget.groups,
             handleVisibleGroupIndex: _viewModel.setActiveGroupIndex,
           ),
+          Divider(height: styles.Measurements.xs),
           Expanded(
               child: LogsOverviewChart(
             weightUnit: _viewModel.weightUnit,
@@ -96,20 +98,6 @@ class _LogsOverviewChartLabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            RichText(
-              text: TextSpan(
-                  text: 'type: ',
-                  style: styles.Staatliches.xxsBlack,
-                  children: [
-                    TextSpan(
-                        text: '${sequenceTimerType.toString()}',
-                        style: styles.Lato.xxsGray),
-                  ]),
-            ),
-          ],
-        ),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,7 +149,21 @@ class _LogsOverviewChartLabel extends StatelessWidget {
                   ]),
             ),
           ],
-        )
+        ),
+        Row(
+          children: [
+            RichText(
+              text: TextSpan(
+                  text: 'type: ',
+                  style: styles.Staatliches.xxsBlack,
+                  children: [
+                    TextSpan(
+                        text: '${sequenceTimerType.toString()}',
+                        style: styles.Lato.xxsGray),
+                  ]),
+            ),
+          ],
+        ),
       ],
     );
   }
