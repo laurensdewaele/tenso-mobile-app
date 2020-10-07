@@ -1,25 +1,15 @@
 # TODO
-- recruitment pulls
-- test on android sim
-- update to new cupertino icons package
-- splash screen
+
 - fix sloper degrees null on metolius wood grips II compact.
-- Add Tension grindstone mkI
-
-- Op completed workout is er geen gewicht zichtbaar. Ik wil een grafiek met hang tijd, rust + added weight
-  How will you do added weight?
-   
 - Integrate bodyweight %, 130%
-
+- Add Tension grindstone mkI
 - Add Trango rock prodigy
-
-
+- test on android sim
 
 - onboarding screen + share protocol overview on website + promote
+- recruitment pulls
+
 - Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
-
-
-
 
 - track completed workouts from users
 - Create info graphic on the tenso website, where people can download and print.
@@ -30,6 +20,8 @@
 
 
 ### Triage
+- update to new cupertino icons package
+- splash screen
 - Audioplayers stops audio sound on IOS (Ting)
 - rethink save and info button on menu?
 - Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...

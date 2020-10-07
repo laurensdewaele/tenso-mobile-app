@@ -46,10 +46,6 @@ class LogOverviewViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedLog(SequenceTimerLog log) {
-    notifyListeners();
-  }
-
   void handleSelection(SequenceTimerLog log) {
     _selectedLog = log;
     notifyListeners();

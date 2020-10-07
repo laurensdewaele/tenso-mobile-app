@@ -158,7 +158,7 @@ class _GroupInfo extends StatelessWidget {
                       TextSpan(text: ' mm', style: styles.Lato.xsGray),
                     ]),
               ),
-            if (group.leftGripBoardHold?.holdType == HoldType.sloper)
+            if (group.leftGripBoardHold?.sloperDegrees != null)
               RichText(
                 text: TextSpan(
                     text: 'degrees: ',
@@ -182,7 +182,7 @@ class _GroupInfo extends StatelessWidget {
                           style: styles.Lato.xsGray),
                     ]),
               ),
-            if (group.rightGripBoardHold?.holdType == HoldType.sloper)
+            if (group.rightGripBoardHold?.sloperDegrees != null)
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
