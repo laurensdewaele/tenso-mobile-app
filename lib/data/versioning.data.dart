@@ -2,6 +2,13 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> _versions = [
   Version((b) => b
+    ..no = '1.0.23'
+    ..incrementalNo = 23
+    ..changelog.addAll([
+      'Replaced the completed workout overview with a detailed graph.',
+    ])
+    ..date = DateTime(2020, 10, 7).toUtc()),
+  Version((b) => b
     ..no = '1.0.22'
     ..incrementalNo = 22
     ..changelog.addAll([

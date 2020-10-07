@@ -1,2 +1,1 @@
-Added the Metolius - Wood grips II compact board.
-Fixed a bug where on the 'adjust hangs' screen, the added weight would not be registered.
+Replaced the completed workout overview with a detailed graph.
