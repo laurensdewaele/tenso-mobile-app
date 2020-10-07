@@ -37,20 +37,22 @@ class ExecutionIndicator extends StatelessWidget {
           total: totalReps,
           primaryColor: primaryColor,
           maxTotal: _maxTotal),
-      _Row(
-          orientation: orientation,
-          title: 'set',
-          current: currentSet,
-          total: totalSets,
-          primaryColor: primaryColor,
-          maxTotal: _maxTotal),
-      _Row(
-          orientation: orientation,
-          title: 'group',
-          current: currentGroup,
-          total: totalGroups,
-          primaryColor: primaryColor,
-          maxTotal: _maxTotal),
+      if (totalSets != null && totalSets > 1)
+        _Row(
+            orientation: orientation,
+            title: 'set',
+            current: currentSet,
+            total: totalSets,
+            primaryColor: primaryColor,
+            maxTotal: _maxTotal),
+      if (totalGroups != null && totalGroups > 1)
+        _Row(
+            orientation: orientation,
+            title: 'group',
+            current: currentGroup,
+            total: totalGroups,
+            primaryColor: primaryColor,
+            maxTotal: _maxTotal),
     ];
 
     if (orientation == Orientation.portrait) {
@@ -75,10 +77,6 @@ class _Row extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (total == null || current == null) {
-      return Container();
-    }
-
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final double _textContainerWidth = 60;
