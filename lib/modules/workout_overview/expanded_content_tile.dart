@@ -20,6 +20,7 @@ class ExpandedContentTile extends StatelessWidget {
       Text(
         title,
         style: styles.Staatliches.xsBlack,
+        textAlign: TextAlign.center,
       ),
       Divider(
         height: styles.Measurements.xs,

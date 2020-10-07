@@ -37,6 +37,17 @@ abstract class CompletedWorkout
   @nullable
   String get comments;
 
+  int get averageAddedWeightInBodyWeightPercentage =>
+      _calculateAverageAddedWeightInBodyWeightPercentage();
+
+  int _calculateAverageAddedWeightInBodyWeightPercentage() {
+    if (bodyWeight != null && history.averageAddedWeight != 0) {
+      return 100 + ((history.averageAddedWeight / bodyWeight) * 100).round();
+    } else {
+      return null;
+    }
+  }
+
   Color _determineExertionColor(int perceivedExertion) {
     if (perceivedExertion == 10) return styles.difficultyColors[4];
     return styles.difficultyColors[perceivedExertion ~/ 2];

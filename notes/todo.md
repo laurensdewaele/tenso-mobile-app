@@ -1,7 +1,5 @@
 # TODO
 
-- fix sloper degrees null on metolius wood grips II compact.
-- Integrate bodyweight %, 130%
 - Add Tension grindstone mkI
 - Add Trango rock prodigy
 - test on android sim

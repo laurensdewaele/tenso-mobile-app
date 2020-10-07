@@ -89,6 +89,22 @@ class CompletedWorkoutStats extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: styles.Lato.xsGray,
               )),
+        if (completedWorkout.history.averageAddedWeight != 0)
+          ExpandedContentTile(
+              title: 'av. added weight',
+              content: Text(
+                '${completedWorkout.history.averageAddedWeight} ${completedWorkout.workout.weightSystem.unit}',
+                textAlign: TextAlign.center,
+                style: styles.Lato.xsGray,
+              )),
+        if (completedWorkout.averageAddedWeightInBodyWeightPercentage != null)
+          ExpandedContentTile(
+              title: 'av. added weight bodyweight %',
+              content: Text(
+                '${completedWorkout.averageAddedWeightInBodyWeightPercentage} %',
+                textAlign: TextAlign.center,
+                style: styles.Lato.xsGray,
+              )),
       ],
     );
   }
