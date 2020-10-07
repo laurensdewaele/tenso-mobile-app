@@ -34,8 +34,6 @@
                  there is no splash screen (such as the default splash screen
                  defined in @style/LaunchTheme). -->
             <meta-data
-                android:value="true" />
-            <meta-data
                 android:name="flutterEmbedding"
                 android:value="2" />
             <intent-filter>
