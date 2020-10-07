@@ -200,7 +200,7 @@ class _NewcomerInfo extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         Text(
-          '\nIf you want to jump right in, we provided two low level entry workouts for you. A density hang protocol and a max hang protocol. For more, check out the info section.',
+          '\nIf you want to jump right in, we provided three entry level workouts for you. A density, max hangs and repeater protocol. Check out the info section for more.',
           style: styles.Lato.xsBlack,
           textAlign: TextAlign.center,
         ),
