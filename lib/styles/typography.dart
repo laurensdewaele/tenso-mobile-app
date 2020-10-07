@@ -43,6 +43,8 @@ abstract class Staatliches {
       fontFamily: 'Staatliches', fontSize: 18, color: styles.Colors.white);
   static const TextStyle xsBlack = TextStyle(
       fontFamily: 'Staatliches', fontSize: 16, color: styles.Colors.black);
+  static const TextStyle xxsBlack = TextStyle(
+      fontFamily: 'Staatliches', fontSize: 12, color: styles.Colors.black);
   static const TextStyle xsWhite = TextStyle(
       fontFamily: 'Staatliches', fontSize: 16, color: styles.Colors.white);
   static const TextStyle xsGray = TextStyle(
@@ -98,6 +100,8 @@ abstract class Lato {
 
   static const TextStyle xsGray = TextStyle(
       height: 1.5, fontFamily: 'Lato', fontSize: 16, color: styles.Colors.gray);
+  static const TextStyle xxsGray = TextStyle(
+      height: 1.5, fontFamily: 'Lato', fontSize: 12, color: styles.Colors.gray);
   static const TextStyle xsLightGray = TextStyle(
       height: 1.5,
       fontFamily: 'Lato',

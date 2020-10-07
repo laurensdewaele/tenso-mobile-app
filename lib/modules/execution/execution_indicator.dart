@@ -45,7 +45,7 @@ class ExecutionIndicator extends StatelessWidget {
             total: totalSets,
             primaryColor: primaryColor,
             maxTotal: _maxTotal),
-      if (totalGroups > 1)
+      if (totalGroups != null && totalGroups > 1)
         _Row(
             orientation: orientation,
             title: 'group',

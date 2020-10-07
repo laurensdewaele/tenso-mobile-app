@@ -56,7 +56,7 @@ class WorkoutViewModel extends ChangeNotifier {
   void handleAddGroupTap() async {
     final Board _defaultBoard = _settingsState.settings.defaultBoard;
 
-    Group _group = basicOpenHand.rebuild((b) => b
+    Group _group = basicHalfCrimpMaxHangs.rebuild((b) => b
       ..board = _defaultBoard.toBuilder()
       ..leftGripBoardHold = _defaultBoard.defaultLeftGripHold.toBuilder()
       ..rightGripBoardHold = _defaultBoard.defaultRightGripHold.toBuilder());
