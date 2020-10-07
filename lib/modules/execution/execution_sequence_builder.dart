@@ -368,12 +368,14 @@ List<SequenceTimer> sequenceBuilder(
         _workoutSequence
             .add(_createGroupSequence(group: group, currentGroup: index + 1));
         if (index != workout.groups.length - 1) {
+          final Group _nextGroup = workout.groups[index + 1];
           _workoutSequence.add(_createRestTimer(
               currentRep: 1,
-              currentSet: group.sets != null && group.sets > 1 ? 1 : null,
+              currentSet:
+                  _nextGroup.sets != null && _nextGroup.sets > 1 ? 1 : null,
               fixed: workout.restBetweenGroupsFixed,
               currentGroup: index + 2,
-              group: workout.groups[index + 1],
+              group: _nextGroup,
               duration: workout.restBetweenGroupsS));
         }
       });
