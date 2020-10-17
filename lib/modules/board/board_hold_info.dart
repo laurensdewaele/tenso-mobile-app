@@ -48,6 +48,19 @@ class BoardHoldInfo extends StatelessWidget {
                             style: styles.Lato.xsGray),
                       ]),
                 ),
+                if (leftGripBoardHold.holdType == HoldType.pinchBlock &&
+                    leftGripBoardHold.pinchWidth != null)
+                  RichText(
+                    text: TextSpan(
+                        text: 'width: ',
+                        style: styles.Staatliches.xsBlack,
+                        children: [
+                          TextSpan(
+                              text: leftGripBoardHold.pinchWidth.toString(),
+                              style: styles.Lato.xsGray),
+                          TextSpan(text: ' mm', style: styles.Lato.xsGray),
+                        ]),
+                  ),
                 if (leftGripBoardHold.holdType == HoldType.pocket ||
                     leftGripBoardHold.holdType == HoldType.edge)
                   RichText(
@@ -115,6 +128,20 @@ class BoardHoldInfo extends StatelessWidget {
                             style: styles.Lato.xsGray),
                       ]),
                 ),
+                if (rightGripBoardHold.holdType == HoldType.pinchBlock &&
+                    rightGripBoardHold.pinchWidth != null)
+                  RichText(
+                    textAlign: TextAlign.right,
+                    text: TextSpan(
+                        text: 'width: ',
+                        style: styles.Staatliches.xsBlack,
+                        children: [
+                          TextSpan(
+                              text: rightGripBoardHold.pinchWidth.toString(),
+                              style: styles.Lato.xsGray),
+                          TextSpan(text: ' mm', style: styles.Lato.xsGray),
+                        ]),
+                  ),
                 if (rightGripBoardHold.holdType == HoldType.pocket ||
                     rightGripBoardHold.holdType == HoldType.edge)
                   RichText(

@@ -61,6 +61,12 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
         ..add(serializers.serialize(object.sloperDegrees,
             specifiedType: const FullType(double)));
     }
+    if (object.pinchWidth != null) {
+      result
+        ..add('pinchWidth')
+        ..add(serializers.serialize(object.pinchWidth,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -93,6 +99,10 @@ class _$BoardHoldSerializer implements StructuredSerializer<BoardHold> {
           break;
         case 'sloperDegrees':
           result.sloperDegrees = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'pinchWidth':
+          result.pinchWidth = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
         case 'anchorXPercent':
@@ -138,6 +148,8 @@ class _$BoardHold extends BoardHold {
   @override
   final double sloperDegrees;
   @override
+  final double pinchWidth;
+  @override
   final double anchorXPercent;
   @override
   final double anchorYPercent;
@@ -159,6 +171,7 @@ class _$BoardHold extends BoardHold {
       this.depth,
       this.supportedFingers,
       this.sloperDegrees,
+      this.pinchWidth,
       this.anchorXPercent,
       this.anchorYPercent,
       this.leftPercent,
@@ -208,6 +221,7 @@ class _$BoardHold extends BoardHold {
         depth == other.depth &&
         supportedFingers == other.supportedFingers &&
         sloperDegrees == other.sloperDegrees &&
+        pinchWidth == other.pinchWidth &&
         anchorXPercent == other.anchorXPercent &&
         anchorYPercent == other.anchorYPercent &&
         leftPercent == other.leftPercent &&
@@ -227,11 +241,13 @@ class _$BoardHold extends BoardHold {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, position.hashCode),
-                                            holdType.hashCode),
-                                        depth.hashCode),
-                                    supportedFingers.hashCode),
-                                sloperDegrees.hashCode),
+                                        $jc(
+                                            $jc($jc(0, position.hashCode),
+                                                holdType.hashCode),
+                                            depth.hashCode),
+                                        supportedFingers.hashCode),
+                                    sloperDegrees.hashCode),
+                                pinchWidth.hashCode),
                             anchorXPercent.hashCode),
                         anchorYPercent.hashCode),
                     leftPercent.hashCode),
@@ -248,6 +264,7 @@ class _$BoardHold extends BoardHold {
           ..add('depth', depth)
           ..add('supportedFingers', supportedFingers)
           ..add('sloperDegrees', sloperDegrees)
+          ..add('pinchWidth', pinchWidth)
           ..add('anchorXPercent', anchorXPercent)
           ..add('anchorYPercent', anchorYPercent)
           ..add('leftPercent', leftPercent)
@@ -282,6 +299,10 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
   double get sloperDegrees => _$this._sloperDegrees;
   set sloperDegrees(double sloperDegrees) =>
       _$this._sloperDegrees = sloperDegrees;
+
+  double _pinchWidth;
+  double get pinchWidth => _$this._pinchWidth;
+  set pinchWidth(double pinchWidth) => _$this._pinchWidth = pinchWidth;
 
   double _anchorXPercent;
   double get anchorXPercent => _$this._anchorXPercent;
@@ -319,6 +340,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
       _depth = _$v.depth;
       _supportedFingers = _$v.supportedFingers;
       _sloperDegrees = _$v.sloperDegrees;
+      _pinchWidth = _$v.pinchWidth;
       _anchorXPercent = _$v.anchorXPercent;
       _anchorYPercent = _$v.anchorYPercent;
       _leftPercent = _$v.leftPercent;
@@ -352,6 +374,7 @@ class BoardHoldBuilder implements Builder<BoardHold, BoardHoldBuilder> {
             depth: depth,
             supportedFingers: supportedFingers,
             sloperDegrees: sloperDegrees,
+            pinchWidth: pinchWidth,
             anchorXPercent: anchorXPercent,
             anchorYPercent: anchorYPercent,
             leftPercent: leftPercent,
