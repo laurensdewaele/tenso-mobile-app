@@ -1,23 +1,15 @@
 # TODO
 
-- Add Tension grindstone mkI
-- Add Trango rock prodigy
-- test on android sim
-
-- onboarding screen + share protocol overview on website + promote
-- recruitment pulls
-
-- Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
-
-- track completed workouts from users
-- Create info graphic on the tenso website, where people can download and print.
-- change chisel to open crimp (name)
-
-- share workouts, this also means settings up an account
-- Video of how to use the app
-
+- Add protocols to the app and the website
+  - Different branch for protocols
+  - Website
+- Add Tension grindstone mkI (this can be interspersed with the above, when you're feeling low on concentration)
+- Onboarding screen
+- Track completed workouts
 
 ### Triage
+- Add option to make the exercise asymmetrical.
+- Rearrange groups in a workout
 - update to new cupertino icons package
 - splash screen
 - Audioplayers stops audio sound on IOS (Ting)
@@ -33,19 +25,23 @@ Pro features:
 - Build frontend that lets you upload image of your own custom board and draw rectangles
 
 ### Large prio
-- Graphs
 - Export data
+- Share workouts, this also means settings up an account
+- Graphs
 - Make videos to explain beginners how to use this app.
 - Check the keyboard and keyboard provider, doe\s it still do it's job?
   keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
 ### Medium prio
+- Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
+- recruitment pulls
 - Add edge to top row custom board
 - Add other boards
 - Setup sentry.io
 - Review app on smaller and larger screens.
 
 ### Small prio
+- Create pdf where people can download and print the protocols.
 - On orientation switching, the grips are not re-painted.
 - Custom boards in horizontal scroll view.
 - Counting upwards in the settings.
