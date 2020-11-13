@@ -1,8 +1,8 @@
 # TODO
 
 - Add protocols to the app and the website
-  - Different branch for protocols
-  - Website
+  - Different branch for protocols => normal
+  - Website => see if you can share code
 - Add Tension grindstone mkI (this can be interspersed with the above, when you're feeling low on concentration)
 - Onboarding screen
 - Track completed workouts
