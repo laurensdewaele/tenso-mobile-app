@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart' hide Icon;
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:tenso_app/models/models.dart';
 import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/divider.dart';
-import 'package:tenso_app/modules/common/icon_button.dart';
-import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/modules/common/radio_button.dart';
 import 'package:tenso_app/modules/common/screen.dart';
 import 'package:tenso_app/modules/common/section.dart';
+import 'package:tenso_app/modules/common/section_forward_nav.dart';
 import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/keyboard_input/keyboard_and_toast_provider.dart';
 import 'package:tenso_app/modules/keyboard_input/keyboard_list_view.dart';
@@ -72,7 +70,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Divider(
                             height: styles.Measurements.xs,
                           ),
-                          _NavigateSection(
+                          SectionForwardNav(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: styles.Measurements.m,
+                              ),
                               title: 'boards',
                               handleNavigation:
                                   _viewModel.handleBoardNavigation),
@@ -100,7 +101,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                 ],
                               )),
-                          _NavigateSection(
+                          SectionForwardNav(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: styles.Measurements.m,
+                              ),
                               title: 'sound',
                               handleNavigation:
                                   _viewModel.handleSoundNavigation),
@@ -170,45 +174,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ]),
         ),
       ),
-    );
-  }
-}
-
-class _NavigateSection extends StatelessWidget {
-  _NavigateSection(
-      {Key key, @required this.title, @required this.handleNavigation})
-      : super(key: key);
-
-  final String title;
-  final VoidCallback handleNavigation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: styles.Measurements.m,
-                ),
-                child: Text(
-                  title,
-                  style: styles.Staatliches.xlBlack,
-                )),
-            IconButton(handleTap: () {}, icon: icons.forwardIconBlackXl)
-          ],
-        ),
-        GestureDetector(
-            onTap: handleNavigation,
-            child: Container(
-              decoration: BoxDecoration(color: styles.Colors.translucent),
-              width: double.infinity,
-              height: 73,
-            )),
-      ],
     );
   }
 }

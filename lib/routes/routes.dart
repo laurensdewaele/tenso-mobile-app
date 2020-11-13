@@ -8,6 +8,7 @@ import 'package:tenso_app/modules/execution/execution.screen.dart';
 import 'package:tenso_app/modules/feedback/feedback.screen.dart';
 import 'package:tenso_app/modules/group/group.screen.dart';
 import 'package:tenso_app/modules/info/info.screen.dart';
+import 'package:tenso_app/modules/protocols/protcols.screen.dart';
 import 'package:tenso_app/modules/rate_workout/rate_workout.screen.dart';
 import 'package:tenso_app/modules/settings/board_settings.screen.dart';
 import 'package:tenso_app/modules/settings/settings.screen.dart';
@@ -31,12 +32,13 @@ abstract class Routes {
   static const String filterScreen = '/filterScreen';
   static const String groupScreen = '/groupScreen';
   static const String infoScreen = '/infoScreen';
-  static const String statsScreen = '/statsScreen';
+  static const String protocolsScreen = '/protocolsScreen';
+  static const String rateWorkoutScreen = '/rateWorkoutScreen';
   static const String saveCustomBoardScreen = '/saveCustomBoardScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String soundSettingsScreen = '/soundSettingsScreen';
+  static const String statsScreen = '/statsScreen';
   static const String totalHangRestTimeScreen = '/totalHangRestTimeScreen';
-  static const String rateWorkoutScreen = '/rateWorkoutScreen';
   static const String workoutScreen = '/workoutScreen';
   static const String workoutOverviewScreen = '/workoutOverviewScreen';
 }
@@ -55,11 +57,12 @@ Map<String, WidgetBuilder> getRoutes(BuildContext context) {
     Routes.groupScreen: (context) => GroupScreen(),
     Routes.home: (context) => WorkoutOverviewScreen(),
     Routes.infoScreen: (context) => InfoScreen(),
-    Routes.statsScreen: (context) => StatsScreen(),
+    Routes.protocolsScreen: (context) => ProtocolsScreen(),
     Routes.rateWorkoutScreen: (context) => RateWorkoutScreen(),
     Routes.saveCustomBoardScreen: (context) => SaveCustomBoardScreen(),
     Routes.settingsScreen: (context) => SettingsScreen(),
     Routes.soundSettingsScreen: (context) => SoundSettingsScreen(),
+    Routes.statsScreen: (context) => StatsScreen(),
     Routes.totalHangRestTimeScreen: (context) => TotalHangRestTimeScreen(),
     Routes.workoutScreen: (context) => WorkoutScreen(),
     Routes.workoutOverviewScreen: (context) => WorkoutOverviewScreen(),

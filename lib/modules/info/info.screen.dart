@@ -4,9 +4,11 @@ import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/expanded_section.dart';
 import 'package:tenso_app/modules/common/screen.dart';
+import 'package:tenso_app/modules/common/section_forward_nav.dart';
 import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/modules/toast/toast_provider.dart';
+import 'package:tenso_app/routes/routes.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:url_launcher/url_launcher.dart';
@@ -122,39 +124,12 @@ class InfoScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    ExpandedSection(
-                      title: 'Protocols',
-                      children: <Widget>[
-                        Text(
-                          'Density hangs',
-                          style: styles.Staatliches.mBlack,
-                        ),
-                        Text(
-                          'Simply hang on for as long as you can. Look for a range between 20 - 40 seconds. If 20s is too much, don\'t sweat it, do less or increase the edge depth.',
-                          style: styles.Lato.xsBlack,
-                        ),
-                        Text(
-                          '\nMax hangs',
-                          style: styles.Staatliches.mBlack,
-                        ),
-                        Text(
-                          'Hang so you\'re just about able to hang on for 10 seconds. It should be just about max effort.If it\'s too easy, go to a smaller edge size or add weight.',
-                          style: styles.Lato.xsBlack,
-                        ),
-                        Text(
-                          '\nRepeaters',
-                          style: styles.Staatliches.mBlack,
-                        ),
-                        Text(
-                          'This is not suitable for beginners, because you need to calculate your load correctly, thus often times requiring a pulley system. We prefer the simplicity of no pulley systems or added weight whilst starting out.',
-                          style: styles.Lato.xsBlack,
-                        ),
-                        Text(
-                          '\nFor beginners, the weight load should be about 50% of your maximum voluntary contraction. For advanced climbers, 60% - 80% of your MVC. You calculate your maximum voluntary contraction by finding the maximum amount of load you can hang for 7s, for each grip type. E.g. if you can hang an additional 30kg for a half crimp grip for 7 seconds, and you weigh 70kg, your total max load is 100kg. For repeaters, starting out, you want half that, so you need to subtract 20kg (70kg - 20kg = 50kg) with a pulley system. The exact load determination for each grip position can be tricky, but as long as you get pumped in the end and still manage to complete all the hangs, you\'re on the right track. Adjust the rep/set count accordingly.',
-                          style: styles.Lato.xsBlack,
-                        ),
-                      ],
-                    ),
+                    SectionForwardNav(
+                        title: 'Protocols',
+                        handleNavigation: () {
+                          Navigator.of(context)
+                              .pushNamed(Routes.protocolsScreen);
+                        }),
                     ExpandedSection(
                       title: 'Useful links',
                       children: <Widget>[

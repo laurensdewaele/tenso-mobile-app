@@ -4,7 +4,10 @@ import 'package:tenso_app/modules/common/icons.dart' as icons;
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 class TopNavigation extends StatelessWidget {
-  TopNavigation({this.title, this.dark = false, this.handleBackNavigation});
+  TopNavigation(
+      {@required this.title,
+      this.dark = false,
+      @required this.handleBackNavigation});
 
   final String title;
   final bool dark;

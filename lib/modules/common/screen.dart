@@ -5,7 +5,7 @@ class Screen extends StatefulWidget {
   const Screen(
       {this.backgroundColor = styles.Colors.bgGray,
       @required this.child,
-      this.handleBackNavigation,
+      @required this.handleBackNavigation,
       this.padding});
 
   final Color backgroundColor;

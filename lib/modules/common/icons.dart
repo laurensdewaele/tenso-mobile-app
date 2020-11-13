@@ -39,12 +39,14 @@ const settingsIconBlackL = Icon(
     color: styles.Colors.black);
 
 const forwardIconBlackXl = Icon(
-    iconData: CupertinoIcons.forward,
+    iconData: IconData(0xf3d3,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
     size: styles.IconMeasurements.xl,
     color: styles.Colors.black);
 
 const forwardIconBlackL = Icon(
-    iconData: CupertinoIcons.forward,
+    iconData: IconData(0xf3d3,
+        fontFamily: 'CupertinoIcons', fontPackage: 'cupertino_icons'),
     size: styles.IconMeasurements.l,
     color: styles.Colors.black);
 
