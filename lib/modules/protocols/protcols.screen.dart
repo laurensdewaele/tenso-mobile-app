@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/screen.dart';
 import 'package:tenso_app/modules/common/top_navigation.dart';
+import 'package:tenso_app/modules/protocols/density.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 class ProtocolsScreen extends StatelessWidget {
@@ -26,13 +26,13 @@ class ProtocolsScreen extends StatelessWidget {
             ),
             Divider(height: styles.Measurements.xxl),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
-              child: Card(
-                child: Container(
-                  height: 100,
-                ),
-              ),
-            )
+                padding:
+                    EdgeInsets.symmetric(horizontal: styles.Measurements.xs),
+                child: Column(
+                  children: [
+                    DensityProtocol(),
+                  ],
+                ))
           ],
         ));
   }

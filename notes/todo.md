@@ -4,6 +4,8 @@
   - Different branch for protocols => normal
   - Website => see if you can share code
 - Add Tension grindstone mkI (this can be interspersed with the above, when you're feeling low on concentration)
+- Check out the dates being truncated bug (reported user).
+- Release
 - Onboarding screen
 - Track completed workouts
 
