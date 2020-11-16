@@ -73,6 +73,7 @@ class ProtocolCard extends StatelessWidget {
           Center(
             child: Text(
               title,
+              style: styles.Staatliches.lBlack,
             ),
           ),
           Divider(
@@ -82,35 +83,59 @@ class ProtocolCard extends StatelessWidget {
             title: 'Function',
             content: function,
           ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
           _Row(
             title: 'Gain',
             content: gain,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
           ),
           _Row(
             title: 'Volume',
             content: volume,
           ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
           _Row(
             title: 'Requirements',
             content: requirements,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
           ),
           _Row(
             title: 'Popularized by',
             content: popularizedBy,
           ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
           _Row(
             title: 'Hang time',
             content: hangTime,
+          ),
+          Divider(
+            height: styles.Measurements.xs,
           ),
           _Row(
             title: 'Description',
             content: description,
           ),
+          Divider(
+            height: styles.Measurements.xs,
+          ),
           Row(
             children: [
               Expanded(
                 flex: 1,
-                child: Text('More info'),
+                child: Text(
+                  'More info',
+                  style: styles.Staatliches.xsBlack,
+                ),
               ),
               Expanded(
                 flex: 2,
@@ -120,7 +145,7 @@ class ProtocolCard extends StatelessWidget {
                   },
                   child: Text(
                     moreInfo,
-                    style: styles.Lato.xsBlue,
+                    style: styles.Lato.xxsBlue,
                   ),
                 ),
               )
@@ -141,14 +166,22 @@ class _Row extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 1,
-          child: Text(title),
+          child: Text(
+            title,
+            style: styles.Staatliches.xsBlack,
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Text(content),
+          child: Text(
+            content,
+            style: styles.Lato.xxsBlack,
+          ),
         )
       ],
     );

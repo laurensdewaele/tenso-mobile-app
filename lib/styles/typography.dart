@@ -91,10 +91,22 @@ abstract class Lato {
     fontSize: 16,
     color: styles.Colors.black,
   );
+  static const TextStyle xxsBlack = TextStyle(
+    height: 1.5,
+    fontFamily: 'Lato',
+    fontSize: 12,
+    color: styles.Colors.black,
+  );
   static const TextStyle xsBlue = TextStyle(
     height: 1.5,
     fontFamily: 'Lato',
     fontSize: 16,
+    color: styles.Colors.blue,
+  );
+  static const TextStyle xxsBlue = TextStyle(
+    height: 1.5,
+    fontFamily: 'Lato',
+    fontSize: 12,
     color: styles.Colors.blue,
   );
 
