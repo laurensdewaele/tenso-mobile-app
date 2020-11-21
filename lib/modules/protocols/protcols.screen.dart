@@ -3,6 +3,8 @@ import 'package:tenso_app/modules/common/divider.dart';
 import 'package:tenso_app/modules/common/screen.dart';
 import 'package:tenso_app/modules/common/top_navigation.dart';
 import 'package:tenso_app/modules/protocols/density.dart';
+import 'package:tenso_app/modules/protocols/max_hangs.dart';
+import 'package:tenso_app/modules/protocols/repeaters.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 
 class ProtocolsScreen extends StatelessWidget {
@@ -31,6 +33,14 @@ class ProtocolsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     DensityProtocol(),
+                    Divider(
+                      height: styles.Measurements.m,
+                    ),
+                    MaxHangsProtocol(),
+                    Divider(
+                      height: styles.Measurements.m,
+                    ),
+                    RepeatersProtocol()
                   ],
                 ))
           ],

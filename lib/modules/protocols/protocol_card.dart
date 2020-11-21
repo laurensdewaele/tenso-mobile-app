@@ -6,6 +6,9 @@ import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:url_launcher/url_launcher.dart';
 
+const int flexFirstColumnWidth = 10;
+const int flexSecondColumnWidth = 19;
+
 class ProtocolCard extends StatelessWidget {
   ProtocolCard(
       {@required this.iconImageAsset,
@@ -73,6 +76,7 @@ class ProtocolCard extends StatelessWidget {
           Center(
             child: Text(
               title,
+              textAlign: TextAlign.center,
               style: styles.Staatliches.lBlack,
             ),
           ),
@@ -129,23 +133,25 @@ class ProtocolCard extends StatelessWidget {
             height: styles.Measurements.xs,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 1,
+                flex: flexFirstColumnWidth,
                 child: Text(
                   'More info',
-                  style: styles.Staatliches.xsBlack,
+                  style: styles.Staatliches.sBlack,
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: flexSecondColumnWidth,
                 child: GestureDetector(
                   onTap: () async {
                     await _launch(moreInfoLink);
                   },
                   child: Text(
                     moreInfo,
-                    style: styles.Lato.xxsBlue,
+                    style: styles.Lato.protocolDescriptionBlue,
                   ),
                 ),
               )
@@ -170,17 +176,17 @@ class _Row extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          flex: 1,
+          flex: flexFirstColumnWidth,
           child: Text(
             title,
-            style: styles.Staatliches.xsBlack,
+            style: styles.Staatliches.sBlack,
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: flexSecondColumnWidth,
           child: Text(
             content,
-            style: styles.Lato.xxsBlack,
+            style: styles.Lato.protocolDescriptionBlack,
           ),
         )
       ],
