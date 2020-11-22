@@ -6,8 +6,8 @@ import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
 import 'package:url_launcher/url_launcher.dart';
 
-const int flexFirstColumnWidth = 10;
-const int flexSecondColumnWidth = 19;
+const int flexFirstColumn = 10;
+const int flexSecondColumn = 19;
 
 class ProtocolCard extends StatelessWidget {
   ProtocolCard(
@@ -137,14 +137,14 @@ class ProtocolCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: flexFirstColumnWidth,
+                flex: flexFirstColumn,
                 child: Text(
                   'More info',
                   style: styles.Staatliches.sBlack,
                 ),
               ),
               Expanded(
-                flex: flexSecondColumnWidth,
+                flex: flexSecondColumn,
                 child: GestureDetector(
                   onTap: () async {
                     await _launch(moreInfoLink);
@@ -176,14 +176,14 @@ class _Row extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          flex: flexFirstColumnWidth,
+          flex: flexFirstColumn,
           child: Text(
             title,
             style: styles.Staatliches.sBlack,
           ),
         ),
         Expanded(
-          flex: flexSecondColumnWidth,
+          flex: flexSecondColumn,
           child: Text(
             content,
             style: styles.Lato.protocolDescriptionBlack,
