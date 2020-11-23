@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tenso_app/modules/common/card.dart';
 import 'package:tenso_app/modules/common/divider.dart';
+import 'package:tenso_app/modules/common/sliding_expansion_card.dart';
 import 'package:tenso_app/modules/toast/toast_message.dart';
 import 'package:tenso_app/services/toast.service.dart';
 import 'package:tenso_app/styles/styles.dart' as styles;
@@ -51,114 +51,138 @@ class ProtocolCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      padding: const EdgeInsets.all(styles.Measurements.m),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: styles.Measurements.xxl,
-              height: styles.Measurements.xxl,
-              decoration: BoxDecoration(
-                  color: iconBackground, borderRadius: styles.kBorderRadiusAll),
-              child: Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Image.asset(iconImageAsset),
-              )),
-            ),
+    return SlidingExpansionCard(
+        topLeftSection: Container(
+          height: styles.Measurements.xxl,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(title,
+                  style: styles.Staatliches.xlBlack,
+                  overflow: TextOverflow.ellipsis),
+            ],
           ),
-          Divider(
-            height: styles.Measurements.m,
-          ),
-          Center(
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: styles.Staatliches.lBlack,
-            ),
-          ),
-          Divider(
-            height: styles.Measurements.l,
-          ),
-          _Row(
-            title: 'Function',
-            content: function,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          _Row(
-            title: 'Gain',
-            content: gain,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          _Row(
-            title: 'Volume',
-            content: volume,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          _Row(
-            title: 'Requirements',
-            content: requirements,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          _Row(
-            title: 'Popularized by',
-            content: popularizedBy,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          _Row(
-            title: 'Hang time',
-            content: hangTime,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          _Row(
-            title: 'Description',
-            content: description,
-          ),
-          Divider(
-            height: styles.Measurements.xs,
-          ),
-          Row(
+        ),
+        topRightSection: _Icon(
+          iconBackground: iconBackground,
+          iconImageAsset: iconImageAsset,
+        ),
+        topRightSectionWidth: styles.Measurements.xxl,
+        content: Padding(
+          padding: const EdgeInsets.symmetric(vertical: styles.Measurements.m),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: flexFirstColumn,
-                child: Text(
-                  'More info',
-                  style: styles.Staatliches.sBlack,
-                ),
+              Center(
+                  child: _Icon(
+                iconImageAsset: iconImageAsset,
+                iconBackground: iconBackground,
+              )),
+              Divider(
+                height: styles.Measurements.l,
               ),
-              Expanded(
-                flex: flexSecondColumn,
-                child: GestureDetector(
-                  onTap: () async {
-                    await _launch(moreInfoLink);
-                  },
-                  child: Text(
-                    moreInfo,
-                    style: styles.Lato.protocolDescriptionBlue,
+              _Row(
+                title: 'Function',
+                content: function,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              _Row(
+                title: 'Gain',
+                content: gain,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              _Row(
+                title: 'Volume',
+                content: volume,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              _Row(
+                title: 'Requirements',
+                content: requirements,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              _Row(
+                title: 'Popularized by',
+                content: popularizedBy,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              _Row(
+                title: 'Hang time',
+                content: hangTime,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              _Row(
+                title: 'Description',
+                content: description,
+              ),
+              Divider(
+                height: styles.Measurements.xs,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: flexFirstColumn,
+                    child: Text(
+                      'More info',
+                      style: styles.Staatliches.sBlack,
+                    ),
                   ),
-                ),
-              )
+                  Expanded(
+                    flex: flexSecondColumn,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await _launch(moreInfoLink);
+                      },
+                      child: Text(
+                        moreInfo,
+                        style: styles.Lato.protocolDescriptionBlue,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+        handleTap: () {},
+        handleLongPress: () {},
+        padding: const EdgeInsets.all(styles.Measurements.s));
+  }
+}
+
+class _Icon extends StatelessWidget {
+  _Icon({@required this.iconImageAsset, @required this.iconBackground});
+
+  final String iconImageAsset;
+  final Color iconBackground;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: styles.Measurements.xxl,
+      height: styles.Measurements.xxl,
+      decoration: BoxDecoration(
+          color: iconBackground, borderRadius: styles.kBorderRadiusAll),
+      child: Center(
+          child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Image.asset(iconImageAsset),
+      )),
     );
   }
 }

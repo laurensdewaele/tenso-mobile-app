@@ -23,7 +23,7 @@ class RepeatersProtocol extends StatelessWidget {
     return ProtocolCard(
         iconImageAsset: 'assets/images/icons/intermittent.png',
         iconBackground: styles.Colors.bgBlack,
-        title: 'Repeaters\n(intermittent hangs)',
+        title: 'Repeaters',
         function: 'Endurance or strength endurance',
         gain: 'Structural',
         volume: 'High',
