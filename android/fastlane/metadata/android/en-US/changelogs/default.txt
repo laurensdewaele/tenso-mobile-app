@@ -1,1 +1,3 @@
-Added the Trango rock prodigy training center hangboard.
+Added better protocol descriptions.
+Added the Tension Grindstone Mk1 hangboard.
+Fixed a date bug on the calendar overview.

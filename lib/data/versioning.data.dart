@@ -2,6 +2,15 @@ import 'package:tenso_app/models/models.dart';
 
 final List<Version> _versions = [
   Version((b) => b
+    ..no = '1.0.25'
+    ..incrementalNo = 25
+    ..changelog.addAll([
+      'Added better protocol descriptions.',
+      'Added the Tension Grindstone Mk1 hangboard.',
+      'Fixed a date bug on the calendar overview.',
+    ])
+    ..date = DateTime(2020, 11, 27).toUtc()),
+  Version((b) => b
     ..no = '1.0.24'
     ..incrementalNo = 24
     ..changelog.addAll([
