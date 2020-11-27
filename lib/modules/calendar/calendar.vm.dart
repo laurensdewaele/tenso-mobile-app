@@ -166,9 +166,9 @@ List<DateTime> _daysInMonth(DateTime month) {
 }
 
 Iterable<DateTime> _daysInRange(DateTime firstDay, DateTime lastDay) sync* {
-  var temp = firstDay;
+  var temp = firstDay.toUtc();
 
-  while (temp.compareTo(lastDay) < 1) {
+  while (temp.compareTo(lastDay.toUtc()) < 1) {
     yield temp;
     temp = temp.add(const Duration(days: 1));
   }
