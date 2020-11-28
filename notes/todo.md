@@ -1,8 +1,7 @@
 # TODO
 
-- Release
-- Zlagboard pro
 - Onboarding screen
+- Zlagboard pro
 - Track completed workouts
 
 ### Triage
