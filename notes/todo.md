@@ -1,17 +1,36 @@
 # TODO
 
 - Onboarding screen
+  -> Make info graphic with Tenso logo on it.
+  -> Make screens in app
+- Track completed workouts => send data to db + adjust policy
+  1) Reduce what's being saved, locally and remote. Work with refs.
+     Adjust your frontend.
+     
+     Group => board to boardId
+              leftGrip to leftGripId
+              rightGrip to rightGripId
+              leftGripBoardHold to leftGripBoardHoldId
+              rightGripBoardHold to rightGripBoardHoldId
+              
+     Issue => need to convert existing structure to new.
+     1) Check whether the saved user data is from v1 or v2
+     2) If it's from v2, use new models, it's fine
+     3) If it's from v1
+        -> map the json data
+           -> load using v1 models
+           -> map the structure to v2 models
+           -> save new sturcture  
 - Zlagboard pro
-- Track completed workouts
+- Workout on the fly
 
 ### Triage
-- Add option to make the exercise asymmetrical.
+- Add option to make the exercise asymmetrical, alternating between grip types
 - Rearrange groups in a workout
 - update to new cupertino icons package
 - splash screen
 - Audioplayers stops audio sound on IOS (Ting)
 - rethink save and info button on menu?
-- Alternating between grip types, e.g. open hang => crimp => open hand => crimp => open ...
 - Set reminder on calendar page
 - Customized congratulations screen, first workout, milestones...
 
@@ -38,7 +57,6 @@ Pro features:
 - Review app on smaller and larger screens.
 
 ### Small prio
-- Create pdf where people can download and print the protocols.
 - On orientation switching, the grips are not re-painted.
 - Custom boards in horizontal scroll view.
 - Counting upwards in the settings.
