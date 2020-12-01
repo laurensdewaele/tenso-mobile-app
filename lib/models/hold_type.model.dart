@@ -12,6 +12,8 @@ class HoldType extends EnumClass {
   static const HoldType jug = _$jug;
   static const HoldType pocket = _$pocket;
   static const HoldType edge = _$edge;
+  static const HoldType slopingEdge = _$slopingEdge;
+  static const HoldType slopingPocket = _$slopingPocket;
 
   @override
   String toString() {
@@ -26,6 +28,10 @@ class HoldType extends EnumClass {
         return 'pocket';
       case 'edge':
         return 'edge';
+      case 'slopingEdge':
+        return 'sloping edge';
+      case 'slopingPocket':
+        return 'sloping pocket';
       default:
         throw new ArgumentError(name);
     }

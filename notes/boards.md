@@ -1,6 +1,7 @@
 ### Boards
-- Zlagboard Pro - can start
-- metolius Project
+- metolius Project blue
+- Finger baton fingerbaton.com
+- Yubi
 - Metolius prime rib
 - Lattice triple rung
 - Tension board

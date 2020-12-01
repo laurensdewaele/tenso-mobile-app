@@ -21,7 +21,6 @@
            -> load using v1 models
            -> map the structure to v2 models
            -> save new sturcture  
-- Zlagboard pro
 - Workout on the fly
 
 ### Triage
@@ -29,7 +28,6 @@
 - Rearrange groups in a workout
 - update to new cupertino icons package
 - splash screen
-- Audioplayers stops audio sound on IOS (Ting)
 - rethink save and info button on menu?
 - Set reminder on calendar page
 - Customized congratulations screen, first workout, milestones...
@@ -49,6 +47,7 @@ Pro features:
   keyboard slide up doesn't work => don't know (https://github.com/flutter/flutter/issues/16882)
 
 ### Medium prio
+- Audioplayers stops audio sound on IOS (Ting)
 - Add notes to workout, popup when starting workout to display notes. => contact fsdalen on reddit
 - recruitment pulls
 - Add edge to top row custom board
@@ -59,11 +58,11 @@ Pro features:
 ### Small prio
 - On orientation switching, the grips are not re-painted.
 - Custom boards in horizontal scroll view.
+- Keep alive whilst on background and playing sounds.
 - Counting upwards in the settings.
 - Splash screen logo + loading
 - Sync with strava or garmin for the data nerds
 - Set reminder for workout.
-- Keep alive whilst on background and playing sounds.
 - Add info button on most elements.
 - Have an 'on the fly workout'?
 - Scale pull measurements (Jan)? 

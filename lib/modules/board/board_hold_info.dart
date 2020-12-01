@@ -48,8 +48,7 @@ class BoardHoldInfo extends StatelessWidget {
                             style: styles.Lato.xsGray),
                       ]),
                 ),
-                if (leftGripBoardHold.holdType == HoldType.pinchBlock &&
-                    leftGripBoardHold.pinchWidth != null)
+                if (leftGripBoardHold.pinchWidth != null)
                   RichText(
                     text: TextSpan(
                         text: 'width: ',
@@ -61,8 +60,7 @@ class BoardHoldInfo extends StatelessWidget {
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
                   ),
-                if (leftGripBoardHold.holdType == HoldType.pocket ||
-                    leftGripBoardHold.holdType == HoldType.edge)
+                if (leftGripBoardHold.depth != null)
                   RichText(
                     text: TextSpan(
                         text: 'depth: ',
@@ -128,8 +126,7 @@ class BoardHoldInfo extends StatelessWidget {
                             style: styles.Lato.xsGray),
                       ]),
                 ),
-                if (rightGripBoardHold.holdType == HoldType.pinchBlock &&
-                    rightGripBoardHold.pinchWidth != null)
+                if (rightGripBoardHold.pinchWidth != null)
                   RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(
@@ -142,8 +139,7 @@ class BoardHoldInfo extends StatelessWidget {
                           TextSpan(text: ' mm', style: styles.Lato.xsGray),
                         ]),
                   ),
-                if (rightGripBoardHold.holdType == HoldType.pocket ||
-                    rightGripBoardHold.holdType == HoldType.edge)
+                if (rightGripBoardHold.depth != null)
                   RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(

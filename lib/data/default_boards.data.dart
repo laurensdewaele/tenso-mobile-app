@@ -10,6 +10,7 @@ import 'package:tenso_app/data/default_boards/metolius_simulator_3D.data.dart';
 import 'package:tenso_app/data/default_boards/metolius_wood_grips_2_compact.data.dart';
 import 'package:tenso_app/data/default_boards/trango_rock_prodigy_training_center.data.dart';
 import 'package:tenso_app/data/default_boards/transgression.data.dart';
+import 'package:tenso_app/data/default_boards/zlagboard_pro.data.dart';
 import 'package:tenso_app/models/models.dart';
 
 final Boards defaultBoards = Boards((b) => b
@@ -18,12 +19,13 @@ final Boards defaultBoards = Boards((b) => b
     beastmaker2000,
     grindstoneMk1,
     grindstoneMk2,
+    transgression,
+    metoliusSimulator3D,
+    metoliusWoodGrips2Compact,
+    trangoRockProdigyTrainingCenter,
+    defyTheCruxTheLog,
+    zlagboardPro2,
     awesomeWoodysTheHomeBoy,
     awesomeWoodysCliffBoardMiniFront,
     awesomeWoodysCliffBoardMiniBack,
-    transgression,
-    defyTheCruxTheLog,
-    metoliusSimulator3D,
-    metoliusWoodGrips2Compact,
-    trangoRockProdigyTrainingCenter
   ]));

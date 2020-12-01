@@ -11,6 +11,8 @@ const HoldType _$sloper = const HoldType._('sloper');
 const HoldType _$jug = const HoldType._('jug');
 const HoldType _$pocket = const HoldType._('pocket');
 const HoldType _$edge = const HoldType._('edge');
+const HoldType _$slopingEdge = const HoldType._('slopingEdge');
+const HoldType _$slopingPocket = const HoldType._('slopingPocket');
 
 HoldType _$stValueOf(String name) {
   switch (name) {
@@ -24,6 +26,10 @@ HoldType _$stValueOf(String name) {
       return _$pocket;
     case 'edge':
       return _$edge;
+    case 'slopingEdge':
+      return _$slopingEdge;
+    case 'slopingPocket':
+      return _$slopingPocket;
     default:
       throw new ArgumentError(name);
   }
@@ -35,6 +41,8 @@ final BuiltSet<HoldType> _$stValues = new BuiltSet<HoldType>(const <HoldType>[
   _$jug,
   _$pocket,
   _$edge,
+  _$slopingEdge,
+  _$slopingPocket,
 ]);
 
 Serializer<HoldType> _$holdTypeSerializer = new _$HoldTypeSerializer();
