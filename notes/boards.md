@@ -1,5 +1,6 @@
 ### Boards
 - metolius Project blue
+- lattice rung (nosign@hotmail.de + brandon)
 - Finger baton fingerbaton.com
 - Yubi
 - Metolius prime rib
