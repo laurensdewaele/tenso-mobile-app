@@ -20,8 +20,7 @@
         -> map the json data
            -> load using v1 models
            -> map the structure to v2 models
-           -> save new sturcture  
-- Workout on the fly
+           -> save new sturcture 
 
 ### Triage
 - Add option to make the exercise asymmetrical, alternating between grip types
@@ -39,6 +38,8 @@ Pro features:
 - Build frontend that lets you upload image of your own custom board and draw rectangles
 
 ### Large prio
+- Jump straight to overview after completing a workout.
+- Workout on the fly
 - Export data
 - Share workouts, this also means settings up an account
 - Graphs
