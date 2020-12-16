@@ -23,6 +23,7 @@
            -> save new sturcture 
 
 ### Triage
+- Brandon (gmail): create folders on the home screen based on colors.
 - Add option to make the exercise asymmetrical, alternating between grip types
 - Rearrange groups in a workout
 - update to new cupertino icons package
