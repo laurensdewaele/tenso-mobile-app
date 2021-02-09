@@ -1,8 +1,5 @@
 # TODO
 
-- Onboarding screen
-  -> Make info graphic with Tenso logo on it.
-  -> Make screens in app
 - Track completed workouts => send data to db + adjust policy
   1) Reduce what's being saved, locally and remote. Work with refs.
      Adjust your frontend.
@@ -23,6 +20,7 @@
            -> save new sturcture 
 
 ### Triage
+- Onboarding screen
 - Brandon (gmail): create folders on the home screen based on colors.
 - Add option to make the exercise asymmetrical, alternating between grip types
 - Rearrange groups in a workout
